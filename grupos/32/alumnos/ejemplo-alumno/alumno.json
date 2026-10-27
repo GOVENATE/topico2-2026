@@ -1,0 +1,24 @@
+{
+  "nombre": "Alumno de Ejemplo",
+  "github": "",
+  "sobreMi": "Carpeta de ejemplo para que vean como queda. Se puede borrar cuando ya haya alumnos reales.",
+  "actividades": [
+    {
+      "id": "act01-hola",
+      "titulo": "Hola mundo",
+      "descripcion": "Pagina sencilla con un boton que cuenta clics.",
+      "fecha": "2026-08-20",
+      "tipo": "web",
+      "tecnologias": ["HTML", "CSS", "JavaScript"],
+      "ruta": "actividades/act01-hola/index.html"
+    },
+    {
+      "id": "act02-documentacion",
+      "titulo": "Documentacion de MDN",
+      "descripcion": "Ejemplo de actividad tipo enlace.",
+      "tipo": "enlace",
+      "tecnologias": ["Referencia"],
+      "url": "https://developer.mozilla.org/es/"
+    }
+  ]
+}

@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Hola</title>
+  <style>
+    body { font-family: sans-serif; display: grid; place-items: center; height: 90vh; }
+    button { font-size: 18px; padding: 10px 20px; }
+  </style>
+</head>
+<body>
+  <div>
+    <h1>Hola mundo</h1>
+    <button id="b">Clics: 0</button>
+  </div>
+  <script>
+    let n = 0;
+    document.getElementById('b').onclick = e => e.target.textContent = 'Clics: ' + (++n);
+  </script>
+</body>
+</html>

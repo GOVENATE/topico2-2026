@@ -1,0 +1,134 @@
+:root {
+  --fondo: #f6f5f2;
+  --tarjeta: #ffffff;
+  --texto: #1d1d1f;
+  --suave: #6b6b70;
+  --linea: #e2e0db;
+  --acento: #1f4e9c;
+  --error: #b3261e;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --fondo: #141416;
+    --tarjeta: #1e1e22;
+    --texto: #ececee;
+    --suave: #a0a0a8;
+    --linea: #2e2e34;
+    --acento: #7fa7ec;
+    --error: #f2b8b5;
+  }
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  background: var(--fondo);
+  color: var(--texto);
+  line-height: 1.5;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+a { color: var(--acento); }
+
+.barra {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 24px;
+  align-items: center;
+  padding: 14px 20px;
+  border-bottom: 1px solid var(--linea);
+  background: var(--tarjeta);
+}
+
+.logo { font-weight: 700; text-decoration: none; color: var(--texto); }
+
+#migas { font-size: 14px; color: var(--suave); }
+#migas a { text-decoration: none; }
+
+main {
+  flex: 1;
+  width: 100%;
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 28px 16px 48px;
+}
+
+h1 { font-size: 30px; margin: 0 0 8px; }
+h2 { font-size: 20px; margin: 32px 0 12px; }
+
+.sub { color: var(--suave); margin-top: 0; }
+
+.rejilla {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 14px;
+}
+
+.tarjeta {
+  display: block;
+  background: var(--tarjeta);
+  border: 1px solid var(--linea);
+  border-radius: 10px;
+  padding: 16px;
+  text-decoration: none;
+  color: var(--texto);
+  transition: border-color .15s;
+}
+
+a.tarjeta:hover { border-color: var(--acento); }
+
+.tarjeta h3 { margin: 0 0 6px; font-size: 17px; }
+.tarjeta p { margin: 0; color: var(--suave); font-size: 14px; }
+
+.etiquetas { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 10px; }
+.etiqueta {
+  font-size: 12px;
+  padding: 2px 8px;
+  border-radius: 99px;
+  border: 1px solid var(--linea);
+  color: var(--suave);
+}
+
+.buscador {
+  width: 100%;
+  padding: 10px 12px;
+  font-size: 15px;
+  border-radius: 8px;
+  border: 1px solid var(--linea);
+  background: var(--tarjeta);
+  color: var(--texto);
+  margin-bottom: 16px;
+}
+
+.visor {
+  width: 100%;
+  height: 70vh;
+  border: 1px solid var(--linea);
+  border-radius: 10px;
+  background: #fff;
+}
+
+.imagen { max-width: 100%; border-radius: 10px; border: 1px solid var(--linea); }
+
+.aviso {
+  padding: 14px 16px;
+  border-radius: 8px;
+  border: 1px solid var(--linea);
+  background: var(--tarjeta);
+}
+.aviso.error { color: var(--error); }
+
+.cargando { color: var(--suave); }
+
+.pie {
+  text-align: center;
+  font-size: 13px;
+  color: var(--suave);
+  padding: 20px;
+  border-top: 1px solid var(--linea);
+}

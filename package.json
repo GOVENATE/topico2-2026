@@ -1,0 +1,10 @@
+{
+  "name": "topico2-2026",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "catalogo": "node scripts/armar-catalogo.mjs",
+    "revisar": "node scripts/revisar-seguridad.mjs",
+    "servir": "node scripts/armar-catalogo.mjs && python3 -m http.server 8080"
+  }
+}

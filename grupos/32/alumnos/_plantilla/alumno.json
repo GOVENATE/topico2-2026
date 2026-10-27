@@ -1,0 +1,33 @@
+{
+  "nombre": "Nombre Apellido",
+  "github": "tu-usuario",
+  "sobreMi": "Una o dos lineas sobre ti (opcional).",
+  "actividades": [
+    {
+      "id": "act01-ejemplo-web",
+      "titulo": "Practica que se ve en el navegador",
+      "descripcion": "Que hiciste y que aprendiste.",
+      "fecha": "2026-09-01",
+      "tipo": "web",
+      "tecnologias": ["HTML", "CSS", "JavaScript"],
+      "ruta": "actividades/act01-ejemplo-web/index.html",
+      "repo": "https://github.com/tu-usuario/tu-repo"
+    },
+    {
+      "id": "act02-ejemplo-desplegado",
+      "titulo": "Proyecto con backend desplegado en otro lado",
+      "descripcion": "Para cosas que necesitan servidor (Node, Python, Java, BD...).",
+      "tipo": "enlace",
+      "tecnologias": ["React", "Node.js", "MongoDB"],
+      "url": "https://mi-proyecto.vercel.app"
+    },
+    {
+      "id": "act03-ejemplo-pdf",
+      "titulo": "Reporte",
+      "descripcion": "Documento en PDF.",
+      "tipo": "pdf",
+      "tecnologias": ["Investigacion"],
+      "ruta": "actividades/act03-ejemplo-pdf/reporte.pdf"
+    }
+  ]
+}
