@@ -1,0 +1,19 @@
+{
+  "nombre": "Alan Salvador Rojas Piña",
+  "github": "SalvaRMT",
+  "sobreMi": "Me gustan la música, los videojuegos y la lectura. Aquí reúno mis actividades y lo que me llevo de cada tema.",
+  "actividades": [
+    {
+      "id": "act01-bosenmori",
+      "titulo": "Bosenmori · Portafolio de Tópico 2",
+      "descripcion": "Mis actividades de los tres parciales: hábitos, decisiones, empresa, código limpio, pensamiento sistémico, creatividad y habilidad estratégica. Incluye mi video y un espacio pendiente para los resúmenes de Habilidades directivas.",
+      "tipo": "web",
+      "tecnologias": [
+        "HTML",
+        "CSS",
+        "JavaScript"
+      ],
+      "ruta": "actividades/act01-bosenmori/APP.html"
+    }
+  ]
+}
