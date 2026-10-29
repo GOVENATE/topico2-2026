@@ -31,22 +31,30 @@
     }
   }
 
-  function etiquetas(lista) {
+  const FLECHA = '<svg class="flecha" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg>';
+
+  const NOMBRE_TIPO = { web: 'Web', pdf: 'PDF', imagen: 'Imagen', enlace: 'Enlace' };
+
+  function etiquetas(lista, clase = '') {
     if (!Array.isArray(lista) || !lista.length) return '';
-    return '<div class="etiquetas">' +
+    return `<div class="etiquetas ${clase}">` +
       lista.map(t => `<span class="etiqueta">${esc(t)}</span>`).join('') +
       '</div>';
   }
 
+  function iniciales(nombre) {
+    return nombre.split(/\s+/).filter(Boolean).slice(0, 2).map(p => p[0]).join('').toUpperCase();
+  }
+
   function ponerMigas(partes) {
     migas.innerHTML = partes
-      .map(p => p.href ? `<a href="${p.href}">${esc(p.txt)}</a>` : esc(p.txt))
-      .join(' / ');
+      .map(p => p.href ? `<a href="${p.href}">${esc(p.txt)}</a>` : `<span>${esc(p.txt)}</span>`)
+      .join('<span class="sep">/</span>');
   }
 
   function error(msg) {
     app.innerHTML = `<div class="aviso error">${esc(msg)}</div>
-      <p><a href="#/">Volver al inicio</a></p>`;
+      <div class="acciones"><a class="boton" href="#/">Volver al inicio</a></div>`;
   }
 
   function vistaInicio() {
@@ -54,22 +62,37 @@
     ponerMigas([]);
     document.title = 'Topico 2 - 2026';
 
+    const alumnos = catalogo.grupos.reduce((n, g) => n + g.alumnos.length, 0);
+    const actividades = catalogo.grupos.reduce((n, g) =>
+      n + g.alumnos.reduce((m, a) => m + a.actividades.length, 0), 0);
+
     const grupos = catalogo.grupos.map(g => `
-      <a class="tarjeta" href="#/g/${encodeURIComponent(g.id)}">
-        <h3>Grupo ${esc(g.id)}</h3>
-        <p>${g.alumnos.length} alumnos</p>
+      <a class="tarjeta tarjeta-grupo" href="#/g/${encodeURIComponent(g.id)}">
+        ${FLECHA}
+        <div class="grande">${esc(g.id)}</div>
+        <p>Grupo &middot; ${g.alumnos.length} ${g.alumnos.length === 1 ? 'alumno' : 'alumnos'}</p>
       </a>`).join('');
 
-    const temas = (t.temas || []).map(x => `<li>${esc(x)}</li>`).join('');
+    const temas = (t.temas || []).map((x, i) =>
+      `<li><span>${String(i + 1).padStart(2, '0')}</span>${esc(x)}</li>`).join('');
 
     app.innerHTML = `
+      <p class="sobre">${esc(t.periodo)}${t.profesor ? ' &middot; ' + esc(t.profesor) : ''}</p>
       <h1>${esc(t.titulo)}</h1>
-      <p class="sub">${esc(t.periodo)}${t.profesor ? ' &middot; ' + esc(t.profesor) : ''}</p>
-      <p>${esc(t.resumen)}</p>
-      ${temas ? `<h2>Lo que se vio en el semestre</h2><ul>${temas}</ul>` : ''}
-      ${etiquetas(catalogo.tecnologias)}
+      <p class="intro">${esc(t.resumen)}</p>
+
+      <div class="numeros">
+        <div class="numero"><b>${alumnos}</b><span>alumnos</span></div>
+        <div class="numero"><b>${actividades}</b><span>actividades</span></div>
+        <div class="numero"><b>${catalogo.tecnologias.length}</b><span>tecnologias</span></div>
+      </div>
+
       <h2>Grupos</h2>
-      <div class="rejilla">${grupos || '<p class="sub">Todavia no hay grupos.</p>'}</div>`;
+      <div class="rejilla">${grupos || '<p class="vacio">Todavia no hay grupos.</p>'}</div>
+
+      ${temas ? `<h2>Lo que se vio en el semestre</h2><ul class="temas">${temas}</ul>` : ''}
+
+      ${catalogo.tecnologias.length ? `<h2>Tecnologias</h2>${etiquetas(catalogo.tecnologias, 'sueltas')}` : ''}`;
   }
 
   function vistaGrupo(gid) {
@@ -80,9 +103,9 @@
     document.title = 'Grupo ' + g.id + ' - Topico 2';
 
     app.innerHTML = `
+      <p class="sobre">${g.alumnos.length} ${g.alumnos.length === 1 ? 'alumno' : 'alumnos'}</p>
       <h1>Grupo ${esc(g.id)}</h1>
-      <p class="sub">${g.alumnos.length} alumnos</p>
-      <input class="buscador" id="buscar" type="search" placeholder="Buscar por nombre o tecnologia...">
+      <input class="buscador" id="buscar" type="search" placeholder="Buscar por nombre o tecnologia" aria-label="Buscar alumno">
       <div class="rejilla" id="lista"></div>`;
 
     const lista = document.getElementById('lista');
@@ -95,10 +118,16 @@
 
       lista.innerHTML = visibles.map(a => `
         <a class="tarjeta" href="#/g/${encodeURIComponent(g.id)}/${encodeURIComponent(a.id)}">
-          <h3>${esc(a.nombre)}</h3>
-          <p>${a.actividades.length} actividades</p>
-          ${etiquetas(a.tecnologias.slice(0, 5))}
-        </a>`).join('') || '<p class="sub">Nadie coincide con la busqueda.</p>';
+          ${FLECHA}
+          <div class="alumno-cab">
+            <div class="avatar">${esc(iniciales(a.nombre))}</div>
+            <div>
+              <h3>${esc(a.nombre)}</h3>
+              <p>${a.actividades.length} ${a.actividades.length === 1 ? 'actividad' : 'actividades'}</p>
+            </div>
+          </div>
+          ${etiquetas(a.tecnologias.slice(0, 4))}
+        </a>`).join('') || '<p class="vacio">Nadie coincide con la busqueda.</p>';
     };
 
     document.getElementById('buscar').addEventListener('input', e => pintar(e.target.value));
@@ -122,23 +151,30 @@
     ]);
     document.title = a.nombre + ' - Topico 2';
 
-    const extra = [];
     const gh = a.github && urlSegura('https://github.com/' + encodeURIComponent(a.github));
-    if (gh) extra.push(`<a href="${esc(gh)}" target="_blank" rel="noopener noreferrer">GitHub</a>`);
 
-    const acts = a.actividades.map(act => `
+    const acts = a.actividades.map(act => {
+      const portada = act.tipo === 'imagen' && act.ruta
+        ? `<div class="portada" style="background-image:url('${esc(encodeURI(act.ruta))}')"></div>` : '';
+      return `
       <a class="tarjeta" href="#/g/${encodeURIComponent(g.id)}/${encodeURIComponent(a.id)}/${encodeURIComponent(act.id)}">
+        ${portada}
+        ${portada ? '' : FLECHA}
+        <span class="tipo">${NOMBRE_TIPO[act.tipo] || act.tipo}</span>
         <h3>${esc(act.titulo)}</h3>
         <p>${esc(act.descripcion)}</p>
         ${etiquetas(act.tecnologias)}
-      </a>`).join('');
+      </a>`;
+    }).join('');
 
     app.innerHTML = `
+      <div class="avatar grande">${esc(iniciales(a.nombre))}</div>
+      <p class="sobre">Grupo ${esc(g.id)} &middot; ${a.actividades.length} ${a.actividades.length === 1 ? 'actividad' : 'actividades'}</p>
       <h1>${esc(a.nombre)}</h1>
-      <p class="sub">${extra.join(' &middot; ')}</p>
-      ${a.sobreMi ? `<p>${esc(a.sobreMi)}</p>` : ''}
+      ${a.sobreMi ? `<p class="intro">${esc(a.sobreMi)}</p>` : ''}
+      ${gh ? `<div class="acciones"><a class="boton" href="${esc(gh)}" target="_blank" rel="noopener noreferrer">GitHub</a></div>` : ''}
       <h2>Actividades</h2>
-      <div class="rejilla">${acts || '<p class="sub">Aun no sube actividades.</p>'}</div>`;
+      <div class="rejilla">${acts || '<p class="vacio">Aun no sube actividades.</p>'}</div>`;
   }
 
   function vistaActividad(gid, aid, actId) {
@@ -156,6 +192,7 @@
 
     let contenido = '';
     const src = act.ruta || urlSegura(act.url);
+    const repo = act.repo && urlSegura(act.repo);
 
     if (!src) {
       contenido = '<div class="aviso error">Esta actividad no tiene un archivo o enlace valido.</div>';
@@ -168,22 +205,28 @@
     } else if (act.tipo === 'imagen') {
       contenido = `<img class="imagen" src="${esc(src)}" alt="${esc(act.titulo)}">`;
     } else {
-      contenido = `<div class="aviso">Esta actividad esta fuera del sitio.</div>`;
+      contenido = '<div class="aviso">Esta actividad esta publicada fuera del sitio. Abrela con el boton de arriba.</div>';
     }
 
     app.innerHTML = `
+      <p class="sobre">${NOMBRE_TIPO[act.tipo] || ''}${act.fecha ? ' &middot; ' + esc(act.fecha) : ''} &middot; ${esc(a.nombre)}</p>
       <h1>${esc(act.titulo)}</h1>
-      <p class="sub">${esc(act.fecha || '')}</p>
-      <p>${esc(act.descripcion)}</p>
-      ${etiquetas(act.tecnologias)}
-      <p><a href="${esc(src || '#')}" target="_blank" rel="noopener noreferrer">Abrir en otra pestana</a>
-      ${act.repo && urlSegura(act.repo) ? ` &middot; <a href="${esc(urlSegura(act.repo))}" target="_blank" rel="noopener noreferrer">Ver codigo</a>` : ''}</p>
+      ${act.descripcion ? `<p class="intro">${esc(act.descripcion)}</p>` : ''}
+      ${etiquetas(act.tecnologias, 'sueltas')}
+      <div class="acciones">
+        ${src ? `<a class="boton principal" href="${esc(src)}" target="_blank" rel="noopener noreferrer">Abrir en otra pestana</a>` : ''}
+        ${repo ? `<a class="boton" href="${esc(repo)}" target="_blank" rel="noopener noreferrer">Ver codigo</a>` : ''}
+      </div>
       ${contenido}`;
   }
 
   function rutear() {
     const partes = location.hash.replace(/^#\/?/, '').split('/').filter(Boolean).map(decodeURIComponent);
     window.scrollTo(0, 0);
+    // reinicia la animacion de entrada en cada cambio de pagina
+    app.style.animation = 'none';
+    void app.offsetHeight;
+    app.style.animation = '';
     try {
       if (partes[0] !== 'g') return vistaInicio();
       if (partes.length === 2) return vistaGrupo(partes[1]);
