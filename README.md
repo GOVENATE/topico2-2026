@@ -24,14 +24,17 @@ Inicio (resumen de Topico 2)
 
 ## Como subir tus actividades
 
-### 1. Haz fork y clonalo
+### 1. Clona el repo y crea tu rama
 
-Dale a **Fork** arriba a la derecha y luego clona tu fork:
+Primero pasale tu usuario de GitHub al administrador para que te agregue como colaborador. Te llega una invitacion por correo, aceptala.
 
 ```
-git clone https://github.com/TU-USUARIO/topico2-2026.git
+git clone https://github.com/GOVENATE/topico2-2026.git
 cd topico2-2026
+git checkout -b alumno/juan-perez
 ```
+
+Tu rama siempre se llama `alumno/tu-nombre`. Ahi trabajas tu y nadie mas.
 
 ### 2. Crea tu carpeta
 
@@ -77,15 +80,23 @@ node scripts/revisar-seguridad.mjs
 
 Si sale un `ERROR` o una `FALLA` con tu carpeta, corrigelo. Para verlo en el navegador ve a [Probarlo en tu compu](#probarlo-en-tu-compu).
 
-### 5. Commit y Pull Request
+### 5. Sube tu rama
 
 ```
 git add grupos/32/alumnos/juan-perez
 git commit -m "Actividades de Juan Perez"
-git push
+git push -u origin alumno/juan-perez
 ```
 
-En GitHub abre el **Pull Request** hacia `main`. Si la revision sale en rojo, entra a **Details** para ver que fallo, corrige y vuelve a hacer push. El PR se actualiza solo.
+Cada vez que haces push corre la revision automatica. Revisa en la pestana **Actions** que tu rama salga en verde. Si sale en rojo, entra a ver que fallo, corrige y vuelve a hacer push.
+
+**Tu no haces merge ni PR a `main`.** El administrador revisa las ramas y es el unico que pasa los cambios a `main`. Cuando ya tengas todo listo, avisale.
+
+Para traer lo ultimo de `main` a tu rama:
+
+```
+git pull origin main
+```
 
 ---
 
@@ -198,9 +209,9 @@ Si tu `alumno.json` esta mal, el sitio no se cae: solo no apareces tu hasta que 
 
 ## Revision automatica (guardia)
 
-En cada PR corre `.github/workflows/guardia.yml` y revisa:
+En cada push a cualquier rama corre `.github/workflows/guardia.yml` y revisa:
 
-1. **Solo tu carpeta.** No puedes modificar nada fuera de `grupos/<grupo>/alumnos/<tu-carpeta>/`.
+1. **Solo tu carpeta.** En tu rama no puedes modificar nada fuera de `grupos/<grupo>/alumnos/<tu-carpeta>/`.
 2. **Tipos de archivo.** Bloquea ejecutables y comprimidos. Detecta un `.exe` renombrado a `.png` y dobles extensiones como `tarea.exe.pdf`.
 3. **Tamano.** 10 MB por archivo y 80 MB por alumno.
 4. **Codigo sospechoso.** Mineros, `eval` ofuscado, redirecciones, robo de cookies.
@@ -208,7 +219,7 @@ En cada PR corre `.github/workflows/guardia.yml` y revisa:
 6. **alumno.json.** Que este bien escrito y que las rutas existan.
 7. **Antivirus.** ClamAV con firmas actualizadas.
 
-Si algo falla el PR queda en rojo y no se acepta.
+Si algo falla la rama queda en rojo y no pasa a `main`.
 
 ---
 
@@ -250,13 +261,28 @@ Abre http://localhost:8080. Abrir el `index.html` con doble clic no funciona por
 
 **Desplegar:** correr `node scripts/armar-catalogo.mjs`, hacer commit de `data/catalogo.json` y servir la carpeta en GitHub Pages, Netlify, Vercel o cualquier hosting estatico. En Netlify o Vercel se puede poner `node scripts/armar-catalogo.mjs` como comando de build.
 
-**Configuracion en GitHub (una vez):**
+**Como funciona el repo:**
 
-1. Settings > Branches > regla para `main`:
-   - Require a pull request before merging
-   - Require approvals (1) y Require review from Code Owners
-   - Require status checks to pass: `guardia`
-2. Settings > Actions > General > Fork pull request workflows: *Require approval for first-time contributors*.
-3. Los alumnos trabajan con fork y PR, sin permiso de escritura.
+- Los alumnos son colaboradores: pueden crear y subir sus ramas (`alumno/su-nombre`).
+- `main` tiene una regla (Settings > Rules > *main solo admin*) que no deja que nadie la modifique, ni con PR. Solo el administrador se la salta.
+- Gente de fuera no puede abrir PRs, issues ni comentar (Settings > Moderation options > Interaction limits, solo colaboradores).
 
-La guardia ayuda, pero siempre hay que ver el PR antes de aceptarlo, sobre todo lo que salga marcado como "revisar".
+**Agregar a un alumno:** Settings > Collaborators > Add people, o desde la terminal:
+
+```
+gh api -X PUT repos/GOVENATE/topico2-2026/collaborators/USUARIO -f permission=push
+```
+
+**Pasar la rama de un alumno a `main`:** revisar que su rama este en verde en Actions y luego:
+
+```
+git fetch origin
+git checkout main
+git merge origin/alumno/juan-perez
+node scripts/armar-catalogo.mjs
+git add data/catalogo.json
+git commit -m "Actividades de Juan Perez"
+git push
+```
+
+La guardia ayuda, pero siempre hay que ver los cambios antes de pasarlos a `main`, sobre todo lo que salga marcado como "revisar".

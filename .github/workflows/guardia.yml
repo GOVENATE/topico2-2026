@@ -1,13 +1,12 @@
 name: Guardia
 
-# Corre en cada PR. Si algo falla, el PR queda en rojo y no se debe hacer merge.
-# Activa en Settings > Branches una regla para main que exija que pase "guardia".
+# Corre en cada push de cualquier rama y en cada PR.
+# Si algo falla queda en rojo y esa rama no se debe pasar a main.
 
 on:
   pull_request:
     branches: [main]
   push:
-    branches: [main]
   workflow_dispatch:
 
 permissions:
@@ -32,6 +31,8 @@ jobs:
         run: |
           if [ "${{ github.event_name }}" = "pull_request" ]; then
             git diff --name-only --diff-filter=ACMR "origin/${{ github.base_ref }}...HEAD" > cambios.txt
+          elif [ "${{ github.ref_name }}" != "main" ]; then
+            git diff --name-only --diff-filter=ACMR "origin/main...HEAD" > cambios.txt
           else
             find grupos -type f > cambios.txt
           fi
@@ -39,15 +40,15 @@ jobs:
           cat cambios.txt
           echo "total=$(wc -l < cambios.txt | tr -d ' ')" >> "$GITHUB_OUTPUT"
 
-      # Los alumnos solo pueden tocar su carpeta. Los mantenedores
-      # (los que estan en CODEOWNERS / con permiso de escritura) se saltan esta regla.
+      # Los alumnos solo pueden tocar su carpeta. El dueno del repo se salta esta regla.
       - name: Revision de archivos
         env:
-          ES_PR: ${{ github.event_name == 'pull_request' }}
-          ASOCIACION: ${{ github.event.pull_request.author_association }}
+          QUIEN: ${{ github.event.pull_request.user.login || github.actor }}
+          DUENO: ${{ github.repository_owner }}
+          RAMA: ${{ github.head_ref || github.ref_name }}
         run: |
           flag=""
-          if [ "$ES_PR" = "true" ] && [ "$ASOCIACION" != "OWNER" ] && [ "$ASOCIACION" != "MEMBER" ] && [ "$ASOCIACION" != "COLLABORATOR" ]; then
+          if [ "$QUIEN" != "$DUENO" ] && [ "$RAMA" != "main" ]; then
             flag="--una-carpeta"
           fi
           if [ -s cambios.txt ]; then
@@ -68,7 +69,7 @@ jobs:
 
       - name: Antivirus
         run: |
-          if [ -s cambios.txt ] && [ "${{ github.event_name }}" = "pull_request" ]; then
+          if [ -s cambios.txt ] && [ "${{ github.ref_name }}" != "main" ]; then
             xargs -d '\n' -a cambios.txt clamscan --infected --no-summary=no
           else
             clamscan -r --infected grupos
