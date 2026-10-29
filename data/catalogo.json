@@ -1,5 +1,5 @@
 {
-  "generado": "2026-10-28T23:44:03.741Z",
+  "generado": "2026-10-29T01:12:58.172Z",
   "topico": {
     "titulo": "Topico 2",
     "periodo": "Agosto - Diciembre 2026",
@@ -12,50 +12,226 @@
     ]
   },
   "tecnologias": [
+    "Comunicacion",
     "CSS",
+    "Framer Motion",
     "HTML",
+    "Ilustracion",
+    "Infografia",
     "JavaScript",
-    "Referencia"
+    "Liderazgo",
+    "React",
+    "Reflexion",
+    "TypeScript",
+    "Vite"
   ],
   "grupos": [
     {
       "id": "32",
       "alumnos": [
         {
-          "id": "ejemplo-alumno",
-          "nombre": "Alumno de Ejemplo",
-          "github": "",
-          "sobreMi": "Carpeta de ejemplo para que vean como queda. Se puede borrar cuando ya haya alumnos reales.",
+          "id": "kevin-alonso",
+          "nombre": "Kevin Alonso",
+          "github": "GOVENATE",
+          "sobreMi": "",
           "tecnologias": [
+            "React",
+            "TypeScript",
+            "Vite",
+            "Framer Motion",
             "HTML",
             "CSS",
             "JavaScript",
-            "Referencia"
+            "Infografia",
+            "Ilustracion",
+            "Liderazgo",
+            "Comunicacion",
+            "Reflexion"
           ],
           "actividades": [
             {
-              "id": "act01-hola",
+              "id": "act01-los-7-habitos",
               "tipo": "web",
-              "titulo": "Hola mundo",
-              "descripcion": "Pagina sencilla con un boton que cuenta clics.",
-              "fecha": "2026-08-20",
+              "titulo": "Los 7 Habitos",
+              "descripcion": "Experiencia interactiva sobre Los 7 Habitos de la Gente Altamente Efectiva, con animaciones y una cuerda con fisica.",
+              "fecha": "",
+              "tecnologias": [
+                "React",
+                "TypeScript",
+                "Vite",
+                "Framer Motion"
+              ],
+              "ruta": "grupos/32/alumnos/kevin-alonso/actividades/act01-los-7-habitos/index.html"
+            },
+            {
+              "id": "act02-memorama-espacio",
+              "tipo": "web",
+              "titulo": "Memorama del Espacio",
+              "descripcion": "Juego de memoria con tematica espacial. Al encontrar cada par sale un dato curioso.",
+              "fecha": "",
+              "tecnologias": [
+                "React",
+                "TypeScript",
+                "Vite",
+                "Framer Motion"
+              ],
+              "ruta": "grupos/32/alumnos/kevin-alonso/actividades/act02-memorama-espacio/index.html"
+            },
+            {
+              "id": "act03-toma-de-decisiones",
+              "tipo": "web",
+              "titulo": "Herramientas para la Toma de Decisiones",
+              "descripcion": "Proyecto final. Quiz de 10 preguntas que resuelve FODA, 6 Sombreros, Pareto, Ishikawa y CATWOE para el caso de una universidad.",
+              "fecha": "",
+              "tecnologias": [
+                "React",
+                "TypeScript",
+                "Vite"
+              ],
+              "repo": "https://github.com/GOVENATE/quiz-decisiones",
+              "ruta": "grupos/32/alumnos/kevin-alonso/actividades/act03-toma-de-decisiones/index.html"
+            },
+            {
+              "id": "act04-consejo-de-decisiones",
+              "tipo": "web",
+              "titulo": "Consejo de Decisiones (modo oscuro)",
+              "descripcion": "Proyecto final, segunda version. Cada herramienta la presenta su creador: Humphrey, De Bono, Pareto, Ishikawa y Checkland.",
+              "fecha": "",
+              "tecnologias": [
+                "React",
+                "TypeScript",
+                "Vite",
+                "Framer Motion"
+              ],
+              "ruta": "grupos/32/alumnos/kevin-alonso/actividades/act04-consejo-de-decisiones/index.html"
+            },
+            {
+              "id": "act05-pensamiento-sistemico",
+              "tipo": "web",
+              "titulo": "Pensamiento sistemico y creatividad",
+              "descripcion": "Pagina con el resumen de las actividades y temas vistos, como NFC.",
+              "fecha": "",
               "tecnologias": [
                 "HTML",
                 "CSS",
                 "JavaScript"
               ],
-              "ruta": "grupos/32/alumnos/ejemplo-alumno/actividades/act01-hola/index.html"
+              "ruta": "grupos/32/alumnos/kevin-alonso/actividades/act05-pensamiento-sistemico/index.html"
             },
             {
-              "id": "act02-documentacion",
-              "tipo": "enlace",
-              "titulo": "Documentacion de MDN",
-              "descripcion": "Ejemplo de actividad tipo enlace.",
+              "id": "act06-iceberg-gigantes-tecnologicos",
+              "tipo": "imagen",
+              "titulo": "El iceberg de los gigantes tecnologicos",
+              "descripcion": "Infografia sobre Apple, Amazon, Google y Meta: de la innovacion al control de datos, dinero y poder.",
+              "fecha": "2026-09-24",
+              "tecnologias": [
+                "Infografia"
+              ],
+              "ruta": "grupos/32/alumnos/kevin-alonso/actividades/act06-iceberg-gigantes-tecnologicos/iceberg-gigantes-tecnologicos.png"
+            },
+            {
+              "id": "act07-iceberg-gigantes-queretaro",
+              "tipo": "imagen",
+              "titulo": "El iceberg de los gigantes tecnologicos en Queretaro",
+              "descripcion": "La misma idea del iceberg pero aterrizada a como nos afecta en Queretaro.",
+              "fecha": "2026-09-24",
+              "tecnologias": [
+                "Infografia"
+              ],
+              "ruta": "grupos/32/alumnos/kevin-alonso/actividades/act07-iceberg-gigantes-queretaro/iceberg-gigantes-queretaro.png"
+            },
+            {
+              "id": "act08-gigantes-tecnologicos-poder",
+              "tipo": "imagen",
+              "titulo": "Los gigantes tecnologicos y el poder",
+              "descripcion": "Ilustracion de las grandes tecnologicas controlando al mundo como titiriteros.",
+              "fecha": "2026-09-24",
+              "tecnologias": [
+                "Ilustracion"
+              ],
+              "ruta": "grupos/32/alumnos/kevin-alonso/actividades/act08-gigantes-tecnologicos-poder/gigantes-tecnologicos-poder.png"
+            },
+            {
+              "id": "act09-lider-visionario",
+              "tipo": "imagen",
+              "titulo": "Infografia del lider visionario",
+              "descripcion": "Las partes del lider: mente, ojos, oidos, boca, corazon, manos y piernas.",
               "fecha": "",
               "tecnologias": [
-                "Referencia"
+                "Infografia",
+                "Liderazgo"
               ],
-              "url": "https://developer.mozilla.org/es/"
+              "ruta": "grupos/32/alumnos/kevin-alonso/actividades/act09-lider-visionario/lider-visionario.png"
+            },
+            {
+              "id": "act10-lider-emprendedor-ideal",
+              "tipo": "imagen",
+              "titulo": "Retrato del lider emprendedor ideal",
+              "descripcion": "Version realista del lider: pensamiento estrategico, vision, comunicacion, proposito y ejecucion.",
+              "fecha": "",
+              "tecnologias": [
+                "Infografia",
+                "Liderazgo"
+              ],
+              "ruta": "grupos/32/alumnos/kevin-alonso/actividades/act10-lider-emprendedor-ideal/lider-emprendedor-ideal.png"
+            },
+            {
+              "id": "act11-slim-y-servitje",
+              "tipo": "imagen",
+              "titulo": "2 empresarios mexicanos: Carlos Slim y Daniel Servitje",
+              "descripcion": "Comparacion de liderazgo, innovacion, responsabilidad social e impacto.",
+              "fecha": "",
+              "tecnologias": [
+                "Infografia",
+                "Liderazgo"
+              ],
+              "ruta": "grupos/32/alumnos/kevin-alonso/actividades/act11-slim-y-servitje/carlos-slim-y-daniel-servitje.png"
+            },
+            {
+              "id": "act12-lorenzo-servitje-bimbo",
+              "tipo": "imagen",
+              "titulo": "Lorenzo Servitje: la vision detras de Bimbo",
+              "descripcion": "Linea del tiempo de como nacio y crecio Bimbo.",
+              "fecha": "",
+              "tecnologias": [
+                "Infografia",
+                "Liderazgo"
+              ],
+              "ruta": "grupos/32/alumnos/kevin-alonso/actividades/act12-lorenzo-servitje-bimbo/lorenzo-servitje-bimbo.png"
+            },
+            {
+              "id": "act13-lorenzo-zambrano-cemex",
+              "tipo": "imagen",
+              "titulo": "Lorenzo Zambrano: la vision que hizo global a Cemex",
+              "descripcion": "Su trayectoria y como llevo a Cemex a mas de 50 paises.",
+              "fecha": "",
+              "tecnologias": [
+                "Infografia",
+                "Liderazgo"
+              ],
+              "ruta": "grupos/32/alumnos/kevin-alonso/actividades/act13-lorenzo-zambrano-cemex/lorenzo-zambrano-cemex.png"
+            },
+            {
+              "id": "act14-emma-rodero-la-voz",
+              "tipo": "pdf",
+              "titulo": "Resumen: Emma Rodero y el poder de la voz",
+              "descripcion": "Resumen del video sobre tono, volumen, velocidad y pausas al hablar.",
+              "fecha": "",
+              "tecnologias": [
+                "Comunicacion"
+              ],
+              "ruta": "grupos/32/alumnos/kevin-alonso/actividades/act14-emma-rodero-la-voz/resumen-emma-rodero.pdf"
+            },
+            {
+              "id": "act15-documental-los-ricos",
+              "tipo": "pdf",
+              "titulo": "Reflexion: la influencia de los ricos en las ciudades",
+              "descripcion": "Lo que entendi del documental sobre donaciones, impuestos y poder de los millonarios.",
+              "fecha": "",
+              "tecnologias": [
+                "Reflexion"
+              ],
+              "ruta": "grupos/32/alumnos/kevin-alonso/actividades/act15-documental-los-ricos/documental-los-ricos.pdf"
             }
           ]
         }
