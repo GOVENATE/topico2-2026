@@ -2816,6 +2816,20 @@ renderTopics();renderRoles();renderMap();renderScenario();renderQuiz();
     </div>
   </section>
 
+
+  <section id="pensamiento-critico" class="screen">
+    <div class="topbar"><div class="brand"><img data-img="logo-bosenmori" alt="Logo Bosenmori"><span>tercer parcial · 22</span></div><nav class="nav" aria-label="Navegación de pensamiento crítico"><a class="btn" href="#menu">regresar al menú</a></nav></div>
+    <div class="wrap">
+      <header class="glass title"><h2>Sin pensamiento crítico no eres nadie</h2><p>Pablo Pérez-Paetow · TEDxYouth@Valladolid</p><a class="btn" href="https://www.youtube.com/watch?v=WxC4RfTiOsM" target="_blank" rel="noopener noreferrer">Ver la charla</a></header>
+      <div class="two">
+        <article class="panel"><h3>Lo que entendí</h3><p>En mi opinión, el centro de la charla está en aprender a decidir con criterio propio. Me llamó la atención cómo las imágenes del inicio permiten distintas interpretaciones: lo que veo también depende de mis ideas previas. La crítica a memorizar y repetir me hace preguntarme si realmente entiendo algo o solo sé responder un examen. Me quedo con la invitación a analizar antes de juzgar.</p></article>
+        <article class="panel"><h3>Mi opinión</h3><p>Para mí, tener una opinión no basta para que esté bien fundamentada. Necesito escuchar, buscar razones y aceptar que puedo equivocarme. Aunque el título me parece exagerado, entiendo su intención de provocar una reacción. No creo que memorizar sea inútil; el problema aparece cuando lo hago sin comprender ni relacionar lo aprendido. También pienso que cuestionar no significa llevar la contraria a todo: puedo discrepar con respeto y cambiar de postura si encuentro mejores argumentos.</p></article>
+      </div>
+      <article class="panel" style="margin-top:16px"><h3>Conclusión</h3><p>Concluyo que aprender debería ayudarme a comprender y actuar, además de aprobar. Quiero detenerme antes de aceptar una idea, revisar mis razones y hacerme responsable de mis decisiones. Para mí, el cambio empieza cuando dejo de repetir automáticamente y me permito pensar de nuevo.</p></article>
+      <p style="font-size:.82rem;margin-top:16px">Fuente: <a href="https://www.youtube.com/watch?v=WxC4RfTiOsM" target="_blank" rel="noopener noreferrer">charla de Pablo Pérez-Paetow</a> · <a href="https://pickscribe.com/nl/v/WxC4RfTiOsM" target="_blank" rel="noopener noreferrer">transcripción consultada</a>.</p>
+    </div>
+  </section>
+
   <section id="menu" class="screen">
     <div class="topbar">
       <div class="brand">
@@ -2956,6 +2970,7 @@ renderTopics();renderRoles();renderMap();renderScenario();renderQuiz();
         
         <a class="menu-card" href="#s20-estrategia"><div class="number">20</div><h3>La habilidad estratégica · capítulo 12</h3><p>Mi recorrido por las ideas, el mapa estratégico, CampusNova y un taller para poner a prueba lo que aprendí.</p></a>
         <a class="menu-card" href="#resumenes-habilidades-directivas"><div class="number">21</div><h3>Resúmenes de Habilidades directivas</h3><p>Lo que me llevo de las exposiciones de los demás capítulos. Por completar.</p></a>
+        <a class="menu-card" href="#pensamiento-critico"><div class="number">22</div><h3>Pensamiento crítico · mi opinión</h3><p>Lo que entendí de la charla de Pablo Pérez-Paetow, mi postura y mi conclusión.</p></a>
 
       </div>
     </div>
@@ -4573,7 +4588,7 @@ los paisajes que disfruto y algunas de mis actividades cotidianas.
     function tpInitSkills(){const wheel=document.getElementById('tpSkillsWheel');if(!wheel)return;tpPositionWheel();window.addEventListener('resize',tpPositionWheel);wheel.querySelectorAll('.skill-node').forEach(node=>{const i=Number(node.dataset.skill);node.addEventListener('mouseenter',()=>tpRenderSkill(i));node.addEventListener('focus',()=>tpRenderSkill(i));node.addEventListener('click',()=>tpRenderSkill(i));});const img=document.getElementById('tpSkillImage');if(img)img.addEventListener('error',()=>{img.style.display='none';img.parentElement.style.background='radial-gradient(circle at center,rgba(34,230,255,.18),transparent 45%),linear-gradient(135deg,#111735,#25123e)';});tpRenderSkill(0);}
 
 
-    const pageIds = ["resumenes-habilidades-directivas","s20-estrategia","video-presentacion","infografia-habitos","inicio","menu","resumen-video","superricos","infografia-paises","movimientos-sociales","poder-empresas","gigantes-mexico","comparativo-empresarios","empresario-ideal","codigo-limpio","rueda-competencias","s16-senge","s17-arquetipos","s18-creatividad","proyecto1","proyecto","introduccion","dinamica","autor","collage"];
+    const pageIds = ["pensamiento-critico","resumenes-habilidades-directivas","s20-estrategia","video-presentacion","infografia-habitos","inicio","menu","resumen-video","superricos","infografia-paises","movimientos-sociales","poder-empresas","gigantes-mexico","comparativo-empresarios","empresario-ideal","codigo-limpio","rueda-competencias","s16-senge","s17-arquetipos","s18-creatividad","proyecto1","proyecto","introduccion","dinamica","autor","collage"];
 
     function route(){
       let id = location.hash.replace("#","");
