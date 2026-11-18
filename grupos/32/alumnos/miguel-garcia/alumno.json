@@ -1,0 +1,239 @@
+{
+  "nombre": "Miguel Garcia",
+  "github": "Mikee-GM",
+  "sobreMi": "",
+  "actividades": [
+    {
+      "id": "act01-clean-code",
+      "titulo": "Clean Code",
+      "descripcion": "Resumen del libro Clean Code sobre como escribir codigo limpio.",
+      "tipo": "pdf",
+      "tecnologias": [
+        "Programacion"
+      ],
+      "ruta": "actividades/act01-clean-code/clean-code.pdf"
+    },
+    {
+      "id": "act02-mapa-clean-code",
+      "titulo": "Mapa de Clean Code",
+      "descripcion": "Mapa conceptual de las ideas principales de Clean Code.",
+      "tipo": "pdf",
+      "tecnologias": [
+        "Programacion",
+        "Mapa conceptual"
+      ],
+      "ruta": "actividades/act02-mapa-clean-code/mapa-clean-code.pdf"
+    },
+    {
+      "id": "act03-arquetipos-sistemicos",
+      "titulo": "Arquetipos sistemicos",
+      "descripcion": "Resumen de los arquetipos sistemicos del pensamiento sistemico.",
+      "tipo": "pdf",
+      "tecnologias": [
+        "Pensamiento sistemico"
+      ],
+      "ruta": "actividades/act03-arquetipos-sistemicos/arquetipos-sistemicos.pdf"
+    },
+    {
+      "id": "act04-habilidades-del-pensamiento",
+      "titulo": "Habilidades del pensamiento",
+      "descripcion": "Resumen sobre las habilidades del pensamiento.",
+      "tipo": "pdf",
+      "tecnologias": [
+        "Pensamiento"
+      ],
+      "ruta": "actividades/act04-habilidades-del-pensamiento/habilidades-del-pensamiento.pdf"
+    },
+    {
+      "id": "act05-pensagram",
+      "titulo": "Pensagram",
+      "descripcion": "Actividad de Pensagram.",
+      "tipo": "pdf",
+      "tecnologias": [
+        "Pensamiento"
+      ],
+      "ruta": "actividades/act05-pensagram/pensagram.pdf"
+    },
+    {
+      "id": "act06-comentario-creatividad",
+      "titulo": "Comentario sobre creatividad",
+      "descripcion": "Comentario y reflexion sobre la creatividad.",
+      "tipo": "pdf",
+      "tecnologias": [
+        "Creatividad",
+        "Reflexion"
+      ],
+      "ruta": "actividades/act06-comentario-creatividad/comentario-creatividad.pdf"
+    },
+    {
+      "id": "act07-filosofia-japonesa-vs-latinoamericana",
+      "titulo": "Filosofia japonesa vs latinoamericana",
+      "descripcion": "Comparacion entre la filosofia japonesa y la latinoamericana.",
+      "tipo": "pdf",
+      "tecnologias": [
+        "Reflexion"
+      ],
+      "ruta": "actividades/act07-filosofia-japonesa-vs-latinoamericana/filosofia-japonesa-vs-latinoamericana.pdf"
+    },
+    {
+      "id": "act08-resumen-pensamiento-critico",
+      "titulo": "Resumen: Sin pensamiento critico no eres nadie",
+      "descripcion": "Resumen del video sobre la importancia del pensamiento critico.",
+      "tipo": "pdf",
+      "tecnologias": [
+        "Pensamiento critico"
+      ],
+      "ruta": "actividades/act08-resumen-pensamiento-critico/resumen-pensamiento-critico.pdf"
+    },
+    {
+      "id": "act09-resumen-lectura",
+      "titulo": "Resumen de lectura",
+      "descripcion": "Resumen de la lectura vista en clase.",
+      "tipo": "pdf",
+      "tecnologias": [
+        "Lectura"
+      ],
+      "ruta": "actividades/act09-resumen-lectura/resumen-lectura.pdf"
+    },
+    {
+      "id": "act10-empresario-mexicano-ideal",
+      "titulo": "El empresario mexicano ideal",
+      "descripcion": "Resumen sobre el empresario mexicano ideal de Ernesto Valdes Rangel.",
+      "tipo": "pdf",
+      "tecnologias": [
+        "Liderazgo"
+      ],
+      "ruta": "actividades/act10-empresario-mexicano-ideal/empresario-mexicano-ideal.pdf"
+    },
+    {
+      "id": "act11-persuade-con-tu-voz",
+      "titulo": "Persuade con tu voz",
+      "descripcion": "Resumen sobre como persuadir usando la voz.",
+      "tipo": "pdf",
+      "tecnologias": [
+        "Comunicacion"
+      ],
+      "ruta": "actividades/act11-persuade-con-tu-voz/persuade-con-tu-voz.pdf"
+    },
+    {
+      "id": "act12-super-ricos",
+      "titulo": "Super ricos",
+      "descripcion": "Reflexion sobre los super ricos y su influencia.",
+      "tipo": "pdf",
+      "tecnologias": [
+        "Reflexion"
+      ],
+      "ruta": "actividades/act12-super-ricos/super-ricos.pdf"
+    },
+    {
+      "id": "act13-movimientos-sociales",
+      "titulo": "Video de movimientos sociales",
+      "descripcion": "Resumen del video sobre movimientos sociales.",
+      "tipo": "pdf",
+      "tecnologias": [
+        "Reflexion"
+      ],
+      "ruta": "actividades/act13-movimientos-sociales/movimientos-sociales.pdf"
+    },
+    {
+      "id": "act14-actividad-colon",
+      "titulo": "Actividad Colon",
+      "descripcion": "Actividad Colon.",
+      "tipo": "imagen",
+      "tecnologias": [
+        "Actividad"
+      ],
+      "ruta": "actividades/act14-actividad-colon/actividad-colon.jpeg"
+    },
+    {
+      "id": "act15-por-que-fracasan-los-paises",
+      "titulo": "Por que fracasan los paises",
+      "descripcion": "Apuntes de Por que fracasan los paises.",
+      "tipo": "imagen",
+      "tecnologias": [
+        "Lectura"
+      ],
+      "ruta": "actividades/act15-por-que-fracasan-los-paises/por-que-fracasan-los-paises.jpeg"
+    },
+    {
+      "id": "act16-capitulo-1",
+      "titulo": "Capitulo 1",
+      "descripcion": "Apuntes del capitulo 1.",
+      "tipo": "imagen",
+      "tecnologias": [
+        "Lectura"
+      ],
+      "ruta": "actividades/act16-capitulo-1/capitulo-1.jpeg"
+    },
+    {
+      "id": "act17-capitulo-2",
+      "titulo": "Capitulo 2",
+      "descripcion": "Apuntes del capitulo 2.",
+      "tipo": "imagen",
+      "tecnologias": [
+        "Lectura"
+      ],
+      "ruta": "actividades/act17-capitulo-2/capitulo-2.jpeg"
+    },
+    {
+      "id": "act18-capitulo-3",
+      "titulo": "Capitulo 3",
+      "descripcion": "Apuntes del capitulo 3.",
+      "tipo": "imagen",
+      "tecnologias": [
+        "Lectura"
+      ],
+      "ruta": "actividades/act18-capitulo-3/capitulo-3.jpeg"
+    },
+    {
+      "id": "act19-capitulo-4",
+      "titulo": "Capitulo 4",
+      "descripcion": "Apuntes del capitulo 4.",
+      "tipo": "imagen",
+      "tecnologias": [
+        "Lectura"
+      ],
+      "ruta": "actividades/act19-capitulo-4/capitulo-4.jpeg"
+    },
+    {
+      "id": "act20-capitulo-5",
+      "titulo": "Capitulo 5",
+      "descripcion": "Apuntes del capitulo 5.",
+      "tipo": "imagen",
+      "tecnologias": [
+        "Lectura"
+      ],
+      "ruta": "actividades/act20-capitulo-5/capitulo-5.jpeg"
+    },
+    {
+      "id": "act21-capitulo-7",
+      "titulo": "Capitulo 7",
+      "descripcion": "Apuntes del capitulo 7.",
+      "tipo": "imagen",
+      "tecnologias": [
+        "Lectura"
+      ],
+      "ruta": "actividades/act21-capitulo-7/capitulo-7.jpeg"
+    },
+    {
+      "id": "act22-capitulo-8",
+      "titulo": "Capitulo 8",
+      "descripcion": "Apuntes del capitulo 8.",
+      "tipo": "imagen",
+      "tecnologias": [
+        "Lectura"
+      ],
+      "ruta": "actividades/act22-capitulo-8/capitulo-8.jpeg"
+    },
+    {
+      "id": "act23-capitulo-10",
+      "titulo": "Capitulo 10",
+      "descripcion": "Apuntes del capitulo 10.",
+      "tipo": "imagen",
+      "tecnologias": [
+        "Lectura"
+      ],
+      "ruta": "actividades/act23-capitulo-10/capitulo-10.jpeg"
+    }
+  ]
+}
