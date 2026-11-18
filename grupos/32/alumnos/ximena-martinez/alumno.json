@@ -1,0 +1,247 @@
+{
+  "nombre": "Ximena Martínez Gudiño",
+  "github": "",
+  "sobreMi": "Estudiante de Ingeniería en Software, UAQ.",
+  "actividades": [
+    {
+      "id": "act01-expediente-analisis",
+      "titulo": "Expediente de análisis",
+      "fecha": "2026-08-28",
+      "tipo": "web",
+      "tecnologias": [
+        "HTML",
+        "CSS",
+        "JavaScript"
+      ],
+      "ruta": "actividades/act01-expediente-analisis/index.html"
+    },
+    {
+      "id": "act02-por-que-fracasan-los-paises",
+      "titulo": "Por qué fracasan los países",
+      "fecha": "2026-09-09",
+      "tipo": "pdf",
+      "tecnologias": [
+        "PDF"
+      ],
+      "ruta": "actividades/act02-por-que-fracasan-los-paises/documento.pdf"
+    },
+    {
+      "id": "act03-infografia-colon",
+      "titulo": "Infografía de Colón",
+      "fecha": "2026-09-24",
+      "tipo": "pdf",
+      "tecnologias": [
+        "PDF"
+      ],
+      "ruta": "actividades/act03-infografia-colon/documento.pdf"
+    },
+    {
+      "id": "act04-infografia",
+      "titulo": "Infografía",
+      "fecha": "2026-10-13",
+      "tipo": "imagen",
+      "tecnologias": [
+        "Imagen"
+      ],
+      "ruta": "actividades/act04-infografia/imagen.png"
+    },
+    {
+      "id": "act05-infografia-mejoras",
+      "titulo": "Infografía de mejoras",
+      "fecha": "2026-10-20",
+      "tipo": "pdf",
+      "tecnologias": [
+        "PDF"
+      ],
+      "ruta": "actividades/act05-infografia-mejoras/documento.pdf"
+    },
+    {
+      "id": "act06-quinta-disciplina",
+      "titulo": "Resumen La Quinta Disciplina (Cap. 1 al 3)",
+      "fecha": "2026-10-26",
+      "tipo": "pdf",
+      "tecnologias": [
+        "PDF"
+      ],
+      "ruta": "actividades/act06-quinta-disciplina/documento.pdf"
+    },
+    {
+      "id": "act07-compensacion-proceso-demora",
+      "titulo": "Compensación entre proceso y demora",
+      "fecha": "2026-10-26",
+      "tipo": "web",
+      "tecnologias": [
+        "HTML",
+        "CSS",
+        "JavaScript"
+      ],
+      "ruta": "actividades/act07-compensacion-proceso-demora/index.html"
+    },
+    {
+      "id": "act08-infografia-creatividad-goldberg",
+      "titulo": "Infografía Creatividad Goldberg",
+      "fecha": "2026-10-26",
+      "tipo": "pdf",
+      "tecnologias": [
+        "PDF"
+      ],
+      "ruta": "actividades/act08-infografia-creatividad-goldberg/documento.pdf"
+    },
+    {
+      "id": "act09-metro-codigo-limpio",
+      "titulo": "Metro Código Limpio",
+      "fecha": "2026-11-03",
+      "tipo": "web",
+      "tecnologias": [
+        "HTML",
+        "CSS",
+        "JavaScript"
+      ],
+      "ruta": "actividades/act09-metro-codigo-limpio/index.html"
+    },
+    {
+      "id": "act10-visionaria-rena-olvera",
+      "titulo": "La Visionaria Rena Olvera",
+      "fecha": "2026-11-03",
+      "tipo": "web",
+      "tecnologias": [
+        "HTML",
+        "CSS",
+        "JavaScript"
+      ],
+      "ruta": "actividades/act10-visionaria-rena-olvera/index.html"
+    },
+    {
+      "id": "act11-7-habitos",
+      "titulo": "Los 7 hábitos",
+      "fecha": "2026-11-04",
+      "tipo": "imagen",
+      "tecnologias": [
+        "Imagen"
+      ],
+      "ruta": "actividades/act11-7-habitos/imagen.jpeg"
+    },
+    {
+      "id": "act12-filosofia-yokoi-kenji",
+      "titulo": "Filosofía de Yokoi Kenji",
+      "fecha": "2026-11-04",
+      "tipo": "pdf",
+      "tecnologias": [
+        "PDF"
+      ],
+      "ruta": "actividades/act12-filosofia-yokoi-kenji/documento.pdf"
+    },
+    {
+      "id": "act13-super-ricos",
+      "titulo": "Súper ricos",
+      "fecha": "2026-11-04",
+      "tipo": "pdf",
+      "tecnologias": [
+        "PDF"
+      ],
+      "ruta": "actividades/act13-super-ricos/documento.pdf"
+    },
+    {
+      "id": "act14-movimientos-sociales",
+      "titulo": "Movimientos sociales",
+      "fecha": "2026-11-04",
+      "tipo": "pdf",
+      "tecnologias": [
+        "PDF"
+      ],
+      "ruta": "actividades/act14-movimientos-sociales/documento.pdf"
+    },
+    {
+      "id": "act15-cuadro-empresarios-mexicanos",
+      "titulo": "Cuadro comparativo de empresarios mexicanos",
+      "fecha": "2026-11-04",
+      "tipo": "pdf",
+      "tecnologias": [
+        "PDF"
+      ],
+      "ruta": "actividades/act15-cuadro-empresarios-mexicanos/documento.pdf"
+    },
+    {
+      "id": "act16-habilidades-directivas-cap-1-2",
+      "titulo": "Habilidades Directivas, Cap. 1 y 2",
+      "fecha": "2026-11-04",
+      "tipo": "web",
+      "tecnologias": [
+        "HTML",
+        "CSS",
+        "JavaScript"
+      ],
+      "ruta": "actividades/act16-habilidades-directivas-cap-1-2/index.html"
+    },
+    {
+      "id": "act17-habilidades-directivas-cap-1-5",
+      "titulo": "Habilidades Directivas, Cap. 1 y 5",
+      "fecha": "2026-11-05",
+      "tipo": "web",
+      "tecnologias": [
+        "HTML",
+        "CSS",
+        "JavaScript"
+      ],
+      "ruta": "actividades/act17-habilidades-directivas-cap-1-5/index.html"
+    },
+    {
+      "id": "act18-habilidades-directivas-cap-3-7",
+      "titulo": "Habilidades Directivas, Cap. 3 y 7",
+      "fecha": "2026-11-10",
+      "tipo": "web",
+      "tecnologias": [
+        "HTML",
+        "CSS",
+        "JavaScript"
+      ],
+      "ruta": "actividades/act18-habilidades-directivas-cap-3-7/index.html"
+    },
+    {
+      "id": "act19-chispa",
+      "titulo": "Chispa",
+      "fecha": "2026-11-12",
+      "tipo": "web",
+      "tecnologias": [
+        "HTML",
+        "CSS",
+        "JavaScript"
+      ],
+      "ruta": "actividades/act19-chispa/index.html"
+    },
+    {
+      "id": "act20-creatividad-presentacion",
+      "titulo": "Presentación de creatividad",
+      "fecha": "2026-11-12",
+      "tipo": "pdf",
+      "tecnologias": [
+        "PDF"
+      ],
+      "ruta": "actividades/act20-creatividad-presentacion/documento.pdf"
+    },
+    {
+      "id": "act21-habilidades-directivas-cap-2-7-8-10-13",
+      "titulo": "Habilidades Directivas, Cap. 2, 7, 8, 10 y 13",
+      "fecha": "2026-11-12",
+      "tipo": "web",
+      "tecnologias": [
+        "HTML",
+        "CSS",
+        "JavaScript"
+      ],
+      "ruta": "actividades/act21-habilidades-directivas-cap-2-7-8-10-13/index.html"
+    },
+    {
+      "id": "act22-habilidades-directivas-cap-4-5-6-9-11-12",
+      "titulo": "Habilidades Directivas, Cap. 4, 5, 6, 9, 11 y 12",
+      "fecha": "2026-11-18",
+      "tipo": "web",
+      "tecnologias": [
+        "HTML",
+        "CSS",
+        "JavaScript"
+      ],
+      "ruta": "actividades/act22-habilidades-directivas-cap-4-5-6-9-11-12/index.html"
+    }
+  ]
+}
