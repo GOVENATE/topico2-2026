@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Capítulos 3 y 7 - Habilidades directivas</title>
+<style>
+:root{
+  --bg:#f7f6f2;--card:#ffffff;--soft:#f1efe8;--text:#2c2c2a;--muted:#5f5e5a;--line:#d3d1c7;
+  --p-bg:#eeedfe;--p-line:#afa9ec;--p-mid:#7f77dd;--p-text:#3c3489;
+  --t-bg:#e1f5ee;--t-line:#5dcaa5;--t-mid:#1d9e75;--t-text:#085041;
+}
+@media (prefers-color-scheme:dark){
+  :root{--bg:#1f1f1d;--card:#2c2c2a;--soft:#262624;--text:#f1efe8;--muted:#b4b2a9;--line:#444441;
+  --p-bg:#3c3489;--p-line:#7f77dd;--p-mid:#afa9ec;--p-text:#eeedfe;--t-bg:#085041;--t-line:#1d9e75;--t-mid:#5dcaa5;--t-text:#e1f5ee}
+}
+*{box-sizing:border-box}
+body{margin:0;padding:24px 16px;background:var(--bg);color:var(--text);font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;line-height:1.6}
+h1{font-size:22px;font-weight:500;text-align:center;margin:0 0 4px}
+.sub{text-align:center;color:var(--muted);font-size:14px;margin:0 0 24px}
+.grid{max-width:960px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(340px,1fr));gap:20px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px}
+.head{border-radius:10px;padding:10px 14px;margin-bottom:8px}
+.head small{display:block;font-size:12px}
+.head strong{font-size:18px;font-weight:500}
+.p .head{background:var(--p-bg);color:var(--p-text)}
+.t .head{background:var(--t-bg);color:var(--t-text)}
+svg{width:100%;height:auto;display:block}
+.pill{cursor:pointer;outline:none}
+.pill rect{fill:var(--card);stroke:var(--line);stroke-width:1}
+.pill text.lb{font-size:13px;font-family:system-ui,sans-serif;fill:var(--text)}
+.pill circle{stroke:none}
+.pill text.nm{font-size:12px;font-weight:500;font-family:system-ui,sans-serif;text-anchor:middle}
+.p .pill circle{fill:var(--p-bg)}.p .pill text.nm{fill:var(--p-text)}
+.t .pill circle{fill:var(--t-bg)}.t .pill text.nm{fill:var(--t-text)}
+.pill:hover rect,.pill:focus rect{stroke:var(--muted)}
+.p .pill.on rect{fill:var(--p-bg);stroke:var(--p-mid);stroke-width:1.5}
+.t .pill.on rect{fill:var(--t-bg);stroke:var(--t-mid);stroke-width:1.5}
+.conn{stroke:var(--line);stroke-width:1.5}
+.conn.on{stroke-width:2.5}
+.p .conn.on{stroke:var(--p-mid)}.t .conn.on{stroke:var(--t-mid)}
+.back{fill:var(--soft)}
+.p .a{fill:var(--p-bg);stroke:var(--p-mid);stroke-width:2}
+.p .b{fill:var(--p-mid);stroke:none}
+.t .a{fill:none;stroke:var(--t-mid);stroke-width:5;stroke-linecap:round;stroke-linejoin:round}
+.t .b{fill:var(--t-bg);stroke:var(--t-mid);stroke-width:2}
+.t .q{font-size:22px;font-weight:500;fill:var(--t-text);text-anchor:middle;font-family:system-ui,sans-serif}
+.det{border-radius:10px;padding:12px 14px;font-size:14px;min-height:96px;background:var(--soft);margin-top:8px}
+.det b{display:block;font-weight:500;margin-bottom:4px}
+.hint{color:var(--muted)}
+</style>
+</head>
+<body>
+<h1>Habilidades directivas</h1>
+<p class="sub">Capítulos 3 y 7 · toca un punto para ver la información</p>
+<div class="grid">
+  <div class="card p" id="c3"></div>
+  <div class="card t" id="c7"></div>
+</div>
+<script>
+var NS='http://www.w3.org/2000/svg';
+var art={
+c3:'<circle cx="210" cy="110" r="38" class="a"/><path d="M160 222 Q160 168 210 162 Q260 168 260 222 Z" class="a"/><path d="M210 128 C180 108 188 86 202 90 C207 91 210 96 210 99 C210 96 213 91 218 90 C232 86 240 108 210 128 Z" class="b"/>',
+c7:'<path d="M210 225 L210 160" class="a"/><path d="M210 160 Q210 118 168 92" class="a"/><path d="M210 160 Q210 118 252 92" class="a"/><path d="M168 92 L168 110 M168 92 L186 92" class="a"/><path d="M252 92 L252 110 M252 92 L234 92" class="a"/><circle cx="210" cy="160" r="16" class="b"/><text x="210" y="168" class="q">?</text>'
+};
+var data={
+c3:{cap:'Capítulo 3',tit:'Inteligencia emocional',pts:[
+['Qué es','Capacidad de reconocer nuestros sentimientos y los de los demás, motivarnos y manejar bien las relaciones. El término lo crearon Salovey y Mayer en 1990 y lo popularizó Goleman.'],
+['Personal','Inteligencia personal: cómo nos relacionamos con nosotros mismos. Tiene tres partes: automotivación, autoconciencia (conocer fortalezas y debilidades) y autocontrol (pensar antes de actuar).'],
+['Interpersonal','Inteligencia interpersonal: nos ayuda a entender a los demás. Se apoya en la empatía (ponerse en el lugar del otro) y en la inteligencia social (persuadir, negociar y trabajar en equipo).'],
+['Narcisismo','Directivo que se cree muy importante, necesita ser admirado, carece de empatía y explota a los demás. Es lo contrario a tener inteligencia emocional.'],
+['Éxito','En Harvard encontraron que solo 15% del éxito viene de habilidades técnicas; el 85% depende de la actitud, la motivación y las relaciones con otros.'],
+['Mujer y hombre','En el estudio, las mujeres salieron con IE un poco más alta (32.39 vs 31.75). Un líder afiliativo destaca por empatía, crear relaciones y comunicarse bien.']]},
+c7:{cap:'Capítulo 7',tit:'Toma de decisiones',pts:[
+['Qué es decidir','Elegir entre varias alternativas. Viene del latín de-cidere, que significa cortar o dejar: se toma una opción y se dejan las otras.'],
+['Método','Método científico: observación, definir el problema, hipótesis, experimentación, comprobación, generalización, teoría y ley. En cada etapa se toman decisiones.'],
+['Pasos','1) definir el problema, 2) decidir el resultado y criterios, 3) plantear alternativas, 4) elegir la mejor con pros y contras, 5) hacer el plan de acción, 6) ponerlo en práctica.'],
+['Tipos','Programadas (rutina) y no programadas (situaciones nuevas). También pueden ser individuales o grupales, y de certidumbre o incertidumbre.'],
+['Cuantitativos','Las matemáticas dan objetividad. Ejemplo: productividad = unidades producidas ÷ insumos. En el caso del banco, la demanda indicó que se necesitan 5 cajas.'],
+['Barreras','Desconocer el tema, no seguir el proceso, decidir de forma irracional, prejuicios (ilusión de control, centralismo), falta de objetividad y presión de tiempo.']]}};
+var cy=[40,135,230];
+Object.keys(data).forEach(function(k){
+  var d=data[k],el=document.getElementById(k);
+  var lines='',pills='';
+  d.pts.forEach(function(p,i){
+    var left=i<3,x=left?0:280,y=cy[i%3],ex=left?140:280;
+    lines+='<line class="conn" id="'+k+'l'+i+'" x1="'+ex+'" y1="'+y+'" x2="210" y2="135"/>';
+    pills+='<g class="pill" tabindex="0" role="button" data-i="'+i+'" aria-label="'+p[0]+'"><rect x="'+x+'" y="'+(y-20)+'" width="140" height="40" rx="10"/><circle cx="'+(x+20)+'" cy="'+y+'" r="11"/><text class="nm" x="'+(x+20)+'" y="'+(y+4)+'">'+(i+1)+'</text><text class="lb" x="'+(x+38)+'" y="'+(y+5)+'">'+p[0]+'</text></g>';
+  });
+  el.innerHTML='<div class="head"><small>'+d.cap+'</small><strong>'+d.tit+'</strong></div>'+
+    '<svg viewBox="0 0 420 270" role="group" aria-label="'+d.tit+'">'+lines+'<circle class="back" cx="210" cy="135" r="78"/>'+art[k]+pills+'</svg>'+
+    '<div class="det"><span class="hint">Toca un punto para ver la información.</span></div>';
+  function pick(g){
+    var i=g.getAttribute('data-i');
+    el.querySelectorAll('.pill').forEach(function(x){x.classList.remove('on')});
+    el.querySelectorAll('.conn').forEach(function(x){x.classList.remove('on')});
+    g.classList.add('on');
+    document.getElementById(k+'l'+i).classList.add('on');
+    el.querySelector('.det').innerHTML='<b>'+d.pts[i][0]+'</b>'+d.pts[i][1];
+  }
+  el.querySelectorAll('.pill').forEach(function(g){
+    g.addEventListener('click',function(){pick(g)});
+    g.addEventListener('keydown',function(e){if(e.key==='Enter'||e.key===' '){e.preventDefault();pick(g)}});
+  });
+});
+</script>
+</body>
+</html>

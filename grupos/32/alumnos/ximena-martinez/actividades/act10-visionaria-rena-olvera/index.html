@@ -1,0 +1,319 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#faf9f5;color:#141413}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>La Visionaria Rena Olvera</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Alfa+Slab+One&family=Figtree:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500&display=swap">
+<style>
+/* Layout: carta de lotería ilustrada con puntos clicables; a la derecha, la ficha de la sección elegida */
+:root{
+  --bg:#F5F4F7; --surface:#FFFFFF; --ink:#1B1F2A; --muted:#5D6070; --line:#DEDCE4;
+  --accent:#C9185C; --accent-soft:#FBE3EC; --turq:#0B7F80; --sol:#E9A21B; --cobalt:#1F4FA8;
+  --paper:#FFF9EC; --sky:#DCEBF2;
+  --display:"Alfa Slab One", "Rockwell", Georgia, serif;
+  --body:"Figtree", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --mono:"IBM Plex Mono", ui-monospace, Menlo, monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#13131A; --surface:#1C1D26; --ink:#EEEDF3; --muted:#A8A8B8; --line:#2E2F3C;
+  --accent:#FF5592; --accent-soft:#3A1A28; --turq:#3FC6C6; --sol:#F4BA45; --cobalt:#82A9F2;
+  --paper:#F4EBD6; --sky:#C9DDE7; color-scheme:dark;}}
+:root[data-theme="dark"]{
+  --bg:#13131A; --surface:#1C1D26; --ink:#EEEDF3; --muted:#A8A8B8; --line:#2E2F3C;
+  --accent:#FF5592; --accent-soft:#3A1A28; --turq:#3FC6C6; --sol:#F4BA45; --cobalt:#82A9F2;
+  --paper:#F4EBD6; --sky:#C9DDE7; color-scheme:dark;}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font:16px/1.55 var(--body);padding-inline:16px;padding-block:28px 48px}
+.wrap{max-width:1080px;margin:0 auto;display:grid;gap:28px}
+header.top{display:grid;gap:6px}
+.eyebrow{font:600 12px/1 var(--body);letter-spacing:.14em;text-transform:uppercase;color:var(--accent)}
+h1{font:400 clamp(30px,5vw,46px)/1.05 var(--display);margin:0;text-wrap:balance}
+.sub{color:var(--muted);margin:0;max-width:62ch}
+.main{display:grid;grid-template-columns:minmax(0,400px) minmax(0,1fr);gap:32px;align-items:start}
+@media (max-width:820px){.main{grid-template-columns:minmax(0,1fr)}}
+
+.card{background:var(--paper);border:3px solid #1B1F2A;border-radius:10px;padding:12px;box-shadow:6px 6px 0 var(--turq);max-width:400px;width:100%;justify-self:center}
+.art{position:relative;border:2px solid #1B1F2A;border-radius:4px;overflow:hidden;background:var(--sky)}
+.art svg{display:block;width:100%;height:auto}
+.cardfoot{display:flex;justify-content:space-between;align-items:baseline;padding:10px 4px 2px;color:#1B1F2A}
+.cardfoot b{font:400 24px/1 var(--display);letter-spacing:.04em}
+.cardfoot span{font:500 13px/1 var(--mono)}
+.hot{position:absolute;transform:translate(-50%,-50%);display:flex;align-items:center;gap:6px;border:0;background:none;padding:0;cursor:pointer;font:600 11px/1 var(--body);color:#1B1F2A}
+.hot .dot{width:22px;height:22px;border-radius:50%;background:#C9185C;border:3px solid #fff;box-shadow:0 0 0 2px #1B1F2A;position:relative;flex:none}
+.hot .dot::after{content:"";position:absolute;inset:-8px;border-radius:50%;border:2px solid #C9185C;animation:pulse 1.8s ease-out infinite}
+.hot .tag{background:#fff;border:2px solid #1B1F2A;border-radius:99px;padding:4px 8px;white-space:nowrap}
+.hot.left{flex-direction:row-reverse}
+.hot[aria-pressed="true"] .dot,.hot[aria-pressed="true"] .tag{background:#F2B829}
+.hot:focus-visible{outline:3px solid var(--cobalt);outline-offset:4px;border-radius:99px}
+@keyframes pulse{from{transform:scale(.6);opacity:1}to{transform:scale(1.4);opacity:0}}
+.thread{stroke-dasharray:6 5;animation:sew 2.4s linear infinite}
+@keyframes sew{to{stroke-dashoffset:-22}}
+@media (prefers-reduced-motion:reduce){.hot .dot::after{animation:none;opacity:0}.thread{animation:none}}
+
+.tabs{display:flex;flex-wrap:wrap;gap:8px}
+.tab{font:600 14px/1 var(--body);padding:10px 14px;border-radius:99px;border:1.5px solid var(--line);background:var(--surface);color:var(--ink);cursor:pointer}
+.tab[aria-selected="true"]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.tab:focus-visible{outline:3px solid var(--cobalt);outline-offset:2px}
+
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:24px;display:grid;gap:18px;min-width:0}
+.panel h2{font:400 clamp(24px,3.4vw,32px)/1.1 var(--display);margin:0;text-wrap:balance}
+.panel .kicker{font:600 12px/1 var(--body);letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.panel p{margin:0;max-width:65ch}
+.facts{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px}
+.fact{border:1px solid var(--line);border-radius:10px;padding:12px;display:grid;gap:4px}
+.fact small{font:600 11px/1.2 var(--body);letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+.fact strong{font-weight:700;font-variant-numeric:tabular-nums}
+ul.list{margin:0;padding:0;list-style:none;display:grid;gap:12px}
+ul.list li{display:grid;grid-template-columns:28px minmax(0,1fr);gap:10px}
+ul.list li i{font-style:normal;width:28px;height:28px;border-radius:50%;border:2px dashed var(--accent);color:var(--accent);display:grid;place-items:center;font:700 12px/1 var(--body)}
+ul.list b{display:block}
+.quote{border-left:4px solid var(--accent);padding:4px 0 4px 16px;font:500 19px/1.4 var(--body);display:grid;gap:10px}
+.btn{justify-self:start;font:600 14px/1 var(--body);padding:10px 14px;border-radius:8px;border:2px solid var(--ink);background:#F2B829;color:#1B1F2A;cursor:pointer}
+.btn:focus-visible{outline:3px solid var(--cobalt);outline-offset:2px}
+.meters{display:grid;gap:12px}
+.meter{display:grid;gap:5px}
+.meter header{display:flex;justify-content:space-between;gap:8px;font-weight:600}
+.meter header span{font:500 13px/1.4 var(--mono);color:var(--muted)}
+.bar{height:10px;border-radius:99px;background:var(--line);overflow:hidden}
+.bar div{height:100%;background:linear-gradient(90deg,var(--turq),var(--accent));border-radius:99px}
+.meter p{font-size:14px;color:var(--muted)}
+.foda{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+@media (max-width:480px){.foda{grid-template-columns:minmax(0,1fr)}}
+.foda div{border-radius:10px;padding:12px;border:1px solid var(--line);display:grid;gap:4px;font-size:14px}
+.foda b{font:600 12px/1.2 var(--body);letter-spacing:.1em;text-transform:uppercase}
+.f1 b{color:var(--turq)} .f2 b{color:var(--cobalt)} .f3 b{color:var(--accent)} .f4 b{color:var(--muted)}
+.kpiwrap{overflow-x:auto}
+.kpis{width:100%;border-collapse:collapse;font-size:14px}
+.kpis th,.kpis td{text-align:left;padding:8px 6px;border-bottom:1px solid var(--line)}
+.kpis th{font:600 11px/1.2 var(--body);letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+.kpis td:nth-child(2),.kpis td:nth-child(3){font:500 13px/1.4 var(--mono);white-space:nowrap}
+.ok{color:var(--turq)}
+h3{font:700 15px/1.3 var(--body);margin:0}
+.note{font-size:13px;color:var(--muted)}
+.wow{background:var(--accent-soft);border-radius:10px;padding:14px 16px;display:grid;gap:4px}
+.wow b{color:var(--accent);font:600 12px/1.2 var(--body);letter-spacing:.1em;text-transform:uppercase}
+</style>
+
+<div class="wrap">
+  <header class="top">
+    <div class="eyebrow">Inteligencia de Negocios · La empresaria mexicana ideal</div>
+    <h1>Rena Olvera, la que convierte la basura en moda</h1>
+    <p class="sub">Toca los puntos de la carta para conocer su perfil, su ideología, sus habilidades, su empresa y su esencia.</p>
+  </header>
+
+  <div class="main">
+    <div class="card">
+      <div class="art">
+        <svg viewBox="0 0 300 420" role="img" aria-label="Ilustración de Rena Olvera: mujer joven sonriente con cabello corto y aretes, chamarra rosa bordada, una botella de plástico que se convierte en hilo y una playera reciclada en la mano">
+          <rect width="300" height="420" fill="var(--sky)"/>
+          <circle cx="150" cy="128" r="80" fill="#F7C6D8"/>
+          <!-- fachadas -->
+          <g stroke="#1B1F2A" stroke-width="2">
+            <rect x="-2" y="262" width="62" height="130" fill="#F2B829"/>
+            <rect x="240" y="250" width="62" height="142" fill="#0B7F80"/>
+            <rect x="52" y="300" width="40" height="92" fill="#E07A6B"/>
+            <rect x="208" y="296" width="40" height="96" fill="#FFFFFF"/>
+          </g>
+          <g fill="#1B1F2A" opacity=".75">
+            <rect x="12" y="280" width="12" height="20" rx="6"/><rect x="34" y="280" width="12" height="20" rx="6"/>
+            <rect x="12" y="320" width="12" height="20" rx="6"/><rect x="34" y="320" width="12" height="20" rx="6"/>
+            <rect x="254" y="268" width="12" height="20" rx="6"/><rect x="276" y="268" width="12" height="20" rx="6"/>
+            <rect x="254" y="308" width="12" height="20" rx="6"/><rect x="276" y="308" width="12" height="20" rx="6"/>
+          </g>
+          <rect y="388" width="300" height="32" fill="#4A4F5A"/>
+          <path d="M8 404 H40 M70 404 H102 M198 404 H230 M260 404 H292" stroke="#FFFFFF" stroke-width="3"/>
+          <!-- hilo -->
+          <path class="thread" d="M60 92 C40 40 120 22 150 36 C190 54 230 16 300 30" fill="none" stroke="#C9185C" stroke-width="3" stroke-linecap="round"/>
+          <!-- brazo levantado con botella -->
+          <path d="M104 228 L72 196 L62 156" fill="none" stroke="#1B1F2A" stroke-width="28" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M104 228 L72 196 L62 156" fill="none" stroke="#C9185C" stroke-width="22" stroke-linecap="round" stroke-linejoin="round"/>
+          <rect x="49" y="100" width="22" height="40" rx="7" fill="#BFE6EA" stroke="#1B1F2A" stroke-width="2.5"/>
+          <rect x="54" y="90" width="12" height="12" rx="2" fill="#0B7F80" stroke="#1B1F2A" stroke-width="2"/>
+          <path d="M51 116 H69" stroke="#1B1F2A" stroke-width="1.5"/>
+          <circle cx="60" cy="144" r="14" fill="#D9A07A" stroke="#1B1F2A" stroke-width="3"/>
+          <!-- cuerpo / chamarra -->
+          <path d="M80 392 L94 214 Q150 190 206 214 L220 392 Z" fill="#C9185C" stroke="#1B1F2A" stroke-width="3"/>
+          <path d="M128 204 L150 262 L172 204 Z" fill="#FFFFFF" stroke="#1B1F2A" stroke-width="2.5" stroke-linejoin="round"/>
+          <path d="M128 204 L140 300 M172 204 L160 300" stroke="#1B1F2A" stroke-width="2.5"/>
+          <!-- bordado en hombros -->
+          <g stroke="#1B1F2A" stroke-width="1">
+            <circle cx="108" cy="222" r="6" fill="#F2B829"/><circle cx="108" cy="222" r="2" fill="#FFFFFF"/>
+            <circle cx="120" cy="214" r="4" fill="#FFFFFF"/><circle cx="100" cy="236" r="4" fill="#0B7F80"/>
+            <circle cx="192" cy="222" r="6" fill="#F2B829"/><circle cx="192" cy="222" r="2" fill="#FFFFFF"/>
+            <circle cx="180" cy="214" r="4" fill="#FFFFFF"/><circle cx="200" cy="236" r="4" fill="#0B7F80"/>
+          </g>
+          <!-- cuello -->
+          <rect x="139" y="160" width="22" height="34" fill="#D9A07A" stroke="#1B1F2A" stroke-width="3"/>
+          <!-- gafete -->
+          <rect x="96" y="262" width="40" height="26" rx="4" fill="#FFFFFF" stroke="#1B1F2A" stroke-width="2.5"/>
+          <text x="116" y="280" text-anchor="middle" font-family="Figtree, sans-serif" font-weight="700" font-size="12" fill="#C9185C">RENA</text>
+          <!-- corazón -->
+          <path d="M188 268 c-6 -8 -18 -2 -10 8 l10 10 l10 -10 c8 -10 -4 -16 -10 -8z" fill="#F2B829" stroke="#1B1F2A" stroke-width="2"/>
+          <!-- brazo con playera -->
+          <path d="M198 228 L226 280 L208 306" fill="none" stroke="#1B1F2A" stroke-width="28" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M198 228 L226 280 L208 306" fill="none" stroke="#C9185C" stroke-width="22" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M200 290 L214 282 L224 288 L234 288 L244 282 L258 290 L252 302 L246 300 L246 340 L212 340 L212 300 L206 302 Z" fill="#0B7F80" stroke="#1B1F2A" stroke-width="2.5" stroke-linejoin="round"/>
+          <rect x="230" y="316" width="12" height="12" fill="#FFFFFF" stroke="#1B1F2A" stroke-width="1.5"/>
+          <path d="M232 318 h3 v3 h-3z M237 323 h3 v3 h-3z" fill="#1B1F2A"/>
+          <circle cx="208" cy="306" r="12" fill="#D9A07A" stroke="#1B1F2A" stroke-width="3"/>
+          <!-- cabeza -->
+          <circle cx="150" cy="120" r="44" fill="#D9A07A" stroke="#1B1F2A" stroke-width="3"/>
+          <path d="M104 120 Q100 68 150 68 Q200 68 196 120 L198 150 Q190 160 180 154 L180 106 Q150 92 120 106 L120 154 Q110 160 102 150 Z" fill="#5A3420" stroke="#1B1F2A" stroke-width="2.5" stroke-linejoin="round"/>
+          <path d="M120 106 Q132 84 162 88 Q150 98 140 98 Q128 100 120 106Z" fill="#5A3420"/>
+          <circle cx="114" cy="164" r="8" fill="none" stroke="#0B7F80" stroke-width="3"/>
+          <circle cx="186" cy="164" r="8" fill="none" stroke="#0B7F80" stroke-width="3"/>
+          <path d="M128 110 q7 -5 14 0 M158 110 q7 -5 14 0" fill="none" stroke="#1B1F2A" stroke-width="2.5" stroke-linecap="round"/>
+          <circle cx="135" cy="123" r="3.6" fill="#1B1F2A"/><circle cx="165" cy="123" r="3.6" fill="#1B1F2A"/>
+          <path d="M136 144 Q150 160 164 144 Z" fill="#FFFFFF" stroke="#1B1F2A" stroke-width="3" stroke-linejoin="round"/>
+          <circle cx="126" cy="138" r="6" fill="#E07A6B" opacity=".55"/><circle cx="174" cy="138" r="6" fill="#E07A6B" opacity=".55"/>
+        </svg>
+
+        <button class="hot" style="left:50%;top:13%" data-go="ideologia" aria-label="Ver ideología y valores"><span class="dot"></span><span class="tag">Ideología</span></button>
+        <button class="hot left" style="left:32%;top:66%" data-go="perfil" aria-label="Ver perfil y biografía"><span class="dot"></span><span class="tag">Perfil</span></button>
+        <button class="hot" style="left:63%;top:64%" data-go="esencia" aria-label="Ver su esencia"><span class="dot"></span><span class="tag">Esencia</span></button>
+        <button class="hot" style="left:20%;top:28%" data-go="habilidades" aria-label="Ver habilidades y liderazgo"><span class="dot"></span><span class="tag">Habilidades</span></button>
+        <button class="hot left" style="left:76%;top:84%" data-go="empresa" aria-label="Ver empresa y estrategia"><span class="dot"></span><span class="tag">Empresa</span></button>
+      </div>
+      <div class="cardfoot"><b>LA VISIONARIA</b><span>Nº 32</span></div>
+    </div>
+
+    <div style="display:grid;gap:14px;min-width:0">
+      <div class="tabs" role="tablist" aria-label="Secciones">
+        <button class="tab" role="tab" data-go="perfil">Perfil</button>
+        <button class="tab" role="tab" data-go="ideologia">Ideología y valores</button>
+        <button class="tab" role="tab" data-go="habilidades">Habilidades</button>
+        <button class="tab" role="tab" data-go="empresa">Empresa</button>
+        <button class="tab" role="tab" data-go="esencia">Esencia</button>
+      </div>
+      <section class="panel" id="panel" role="tabpanel" aria-live="polite"></section>
+    </div>
+  </div>
+</div>
+
+<script>
+const frases = [
+  "“Lo que tiras hoy, te lo pones mañana.”",
+  "“Una calle limpia es la primera pasarela de un país.”",
+  "“Si dos personas hacen el mismo trabajo, ganan lo mismo. Punto.”",
+  "“No vendemos ropa; vendemos una ciudad más limpia que puedes ponerte.”",
+  "“El futuro de la moda no se diseña en París, se recoge en la banqueta.”"
+];
+const chistes = [
+  "¿Qué le dijo la botella a la playera? ¡Te ves igualita a mí cuando era joven!",
+  "¿Por qué la botella fue al psicólogo? No sabía si era envase o pantalón.",
+  "Mi mamá me dijo que dejara de recoger basura de la calle. Ahora me pide descuento en los vestidos.",
+  "Le dije a mi equipo que íbamos a reciclar ideas. Me trajeron la junta del lunes pasado.",
+  "¿Cuál es el colmo de una diseñadora? Que su novio le diga que está hilando muy fino."
+];
+let fi=0, ci=0;
+
+const S = {
+perfil: `
+  <div class="kicker">Perfil y biografía</div>
+  <h2>Renata “Rena” Olvera Saldaña</h2>
+  <p>Creció en Tlaquepaque, Jalisco, entre el taller de costura de su mamá y las calles del centro. De adolescente le molestaba ver tantas botellas tiradas en la calle. Un día se preguntó si podía convertirlas en algo bonito, y de esa pregunta nació su empresa.</p>
+  <div class="wow"><b>Lo visionario</b>Hace ropa con plástico recogido de las calles mexicanas. Cada prenda limpia una calle, da empleo digno a mujeres y lleva un bordado hecho a mano en México.</div>
+  <div class="facts">
+    <div class="fact"><small>Edad</small><strong>32 años</strong></div>
+    <div class="fact"><small>Origen</small><strong>Tlaquepaque, Jal.</strong></div>
+    <div class="fact"><small>Estudios</small><strong>Ing. Química y Maestría en Innovación Sustentable</strong></div>
+    <div class="fact"><small>Idiomas</small><strong>Español, inglés e italiano</strong></div>
+  </div>
+  <h3>Trayectoria</h3>
+  <ul class="list">
+    <li><i>15</i><div><b>Costurera aprendiz</b>Ayudaba en el taller de su mamá y vendía bolsas hechas con retazos.</div></li>
+    <li><i>23</i><div><b>El hilo de PET</b>En su tesis logró convertir botellas en hilo suave y resistente.</div></li>
+    <li><i>27</i><div><b>Funda Hilo Vuelto</b>Arrancó con una máquina rentada y cinco recolectoras de su colonia.</div></li>
+    <li><i>32</i><div><b>Hoy</b>Planta propia en Jalisco, 650 colaboradoras y tiendas en CDMX, Madrid y Los Ángeles.</div></li>
+  </ul>
+  <p class="note">Pasatiempos: bailar cumbia, correr en la mañana y buscar telas en mercados de pulgas.</p>`,
+ideologia: `
+  <div class="kicker">Ideología y valores</div>
+  <h2>Moda circular, sueldos parejos</h2>
+  <p>Cree que una empresa mexicana puede ser rentable y al mismo tiempo dejar el país más limpio y más justo. Para ella, el éxito se mide en ganancias y también en calles limpias y mujeres con independencia económica.</p>
+  <div class="quote"><span id="frase">${frases[0]}</span><button class="btn" id="otraFrase">Otra frase de Rena</button></div>
+  <ul class="list">
+    <li><i>✓</i><div><b>Equidad de género</b>Su brecha salarial es 0%. El 62% de los puestos directivos los ocupan mujeres.</div></li>
+    <li><i>✓</i><div><b>Calles limpias</b>Su programa “Adopta tu calle” mantiene limpias más de 300 calles en Jalisco y CDMX.</div></li>
+    <li><i>✓</i><div><b>Comercio justo</b>Las bordadoras fijan el precio de su trabajo y aparecen con su nombre en cada prenda.</div></li>
+    <li><i>✓</i><div><b>Orgullo mexicano</b>Quiere que “hecho en México” se asocie en el mundo con moda sustentable y de calidad.</div></li>
+    <li><i>✓</i><div><b>Visión 2035</b>Que ninguna botella termine en una calle mexicana y que ninguna mujer gane menos por el mismo trabajo.</div></li>
+  </ul>`,
+habilidades: `
+  <div class="kicker">Habilidades y liderazgo</div>
+  <h2>Liderazgo incluyente con la mirada en el futuro</h2>
+  <p>Escucha antes de decidir y le da voz a todas, desde la recolectora hasta la directora. Cada mes pasa un día completo recogiendo botellas con su equipo de calle.</p>
+  <div class="meters">
+    ${[
+      ["Visión de futuro",97,"Apostó por la moda circular cuando nadie en México hablaba del tema."],
+      ["Liderazgo incluyente",94,"Creó guardería en la planta y horarios flexibles para mamás."],
+      ["Innovación de producto",92,"Su equipo inventó una mezcla de PET y algodón reciclado que no se siente a plástico."],
+      ["Comunicación y marca",90,"Cada prenda cuenta su historia: cuántas botellas tiene y quién la bordó."],
+      ["Negociación y alianzas",88,"Firmó con municipios y escuelas para hacer uniformes de PET recuperado."],
+      ["Paciencia",70,"Su área de mejora: quiere todo para ayer. Está aprendiendo a delegar los tiempos."]
+    ].map(([n,v,d])=>`<div class="meter"><header>${n}<span>${v}/100</span></header><div class="bar"><div style="width:${v}%"></div></div><p>${d}</p></div>`).join("")}
+  </div>`,
+empresa: `
+  <div class="kicker">Empresa y estrategia</div>
+  <h2>Hilo Vuelto, S.A.P.I. de C.V.</h2>
+  <p>Recolectoras con sueldo digno recogen PET y textiles de las calles. En la planta lo convierten en hilo y tela, el equipo de diseño crea las prendas y bordadoras de distintas regiones de México les dan el toque final.</p>
+  <div class="facts">
+    <div class="fact"><small>PET recuperado</small><strong>1,450 toneladas al año</strong></div>
+    <div class="fact"><small>Colaboradoras</small><strong>650</strong></div>
+    <div class="fact"><small>Prendas vendidas</small><strong>180,000 al año</strong></div>
+    <div class="fact"><small>Meta 2030</small><strong>10 ciudades sin basura en la calle</strong></div>
+  </div>
+  <h3>Modelo de negocio</h3>
+  <ul class="list">
+    <li><i>1</i><div><b>Moda de autor</b>Ropa bordada a mano que se vende en línea y en tiendas de México y el extranjero.</div></li>
+    <li><i>2</i><div><b>Uniformes circulares</b>Uniformes para escuelas y empresas; al final de su vida útil se recogen y se vuelven a hilar.</div></li>
+    <li><i>3</i><div><b>Pasaporte digital</b>Cada prenda tiene un código QR que muestra cuántas botellas tiene y qué calle limpió.</div></li>
+  </ul>
+  <h3>Indicadores que vigila</h3>
+  <div class="kpiwrap"><table class="kpis">
+    <thead><tr><th>KPI</th><th>Meta</th><th>Actual</th></tr></thead>
+    <tbody>
+      <tr><td>PET recuperado al año</td><td>1,200 t</td><td class="ok">1,450 t</td></tr>
+      <tr><td>Brecha salarial de género</td><td>0%</td><td class="ok">0%</td></tr>
+      <tr><td>Mujeres en dirección</td><td>&gt; 50%</td><td class="ok">62%</td></tr>
+      <tr><td>Ingreso mensual por bordadora</td><td>&gt; $8,000</td><td class="ok">$9,500</td></tr>
+    </tbody>
+  </table></div>
+  <h3>FODA</h3>
+  <div class="foda">
+    <div class="f1"><b>Fortalezas</b>Tecnología de hilado propia, marca con propósito y cadena de valor completa.</div>
+    <div class="f2"><b>Oportunidades</b>Leyes contra plásticos, consumidores que buscan moda sustentable y exportación.</div>
+    <div class="f3"><b>Debilidades</b>Precios más altos que la moda rápida y planta con capacidad limitada.</div>
+    <div class="f4"><b>Amenazas</b>Marcas extranjeras que hacen “greenwashing” y variación del precio del PET.</div>
+  </div>`,
+esencia: `
+  <div class="kicker">Su esencia</div>
+  <h2>Divertida, amable y sin miedo</h2>
+  <p>Rena llega con música y se va dando las gracias. Toma su trabajo muy en serio, pero a sí misma no tanto.</p>
+  <ul class="list">
+    <li><i>☺</i><div><b>Desfiles en la banqueta</b>Cuando terminan de limpiar una calle, organizan ahí mismo una pasarela con vecinas como modelos.</div></li>
+    <li><i>☺</i><div><b>Se sabe todos los nombres</b>Conoce a cada recolectora y bordadora por su nombre y les pregunta por sus hijos.</div></li>
+    <li><i>☺</i><div><b>Karaoke de los jueves</b>Cierra la semana con karaoke en la planta; su canción favorita es una de Selena.</div></li>
+    <li><i>☺</i><div><b>Lo imperfecto también vale</b>Siempre usa una blusa con un bordado chueco, el primero que hizo, para recordar de dónde viene.</div></li>
+    <li><i>☺</i><div><b>Mentora</b>Asesora gratis a jóvenes que quieren emprender con impacto social.</div></li>
+  </ul>
+  <div class="quote"><span>Su lema: “Lo que tiras, te lo pones.”</span></div>
+  <div class="quote"><span id="chiste">${chistes[0]}</span><button class="btn" id="otroChiste">Cuéntame otro chiste de Rena</button></div>`
+};
+
+const panel=document.getElementById("panel");
+function go(id){
+  panel.innerHTML=S[id];
+  document.querySelectorAll(".tab").forEach(t=>t.setAttribute("aria-selected",t.dataset.go===id));
+  document.querySelectorAll(".hot").forEach(h=>h.setAttribute("aria-pressed",h.dataset.go===id));
+  const f=document.getElementById("otraFrase");
+  if(f) f.onclick=()=>{fi=(fi+1)%frases.length;document.getElementById("frase").textContent=frases[fi];};
+  const c=document.getElementById("otroChiste");
+  if(c) c.onclick=()=>{ci=(ci+1)%chistes.length;document.getElementById("chiste").textContent=chistes[ci];};
+}
+document.querySelectorAll("[data-go]").forEach(b=>b.addEventListener("click",()=>{
+  go(b.dataset.go);
+  if(b.classList.contains("hot")&&window.innerWidth<820) panel.scrollIntoView({behavior:"smooth",block:"start"});
+}));
+go("perfil");
+</script>
+
+</body></html>

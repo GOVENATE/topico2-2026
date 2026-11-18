@@ -1,0 +1,152 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Habilidades Directivas, Cap. 1 y 5</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=Source+Sans+3:wght@400;600&display=swap">
+<style>
+/* Layout: una imagen con dos figuras (persona = cap. 1, reloj = cap. 5), 3 puntos cada una; la info aparece en una tarjeta debajo */
+:root{
+  --bg:#eef2f7; --surface:#ffffff; --ink:#17202e; --muted:#5a6577; --line:#d3dae5;
+  --c1:#2456c9; --c1-soft:#e3ebfb; --c5:#0f8a72; --c5-soft:#dcf2ec; --skin:#f2c9a5; --dot-ring:#ffffff;
+  --display:"Bricolage Grotesque","Segoe UI",system-ui,sans-serif;
+  --body:"Source Sans 3","Segoe UI",system-ui,sans-serif;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#10151d; --surface:#18202b; --ink:#e8edf4; --muted:#9aa6b8; --line:#2c3746;
+  --c1:#7ea2ff; --c1-soft:#1d2a47; --c5:#4fd1b2; --c5-soft:#143630; --skin:#d9ab86; --dot-ring:#18202b; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#10151d; --surface:#18202b; --ink:#e8edf4; --muted:#9aa6b8; --line:#2c3746;
+  --c1:#7ea2ff; --c1-soft:#1d2a47; --c5:#4fd1b2; --c5-soft:#143630; --skin:#d9ab86; --dot-ring:#18202b; color-scheme:dark}
+
+body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:16px;line-height:1.5}
+.wrap{max-width:900px;margin:0 auto;padding-block:24px 40px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));display:flex;flex-direction:column;gap:16px}
+h1{font-family:var(--display);font-weight:800;font-size:clamp(1.5rem,4vw,2.1rem);margin:0;text-wrap:balance;line-height:1.15}
+.sub{color:var(--muted);margin:0}
+
+.stage{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:12px}
+svg{display:block;width:100%;height:auto}
+.lbl{font-family:var(--display);font-weight:800;font-size:22px}
+.lbl2{font-family:var(--body);font-size:15px;fill:var(--muted)}
+
+.hot{cursor:pointer}
+.hot circle.pulse{transform-box:fill-box;transform-origin:center;animation:pulse 1.8s ease-out infinite}
+.hot text{font:800 17px var(--display);fill:#fff;pointer-events:none}
+.hot:focus{outline:none}
+.hot:focus-visible circle.core{stroke:var(--ink);stroke-width:4}
+.hot.on circle.core{stroke:var(--ink);stroke-width:4}
+@keyframes pulse{0%{transform:scale(1);opacity:.55}100%{transform:scale(2.1);opacity:0}}
+@media (prefers-reduced-motion:reduce){.hot circle.pulse{animation:none;opacity:0}}
+
+.card{border-radius:14px;padding:18px 20px;display:flex;flex-direction:column;gap:8px;background:var(--surface);border:2px solid var(--line);min-height:120px}
+.card.c1{border-color:var(--c1);background:var(--c1-soft)}
+.card.c5{border-color:var(--c5);background:var(--c5-soft)}
+.card .tag{font-size:.75rem;letter-spacing:.08em;text-transform:uppercase;font-weight:600;color:var(--muted)}
+.card h2{font-family:var(--display);font-size:1.25rem;margin:0;line-height:1.2}
+.card.c1 h2{color:var(--c1)} .card.c5 h2{color:var(--c5)}
+.card p{margin:0}
+.card ul{margin:0;padding-left:20px;display:flex;flex-direction:column;gap:2px}
+</style>
+
+<div class="wrap">
+  <h1>Habilidades directivas: capítulos 1 y 5</h1>
+  <p class="sub">Pica los puntos numerados de cada figura.</p>
+
+  <div class="stage">
+    <svg viewBox="0 0 800 440" role="img" aria-label="Persona que representa el capítulo 1 y reloj que representa el capítulo 5">
+      <!-- CAP 1: persona / directivo -->
+      <text x="200" y="36" text-anchor="middle" class="lbl" fill="var(--c1)">Capítulo 1</text>
+      <text x="200" y="58" text-anchor="middle" class="lbl2">Habilidades directivas</text>
+      <circle cx="200" cy="140" r="52" fill="var(--skin)"/>
+      <path d="M150 128 q50 -62 100 0 q-8 -46 -50 -46 q-42 0 -50 46z" fill="var(--ink)" opacity=".85"/>
+      <path d="M110 400 v-110 q0 -90 90 -90 q90 0 90 90 v110z" fill="var(--c1)"/>
+      <path d="M200 200 l-20 0 l20 70 l20 -70z" fill="var(--surface)"/>
+      <path d="M200 212 l-8 10 l8 60 l8 -60z" fill="var(--ink)" opacity=".8"/>
+      <rect x="70" y="300" width="44" height="18" rx="9" fill="var(--c1)" transform="rotate(-25 92 309)"/>
+      <circle cx="68" cy="292" r="16" fill="var(--skin)"/>
+
+      <g class="hot" tabindex="0" role="button" data-id="1a" aria-label="Capítulo 1, punto 1">
+        <circle class="pulse" cx="200" cy="118" r="17" fill="var(--c1)"/>
+        <circle class="core" cx="200" cy="118" r="17" fill="var(--c1)" stroke="var(--dot-ring)" stroke-width="3"/>
+        <text x="200" y="124" text-anchor="middle">1</text>
+      </g>
+      <g class="hot" tabindex="0" role="button" data-id="1b" aria-label="Capítulo 1, punto 2">
+        <circle class="pulse" cx="68" cy="292" r="17" fill="var(--c1)"/>
+        <circle class="core" cx="68" cy="292" r="17" fill="var(--c1)" stroke="var(--dot-ring)" stroke-width="3"/>
+        <text x="68" y="298" text-anchor="middle">2</text>
+      </g>
+      <g class="hot" tabindex="0" role="button" data-id="1c" aria-label="Capítulo 1, punto 3">
+        <circle class="pulse" cx="245" cy="262" r="17" fill="var(--c1)"/>
+        <circle class="core" cx="245" cy="262" r="17" fill="var(--c1)" stroke="var(--dot-ring)" stroke-width="3"/>
+        <text x="245" y="268" text-anchor="middle">3</text>
+      </g>
+
+      <line x1="400" y1="40" x2="400" y2="410" stroke="var(--line)" stroke-width="2" stroke-dasharray="6 8"/>
+
+      <!-- CAP 5: reloj -->
+      <text x="600" y="36" text-anchor="middle" class="lbl" fill="var(--c5)">Capítulo 5</text>
+      <text x="600" y="58" text-anchor="middle" class="lbl2">Administración del tiempo</text>
+      <rect x="585" y="76" width="30" height="20" rx="5" fill="var(--c5)"/>
+      <circle cx="600" cy="250" r="150" fill="var(--c5)"/>
+      <circle cx="600" cy="250" r="128" fill="var(--surface)"/>
+      <g stroke="var(--ink)" stroke-width="4" stroke-linecap="round">
+        <line x1="600" y1="132" x2="600" y2="148"/><line x1="718" y1="250" x2="702" y2="250"/>
+        <line x1="600" y1="368" x2="600" y2="352"/><line x1="482" y1="250" x2="498" y2="250"/>
+      </g>
+      <line x1="600" y1="250" x2="600" y2="168" stroke="var(--ink)" stroke-width="7" stroke-linecap="round"/>
+      <line x1="600" y1="250" x2="662" y2="286" stroke="var(--ink)" stroke-width="5" stroke-linecap="round"/>
+      <circle cx="600" cy="250" r="9" fill="var(--c5)"/>
+
+      <g class="hot" tabindex="0" role="button" data-id="5a" aria-label="Capítulo 5, punto 1">
+        <circle class="pulse" cx="600" cy="186" r="17" fill="var(--c5)"/>
+        <circle class="core" cx="600" cy="186" r="17" fill="var(--c5)" stroke="var(--dot-ring)" stroke-width="3"/>
+        <text x="600" y="192" text-anchor="middle">1</text>
+      </g>
+      <g class="hot" tabindex="0" role="button" data-id="5b" aria-label="Capítulo 5, punto 2">
+        <circle class="pulse" cx="676" cy="306" r="17" fill="var(--c5)"/>
+        <circle class="core" cx="676" cy="306" r="17" fill="var(--c5)" stroke="var(--dot-ring)" stroke-width="3"/>
+        <text x="676" y="312" text-anchor="middle">2</text>
+      </g>
+      <g class="hot" tabindex="0" role="button" data-id="5c" aria-label="Capítulo 5, punto 3">
+        <circle class="pulse" cx="528" cy="306" r="17" fill="var(--c5)"/>
+        <circle class="core" cx="528" cy="306" r="17" fill="var(--c5)" stroke="var(--dot-ring)" stroke-width="3"/>
+        <text x="528" y="312" text-anchor="middle">3</text>
+      </g>
+    </svg>
+  </div>
+
+  <div class="card" id="card" aria-live="polite">
+    <span class="tag">Instrucciones</span>
+    <h2>Elige un punto</h2>
+    <p>Cada figura tiene 3 puntos con la información más importante de su capítulo.</p>
+  </div>
+</div>
+
+<script>
+const INFO={
+ "1a":["c1","Capítulo 1 · Punto 1","¿Qué es una habilidad?",
+  "<p>Es la capacidad que una persona adquiere por medio del aprendizaje para lograr resultados con la mayor certeza, en menos tiempo y con seguridad.</p><p><b>Las habilidades no se traen de nacimiento: se aprenden y se desarrollan.</b></p>"],
+ "1b":["c1","Capítulo 1 · Punto 2","Las 4 habilidades del líder",
+  "<ul><li><b>Conceptuales:</b> ver la organización como un todo, analizar y planear.</li><li><b>Técnicas:</b> dominar una profesión para resolver tareas específicas.</li><li><b>Interpersonales:</b> trabajar en equipo, motivar, delegar y negociar. Son las más importantes para dirigir.</li><li><b>Sociales:</b> cómo convivimos con los demás: escuchar, conversar y pedir ayuda.</li></ul>"],
+ "1c":["c1","Capítulo 1 · Punto 3","Saber, saber hacer y saber ser",
+  "<p>Para dar resultados, un directivo necesita:</p><ul><li><b>Saber:</b> conocimientos.</li><li><b>Saber hacer:</b> habilidades y capacidades.</li><li><b>Saber ser:</b> cualidades y valores.</li></ul><p>“Dirigir es obtener resultados a través de otros.” (Peter Drucker)</p>"],
+ "5a":["c5","Capítulo 5 · Punto 1","El tiempo y su importancia",
+  "<p>Administrar el tiempo es administrarse a uno mismo. El tiempo es:</p><ul><li><b>Igualitario</b> e <b>inelástico</b>: todos tenemos las mismas 24 horas.</li><li><b>Insustituible</b> e <b>inexorable</b>: no se repone y siempre avanza.</li><li><b>Indispensable</b> e <b>invaluable</b>: todo lo necesita y no tiene precio.</li></ul>"],
+ "5b":["c5","Capítulo 5 · Punto 2","Matriz del tiempo (Covey)",
+  "<ul><li><b>I. Urgente e importante:</b> crisis y fechas límite.</li><li><b>II. Importante, no urgente:</b> planear y prevenir. <b>Es el ideal.</b></li><li><b>III. Urgente, no importante:</b> interrupciones y juntas que no sirven.</li><li><b>IV. Ni urgente ni importante:</b> pérdida de tiempo.</li></ul>"],
+ "5c":["c5","Capítulo 5 · Punto 3","Enemigos del tiempo",
+  "<ul><li><b>Externos:</b> llamadas, visitas inesperadas, exceso de reuniones, burocracia e internet sin un fin.</li><li><b>Internos:</b> no saber decir no, no delegar, dejar todo para después y el desorden.</li></ul><p>Para no perder tiempo en juntas: mandar la agenda antes, empezar a tiempo y anotar los acuerdos.</p>"]
+};
+const card=document.getElementById("card");
+const hots=document.querySelectorAll(".hot");
+function show(el){
+  const [c,tag,t,html]=INFO[el.dataset.id];
+  hots.forEach(h=>h.classList.remove("on"));el.classList.add("on");
+  card.className="card "+c;
+  card.innerHTML=`<span class="tag">${tag}</span><h2>${t}</h2>${html}`;
+}
+hots.forEach(h=>{
+  h.addEventListener("click",()=>show(h));
+  h.addEventListener("keydown",e=>{if(e.key==="Enter"||e.key===" "){e.preventDefault();show(h)}});
+});
+</script>
+
+</body></html>
