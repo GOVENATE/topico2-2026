@@ -1,14 +1,16 @@
 MIS FOTOS
 =========
 
-Pon aqui tus fotos con estos nombres exactos (minusculas, .jpg, menos de 1 MB cada una).
-Mientras no esten, las paginas muestran un recuadro "Tu foto aqui".
+Aqui van tus fotos personales (minusculas, menos de 1 MB cada una).
+Solo se usan en act02 (Los 7 habitos), seccion Autor. Si cambias una foto,
+conserva el mismo nombre y extension, o avisa para actualizar la pagina.
 
-  yo-01.jpg ... yo-06.jpg       fotos tuyas (autor de 7 habitos y portafolio)
-  gusto-01.jpg futbol (Pumas)     gusto-05.jpg enchiladas verdes
-  gusto-02.jpg volleyball         gusto-06.jpg dramas
-  gusto-03.jpg puzzles            gusto-07.jpg novela negra (Mankell)
-  gusto-04.jpg tus perros         gusto-08.jpg musica
+  yo-01.jpeg   tu, de frente              yo-04.jpeg   juegos de mesa
+  yo-02.jpeg   volleyball                 yo-05.png    videojuegos (Outer Wilds)
+  yo-03.jpeg   tus perros                 yo-06.jpeg   LATI / universidad
+
+Las imagenes del memorama (act01) son de Wikimedia Commons y viven en
+actividades/act01-memorama-gustos/img/, con sus creditos en _comun/creditos.js.
 
 ANTES DE COPIARLAS: QUITA LA UBICACION
 --------------------------------------
@@ -19,7 +21,7 @@ Usa la copia.
 
 CHEQUEO AUTOMATICO
 ------------------
-Cada commit revisa estas fotos y se detiene si alguna trae GPS.
+Cada commit revisa estas fotos (.jpg, .jpeg y .png) y se detiene si alguna trae GPS.
 En otra compu (despues de clonar) reinstala el chequeo una vez, desde la raiz del repo:
 
   printf '#!/bin/sh\nnode grupos/32/alumnos/juan-diego-olvera-medina/actividades/_herramientas/exif-gps.mjs grupos/32/alumnos/juan-diego-olvera-medina/mis-fotos\n' > .git/hooks/pre-commit
@@ -27,8 +29,3 @@ En otra compu (despues de clonar) reinstala el chequeo una vez, desde la raiz de
 Para revisarlas a mano:
 
   node grupos/32/alumnos/juan-diego-olvera-medina/actividades/_herramientas/exif-gps.mjs grupos/32/alumnos/juan-diego-olvera-medina/mis-fotos
-
-LOS PDF E INFOGRAFIAS
----------------------
-Las paginas web toman las fotos solas. Los PDF o PNG que usen tus fotos hay que volver a exportarlos
-(pideselo a Claude o usa los comandos de Edge del plan).

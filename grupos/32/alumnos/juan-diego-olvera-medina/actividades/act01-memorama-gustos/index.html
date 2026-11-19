@@ -50,26 +50,25 @@
   </section>
 
   <section class="creditos" id="creditos">
-    <strong>Fotos</strong>: propias. <ul></ul>
+    <strong>Imágenes</strong> (vía Wikimedia Commons)<ul></ul>
   </section>
 </main>
 
 <script src="../_comun/creditos.js"></script>
 <script src="../_comun/tarjetas.js"></script>
 <script>
-  var f = '../../mis-fotos/';
   Tarjetas.memorama(document.getElementById('memorama'), {
     salida: document.getElementById('salida'),
     fin: 'Ya mañana vemos qué pasa.',
     pares: [
-      { img: f + 'gusto-01.jpg', nombre: 'Futbol', linea: 'mi maldición es irle a los Pumas.' },
-      { img: f + 'gusto-02.jpg', nombre: 'Volleyball', linea: 'si no llegas, estorba.' },
-      { img: f + 'gusto-03.jpg', nombre: 'Puzzles', linea: 'la respuesta siempre la encuentro mañana.' },
-      { img: f + 'gusto-04.jpg', nombre: 'Perros', linea: 'tengo 4, y porque ya no caben más.' },
-      { img: f + 'gusto-05.jpg', nombre: 'Enchiladas verdes', linea: 'siempre confiables.' },
-      { img: f + 'gusto-06.jpg', nombre: 'Dramas', linea: 'dan más miedo que el terror.' },
-      { img: f + 'gusto-07.jpg', nombre: 'Novela negra', linea: 'fan de Henning Mankell.' },
-      { img: f + 'gusto-08.jpg', nombre: 'Música', linea: 'siempre dispuesto a escuchar algo nuevo.' }
+      { img: 'img/gusto-01-futbol.jpg', credito: 'gusto-01-futbol', nombre: 'Futbol', linea: 'mi maldición es irle a los Pumas.' },
+      { img: 'img/gusto-02-volleyball.jpg', credito: 'gusto-02-volleyball', nombre: 'Volleyball', linea: 'si no llegas, estorba.' },
+      { img: 'img/gusto-03-puzzles.jpg', credito: 'gusto-03-puzzles', nombre: 'Puzzles', linea: 'la respuesta siempre la encuentro mañana.' },
+      { img: 'img/gusto-04-perros.jpg', credito: 'gusto-04-perros', nombre: 'Perros', linea: 'tengo 4, y porque ya no caben más.' },
+      { img: 'img/gusto-05-enchiladas.jpg', credito: 'gusto-05-enchiladas', nombre: 'Enchiladas verdes', linea: 'siempre confiables.' },
+      { img: 'img/gusto-06-dramas.jpg', credito: 'gusto-06-dramas', nombre: 'Dramas', linea: 'dan más miedo que el terror.' },
+      { img: 'img/gusto-07-novela-negra.jpg', credito: 'gusto-07-novela-negra', nombre: 'Novela negra', linea: 'fan de Henning Mankell.' },
+      { img: 'img/gusto-08-musica.jpg', credito: 'gusto-08-musica', nombre: 'Música', linea: 'siempre dispuesto a escuchar algo nuevo.' }
     ]
   });
 </script>

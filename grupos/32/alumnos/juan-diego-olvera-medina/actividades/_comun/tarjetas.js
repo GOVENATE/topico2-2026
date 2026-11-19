@@ -104,6 +104,7 @@
         var atras = el('span', 'cara atras');
         var img = el('img');
         img.src = p.img; img.alt = p.nombre; img.setAttribute('data-foto', '');
+        if (p.credito) img.setAttribute('data-credito', p.credito);
         atras.appendChild(img);
         atras.appendChild(el('span', 'nombre-carta', p.nombre));
         interna.appendChild(frente); interna.appendChild(atras);
