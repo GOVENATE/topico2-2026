@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Capítulo 5 · Administración del tiempo</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,600;0,9..144,800;1,9..144,600&family=DM+Sans:wght@400;500;700&display=swap">
+<style>
+:root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);
+--bg:#eef0f4;--grid:#d9dde6;--ink:#1b2236;--mut:#5a6279;--paper:#fffdf8;--pf:#1b2236;
+--bg:#ebe7f6;--grid:#d8d2ec;--c1:#6b3fd4;--f1:#fff;--c2:#ff8a3d;--f2:#2a1740;--c3:#ffe066;--f3:#2a1740;--c4:#7fd6d0;--f4:#12303a;--c5:#2a1740;--f5:#fff;--paper:#fffdfa;--pf:#2a1740;--ink:#2a1740;
+--fd:'Fraunces',Georgia,serif;--fb:'DM Sans','Segoe UI',sans-serif}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#1a1d27;--grid:#262a38;--ink:#f1f1f6;--mut:#a4a9bd}}
+*,*:before,*:after{box-sizing:inherit}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.55 var(--fb);
+background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);background-size:28px 28px}
+header{max-width:1180px;margin:0 auto;padding:36px 20px 8px;display:flex;gap:24px;align-items:center;flex-wrap:wrap}
+.num{font:800 clamp(5rem,14vw,9rem)/.8 var(--fd);color:var(--f2);background:var(--c2);padding:.12em .2em .06em;transform:rotate(-4deg);box-shadow:6px 6px 0 var(--c5);flex:none}
+h1{font:800 clamp(2rem,5.5vw,3.6rem)/1.02 var(--fd);margin:0 0 8px;letter-spacing:-.02em}
+.sub{margin:0;max-width:56ch;color:var(--mut)}
+.clock{width:110px;height:110px;margin-left:auto;flex:none}
+.bar{max-width:1180px;margin:0 auto;padding:14px 20px;display:flex;gap:8px;flex-wrap:wrap;align-items:center;position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:var(--bg)}
+.chip,.btn{font:600 .85rem var(--fb);border:2px solid var(--ink);background:transparent;color:var(--ink);padding:6px 12px;border-radius:99px;cursor:pointer}
+.chip[aria-pressed=true]{background:var(--ink);color:var(--bg)}
+.btn{margin-left:auto;border-radius:6px;box-shadow:3px 3px 0 var(--c1)}
+.btn+.btn{margin-left:0}
+.chip:focus-visible,.btn:focus-visible,.card:focus-visible,.x:focus-visible{outline:3px solid var(--c1);outline-offset:3px}
+.prog{width:100%;display:flex;gap:10px;align-items:center;font-size:.85rem;color:var(--mut)}
+.prog i{flex:1;height:6px;background:var(--grid);border-radius:9px;overflow:hidden}
+.prog b{display:block;height:100%;width:0;background:var(--c1);transition:width .4s}
+#board{max-width:1180px;margin:0 auto;padding:18px 20px 80px;display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));grid-auto-flow:dense;gap:26px 22px}
+.card{position:relative;padding:22px 18px 16px;min-height:170px;cursor:pointer;user-select:none;touch-action:manipulation;
+transform:translate(var(--dx,0px),var(--dy,0px)) rotate(var(--r,0deg));box-shadow:5px 5px 0 rgba(20,25,45,.85);transition:box-shadow .15s,opacity .25s;display:flex;flex-direction:column;gap:4px}
+.card:hover{box-shadow:8px 8px 0 rgba(20,25,45,.85)}
+.card.drag{cursor:grabbing;z-index:15;box-shadow:12px 14px 0 rgba(20,25,45,.6);transition:none}
+.card:before{content:"";position:absolute;top:-10px;left:50%;width:64px;height:20px;margin-left:-32px;background:rgba(255,255,255,.55);border:1px solid rgba(0,0,0,.12);transform:rotate(calc(var(--r,0deg) * -2))}
+.card.s2{grid-column:span 2}
+.card.round{border-radius:46% 54% 50% 50%/55% 45% 55% 45%;text-align:center;align-items:center;justify-content:center;padding:30px 26px}
+.card.cut{clip-path:polygon(0 4%,6% 0,100% 2%,98% 96%,92% 100%,3% 98%);box-shadow:none}
+.card.dim{opacity:.22}
+.k0{background:var(--paper);color:var(--pf)}
+.k1{background:var(--c1);color:var(--f1)}.k2{background:var(--c2);color:var(--f2)}.k3{background:var(--c3);color:var(--f3)}.k4{background:var(--c4);color:var(--f4)}.k5{background:var(--c5);color:var(--f5)}
+.tag{font:700 .72rem var(--fb);letter-spacing:.02em;opacity:.75}
+.big{font:800 clamp(2.2rem,5vw,3.2rem)/1 var(--fd);margin:2px 0}
+.card h3{font:700 1.2rem/1.15 var(--fd);margin:0}
+.card p{margin:4px 0 0;font-size:.92rem;line-height:1.4}
+.seen{position:absolute;right:10px;top:8px;font-style:normal;font-weight:800;opacity:0;transform:scale(.4);transition:.25s}
+.card.vis .seen{opacity:1;transform:none}
+dialog{width:min(640px,calc(100vw - 28px));max-height:86vh;border:3px solid var(--ink);background:var(--paper);color:var(--pf);padding:0;box-shadow:10px 10px 0 var(--c1);overflow:auto}
+dialog::backdrop{background:rgba(15,18,32,.6)}
+dialog[open]{animation:pop .22s ease-out}
+@keyframes pop{from{transform:scale(.92) rotate(-2deg);opacity:0}}
+.dh{display:flex;gap:12px;align-items:flex-start;padding:20px 22px 12px;position:sticky;top:0;background:var(--paper);border-bottom:2px dashed rgba(0,0,0,.15)}
+.dh h2{font:800 1.6rem/1.1 var(--fd);margin:0}
+.dh small{display:block;font-weight:700;opacity:.65}
+.x{margin-left:auto;font:700 1.2rem var(--fb);width:38px;height:38px;border:2px solid var(--pf);background:var(--c2);color:var(--f2);cursor:pointer;flex:none}
+.db{padding:14px 22px 24px}
+.db h4{font:700 1rem var(--fd);margin:18px 0 6px}
+.db ul,.db ol{padding-left:1.2em;margin:6px 0}
+.db li{margin:3px 0}
+.db blockquote{margin:12px 0;padding:8px 14px;border-left:5px solid var(--c2);font-style:italic}
+.db .tw{overflow-x:auto}
+.db table{border-collapse:collapse;width:100%;font-size:.88rem}
+.db th,.db td{border:1.5px solid rgba(0,0,0,.25);padding:6px 8px;text-align:left;vertical-align:top}
+.db th{background:var(--c4);color:var(--f4)}
+.mx{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin:10px 0}
+.mx div{padding:10px;font-size:.88rem}.mx b{display:block}
+.q1{background:var(--c3);color:var(--f3)}.q2{background:var(--c4);color:var(--f4)}.q3{background:var(--c2);color:var(--f2)}.q4{background:var(--grid);color:var(--pf)}
+.pair{display:grid;grid-template-columns:1fr 1fr;gap:10px}.pair>div{padding:10px;background:rgba(0,0,0,.05)}
+.meter{display:flex;align-items:center;gap:8px;margin:5px 0;font-size:.9rem}.meter span{width:150px;flex:none}.meter i{height:14px;background:var(--c1)}
+@media (max-width:560px){.card.s2{grid-column:span 1}.pair{grid-template-columns:1fr}.meter span{width:110px}}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+</style>
+</head>
+<body>
+<header>
+<div class="num" aria-hidden="true">5</div>
+<div><h1>Administración del tiempo</h1><p class="sub">Aprender a administrar el tiempo propio y el del equipo. Toca una pieza para abrirla; arrástrala si usas mouse.</p></div>
+<svg class="clock" viewBox="0 0 100 100" role="img" aria-label="Reloj en vivo"><circle cx="50" cy="50" r="46" fill="var(--c3)" stroke="var(--c5)" stroke-width="4"/>
+<g stroke="var(--c5)" stroke-width="2"><line x1="50" y1="9" x2="50" y2="17" transform="rotate(0 50 50)"/><line x1="50" y1="9" x2="50" y2="14" transform="rotate(30 50 50)"/><line x1="50" y1="9" x2="50" y2="14" transform="rotate(60 50 50)"/><line x1="50" y1="9" x2="50" y2="17" transform="rotate(90 50 50)"/><line x1="50" y1="9" x2="50" y2="14" transform="rotate(120 50 50)"/><line x1="50" y1="9" x2="50" y2="14" transform="rotate(150 50 50)"/><line x1="50" y1="9" x2="50" y2="17" transform="rotate(180 50 50)"/><line x1="50" y1="9" x2="50" y2="14" transform="rotate(210 50 50)"/><line x1="50" y1="9" x2="50" y2="14" transform="rotate(240 50 50)"/><line x1="50" y1="9" x2="50" y2="17" transform="rotate(270 50 50)"/><line x1="50" y1="9" x2="50" y2="14" transform="rotate(300 50 50)"/><line x1="50" y1="9" x2="50" y2="14" transform="rotate(330 50 50)"/></g>
+<line id="hh" x1="50" y1="50" x2="50" y2="28" stroke="var(--c5)" stroke-width="4" stroke-linecap="round"/>
+<line id="mm" x1="50" y1="50" x2="50" y2="17" stroke="var(--c5)" stroke-width="3" stroke-linecap="round"/>
+<line id="ss" x1="50" y1="56" x2="50" y2="14" stroke="var(--c2)" stroke-width="1.5"/><circle cx="50" cy="50" r="3" fill="var(--c2)"/></svg>
+</header>
+<div class="bar" id="bar">
+<span class="prog" role="status"><span id="pt"></span><i><b id="pb"></b></i></span>
+<span id="chips" style="display:contents"></span>
+<button class="btn" id="mix" type="button">Mezclar</button>
+<button class="btn" id="rst" type="button">Ordenar</button>
+</div>
+<main id="board" aria-label="Collage interactivo"></main>
+<dialog id="dlg" aria-labelledby="dt"><div class="dh"><div><small id="dg"></small><h2 id="dt"></h2></div><button class="x" id="dx" aria-label="Cerrar" type="button">×</button></div><div class="db" id="dd"></div></dialog>
+<script>
+const D=[
+{c:5,g:"El tiempo",t:"Seis rasgos del tiempo",p:"Igualitario, inelástico, indispensable, insustituible, inexorable, invaluable.",d:"<p>Para los griegos el tiempo era un dios: Cronos.</p><ul><li><b>Igualitario:</b> pobres y ricos tienen la misma oportunidad</li><li><b>Inelástico:</b> el día tiene 24 horas</li><li><b>Indispensable:</b> toda actividad lo necesita</li><li><b>Insustituible:</b> no se puede reponer</li><li><b>Inexorable:</b> transcurre suceda lo que suceda</li><li><b>Invaluable:</b> no tiene precio</li></ul>",k:"24 h",s:1,sh:"round"},
+{c:3,g:"El tiempo",t:"Administrar es administrar la vida",p:"Malgastar el tiempo es malgastar la vida.",d:"<p>Es el arte de hacer que el tiempo sirva en beneficio de las personas y las sociedades. Para Mauro Rodríguez (1999) es la administración de sí mismo: el manejo adecuado de los recursos de todo orden.</p><blockquote>“La administración del tiempo es una forma de ser y de administrar la vida.”</blockquote><p>Y el proceso administrativo (previsión, planeación, organización, ejecución, dirección y control) incluye al tiempo como recurso.</p>",k:"",s:2,sh:""},
+{c:0,g:"Prioridades",t:"Matriz de cuatro cuadrantes",p:"Urgente e importante: ¿dónde pasa usted su semana?",d:"<div class=\"mx\"><div class=\"q1\"><b>I · Urgente</b>Crisis, problemas, plazos que vencen</div><div class=\"q2\"><b>II · No urgente</b>Preparación, prevención, planeación, relaciones, crecimiento interior</div><div class=\"q3\"><b>III · Urgente, no importante</b>Interrupciones, reportes y juntas irrelevantes, asuntos menores de otros</div><div class=\"q4\"><b>IV · Ni urgente ni importante</b>Trivialidades, actividades de escape, televisión y relajación excesivas</div></div><p>El <b>cuadrante II</b> es el de la calidad: al invertir más tiempo allí, nutrimos y ampliamos el cuadrante I. El III es el “del engaño” y el IV, el de la pérdida de tiempo: no es supervivencia, es deterioro.</p><p style=\"font-size:.8rem;opacity:.7\">Adaptada de Covey, Merrill y Merrill (1996).</p>",k:"II",s:2,sh:""},
+{c:2,g:"Prioridades",t:"Cinco pasos de “lo primero”",p:"Roles, metas del cuadrante II, marco semanal, integridad y evaluación.",d:"<ol><li><b>Identificar sus roles</b> y crear sinergia entre ellos.</li><li><b>Seleccionar metas del cuadrante II</b> en cada rol.</li><li><b>Crear un marco de decisiones</b> para la semana.</li><li><b>Ejercer la integridad</b> en el momento de la elección: preguntar con intención, escuchar sin excusas y actuar con valentía.</li><li><b>Evaluar</b> para cerrar el círculo: ¿qué metas alcancé? ¿fue el mejor empleo de mi tiempo?</li></ol>",k:"5",s:1,sh:""},
+{c:4,g:"Prioridades",t:"Cuatro necesidades de cada rol",p:"Física, espiritual, social y mental.",d:"<div class=\"pair\"><div><b>Física</b><br>Requiere o crea recursos</div><div><b>Espiritual</b><br>Conoce la misión y los principios</div><div><b>Social</b><br>Implica la relación con los demás</div><div><b>Mental</b><br>Exige aprendizaje</div></div><p>La habilidad del directivo está en equilibrar las cuatro áreas.</p>",k:"",s:1,sh:"round"},
+{c:1,g:"Prioridades",t:"Cuatro habilidades humanas",p:"Para fijar metas del cuadrante II.",d:"<ul><li><b>Autoconocimiento:</b> evaluación exacta de nuestra capacidad</li><li><b>Conciencia:</b> sincroniza misión y principios (¿qué?, ¿por qué?, ¿cómo?)</li><li><b>Voluntad independiente:</b> elegir más allá de antecedentes y circunstancias</li><li><b>Imaginación creativa:</b> visualizar posibilidades más allá de la experiencia directa</li></ul>",k:"",s:1,sh:""},
+{c:3,g:"Prioridades",t:"Enfoques para administrar el tiempo",p:"Organícese y Enfoque 101, con sus ventajas y riesgos.",d:"<h4>Organícese (orden)</h4><p>El caos es el problema; la solución son los sistemas (cosas, tareas, personas, tiempos y movimientos). <b>Ventaja:</b> claridad y eficiencia. <b>Riesgo:</b> organizar se vuelve un fin en sí mismo y retrasa lo importante.</p><h4>Enfoque 101 (habilidades)</h4><p>Dominar agenda, listas de pendientes, metas, delegar, organizar y priorizar. <b>Ventaja:</b> mejora el desempeño. <b>Riesgo:</b> las habilidades por sí solas no son la solución.</p><p>La tabla 5.2 suma otros: guerrero, orden, ABC, instrumento mágico, déjese llevar por la corriente y restablecimiento.</p>",k:"",s:2,sh:""},
+{c:1,g:"Ladrones",t:"Enemigos del tiempo",p:"Externos e internos, según Rodríguez Estrada (1999).",d:"<div class=\"pair\"><div><b>Externos</b><ul><li>Teléfono y visitas inesperadas</li><li>Urgencias</li><li>Exceso de reuniones</li><li>Burocracia</li><li>Ruidos y distracciones</li><li>Internet sin fin</li></ul></div><div><b>Internos</b><ul><li>No saber decir no</li><li>No saber delegar</li><li>Aplazar las cosas</li><li>Indisciplina con los propios planes</li><li>Desorden en la oficina</li><li>Obsesión por lo trivial</li></ul></div></div>",k:"",s:1,sh:""},
+{c:2,g:"Ladrones",t:"Ladrones del directivo",p:"Lo que roba tiempo al directivo y a su equipo.",d:"<ul><li>Planeación deficiente: objetivos poco claros</li><li>Jerarquización insuficiente de prioridades</li><li>Incapacidad para decir no</li><li>Poca habilidad con las interrupciones</li><li>Resistencia a delegar</li><li>Falta de motivación y disciplina</li><li>Abarcar mucho y apretar poco</li><li>Apoyo secretarial ineficiente</li><li>Internet mal utilizado</li></ul>",k:"",s:1,sh:""},
+{c:3,g:"Ladrones",t:"Ocho mitos del tiempo",p:"Excusas que el directivo usa para no administrarlo.",d:"<ul><li><b>Activismo:</b> el más ocupado es el más eficiente</li><li><b>Centralismo:</b> cuanto más alto el nivel, mejor</li><li><b>Datos completos:</b> aplazar hasta tenerlos todos</li><li><b>Energía:</b> resultados proporcionales al volumen de trabajo</li><li><b>Solución de problemas:</b> antes de resolver, plantear bien</li><li><b>Simplificación:</b> soluciones fáciles para asuntos difíciles</li><li><b>Tiempo enemigo:</b> el tiempo “se echa encima”</li><li><b>Puerta abierta:</b> estar disponible para todos</li></ul>",k:"8",s:1,sh:"cut"},
+{c:4,g:"Ladrones",t:"Cinco razones para el directivo",p:"Su tiempo y el de los demás.",d:"<ol><li>Debe alcanzar la eficiencia y obtener resultados.</li><li>Es responsable de su tiempo y del de sus subalternos.</li><li>Tiene mayor compromiso que su equipo.</li><li>Es la guía a seguir: predica con el ejemplo.</li><li>Debe saber lo que sucede en su empresa las 24 horas.</li></ol>",k:"",s:1,sh:""},
+{c:2,g:"Práctica",t:"Perfil de quien domina su tiempo",p:"Diez características y la acción que las acompaña.",d:"<div class=\"tw\"><table><tr><th>Característica</th><th>Acción</th></tr><tr><td>Organizada</td><td>Organiza a otros para aprovechar sus aportaciones</td></tr><tr><td>Decidida</td><td>Atiende cada asunto una sola vez</td></tr><tr><td>Idealista y realista</td><td>Imagina rutas nuevas y prevé el tiempo requerido</td></tr><tr><td>Empática</td><td>Capta necesidades y reacciones de su personal</td></tr><tr><td>Intuitiva</td><td>Capta situaciones complejas como un todo</td></tr><tr><td>Flexible</td><td>Admite que se cometen errores</td></tr><tr><td>Cree en la gente</td><td>Delega; no es “hombre orquesta”</td></tr><tr><td>Considerada</td><td>Respeta el tiempo de los demás</td></tr><tr><td>Autocrítica</td><td>Revisa lo que logró y lo que no</td></tr></table></div>",k:"",s:2,sh:""},
+{c:5,g:"Práctica",t:"Reuniones que sí rinden",p:"Una reunión mal planeada cuesta el tiempo del directivo y de todos los asistentes.",d:"<h4>Agenda previa</h4><ul><li>Propósito, fecha, hora, lugar y participantes</li><li>Temas con tiempo asignado a cada uno</li><li>Responsable y forma de abordar cada tema</li><li>Resultado esperado</li></ul><h4>Si usted coordina</h4><ul><li>Invite solo a quienes pueden decidir</li><li>Empiece con lo rutinario; deje lo controvertido al final</li><li>Inicie a tiempo y no espere a los rezagados</li><li>Posponga a “asuntos varios” lo que no estaba agendado</li><li>Cierre con un memorando de acuerdos</li></ul>",k:"",s:1,sh:""},
+{c:4,g:"Práctica",t:"Tiempos y movimientos",p:"Diez diligencias, salir a las 9:15 y volver a las 13:00.",d:"<p>Encargos: zapatero, taller, tintorería, correo certificado, impuestos, pan, carne, libro, mantequilla y recoger amigos a las 12:30. La receptoría cierra a las 10:00, la panadería abre a las 11:00 y comercios y correo cierran a las 12:00. Todo a pie.</p><h4>Solución propuesta</h4><ol><li>Oficina</li><li>Correo</li><li>Zapatería</li><li>Sastrería</li><li>Librería</li><li>Panadería</li><li>Lechería</li><li>Café</li><li>Taller</li><li>Estación</li></ol><p>Se discute en grupos durante 20 minutos.</p>",k:"10",s:1,sh:"round"},
+{c:3,g:"Práctica",t:"Encuesta flash",p:"Diez preguntas de sí o no sobre cómo usa su tiempo.",d:"<ul><li>Normalmente llego a tiempo</li><li>Mantengo todos mis compromisos</li><li>Me las arreglo para hacer todo lo que tengo que hacer</li><li>En el último momento dejo a un lado muchas cosas</li><li>Cumplo con todos los plazos</li><li>Tengo tiempo reservado para mis asuntos personales</li><li>Estudio 2 horas diarias</li><li>Llevo un cuaderno u horario para anotar tareas</li><li>Incluyo tiempo para estudiar los fines de semana</li><li>Duermo o descanso más de 8 horas diarias</li></ul><p>Después, reflexione sobre cómo empleó su tiempo en la semana y qué necesita cambiar.</p>",k:"",s:1,sh:""},
+{c:5,g:"El tiempo",t:"Drucker",p:"“El que no es capaz de administrar el tiempo, no es capaz de administrar nada.”",d:"<blockquote>El que no es capaz de administrar el tiempo, no es capaz de administrar nada. — Peter Drucker</blockquote><blockquote>La gran línea divisoria entre el éxito y el fracaso se encierra en tres palabras: “no tuve tiempo”. — Martin Luther King (palabras de un hombre sabio)</blockquote><p>King administró su lucha para obtener mejores resultados: consideraba que no se podían cambiar las cosas de la noche a la mañana.</p>",k:"",s:1,sh:"cut"}
+];
+const $=s=>document.getElementById(s),B=$('board'),dlg=$('dlg'),seen=new Set();
+const rot=i=>Math.sin(i*12.9898+4.2)*3.2;
+function build(){B.innerHTML='';D.forEach((c,i)=>{
+const e=document.createElement('article');e.className=`card k${c.c} s${c.s||1} ${c.sh||''}`;e.tabIndex=0;e.dataset.g=c.g;e.dataset.i=i;
+e.style.setProperty('--r',rot(i)+'deg');
+e.innerHTML=`<span class="tag">${c.g}</span>${c.k?`<b class="big">${c.k}</b>`:''}<h3>${c.t}</h3><p>${c.p}</p><i class="seen" aria-hidden="true">✓</i>`;
+if(seen.has(i))e.classList.add('vis');
+B.appendChild(e);});}
+let moved=false;
+B.addEventListener('pointerdown',ev=>{
+const c=ev.target.closest('.card');if(!c||ev.pointerType!=='mouse')return;
+const sx=ev.clientX,sy=ev.clientY,ox=parseFloat(c.style.getPropertyValue('--dx'))||0,oy=parseFloat(c.style.getPropertyValue('--dy'))||0;moved=false;
+const mv=m=>{const dx=m.clientX-sx,dy=m.clientY-sy;if(!moved&&Math.hypot(dx,dy)<6)return;moved=true;c.classList.add('drag');
+c.style.setProperty('--dx',ox+dx+'px');c.style.setProperty('--dy',oy+dy+'px');};
+const up=()=>{removeEventListener('pointermove',mv);removeEventListener('pointerup',up);c.classList.remove('drag');setTimeout(()=>moved=false,0)};
+addEventListener('pointermove',mv);addEventListener('pointerup',up);});
+function open(c){const i=+c.dataset.i,d=D[i];$('dg').textContent=d.g;$('dt').textContent=d.t.replace(/<[^>]+>/g,'');$('dd').innerHTML=d.d;
+dlg.showModal();seen.add(i);c.classList.add('vis');prog();}
+B.addEventListener('click',ev=>{const c=ev.target.closest('.card');if(c&&!moved)open(c)});
+B.addEventListener('keydown',ev=>{const c=ev.target.closest('.card');if(c&&(ev.key==='Enter'||ev.key===' ')){ev.preventDefault();open(c)}});
+$('dx').onclick=()=>dlg.close();
+dlg.addEventListener('click',ev=>{if(ev.target===dlg)dlg.close()});
+function prog(){$('pt').textContent=`Exploradas ${seen.size} de ${D.length}`;$('pb').style.width=seen.size/D.length*100+'%'}
+const gs=[...new Set(D.map(d=>d.g))];let act=null;
+gs.forEach(g=>{const b=document.createElement('button');b.className='chip';b.type='button';b.textContent=g;b.setAttribute('aria-pressed','false');
+b.onclick=()=>{act=act===g?null:g;document.querySelectorAll('.chip').forEach(x=>x.setAttribute('aria-pressed',String(x.textContent===act)));
+document.querySelectorAll('.card').forEach(c=>c.classList.toggle('dim',!!act&&c.dataset.g!==act))};$('chips').appendChild(b)});
+$('mix').onclick=()=>{const k=[...B.children].sort(()=>Math.random()-.5);k.forEach(c=>{B.appendChild(c);c.style.setProperty('--r',(Math.random()*8-4)+'deg');c.style.setProperty('--dx','0px');c.style.setProperty('--dy','0px')})};
+$('rst').onclick=()=>{[...B.children].sort((a,b)=>a.dataset.i-b.dataset.i).forEach(c=>{B.appendChild(c);c.style.setProperty('--r',rot(+c.dataset.i)+'deg');c.style.setProperty('--dx','0px');c.style.setProperty('--dy','0px')})};
+build();prog();
+function tick(){const d=new Date(),s=d.getSeconds(),m=d.getMinutes()+s/60,h=d.getHours()%12+m/60;
+[['hh',h*30],['mm',m*6],['ss',s*6]].forEach(([i,a])=>document.getElementById(i).setAttribute('transform',`rotate(${a} 50 50)`))}
+tick();setInterval(tick,1000);
+</script>
+</body>
+</html>

@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sistema de Análisis de Decisiones y Diagnóstico Operacional</title>
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="styles.css">
+  <!-- Chart.js CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  
+
+</head>
+<body class="text-slate-800 antialiased min-h-screen p-4 md:p-8">
+
+  <div class="max-w-6xl mx-auto space-y-8">
+    
+    <!-- Encabezado -->
+    <header class="text-center space-y-2 no-print">
+      <h1 class="text-3xl md:text-4xl font-extrabold text-slate-900 tracking-tight">
+         Diagnóstico Operacional y Toma de Decisiones (Gemini AI)
+      </h1>
+      <p class="text-slate-600 max-w-2xl mx-auto">
+        Esta herramienta utiliza la API de Gemini para generar un análisis completo de tu problemática operacional, incluyendo FODA, Técnica de los 6 Sombreros, Diagrama de Ishikawa y Diagrama de Pareto. Ingresa tu descripción del problema y obtén un diagnóstico profesional.
+      </p>
+    </header>
+
+    <!-- Card de Configuración y Entrada -->
+    <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-6 space-y-4 no-print">
+
+      <!-- Campo de API Key -->
+      <div>
+        <label for="apiKeyInput" class="block text-sm font-semibold text-slate-700 mb-1">
+           Gemini API Key:
+        </label>
+        <input type="password" id="apiKeyInput" onchange="guardarApiKey()" placeholder="Pega aquí tu Gemini API Key (AIzaSy...)" class="w-full p-2.5 border border-slate-300 rounded-lg text-sm outline-none focus:ring-2 focus:ring-indigo-500">
+        <p id="apiStatus" class="text-xs text-slate-500 mt-1"></p>
+      </div>
+
+      <!-- Área de Entrada de Texto -->
+      <div>
+        <label for="inputProblema" class="block text-sm font-semibold text-slate-700 mb-2">
+          Descripción de la Problemática o Situación:
+        </label>
+        <textarea id="inputProblema" rows="4" class="w-full p-3 border border-slate-300 rounded-lg outline-none focus:ring-2 focus:ring-indigo-500 text-slate-800 text-sm" placeholder="Ejemplo: Se están presentando retrasos de hasta 45 minutos en la entrega de pedidos a clientes durante las horas pico..."></textarea>
+      </div>
+
+      <!-- Ejemplos Rápidos -->
+      <div class="flex flex-wrap items-center gap-2 text-xs">
+        <span class="text-slate-500 font-medium">Ejemplos rápidos:</span>
+        <button onclick="cargarEjemplo(3)" class="px-2.5 py-1 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-full transition">Fallas en control de calidad</button>
+      </div>
+
+      <!-- Botón de Procesar -->
+      <button id="btnProcesar" onclick="ejecutarAnalisis()" class="w-full py-3 bg-indigo-600 hover:bg-indigo-700 text-white font-semibold rounded-lg shadow-sm transition flex items-center justify-center gap-2">
+        <span>Generar Diagnóstico Completo con IA</span>
+      </button>
+
+      <!-- Estado de Carga -->
+      <div id="loader" class="hidden text-center py-4 space-y-2">
+        <div class="inline-block animate-spin rounded-full h-8 w-8 border-4 border-indigo-600 border-t-transparent"></div>
+        <p class="text-sm font-medium text-indigo-600">Procesando diagnóstico con Gemini API... </p>
+      </div>
+    </div>
+
+    <!-- Resultados -->
+    <div id="resultados" class="hidden space-y-8">
+
+      <!-- Acciones -->
+      <div class="flex justify-between items-center bg-white p-4 rounded-xl border border-slate-200 no-print">
+        <h2 id="resTitulo" class="text-xl font-bold text-slate-900">Resultados del Diagnóstico</h2>
+        <button onclick="window.print()" class="px-4 py-2 bg-slate-800 hover:bg-slate-900 text-white text-sm font-medium rounded-lg transition flex items-center gap-1">
+          🖨️ Imprimir / PDF
+        </button>
+      </div>
+
+      <!-- 1. MATRIZ FODA -->
+      <section class="bg-white rounded-xl shadow-sm border border-slate-200 p-6 card-print">
+        <h3 class="text-lg font-bold text-slate-900 mb-4 pb-2 border-b border-slate-200">
+          1. Matriz FODA
+        </h3>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div class="p-4 rounded-lg bg-emerald-50 border-l-4 border-emerald-500">
+            <h4 class="font-bold text-emerald-900 mb-2"> Fortalezas</h4>
+            <ul id="fodaF" class="list-disc pl-5 text-sm space-y-1 text-emerald-950"></ul>
+          </div>
+          <div class="p-4 rounded-lg bg-blue-50 border-l-4 border-blue-500">
+            <h4 class="font-bold text-blue-900 mb-2"> Oportunidades</h4>
+            <ul id="fodaO" class="list-disc pl-5 text-sm space-y-1 text-blue-950"></ul>
+          </div>
+          <div class="p-4 rounded-lg bg-rose-50 border-l-4 border-rose-500">
+            <h4 class="font-bold text-rose-900 mb-2"> Debilidades</h4>
+            <ul id="fodaD" class="list-disc pl-5 text-sm space-y-1 text-rose-950"></ul>
+          </div>
+          <div class="p-4 rounded-lg bg-amber-50 border-l-4 border-amber-500">
+            <h4 class="font-bold text-amber-900 mb-2"> Amenazas</h4>
+            <ul id="fodaA" class="list-disc pl-5 text-sm space-y-1 text-amber-950"></ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- 2. LOS 6 SOMBREROS -->
+      <section class="bg-white rounded-xl shadow-sm border border-slate-200 p-6 card-print">
+        <h3 class="text-lg font-bold text-slate-900 mb-4 pb-2 border-b border-slate-200">
+          2. Técnica de los 6 Sombreros para Pensar
+        </h3>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <div class="p-4 rounded-lg bg-slate-100 border-l-4 border-slate-400">
+            <h4 class="font-bold text-slate-800 mb-1">⚪ Blanco (Hechos)</h4>
+            <p id="sBlanco" class="text-sm text-slate-700 leading-relaxed"></p>
+          </div>
+          <div class="p-4 rounded-lg bg-rose-50 border-l-4 border-rose-500">
+            <h4 class="font-bold text-rose-900 mb-1">🔴 Rojo (Emociones)</h4>
+            <p id="sRojo" class="text-sm text-rose-950 leading-relaxed"></p>
+          </div>
+          <div class="p-4 rounded-lg bg-slate-800 text-white border-l-4 border-slate-950">
+            <h4 class="font-bold text-slate-100 mb-1">⚫ Negro (Riesgos)</h4>
+            <p id="sNegro" class="text-sm text-slate-300 leading-relaxed"></p>
+          </div>
+          <div class="p-4 rounded-lg bg-amber-50 border-l-4 border-amber-400">
+            <h4 class="font-bold text-amber-900 mb-1">🟡 Amarillo (Beneficios)</h4>
+            <p id="sAmarillo" class="text-sm text-amber-950 leading-relaxed"></p>
+          </div>
+          <div class="p-4 rounded-lg bg-emerald-50 border-l-4 border-emerald-500">
+            <h4 class="font-bold text-emerald-900 mb-1">🟢 Verde (Creatividad)</h4>
+            <p id="sVerde" class="text-sm text-emerald-950 leading-relaxed"></p>
+          </div>
+          <div class="p-4 rounded-lg bg-indigo-50 border-l-4 border-indigo-500">
+            <h4 class="font-bold text-indigo-900 mb-1">🔵 Azul (Control / Plan)</h4>
+            <p id="sAzul" class="text-sm text-indigo-950 leading-relaxed"></p>
+          </div>
+        </div>
+      </section>
+
+      <!-- 3. ISHIKAWA (DIAGRAMA DE PESCADO) -->
+      <section class="bg-white rounded-xl shadow-sm border border-slate-200 p-6 card-print overflow-x-auto">
+        <h3 class="text-lg font-bold text-slate-900 mb-2">
+          3. Diagrama Causa-Efecto (Ishikawa - Espina de Pescado)
+        </h3>
+        <p class="text-sm text-slate-600 mb-6">
+          Estructura de causas secundarias clasificadas en las 6M que convergen en el problema central.
+        </p>
+
+        <div class="min-w-[750px] p-4 bg-slate-50 border border-slate-200 rounded-xl relative">
+          <div class="grid grid-cols-12 gap-4 items-center">
+            
+            <div class="col-span-9 space-y-8 relative">
+              <div class="absolute top-1/2 left-0 right-0 h-1 bg-slate-700 -translate-y-1/2 z-0"></div>
+
+              <!-- Espinas Superiores -->
+              <div class="grid grid-cols-3 gap-4 relative z-10 pb-4">
+                <div class="bg-white p-3 rounded-lg border-2 border-indigo-500 shadow-sm relative">
+                  <div class="font-bold text-xs text-indigo-700 uppercase mb-1 border-b pb-1">📦 Materiales</div>
+                  <ul id="ishMat" class="list-disc pl-4 text-xs text-slate-700 space-y-1"></ul>
+                  <div class="absolute -bottom-5 left-1/2 w-0.5 h-5 bg-indigo-400"></div>
+                </div>
+                <div class="bg-white p-3 rounded-lg border-2 border-indigo-500 shadow-sm relative">
+                  <div class="font-bold text-xs text-indigo-700 uppercase mb-1 border-b pb-1">⚙️ Maquinaria</div>
+                  <ul id="ishMaq" class="list-disc pl-4 text-xs text-slate-700 space-y-1"></ul>
+                  <div class="absolute -bottom-5 left-1/2 w-0.5 h-5 bg-indigo-400"></div>
+                </div>
+                <div class="bg-white p-3 rounded-lg border-2 border-indigo-500 shadow-sm relative">
+                  <div class="font-bold text-xs text-indigo-700 uppercase mb-1 border-b pb-1">📋 Métodos</div>
+                  <ul id="ishMet" class="list-disc pl-4 text-xs text-slate-700 space-y-1"></ul>
+                  <div class="absolute -bottom-5 left-1/2 w-0.5 h-5 bg-indigo-400"></div>
+                </div>
+              </div>
+
+              <!-- Espinas Inferiores -->
+              <div class="grid grid-cols-3 gap-4 relative z-10 pt-4">
+                <div class="bg-white p-3 rounded-lg border-2 border-indigo-500 shadow-sm relative">
+                  <div class="absolute -top-5 left-1/2 w-0.5 h-5 bg-indigo-400"></div>
+                  <div class="font-bold text-xs text-indigo-700 uppercase mb-1 border-b pb-1">🌍 Medio Ambiente</div>
+                  <ul id="ishMedAmb" class="list-disc pl-4 text-xs text-slate-700 space-y-1"></ul>
+                </div>
+                <div class="bg-white p-3 rounded-lg border-2 border-indigo-500 shadow-sm relative">
+                  <div class="absolute -top-5 left-1/2 w-0.5 h-5 bg-indigo-400"></div>
+                  <div class="font-bold text-xs text-indigo-700 uppercase mb-1 border-b pb-1">👥 Mano de Obra</div>
+                  <ul id="ishMano" class="list-disc pl-4 text-xs text-slate-700 space-y-1"></ul>
+                </div>
+                <div class="bg-white p-3 rounded-lg border-2 border-indigo-500 shadow-sm relative">
+                  <div class="absolute -top-5 left-1/2 w-0.5 h-5 bg-indigo-400"></div>
+                  <div class="font-bold text-xs text-indigo-700 uppercase mb-1 border-b pb-1">📏 Medición</div>
+                  <ul id="ishMed" class="list-disc pl-4 text-xs text-slate-700 space-y-1"></ul>
+                </div>
+              </div>
+
+            </div>
+
+            <!-- Cabeza de Pescado -->
+            <div class="col-span-3 z-10">
+              <div class="bg-rose-600 text-white p-4 rounded-r-3xl rounded-l-md shadow-md border-l-4 border-rose-800 text-center relative">
+                <span class="text-xs font-bold uppercase tracking-wider block text-rose-200 mb-1">EFECTO / PROBLEMA</span>
+                <p id="ishEfecto" class="text-sm font-extrabold leading-tight"></p>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </section>
+
+      <!-- 4. DIAGRAMA DE PARETO -->
+      <section class="bg-white rounded-xl shadow-sm border border-slate-200 p-6 card-print">
+        <h3 class="text-lg font-bold text-slate-900 mb-2">
+          4. Diagrama de Pareto (Análisis 80/20)
+        </h3>
+        <p class="text-xs text-slate-500 mb-4">
+          Identifica el 20% de las causas raíz que provocan el 80% de las incidencias observadas.
+        </p>
+        <div class="relative w-full h-[380px]">
+          <canvas id="paretoChart"></canvas>
+        </div>
+      </section>
+
+    </div>
+
+  </div>
+
+  <script>
+    let chartInstance = null;
+
+    // Cargar clave guardada al iniciar
+    window.addEventListener('DOMContentLoaded', () => {
+      const savedKey = localStorage.getItem('gemini_api_key');
+      if (savedKey) {
+        document.getElementById('apiKeyInput').value = savedKey;
+        document.getElementById('apiStatus').innerText = '✓ API Key cargada';
+      }
+    });
+
+    function guardarApiKey() {
+      const key = document.getElementById('apiKeyInput').value.trim();
+      if (key) {
+        localStorage.setItem('gemini_api_key', key);
+        document.getElementById('apiStatus').innerText = '✓ API Key guardada';
+      } else {
+        localStorage.removeItem('gemini_api_key');
+        document.getElementById('apiStatus').innerText = 'API Key eliminada';
+      }
+    }
+
+    function cargarEjemplo(num) {
+      const ejemplos = {
+        1: "Existen demoras continuas de hasta 45 minutos en la entrega de mercadería a clientes finales. Se reporta falta de vehículos en hora pico, confusión en las rutas asignadas a choferes, falta de mantenimiento preventivo en camiones y lentitud en la captura de datos en el sistema de facturación.",
+        2: "La empresa enfrenta una tasa de rotación de personal del 35% anual en el departamento de operaciones. Los empleados señalan falta de capacitación inicial, jornadas de trabajo excesivas sin previo aviso, fallas en la comunicación interna y herramientas informáticas obsoletas que dificultan sus tareas.",
+        3: "Se ha registrado un incremento del 15% en los productos devueltos por defectos de fabricación durante el último trimestre. Las causas probables son descalibración en la maquinaria principal, insumos de baja calidad de un nuevo proveedor y falta de un protocolo estandarizado de inspección final."
+      };
+      document.getElementById('inputProblema').value = ejemplos[num];
+    }
+
+    async function ejecutarAnalisis() {
+      const problema = document.getElementById('inputProblema').value.trim();
+      const apiKey = document.getElementById('apiKeyInput').value.trim();
+
+      if (!apiKey) {
+        alert("Por favor, ingresa tu API Key de Gemini para continuar.");
+        return;
+      }
+
+      if (!problema) {
+        alert("Por favor, ingresa una descripción de la problemática.");
+        return;
+      }
+
+      const btn = document.getElementById('btnProcesar');
+      const loader = document.getElementById('loader');
+      const resultados = document.getElementById('resultados');
+
+      btn.disabled = true;
+      loader.classList.remove('hidden');
+      resultados.classList.add('hidden');
+
+      try {
+        const resultadoData = await llamarGeminiAPI(problema, apiKey);
+        localStorage.setItem('diagnosticoActual', JSON.stringify(resultadoData));
+        renderizarInterfaz(resultadoData);
+        resultados.classList.remove('hidden');
+        window.location.href = 'resultados.html';
+      } catch (e) {
+        alert("Error al comunicarse con la API de Gemini. Revisa que tu API Key sea válida y que tengas conexión a internet.\nDetalle: " + e.message);
+      } finally {
+        btn.disabled = false;
+        loader.classList.add('hidden');
+      }
+    }
+
+    // --- LLAMADA A LA API DE GEMINI (GEMINI-3.6-FLASH) ---
+    async function llamarGeminiAPI(problema, apiKey) {
+      const url = `https://generativelanguage.googleapis.com/v1/models/gemini-3.6-flash:generateContent?key=${apiKey}`;
+      
+      const promptText = `Analiza la siguiente problemática operacional: "${problema}".
+      Genera una respuesta EXCLUSIVAMENTE en formato JSON válido, sin bloques markdown de tipo (\`\`\`json), siguiendo estrictamente este esquema:
+      {
+        "titulo": "Título breve y profesional para el diagnóstico",
+        "foda": {
+          "fortalezas": ["Punto 1", "Punto 2", "Punto 3"],
+          "oportunidades": ["Punto 1", "Punto 2", "Punto 3"],
+          "debilidades": ["Punto 1", "Punto 2", "Punto 3"],
+          "amenazas": ["Punto 1", "Punto 2", "Punto 3"]
+        },
+        "sombreros": {
+          "blanco": "Análisis descriptivo completo basado en hechos y datos del texto ingresado",
+          "rojo": "Descripción completa de las emociones, tensiones o frustraciones del equipo",
+          "negro": "Explicación completa de riesgos financieros, operacionales y clientes",
+          "amarillo": "Beneficios completos y oportunidades de valor al resolver el problema",
+          "verde": "Propuestas creativas e ideas de solución alternativas completas",
+          "azul": "Plan de acción y control estructurado paso a paso"
+        },
+        "ishikawa": {
+          "efecto": "Nombre corto del problema principal o efecto no deseado",
+          "causas": {
+            "materiales": ["Causa 1", "Causa 2"],
+            "maquinas": ["Causa 1", "Causa 2"],
+            "metodos": ["Causa 1", "Causa 2"],
+            "medioAmbiente": ["Causa 1", "Causa 2"],
+            "manoDeObra": ["Causa 1", "Causa 2"],
+            "medicion": ["Causa 1", "Causa 2"]
+          }
+        },
+        "pareto": [
+          {"causa": "Causa principal 1 específica del problema", "frecuencia": 45},
+          {"causa": "Causa principal 2 específica del problema", "frecuencia": 28},
+          {"causa": "Causa principal 3 específica del problema", "frecuencia": 15},
+          {"causa": "Causa principal 4 específica del problema", "frecuencia": 8},
+          {"causa": "Causa principal 5 específica del problema", "frecuencia": 4}
+        ]
+      }`;
+
+      const res = await fetch(url, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          contents: [{ parts: [{ text: promptText }] }]
+        })
+      });
+
+      if (!res.ok) {
+        const errorData = await res.json();
+        throw new Error(errorData.error?.message || "Fallo en la llamada HTTP a Gemini");
+      }
+
+      const data = await res.json();
+      let rawText = data.candidates[0].content.parts[0].text;
+      
+      // Limpiar markdown si la IA lo incluye
+      rawText = rawText.replace(/```json/g, '').replace(/```/g, '').trim();
+      return JSON.parse(rawText);
+    }
+
+    // --- RENDERIZADO DE INTERFAZ ---
+    function renderizarInterfaz(d) {
+      document.getElementById('resTitulo').innerText = d.titulo || 'Resultados del Diagnóstico';
+
+      // 1. FODA
+      renderLista('fodaF', d.foda.fortalezas);
+      renderLista('fodaO', d.foda.oportunidades);
+      renderLista('fodaD', d.foda.debilidades);
+      renderLista('fodaA', d.foda.amenazas);
+
+      // 2. Sombreros
+      document.getElementById('sBlanco').innerText = d.sombreros.blanco;
+      document.getElementById('sRojo').innerText = d.sombreros.rojo;
+      document.getElementById('sNegro').innerText = d.sombreros.negro;
+      document.getElementById('sAmarillo').innerText = d.sombreros.amarillo;
+      document.getElementById('sVerde').innerText = d.sombreros.verde;
+      document.getElementById('sAzul').innerText = d.sombreros.azul;
+
+      // 3. Ishikawa (Pescado)
+      document.getElementById('ishEfecto').innerText = d.ishikawa.efecto;
+      renderLista('ishMat', d.ishikawa.causas.materiales);
+      renderLista('ishMaq', d.ishikawa.causas.maquinas);
+      renderLista('ishMet', d.ishikawa.causas.metodos);
+      renderLista('ishMedAmb', d.ishikawa.causas.medioAmbiente);
+      renderLista('ishMano', d.ishikawa.causas.manoDeObra);
+      renderLista('ishMed', d.ishikawa.causas.medicion);
+
+      // 4. Gráfico Pareto
+      renderGraficoPareto(d.pareto);
+    }
+
+    function renderLista(id, elementos) {
+      const ul = document.getElementById(id);
+      ul.innerHTML = '';
+      (elementos || []).forEach(item => {
+        const li = document.createElement('li');
+        li.innerText = item;
+        ul.appendChild(li);
+      });
+    }
+
+    function renderGraficoPareto(datosPareto) {
+      const ctx = document.getElementById('paretoChart').getContext('2d');
+      if (chartInstance) chartInstance.destroy();
+
+      // Ordenar mayor a menor por si la API no los mandó ordenados
+      datosPareto.sort((a, b) => b.frecuencia - a.frecuencia);
+
+      const labels = datosPareto.map(item => item.causa);
+      const frecuencias = datosPareto.map(item => item.frecuencia);
+      const sumaTotal = frecuencias.reduce((a, b) => a + b, 0);
+
+      let acumulado = 0;
+      const porcentajesAcumulados = frecuencias.map(val => {
+        acumulado += val;
+        return ((acumulado / sumaTotal) * 100).toFixed(1);
+      });
+
+      chartInstance = new Chart(ctx, {
+        type: 'bar',
+        data: {
+          labels: labels,
+          datasets: [
+            {
+              label: 'Frecuencia Absoluta',
+              data: frecuencias,
+              backgroundColor: 'rgba(79, 70, 229, 0.75)',
+              borderColor: 'rgba(79, 70, 229, 1)',
+              borderWidth: 1,
+              yAxisID: 'y'
+            },
+            {
+              label: '% Acumulado (Línea 80/20)',
+              data: porcentajesAcumulados,
+              type: 'line',
+              borderColor: '#ef4444',
+              backgroundColor: '#ef4444',
+              borderWidth: 2,
+              tension: 0.2,
+              pointRadius: 4,
+              yAxisID: 'y1'
+            }
+          ]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          scales: {
+            y: {
+              type: 'linear',
+              position: 'left',
+              title: { display: true, text: 'Frecuencia' },
+              beginAtZero: true
+            },
+            y1: {
+              type: 'linear',
+              position: 'right',
+              min: 0,
+              max: 100,
+              title: { display: true, text: '% Acumulado' },
+              grid: { drawOnChartArea: false }
+            }
+          }
+        }
+      });
+    }
+  </script>
+</body>
+</html>
