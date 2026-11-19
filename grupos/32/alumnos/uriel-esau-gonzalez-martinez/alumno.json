@@ -1,0 +1,251 @@
+{
+  "nombre": "Uriel Esau Gonzalez Martinez",
+  "github": "bxuri3l",
+  "sobreMi": "Estudiante de la UAQ, 8vo semestre.",
+  "actividades": [
+    {
+      "id": "act01-7habitos",
+      "titulo": "Los 7 hábitos: sitio con menú, introducción, dinámica y autor",
+      "descripcion": "Sitio de varias páginas sobre Los 7 hábitos, con menú, introducción con infografía, sopa de letras y sección del autor.",
+      "fecha": "2026-08-06",
+      "tipo": "web",
+      "tecnologias": [
+        "HTML",
+        "CSS",
+        "JavaScript"
+      ],
+      "ruta": "actividades/act01-7habitos/Menu.html"
+    },
+    {
+      "id": "act02-secretos-mente-millonaria",
+      "titulo": "Los secretos de la mente millonaria: exposición",
+      "descripcion": "Presentación de la exposición Los secretos de la mente millonaria, en PDF.",
+      "fecha": "2026-11-19",
+      "tipo": "pdf",
+      "tecnologias": [
+        "Investigacion"
+      ],
+      "ruta": "actividades/act02-secretos-mente-millonaria/exposicion.pdf"
+    },
+    {
+      "id": "act03-codigo-limpio",
+      "titulo": "Código Limpio: aprende jugando",
+      "descripcion": "App interactiva para aprender principios de código limpio mediante juegos.",
+      "fecha": "2026-10-15",
+      "tipo": "web",
+      "tecnologias": [
+        "HTML",
+        "CSS",
+        "JavaScript"
+      ],
+      "ruta": "actividades/act03-codigo-limpio/app_codigo_limpio.html"
+    },
+    {
+      "id": "act04-arquetipos-sistemicos",
+      "titulo": "Arquetipos Sistémicos: explorador interactivo",
+      "descripcion": "Explorador interactivo de los arquetipos sistémicos.",
+      "fecha": "2026-10-29",
+      "tipo": "web",
+      "tecnologias": [
+        "HTML",
+        "CSS",
+        "JavaScript"
+      ],
+      "ruta": "actividades/act04-arquetipos-sistemicos/arquetipos_sistemicos_interactivo.html"
+    },
+    {
+      "id": "act05-collage-cap1",
+      "titulo": "Collage: Habilidades directivas (Cap. 1)",
+      "descripcion": "Collage visual del capítulo 1 de habilidades directivas.",
+      "fecha": "2026-11-05",
+      "tipo": "web",
+      "tecnologias": [
+        "HTML",
+        "CSS",
+        "JavaScript"
+      ],
+      "ruta": "actividades/act05-collage-cap1/coll_cap1.html"
+    },
+    {
+      "id": "act06-collage-cap5",
+      "titulo": "Collage: Administración del tiempo (Cap. 5)",
+      "descripcion": "Collage visual del capítulo 5 sobre administración del tiempo.",
+      "fecha": "2026-11-05",
+      "tipo": "web",
+      "tecnologias": [
+        "HTML",
+        "CSS",
+        "JavaScript"
+      ],
+      "ruta": "actividades/act06-collage-cap5/coll_cap5.html"
+    },
+    {
+      "id": "act07-collages-cap3-cap7",
+      "titulo": "Collage: Habilidades directivas (Cap. 3 y 7)",
+      "descripcion": "Collage de los capítulos 3 y 7 de habilidades directivas.",
+      "fecha": "2026-11-10",
+      "tipo": "web",
+      "tecnologias": [
+        "HTML",
+        "CSS",
+        "JavaScript"
+      ],
+      "ruta": "actividades/act07-collages-cap3-cap7/index.html"
+    },
+    {
+      "id": "act08-collages-2-8-10-13-psicologiadinero-dalio",
+      "titulo": "Collages: capítulos 2, 8, 10 y 13, Psicología del dinero y Dalio",
+      "descripcion": "Collages unificados de varios capítulos, Psicología del dinero y Ray Dalio.",
+      "fecha": "2026-11-12",
+      "tipo": "web",
+      "tecnologias": [
+        "HTML",
+        "CSS",
+        "JavaScript"
+      ],
+      "ruta": "actividades/act08-collages-2-8-10-13-psicologiadinero-dalio/collages_unificado.html"
+    },
+    {
+      "id": "act09-yokoi-kasuga",
+      "titulo": "Conclusión personal: el éxito según Yokoi Kenji y Carlos Kasuga",
+      "descripcion": "Conclusión personal sobre el éxito desde la perspectiva de Yokoi Kenji y Carlos Kasuga.",
+      "fecha": "2026-09-01",
+      "tipo": "pdf",
+      "tecnologias": [
+        "Investigacion"
+      ],
+      "ruta": "actividades/act09-yokoi-kenji-carlos-kasuga/conclusion-personal.pdf"
+    },
+    {
+      "id": "act10-3-empresario-mx",
+      "titulo": "Cuadro comparativo de 3 empresarios mexicanos",
+      "descripcion": "Cuadro comparativo de tres empresarios de México.",
+      "fecha": "2026-10-06",
+      "tipo": "pdf",
+      "tecnologias": [
+        "Investigacion"
+      ],
+      "ruta": "actividades/act10-3-empresario-mx/cuadro-comparativo.pdf"
+    },
+    {
+      "id": "act11-empresario-perfecto",
+      "titulo": "El Empresario Perfecto",
+      "descripcion": "Actividad interactiva para construir al empresario perfecto.",
+      "fecha": "2026-10-06",
+      "tipo": "web",
+      "tecnologias": [
+        "HTML",
+        "CSS",
+        "JavaScript"
+      ],
+      "ruta": "actividades/act11-empresario-perfecto/empresario_perfecto_interactivo.html"
+    },
+    {
+      "id": "act12-foda",
+      "titulo": "Sistema de análisis de decisiones y diagnóstico operacional (FODA)",
+      "descripcion": "Sistema de análisis FODA con gráficas para diagnóstico operacional.",
+      "fecha": "2026-09-01",
+      "tipo": "web",
+      "tecnologias": [
+        "HTML",
+        "CSS",
+        "JavaScript",
+        "Chart.js",
+        "Tailwind CSS"
+      ],
+      "ruta": "actividades/act12-foda/Foda.html"
+    },
+    {
+      "id": "act13-habilidades-vida-trabajo",
+      "titulo": "Habilidades para la vida y el trabajo",
+      "descripcion": "Página sobre habilidades para la vida y el trabajo.",
+      "fecha": "2026-11-03",
+      "tipo": "web",
+      "tecnologias": [
+        "HTML",
+        "CSS",
+        "JavaScript"
+      ],
+      "ruta": "actividades/act13-habilidades-vida-trabajo/index.html"
+    },
+    {
+      "id": "act14-infografia-colon",
+      "titulo": "Infografía: colon",
+      "descripcion": "Infografía sobre el colon.",
+      "fecha": "2026-09-24",
+      "tipo": "imagen",
+      "tecnologias": [
+        "Infografia"
+      ],
+      "ruta": "actividades/act14-infografia-colon/infografia.jpeg"
+    },
+    {
+      "id": "act15-porque-fracasan-los-paises",
+      "titulo": "Infografía: Por qué fracasan los países",
+      "descripcion": "Infografía sobre por qué fracasan los países.",
+      "fecha": "2026-10-15",
+      "tipo": "imagen",
+      "tecnologias": [
+        "Infografia"
+      ],
+      "ruta": "actividades/act15-porque-fracasan-los-paises/infografia.jpeg"
+    },
+    {
+      "id": "act16-influencia-superricos",
+      "titulo": "Resumen: Cuánta influencia tienen los superricos (DW)",
+      "descripcion": "Resumen del documental de DW sobre la influencia de los superricos.",
+      "fecha": "2026-08-25",
+      "tipo": "pdf",
+      "tecnologias": [
+        "Investigacion"
+      ],
+      "ruta": "actividades/act16-influencia-superricos/resumen.pdf"
+    },
+    {
+      "id": "act17-charla-tedxyouth",
+      "titulo": "Resumen de la charla TEDxYouth",
+      "descripcion": "Resumen de una charla TEDxYouth.",
+      "fecha": "2026-11-03",
+      "tipo": "pdf",
+      "tecnologias": [
+        "Investigacion"
+      ],
+      "ruta": "actividades/act17-charla-tedxyouth/resumen.pdf"
+    },
+    {
+      "id": "act18-persuade-con-tu-voz",
+      "titulo": "Resumen: Persuade con tu voz (Emma Rodero)",
+      "descripcion": "Resumen de la charla TEDx de Emma Rodero sobre estrategias para sonar creíble.",
+      "fecha": "2026-08-25",
+      "tipo": "pdf",
+      "tecnologias": [
+        "Investigacion"
+      ],
+      "ruta": "actividades/act18-persuade-con-tu-voz/resumen.pdf"
+    },
+    {
+      "id": "act19-mentes-en-accion",
+      "titulo": "Resumen: Mentes en acción, cap. 1 Inteligencia",
+      "descripcion": "Resumen del video Mentes en acción (Ubaldo), capítulo 1: Inteligencia.",
+      "fecha": "2026-09-24",
+      "tipo": "pdf",
+      "tecnologias": [
+        "Investigacion"
+      ],
+      "ruta": "actividades/act19-mentes-en-accion/resumen.pdf"
+    },
+    {
+      "id": "act20-app-mente-millonaria",
+      "titulo": "Mentefy: app de la mente millonaria",
+      "descripcion": "Página interactiva Mentefy basada en la exposición Los secretos de la mente millonaria.",
+      "fecha": "2026-11-12",
+      "tipo": "web",
+      "tecnologias": [
+        "HTML",
+        "CSS",
+        "JavaScript"
+      ],
+      "ruta": "actividades/act20-app-mente-millonaria/Mentefy.html"
+    }
+  ]
+}

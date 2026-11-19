@@ -1,0 +1,633 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Collages · Habilidades Directivas</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Caveat:wght@600;700&family=Archivo+Black&family=Space+Grotesk:wght@400;700&family=Inter:wght@400;600&family=Bebas+Neue&family=Special+Elite&family=Jost:wght@500;600;700&family=EB+Garamond:ital,wght@0,400;0,500;1,400&display=swap">
+<style>
+:root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);color-scheme:light}
+*,*::before,*::after{box-sizing:inherit}
+html{scroll-padding-top:70px}
+body{margin:0;font-family:Inter,system-ui,sans-serif;background:#111;color:#222}
+#nav{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;display:flex;gap:8px;justify-content:center;flex-wrap:wrap;padding:10px;background:#000d;backdrop-filter:blur(8px)}
+#nav a{padding:8px 14px;border-radius:99px;color:#fff;text-decoration:none;font-size:13px;font-weight:600;border:2px solid #fff4;transition:.2s}
+#nav a:hover{transform:translateY(-2px)}
+#nav a.on{background:#fff;color:#000}
+section{min-height:100vh;padding:28px 16px 60px;overflow:hidden}
+.wrap{max-width:1100px;margin:auto}
+.grid{display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(250px,1fr))}
+.go{display:flex;gap:8px;flex-wrap:wrap;margin-top:30px;justify-content:center}
+.go a{padding:10px 16px;border-radius:8px;text-decoration:none;font-weight:700;font-size:13px}
+button{font:inherit;cursor:pointer}
+
+/* ===== CAP 2 · Ejecutivo editorial ===== */
+#cap2{background:#0e1a2b;color:#f3ead7;font-family:Georgia,serif}
+#cap2 h1{font-family:'Playfair Display',Georgia,serif;font-size:clamp(38px,8vw,84px);line-height:.95;margin:0;color:#d9b45b}
+#cap2 .k{letter-spacing:.3em;font-size:12px;text-transform:uppercase;color:#d9b45b99}
+#cap2 .t{background:#16263d;border:1px solid #d9b45b55;padding:20px;border-radius:2px;position:relative}
+#cap2 .t h3{font-family:'Playfair Display',serif;margin:0 0 10px;color:#d9b45b}
+#cap2 .w2{grid-column:span 2}
+#cap2 .q{background:#d9b45b;color:#0e1a2b;font-size:20px;font-style:italic}
+#cap2 .q b{display:block;margin-top:10px;font-size:13px;font-style:normal}
+#cap2 .sw{background:#d9b45b;color:#0e1a2b;border:0;padding:6px 14px;border-radius:99px;font-weight:700;margin-bottom:12px}
+#cap2 .pair{display:flex;justify-content:space-between;gap:10px;padding:6px 0;border-bottom:1px dotted #d9b45b44}
+#cap2 .flip{perspective:700px;height:150px;cursor:pointer}
+#cap2 .fi{position:relative;width:100%;height:100%;transition:.6s;transform-style:preserve-3d}
+#cap2 .flip.f .fi{transform:rotateY(180deg)}
+#cap2 .fi>div{position:absolute;inset:0;backface-visibility:hidden;padding:18px;display:flex;flex-direction:column;justify-content:center;border:1px solid #d9b45b88}
+#cap2 .fi>div+div{transform:rotateY(180deg);background:#d9b45b;color:#0e1a2b}
+#cap2 .chips{display:flex;flex-wrap:wrap;gap:7px}
+#cap2 .chips span{border:1px solid #d9b45b88;padding:5px 11px;border-radius:99px;font-size:13px;transition:.2s}
+#cap2 .chips span:hover{background:#d9b45b;color:#0e1a2b;transform:rotate(-3deg) scale(1.1)}
+#cap2 .steps{display:flex;gap:6px;flex-wrap:wrap}
+#cap2 .steps div{flex:1;min-width:80px;text-align:center;padding:12px 4px;background:#0e1a2b;font-size:13px}
+#cap2 .steps .d{background:#d9b45b;color:#0e1a2b;font-weight:700}
+#cap2 .go a{background:#d9b45b;color:#0e1a2b}
+
+/* ===== CAP 8 · Corcho y notas ===== */
+#cap8{background:#c19a6b radial-gradient(#0002 1.5px,transparent 2px) 0 0/18px 18px;font-family:Caveat,cursive;color:#2b2b2b}
+#cap8 h1{font-size:clamp(40px,9vw,90px);margin:0;transform:rotate(-2deg);display:inline-block;background:#fff;padding:4px 22px;box-shadow:3px 5px 0 #0004}
+#cap8 .board{position:relative;display:flex;flex-wrap:wrap;gap:22px;margin-top:30px;justify-content:center}
+#cap8 .n{width:240px;min-height:170px;padding:18px 16px;font-size:22px;line-height:1.1;box-shadow:4px 8px 14px #0005;cursor:grab;touch-action:none;transition:transform .2s;user-select:none;position:relative}
+#cap8 .n:hover{transform:rotate(0) scale(1.05)!important;z-index:5}
+#cap8 .n::before{content:"";position:absolute;top:-8px;left:50%;width:16px;height:16px;border-radius:50%;background:#c0392b;box-shadow:0 3px 3px #0006}
+#cap8 .n h3{margin:0 0 6px;font-size:28px}
+#cap8 .n small{display:block;margin-top:8px;font-size:18px;opacity:.75}
+#cap8 .n.big{width:340px}
+#cap8 .go a{background:#fff;color:#2b2b2b;font-family:Inter,sans-serif}
+
+/* ===== CAP 10 · Constructivista ===== */
+#cap10{background:#f2e8d5;color:#111;font-family:'Archivo Black',Impact,sans-serif}
+#cap10 .hd{display:grid;grid-template-columns:1.2fr 1fr;gap:0;border:5px solid #111}
+#cap10 .hd>div{padding:26px}
+#cap10 h1{margin:0;font-size:clamp(40px,8vw,88px);line-height:.9;text-transform:uppercase}
+#cap10 .red{background:#e63222;color:#f2e8d5}
+#cap10 .bl{background:#111;color:#f2e8d5;font-family:Inter,sans-serif;font-size:14px}
+#cap10 .tl{display:flex;gap:0;margin:26px 0 0;overflow-x:auto;border:5px solid #111}
+#cap10 .tl button{flex:1;min-width:96px;padding:16px 6px;border:0;border-right:3px solid #111;background:#f2e8d5;font-family:inherit;font-size:13px;text-transform:uppercase}
+#cap10 .tl button.on{background:#f6b800}
+#cap10 #ph{background:#f6b800;border:5px solid #111;border-top:0;padding:20px;font-family:Inter,sans-serif;font-weight:600;font-size:17px;min-height:74px}
+#cap10 .mid{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-top:26px}
+#cap10 .wl{display:flex;border:5px solid #111;min-height:170px;font-size:clamp(26px,5vw,48px)}
+#cap10 .wl div{flex:1;display:flex;align-items:center;justify-content:center;transition:flex .4s;cursor:pointer;text-align:center;padding:8px}
+#cap10 .wl div:hover{flex:2.2}
+#cap10 .vars{display:flex;flex-wrap:wrap;gap:8px;align-content:flex-start;font-family:Inter,sans-serif}
+#cap10 .vars b{padding:8px 12px;background:#111;color:#f2e8d5;font-size:13px;clip-path:polygon(0 0,100% 0,92% 100%,0 100%);cursor:pointer;transition:.2s}
+#cap10 .vars b.on{background:#e63222;transform:translateX(6px)}
+#cap10 .go a{background:#111;color:#f6b800}
+@media(max-width:700px){#cap10 .hd,#cap10 .mid{grid-template-columns:1fr}}
+
+/* ===== CAP 13 · Pop neón / burbujas ===== */
+#cap13{background:#120a2a;color:#fff;font-family:'Space Grotesk',sans-serif;position:relative}
+#cap13::before,#cap13::after{content:"";position:absolute;border-radius:50%;filter:blur(90px);z-index:0}
+#cap13::before{width:420px;height:420px;background:#ff3d9a66;top:-80px;left:-100px}
+#cap13::after{width:460px;height:460px;background:#00e5ff44;bottom:0;right:-120px}
+#cap13 .wrap{position:relative;z-index:1}
+#cap13 h1{font-size:clamp(38px,8vw,80px);margin:0;background:linear-gradient(90deg,#ff3d9a,#ffd23f,#00e5ff);-webkit-background-clip:text;background-clip:text;color:transparent}
+#cap13 .hats{display:flex;flex-wrap:wrap;gap:14px;justify-content:center;margin:26px 0}
+#cap13 .hat{width:104px;height:104px;border-radius:50%;border:0;font-weight:700;font-size:13px;color:#111;transition:.3s;box-shadow:0 0 0 0 #fff0}
+#cap13 .hat:hover{transform:translateY(-8px) rotate(-6deg)}
+#cap13 .hat.on{transform:scale(1.22);box-shadow:0 0 0 6px #fff6,0 0 40px currentColor}
+#cap13 #hd{background:#ffffff14;border:1px solid #fff3;border-radius:22px;padding:20px;text-align:center;font-size:18px;min-height:72px}
+#cap13 .bub{background:#ffffff12;border:1px solid #fff3;border-radius:28px 28px 28px 6px;padding:18px;transition:.3s;cursor:pointer}
+#cap13 .bub:nth-child(even){border-radius:28px 28px 6px 28px}
+#cap13 .bub:hover{background:#ffffff26;transform:scale(1.03) rotate(-1deg)}
+#cap13 .bub h3{margin:0 0 6px;color:#ffd23f}
+#cap13 .bub p{margin:0;font-size:14px;opacity:.85}
+#cap13 .bub.x p{display:none}
+#cap13 h2{margin:34px 0 12px;color:#00e5ff}
+#cap13 .go a{background:#ff3d9a;color:#fff}
+
+/* ===== PSY · La psicología del dinero (acotado a #psy) ===== */
+#psy{--paper:#e9ddc0;--ink:#1b1b1b;--green:#2f6b3a;--red:#c0392b;--hl:#ffe14d;padding:0;background:var(--paper) repeating-linear-gradient(0deg,#0000 0 3px,#0000000a 3px 4px);color:var(--ink);font-family:'Special Elite','Courier New',monospace}
+#psy .wrap{max-width:1050px;margin:auto;padding:24px 16px 70px}
+#psy h1,#psy h2{font-family:'Bebas Neue',Impact,sans-serif;font-weight:400;margin:0;letter-spacing:.02em}
+#psy h1{font-size:clamp(56px,13vw,150px);line-height:.85;color:var(--green)}
+#psy h2{font-size:clamp(34px,6vw,58px);display:inline-block;background:var(--ink);color:var(--paper);padding:2px 14px;transform:rotate(-1.5deg);margin:50px 0 18px}
+#psy .tape{position:absolute;width:90px;height:26px;background:#f4e9a8cc;top:-12px;left:calc(50% - 45px);transform:rotate(-4deg);box-shadow:0 1px 3px #0003}
+#psy .stamp{display:inline-block;border:4px solid var(--red);color:var(--red);padding:2px 12px;font-family:'Bebas Neue';font-size:30px;transform:rotate(-8deg);opacity:.85}
+#psy .hero{display:grid;grid-template-columns:1.3fr 1fr;gap:20px;align-items:center}
+#psy .brain{position:relative;aspect-ratio:1;max-width:340px;margin:auto;background:radial-gradient(circle at 35% 35%,#4f9a5c,#1e4d29);border-radius:46% 54% 48% 52%/52% 46% 54% 48%;box-shadow:6px 10px 0 #0003;overflow:hidden;cursor:pointer;transition:.5s}
+#psy .brain span{position:absolute;font-family:'Bebas Neue';font-size:34px;color:#e9ddc0;opacity:.35;transition:.5s;white-space:nowrap}
+#psy .brain:hover span,#psy .brain.x span{opacity:.95}
+#psy .brain::after{content:"toca";position:absolute;bottom:14px;width:100%;text-align:center;color:#fff9;font-size:13px}
+#psy .note{background:#fff8dc;padding:18px;box-shadow:4px 7px 12px #0003;position:relative}
+#psy .pers{display:flex;gap:14px;overflow-x:auto;padding:16px 6px 26px;scroll-snap-type:x mandatory}
+#psy .pol{flex:0 0 160px;background:#fff;padding:10px 10px 14px;box-shadow:3px 6px 10px #0004;border:0;text-align:left;font:inherit;scroll-snap-align:center;transition:.25s;position:relative}
+#psy .pol:hover{transform:translateY(-6px) rotate(0)!important}
+#psy .pol.on{outline:4px solid var(--green);transform:scale(1.06) rotate(0)!important}
+#psy .pol i{display:block;height:100px;margin-bottom:8px;font-style:normal;font-size:54px;text-align:center;line-height:100px}
+#psy .pol b{font-size:14px;display:block}
+#psy .lens{display:grid;grid-template-columns:1fr 1fr;gap:18px;background:#fff8dc;padding:22px;box-shadow:5px 9px 0 #0003;position:relative;margin-top:8px}
+#psy .lens h3{font-family:'Bebas Neue';font-size:34px;margin:0 0 6px;color:var(--green)}
+#psy .lens p{margin:0 0 10px;line-height:1.45;font-size:15px}
+#psy .gob{background:var(--ink);color:var(--paper);border:0;padding:12px 18px;font:inherit;font-size:15px;box-shadow:3px 3px 0 var(--red);margin-top:6px}
+#psy .gob:hover{background:var(--green)}
+#psy .hide{opacity:0;max-height:0;overflow:hidden;transition:.5s}
+#psy .show{opacity:1;max-height:400px}
+#psy .meter{position:relative;height:34px;border:3px solid var(--ink);background:linear-gradient(90deg,var(--green),var(--hl),var(--red));margin:6px 0 4px}
+#psy .meter u{position:absolute;top:-10px;bottom:-10px;width:8px;background:var(--ink);left:88%;transition:left 1.1s cubic-bezier(.3,1.6,.5,1)}
+#psy .ml{display:flex;justify-content:space-between;font-size:12px}
+#psy .bars{display:grid;gap:14px}
+#psy .bar{height:50px;border:3px solid var(--ink);background:#fff8;position:relative;overflow:hidden}
+#psy .bar div{height:100%;width:var(--w);background:var(--c);transition:width 1.6s ease;display:flex;align-items:center;padding-left:10px;color:#fff;font-weight:700;white-space:nowrap}
+#psy .bars.off .bar div{width:2px}
+#psy .ptl{position:relative;display:flex;gap:10px;overflow-x:auto;padding:30px 4px 10px;border-top:5px dashed var(--ink)}
+#psy .ptl button{flex:0 0 auto;border:0;background:var(--hl);font:inherit;padding:8px 12px;box-shadow:2px 4px 0 #0004;transition:.2s}
+#psy .ptl button.on{background:var(--green);color:#fff;transform:translateY(-8px) rotate(-2deg)}
+#psy #ptx{background:#fff;padding:18px;min-height:90px;margin-top:10px;box-shadow:4px 6px 0 #0003;line-height:1.45}
+#psy .idx{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:12px}
+#psy .ch{border:0;padding:14px 10px;min-height:96px;text-align:left;font:inherit;font-size:14px;background:#fff;box-shadow:2px 4px 0 #0004;clip-path:polygon(0 3%,5% 0,100% 2%,98% 100%,4% 97%);transition:.2s}
+#psy .ch b{display:block;font-family:'Bebas Neue';font-size:36px;color:var(--green);line-height:1}
+#psy .ch:hover{transform:rotate(-2deg) scale(1.05);background:var(--hl)}
+#psy .ch.open{background:var(--green);color:#fff}#psy .ch.open b{color:var(--hl)}
+#psy #pcm{margin-top:12px;font-family:Caveat,cursive;font-size:26px;min-height:36px}
+#psy .go a{background:var(--ink);color:var(--paper)}
+@media(max-width:720px){#psy .hero,#psy .lens{grid-template-columns:1fr}}
+
+/* ===== DAL · Principios, Ray Dalio (acotado a #dal) ===== */
+#dal{--coral:#dc3b5b;--ink:#231f20;--paper:#f6f1ea;--pink:#f6c3cd;padding:0;background:var(--paper);color:var(--ink);font-family:'EB Garamond',Georgia,serif;font-size:19px;line-height:1.45;overflow:hidden}
+#dal h1,#dal h2,#dal h3,#dal .dk,#dal button,#dal label{font-family:Jost,Futura,'Trebuchet MS',sans-serif}
+#dal .dk{font-weight:700;letter-spacing:.28em;font-size:12px;text-transform:uppercase;color:var(--coral)}
+#dal .dh{display:grid;grid-template-columns:1.1fr 1fr}
+#dal .dh-a{position:relative;overflow:hidden;background:var(--coral);color:#fff;padding:clamp(24px,5vw,56px)}
+#dal .dh-a::after{content:"";position:absolute;right:-70px;bottom:-80px;width:220px;height:220px;border-radius:50%;background:var(--pink);opacity:.45}
+#dal .dh-a .dk{color:var(--ink)}
+#dal h1{margin:14px 0 12px;font-weight:700;letter-spacing:.14em;font-size:clamp(30px,5.2vw,62px);line-height:1}
+#dal .dh-a p{margin:0;max-width:34ch;font-size:18px;position:relative;z-index:1}
+#dal .dh-b{position:relative;background:var(--ink);color:#fff;padding:clamp(24px,5vw,56px);display:flex;flex-direction:column;justify-content:center}
+#dal .dh-b::before{content:"";position:absolute;left:0;top:0;width:90px;height:45px;border-radius:0 0 90px 90px;background:var(--coral)}
+#dal .dq{font-family:Jost,sans-serif;font-weight:700;font-size:clamp(19px,2.3vw,27px);line-height:1.3;margin:14px 0 0}
+#dal .dr{grid-column:1/-1;background:var(--paper)}
+#dal .dr canvas{display:block;width:100%;height:200px}
+#dal .drc{display:flex;flex-wrap:wrap;gap:10px 18px;align-items:center;background:var(--ink);color:#fff;padding:14px clamp(16px,5vw,56px)}
+#dal .drc label{font-weight:700;letter-spacing:.12em;font-size:12px;text-transform:uppercase}
+#dal .drc input{accent-color:var(--coral);flex:1 1 180px;max-width:360px}
+#dal #dmsg{flex:1 1 240px;font-size:16px;opacity:.9}
+#dal #dcount{font-family:Jost,sans-serif;font-weight:700;color:var(--pink);font-size:12px;letter-spacing:.1em;text-transform:uppercase}
+#dal .dm{padding:clamp(40px,7vw,84px) 16px}
+#dal .dm>.bx{max-width:1000px;margin:auto}
+#dal .dark{background:var(--ink);color:#fff}
+#dal h2{margin:8px 0 14px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;font-size:clamp(24px,4vw,40px);line-height:1.1}
+#dal p.lead{max-width:60ch;margin:0 0 26px}
+#dal .btn{background:var(--ink);color:#fff;border:0;padding:11px 18px;font-weight:700;letter-spacing:.12em;font-size:12px;text-transform:uppercase;cursor:pointer;transition:.2s}
+#dal .btn:hover:not(:disabled){background:var(--coral)}
+#dal .btn:disabled{opacity:.35;cursor:not-allowed}
+#dal .dark .btn{background:var(--coral)}
+#dal .dark .btn:hover:not(:disabled){background:#fff;color:var(--ink)}
+/* ciclo */
+#dal .lp{display:grid;grid-template-columns:minmax(0,420px) 1fr;gap:28px;align-items:center}
+#dal .lp svg{width:100%;height:auto}
+#dal .nd{cursor:pointer;outline:none}
+#dal .nd circle{fill:#fff;stroke:var(--ink);stroke-width:3;transition:.3s}
+#dal .nd:hover circle,#dal .nd:focus circle{stroke:var(--coral)}
+#dal .nd.on circle{fill:var(--coral);stroke:var(--coral)}
+#dal .nd text{font:700 11px Jost,sans-serif;text-anchor:middle;pointer-events:none;fill:var(--ink)}
+#dal .nd.on text{fill:#fff}
+#dal .ar{fill:none;stroke:var(--ink);stroke-width:2;stroke-dasharray:5 6;animation:dd 1.2s linear infinite}
+@keyframes dd{to{stroke-dashoffset:-22}}
+#dal #dptr{transform-origin:210px 210px;transition:transform .9s cubic-bezier(.5,0,.2,1)}
+#dal .lc1{font:700 11px Jost,sans-serif;letter-spacing:.25em;text-anchor:middle;fill:#8b8587}
+#dal .lc2{font:700 40px Jost,sans-serif;text-anchor:middle;fill:var(--coral)}
+#dal .lcard{background:#fff;border-left:8px solid var(--coral);padding:20px 22px;min-height:150px;box-shadow:6px 8px 0 #0001}
+#dal .lcard b{font-family:Jost,sans-serif;font-size:21px;display:block;margin-bottom:6px;line-height:1.2}
+/* río de scroll */
+#dal .lr{position:relative;margin-top:24px;padding-top:6px}
+#dal .lr svg{position:absolute;left:0;top:0;pointer-events:none;overflow:visible}
+#dal .ls{position:relative;z-index:1;width:calc(50% - 40px);margin:0 0 44px;background:#fff;padding:16px 20px 18px;border-top:6px solid var(--coral);box-shadow:6px 8px 0 #0001;opacity:0;transform:translateY(26px);transition:opacity .6s,transform .6s}
+#dal .ls.r{margin-left:auto}
+#dal .ls.vis{opacity:1;transform:none}
+#dal .ls.ink{background:var(--ink);color:#fff;border-top-color:var(--pink)}
+#dal .ls .y{font-family:Jost,sans-serif;font-weight:700;font-size:clamp(28px,4vw,40px);color:var(--coral);line-height:1;display:block;letter-spacing:.04em}
+#dal .ls.ink .y{color:var(--pink)}
+#dal .ls h3{margin:8px 0 6px;font-size:14px;letter-spacing:.14em;text-transform:uppercase}
+#dal .ls p{margin:0 0 4px;font-size:17px}
+#dal .ls .btn{margin-top:8px}
+/* apuesta */
+#dal .bet{display:grid;grid-template-columns:1fr 1.5fr;gap:28px;align-items:start}
+#dal .bet svg{width:100%;height:auto;display:block;background:#ffffff0d}
+#dal .bet input[type=range]{width:100%;accent-color:var(--coral);margin:12px 0}
+#dal .gt{font:600 11px Jost,sans-serif;fill:#ffffff99}
+#dal .dctl{display:flex;gap:10px;flex-wrap:wrap}
+#dal #dres{margin-top:14px;min-height:80px;font-size:18px}
+#dal #dres b{color:var(--pink);font-family:Jost,sans-serif;font-size:26px;display:block}
+#dal .stat{font-family:Jost,sans-serif;font-weight:700;letter-spacing:.06em;font-size:14px;color:var(--pink);min-height:22px;margin-top:10px}
+#dal .small{font-size:15px;opacity:.7}
+/* rueda */
+#dal .wh{max-width:620px;margin:0 auto}
+#dal .wh svg{width:100%;height:auto;display:block}
+#dal .wh path{cursor:pointer;transition:transform .25s,filter .25s;transform-origin:320px 320px;outline:none}
+#dal .wh path:hover,#dal .wh path:focus{transform:scale(1.025)}
+#dal .wh path.on{transform:scale(1.045);filter:drop-shadow(0 5px 6px #0007)}
+#dal .wn{font:700 13px Jost,sans-serif;pointer-events:none}
+#dal .wa{font:700 13px Jost,sans-serif;letter-spacing:.25em;fill:#8b8587;text-anchor:middle}
+#dal .wb{font:700 92px Jost,sans-serif;fill:var(--coral);text-anchor:middle}
+#dal .wc{font:600 18px Jost,sans-serif;fill:var(--ink);text-anchor:middle}
+#dal .din{background:var(--ink);color:#fff;max-width:620px;margin:22px auto 0;padding:20px 24px;border-left:10px solid var(--coral);min-height:150px}
+#dal .din p{margin:6px 0 0}
+#dal .din-t{font-family:Jost,sans-serif;font-weight:700;font-size:clamp(20px,3vw,27px);line-height:1.15;margin:8px 0}
+#dal .din-t span{color:var(--coral);margin-right:6px}
+#dal .dpb{position:relative;height:8px;background:#ffffff33;margin:16px 0 8px}
+#dal .dpb i{position:absolute;top:-5px;width:4px;height:18px;background:var(--coral);margin-left:-2px}
+#dal .din small{opacity:.7;font-size:14px}
+#dal .go a{background:var(--ink);color:#fff}
+@media(max-width:800px){#dal .dh{grid-template-columns:1fr}#dal h1{font-size:clamp(30px,9vw,56px)}#dal .bet,#dal .lp{grid-template-columns:1fr}}
+@media(max-width:700px){#dal .ls,#dal .ls.r{width:calc(100% - 46px);margin-left:46px}}
+@media(prefers-reduced-motion:reduce){#dal .ar{animation:none}#dal .ls{opacity:1;transform:none;transition:none}#dal #dptr{transition:none}}
+</style>
+</head>
+<body>
+<div id="nav"></div>
+<div id="app"></div>
+<script>
+const NAV=[["cap2","Cap. 2 · Alta dirección"],["cap8","Cap. 8 · Equipos y conflictos"],["cap10","Cap. 10 · Negociación"],["cap13","Cap. 13 · Pensamiento"],["psy","📖 La psicología del dinero"],["dalio","🧭 Principios · Dalio"]];
+const $=s=>document.querySelector(s);
+const goBar=cur=>`<div class="go">${NAV.filter(n=>n[0]!==cur).map(n=>`<a href="#${n[0]}">Ir a ${n[1]} →</a>`).join("")}</div>`;
+const P={};
+
+P.cap2=()=>{
+ const pairs=[["Administra","Innova"],["Copia","Crea"],["Mantiene","Desarrolla"],["Manda","Convence"],["Acepta la realidad","Investiga la realidad"],["Se enfoca en sistemas","Se enfoca en la gente"],["Control","Confianza"],["Hace las cosas bien","Hace las cosas correctas"]];
+ const chips=["Buen comunicador","Flexible","Orientado a la acción","Positivo","Colaborador","Ambicioso","Valiente","Intuitivo","Respetuoso","Responsable","Motivador","Autocrítico","Creativo","Empático","Honesto"];
+ return `<section id="cap2"><div class="wrap">
+ <div class="k">Capítulo 2</div><h1>La alta dirección<br>y sus habilidades</h1>
+ <p style="max-width:560px;opacity:.8">Alcance, funciones e impacto de quien dirige: la dirección es hacer que otros ejecuten, y eso exige habilidades.</p>
+ <div class="grid" style="margin-top:22px">
+  <div class="t q">“La principal habilidad que me llevó al éxito es la pasión por el aprendizaje continuo mediante la lectura.”<b>— Bill Gates, fundador de Microsoft</b></div>
+  <div class="t w2"><h3>Administrador vs. líder</h3><button class="sw" id="sw">Mostrar solo al líder</button><div id="pr"></div></div>
+  <div class="flip" onclick="this.classList.toggle('f')"><div class="fi"><div><h3 style="margin:0;color:#d9b45b">Misión</h3>Toca para voltear</div><div><b>Es la razón de ser</b> del negocio o empresa. Primero se define la propia y luego la de la organización.</div></div></div>
+  <div class="flip" onclick="this.classList.toggle('f')"><div class="fi"><div><h3 style="margin:0;color:#d9b45b">Visión</h3>Toca para voltear</div><div><b>Hacia dónde va</b> la empresa: un sueño por alcanzar, sustentado en valores y no expresado solo en cifras.</div></div></div>
+  <div class="t w2"><h3>Proceso administrativo</h3><div class="steps"><div>Prever</div><div>Planear</div><div>Organizar</div><div class="d">Integrar</div><div class="d">Dirigir</div><div class="d">Controlar</div></div><p style="font-size:13px;opacity:.75;margin-bottom:0">Fase estática: habilidades técnicas · Fase dinámica (resaltada): habilidades directivas.</p></div>
+  <div class="t"><h3>Tres habilidades base</h3><p style="margin:0">Conceptual (pensar en modelos y largo plazo) · Técnica (el trabajo mismo) · Relacional (motivar, comunicar, guiar).</p></div>
+  <div class="t w2"><h3>Características del directivo</h3><div class="chips">${chips.map(c=>`<span>${c}</span>`).join("")}</div></div>
+ </div>${goBar("cap2")}</div></section>`;
+};
+P.cap2.init=()=>{let only=false;const draw=()=>{$("#pr").innerHTML=pairs().map(p=>only?`<div class="pair"><b>${p[1]}</b></div>`:`<div class="pair"><span>${p[0]}</span><b>${p[1]}</b></div>`).join("");$("#sw").textContent=only?"Ver ambos":"Mostrar solo al líder"};
+ const pairs=()=>[["Administra","Innova"],["Copia","Crea"],["Mantiene","Desarrolla"],["Manda","Convence"],["Acepta la realidad","Investiga la realidad"],["Se enfoca en sistemas","Se enfoca en la gente"],["Control","Confianza"],["Hace las cosas bien","Hace las cosas correctas"]];
+ $("#sw").onclick=()=>{only=!only;draw()};draw()};
+
+P.cap8=()=>{
+ const N=[
+ ["#fff176","Autocrático","Base: poder. El empleado obedece y depende del jefe.","Resultado: mínimo"],
+ ["#ffab91","De custodia","Base: recursos económicos. Seguridad y prestaciones.","Resultado: cooperación pasiva"],
+ ["#a5d6a7","De apoyo","Base: liderazgo. Participación y desempeño laboral.","Resultado: animación de impulsos"],
+ ["#81d4fa","Colegiado","Base: asociación y trabajo en equipo. Autodisciplina.","Resultado: entusiasmo"],
+ ["#f8bbd0","Equipo ≠ grupo","Máximo 5 personas, comparten logros y se comprometen con los resultados.","Productividad ↑ calidad ↑"],
+ ["#ce93d8","80 %","de los problemas serios de las organizaciones se refieren al factor humano.","Prepara al directivo"],
+ ["#ffe082","¿Cómo reconocer un conflicto?","Tono emocional · atacan ideas sin dejar terminar · forman bandos · ataques personales sutiles.","Una pista a la vez"],
+ ["#b2dfdb","Escalada","Acciones competitivas (ganar o perder) → posiciones rígidas → compromiso emocional.","Conflicto = oportunidad de mejora"],
+ ["#d7ccc8","3 tipos de trabajador","Trabaja lo que se le asigna · trabaja más de lo asignado · busca la forma de no trabajar.","¿Cuál lidera usted?"],
+ ["#c5e1a5","Diversidad","Reto y ventaja: se necesitan habilidades complementarias; sin confianza y respeto surge el conflicto.","Un equipo de clones no sirve"]];
+ return `<section id="cap8"><div class="wrap"><div style="text-align:center"><h1>Trabajo en equipo y manejo de conflictos</h1><div style="font-size:26px;margin-top:10px">Capítulo 8 · arrastra las notas, toca para ver la pista</div></div>
+ <div class="board">${N.map((n,i)=>`<div class="n${i<1?"":""}" style="background:${n[0]};transform:rotate(${(i%5-2)*2.2}deg)"><h3>${n[1]}</h3>${n[2]}<small class="s" hidden>${n[3]}</small></div>`).join("")}</div>${goBar("cap8")}</div></section>`;
+};
+P.cap8.init=()=>{document.querySelectorAll("#cap8 .n").forEach(el=>{let sx,sy,ox=0,oy=0,mv=0;
+ el.onpointerdown=e=>{el.setPointerCapture(e.pointerId);sx=e.clientX;sy=e.clientY;mv=0;el.style.zIndex=9};
+ el.onpointermove=e=>{if(!el.hasPointerCapture(e.pointerId))return;const dx=e.clientX-sx,dy=e.clientY-sy;mv=Math.abs(dx)+Math.abs(dy);el.style.translate=`${ox+dx}px ${oy+dy}px`};
+ el.onpointerup=e=>{const dx=e.clientX-sx,dy=e.clientY-sy;if(mv<5){const s=el.querySelector(".s");s.hidden=!s.hidden}else{ox+=dx;oy+=dy}}})};
+
+P.cap10=()=>{
+ const V=["Tiempo","Confianza","Transacción","Espacio","Perfil","Rol o estatus","Protocolo","Comunicación","Presentación"];
+ return `<section id="cap10"><div class="wrap">
+ <div class="hd"><div class="red"><div style="font-size:14px">CAPÍTULO 10</div><h1>Negociación como habilidad</h1></div><div class="bl"><b style="font-size:18px;font-family:'Archivo Black'">Nelson Mandela</b><br><br>Su capacidad negociadora fue la esperanza de un pueblo. Premio Nobel de la Paz 1993. La negociación es una habilidad, y por eso es perfectible.</div></div>
+ <div class="tl" id="tl"></div><div id="ph">Toca una fase del proceso cara a cara.</div>
+ <div class="mid"><div><div style="margin-bottom:8px">GANAR–GANAR</div><div class="wl"><div style="background:#e63222;color:#f2e8d5">Yo gano</div><div style="background:#f6b800">Tú ganas</div><div style="background:#111;color:#f2e8d5">Ambos</div></div><p style="font-family:Inter,sans-serif;font-size:14px">Si una parte gana y la otra pierde, el perdedor tenderá a invertir los papeles. Al final, ambos pierden.</p></div>
+ <div><div style="margin-bottom:8px">VARIABLES SECUNDARIAS</div><div class="vars" id="vr">${V.map(v=>`<b>${v}</b>`).join("")}</div><p id="vt" style="font-family:Inter,sans-serif;font-size:14px;min-height:40px">Selecciona una variable.</p></div></div>
+ ${goBar("cap10")}</div></section>`;
+};
+P.cap10.init=()=>{
+ const F=[["Preparación","Ser estratega: definir la estrategia y planear."],["Discusión","Comunicación: saber escuchar y transmitir el mensaje."],["Señales","Identificar mensajes verbales, físicos y de actitud."],["Propuesta","Capacidad de análisis y saber vender la propuesta."],["Intercambio","Recibir y dar información; establecer los alcances."],["Cierre","Ser creativo para cerrar la negociación."],["Acuerdo","Ser estratega para acordar los acuerdos."]];
+ const T={Tiempo:"Puntualidad, duración, agenda y plazos.",Confianza:"Condiciones de pago, credibilidad y amistad.",Transacción:"Moneda, regateo de precios y calidades.",Espacio:"Oficina, empresa o restaurante; número de participantes.",Perfil:"Escolaridad, normatividad, puesto y experiencia.","Rol o estatus":"Puesto y cercanía con la alta dirección.",Protocolo:"Saludo, vestimenta y respeto al espacio.",Comunicación:"Idioma, gestos y rompehielos de la conversación inicial.",Presentación:"Cómo se presenta el producto o servicio y el medio para obtener citas."};
+ $("#tl").innerHTML=F.map((f,i)=>`<button data-i="${i}">${i+1}. ${f[0]}</button>`).join("");
+ $("#tl").onclick=e=>{const b=e.target.closest("button");if(!b)return;[...$("#tl").children].forEach(x=>x.classList.remove("on"));b.classList.add("on");$("#ph").textContent=F[b.dataset.i][1]};
+ $("#vr").onclick=e=>{const b=e.target.closest("b");if(!b)return;[...$("#vr").children].forEach(x=>x.classList.remove("on"));b.classList.add("on");$("#vt").textContent=T[b.textContent]}};
+
+P.cap13=()=>{
+ return `<section id="cap13"><div class="wrap">
+ <div style="letter-spacing:.3em;font-size:12px;color:#00e5ff">CAPÍTULO 13</div><h1>Habilidades del pensamiento</h1>
+ <p style="max-width:560px;opacity:.85">Curiosidad, análisis y creatividad al servicio de la dirección. Prueba los seis sombreros para pensar de De Bono.</p>
+ <div class="hats" id="hats"></div><div id="hd">Elige un sombrero.</div>
+ <h2>Los cuatro aprendizajes (UNESCO)</h2><div class="grid" id="un"></div>
+ <h2>Áreas del pensamiento crítico</h2><div class="grid" id="ar"></div>
+ <h2>Para resolver un conflicto</h2><div class="grid"><div class="bub x"><h3>El directivo dedica más del 50 % de su tiempo a conflictos</h3><p>Evita evadirlos, suponer, culpar, interrumpir, dejar que las emociones dominen o imponer un acuerdo. Escucha: la falta de comunicación viene de no saber escuchar.</p></div><div class="bub x"><h3>Pensamiento lateral</h3><p>Busca soluciones imaginativas que se apartan del enfoque clásico: perspicacia, crear lo que no existe e ingenio.</p></div></div>
+ ${goBar("cap13")}</div></section>`;
+};
+P.cap13.init=()=>{
+ const H=[["Blanco","#f5f5f5","Datos e información, de manera objetiva."],["Rojo","#ff4d5a","Sentimientos e intuición, sin justificación."],["Negro","#b9a7ff","Razonamiento crítico, prudencia y seriedad."],["Amarillo","#ffd23f","Actitud positiva: factibilidad y beneficios."],["Verde","#5cf08c","Ideas nuevas: pensamiento creativo."],["Azul","#4db8ff","Observar el proceso de pensamiento: control."]];
+ $("#hats").innerHTML=H.map((h,i)=>`<button class="hat" data-i="${i}" style="background:${h[1]};color:#111">${h[0]}</button>`).join("");
+ $("#hats").onclick=e=>{const b=e.target.closest(".hat");if(!b)return;document.querySelectorAll(".hat").forEach(x=>x.classList.remove("on"));b.classList.add("on");const h=H[b.dataset.i];$("#hd").innerHTML=`<b style="color:${h[1]}">Sombrero ${h[0].toLowerCase()}:</b> ${h[2]}`;b.style.color=h[1];b.style.color="#111"};
+ const card=(t,p)=>`<div class="bub x" onclick="this.classList.toggle('x')"><h3>${t}</h3><p>${p}</p></div>`;
+ $("#un").innerHTML=[["Aprender a conocer","Sentir curiosidad, no solo acceder a la información."],["Aprender a hacer","Competencias para nuevas situaciones y trabajo en equipo."],["Aprender a ser","El progreso depende de la creatividad de cada individuo."],["Aprender a vivir juntos","Conocer a los demás en sociedades multiculturales."]].map(c=>card(...c)).join("");
+ $("#ar").innerHTML=[["Razonamiento","Inferir, comparar y deducir conclusiones."],["Solución de problemas","Sistema de acciones orientado a un objetivo."],["Toma de decisiones","Evaluar evidencias y elegir la mejor alternativa."],["Aprender a pensar","Pensar sobre cómo pensamos para optimizarlo."]].map(c=>card(...c)).join("")};
+
+P.psy=()=>`<section id="psy"><div class="wrap">
+<div class="hero">
+ <div><span class="stamp">Morgan Housel</span><h1>La psicología<br>del dinero</h1><p style="font-size:20px;max-width:460px">Cómo piensan los ricos · 18 lecciones sobre riqueza y felicidad. Collage del <b>capítulo 1</b> y del índice.</p></div>
+ <div class="brain" id="pbrain" onclick="this.classList.toggle('x')" aria-label="Cerebro de billetes"></div>
+</div>
+
+<h2>Ponte en sus zapatos</h2>
+<p style="max-width:640px">Todos hacemos cosas que a otros les parecen una locura. Elige una vida, mira primero lo que hace y mide cuánto te parece disparatado; después descubre su experiencia.</p>
+<div class="pers" id="ppers"></div>
+<div class="lens"><div class="tape"></div>
+ <div><h3 id="plt"></h3><p id="plw"></p><div class="ml"><span>Tiene sentido</span><span>¡Qué locura!</span></div><div class="meter"><u id="pnd"></u></div><button class="gob" id="pgb">Ponerme en sus zapatos →</button></div>
+ <div id="prv" class="hide"><h3>Su lógica</h3><p id="plr"></p><span class="stamp" style="font-size:24px;color:var(--green);border-color:var(--green)">Nadie está loco</span></div>
+</div>
+
+<h2>0,00000001 % vs. 80 %</h2>
+<div class="note" style="max-width:700px"><div class="tape"></div>
+ <p style="margin-top:0">Tu experiencia personal es una fracción mínima de lo que ha pasado en el mundo, pero moldea gran parte de cómo crees que funciona el dinero.</p>
+ <div class="bars off" id="pbars">
+  <div class="bar"><div style="--w:2px;--c:#777">Lo que has vivido del mundo</div></div>
+  <div class="bar"><div style="--w:80%;--c:var(--green)">Lo que crees saber de cómo funciona</div></div>
+ </div>
+ <button class="gob" onclick="document.getElementById('pbars').classList.toggle('off')">Mostrar / ocultar</button>
+</div>
+
+<h2>Somos novatos</h2>
+<p style="max-width:640px">Las decisiones modernas con el dinero son muy recientes. Toca una fecha.</p>
+<div class="ptl" id="ptl"></div><div id="ptx">Selecciona un hito.</div>
+
+<h2>Las 20 puertas del libro</h2>
+<div class="idx" id="pidx"></div><div id="pcm"></div>
+${goBar("psy")}</div></section>`;
+P.psy.init=()=>{
+const PE=[
+["🌲","Nacido en los 50","Ve las acciones con desconfianza.","Entre su adolescencia y su treintena el mercado, ajustado a la inflación, no se movió. Para él la bolsa no era una máquina de riqueza.",78],
+["📈","Nacido en los 70","Pone gran parte de su dinero en acciones.","En su juventud el S&P 500 se multiplicó casi por diez ajustado a la inflación. Para él, invertir en bolsa es lo normal.",30],
+["⛽","Nacido en los 60","Se obsesiona con los precios.","Vio cómo la inflación multiplicó los precios por más de tres durante su adolescencia y veintena, y cómo las nóminas rendían menos.",55],
+["📱","Nacido en los 90","Casi no piensa en la inflación.","Ha vivido toda su vida con inflación baja: es un riesgo que ni se le pasa por la cabeza.",60],
+["🎟️","Compra lotería con ingresos bajos","Gasta unos 400 dólares al año en boletos.","Vive al día y ahorrar parece inalcanzable. El boleto es el único momento en que toca con la mano un sueño que otros ya dan por sentado. Sigue siendo mala idea, pero tiene lógica.",92],
+["🏛️","Hijo de banquero en la Depresión","Parece no entender la crisis.","Su familia se enriqueció aún más: más casas, más criados. Casi lo único que vio fue a su padre contratar jardineros extra para que comieran.",70],
+["🏭","Obrera de un taller en China","Acepta un trabajo que a otros les parece explotación.","Su sobrino cuenta que antes trabajaba en algo mucho peor. Comparado con sus opciones, el taller es una mejora.",88]];
+const dot=["#d9c9a0","#cfe0c6","#f3d3c2","#c9d6e6","#f1e19a","#d8cce6","#e6c6c6"];
+$("#ppers").innerHTML=PE.map((p,i)=>`<button class="pol" data-i="${i}" style="transform:rotate(${(i%4-1.5)*2.5}deg)"><i style="background:${dot[i]}">${p[0]}</i><b>${p[1]}</b></button>`).join("");
+let cur=0,rev=false;
+function show(i){cur=i;rev=false;const p=PE[i];document.querySelectorAll("#psy .pol").forEach((b,k)=>b.classList.toggle("on",k===i));$("#plt").textContent=p[1];$("#plw").textContent=p[2];$("#plr").textContent=p[3];$("#prv").classList.remove("show");$("#pgb").textContent="Ponerme en sus zapatos →";$("#pnd").style.left="2%";setTimeout(()=>{const n=$("#pnd");if(n)n.style.left=p[4]+"%"},60)}
+$("#ppers").onclick=e=>{const b=e.target.closest(".pol");if(b)show(+b.dataset.i)};
+$("#pgb").onclick=()=>{rev=!rev;$("#prv").classList.toggle("show",rev);$("#pnd").style.left=(rev?Math.round(PE[cur][4]*.25):PE[cur][4])+"%";$("#pgb").textContent=rev?"Volver a mirar desde fuera":"Ponerme en sus zapatos →"};
+show(0);
+const W=["Dinero","Riesgo","Inflación","Bolsa","Suerte","Miedo","Ahorrar","Deuda","Sueño","Historia"];
+$("#pbrain").innerHTML=W.map((w,i)=>`<span style="top:${8+i*9}%;left:${(i*37)%55+6}%;transform:rotate(${(i%5-2)*7}deg)">${w}</span>`).join("");
+const T=[["600 a. C.","Se cree que el rey Aliates de Lidia creó la primera moneda oficial. El dinero es antiguo; ahorrar e invertir como los conocemos, no."],["Antes de la 2ª G. M.","La mayoría de los estadounidenses trabajaba hasta morir. Más de la mitad de los hombres de 65 años o más seguía en activo hasta los años cuarenta."],["1940","Ida May Fuller cobra el primer cheque de la Seguridad Social: 22,54 dólares."],["1978","Nace el plan 401(k), el instrumento central del ahorro para la jubilación en EE. UU."],["Años 80","Arraiga la idea de que todo el mundo merece una jubilación digna y debe ahorrar para ella."],["1998","Nace el plan IRA Roth. El autor bromea: si fuera una persona, apenas podría beber alcohol legalmente."],["Hoy","Fondos indexados (menos de 50 años) y fondos de inversión libre (unos 25) son muy jóvenes. Los perros llevan 10.000 años domesticados y aún conservan instintos salvajes: no estamos locos, somos novatos."]];
+$("#ptl").innerHTML=T.map((t,i)=>`<button data-i="${i}">${t[0]}</button>`).join("");
+$("#ptl").onclick=e=>{const b=e.target.closest("button");if(!b)return;document.querySelectorAll("#ptl button").forEach(x=>x.classList.remove("on"));b.classList.add("on");$("#ptx").textContent=T[b.dataset.i][1]};
+const C=["Nadie está loco","Suerte y riesgo","No tener nunca suficiente","La confusión del interés compuesto","Hacerse rico frente a conservar la riqueza","Cruz, tú ganas","Libertad","La paradoja del hombre y el coche","La riqueza es lo que no se ve","Ahorrar","Mejor razonable que racional","¡Sorpresa!","El margen de error","Vas a cambiar","Nada es gratis","Tú eres tú y yo soy yo","La seducción del pesimismo","Cuando vas a creerte cualquier cosa","Recapitulemos","Confesiones"];
+$("#pidx").innerHTML=C.map((c,i)=>`<button class="ch${i?"":" open"}" data-i="${i}" style="transform:rotate(${(i%5-2)*1.2}deg)"><b>${i+1}</b>${c}</button>`).join("");
+$("#pidx").onclick=e=>{const b=e.target.closest(".ch");if(!b)return;const i=+b.dataset.i;$("#pcm").textContent=i?`Capítulo ${i+1}: “${C[i]}”. Esta muestra del libro no incluye su texto.`:"Este es el capítulo que acabas de explorar.";if(!i){const el=document.querySelector("#psy .pers");scrollTo({top:el.getBoundingClientRect().top+scrollY-80,behavior:"smooth"})}};
+};
+
+P.dalio=()=>`<section id="dal">
+<header class="dh">
+ <div class="dh-a"><div class="dk">Ray Dalio · Deusto</div><h1>PRINCIPIOS</h1><p>Vida y obra. Collage de la muestra: índice, introducción y capítulo 1.</p></div>
+ <div class="dh-b"><div class="dk" style="color:#f6c3cd">Página 2 · la idea</div><p class="dq">El tiempo avanza como una corriente y nos lleva, quieras o no, a toparnos con la realidad y a decidir. No hay freno ni atajo: solo cabe afrontarlo lo mejor posible.</p></div>
+ <div class="dr"><canvas id="dcv" aria-hidden="true"></canvas><div class="drc"><label for="dsl">Intenta frenar el tiempo</label><input id="dsl" type="range" min="0" max="160" value="100"><span id="dmsg">Arrastra el control… y mira qué pasa al soltarlo.</span><span id="dcount">Encuentros con la realidad: 0</span></div></div>
+</header>
+
+<div class="dm"><div class="bx">
+ <div class="dk">Introducción · págs. 3-4</div><h2>El ciclo que no se detiene</h2>
+ <p class="lead">Dalio abre el libro con una idea sencilla: vivimos tomando decisiones que, en el fondo, son apuestas, y nadie nace sabiendo tomarlas. Toca un nodo o deja girar el ciclo.</p>
+ <div class="lp"><svg id="dlsv" viewBox="0 0 420 420" role="img" aria-label="Ciclo de decisiones"></svg>
+  <div><div class="lcard" id="dlc"></div>
+  <div style="margin-top:14px;display:flex;gap:12px;align-items:center;flex-wrap:wrap"><button class="btn" id="dpl">Pausar</button><span style="font-size:16px;opacity:.8">Nadie nace con aptitud innata para decidir: se aprende en los encuentros con la realidad.</span></div></div></div>
+</div></div>
+
+<div class="dm" style="padding-top:0"><div class="bx">
+ <div class="dk">Capítulo 1 · 1949-1967 · págs. 5-9</div><h2>La llamada de la aventura</h2>
+ <p class="lead">Baja con el scroll: el río se dibuja a medida que avanzas por los años de formación de Dalio.</p>
+ <div class="lr" id="dlr"></div>
+</div></div>
+
+<div class="dm dark" id="dbet"><div class="bx">
+ <div class="dk" style="color:#f6c3cd">Una apuesta · pág. 8</div><h2>Northeast Airlines</h2>
+ <div class="bet">
+  <div><p style="margin-top:0">Eres un adolescente con ahorros de caddie. Mueve la fecha hacia delante: solo ves el pasado. Elige cuándo comprar y cuándo vender sin saber qué viene después.</p><p class="small">El trazo imita de forma aproximada el gráfico de la pág. 8 del libro; no son cotizaciones reales.</p></div>
+  <div><svg id="dsvg" viewBox="0 0 640 280" role="img" aria-label="Precio de las acciones de Northeast Airlines, 1962-1968"></svg>
+   <input id="dsd" type="range" min="0" max="200" value="0" aria-label="Fecha">
+   <div class="dctl"><button class="btn" id="dbuy">Comprar aquí</button><button class="btn" id="dsell" disabled>Vender aquí</button><button class="btn" id="dre">Reiniciar</button></div>
+   <div class="stat" id="dstat"></div><div id="dres">Mueve la fecha y compra cuando creas que es el momento.</div></div>
+ </div>
+</div></div>
+
+<div class="dm"><div class="bx">
+ <div class="dk">Índice · págs. 5-7 del libro</div><h2>La rueda de Principios</h2>
+ <p class="lead">Las tres partes del libro y sus 29 capítulos en un solo círculo. Pasa el cursor o toca un segmento; el anillo interior agrupa cada parte.</p>
+ <div class="wh"><svg id="dwh" viewBox="0 0 640 640" role="group" aria-label="Rueda de Principios"></svg></div>
+ <div class="din" id="dwi"></div>
+</div></div>
+
+<div class="dm" style="padding-top:0"><div class="bx">${goBar("dalio")}</div></div>
+</section>`;
+
+P.dalio.init=()=>{
+ const cl=[];window.__cleanup=()=>cl.forEach(f=>{try{f()}catch(e){}});
+ const reduce=matchMedia("(prefers-reduced-motion: reduce)").matches;
+ const f1=n=>n.toLocaleString("es",{maximumFractionDigits:1});
+
+ /* ---------- 1 · río ---------- */
+ {
+ const cv=$("#dcv"),ctx=cv.getContext("2d"),sl=$("#dsl"),msg=$("#dmsg"),cnt=$("#dcount");
+ let W=0,H=200,spd=1,rel=false,last=0,raf=0,enc=0,flash=0,travel=0,nextRock=260;
+ const ph=[0,0,0,0,0],cols=["#f6c3cd","#f0a1b2","#dc3b5b","#b32a47","#231f20"],rocks=[];
+ const size=()=>{W=cv.clientWidth;const d=Math.min(devicePixelRatio||1,2);cv.width=W*d;cv.height=H*d;ctx.setTransform(d,0,0,d,0,0)};
+ const base=k=>H*(.30+.13*k);
+ const wy=(k,x)=>base(k)+(8+k*3)*Math.sin((x+ph[k])/(170+k*55)*6.2832+k*1.7);
+ const bx=()=>Math.max(60,W*.26);
+ function draw(){
+  ctx.clearRect(0,0,W,H);
+  for(let k=0;k<5;k++){
+   ctx.beginPath();ctx.moveTo(0,H);
+   for(let x=0;x<=W;x+=8)ctx.lineTo(x,wy(k,x));
+   ctx.lineTo(W,H);ctx.closePath();ctx.fillStyle=cols[k];ctx.fill();
+   if(k===2){
+    rocks.forEach(r=>{const y=wy(2,r.x)-6;ctx.beginPath();ctx.arc(r.x,y,12,0,6.2832);ctx.fillStyle="#231f20";ctx.fill();ctx.fillStyle="#fff";ctx.font="700 13px Jost,sans-serif";ctx.textAlign="center";ctx.fillText("?",r.x,y+4.5)});
+    const x=bx(),y=wy(2,x)-12;
+    if(flash>0){ctx.beginPath();ctx.arc(x,y,10+(1-flash)*34,0,6.2832);ctx.strokeStyle="rgba(35,31,32,"+flash+")";ctx.lineWidth=3;ctx.stroke()}
+    ctx.beginPath();ctx.arc(x,y,10,0,6.2832);ctx.fillStyle="#fff";ctx.fill();ctx.lineWidth=3;ctx.strokeStyle="#231f20";ctx.stroke();
+    ctx.fillStyle="#231f20";ctx.font="700 9px Jost,sans-serif";ctx.textAlign="center";ctx.fillText("TÚ",x,y+3.2);
+   }
+  }
+ }
+ function step(ts){
+  const dt=Math.min(.05,(ts-last)/1000||0);last=ts;
+  if(rel){spd+=(1-spd)*Math.min(1,dt*5);sl.value=Math.round(spd*100);if(Math.abs(1-spd)<.01){spd=1;sl.value=100;rel=false}}
+  const v=spd*dt;
+  for(let k=0;k<5;k++)ph[k]+=v*(30+k*22);
+  const dx=v*74;
+  rocks.forEach(r=>{const old=r.x;r.x-=dx;if(!r.hit&&old>=bx()&&r.x<bx()){r.hit=true;enc++;flash=1;cnt.textContent="Encuentros con la realidad: "+enc}});
+  while(rocks.length&&rocks[0].x<-20)rocks.shift();
+  travel+=dx;if(travel>nextRock){rocks.push({x:W+20,hit:false});travel=0;nextRock=220+Math.random()*160}
+  flash=Math.max(0,flash-dt*1.6);
+  draw();raf=requestAnimationFrame(step);
+ }
+ sl.addEventListener("input",()=>{rel=false;spd=sl.value/100;msg.textContent=spd<.95?"Puedes intentarlo, pero la corriente no obedece.":spd>1.05?"Tampoco puedes adelantar tus encuentros con la realidad.":"El río marca el ritmo."});
+ sl.addEventListener("change",()=>{if(Math.abs(spd-1)>.01){rel=true;msg.textContent="El río recupera su ritmo. Solo cabe afrontar cada encuentro lo mejor posible."}});
+ size();rocks.push({x:W*.75,hit:false},{x:W*1.05,hit:false});
+ const onR=()=>{size();if(reduce)draw()};
+ addEventListener("resize",onR);
+ if(reduce)draw();else raf=requestAnimationFrame(t=>{last=t;step(t)});
+ cl.push(()=>{cancelAnimationFrame(raf);removeEventListener("resize",onR)});
+ }
+
+ /* ---------- 2 · ciclo de decisiones ---------- */
+ {
+ const LN=[
+ ["Metas","Escoges qué perseguir","De niño te guían otros, casi siempre tus padres. Al crecer eliges tú, y esas metas marcan tu rumbo."],
+ ["Problemas","Chocas con la realidad","Al acercarte a tus metas aparecen obstáculos. Ese encuentro no se puede esquivar."],
+ ["Errores","Te equivocas","Cometes errores y te das de bruces con tus propias debilidades."],
+ ["Aprendizaje","Aprendes","Descubres cosas sobre ti y sobre cómo funciona la realidad."],
+ ["Decisiones","Decides de nuevo","Con lo aprendido tomas nuevas decisiones: millones de apuestas, grandes y pequeñas. De cómo las tomas depende, al final, la calidad de tu vida."]];
+ const cx=210,cy=210,R=140,rn=44,rad=a=>a*Math.PI/180;
+ const pp=a=>[cx+R*Math.cos(rad(a)),cy+R*Math.sin(rad(a))];
+ let s='<defs><marker id="dar" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="#231f20"/></marker></defs>';
+ for(let i=0;i<5;i++){const A=pp(-90+i*72+22),B=pp(-90+(i+1)*72-22);s+=`<path class="ar" d="M${A[0]},${A[1]}A${R},${R} 0 0 1 ${B[0]},${B[1]}" marker-end="url(#dar)"/>`}
+ for(let i=0;i<5;i++){const p=pp(-90+i*72);s+=`<g class="nd" data-i="${i}" tabindex="0" role="button" aria-label="${LN[i][1]}"><circle cx="${p[0]}" cy="${p[1]}" r="${rn}"/><text x="${p[0]}" y="${p[1]+4}">${LN[i][0]}</text></g>`}
+ s+=`<g id="dptr"><circle cx="${cx}" cy="${cy-R-rn-14}" r="7" fill="#dc3b5b"/></g><text class="lc1" x="${cx}" y="${cy-6}">VUELTA</text><text class="lc2" id="dlv" x="${cx}" y="${cy+32}">1</text>`;
+ const sv=$("#dlsv");sv.innerHTML=s;
+ let idx=0,steps=0,play=true,tm=0;
+ const show=()=>{sv.querySelectorAll(".nd").forEach((g,k)=>g.classList.toggle("on",k===idx));$("#dlc").innerHTML=`<b>${idx+1}. ${LN[idx][1]}</b>${LN[idx][2]}`;$("#dptr").style.transform=`rotate(${steps*72}deg)`;$("#dlv").textContent=Math.floor(steps/5)+1};
+ const arm=()=>{clearInterval(tm);if(play&&!reduce)tm=setInterval(()=>{steps++;idx=steps%5;show()},3600)};
+ const pick=i=>{const d=(i-idx+5)%5;if(d){steps+=d;idx=i;show();arm()}};
+ sv.addEventListener("click",e=>{const g=e.target.closest(".nd");if(g)pick(+g.dataset.i)});
+ sv.addEventListener("keydown",e=>{const g=e.target.closest(".nd");if(g&&(e.key==="Enter"||e.key===" ")){e.preventDefault();pick(+g.dataset.i)}});
+ $("#dpl").onclick=()=>{play=!play;$("#dpl").textContent=play?"Pausar":"Girar";arm()};
+ show();arm();cl.push(()=>clearInterval(tm));
+ }
+
+ /* ---------- 3 · río que se dibuja con el scroll ---------- */
+ {
+ const ST=[
+ ["1949","Long Island","Nace en un barrio de clase media. Hijo único de un músico profesional de jazz y de un ama de casa; un chico normal, con notas por debajo de la media."],
+ ["ADN","Debilidad y curiosidad","Su punto débil: mala memoria y poca paciencia con las instrucciones. Su punto fuerte, menos visible entonces: una enorme curiosidad por entender las cosas por su cuenta."],
+ ["Casa","Madre y padre","Su madre lo acompañaba en los estudios y estuvo siempre que la necesitó; murió cuando él tenía diecinueve años. Su padre, músico que trabajaba de madrugada, tenía un carácter fuerte que Dalio admiraba."],
+ ["8 años","Trabajos de niño","Desde los ocho repartió periódicos, quitó nieve, fue caddie, lavó platos y repuso mercancía. Con ese dinero propio aprendió lecciones que ni la escuela ni los juegos le habrían dado."],
+ ["Años 60","Un país que aspiraba","Recuerda a Kennedy y su apuesta por explorar el espacio, la igualdad de derechos y acabar con la pobreza. Para él, EE. UU. estaba en la cima: pesaba cerca del 40 % de la economía mundial, frente al 20 % actual."],
+ ["12 años","El club Links","Como caddie atendía a golfistas que hablaban de bolsa, un sector en boga. Lo que ganaba allí lo invirtió en acciones."],
+ ["Bolsa","Northeast Airlines","Eligió esa aerolínea porque oyó que era la única cuya acción costaba menos de cinco dólares. Triplicó su dinero justo antes de que la empresa, al borde de la quiebra, fuera adquirida. Fue suerte, aunque entonces no lo vio.",'<button class="btn" data-to="dbet">Pruébalo tú ↓</button>'],
+ ["Lectura","La biblioteca de inversiones","Pidió los informes anuales de las 500 mayores empresas que ofrecía la revista Fortune y se empapó de ellos. El saber general decía que invertir era comprar y esperar: todo seguiría subiendo."],
+ ["Carácter","Mejor arriesgar","Siempre pensó por su cuenta y se arriesgaba en busca de una recompensa: temía más el aburrimiento y la mediocridad que el fracaso. Sus amigos eligieron para su anuario una cita de Thoreau sobre marchar al ritmo de otro tambor."],
+ ["1966","El techo del mercado","Se gradúa con la bolsa aún en alza; entre surf y novillos con su mejor amigo, Phil, no sabía que ese año el mercado tocaba techo. Después, casi todo lo que creía saber de aquel mundo resultó falso."]];
+ const lr=$("#dlr");
+ lr.innerHTML='<svg id="dls" aria-hidden="true"><path id="dlg" fill="none" stroke="#231f2022" stroke-width="5"/><path id="dlp" fill="none" stroke="#dc3b5b" stroke-width="5" stroke-linecap="round"/><g id="dld"></g><circle id="dlb" r="9" fill="#231f20" stroke="#f6c3cd" stroke-width="3"/></svg>'+
+  ST.map((t,i)=>`<article class="ls${i%2?" r":""}${i%3==2?" ink":""}"><span class="y">${t[0]}</span><h3>${t[1]}</h3><p>${t[2]}</p>${t[3]||""}</article>`).join("");
+ const svg=$("#dls"),dlp=$("#dlp"),dlg=$("#dlg"),dld=$("#dld"),dlb=$("#dlb"),cards=[...lr.querySelectorAll(".ls")];
+ let LEN=1,dots=[],ys=[];
+ function lay(){
+  const W=lr.clientWidth,H=lr.clientHeight,mob=W<700,xc=mob?22:W/2,amp=mob?6:22;
+  svg.setAttribute("width",W);svg.setAttribute("height",H);svg.setAttribute("viewBox",`0 0 ${W} ${H}`);
+  let d="M"+xc+",0";for(let y=10;y<=H;y+=10)d+="L"+(xc+amp*Math.sin(y/70)).toFixed(1)+","+y;
+  dlp.setAttribute("d",d);dlg.setAttribute("d",d);
+  LEN=dlp.getTotalLength();dlp.style.strokeDasharray=LEN;
+  let g="";ys=[];
+  cards.forEach(c=>{const y=c.offsetTop+34,x=xc+amp*Math.sin(y/70),left=mob||c.classList.contains("r"),ex=left?c.offsetLeft:c.offsetLeft+c.offsetWidth;ys.push(y);g+=`<line x1="${x}" y1="${y}" x2="${ex}" y2="${y}" stroke="#231f20" stroke-width="2"/><circle cx="${x}" cy="${y}" r="7" fill="#f6f1ea" stroke="#231f20" stroke-width="3"/>`});
+  dld.innerHTML=g;dots=[...dld.querySelectorAll("circle")];upd();
+ }
+ let tick=0;
+ function upd(){
+  tick=0;const r=lr.getBoundingClientRect(),p=Math.max(0,Math.min(1,(innerHeight*.65-r.top)/r.height));
+  dlp.style.strokeDashoffset=LEN*(1-p);
+  const pt=dlp.getPointAtLength(p*LEN);dlb.setAttribute("cx",pt.x);dlb.setAttribute("cy",pt.y);
+  dots.forEach((c,i)=>c.setAttribute("fill",ys[i]<=pt.y?"#dc3b5b":"#f6f1ea"));
+ }
+ const onS=()=>{if(!tick)tick=requestAnimationFrame(upd)};
+ addEventListener("scroll",onS,{passive:true});addEventListener("resize",lay);
+ let io=null;
+ if("IntersectionObserver" in window){io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add("vis");io.unobserve(e.target)}}),{threshold:.15,rootMargin:"0px 0px -8% 0px"});cards.forEach(c=>io.observe(c))}else cards.forEach(c=>c.classList.add("vis"));
+ let ro=null;if("ResizeObserver" in window){ro=new ResizeObserver(()=>lay());ro.observe(lr)}
+ lay();if(document.fonts&&document.fonts.ready)document.fonts.ready.then(lay);
+ cl.push(()=>{removeEventListener("scroll",onS);removeEventListener("resize",lay);cancelAnimationFrame(tick);io&&io.disconnect();ro&&ro.disconnect()});
+ }
+
+ /* ---------- 4 · apuesta ---------- */
+ {
+ const PTS=[[1962,4.5],[1962.3,4.5],[1962.5,3.8],[1962.8,3.5],[1963,3.2],[1963.3,3],[1963.6,3.2],[1963.8,3.6],[1963.95,2.8],[1964.1,3.5],[1964.3,5.5],[1964.4,4.8],[1964.6,5.2],[1964.8,4.6],[1964.95,4.8],[1965.1,5.4],[1965.2,4.5],[1965.35,6.5],[1965.45,9],[1965.55,10],[1965.65,12],[1965.75,19],[1965.82,18.5],[1965.88,38],[1965.95,32],[1966.05,27],[1966.15,26],[1966.25,31],[1966.35,32],[1966.45,28.5],[1966.6,29],[1966.75,29.5],[1966.85,23],[1967,20],[1967.1,27],[1967.2,24],[1967.3,28],[1967.45,28],[1967.55,28.5],[1967.6,24],[1967.7,25.5],[1967.8,23.5],[1967.9,20.5],[1967.97,22],[1968,19.5]];
+ const N=200,Y0=1962,Y1=1968,MES=["ene","feb","mar","abr","may","jun","jul","ago","sep","oct","nov","dic"];
+ const price=t=>{for(let i=1;i<PTS.length;i++){if(t<=PTS[i][0]){const a=PTS[i-1],b=PTS[i];return a[1]+(b[1]-a[1])*(t-a[0])/(b[0]-a[0])}}return PTS[PTS.length-1][1]};
+ const S=Array.from({length:N+1},(_,i)=>price(Y0+(Y1-Y0)*i/N));
+ let best=1,mn=S[0];for(let i=1;i<=N;i++){best=Math.max(best,S[i]/mn);mn=Math.min(mn,S[i])}
+ const X=i=>40+i/N*580,Yv=v=>240-v/42*210;
+ const pth=(a,b)=>{let d="";for(let i=a;i<=b;i++)d+=(i===a?"M":"L")+X(i).toFixed(1)+","+Yv(S[i]).toFixed(1);return d};
+ const lab=i=>{const t=Y0+(Y1-Y0)*i/N,y=Math.floor(t);return MES[Math.min(11,Math.floor((t-y)*12))]+" "+y};
+ const sl=$("#dsd"),svg=$("#dsvg"),bb=$("#dbuy"),bs=$("#dsell"),br=$("#dre"),res=$("#dres"),st=$("#dstat");
+ let buy=null,sold=null;
+ function draw(){
+  const i=+sl.value;let g="";
+  [0,10,20,30,40].forEach(v=>{g+=`<line x1="40" x2="620" y1="${Yv(v)}" y2="${Yv(v)}" stroke="#ffffff22"/><text class="gt" x="34" y="${Yv(v)+4}" text-anchor="end">${v}</text>`});
+  for(let y=Y0;y<=Y1;y++)g+=`<text class="gt" x="${X((y-Y0)/(Y1-Y0)*N)}" y="264" text-anchor="middle">${y}</text>`;
+  if(sold===null)g+=`<rect x="${X(i)}" y="30" width="${620-X(i)}" height="210" fill="#ffffff0f"/><text x="${(X(i)+620)/2}" y="140" text-anchor="middle" font-family="Jost,sans-serif" font-weight="700" font-size="40" fill="#ffffff33">¿?</text>`;
+  else g+=`<path d="${pth(0,N)}" fill="none" stroke="#ffffff66" stroke-width="2" stroke-dasharray="4 5"/>`;
+  g+=`<path d="${pth(0,i)}" fill="none" stroke="#dc3b5b" stroke-width="3.5" stroke-linejoin="round"/>`;
+  g+=`<line x1="${X(i)}" x2="${X(i)}" y1="30" y2="240" stroke="#fff" stroke-dasharray="3 4"/><circle cx="${X(i)}" cy="${Yv(S[i])}" r="5" fill="#fff"/>`;
+  if(buy!==null)g+=`<circle cx="${X(buy)}" cy="${Yv(S[buy])}" r="8" fill="#f6c3cd" stroke="#231f20" stroke-width="2"/><text class="gt" x="${X(buy)}" y="${Yv(S[buy])+22}" text-anchor="middle" style="fill:#f6c3cd">compra</text>`;
+  if(sold!==null)g+=`<circle cx="${X(sold)}" cy="${Yv(S[sold])}" r="8" fill="#fff" stroke="#dc3b5b" stroke-width="3"/><text class="gt" x="${X(sold)}" y="${Yv(S[sold])-14}" text-anchor="middle" style="fill:#fff">venta</text>`;
+  svg.innerHTML=g;
+  st.textContent=lab(i)+" · precio aprox. $"+f1(S[i]);
+  bb.disabled=buy!==null;bs.disabled=buy===null||sold!==null||i<=buy;
+ }
+ sl.addEventListener("input",draw);
+ bb.onclick=()=>{buy=+sl.value;res.textContent="Compraste en "+lab(buy)+". Ahora avanza la fecha y decide cuándo vender.";draw()};
+ bs.onclick=()=>{sold=+sl.value;const r=S[sold]/S[buy];
+  res.innerHTML=`<b>${r>=1?"×"+f1(r):"−"+Math.round((1-r)*100)+" %"}</b>${r>=1?"Ganaste":"Perdiste"} comprando en ${lab(buy)} y vendiendo en ${lab(sold)}. Dalio triplicó su dinero con esta acción, pero cuenta que tuvo suerte y que entonces no lo supo ver. La jugada perfecta, imposible de conocer de antemano, habría sido ×${f1(best)}.`;draw()};
+ br.onclick=()=>{buy=null;sold=null;sl.value=0;res.textContent="Mueve la fecha y compra cuando creas que es el momento.";draw()};
+ draw();
+ }
+
+ /* ---------- 5 · rueda del índice ---------- */
+ {
+ const GR=[
+ {nm:"Parte 1 · De dónde vengo",sub:"",lab:"1",col:"#dc3b5b",fg:"#fff",off:0,ch:[["La llamada de la aventura","1949-1967",5],["Atravesar el umbral","1967-1979",11],["Mi abismo","1979-1982",27],["Un camino de pruebas","1983-1994",39],["La recompensa definitiva","1995-2010",67],["Devolviendo la recompensa","2011-2015",91],["Mi último año y mi mayor reto","2016-2017",117],["Mirar atrás desde las alturas","",121]]},
+ {nm:"Parte 2 · Principios vitales",sub:"",lab:"2",col:"#231f20",fg:"#fff",off:0,ch:[["Admite y afronta la realidad","",132],["Utiliza el Proceso de 5 Pasos para obtener lo que quieras de la vida","",168],["Sé radicalmente abierto de miras","",182],["Entiende que las personas funcionan de formas muy distintas","",202],["Aprende a tomar decisiones eficaces","",234]]},
+ {nm:"Parte 3 · Principios laborales",sub:"Para conseguir la cultura correcta",lab:"3a",col:"#ee93a6",fg:"#231f20",off:0,ch:[["Confía en la sinceridad y la transparencia radicales","",324],["Cultiva las relaciones y el trabajo significativos","",340],["Crea una cultura en la que esté bien cometer errores, pero resulte inadmisible no aprender de ellos","",350],["Sintoniza y mantente en sintonía","",358],["Pondera tu toma de decisiones usando la credibilidad","",374],["Aprende cómo superar los desacuerdos","",390]]},
+ {nm:"Parte 3 · Principios laborales",sub:"Para conseguir a las personas adecuadas",lab:"3b",col:"#bdb6b0",fg:"#231f20",off:6,ch:[["Recuerda: el QUIÉN es más importante que el QUÉ","",404],["Contrata bien, porque la penalización por hacerlo mal es inmensa","",410],["Forma, prueba, evalúa y clasifica constantemente a las personas","",426]]},
+ {nm:"Parte 3 · Principios laborales",sub:"Para desarrollar tu máquina y hacer que evolucione",lab:"3c",col:"#f6c3cd",fg:"#231f20",off:9,ch:[["Gestiona como si manejaras una máquina para conseguir un objetivo","",456],["Detecta los problemas y no los toleres","",482],["Diagnostica los problemas para llegar a sus causas fundamentales","",492],["Diseña mejoras para tu máquina a fin de superar tus problemas","",506],["Haz lo que te hayas propuesto hacer","",530],["Usa herramientas y protocolos para moldear cómo se trabaja","",536],["¡Y por lo que más quieras, no pases por alto la gobernanza!","",542]]}];
+ const TOT=GR.reduce((a,g)=>a+g.ch.length,0),da=360/TOT,cx=320,cy=320;
+ const pt=(r,d)=>{const t=d*Math.PI/180;return [cx+r*Math.sin(t),cy-r*Math.cos(t)]};
+ const arc=(r1,r2,a0,a1)=>{const A=pt(r2,a0),B=pt(r2,a1),C=pt(r1,a1),D=pt(r1,a0);return `M${A}A${r2},${r2} 0 0 1 ${B}L${C}A${r1},${r1} 0 0 0 ${D}Z`};
+ let a=0,s="";
+ GR.forEach((g,gi)=>{
+  const ga0=a;
+  g.ch.forEach((c,j)=>{const n=j+1+g.off,a0=a+.5,a1=a+da-.5,m=pt(268,a+da/2);
+   s+=`<path d="${arc(206,300,a0,a1)}" fill="${g.col}" data-g="${gi}" data-j="${j}" tabindex="0" role="button" aria-label="Capítulo ${n}: ${c[0]}"/><text class="wn" x="${m[0]}" y="${m[1]}" fill="${g.fg}" text-anchor="middle" dominant-baseline="central">${n}</text>`;a+=da});
+  const m=pt(173,(ga0+a)/2);
+  s+=`<path d="${arc(148,198,ga0+.6,a-.6)}" fill="${g.col}" data-g="${gi}" tabindex="0" role="button" aria-label="${g.nm} ${g.sub}"/><text class="wn" x="${m[0]}" y="${m[1]}" fill="${g.fg}" text-anchor="middle" dominant-baseline="central">${g.lab}</text>`;
+ });
+ s+=`<circle cx="320" cy="320" r="138" fill="#f6f1ea" stroke="#231f20" stroke-width="2" stroke-dasharray="3 7"/><text class="wa" id="dwa" x="320" y="268"></text><text class="wb" id="dwb" x="320" y="352"></text><text class="wc" id="dwc" x="320" y="392"></text>`;
+ const sv=$("#dwh");sv.innerHTML=s;
+ function sel(gi,j){
+  const g=GR[gi];
+  sv.querySelectorAll("path").forEach(p=>p.classList.toggle("on",+p.dataset.g===gi&&(j==null?p.dataset.j===undefined:+p.dataset.j===j)));
+  let h;
+  if(j==null){
+   $("#dwa").textContent="PARTE "+g.lab.toUpperCase();$("#dwb").textContent=g.lab;$("#dwc").textContent=g.ch.length+" capítulos";
+   h=`<div class="dk" style="color:#f6c3cd">${g.nm}</div><div class="din-t">${g.sub||"Panorama de la parte"}</div><p>${g.ch.length} capítulos · desde la pág. ${g.ch[0][2]}</p>`;
+  }else{
+   const c=g.ch[j],n=j+1+g.off,pg=c[2];
+   $("#dwa").textContent=g.nm.split(" · ")[0].toUpperCase();$("#dwb").textContent=n;$("#dwc").textContent="pág. "+pg;
+   h=`<div class="dk" style="color:#f6c3cd">${g.nm}${g.sub?" · "+g.sub:""}</div><div class="din-t"><span>${n}</span>${c[0]}</div>${c[1]?`<p>${c[1]}</p>`:""}<div class="dpb"><i style="left:${pg/583*100}%"></i></div><small>pág. ${pg} de unas 583 · ${Math.round(pg/583*100)} % del libro</small>`;
+   if(gi===0&&j===0)h+=`<p style="margin-top:12px">Este es el capítulo que recorre esta muestra.</p><button class="btn" data-to="dlr">Ver su historia ↑</button>`;
+  }
+  $("#dwi").innerHTML=h;
+ }
+ const hit=e=>{const p=e.target.closest&&e.target.closest("path");if(p)sel(+p.dataset.g,p.dataset.j===undefined?null:+p.dataset.j)};
+ sv.addEventListener("click",hit);
+ sv.addEventListener("pointerover",e=>{if(e.pointerType==="mouse")hit(e)});
+ sv.addEventListener("keydown",e=>{if(e.key==="Enter"||e.key===" "){e.preventDefault();hit(e)}});
+ sel(0,0);
+ }
+
+ /* saltos internos */
+ const jump=e=>{const b=e.target.closest("[data-to]");if(!b)return;const el=document.getElementById(b.dataset.to);if(el)el.scrollIntoView({behavior:reduce?"auto":"smooth",block:"start"})};
+ $("#dal").addEventListener("click",jump);
+};
+
+function render(){
+ if(window.__cleanup){try{window.__cleanup()}catch(e){}window.__cleanup=null}
+ const k=(location.hash||"#cap2").slice(1);const id=P[k]?k:"cap2";
+ $("#app").innerHTML=P[id]();P[id].init&&P[id].init();
+ $("#nav").innerHTML=NAV.map(n=>`<a href="#${n[0]}" class="${n[0]===id?"on":""}">${n[1]}</a>`).join("");
+ window.scrollTo(0,0);
+}
+addEventListener("hashchange",render);render();
+</script>
+</body>
+</html>

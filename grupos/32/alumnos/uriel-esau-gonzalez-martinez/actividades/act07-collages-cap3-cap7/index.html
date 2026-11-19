@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="es"><head><meta charset="utf-8"><title>Collage · Habilidades directivas (Cap. 3 y 7)</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@400;700;800&family=Caveat:wght@600;700&family=Archivo+Black&family=IBM+Plex+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>body{margin:0;transition:background .3s}#ov{position:fixed;inset:0;z-index:99999;pointer-events:none;clip-path:circle(0px at 50% 50%);display:grid;place-items:center;text-align:center}#ovt{font:400 clamp(1.8rem,6vw,4rem)/1 'Archivo Black',Impact,sans-serif;color:#fff;padding:20px;text-shadow:3px 3px 0 rgba(0,0,0,.3)}</style></head><body>
+<div id="s3"></div><div id="s7" hidden></div><div id="ov"><div id="ovt"></div></div>
+<template id="t3"><style>
+:host{--bg:#efe6d3;--ink:#2b2320;--muted:#6b5d52;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:host{--bg:#1f1a17;--ink:#f3e9d8;--muted:#b9a995}}
+:host([data-theme="dark"]){--bg:#1f1a17;--ink:#f3e9d8;--muted:#b9a995}
+
+*{box-sizing:border-box}
+.pg{margin:0;background:var(--bg);color:var(--ink);font-family:'Bricolage Grotesque',system-ui,sans-serif;background-image:radial-gradient(rgba(120,90,60,.13) 1px,transparent 1px);background-size:18px 18px;overflow-x:hidden}
+header{text-align:center;padding:34px 16px 6px}
+h1{font-size:clamp(2.2rem,7vw,4.6rem);line-height:.95;margin:0;font-weight:800;letter-spacing:-.03em}
+.hand{font-family:'Caveat',cursive;font-size:1.5rem;color:var(--muted);margin:10px 0 0}
+.bar{display:flex;gap:10px;justify-content:center;margin:18px 0 8px;flex-wrap:wrap}
+button{font:inherit;font-weight:700;border:2px solid var(--ink);background:transparent;color:var(--ink);padding:8px 16px;border-radius:99px;cursor:pointer}
+button:hover{background:var(--ink);color:var(--bg)}
+.board{display:flex;flex-wrap:wrap;gap:26px 22px;justify-content:center;align-items:flex-start;padding:26px 14px 70px;max-width:1150px;margin:0 auto}
+.c{position:relative;width:min(100%,265px);padding:18px 18px 16px;background:var(--cc);color:#2b2320;transform:translate(var(--x,0px),var(--y,0px)) rotate(var(--r,0deg));box-shadow:0 8px 18px rgba(0,0,0,.22);cursor:grab;touch-action:none;user-select:none;transition:box-shadow .2s}
+.c.drag{cursor:grabbing;box-shadow:0 18px 34px rgba(0,0,0,.35)}
+.c::before{content:"";position:absolute;top:-11px;left:50%;width:70px;height:22px;margin-left:-35px;background:rgba(255,255,255,.55);transform:rotate(-3deg);box-shadow:0 1px 3px rgba(0,0,0,.15)}
+.c.round{border-radius:50%;width:230px;height:230px;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:22px}
+.c.round::before{display:none}
+.c.round.open{height:auto;min-height:230px;border-radius:34px}
+.c.pol{padding:14px 14px 20px;background:#fffdf6;border:1px solid #e6dcc6}
+.c.pol .ph{height:92px;margin-bottom:12px;background:var(--cc);display:grid;place-items:center;font-size:2.6rem}
+.k{font-family:'Caveat',cursive;font-size:1.2rem;opacity:.75;line-height:1}
+.t{font-weight:800;font-size:1.35rem;line-height:1.05;margin:4px 0 6px}
+.big{font-size:3.8rem;font-weight:800;line-height:.9;letter-spacing:-.04em}
+.s{font-size:.9rem;line-height:1.3}
+.d{display:none;font-size:.82rem;line-height:1.38;margin-top:10px;padding-top:9px;border-top:2px dashed rgba(43,35,32,.4)}
+.open .d{display:block}
+.d ul{margin:0;padding-left:17px}
+.hint{font-family:'Caveat',cursive;font-size:1.05rem;position:absolute;right:10px;bottom:-1px;opacity:.55}
+.open .hint{display:none}
+.q .t{font-size:1.15rem;font-weight:700;font-style:italic}
+.go{position:fixed;right:max(16px,env(safe-area-inset-right,0px));bottom:max(16px,env(safe-area-inset-bottom,0px));z-index:9999;background:#ef7b5c;color:#2b2320;border:2px solid #2b2320;border-radius:99px;padding:12px 20px;font-weight:800;text-decoration:none;box-shadow:0 6px 16px rgba(0,0,0,.3);transform:rotate(-2deg)}.go:hover{transform:rotate(0) scale(1.05)}
+
+.pg{min-height:100vh}</style><div class="pg">
+<header><p class="hand">capítulo 3 · Berta E. Madrigal Torres</p>
+<h1>Inteligencia emocional</h1><p class="hand">habilidad imprescindible para dirigir</p>
+<div class="bar"><button id="shuf">Revolver</button><button id="ord">Ordenar</button><button id="all">Abrir todo</button></div>
+<p class="hand" style="font-size:1.15rem">Arrastra las piezas · toca una para leer más</p></header>
+<main class="board" id="b"></main>
+<a class="go" href="#" data-go="7">Ir al capítulo 7: Toma de decisiones →</a>
+</div></template>
+<template id="t7"><style>
+:host{--bg:#f4f1ea;--ink:#101828;--navy:#14213d;--or:#ff5a1f;--yl:#ffc928;--bl:#2f5bea;--gr:#1f9d6b;--wh:#fff;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:host{--bg:#0b1020;--ink:#f4f1ea}}
+:host([data-theme="dark"]){--bg:#0b1020;--ink:#f4f1ea}
+
+*{box-sizing:border-box}
+.pg{margin:0;background:var(--bg);color:var(--ink);font-family:'IBM Plex Mono',ui-monospace,monospace}
+header{padding:28px 18px 10px;max-width:1200px;margin:0 auto;display:grid;gap:14px}
+h1{font-family:'Archivo Black',Impact,sans-serif;font-weight:400;font-size:clamp(2.4rem,9vw,6.4rem);line-height:.88;margin:0;text-transform:none;letter-spacing:-.02em}
+h1 span{display:inline-block;background:var(--or);color:#fff;padding:0 .15em;transform:skewX(-8deg)}
+.sub{font-size:.9rem;max-width:60ch}
+.chips{display:flex;gap:8px;flex-wrap:wrap}
+.chips button{font:600 .8rem 'IBM Plex Mono',monospace;border:2px solid var(--ink);background:transparent;color:var(--ink);padding:7px 13px;cursor:pointer;border-radius:0}
+.chips button.on{background:var(--ink);color:var(--bg)}
+.grid{max-width:1200px;margin:0 auto;padding:12px 18px 60px;display:grid;grid-template-columns:repeat(6,1fr);grid-auto-rows:minmax(150px,auto);grid-auto-flow:dense;gap:10px}
+.t{position:relative;padding:16px;color:var(--fg,#fff);background:var(--bg-t);border:2px solid #101828;cursor:pointer;overflow:hidden;display:flex;flex-direction:column;justify-content:space-between;text-align:left;font:inherit;min-height:150px;transition:transform .15s,opacity .25s}
+.t:hover{transform:translate(-3px,-3px);box-shadow:5px 5px 0 #101828}
+.t.hide{display:none}
+.w2{grid-column:span 2}.w3{grid-column:span 3}.h2{grid-row:span 2}
+.t b{font-family:'Archivo Black',Impact,sans-serif;font-weight:400;font-size:1.25rem;line-height:1}
+.t small{font-size:.78rem;line-height:1.35;display:block;margin-top:8px}
+.t i{font-style:normal;font-size:.72rem;font-weight:600;opacity:.8}
+.num{font-family:'Archivo Black',sans-serif;font-size:3.4rem;line-height:.8}
+.t.cut{background:linear-gradient(135deg,var(--or) 50%,var(--navy) 50%)}
+.t.cut b{font-size:2rem}
+.t.formula{font-size:.95rem}
+.sh{position:absolute;right:-18px;bottom:-18px;width:74px;height:74px;background:rgba(255,255,255,.22);border-radius:50%}
+.sh.sq{border-radius:0;transform:rotate(20deg)}
+#m{position:fixed;inset:0;background:rgba(16,24,40,.72);display:none;place-items:center;padding:18px;z-index:50}
+#m.on{display:grid}
+.box{background:var(--bg-t);color:var(--fg,#fff);border:3px solid #101828;box-shadow:10px 10px 0 #101828;max-width:520px;width:100%;padding:26px;max-height:86vh;overflow:auto}
+.box h2{font-family:'Archivo Black',sans-serif;font-weight:400;margin:0 0 12px;font-size:1.7rem;line-height:1}
+.box p,.box li{font-size:.9rem;line-height:1.5}
+.box ul,.box ol{padding-left:20px;margin:8px 0}
+.x{float:right;font:600 .8rem 'IBM Plex Mono';background:#101828;color:#fff;border:0;padding:6px 10px;cursor:pointer}
+@media(max-width:720px){.grid{grid-template-columns:repeat(2,1fr)}.w3{grid-column:span 2}}
+.go{position:fixed;right:max(16px,env(safe-area-inset-right,0px));bottom:max(16px,env(safe-area-inset-bottom,0px));z-index:40;background:#ffc928;color:#101828;border:3px solid #101828;padding:12px 18px;font:600 .85rem 'IBM Plex Mono',monospace;text-decoration:none;box-shadow:5px 5px 0 #101828}.go:hover{transform:translate(-2px,-2px);box-shadow:7px 7px 0 #101828}
+
+.pg{min-height:100vh}</style><div class="pg">
+<header><div class="sub">Capítulo 7 · Madrigal Torres y Vázquez Ávila</div>
+<h1>Toma de <span>decisiones</span>, esencia de la dirección</h1>
+<p class="sub">Un mosaico para explorar el capítulo. Filtra por tema y haz clic en cualquier pieza para abrirla.</p>
+<div class="chips" id="ch"></div></header>
+<main class="grid" id="g"></main>
+<div id="m"><div class="box" id="bx"></div></div>
+<a class="go" href="#" data-go="3">← Volver al capítulo 3</a>
+</div></template>
+<script>
+const init3=(R)=>{
+const D=[
+{c:'#f6c453',k:'la frase',t:'«Cualquiera puede ponerse furioso, eso es fácil.»',s:'Aristóteles, citado por Goleman: lo difícil es hacerlo con la persona, la intensidad y el momento correctos.',d:'Para la autora, eso es el control de la inteligencia emocional: dominar las emociones y no la explosión constante de ellas.',x:'q'},
+{c:'#ef7b5c',x:'round',k:'Harvard',t:'85%',big:1,s:'del éxito depende de actitud, motivación y relaciones',d:'Solo 15% se explica por habilidades técnicas y conocimientos profesionales.'},
+{c:'#5fb6a8',x:'round',k:'Goleman',t:'90%',big:1,s:'de la diferencia de desempeño de gerentes',d:'Era atribuible a factores de inteligencia emocional, en empresas como Lucent, British Airways y Credit Suisse.'},
+{c:'#e9c9d8',k:'anécdota',t:'«¿Cómo está la temperatura hoy?»',s:'Los subalternos le preguntaban a la secretaria cómo había amanecido el jefe.',d:'Las emociones, el estrés, la agresividad y la tranquilidad se transmiten: un directivo autoritario multiplica el autoritarismo hacia abajo.'},
+{c:'#d6e5f0',k:'personalidad tipo A',t:'El jefe de adrenalina',s:'Mando dominante, actitud hostil y competitiva.',d:'<ul><li>Estilo dominante y autoritario</li><li>Pensamiento concretista; le cuesta expresar emociones</li><li>Hostil, duro y competitivo</li><li>Centrado en tareas</li><li>Descuida las relaciones</li></ul>'},
+{c:'#fffdf6',x:'pol',em:'🔥',ph:'#f6c453',k:'personal 1',t:'Automotivación',s:'Persistir en los objetivos y encontrar soluciones.',d:'Entusiasmo por las metas más allá de la recompensa económica; iniciativa, compromiso y optimismo.'},
+{c:'#fffdf6',x:'pol',em:'🪞',ph:'#a9d6c9',k:'personal 2',t:'Autoconciencia',s:'Reconocer fortalezas, debilidades y emociones.',d:'Juzgarse con realismo, admitir errores con sinceridad, aprender y tener autoconfianza.'},
+{c:'#fffdf6',x:'pol',em:'⚓',ph:'#f2a38e',k:'personal 3',t:'Autocontrol',s:'Pensar antes de actuar.',d:'Controlar impulsos, responsabilizarse de los actos, manejar estrés y ansiedad, y ser flexible ante el cambio.'},
+{c:'#f6c453',k:'interpersonal',t:'Empatía',s:'«Primero trata de entender al otro.» (Covey)',d:'Entender necesidades y sentimientos ajenos, ponerse en su lugar. Requiere saber escuchar y entender la comunicación no verbal.'},
+{c:'#8fc7e8',k:'interpersonal',t:'Inteligencia social',s:'Manejar relaciones: persuadir e influir.',d:'Excelentes negociadores, lideran grupos y cambios, y crean sinergias de equipo.'},
+{c:'#c9b6e4',k:'el lado oscuro',t:'Narcisismo directivo',s:'«Cáncer» que genera codependencia en el equipo.',d:'Según Irigoyen, presenta al menos cinco de nueve rasgos: grandiosidad, fantasías de poder, se cree único, necesita admiración, se siente merecedor, explota a otros, carece de empatía, envidia y es arrogante.'},
+{c:'#f1e3a1',k:'según Goleman',t:'Siete aspectos del directivo',s:'Lo que debe desarrollar su coeficiente emocional.',d:'Honestidad emocional, energía emocional, retroinformación emocional, intuición práctica, presencia auténtica, radio de confianza y descontento constructivo.'},
+{c:'#f4b6a3',k:'1990',t:'¿Quién la acuñó?',s:'Peter Salovey (Yale) y John Mayer (New Hampshire).',d:'La definieron como forma de inteligencia social para dirigir los propios sentimientos y los de otros, y usar esa información para guiar el pensamiento y la acción.'},
+{c:'#b9dcc3',k:'se aprende',t:'No se hereda: se entrena',s:'Se crea, se alimenta y se fortalece.',d:'A diferencia del coeficiente intelectual, no se fija al nacer: viene de experiencias básicas y de la infancia. Aprendemos a controlar emociones desde niños.'},
+{c:'#e8a9c0',k:'en el estudio',t:'Mujer y hombre',s:'Estudios con estudiantes y directivas muestran IE más alta en mujeres.',d:'La autora concluye que, si se le permite, la mujer tiene igual capacidad de dirigir y liderar, aunque aún debe romper mitos culturales, como la rivalidad entre mujeres.'}
+];
+const b=R.getElementById('b');let z=10;
+D.forEach((o,i)=>{const e=document.createElement('div');e.className='c '+(o.x||'');e.style.setProperty('--cc',o.c);
+let h='';if(o.x==='pol')h+=`<div class="ph" style="--cc:${o.ph}">${o.em}</div>`;
+h+=`<div class="k">${o.k}</div><div class="${o.big?'big':'t'}">${o.t}</div><div class="s">${o.s}</div><div class="d">${o.d}</div><span class="hint">más…</span>`;
+e.innerHTML=h;b.appendChild(e);rot(e);
+let sx,sy,ox,oy,mv=0;
+e.addEventListener('pointerdown',ev=>{e.setPointerCapture(ev.pointerId);sx=ev.clientX;sy=ev.clientY;ox=parseFloat(e.style.getPropertyValue('--x'))||0;oy=parseFloat(e.style.getPropertyValue('--y'))||0;mv=0;e.style.zIndex=++z});
+e.addEventListener('pointermove',ev=>{if(!e.hasPointerCapture(ev.pointerId))return;const dx=ev.clientX-sx,dy=ev.clientY-sy;if(Math.abs(dx)+Math.abs(dy)>5){mv=1;e.classList.add('drag')}if(mv){e.style.setProperty('--x',ox+dx+'px');e.style.setProperty('--y',oy+dy+'px')}});
+e.addEventListener('pointerup',()=>{e.classList.remove('drag');if(!mv)e.classList.toggle('open')});
+});
+function rot(e){e.style.setProperty('--r',(Math.random()*10-5).toFixed(1)+'deg')}
+const cs=()=>[...b.children];
+R.getElementById('shuf').onclick=()=>{cs().forEach(rot);for(let i=b.children.length;i>0;i--)b.appendChild(b.children[Math.random()*i|0]);cs().forEach(e=>{e.style.setProperty('--x','0px');e.style.setProperty('--y','0px')})};
+R.getElementById('ord').onclick=()=>cs().forEach(e=>{e.style.setProperty('--x','0px');e.style.setProperty('--y','0px');e.style.setProperty('--r','0deg');e.classList.remove('open')});
+let op=0;R.getElementById('all').onclick=()=>{op=!op;cs().forEach(e=>e.classList.toggle('open',op));R.getElementById('all').textContent=op?'Cerrar todo':'Abrir todo'};
+};
+const init7=(R)=>{
+const C={'Todo':'','Origen':'o','Proceso':'p','Tipos':'t','Barreras':'b','El directivo':'d'};
+const T=[
+{g:'o',c:'cut',w:'w2 h2',b:'de-cidere',s:'«cortar o dejar»: ante dos o más posibilidades, tomo una y dejo las otras.',h:'<p>«Decisión» comparte raíz con incisión, preciso y conciso. Es el término de un proceso de <b>deliberación</b> que implica voluntad; la conclusión, en cambio, es el término de un raciocinio e implica inteligencia.</p><p>Es el polo opuesto del estímulo-respuesta automático de los reflejos condicionados.</p>'},
+{g:'o',bg:'#ffc928',fg:'#101828',w:'w2',b:'Drucker',s:'Se parte de una opinión, no de un hecho.',h:'<p>Peter Drucker: el directivo que decide bien sabe que no parte de un hecho sino de una opinión, y una opinión es solo una hipótesis hasta contrastarla con la realidad.</p>'},
+{g:'o',bg:'#2f5bea',w:'',b:'Incertidumbre',s:'Rara vez se conocen las consecuencias por adelantado.',h:'<p>Ejemplos del capítulo: el fabricante ante precios futuros del petróleo, el gerente de mercadeo ante la demanda futura, el agricultor ante el clima de la temporada.</p>'},
+{g:'p',bg:'#ff5a1f',w:'',n:'1',b:'Definir el problema',s:'Distinguir causas de efectos y síntomas de problemas.',h:'<p>Se percibe el problema y la necesidad de decidir, con máxima objetividad y todos los antecedentes disponibles. ¿Es actual, reciente o fruto de desarrollos anteriores?</p>'},
+{g:'p',bg:'#14213d',w:'',n:'2',b:'Fijar el resultado y los criterios',s:'Lo ideal frente a lo posible.',h:'<p>Se determina el resultado deseado y los criterios para juzgar soluciones. Sin suficiente información, la decisión sería casi una adivinanza.</p>'},
+{g:'p',bg:'#1f9d6b',w:'',n:'3',b:'Generar alternativas',s:'Muchas opciones, luego las viables.',h:'<p>Se plantean muchas alternativas y se escogen las viables. Experiencia, conocimiento y espíritu creador pesan; hay que evitar soluciones rutinarias que solo posponen el problema. La tecnología apoya, pero no reemplaza a quien decide.</p>'},
+{g:'p',bg:'#ffc928',fg:'#101828',w:'',n:'4',b:'Elegir (y tener plan B)',s:'Pros, contras y elementos cuantitativos.',h:'<p>Se elige la alternativa que mejor elimina el problema y se acerca al ideal, midiendo costos, resultados y tiempo. Se acompaña de una segunda selección por si hay resistencia o no da resultados.</p>'},
+{g:'p',bg:'#2f5bea',w:'',n:'5',b:'Plan de acción',s:'Fijar la estrategia.',h:'<p>Se elabora el plan de acción de la mejor alternativa, es decir, se fija una estrategia.</p>'},
+{g:'p',bg:'#ff5a1f',w:'',n:'6',b:'Ponerla en práctica',s:'Traducir la decisión en acción.',h:'<p>Una cosa es determinar la decisión y otra que se aplique y resuelva el problema.</p>'},
+{g:'p',bg:'#101828',w:'w3',b:'Solución de problemas en 7 pasos',s:'Identificar · alternativas · criterios · evaluar · elegir · implementar · evaluar resultados.',h:'<ol><li>Identificar y definir el problema</li><li>Determinar las soluciones alternativas</li><li>Determinar los criterios de evaluación</li><li>Evaluar las alternativas</li><li>Elegir una alternativa</li><li>Implementarla</li><li>Evaluar los resultados y ver si la solución es satisfactoria</li></ol>'},
+{g:'t',bg:'#1f9d6b',w:'',b:'Programadas o no',s:'Rutina vs. situaciones nuevas.',h:'<p><b>Programadas:</b> repetitivas, siguen procesos que la organización ya estableció.</p><p><b>No programadas:</b> decisiones de momento, malas estructuras y nuevas políticas.</p>'},
+{g:'t',bg:'#2f5bea',w:'',b:'Certidumbre · riesgo · incertidumbre',s:'Qué tanto se sabe del resultado.',h:'<p>Se clasifican según lo que se conoce de los datos. Lo que determina el tipo es el empleo de probabilidades.</p>'},
+{g:'t',bg:'#ffc928',fg:'#101828',w:'w2',b:'Autoritaria · votación · unanimidad',s:'Según la participación de los interesados.',h:'<p><b>Autoritarias:</b> las impone un jefe.</p><p><b>Por votación:</b> cuando no hay acuerdo, se toma el parecer de la mayoría.</p><p><b>Por unanimidad:</b> todos coinciden.</p><p>El directivo de estilo democrático decide en equipo, pero sigue siendo el responsable final.</p>'},
+{g:'t',bg:'#ff5a1f',w:'',b:'Operativas, tácticas, estratégicas',s:'Según el nivel jerárquico.',h:'<p><b>Operativas:</b> obreros y supervisores. <b>Tácticas:</b> jefes de departamento. <b>Estratégicas:</b> la dirección general, que fija objetivos y políticas.</p>'},
+{g:'t',bg:'#14213d',w:'w2',f:1,b:'Productividad = unidades producidas ÷ insumo',s:'Ejemplo: 1 000 unidades ÷ 250 horas-trabajo = 4 unidades por hora.',h:'<p>Los elementos cuantitativos dan lógica matemática a la elección. El capítulo incluye un ejemplo resuelto de punto de equilibrio para un evento de la cámara de comercio.</p>'},
+{g:'b',bg:'#101828',w:'w2 h2',num:'8',b:'barreras',s:'Lo que impide decidir bien.',h:'<ol><li>Desconocimiento del tema</li><li>No respetar el proceso</li><li>Decidir de forma irracional</li><li>Prejuicios psicológicos</li><li>Efectos de perspectiva</li><li>Falta de objetividad</li><li>Desestimar el futuro</li><li>Presiones de tiempo</li></ol>'},
+{g:'b',bg:'#ff5a1f',w:'',b:'Ilusión de control',s:'Creer que se influye en lo que no se controla.',h:'<p>Es uno de los prejuicios psicológicos, junto con el centralismo (querer controlarlo todo) y la evaluación subjetiva de hechos objetivos.</p>'},
+{g:'b',bg:'#2f5bea',w:'',b:'Presión de tiempo',s:'Tan malo precipitarse como tardar.',h:'<p>Las organizaciones y el contexto económico cambian; no decidir también es una decisión.</p>'},
+{g:'d',bg:'#ffc928',fg:'#101828',w:'w2',b:'Experiencia · juicio · creatividad · números',s:'Las cuatro cualidades del directivo apto.',h:'<p>Ser apto es tener los conocimientos mínimos indispensables sobre lo que se va a decidir. Se resume en experiencia, buen juicio, creatividad y habilidades cuantitativas.</p>'},
+{g:'d',bg:'#1f9d6b',w:'',b:'Tiempo real',s:'Lo que hacen las empresas de microcomputadoras.',h:'<p>Trabajan con información actual en vez de planear a largo plazo con información futurista, involucran a expertos de confianza y valoran opiniones; si las diferencias no se resuelven, decide el jefe.</p>'},
+{g:'d',bg:'#14213d',w:'w2',b:'Caso: la decisión de Felipe Calderón',s:'Detener el aumento a la gasolina tras la reforma fiscal.',h:'<p>El caso del capítulo plantea preguntas para discusión: ¿cómo impacta la decisión? ¿Por qué se retracta de la decisión anterior? ¿Se cuidó su impacto emocional?</p>'}
+];
+const g=R.getElementById('g'),bx=R.getElementById('bx'),m=R.getElementById('m');
+T.forEach((o,i)=>{const e=document.createElement('button');e.className='t '+(o.c||'')+' '+o.w+' f-'+o.g;e.dataset.g=o.g;
+if(o.bg){e.style.setProperty('--bg-t',o.bg)}if(o.fg){e.style.setProperty('--fg',o.fg)}
+e.innerHTML=`${o.n?`<span class="num">${o.n}</span>`:''}${o.num?`<span class="num" style="font-size:6rem">${o.num}</span>`:''}<div><b>${o.b}</b><small>${o.s}</small></div><span class="sh ${i%2?'sq':''}"></span>`;
+e.onclick=()=>{const cs=getComputedStyle(e);bx.style.setProperty('--bg-t',o.bg||'#ff5a1f');bx.style.setProperty('--fg',o.fg||'#fff');bx.innerHTML=`<button class="x">Cerrar</button><h2>${o.b}</h2><p><i>${o.s}</i></p>${o.h}`;m.classList.add('on');bx.querySelector('.x').onclick=()=>m.classList.remove('on')};
+g.appendChild(e)});
+m.onclick=e=>{if(e.target===m)m.classList.remove('on')};
+document.addEventListener('keydown',e=>{if(e.key==='Escape')m.classList.remove('on')});
+const ch=R.getElementById('ch');
+Object.entries(C).forEach(([k,v],i)=>{const b=document.createElement('button');b.textContent=k;if(!i)b.className='on';b.onclick=()=>{[...ch.children].forEach(x=>x.classList.remove('on'));b.classList.add('on');[...g.children].forEach(t=>t.classList.toggle('hide',!!v&&t.dataset.g!==v))};ch.appendChild(b)});
+};
+const S={3:s3,7:s7},R={};
+for(const n of [3,7]){const r=S[n].attachShadow({mode:'open'});r.appendChild(document.getElementById('t'+n).content.cloneNode(true));R[n]=r}
+init3(R[3]);init7(R[7]);
+const dk=matchMedia('(prefers-color-scheme:dark)');
+const paint=n=>document.body.style.background=dk.matches?(n==3?'#1f1a17':'#0b1020'):(n==3?'#efe6d3':'#f4f1ea');paint(3);
+let busy=0;
+function enter(n){R[n].querySelectorAll(n==3?'.c':'.t').forEach((e,i)=>e.animate([{opacity:0,translate:'0 50px',scale:.85},{opacity:1,translate:'0 0',scale:1}],{duration:520,delay:i*45,easing:'cubic-bezier(.2,.8,.3,1.2)',fill:'backwards'}))}
+function go(n,x,y){if(busy)return;busy=1;const from=n==7?3:7;
+ov.style.background=n==7?'linear-gradient(135deg,#ff5a1f 50%,#14213d 50%)':'#ef7b5c';
+ovt.textContent=n==7?'Capítulo 7 · Toma de decisiones':'Capítulo 3 · Inteligencia emocional';
+const a=ov.animate([{clipPath:`circle(0px at ${x}px ${y}px)`},{clipPath:`circle(150vmax at ${x}px ${y}px)`}],{duration:700,easing:'ease-in',fill:'forwards'});
+a.onfinish=()=>{S[from].hidden=true;S[n].hidden=false;scrollTo(0,0);paint(n);enter(n);
+const b=ov.animate([{clipPath:'circle(150vmax at 50% 50%)'},{clipPath:'circle(0px at 50% 50%)'}],{duration:800,delay:450,easing:'ease-out',fill:'forwards'});b.onfinish=()=>{busy=0}}}
+for(const n of [3,7])R[n].querySelectorAll('.go').forEach(a=>a.onclick=ev=>{ev.preventDefault();go(a.dataset.go,ev.clientX,ev.clientY)});
+</script></body></html>

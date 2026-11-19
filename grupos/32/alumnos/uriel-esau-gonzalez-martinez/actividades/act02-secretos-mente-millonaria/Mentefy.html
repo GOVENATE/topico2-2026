@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="es"><head><meta charset="utf-8"><title>Mentefy</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<style>
+:root{--bg:#000;--pan:#121212;--el:#1a1a1a;--hv:#2a2a2a;--tx:#fff;--sb:#b3b3b3;--gr:#1ed760;--ln:#ffffff1a;color-scheme:dark;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:light){:root:not([data-theme="dark"]){--bg:#f0f0f0;--pan:#fff;--el:#f5f5f5;--hv:#e6e6e6;--tx:#121212;--sb:#5c5c5c;--gr:#117a37;--ln:#0000001a;color-scheme:light}}
+:root[data-theme="light"]{--bg:#f0f0f0;--pan:#fff;--el:#f5f5f5;--hv:#e6e6e6;--tx:#121212;--sb:#5c5c5c;--gr:#117a37;--ln:#0000001a;color-scheme:light}
+html{scroll-padding-top:env(safe-area-inset-top,0px);height:100%}
+*{box-sizing:border-box;margin:0}
+body{height:100%;background:var(--bg);color:var(--tx);font:400 14px/1.4 "Circular Std",Inter,"Segoe UI",Helvetica,Arial,sans-serif;overflow:hidden}
+button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
+#app{height:100%;display:grid;grid-template-columns:300px 1fr;grid-template-rows:1fr auto;gap:8px;padding:8px}
+.side{grid-row:1;display:flex;flex-direction:column;gap:8px;min-height:0}
+.box{background:var(--pan);border-radius:8px;padding:12px}
+.logo{display:flex;align-items:center;gap:10px;font-size:22px;font-weight:800;padding:8px 12px 12px}
+.logo i{width:32px;height:32px;border-radius:50%;background:var(--gr);display:grid;place-items:center;font-style:normal;font-size:18px}
+.nv{display:flex;gap:16px;align-items:center;padding:10px 12px;border-radius:6px;font-weight:700;color:var(--sb);width:100%;text-align:left}
+.nv:hover,.nv.on{color:var(--tx)}
+.lib{flex:1;overflow:auto;padding:8px}
+.lib h4{padding:8px 12px;color:var(--sb);font-size:14px}
+.li{display:flex;gap:12px;align-items:center;padding:8px 12px;border-radius:6px;width:100%;text-align:left}
+.li:hover,.li.on{background:var(--hv)}
+.cv{border-radius:6px;display:grid;place-items:center;flex:none}
+.li .cv{width:48px;height:48px;font-size:22px}
+.li b{display:block;font-weight:500}.li small{color:var(--sb)}
+main{grid-row:1;background:var(--pan);border-radius:8px;overflow:auto;min-width:0;position:relative}
+.top{position:sticky;top:0;z-index:5;display:flex;gap:8px;align-items:center;padding:16px 24px;background:var(--pan)}
+.chip{background:var(--hv);border-radius:99px;padding:6px 14px;font-size:14px;white-space:nowrap}
+.chip.on{background:var(--tx);color:var(--pan)}
+.chips{display:none;overflow:auto;gap:8px}
+.pad{padding:0 24px 32px}
+h1{font-size:32px;font-weight:800;margin:8px 0 20px}
+h2{font-size:24px;font-weight:700;margin:28px 0 14px}
+.tiles{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:8px}
+.tile{display:flex;align-items:center;gap:12px;background:var(--hv);border-radius:6px;overflow:hidden;text-align:left;font-weight:700;padding-right:12px}
+.tile:hover{filter:brightness(1.2)}
+.tile .cv{width:64px;height:64px;font-size:28px;border-radius:0}
+.cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:16px}
+.card{background:var(--el);padding:14px;border-radius:8px;text-align:left}
+.card:hover{background:var(--hv)}
+.card .cv{width:100%;aspect-ratio:1;font-size:56px;margin-bottom:12px;box-shadow:0 8px 24px #0006}
+.card b{display:block}.card small{color:var(--sb);display:block}
+.hero{display:flex;gap:24px;align-items:flex-end;padding:24px;flex-wrap:wrap}
+.hero .cv{width:200px;height:200px;font-size:84px;box-shadow:0 8px 40px #0008}
+.hero h1{font-size:56px;margin:4px 0}
+.lyr{margin:0 24px 8px;border-radius:12px;padding:24px 28px}
+.lyr small{opacity:.8;font-weight:700;letter-spacing:1px}
+.lyr p{font-size:26px;font-weight:700;line-height:1.3;margin-top:8px;color:#fff}
+.act{display:flex;align-items:center;gap:24px;padding:16px 24px}
+.pb{width:56px;height:56px;border-radius:50%;background:var(--gr);color:#000;display:grid;place-items:center}
+.pb:hover{transform:scale(1.06)}
+.row{display:grid;grid-template-columns:40px 1fr 1fr 40px 56px;gap:12px;align-items:center;padding:8px 16px;border-radius:4px;width:100%;text-align:left;color:var(--sb)}
+.row:hover{background:var(--hv)}
+.row.hd{border-bottom:1px solid var(--ln);border-radius:0;font-size:13px;cursor:default}.row.hd:hover{background:none}
+.row .t{color:var(--tx);font-weight:500}
+.row.on .t,.row.on .n{color:var(--gr)}
+.hr{color:var(--sb)}.hr.on{color:var(--gr)}
+input{background:var(--hv);border:0;border-radius:99px;padding:12px 20px;color:var(--tx);font:inherit;width:min(420px,100%);outline:2px solid transparent}
+input:focus{outline-color:var(--tx)}
+.player{grid-column:1/3;grid-row:2;display:grid;grid-template-columns:1fr 2fr 1fr;align-items:center;padding:8px 12px;gap:12px;min-height:72px}
+.np{display:flex;align-items:center;gap:12px;min-width:0}
+.np .cv{width:56px;height:56px;font-size:26px}
+.np b{display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.np small{color:var(--sb)}
+.ctr{display:flex;flex-direction:column;align-items:center;gap:6px}
+.btns{display:flex;align-items:center;gap:20px}
+.btns button{color:var(--sb)}.btns button:hover,.btns .on{color:var(--tx)}
+.btns .pp{width:34px;height:34px;border-radius:50%;background:var(--tx);color:var(--pan);display:grid;place-items:center}
+.pr{display:flex;align-items:center;gap:8px;width:100%;max-width:620px;color:var(--sb);font-size:12px}
+.bar{flex:1;height:12px;display:flex;align-items:center;cursor:pointer}
+.bar i{display:block;width:100%;height:4px;background:#ffffff4d;border-radius:2px;overflow:hidden}
+.bar u{display:block;height:100%;width:0;background:var(--tx);border-radius:2px}
+.bar:hover u{background:var(--gr)}
+.vol{display:flex;justify-content:flex-end;align-items:center;gap:8px;color:var(--sb)}
+.vol .bar{flex:none;width:100px}
+@media (max-width:820px){
+#app{grid-template-columns:1fr}.side{display:none}.player{grid-column:1;grid-template-columns:1fr;gap:4px}
+.vol{display:none}.chips{display:flex;padding:0 16px 8px}.top{padding:12px 16px 4px}.pad{padding:0 16px 24px}
+.row{grid-template-columns:28px 1fr 36px 48px}.row .pl{display:none}
+.hero .cv{width:140px;height:140px}.hero h1{font-size:36px}.lyr{margin:0 16px 8px}.lyr p{font-size:20px}
+.btns{gap:28px}}
+</style></head><body>
+<div id="app">
+<aside class="side"><div class="box"><div class="logo"><i>🧠</i>Mentefy</div>
+<button class="nv" data-v="home">⌂ Inicio</button><button class="nv" data-v="search">⌕ Buscar</button></div>
+<div class="box lib" id="lib"></div></aside>
+<main id="main"></main>
+<footer class="player box" id="pl"></footer>
+</div>
+<script>
+var PL=[
+{n:"El juego interior",e:"🌳",c:"#1e8f5a",d:"Las raíces crean los frutos",t:[
+["Raíces y frutos","Los frutos son tus resultados; las raíces, tus pensamientos y creencias. Si quieres cambiar lo visible, primero transforma lo invisible."],
+["Los cuatro cuadrantes","Vivimos en cuatro esferas: física, mental, emocional y espiritual. La física es solo la impresión de las otras tres."],
+["Creces hasta donde creces tú","Tus ingresos solo pueden crecer hasta donde crezcas tú. El juego interior pesa más que las herramientas, como el carpintero más que su caja."]]},
+{n:"Tu patrón del dinero",e:"🌡️",c:"#8d3fd1",d:"El termostato financiero",t:[
+["El termostato financiero","Tu patrón del dinero funciona como un termostato: aunque ganes más, tu mente te devuelve a la temperatura en que fue programada."],
+["El efecto lotería","La mayoría de quienes ganan la lotería terminan volviendo a su situación económica original."],
+["Programación verbal","Lo que oías de niño sobre el dinero, como «los ricos son avariciosos», sigue en tu subconsciente dirigiendo tu vida económica."],
+["Modelado","Lo que veías hacer a tus padres con el dinero se convierte en tu modelo, sin que lo notes."],
+["Experiencias concretas","Sucesos de tu vida dejan una huella emocional que condiciona cómo reaccionas ante el dinero."]]},
+{n:"Reprogramación",e:"🔁",c:"#d1493f",d:"Cuatro pasos para cambiar",t:[
+["Conciencia","Observa tus pensamientos en lugar de reaccionar: descubre qué creencias dirigen tus decisiones."],
+["Comprensión","Entiende de dónde viene cada creencia y qué efecto ha tenido en tu vida."],
+["Desvinculación","Separa tu motivación de la ira, el miedo y la necesidad de demostrar tu valía."],
+["Declaraciones","Con la mano en el corazón repite frases nuevas, toca tu cabeza y di: «¡Tengo una mente millonaria!». Luego, actúa."]]},
+{n:"17 archivos de riqueza",e:"🗂️",c:"#e8a51a",d:"Cómo piensan ricos y pobres",t:[]},
+{n:"Tu dinero, 6 fondos",e:"💰",c:"#1e6fd1",d:"Un sistema para administrarlo",t:[
+["Libertad financiera · 10 %","Destina el 10 % de lo que recibas a una cuenta que no se gasta: se invierte para generar ingresos pasivos."],
+["Formación · 10 %","Invierte el 10 % en libros, cursos o entrenadores. Cuanto más aprendes, más ganas."],
+["Necesidades · 50 %","La mitad de tus ingresos cubre gastos básicos. Sin este límite, el gasto se come todo."],
+["Ahorro a largo plazo · 10 %","Un fondo para grandes gastos futuros, separado de tu día a día."],
+["Diversión · 10 %","Gástalo sin culpa: disfrutar también forma parte de la riqueza."],
+["Dar · 10 %","Compartir con otros fortalece tu mentalidad de abundancia."]]}];
+var AR=[["Creen «yo creo mi vida»","creen «la vida me sucede»"],["Juegan para ganar","juegan para no perder"],["Se comprometen a ser ricos","desearían serlo"],["Piensan en grande","piensan en pequeño"],["Se centran en las oportunidades","se centran en los obstáculos"],["Admiran a la gente rica","les molesta la gente rica"],["Se asocian con gente positiva y exitosa","se asocian con gente negativa"],["Se promocionan sin miedo","rechazan vender y promocionarse"],["Son más grandes que sus problemas","son más pequeños que ellos"],["Saben recibir","les cuesta recibir"],["Cobran por resultados","cobran por tiempo empleado"],["Piensan «las dos cosas»","piensan «esto o lo otro»"],["Se centran en su fortuna neta","se centran en su sueldo"],["Administran bien su dinero","lo administran mal"],["Su dinero trabaja para ellos","ellos trabajan duro por dinero"],["Actúan a pesar del miedo","dejan que el miedo los frene"],["Aprenden y crecen siempre","creen que ya lo saben todo"]];
+AR.forEach(function(a,i){PL[3].t.push(["Archivo "+(i+1)+": "+a[0].split(" ").slice(0,3).join(" ")+"…","La gente rica: "+a[0].toLowerCase()+". La gente pobre: "+a[1]+"."])});
+var T=[];PL.forEach(function(p,pi){p.t.forEach(function(t){T.push({i:T.length,p:pi,t:t[0],x:t[1],d:Math.round(t[1].length/10)+12})})});
+var s={v:"home",pid:0,q:"",cur:-1,on:false,t:0,queue:[],shuf:false,lk:[]};
+try{s.lk=JSON.parse(localStorage.getItem("mf-lk")||"[]")}catch(e){}
+function $(i){return document.getElementById(i)}
+function cv(p,c){return '<span class="cv" style="background:linear-gradient(135deg,'+PL[p].c+','+PL[p].c+'66)'+(c||"")+'">'+PL[p].e+'</span>'}
+function fm(x){x=Math.floor(x);return Math.floor(x/60)+":"+("0"+x%60).slice(-2)}
+var I={play:'<svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M7 4v16l13-8z"/></svg>',pause:'<svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M6 4h4v16H6zM14 4h4v16h-4z"/></svg>'};
+function heart(i){var l=s.lk.indexOf(i)>=0;return '<button class="hr'+(l?" on":"")+'" data-h="'+i+'" aria-label="Me gusta">'+(l?"♥":"♡")+'</button>'}
+function rows(ids){var h='<div class="row hd"><span>#</span><span>Título</span><span class="pl">Playlist</span><span></span><span>⏱</span></div>';
+ids.forEach(function(i,k){var t=T[i],o=s.cur===i;h+='<div class="row'+(o?" on":"")+'" role="button" tabindex="0" data-p="'+i+'" data-q="'+ids.join(",")+'"><span class="n">'+(o&&s.on?"♫":k+1)+'</span><span class="t">'+t.t+'</span><span class="pl">'+PL[t.p].n+'</span>'+heart(i)+'<span>'+fm(t.d)+'</span></div>'});return h}
+function lyr(){if(s.cur<0)return"";var t=T[s.cur];return '<div class="lyr" style="background:linear-gradient(135deg,'+PL[t.p].c+',#111)"><small>LETRA · AHORA SUENA</small><p>'+t.x+'</p></div>'}
+function chips(){var h='<div class="chips top">'+[["home","Inicio"],["search","Buscar"],["liked","Favoritos"]].map(function(c){return '<button class="chip'+(s.v===c[0]?" on":"")+'" data-v="'+c[0]+'">'+c[1]+'</button>'}).join("")+PL.map(function(p,i){return '<button class="chip'+(s.v==="pl"&&s.pid===i?" on":"")+'" data-l="'+i+'">'+p.n+'</button>'}).join("")+'</div>';return h}
+function main(){var h=chips(),g=new Date().getHours(),all=T.map(function(t){return t.i});
+if(s.v==="home"){h+='<div class="top" style="padding-bottom:0"><button class="chip on">Todo</button><button class="chip" data-v="liked">Favoritos</button></div><div class="pad"><h1>'+(g<12?"Buenos días":g<20?"Buenas tardes":"Buenas noches")+'</h1><div class="tiles">'+PL.map(function(p,i){return '<button class="tile" data-l="'+i+'">'+cv(i)+p.n+'</button>'}).join("")+'</div></div>'+lyr()+'<div class="pad"><h2>Hecho para ti: Los secretos de la mente millonaria</h2><div class="cards">'+PL.map(function(p,i){return '<button class="card" data-l="'+i+'">'+cv(i)+'<b>'+p.n+'</b><small>'+p.d+' · '+p.t.length+' pistas</small></button>'}).join("")+'</div><h2>Para empezar</h2>'+rows(all.slice(0,5))+'</div>'}
+else if(s.v==="pl"){var p=PL[s.pid],ids=T.filter(function(t){return t.p===s.pid}).map(function(t){return t.i});
+h+='<div class="hero" style="background:linear-gradient(180deg,'+p.c+'99,transparent)">'+cv(s.pid)+'<div><small>PLAYLIST</small><h1>'+p.n+'</h1><small>T. Harv Eker · '+ids.length+' pistas</small></div></div>'+lyr()+'<div class="act"><button class="pb" data-pl="'+s.pid+'" aria-label="Reproducir">'+(s.on&&s.cur>=0&&T[s.cur].p===s.pid?I.pause:I.play)+'</button></div><div class="pad">'+rows(ids)+'</div>'}
+else if(s.v==="search"){var q=s.q.toLowerCase(),r=all.filter(function(i){return(T[i].t+" "+T[i].x).toLowerCase().indexOf(q)>=0});
+h+='<div class="pad"><h1>Buscar</h1><input id="q" placeholder="¿Qué quieres aprender?" value="'+s.q.replace(/"/g,"")+'" aria-label="Buscar">'+lyr()+'<h2>'+(q?r.length+" resultados":"Todas las pistas")+'</h2>'+rows(r)+'</div>'}
+else{var l=s.lk.filter(function(i){return T[i]});h+='<div class="hero" style="background:linear-gradient(180deg,#5038a099,transparent)"><span class="cv" style="width:200px;height:200px;font-size:84px;background:linear-gradient(135deg,#450af5,#c4efd9)">♥</span><div><small>PLAYLIST</small><h1>Tus favoritos</h1><small>'+l.length+' ideas guardadas</small></div></div>'+lyr()+'<div class="pad">'+(l.length?rows(l):'<h2>Aún no tienes favoritos</h2><p class="hr">Toca el ♡ de cualquier idea para guardarla.</p>')+'</div>'}
+var sc=$("main").scrollTop;$("main").innerHTML=h;$("main").scrollTop=sc;
+$("lib").innerHTML='<h4>Tu biblioteca</h4><button class="li'+(s.v==="liked"?" on":"")+'" data-v="liked"><span class="cv" style="background:linear-gradient(135deg,#450af5,#c4efd9)">♥</span><span><b>Tus favoritos</b><small>'+s.lk.length+' ideas</small></span></button>'+PL.map(function(p,i){return '<button class="li'+(s.v==="pl"&&s.pid===i?" on":"")+'" data-l="'+i+'">'+cv(i)+'<span><b>'+p.n+'</b><small>Playlist · T. Harv Eker</small></span></button>'}).join("")}
+function bar(){var t=s.cur>=0?T[s.cur]:null;return '<div class="np">'+(t?cv(t.p)+'<div style="min-width:0"><b>'+t.t+'</b><small>T. Harv Eker</small></div>'+heart(t.i):'<small style="color:var(--sb)">Elige una pista para empezar</small>')+'</div><div class="ctr"><div class="btns"><button data-a="sh" class="'+(s.shuf?"on":"")+'" aria-label="Aleatorio">⇄</button><button data-a="pv" aria-label="Anterior">⏮</button><button class="pp" data-a="pp" aria-label="Reproducir o pausar">'+(s.on?I.pause:I.play)+'</button><button data-a="nx" aria-label="Siguiente">⏭</button></div><div class="pr"><span id="a">'+fm(s.t)+'</span><div class="bar" id="br"><i><u id="u"></u></i></div><span>'+(t?fm(t.d):"0:00")+'</span></div></div><div class="vol">🔊<div class="bar" id="vb"><i><u style="width:70%"></u></i></div></div>'}
+function pbar(){$("pl").innerHTML=bar();upd()}
+function upd(){var u=$("u");if(u&&s.cur>=0){u.style.width=(s.t/T[s.cur].d*100)+"%";$("a").textContent=fm(s.t)}}
+function play(i,q){if(q)s.queue=q;s.cur=i;s.t=0;s.on=true;main();pbar()}
+function nx(d){var q=s.queue.length?s.queue:T.map(function(t){return t.i});if(s.cur<0)return play(q[0],q);var k=q.indexOf(s.cur);var n=s.shuf?q[Math.floor(Math.random()*q.length)]:q[(k+d+q.length)%q.length];play(n)}
+function like(i){var k=s.lk.indexOf(i);k>=0?s.lk.splice(k,1):s.lk.push(i);try{localStorage.setItem("mf-lk",JSON.stringify(s.lk))}catch(e){}main();pbar()}
+document.addEventListener("click",function(e){var b=e.target.closest("[data-h],[data-a],[data-v],[data-l],[data-p],[data-pl],#br,#vb");if(!b)return;
+if(b.dataset.h!==undefined){e.stopPropagation();return like(+b.dataset.h)}
+if(b.id==="br"){var r=b.getBoundingClientRect();if(s.cur>=0){s.t=Math.max(0,Math.min(1,(e.clientX-r.left)/r.width))*T[s.cur].d;upd()}return}
+if(b.id==="vb"){var r2=b.getBoundingClientRect();b.querySelector("u").style.width=Math.max(0,Math.min(100,(e.clientX-r2.left)/r2.width*100))+"%";return}
+if(b.dataset.a){var a=b.dataset.a;if(a==="pp"){if(s.cur<0)return nx(0);s.on=!s.on;main();pbar()}else if(a==="sh"){s.shuf=!s.shuf;pbar()}else nx(a==="pv"?-1:1);return}
+if(b.dataset.v){s.v=b.dataset.v;main();return}
+if(b.dataset.l){s.v="pl";s.pid=+b.dataset.l;main();return}
+if(b.dataset.pl!==undefined){var p=+b.dataset.pl,ids=T.filter(function(t){return t.p===p}).map(function(t){return t.i});if(s.on&&s.cur>=0&&T[s.cur].p===p){s.on=false;main();pbar()}else play(s.cur>=0&&T[s.cur].p===p?s.cur:ids[0],ids);return}
+if(b.dataset.p!==undefined)play(+b.dataset.p,b.dataset.q.split(",").map(Number))});
+document.addEventListener("keydown",function(e){if((e.key==="Enter"||e.key===" ")&&e.target.dataset&&e.target.dataset.p!==undefined){e.preventDefault();e.target.click()}});
+document.addEventListener("input",function(e){if(e.target.id==="q"){s.q=e.target.value;main();var q=$("q");q.focus();q.setSelectionRange(q.value.length,q.value.length)}});
+setInterval(function(){if(s.on&&s.cur>=0){s.t+=.25;if(s.t>=T[s.cur].d)nx(1);else upd()}},250);
+main();pbar();
+</script></body></html>

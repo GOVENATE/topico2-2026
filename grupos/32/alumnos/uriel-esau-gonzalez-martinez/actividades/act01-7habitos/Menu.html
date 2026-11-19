@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Menú</title>
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial, Helvetica, sans-serif;
+}
+
+body{
+    background:linear-gradient(135deg,#040404,#180026,#000);
+    height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    overflow:hidden;
+}
+
+body::before{
+    content:"";
+    position:absolute;
+    width:900px;
+    height:900px;
+    background:#8a00ff;
+    filter:blur(220px);
+    opacity:.12;
+    animation:giro 15s linear infinite;
+}
+
+@keyframes giro{
+    from{
+        transform:rotate(0deg);
+    }
+    to{
+        transform:rotate(360deg);
+    }
+}
+
+.panel{
+    width:900px;
+    padding:50px;
+    background:rgba(8,8,8,.75);
+    border:2px solid #9900ff;
+    border-radius:30px;
+    box-shadow:0 0 35px #8f00ff;
+    backdrop-filter:blur(15px);
+    text-align:center;
+    z-index:1;
+    position:relative;
+}
+
+h1{
+    color:white;
+    margin-bottom:45px;
+    letter-spacing:3px;
+    text-shadow:0 0 20px #b100ff;
+    font-size:42px;
+    line-height:1.2;
+}
+
+.grid{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:30px;
+}
+
+.opcion{
+    padding:30px;
+    background:#111;
+    border:2px solid #8f00ff;
+    border-radius:18px;
+    font-size:22px;
+    font-weight:bold;
+    color:white;
+    cursor:pointer;
+    transition:.3s;
+    box-shadow:0 0 20px rgba(162,0,255,.4);
+}
+
+.opcion:hover{
+    background:#8f00ff;
+    transform:translateY(-6px);
+    box-shadow:0 0 35px #cc00ff;
+}
+
+/* Centrar la tercera actividad */
+.actividad3{
+    grid-column:1 / span 2;
+    width:calc(50% - 15px);
+    justify-self:center;
+}
+
+/* Botón volver al inicio */
+
+.btnInicio{
+
+    position:absolute;
+    top:20px;
+    left:20px;
+
+    display:flex;
+    align-items:center;
+    gap:8px;
+
+    padding:12px 22px;
+
+    border:none;
+    border-radius:40px;
+
+    background:linear-gradient(90deg,#5a00ff,#b100ff);
+
+    color:white;
+    font-size:15px;
+    font-weight:bold;
+
+    cursor:pointer;
+
+    box-shadow:0 0 18px rgba(143,0,255,.7);
+
+    transition:.3s;
+}
+
+.btnInicio:hover{
+
+    transform:translateY(-2px) scale(1.05);
+
+    box-shadow:0 0 30px #cc00ff;
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="panel">
+
+    <button
+        class="btnInicio"
+        onclick="location.href='Inicio.html'">
+
+        ⬅ Inicio
+
+    </button>
+
+    <h1>Los 7 hábitos de la gente<br>altamente efectiva</h1>
+
+    <div class="grid">
+
+        <div class="opcion" onclick="location.href='introduccion.html'">
+            Introducción
+        </div>
+
+        <div class="opcion" onclick="location.href='dinamica.html'">
+            Dinámica
+        </div>
+
+        <div class="opcion actividad3" onclick="location.href='Autor.html'">
+            Autor
+        </div>
+
+    </div>
+
+</div>
+
+</body>
+</html>

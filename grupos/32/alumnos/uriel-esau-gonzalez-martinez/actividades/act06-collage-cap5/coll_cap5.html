@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="es"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Collage: Administración del tiempo</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@600;800&display=swap" rel="stylesheet">
+<style>
+:root{--board:#3b2f63;--board2:#241a45;--paper:#fffdf7;--ink:#1c1830;--blank:#ece9f5;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--board:#241a45;--board2:#0d0b1a}}
+:root[data-theme="dark"]{--board:#241a45;--board2:#0d0b1a}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;min-height:100vh;background:var(--board);background-image:radial-gradient(var(--board2) 1.2px,transparent 1.3px);background-size:22px 22px;color:#fffc;font-family:'Fraunces',Georgia,serif}
+header{padding:26px 18px 6px;max-width:1100px;margin:0 auto;display:flex;flex-wrap:wrap;gap:16px 26px;align-items:flex-end;justify-content:space-between}
+.title{background:var(--paper);color:var(--ink);padding:16px 22px 14px;rotate:-1.6deg;box-shadow:5px 6px 0 var(--board2);position:relative;max-width:100%}
+.title small{display:block;font-size:.95rem;margin-bottom:4px;opacity:.75}
+.title h1{margin:0;font-weight:800;font-size:clamp(1.8rem,6vw,3.2rem);line-height:1;letter-spacing:-.02em}
+.title::before{content:"";position:absolute;top:-11px;left:30px;width:84px;height:22px;background:#7fd1c7cc;rotate:-4deg}
+.tools{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.btn{font:inherit;font-size:.95rem;border:2px solid #fff;background:transparent;color:#fff;padding:6px 14px;border-radius:99px;cursor:pointer}
+.btn:hover{background:#fff;color:var(--ink)}
+.btn:focus-visible,.part:focus-visible{outline:3px solid #fff;outline-offset:3px}
+.count{font-size:1rem;padding:6px 4px}
+.stage{max-width:1100px;margin:10px auto 0;padding:14px 18px 60px;display:grid;grid-template-columns:minmax(260px,400px) 1fr;gap:30px;align-items:start}
+figure{margin:0}
+svg{width:100%;height:auto;display:block;overflow:visible}
+.b{fill:var(--paper);stroke:var(--ink);stroke-width:3;stroke-linejoin:round}
+.f{fill:var(--blank);stroke:var(--ink);stroke-width:3;stroke-linejoin:round;stroke-dasharray:7 5;transition:fill .35s}
+.part{cursor:pointer;filter:drop-shadow(4px 5px 0 rgba(0,0,0,.3))}
+.part:hover .f{stroke-width:5}
+.part.seen .f{fill:var(--pc);stroke-dasharray:none}
+.part.cur .f{stroke-width:6}
+.hit{fill:transparent;stroke:none}
+.part.seen #panel{position:sticky;top:16px;background:var(--paper);color:var(--ink);padding:22px 26px 24px;border-left:14px solid var(--pc,#fff);box-shadow:7px 8px 0 rgba(0,0,0,.35);rotate:.5deg;min-height:230px}
+#panel h2{margin:0 0 2px;font-size:.95rem;font-weight:500;opacity:.7}
+#panel h3{margin:0 0 10px;font-weight:800;font-size:clamp(1.5rem,4vw,2.2rem);line-height:1.05}
+#panel p{margin:0 0 12px;font-size:1.08rem;line-height:1.5;max-width:60ch}
+.kw span{display:inline-block;background:var(--pc);color:var(--ink);padding:.3em .75em;margin:6px 8px 0 0;font-weight:800;box-shadow:2px 3px 0 rgba(0,0,0,.25)}
+#x{display:none;position:absolute;top:6px;right:10px;border:0;background:none;font-size:1.8rem;cursor:pointer;color:var(--ink)}
+@media (max-width:760px){.stage{grid-template-columns:1fr;padding-bottom:300px}svg{max-width:300px;margin:0 auto}
+#panel{position:fixed;left:12px;right:12px;bottom:calc(12px + env(safe-area-inset-bottom,0px));top:auto;z-index:99;max-height:55vh;overflow:auto;translate:0 130%;transition:translate .28s}
+#panel.on{translate:0 0}#x{display:block}}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style></head><body>
+<header><div class="title"><small>Capítulo 5</small><h1>Administración del tiempo</h1></div>
+<div class="tools"><span class="count" id="cnt"></span><button class="btn" id="b1"></button><button class="btn" id="b2"></button><button class="btn" id="rs">Reiniciar</button></div></header>
+<main class="stage">
+<figure><svg viewBox="0 0 360 620" role="group" aria-label="Figura de papel recortado con partes que se pueden tocar">
+<g class="body"><rect class="b" x="164" y="150" width="32" height="24"/>
+<polygon class="b" points="120,160 240,160 256,382 104,382"/>
+<polygon class="b" points="122,165 84,176 62,336 96,342 116,226"/>
+<polygon class="b" points="238,165 276,176 298,336 264,342 244,226"/>
+<polygon class="b" points="108,380 180,380 172,566 126,566"/>
+<polygon class="b" points="180,380 252,380 234,566 188,566"/></g>
+<g class="part" data-k="legs"><polygon class="f" points="112,382 178,382 170,562 128,562"/><polygon class="f" points="182,382 248,382 232,562 190,562"/></g>
+<g class="part" data-k="feet"><ellipse class="f" cx="146" cy="586" rx="38" ry="17"/><ellipse class="f" cx="216" cy="586" rx="38" ry="17"/></g>
+<g class="part" data-k="ears"><circle class="f" cx="116" cy="102" r="15"/><circle class="f" cx="244" cy="102" r="15"/></g>
+<g class="part" data-k="head"><ellipse class="f" cx="180" cy="96" rx="58" ry="62"/></g>
+<g class="part" data-k="eyes"><ellipse class="f" cx="158" cy="92" rx="11" ry="8"/><ellipse class="f" cx="202" cy="92" rx="11" ry="8"/><rect class="hit" x="138" y="76" width="84" height="32"/></g>
+<g class="part" data-k="mouth"><path class="f" d="M156 126 Q180 150 204 126 Q180 134 156 126Z"/><rect class="hit" x="150" y="120" width="60" height="34"/></g>
+<g class="part" data-k="heart"><path class="f" d="M180 244 C134 208 156 176 180 200 C204 176 226 208 180 244Z"/></g>
+<g class="part" data-k="belly"><circle class="f" cx="180" cy="312" r="46"/><circle cx="180" cy="312" r="36" fill="#fffdf7" stroke="#1c1830" stroke-width="2.5"/><path d="M180 312 V288 M180 312 L198 322" stroke="#1c1830" stroke-width="4" stroke-linecap="round" fill="none"/></g>
+<g class="part" data-k="handA"><circle class="f" cx="290" cy="358" r="29"/></g>
+<g class="part" data-k="handB"><circle class="f" cx="70" cy="358" r="29"/></g>
+
+</svg></figure>
+<aside id="panel" role="status" aria-live="polite"><button id="x" aria-label="Cerrar">×</button><h2 id="ph"></h2><h3 id="pt"></h3><p id="pp"></p><div class="kw" id="pk"></div></aside>
+</main>
+<script>
+const P=[["Piernas", "Enfoques para administrar el tiempo", "Siete caminos, cada uno con ventajas y riesgos: organícese (orden), enfoque 101 (habilidades), guerrero, ABC, instrumento mágico, déjese llevar por la corriente y restablecimiento. Elige el que se ajuste a ti.", ["Organícese", "Enfoque 101", "ABC", "Guerrero", "Restablecimiento"], "", "#ff8fb1"], ["Pies", "Evaluar cada semana", "Cierra el círculo y convierte las semanas en una espiral ascendente de aprendizaje. Pregúntate qué metas lograste, qué desafíos superaste y si fue el mejor uso de tu tiempo.", ["Autoevaluación", "Espiral ascendente", "Renovación semanal"], "", "#a8e6a1"], ["Oídos", "Ladrones externos", "Lo que roba el tiempo desde afuera: interrupciones del teléfono, visitas inesperadas, exceso de reuniones, burocracia, sistemas de comunicación deficientes e Internet.", ["Teléfono", "Visitas", "Burocracia", "Internet"], "", "#c9b6ff"], ["Cabeza", "Planeación y cuadrante II", "Lo ideal es vivir en lo importante pero no urgente: planear, prevenir, construir relaciones. Es el cuadrante de la calidad, y crece cuando conectas con tu misión y tus roles.", ["Importante, no urgente", "Misión", "Roles", "Metas a largo plazo"], "", "#7fd1c7"], ["Ojos", "Mitos del tiempo", "Mitos que usan los directivos para justificarse: el activismo, el centralismo, esperar datos completos, la simplificación, ver al tiempo como enemigo y la puerta siempre abierta.", ["Activismo", "Centralismo", "Datos completos", "Puerta abierta"], "", "#ffe066"], ["Boca", "Saber decir no", "Es el ladrón interno más citado: sin esta habilidad entran interferencias extrañas. Con el posponer y el no delegar completa el trío de ladrones propios.", ["Decir no", "Posponer", "No delegar", "Abarcar mucho"], "", "#c9b6ff"], ["Corazón", "Cuatro necesidades", "Cada rol exige equilibrar lo físico, lo espiritual, lo social y lo mental. Al elegir, la integridad pide preguntar con intención, escuchar sin excusas y actuar con valentía.", ["Física", "Espiritual", "Social", "Mental", "Integridad"], "", "#ff9f1c"], ["Reloj", "24 horas, seis características", "El tiempo es igualitario, inelástico, indispensable, insustituible, inexorable e invaluable. Administrarlo es administrar la vida; malgastarlo es malgastar la vida.", ["Igualitario", "Inelástico", "Insustituible", "Inexorable", "Invaluable"], "", "#ff9f1c"], ["Mano derecha", "Delegar y ser ejemplo", "El ejecutivo que domina su tiempo es organizado, decidido, empático y flexible. Cree en la gente, delega sin actuar como hombre orquesta y respeta el tiempo de los demás.", ["Delegar", "Decidido", "Considerado", "Autocrítico"], "", "#ffffff"], ["Mano izquierda", "Reuniones productivas", "Una reunión mal planeada cuesta el tiempo del directivo más el de todos los asistentes. Usa agenda previa, empieza a tiempo y manda un memorando con los acuerdos.", ["Agenda", "Empezar a tiempo", "Lo controvertido al final", "Memorando"], "", "#a8e6a1"]],EX=[["Quién inspira el capítulo", "Martin Luther King", "Activista estadounidense (1929–1968), Nobel de la Paz en 1964. Su estrategia fue la no violencia. Administró su lucha para obtener mejores resultados, sabiendo que las cosas no cambian de la noche a la mañana.", ["No violencia", "Paciencia estratégica", "Nobel 1964"], "#ff9f1c"], ["La matriz en 4 cuadrantes", "Urgente vs. importante", "I. Crisis y plazos. II. Planeación y prevención, el cuadrante de la calidad. III. Interrupciones, el cuadrante del engaño. IV. Trivialidades, el de la pérdida de tiempo.", ["I Crisis", "II Calidad", "III Engaño", "IV Pérdida"], "#7fd1c7"]];
+const $=id=>document.getElementById(id),panel=$('panel');let seen=new Set(),curEl=null;
+const parts=[...document.querySelectorAll('.part')];
+function show(h,t,p,k,c,el){panel.style.setProperty('--pc',c);$('ph').textContent=h;$('pt').textContent=t;$('pp').textContent=p;
+ $('pk').innerHTML='';k.forEach((w,i)=>{const s=document.createElement('span');s.textContent=w;s.style.rotate=((i*37%9)-4)+'deg';$('pk').appendChild(s)});
+ panel.classList.add('on');if(curEl)curEl.classList.remove('cur');curEl=el;if(el)el.classList.add('cur')}
+function cnt(){$('cnt').textContent=seen.size===P.length?'Collage completo':'Ideas descubiertas: '+seen.size+' de '+P.length}
+parts.forEach((g,i)=>{const d=P[i];g.style.setProperty('--pc',d[5]);g.setAttribute('tabindex','0');g.setAttribute('role','button');g.setAttribute('aria-label',d[0]+': '+d[1]);
+ const go=()=>{seen.add(i);g.classList.add('seen');show(d[0],d[1],d[2],d[3],d[5]||d[4],g);cnt()};
+ g.onclick=go;g.onkeydown=e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();go()}}});
+[['b1',0],['b2',1]].forEach(([id,j])=>{const e=EX[j];$(id).textContent=e[0];$(id).onclick=()=>show(e[0],e[1],e[2],e[3],e[4],null)});
+$('rs').onclick=()=>{seen.clear();parts.forEach(g=>g.classList.remove('seen','cur'));panel.classList.remove('on');intro();cnt()};
+$('x').onclick=()=>panel.classList.remove('on');
+function intro(){panel.style.setProperty('--pc','#fff');$('ph').textContent='Una persona, 24 horas';$('pt').textContent='Descubre cómo administra su tiempo';$('pp').textContent='Cada parte del cuerpo guarda una idea del capítulo. Toca las partes del cuerpo para armarlo.';$('pk').innerHTML='';if(innerWidth>760)panel.classList.add('on');}
+intro();cnt();
+</script></body></html>

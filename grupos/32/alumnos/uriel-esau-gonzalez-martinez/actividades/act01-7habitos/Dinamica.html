@@ -1,0 +1,2203 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Sopa de Letras - Los 7 Hábitos</title>
+
+<style>
+
+/* =====================================================
+   CONFIGURACIÓN GENERAL
+===================================================== */
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial, Helvetica, sans-serif;
+}
+
+html,
+body{
+    width:100%;
+    height:100%;
+    margin:0;
+    overflow-y:auto;
+    overflow-x:hidden;
+    padding-right:6px;
+}
+
+#palabras::-webkit-scrollbar{width:8px;}
+#palabras::-webkit-scrollbar-track{background:#1b1321;border-radius:10px;}
+#palabras::-webkit-scrollbar-thumb{background:#8f00ff;border-radius:10px;}
+#palabras::-webkit-scrollbar-thumb:hover{background:#b100ff;}
+
+body{
+
+    background:
+        linear-gradient(
+            135deg,
+            #050505,
+            #170025,
+            #000
+        );
+
+    color:white;
+    min-height:100vh;
+    height:100vh;
+}
+
+body::before{
+
+    content:"";
+
+    position:fixed;
+
+    width:900px;
+    height:900px;
+
+    background:#8f00ff;
+
+    filter:blur(220px);
+
+    opacity:.12;
+
+    top:-200px;
+    left:-150px;
+
+    z-index:-1;
+}
+
+
+/* =====================================================
+   CONTENEDOR
+===================================================== */
+
+.contenedor{
+
+    width:94%;
+
+    height:calc(100vh - 30px);
+
+    max-width:1400px;
+
+    margin:15px auto;
+
+    padding:25px;
+
+    background:rgba(10,10,10,.75);
+
+    border:2px solid #9d4dff;
+
+    border-radius:25px;
+
+    box-shadow:
+        0 0 30px #8f00ff;
+
+    display:flex;
+
+    flex-direction:column;
+
+    overflow-y:auto;
+    overflow-x:hidden;
+    padding-right:6px;
+}
+
+#palabras::-webkit-scrollbar{width:8px;}
+#palabras::-webkit-scrollbar-track{background:#1b1321;border-radius:10px;}
+#palabras::-webkit-scrollbar-thumb{background:#8f00ff;border-radius:10px;}
+#palabras::-webkit-scrollbar-thumb:hover{background:#b100ff;}
+
+
+/* =====================================================
+   TITULO
+===================================================== */
+
+h1{
+
+    text-align:center;
+
+    font-size:34px;
+
+    margin-bottom:5px;
+
+    color:white;
+
+    text-shadow:
+        0 0 15px #b300ff;
+}
+
+.subtitulo{
+
+    text-align:center;
+
+    color:#c58cff;
+
+    font-size:17px;
+
+    margin-bottom:15px;
+}
+
+
+/* =====================================================
+   JUEGO
+===================================================== */
+
+.juego{
+
+    display:grid;
+
+    grid-template-columns:
+        minmax(0,1fr)
+        300px;
+
+    gap:20px;
+
+    align-items:stretch;
+
+    flex:1;
+
+    min-height:0;
+}
+
+
+/* =====================================================
+   TARJETA DEL TABLERO
+===================================================== */
+
+.tablero-card{
+
+    background:#111;
+
+    border-left:
+        5px solid #9d4dff;
+
+    border-radius:15px;
+
+    padding:18px;
+
+    box-shadow:
+        0 0 20px
+        rgba(162,0,255,.3);
+
+    display:flex;
+
+    flex-direction:column;
+
+    justify-content:center;
+
+    min-height:0;
+
+    overflow-y:auto;
+    overflow-x:hidden;
+    padding-right:6px;
+}
+
+#palabras::-webkit-scrollbar{width:8px;}
+#palabras::-webkit-scrollbar-track{background:#1b1321;border-radius:10px;}
+#palabras::-webkit-scrollbar-thumb{background:#8f00ff;border-radius:10px;}
+#palabras::-webkit-scrollbar-thumb:hover{background:#b100ff;}
+
+
+.instruccion{
+
+    text-align:center;
+
+    color:#c58cff;
+
+    font-size:14px;
+
+    line-height:1.3;
+
+    margin-bottom:10px;
+}
+
+.instruccion strong{
+
+    color:#d39dff;
+}
+
+
+/* =====================================================
+   TABLERO
+===================================================== */
+
+#sopa{
+
+    display:grid;
+
+    grid-template-columns:
+        repeat(15,1fr);
+
+    width:
+        min(70vh,100%);
+
+    height:
+        min(70vh,100%);
+
+    aspect-ratio:1/1;
+
+    margin:auto;
+
+    user-select:none;
+
+    touch-action:none;
+
+    border:
+        2px solid #9d4dff;
+
+    box-shadow:
+        0 0 20px
+        rgba(143,0,255,.45);
+}
+
+
+/* =====================================================
+   CELDAS
+===================================================== */
+
+.celda{
+
+    position:relative;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    border:
+        1px solid #30213a;
+
+    background:#0b0b0b;
+
+    color:#e9d8ff;
+
+    font-size:
+        clamp(
+            9px,
+            1.65vw,
+            19px
+        );
+
+    font-weight:bold;
+
+    cursor:pointer;
+
+    user-select:none;
+
+    touch-action:none;
+
+    transition:
+        background .12s,
+        transform .12s,
+        box-shadow .12s;
+}
+
+
+.celda:hover{
+
+    background:#21102d;
+
+    box-shadow:
+        inset 0 0 8px
+        rgba(157,77,255,.35);
+}
+
+
+.celda.seleccionada{
+
+    background:
+        linear-gradient(
+            135deg,
+            #5a00ff,
+            #b100ff
+        );
+
+    color:white;
+
+    transform:scale(.92);
+
+    border-radius:4px;
+
+    box-shadow:
+        0 0 12px #b100ff;
+}
+
+
+/* =====================================================
+   COLORES PALABRAS ENCONTRADAS
+===================================================== */
+
+.celda.encontrada{
+
+    color:white;
+
+    border-radius:5px;
+
+    box-shadow:
+        0 0 8px
+        rgba(255,255,255,.15);
+}
+
+
+.color1{
+    background:#8f00ff !important;
+    box-shadow:0 0 10px #8f00ff;
+}
+
+.color2{
+    background:#5a00ff !important;
+    box-shadow:0 0 10px #5a00ff;
+}
+
+.color3{
+    background:#b100ff !important;
+    box-shadow:0 0 10px #b100ff;
+}
+
+.color4{
+    background:#6d28d9 !important;
+    box-shadow:0 0 10px #6d28d9;
+}
+
+.color5{
+    background:#a855f7 !important;
+    box-shadow:0 0 10px #a855f7;
+}
+
+.color6{
+    background:#7e22ce !important;
+    box-shadow:0 0 10px #7e22ce;
+}
+
+.color7{
+    background:#9333ea !important;
+    box-shadow:0 0 10px #9333ea;
+}
+
+.color8{
+    background:#c026d3 !important;
+    box-shadow:0 0 10px #c026d3;
+}
+
+
+/* =====================================================
+   SUBRAYADO DE SOLUCIÓN
+===================================================== */
+
+.celda.solucion{
+    position:relative;
+}
+
+.celda.solucion::after{
+
+    content:"";
+
+    position:absolute;
+
+    left:7%;
+    right:7%;
+
+    top:50%;
+
+    height:4px;
+
+    background:
+        rgba(255,255,255,.95);
+
+    border-radius:20px;
+
+    transform:
+        translateY(-50%);
+
+    pointer-events:none;
+
+    box-shadow:
+        0 0 8px white;
+}
+
+
+/* =====================================================
+   PANEL DERECHO
+===================================================== */
+
+.panel{
+
+    background:#111;
+
+    border-left:
+        5px solid #9d4dff;
+
+    border-radius:15px;
+
+    padding:18px;
+
+    box-shadow:
+        0 0 20px
+        rgba(162,0,255,.3);
+
+    overflow:hidden;
+
+    display:flex;
+
+    flex-direction:column;
+
+    min-height:0;
+}
+
+
+.panel h2{
+
+    color:#d39dff;
+
+    margin-bottom:12px;
+
+    font-size:22px;
+
+    flex-shrink:0;
+}
+
+
+/* =====================================================
+   PALABRAS
+===================================================== */
+
+#palabras{
+
+    list-style:none;
+
+    padding:0;
+
+    margin:0;
+
+    flex:1;
+
+    min-height:0;
+
+    overflow-y:auto;
+    overflow-x:hidden;
+    padding-right:6px;
+}
+
+#palabras::-webkit-scrollbar{width:8px;}
+#palabras::-webkit-scrollbar-track{background:#1b1321;border-radius:10px;}
+#palabras::-webkit-scrollbar-thumb{background:#8f00ff;border-radius:10px;}
+#palabras::-webkit-scrollbar-thumb:hover{background:#b100ff;}
+
+
+#palabras li{
+
+    background:#19131d;
+
+    border:
+        1px solid #3d2550;
+
+    color:#e9d8ff;
+
+    padding:6px 10px;
+
+    margin:4px 0;
+
+    border-radius:8px;
+
+    font-weight:bold;
+
+    font-size:14px;
+
+    transition:.2s;
+}
+
+
+#palabras li:hover{
+
+    border-color:#9d4dff;
+
+    box-shadow:
+        0 0 10px
+        rgba(157,77,255,.3);
+}
+
+
+#palabras li.encontrada{
+
+    text-decoration:
+        line-through;
+
+    background:#27143a;
+
+    color:#b98be6;
+
+    border-color:#7b3fb0;
+}
+
+
+/* =====================================================
+   PROGRESO
+===================================================== */
+
+.progreso{
+
+    margin-top:10px;
+
+    flex-shrink:0;
+
+    color:white;
+
+    font-weight:bold;
+}
+
+
+#contador{
+
+    color:#c58cff;
+}
+
+
+.barra{
+
+    height:9px;
+
+    background:#241a2b;
+
+    border:
+        1px solid #542477;
+
+    border-radius:20px;
+
+    overflow:hidden;
+
+    margin-top:6px;
+}
+
+
+#barraProgreso{
+
+    width:0%;
+
+    height:100%;
+
+    background:
+        linear-gradient(
+            90deg,
+            #5a00ff,
+            #b100ff
+        );
+
+    box-shadow:
+        0 0 10px #8f00ff;
+
+    transition:
+        width .4s;
+}
+
+
+/* =====================================================
+   BOTONES
+===================================================== */
+
+button{
+
+    width:100%;
+
+    padding:12px;
+
+    margin-top:8px;
+
+    font-size:15px;
+
+    font-weight:bold;
+
+    border:none;
+
+    border-radius:12px;
+
+    cursor:pointer;
+
+    color:white;
+
+    background:
+        linear-gradient(
+            90deg,
+            #5a00ff,
+            #b100ff
+        );
+
+    box-shadow:
+        0 0 20px #8f00ff;
+
+    transition:.3s;
+
+    flex-shrink:0;
+}
+
+
+button:hover{
+
+    transform:scale(1.03);
+
+    box-shadow:
+        0 0 35px #c000ff;
+}
+
+
+#btnSolucion{
+
+    background:
+        linear-gradient(
+            90deg,
+            #7200ff,
+            #d000ff
+        );
+}
+
+
+/* =====================================================
+   MENSAJE
+===================================================== */
+
+#mensaje{
+
+    text-align:center;
+
+    margin-top:8px;
+
+    padding:7px;
+
+    border-radius:8px;
+
+    min-height:20px;
+
+    font-weight:bold;
+
+    font-size:13px;
+
+    background:transparent;
+}
+
+
+/* =====================================================
+   RESPONSIVE
+===================================================== */
+
+@media(max-width:1000px){
+
+    .contenedor{
+
+        width:98%;
+
+        padding:15px;
+    }
+
+    .juego{
+
+        grid-template-columns:
+            minmax(0,1fr)
+            270px;
+
+        gap:12px;
+    }
+
+    #sopa{
+
+        width:
+            min(65vh,100%);
+
+        height:
+            min(65vh,100%);
+    }
+}
+
+
+/* En pantallas muy pequeñas */
+
+@media(max-width:750px){
+
+    html,
+    body{
+
+        overflow:auto;
+    }
+
+    .contenedor{
+
+        height:auto;
+
+        min-height:100vh;
+
+        overflow:visible;
+    }
+
+    .juego{
+
+        grid-template-columns:1fr;
+    }
+
+    #sopa{
+
+        width:90vw;
+
+        height:90vw;
+
+        max-width:600px;
+
+        max-height:600px;
+    }
+
+    #palabras{
+
+        overflow:visible;
+    }
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<div class="contenedor">
+
+
+    <h1>
+        Sopa de Letras
+    </h1>
+
+
+    <div class="subtitulo">
+        Los 7 Hábitos de Stephen Covey
+    </div>
+
+
+
+    <div class="juego">
+
+
+        <!-- =========================================
+             TABLERO
+        ========================================== -->
+
+        <section class="tablero-card">
+
+
+            <div id="sopa"></div>
+
+
+            <div id="mensaje"></div>
+
+
+        </section>
+
+
+
+        <!-- =========================================
+             PANEL DERECHO
+        ========================================== -->
+
+        <aside class="panel">
+
+
+            <h2>
+                🔎 Palabras a encontrar
+            </h2>
+
+
+            <ul id="palabras"></ul>
+
+
+            <div class="progreso">
+
+                <div>
+
+                    Progreso:
+
+                    <span id="contador">
+                        0 / 17
+                    </span>
+
+                </div>
+
+
+                <div class="barra">
+
+                    <div id="barraProgreso"></div>
+
+                </div>
+
+            </div>
+
+
+            <!-- BOTÓN NUEVA SOPA -->
+
+            <button
+                onclick="reiniciar()">
+
+                🔄 Nueva Sopa de Letras
+
+            </button>
+
+
+            <!-- BOTÓN SOLUCIÓN -->
+
+            <button
+                id="btnSolucion"
+                onclick="mostrarSolucion()">
+
+                👁️ Mostrar solución
+
+            </button>
+
+            <button onclick="regresarMenu()">⬅️ Regresar al menú</button>
+
+        </aside>
+
+
+    </div>
+
+
+</div>
+
+
+
+<script>
+
+/* =====================================================
+   CONFIGURACIÓN
+===================================================== */
+
+const TAM = 15;
+
+
+const palabras = [
+
+    "PROACTIVO",
+
+    "METAS",
+
+    "PRIORIDAD",
+
+    "TIEMPO",
+
+    "GANARGANAR",
+
+    "COMPRENDER",
+
+    "ESCUCHAR",
+
+    "SINERGIA",
+
+    "EQUIPO",
+
+    "RESULTADOS",
+
+    "RENOVAR",
+
+    "SALUD",
+
+    "MENTAL",
+
+    "EMOCIONAL",
+
+    "RESPONSABILIDAD",
+
+    "INDEPENDENCIA",
+];
+
+
+/* =====================================================
+   DIRECCIONES
+===================================================== */
+
+const direcciones = [
+
+    {df:0,dc:1},
+
+    {df:1,dc:0},
+
+    {df:1,dc:1},
+
+    {df:1,dc:-1},
+
+    {df:0,dc:-1},
+
+    {df:-1,dc:0},
+
+    {df:-1,dc:-1},
+
+    {df:-1,dc:1}
+
+];
+
+
+/* =====================================================
+   VARIABLES
+===================================================== */
+
+let tablero=[];
+
+let posicionesPalabras={};
+
+let encontradas=new Set();
+
+let seleccion=[];
+
+let seleccionando=false;
+
+let inicio=null;
+
+let solucionMostrada=false;
+
+
+/* =====================================================
+   CREAR TABLERO
+===================================================== */
+
+function crearTablero(){
+
+    tablero=
+        Array.from(
+            {length:TAM},
+            () =>
+                Array(TAM).fill("")
+        );
+
+
+    posicionesPalabras={};
+
+
+    const ordenadas=
+        [...palabras].sort(
+            (a,b)=>
+                b.length-a.length
+        );
+
+
+    /*
+       Se utilizan diferentes direcciones
+       para que la sopa no quede llena
+       de palabras horizontales.
+    */
+
+    const tiposDireccion=[
+
+        2,
+        1,
+        0,
+        3,
+        1,
+        2,
+        0,
+        1,
+        2,
+        3,
+        1,
+        2,
+        0,
+        1,
+        2,
+        3,
+        2
+
+    ];
+
+
+    ordenadas.forEach(
+        (palabra,indice)=>{
+
+            const direccionPreferida=
+                tiposDireccion[indice];
+
+
+            let ordenDirecciones=[
+
+                direccionPreferida
+
+            ];
+
+
+            const restantes=[
+
+                0,
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7
+
+            ].filter(
+                d =>
+                    d !==
+                    direccionPreferida
+            );
+
+
+            restantes.sort(
+                () =>
+                    Math.random()-.5
+            );
+
+
+            ordenDirecciones.push(
+                ...restantes
+            );
+
+
+            let colocada=false;
+
+
+            for(
+                const indiceDireccion
+                of ordenDirecciones
+            ){
+
+                if(colocada)
+                    break;
+
+
+                const direccion=
+                    direcciones[
+                        indiceDireccion
+                    ];
+
+
+                for(
+                    let intento=0;
+                    intento<500;
+                    intento++
+                ){
+
+                    const filaInicial=
+                        Math.floor(
+                            Math.random()*TAM
+                        );
+
+
+                    const columnaInicial=
+                        Math.floor(
+                            Math.random()*TAM
+                        );
+
+
+                    let posiciones=[];
+
+                    let valido=true;
+
+
+                    for(
+                        let i=0;
+                        i<palabra.length;
+                        i++
+                    ){
+
+                        const fila=
+                            filaInicial+
+                            direccion.df*i;
+
+
+                        const columna=
+                            columnaInicial+
+                            direccion.dc*i;
+
+
+                        if(
+
+                            fila<0 ||
+
+                            fila>=TAM ||
+
+                            columna<0 ||
+
+                            columna>=TAM
+
+                        ){
+
+                            valido=false;
+
+                            break;
+
+                        }
+
+
+                        if(
+
+                            tablero[fila][columna]
+                            !==""
+
+                            &&
+
+                            tablero[fila][columna]
+                            !==palabra[i]
+
+                        ){
+
+                            valido=false;
+
+                            break;
+
+                        }
+
+
+                        posiciones.push({
+
+                            f:fila,
+
+                            c:columna
+
+                        });
+
+                    }
+
+
+                    if(valido){
+
+                        posiciones.forEach(
+                            (posicion,i)=>{
+
+                                tablero[
+                                    posicion.f
+                                ][
+                                    posicion.c
+                                ]=
+                                    palabra[i];
+
+                            }
+                        );
+
+
+                        posicionesPalabras[
+                            palabra
+                        ]=
+                            posiciones;
+
+
+                        colocada=true;
+
+                        break;
+
+                    }
+
+                }
+
+            }
+
+
+            if(!colocada){
+
+                console.warn(
+                    "No se pudo colocar:",
+                    palabra
+                );
+
+            }
+
+        }
+    );
+
+
+    const letras=
+        "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+
+
+    for(
+        let fila=0;
+        fila<TAM;
+        fila++
+    ){
+
+        for(
+            let columna=0;
+            columna<TAM;
+            columna++
+        ){
+
+            if(
+                tablero[fila][columna]
+                ===""
+            ){
+
+                tablero[fila][columna]=
+                    letras[
+                        Math.floor(
+                            Math.random()*
+                            letras.length
+                        )
+                    ];
+
+            }
+
+        }
+
+    }
+
+}
+
+
+/* =====================================================
+   DIBUJAR TABLERO
+===================================================== */
+
+function dibujarTablero(){
+
+    const sopa=
+        document.getElementById(
+            "sopa"
+        );
+
+
+    sopa.innerHTML="";
+
+
+    for(
+        let fila=0;
+        fila<TAM;
+        fila++
+    ){
+
+        for(
+            let columna=0;
+            columna<TAM;
+            columna++
+        ){
+
+            const celda=
+                document.createElement(
+                    "div"
+                );
+
+
+            celda.className="celda";
+
+
+            celda.textContent=
+                tablero[fila][columna];
+
+
+            celda.dataset.fila=
+                fila;
+
+
+            celda.dataset.columna=
+                columna;
+
+
+            sopa.appendChild(celda);
+
+        }
+
+    }
+
+}
+
+
+/* =====================================================
+   LISTA DE PALABRAS
+===================================================== */
+
+function crearLista(){
+
+    const lista=
+        document.getElementById(
+            "palabras"
+        );
+
+
+    lista.innerHTML="";
+
+
+    palabras.forEach(
+        palabra=>{
+
+            const li=
+                document.createElement(
+                    "li"
+                );
+
+
+            li.textContent=palabra;
+
+
+            li.dataset.palabra=
+                palabra;
+
+
+            lista.appendChild(li);
+
+        }
+    );
+
+}
+
+
+/* =====================================================
+   OBTENER CELDA
+===================================================== */
+
+function obtenerCelda(evento){
+
+    const elemento=
+        document.elementFromPoint(
+            evento.clientX,
+            evento.clientY
+        );
+
+
+    if(
+
+        elemento &&
+
+        elemento.classList.contains(
+            "celda"
+        )
+
+    ){
+
+        return elemento;
+
+    }
+
+
+    return null;
+
+}
+
+
+/* =====================================================
+   INICIAR SELECCIÓN
+===================================================== */
+
+document.addEventListener(
+    "pointerdown",
+
+    function(evento){
+
+        const celda=
+            obtenerCelda(evento);
+
+
+        if(!celda)
+            return;
+
+
+        evento.preventDefault();
+
+
+        seleccionando=true;
+
+
+        limpiarSeleccion();
+
+
+        inicio={
+
+            f:
+                Number(
+                    celda.dataset.fila
+                ),
+
+            c:
+                Number(
+                    celda.dataset.columna
+                )
+
+        };
+
+
+        seleccion=[
+            inicio
+        ];
+
+
+        mostrarSeleccion();
+
+    }
+);
+
+
+/* =====================================================
+   ARRASTRAR
+===================================================== */
+
+document.addEventListener(
+    "pointermove",
+
+    function(evento){
+
+        if(!seleccionando)
+            return;
+
+
+        evento.preventDefault();
+
+
+        const celda=
+            obtenerCelda(evento);
+
+
+        if(!celda)
+            return;
+
+
+        const fila=
+            Number(
+                celda.dataset.fila
+            );
+
+
+        const columna=
+            Number(
+                celda.dataset.columna
+            );
+
+
+        const diferenciaFila=
+            fila-inicio.f;
+
+
+        const diferenciaColumna=
+            columna-inicio.c;
+
+
+        const absFila=
+            Math.abs(
+                diferenciaFila
+            );
+
+
+        const absColumna=
+            Math.abs(
+                diferenciaColumna
+            );
+
+
+        if(
+
+            absFila!==0 &&
+
+            absColumna!==0 &&
+
+            absFila!==absColumna
+
+        ){
+
+            return;
+
+        }
+
+
+        const pasoFila=
+            Math.sign(
+                diferenciaFila
+            );
+
+
+        const pasoColumna=
+            Math.sign(
+                diferenciaColumna
+            );
+
+
+        let nuevaSeleccion=[];
+
+
+        let actualFila=
+            inicio.f;
+
+
+        let actualColumna=
+            inicio.c;
+
+
+        while(true){
+
+            nuevaSeleccion.push({
+
+                f:actualFila,
+
+                c:actualColumna
+
+            });
+
+
+            if(
+
+                actualFila===fila &&
+
+                actualColumna===columna
+
+            ){
+
+                break;
+
+            }
+
+
+            actualFila+=pasoFila;
+
+            actualColumna+=pasoColumna;
+
+        }
+
+
+        seleccion=
+            nuevaSeleccion;
+
+
+        mostrarSeleccion();
+
+    }
+);
+
+
+/* =====================================================
+   SOLTAR
+===================================================== */
+
+document.addEventListener(
+    "pointerup",
+
+    function(){
+
+        if(!seleccionando)
+            return;
+
+
+        seleccionando=false;
+
+
+        comprobarSeleccion();
+
+
+        seleccion=[];
+
+
+        inicio=null;
+
+    }
+);
+
+
+/* =====================================================
+   MOSTRAR SELECCIÓN
+===================================================== */
+
+function mostrarSeleccion(){
+
+    limpiarSeleccion();
+
+
+    seleccion.forEach(
+        posicion=>{
+
+            const indice=
+                posicion.f*TAM+
+                posicion.c;
+
+
+            const celda=
+                document
+                    .getElementById(
+                        "sopa"
+                    )
+                    .children[
+                        indice
+                    ];
+
+
+            if(
+                !celda.classList.contains(
+                    "encontrada"
+                )
+            ){
+
+                celda.classList.add(
+                    "seleccionada"
+                );
+
+            }
+
+        }
+    );
+
+}
+
+
+/* =====================================================
+   LIMPIAR SELECCIÓN
+===================================================== */
+
+function limpiarSeleccion(){
+
+    document
+        .querySelectorAll(
+            ".seleccionada"
+        )
+        .forEach(
+            celda=>{
+
+                celda.classList.remove(
+                    "seleccionada"
+                );
+
+            }
+        );
+
+}
+
+
+/* =====================================================
+   COMPROBAR PALABRA
+===================================================== */
+
+function comprobarSeleccion(){
+
+    if(
+        seleccion.length<2
+    ){
+
+        limpiarSeleccion();
+
+        return;
+
+    }
+
+
+    const palabra=
+        seleccion
+            .map(
+                posicion=>
+                    tablero[
+                        posicion.f
+                    ][
+                        posicion.c
+                    ]
+            )
+            .join("");
+
+
+    const palabraInversa=
+        [...palabra]
+            .reverse()
+            .join("");
+
+
+    let encontrada=null;
+
+
+    for(
+        const objetivo
+        of palabras
+    ){
+
+        if(
+
+            palabra===objetivo ||
+
+            palabraInversa===objetivo
+
+        ){
+
+            encontrada=objetivo;
+
+            break;
+
+        }
+
+    }
+
+
+    if(
+
+        encontrada &&
+
+        !encontradas.has(
+            encontrada
+        )
+
+    ){
+
+        encontradas.add(
+            encontrada
+        );
+
+
+        const numeroColor=
+            (
+                (
+                    encontradas.size-1
+                )
+                %8
+            )+1;
+
+
+        const claseColor=
+            "color"+
+            numeroColor;
+
+
+        seleccion.forEach(
+            posicion=>{
+
+                const indice=
+                    posicion.f*TAM+
+                    posicion.c;
+
+
+                const celda=
+                    document
+                        .getElementById(
+                            "sopa"
+                        )
+                        .children[
+                            indice
+                        ];
+
+
+                celda.classList.remove(
+                    "seleccionada"
+                );
+
+
+                celda.classList.add(
+                    "encontrada"
+                );
+
+
+                celda.classList.add(
+                    claseColor
+                );
+
+            }
+        );
+
+
+        document
+            .querySelectorAll(
+                "#palabras li"
+            )
+            .forEach(
+                li=>{
+
+                    if(
+                        li.dataset.palabra
+                        ===encontrada
+                    ){
+
+                        li.classList.add(
+                            "encontrada"
+                        );
+
+                    }
+
+                }
+            );
+
+
+        mostrarMensaje(
+
+            "¡Encontraste "+
+            encontrada+
+            "!",
+
+            true
+
+        );
+
+
+        actualizarProgreso();
+
+    }
+    else{
+
+        limpiarSeleccion();
+
+    }
+
+}
+
+
+/* =====================================================
+   PROGRESO
+===================================================== */
+
+function actualizarProgreso(){
+
+    const cantidad=
+        encontradas.size;
+
+
+    const total=
+        palabras.length;
+
+
+    document
+        .getElementById(
+            "contador"
+        )
+        .textContent=
+
+            cantidad+
+            " / "+
+            total;
+
+
+    document
+        .getElementById(
+            "barraProgreso"
+        )
+        .style.width=
+
+            (
+                cantidad/
+                total*
+                100
+            )+
+            "%";
+
+
+    if(
+        cantidad===total
+    ){
+
+        mostrarMensaje(
+
+            "🎉 ¡Felicidades! Encontraste todas las palabras.",
+
+            true
+
+        );
+
+    }
+
+}
+
+
+/* =====================================================
+   MENSAJE
+===================================================== */
+
+function mostrarMensaje(
+    texto,
+    correcto
+){
+
+    const mensaje=
+        document.getElementById(
+            "mensaje"
+        );
+
+
+    mensaje.textContent=
+        texto;
+
+
+    mensaje.style.background=
+
+        correcto
+            ? "#27143a"
+            : "#351619";
+
+
+    mensaje.style.color=
+
+        correcto
+            ? "#d39dff"
+            : "#ff8f8f";
+
+
+    mensaje.style.border=
+
+        correcto
+            ? "1px solid #7b3fb0"
+            : "1px solid #8f3030";
+
+}
+
+
+/* =====================================================
+   MOSTRAR SOLUCIÓN
+===================================================== */
+
+function mostrarSolucion(){
+
+    const boton=
+        document.getElementById(
+            "btnSolucion"
+        );
+
+
+    if(
+        solucionMostrada
+    ){
+
+        ocultarSolucion();
+
+
+        solucionMostrada=
+            false;
+
+
+        boton.textContent=
+            "👁️ Mostrar solución";
+
+
+        return;
+
+    }
+
+
+    palabras.forEach(
+        palabra=>{
+
+            encontradas.add(
+                palabra
+            );
+
+        }
+    );
+
+
+    palabras.forEach(
+        (palabra,indicePalabra)=>{
+
+            const posiciones=
+                posicionesPalabras[
+                    palabra
+                ];
+
+
+            if(!posiciones)
+                return;
+
+
+            const numeroColor=
+
+                (
+                    indicePalabra
+                    %8
+                )+1;
+
+
+            const claseColor=
+                "color"+
+                numeroColor;
+
+
+            posiciones.forEach(
+                posicion=>{
+
+                    const numeroCelda=
+                        posicion.f*TAM+
+                        posicion.c;
+
+
+                    const celda=
+                        document
+                            .getElementById(
+                                "sopa"
+                            )
+                            .children[
+                                numeroCelda
+                            ];
+
+
+                    celda.classList.add(
+                        "encontrada"
+                    );
+
+
+                    celda.classList.add(
+                        claseColor
+                    );
+
+
+                    celda.classList.add(
+                        "solucion"
+                    );
+
+                }
+            );
+
+
+            document
+                .querySelectorAll(
+                    "#palabras li"
+                )
+                .forEach(
+                    li=>{
+
+                        if(
+                            li.dataset.palabra
+                            ===palabra
+                        ){
+
+                            li.classList.add(
+                                "encontrada"
+                            );
+
+                        }
+
+                    }
+                );
+
+        }
+    );
+
+
+    solucionMostrada=true;
+
+
+    boton.textContent=
+        "🙈 Ocultar solución";
+
+}
+
+
+/* =====================================================
+   OCULTAR SOLUCIÓN
+===================================================== */
+
+function ocultarSolucion(){
+
+    document
+        .querySelectorAll(
+            ".solucion"
+        )
+        .forEach(
+            celda=>{
+
+                celda.classList.remove(
+                    "solucion"
+                );
+
+            }
+        );
+
+
+    document
+        .querySelectorAll(
+            ".encontrada"
+        )
+        .forEach(
+            celda=>{
+
+                celda.classList.remove(
+                    "encontrada"
+                );
+
+
+                for(
+                    let i=1;
+                    i<=8;
+                    i++
+                ){
+
+                    celda.classList.remove(
+                        "color"+i
+                    );
+
+                }
+
+            }
+        );
+
+
+    document
+        .querySelectorAll(
+            "#palabras li"
+        )
+        .forEach(
+            li=>{
+
+                li.classList.remove(
+                    "encontrada"
+                );
+
+            }
+        );
+
+
+    encontradas.clear();
+
+
+    actualizarProgreso();
+
+
+    document
+        .getElementById(
+            "mensaje"
+        )
+        .textContent="";
+
+}
+
+
+/* =====================================================
+   NUEVA SOPA
+===================================================== */
+
+function reiniciar(){
+
+    encontradas.clear();
+
+
+    seleccion=[];
+
+
+    seleccionando=false;
+
+
+    inicio=null;
+
+
+    solucionMostrada=false;
+
+
+    document
+        .getElementById(
+            "btnSolucion"
+        )
+        .textContent=
+            "👁️ Mostrar solución";
+
+
+    document
+        .getElementById(
+            "mensaje"
+        )
+        .textContent="";
+
+
+    crearLista();
+
+    crearTablero();
+
+    dibujarTablero();
+
+    actualizarProgreso();
+
+}
+
+
+/* =====================================================
+   INICIAR
+===================================================== */
+
+function regresarMenu(){
+    window.location.href="Menu.html";
+}
+
+reiniciar();
+
+</script>
+
+</body>
+
+</html>
