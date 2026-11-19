@@ -1,5 +1,5 @@
 {
-  "generado": "2026-11-19T06:13:27.551Z",
+  "generado": "2026-11-19T06:14:11.547Z",
   "topico": {
     "titulo": "Tópico 2",
     "periodo": "UAQ · Facultad de Informática · 2026",
@@ -8,6 +8,7 @@
   },
   "tecnologias": [
     "Actividad",
+    "Chart.js",
     "Collage",
     "Comentario",
     "Comunicacion",
@@ -40,6 +41,7 @@
     "Reflexión",
     "Reporte de lectura",
     "Resumen",
+    "Tailwind CSS",
     "TypeScript",
     "Vite"
   ],
@@ -48,8 +50,8 @@
       "id": "empresarios",
       "nombre": "Empresarios mexicanos",
       "resumen": "Servitje, Zambrano, Slim y el perfil del empresario mexicano ideal.",
-      "alumnos": 10,
-      "actividades": 32,
+      "alumnos": 11,
+      "actividades": 34,
       "ejemplos": [
         {
           "grupo": "32",
@@ -78,8 +80,8 @@
       "id": "7-habitos",
       "nombre": "Los 7 hábitos",
       "resumen": "Stephen Covey: proactividad, empezar con un fin en mente, primero lo primero y la mejora continua.",
-      "alumnos": 9,
-      "actividades": 13,
+      "alumnos": 10,
+      "actividades": 14,
       "ejemplos": [
         {
           "grupo": "32",
@@ -101,6 +103,96 @@
           "nombre": "Bradley Yeray Reyes Altamirano",
           "actividad": "act01-7-habitos",
           "titulo": "Los 7 Hábitos"
+        }
+      ]
+    },
+    {
+      "id": "toma-decisiones",
+      "nombre": "Toma de decisiones",
+      "resumen": "Herramientas para analizar problemas y decidir: FODA, Ishikawa, Pareto y seis sombreros.",
+      "alumnos": 10,
+      "actividades": 14,
+      "ejemplos": [
+        {
+          "grupo": "32",
+          "alumno": "alan-salvador-rojas-pina",
+          "nombre": "Alan Salvador Rojas Piña",
+          "actividad": "act07-resumenes-habilidades-directivas",
+          "titulo": "Resúmenes de habilidades directivas"
+        },
+        {
+          "grupo": "32",
+          "alumno": "armando-altamirano-gurrion",
+          "nombre": "Armando Altamirano Gurrion",
+          "actividad": "act02-collage-decisiones-azar",
+          "titulo": "Collage Decisiones al Azar"
+        },
+        {
+          "grupo": "32",
+          "alumno": "bradley-reyes-altamirano",
+          "nombre": "Bradley Yeray Reyes Altamirano",
+          "actividad": "act03-toma-decisiones",
+          "titulo": "Asistente de decisiones"
+        }
+      ]
+    },
+    {
+      "id": "persuade-voz",
+      "nombre": "Persuade con tu voz",
+      "resumen": "Emma Rodero y el poder de la voz para comunicar y convencer.",
+      "alumnos": 10,
+      "actividades": 10,
+      "ejemplos": [
+        {
+          "grupo": "32",
+          "alumno": "alan-salvador-rojas-pina",
+          "nombre": "Alan Salvador Rojas Piña",
+          "actividad": "act09-resumen-video",
+          "titulo": "Persuade con tu voz"
+        },
+        {
+          "grupo": "32",
+          "alumno": "armando-altamirano-gurrion",
+          "nombre": "Armando Altamirano Gurrion",
+          "actividad": "act06-la-voz",
+          "titulo": "La Voz"
+        },
+        {
+          "grupo": "32",
+          "alumno": "bradley-reyes-altamirano",
+          "nombre": "Bradley Yeray Reyes Altamirano",
+          "actividad": "act14-emma-rodero",
+          "titulo": "Resumen: la voz según Emma Rodero"
+        }
+      ]
+    },
+    {
+      "id": "gigantes-tecnologicos",
+      "nombre": "Gigantes tecnológicos y poder",
+      "resumen": "El poder de las grandes empresas y lo que hay debajo de la nube.",
+      "alumnos": 9,
+      "actividades": 18,
+      "ejemplos": [
+        {
+          "grupo": "32",
+          "alumno": "alan-salvador-rojas-pina",
+          "nombre": "Alan Salvador Rojas Piña",
+          "actividad": "act13-poder-empresas",
+          "titulo": "El poder de las empresas"
+        },
+        {
+          "grupo": "32",
+          "alumno": "armando-altamirano-gurrion",
+          "nombre": "Armando Altamirano Gurrion",
+          "actividad": "act10-super-ricos",
+          "titulo": "Super Ricos Video DW"
+        },
+        {
+          "grupo": "32",
+          "alumno": "bradley-reyes-altamirano",
+          "nombre": "Bradley Yeray Reyes Altamirano",
+          "actividad": "act06-gigantes-tecnologicos",
+          "titulo": "Las capas de las grandes tecnológicas"
         }
       ]
     },
@@ -135,36 +227,6 @@
       ]
     },
     {
-      "id": "toma-decisiones",
-      "nombre": "Toma de decisiones",
-      "resumen": "Herramientas para analizar problemas y decidir: FODA, Ishikawa, Pareto y seis sombreros.",
-      "alumnos": 9,
-      "actividades": 13,
-      "ejemplos": [
-        {
-          "grupo": "32",
-          "alumno": "alan-salvador-rojas-pina",
-          "nombre": "Alan Salvador Rojas Piña",
-          "actividad": "act07-resumenes-habilidades-directivas",
-          "titulo": "Resúmenes de habilidades directivas"
-        },
-        {
-          "grupo": "32",
-          "alumno": "armando-altamirano-gurrion",
-          "nombre": "Armando Altamirano Gurrion",
-          "actividad": "act02-collage-decisiones-azar",
-          "titulo": "Collage Decisiones al Azar"
-        },
-        {
-          "grupo": "32",
-          "alumno": "bradley-reyes-altamirano",
-          "nombre": "Bradley Yeray Reyes Altamirano",
-          "actividad": "act03-toma-decisiones",
-          "titulo": "Asistente de decisiones"
-        }
-      ]
-    },
-    {
       "id": "quinta-disciplina",
       "nombre": "La quinta disciplina",
       "resumen": "Peter Senge y las organizaciones que aprenden a través del pensamiento sistémico.",
@@ -195,71 +257,11 @@
       ]
     },
     {
-      "id": "persuade-voz",
-      "nombre": "Persuade con tu voz",
-      "resumen": "Emma Rodero y el poder de la voz para comunicar y convencer.",
-      "alumnos": 9,
-      "actividades": 9,
-      "ejemplos": [
-        {
-          "grupo": "32",
-          "alumno": "alan-salvador-rojas-pina",
-          "nombre": "Alan Salvador Rojas Piña",
-          "actividad": "act09-resumen-video",
-          "titulo": "Persuade con tu voz"
-        },
-        {
-          "grupo": "32",
-          "alumno": "armando-altamirano-gurrion",
-          "nombre": "Armando Altamirano Gurrion",
-          "actividad": "act06-la-voz",
-          "titulo": "La Voz"
-        },
-        {
-          "grupo": "32",
-          "alumno": "bradley-reyes-altamirano",
-          "nombre": "Bradley Yeray Reyes Altamirano",
-          "actividad": "act14-emma-rodero",
-          "titulo": "Resumen: la voz según Emma Rodero"
-        }
-      ]
-    },
-    {
-      "id": "gigantes-tecnologicos",
-      "nombre": "Gigantes tecnológicos y poder",
-      "resumen": "El poder de las grandes empresas y lo que hay debajo de la nube.",
-      "alumnos": 8,
-      "actividades": 17,
-      "ejemplos": [
-        {
-          "grupo": "32",
-          "alumno": "alan-salvador-rojas-pina",
-          "nombre": "Alan Salvador Rojas Piña",
-          "actividad": "act13-poder-empresas",
-          "titulo": "El poder de las empresas"
-        },
-        {
-          "grupo": "32",
-          "alumno": "armando-altamirano-gurrion",
-          "nombre": "Armando Altamirano Gurrion",
-          "actividad": "act10-super-ricos",
-          "titulo": "Super Ricos Video DW"
-        },
-        {
-          "grupo": "32",
-          "alumno": "bradley-reyes-altamirano",
-          "nombre": "Bradley Yeray Reyes Altamirano",
-          "actividad": "act06-gigantes-tecnologicos",
-          "titulo": "Las capas de las grandes tecnológicas"
-        }
-      ]
-    },
-    {
       "id": "movimientos-sociales",
       "nombre": "Movimientos sociales",
       "resumen": "Mentes en acción: cómo se organizan las personas para cambiar su entorno.",
-      "alumnos": 8,
-      "actividades": 9,
+      "alumnos": 9,
+      "actividades": 10,
       "ejemplos": [
         {
           "grupo": "32",
@@ -288,8 +290,8 @@
       "id": "codigo-limpio",
       "nombre": "Código limpio",
       "resumen": "Robert C. Martin: nombres claros, funciones pequeñas y código fácil de leer y mantener.",
-      "alumnos": 7,
-      "actividades": 9,
+      "alumnos": 8,
+      "actividades": 10,
       "ejemplos": [
         {
           "grupo": "32",
@@ -318,8 +320,8 @@
       "id": "superricos",
       "nombre": "La influencia de los superricos",
       "resumen": "Cómo la riqueza extrema moldea ciudades, política y sociedad.",
-      "alumnos": 7,
-      "actividades": 7,
+      "alumnos": 8,
+      "actividades": 8,
       "ejemplos": [
         {
           "grupo": "32",
@@ -348,8 +350,8 @@
       "id": "fracasan-paises",
       "nombre": "¿Por qué fracasan los países?",
       "resumen": "Acemoglu y Robinson: instituciones inclusivas frente a extractivas.",
-      "alumnos": 7,
-      "actividades": 7,
+      "alumnos": 8,
+      "actividades": 8,
       "ejemplos": [
         {
           "grupo": "32",
@@ -378,8 +380,8 @@
       "id": "arquetipos",
       "nombre": "Arquetipos sistémicos",
       "resumen": "Patrones que se repiten en los sistemas y explican por qué los problemas regresan.",
-      "alumnos": 6,
-      "actividades": 6,
+      "alumnos": 7,
+      "actividades": 7,
       "ejemplos": [
         {
           "grupo": "32",
@@ -408,8 +410,8 @@
       "id": "filosofia",
       "nombre": "Filosofía de vida",
       "resumen": "Yokoi Kenji y la comparación entre la filosofía japonesa y la latinoamericana.",
-      "alumnos": 6,
-      "actividades": 6,
+      "alumnos": 7,
+      "actividades": 7,
       "ejemplos": [
         {
           "grupo": "32",
@@ -438,8 +440,8 @@
       "id": "habilidades-directivas",
       "nombre": "Habilidades directivas",
       "resumen": "Tiempo, inteligencia emocional, liderazgo, equipos y negociación para dirigir.",
-      "alumnos": 5,
-      "actividades": 22,
+      "alumnos": 6,
+      "actividades": 26,
       "ejemplos": [
         {
           "grupo": "32",
@@ -468,8 +470,8 @@
       "id": "pensamiento-critico",
       "nombre": "Pensamiento crítico",
       "resumen": "Cuestionar la información y formar una opinión propia con argumentos.",
-      "alumnos": 5,
-      "actividades": 8,
+      "alumnos": 6,
+      "actividades": 10,
       "ejemplos": [
         {
           "grupo": "32",
@@ -498,8 +500,8 @@
       "id": "dinero",
       "nombre": "Dinero y éxito",
       "resumen": "Efecto compuesto, lecciones de negocios y la psicología del dinero.",
-      "alumnos": 4,
-      "actividades": 4,
+      "alumnos": 5,
+      "actividades": 5,
       "ejemplos": [
         {
           "grupo": "32",
@@ -528,8 +530,8 @@
       "id": "colon",
       "nombre": "Colón y la historia",
       "resumen": "Infografías sobre Cristóbal Colón y su contexto.",
-      "alumnos": 3,
-      "actividades": 3,
+      "alumnos": 4,
+      "actividades": 4,
       "ejemplos": [
         {
           "grupo": "32",
@@ -547,10 +549,10 @@
         },
         {
           "grupo": "32",
-          "alumno": "ximena-martinez",
-          "nombre": "Ximena Martínez Gudiño",
-          "actividad": "act03-infografia-colon",
-          "titulo": "Infografía de Colón"
+          "alumno": "uriel-esau-gonzalez-martinez",
+          "nombre": "Uriel Esau Gonzalez Martinez",
+          "actividad": "act14-infografia-colon",
+          "titulo": "Infografía: colon"
         }
       ]
     }
@@ -1043,6 +1045,32 @@
               "fecha": "",
               "tecnologias": [],
               "ruta": "grupos/32/alumnos/armando-altamirano-gurrion/actividades/act17-interactivaquinta/index.html"
+            }
+          ]
+        },
+        {
+          "id": "axel-daniel-estrada",
+          "nombre": "Axel Daniel Estrada Malagon",
+          "github": "aestrada40-blip",
+          "sobreMi": "expediente 285736",
+          "tecnologias": [
+            "HTML",
+            "CSS",
+            "JavaScript"
+          ],
+          "actividades": [
+            {
+              "id": "act01-portafolio-actividades",
+              "tipo": "web",
+              "titulo": "Portafolio de actividades",
+              "descripcion": "Portafolio de actividades en formato web.",
+              "fecha": "2026-11-18",
+              "tecnologias": [
+                "HTML",
+                "CSS",
+                "JavaScript"
+              ],
+              "ruta": "grupos/32/alumnos/axel-daniel-estrada/actividades/portafolio_de_actividades_axel_daniel.html"
             }
           ]
         },
@@ -2733,6 +2761,267 @@
                 "Lectura"
               ],
               "ruta": "grupos/32/alumnos/miguel-garcia/actividades/act23-capitulo-10/capitulo-10.jpeg"
+            }
+          ]
+        },
+        {
+          "id": "uriel-esau-gonzalez-martinez",
+          "nombre": "Uriel Esau Gonzalez Martinez",
+          "github": "bxuri3l",
+          "sobreMi": "Estudiante de la UAQ, 8vo semestre.",
+          "tecnologias": [
+            "HTML",
+            "CSS",
+            "JavaScript",
+            "Investigacion",
+            "Chart.js",
+            "Tailwind CSS",
+            "Infografia"
+          ],
+          "actividades": [
+            {
+              "id": "act01-7habitos",
+              "tipo": "web",
+              "titulo": "Los 7 hábitos: sitio con menú, introducción, dinámica y autor",
+              "descripcion": "Sitio de varias páginas sobre Los 7 hábitos, con menú, introducción con infografía, sopa de letras y sección del autor.",
+              "fecha": "2026-08-06",
+              "tecnologias": [
+                "HTML",
+                "CSS",
+                "JavaScript"
+              ],
+              "ruta": "grupos/32/alumnos/uriel-esau-gonzalez-martinez/actividades/act01-7habitos/Menu.html"
+            },
+            {
+              "id": "act02-secretos-mente-millonaria",
+              "tipo": "pdf",
+              "titulo": "Los secretos de la mente millonaria: exposición",
+              "descripcion": "Presentación de la exposición Los secretos de la mente millonaria, en PDF.",
+              "fecha": "2026-11-19",
+              "tecnologias": [
+                "Investigacion"
+              ],
+              "ruta": "grupos/32/alumnos/uriel-esau-gonzalez-martinez/actividades/act02-secretos-mente-millonaria/exposicion.pdf"
+            },
+            {
+              "id": "act03-codigo-limpio",
+              "tipo": "web",
+              "titulo": "Código Limpio: aprende jugando",
+              "descripcion": "App interactiva para aprender principios de código limpio mediante juegos.",
+              "fecha": "2026-10-15",
+              "tecnologias": [
+                "HTML",
+                "CSS",
+                "JavaScript"
+              ],
+              "ruta": "grupos/32/alumnos/uriel-esau-gonzalez-martinez/actividades/act03-codigo-limpio/app_codigo_limpio.html"
+            },
+            {
+              "id": "act04-arquetipos-sistemicos",
+              "tipo": "web",
+              "titulo": "Arquetipos Sistémicos: explorador interactivo",
+              "descripcion": "Explorador interactivo de los arquetipos sistémicos.",
+              "fecha": "2026-10-29",
+              "tecnologias": [
+                "HTML",
+                "CSS",
+                "JavaScript"
+              ],
+              "ruta": "grupos/32/alumnos/uriel-esau-gonzalez-martinez/actividades/act04-arquetipos-sistemicos/arquetipos_sistemicos_interactivo.html"
+            },
+            {
+              "id": "act05-collage-cap1",
+              "tipo": "web",
+              "titulo": "Collage: Habilidades directivas (Cap. 1)",
+              "descripcion": "Collage visual del capítulo 1 de habilidades directivas.",
+              "fecha": "2026-11-05",
+              "tecnologias": [
+                "HTML",
+                "CSS",
+                "JavaScript"
+              ],
+              "ruta": "grupos/32/alumnos/uriel-esau-gonzalez-martinez/actividades/act05-collage-cap1/coll_cap1.html"
+            },
+            {
+              "id": "act06-collage-cap5",
+              "tipo": "web",
+              "titulo": "Collage: Administración del tiempo (Cap. 5)",
+              "descripcion": "Collage visual del capítulo 5 sobre administración del tiempo.",
+              "fecha": "2026-11-05",
+              "tecnologias": [
+                "HTML",
+                "CSS",
+                "JavaScript"
+              ],
+              "ruta": "grupos/32/alumnos/uriel-esau-gonzalez-martinez/actividades/act06-collage-cap5/coll_cap5.html"
+            },
+            {
+              "id": "act07-collages-cap3-cap7",
+              "tipo": "web",
+              "titulo": "Collage: Habilidades directivas (Cap. 3 y 7)",
+              "descripcion": "Collage de los capítulos 3 y 7 de habilidades directivas.",
+              "fecha": "2026-11-10",
+              "tecnologias": [
+                "HTML",
+                "CSS",
+                "JavaScript"
+              ],
+              "ruta": "grupos/32/alumnos/uriel-esau-gonzalez-martinez/actividades/act07-collages-cap3-cap7/index.html"
+            },
+            {
+              "id": "act08-collages-2-8-10-13-psicologiadinero-dalio",
+              "tipo": "web",
+              "titulo": "Collages: capítulos 2, 8, 10 y 13, Psicología del dinero y Dalio",
+              "descripcion": "Collages unificados de varios capítulos, Psicología del dinero y Ray Dalio.",
+              "fecha": "2026-11-12",
+              "tecnologias": [
+                "HTML",
+                "CSS",
+                "JavaScript"
+              ],
+              "ruta": "grupos/32/alumnos/uriel-esau-gonzalez-martinez/actividades/act08-collages-2-8-10-13-psicologiadinero-dalio/collages_unificado.html"
+            },
+            {
+              "id": "act09-yokoi-kasuga",
+              "tipo": "pdf",
+              "titulo": "Conclusión personal: el éxito según Yokoi Kenji y Carlos Kasuga",
+              "descripcion": "Conclusión personal sobre el éxito desde la perspectiva de Yokoi Kenji y Carlos Kasuga.",
+              "fecha": "2026-09-01",
+              "tecnologias": [
+                "Investigacion"
+              ],
+              "ruta": "grupos/32/alumnos/uriel-esau-gonzalez-martinez/actividades/act09-yokoi-kenji-carlos-kasuga/conclusion-personal.pdf"
+            },
+            {
+              "id": "act10-3-empresario-mx",
+              "tipo": "pdf",
+              "titulo": "Cuadro comparativo de 3 empresarios mexicanos",
+              "descripcion": "Cuadro comparativo de tres empresarios de México.",
+              "fecha": "2026-10-06",
+              "tecnologias": [
+                "Investigacion"
+              ],
+              "ruta": "grupos/32/alumnos/uriel-esau-gonzalez-martinez/actividades/act10-3-empresario-mx/cuadro-comparativo.pdf"
+            },
+            {
+              "id": "act11-empresario-perfecto",
+              "tipo": "web",
+              "titulo": "El Empresario Perfecto",
+              "descripcion": "Actividad interactiva para construir al empresario perfecto.",
+              "fecha": "2026-10-06",
+              "tecnologias": [
+                "HTML",
+                "CSS",
+                "JavaScript"
+              ],
+              "ruta": "grupos/32/alumnos/uriel-esau-gonzalez-martinez/actividades/act11-empresario-perfecto/empresario_perfecto_interactivo.html"
+            },
+            {
+              "id": "act12-foda",
+              "tipo": "web",
+              "titulo": "Sistema de análisis de decisiones y diagnóstico operacional (FODA)",
+              "descripcion": "Sistema de análisis FODA con gráficas para diagnóstico operacional.",
+              "fecha": "2026-09-01",
+              "tecnologias": [
+                "HTML",
+                "CSS",
+                "JavaScript",
+                "Chart.js",
+                "Tailwind CSS"
+              ],
+              "ruta": "grupos/32/alumnos/uriel-esau-gonzalez-martinez/actividades/act12-foda/Foda.html"
+            },
+            {
+              "id": "act13-habilidades-vida-trabajo",
+              "tipo": "web",
+              "titulo": "Habilidades para la vida y el trabajo",
+              "descripcion": "Página sobre habilidades para la vida y el trabajo.",
+              "fecha": "2026-11-03",
+              "tecnologias": [
+                "HTML",
+                "CSS",
+                "JavaScript"
+              ],
+              "ruta": "grupos/32/alumnos/uriel-esau-gonzalez-martinez/actividades/act13-habilidades-vida-trabajo/index.html"
+            },
+            {
+              "id": "act14-infografia-colon",
+              "tipo": "imagen",
+              "titulo": "Infografía: colon",
+              "descripcion": "Infografía sobre el colon.",
+              "fecha": "2026-09-24",
+              "tecnologias": [
+                "Infografia"
+              ],
+              "ruta": "grupos/32/alumnos/uriel-esau-gonzalez-martinez/actividades/act14-infografia-colon/infografia.jpeg"
+            },
+            {
+              "id": "act15-porque-fracasan-los-paises",
+              "tipo": "imagen",
+              "titulo": "Infografía: Por qué fracasan los países",
+              "descripcion": "Infografía sobre por qué fracasan los países.",
+              "fecha": "2026-10-15",
+              "tecnologias": [
+                "Infografia"
+              ],
+              "ruta": "grupos/32/alumnos/uriel-esau-gonzalez-martinez/actividades/act15-porque-fracasan-los-paises/infografia.jpeg"
+            },
+            {
+              "id": "act16-influencia-superricos",
+              "tipo": "pdf",
+              "titulo": "Resumen: Cuánta influencia tienen los superricos (DW)",
+              "descripcion": "Resumen del documental de DW sobre la influencia de los superricos.",
+              "fecha": "2026-08-25",
+              "tecnologias": [
+                "Investigacion"
+              ],
+              "ruta": "grupos/32/alumnos/uriel-esau-gonzalez-martinez/actividades/act16-influencia-superricos/resumen.pdf"
+            },
+            {
+              "id": "act17-charla-tedxyouth",
+              "tipo": "pdf",
+              "titulo": "Resumen de la charla TEDxYouth",
+              "descripcion": "Resumen de una charla TEDxYouth.",
+              "fecha": "2026-11-03",
+              "tecnologias": [
+                "Investigacion"
+              ],
+              "ruta": "grupos/32/alumnos/uriel-esau-gonzalez-martinez/actividades/act17-charla-tedxyouth/resumen.pdf"
+            },
+            {
+              "id": "act18-persuade-con-tu-voz",
+              "tipo": "pdf",
+              "titulo": "Resumen: Persuade con tu voz (Emma Rodero)",
+              "descripcion": "Resumen de la charla TEDx de Emma Rodero sobre estrategias para sonar creíble.",
+              "fecha": "2026-08-25",
+              "tecnologias": [
+                "Investigacion"
+              ],
+              "ruta": "grupos/32/alumnos/uriel-esau-gonzalez-martinez/actividades/act18-persuade-con-tu-voz/resumen.pdf"
+            },
+            {
+              "id": "act19-mentes-en-accion",
+              "tipo": "pdf",
+              "titulo": "Resumen: Mentes en acción, cap. 1 Inteligencia",
+              "descripcion": "Resumen del video Mentes en acción (Ubaldo), capítulo 1: Inteligencia.",
+              "fecha": "2026-09-24",
+              "tecnologias": [
+                "Investigacion"
+              ],
+              "ruta": "grupos/32/alumnos/uriel-esau-gonzalez-martinez/actividades/act19-mentes-en-accion/resumen.pdf"
+            },
+            {
+              "id": "act20-app-mente-millonaria",
+              "tipo": "web",
+              "titulo": "Mentefy: app de la mente millonaria",
+              "descripcion": "Página interactiva Mentefy basada en la exposición Los secretos de la mente millonaria.",
+              "fecha": "2026-11-12",
+              "tecnologias": [
+                "HTML",
+                "CSS",
+                "JavaScript"
+              ],
+              "ruta": "grupos/32/alumnos/uriel-esau-gonzalez-martinez/actividades/act20-app-mente-millonaria/Mentefy.html"
             }
           ]
         },
