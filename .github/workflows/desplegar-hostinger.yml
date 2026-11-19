@@ -1,0 +1,54 @@
+name: Desplegar a Hostinger
+
+# Cada push a main arma el catalogo y sube el sitio por FTP a
+# la raiz de la cuenta FTP, que debe apuntar a domains/goverstudioforge.com/public_html/topico2
+# Solo sube los archivos que cambiaron, asi que no hay limite de 4 MB.
+#
+# Secrets necesarios (Settings > Secrets and variables > Actions):
+#   FTP_SERVER    ej. ftp.goverstudioforge.com  (hPanel > Archivos > Cuentas FTP)
+#   FTP_USERNAME  usuario FTP
+#   FTP_PASSWORD  contrasena FTP
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: desplegar-hostinger
+  cancel-in-progress: false
+
+jobs:
+  desplegar:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Armar catalogo
+        run: node scripts/armar-catalogo.mjs
+
+      - name: Subir por FTP
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          server-dir: ./
+          exclude: |
+            **/.git*
+            **/.git*/**
+            **/node_modules/**
+            .github/**
+            scripts/**
+            package.json
+            CONTRIBUIR.md

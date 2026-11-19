@@ -1,5 +1,5 @@
 {
-  "generado": "2026-10-29T01:12:58.172Z",
+  "generado": "2026-11-18T23:47:29.058Z",
   "topico": {
     "titulo": "Topico 2",
     "periodo": "Agosto - Diciembre 2026",
@@ -12,14 +12,24 @@
     ]
   },
   "tecnologias": [
+    "Actividad",
     "Comunicacion",
+    "Creatividad",
     "CSS",
     "Framer Motion",
     "HTML",
     "Ilustracion",
+    "Imagen",
     "Infografia",
     "JavaScript",
+    "Lectura",
     "Liderazgo",
+    "Mapa conceptual",
+    "PDF",
+    "Pensamiento",
+    "Pensamiento critico",
+    "Pensamiento sistemico",
+    "Programacion",
     "React",
     "Reflexion",
     "TypeScript",
@@ -232,6 +242,559 @@
                 "Reflexion"
               ],
               "ruta": "grupos/32/alumnos/kevin-alonso/actividades/act15-documental-los-ricos/documental-los-ricos.pdf"
+            }
+          ]
+        },
+        {
+          "id": "miguel-garcia",
+          "nombre": "Miguel Garcia",
+          "github": "Mikee-GM",
+          "sobreMi": "",
+          "tecnologias": [
+            "Programacion",
+            "Mapa conceptual",
+            "Pensamiento sistemico",
+            "Pensamiento",
+            "Creatividad",
+            "Reflexion",
+            "Pensamiento critico",
+            "Lectura",
+            "Liderazgo",
+            "Comunicacion",
+            "Actividad"
+          ],
+          "actividades": [
+            {
+              "id": "act01-clean-code",
+              "tipo": "pdf",
+              "titulo": "Clean Code",
+              "descripcion": "Resumen del libro Clean Code sobre como escribir codigo limpio.",
+              "fecha": "",
+              "tecnologias": [
+                "Programacion"
+              ],
+              "ruta": "grupos/32/alumnos/miguel-garcia/actividades/act01-clean-code/clean-code.pdf"
+            },
+            {
+              "id": "act02-mapa-clean-code",
+              "tipo": "pdf",
+              "titulo": "Mapa de Clean Code",
+              "descripcion": "Mapa conceptual de las ideas principales de Clean Code.",
+              "fecha": "",
+              "tecnologias": [
+                "Programacion",
+                "Mapa conceptual"
+              ],
+              "ruta": "grupos/32/alumnos/miguel-garcia/actividades/act02-mapa-clean-code/mapa-clean-code.pdf"
+            },
+            {
+              "id": "act03-arquetipos-sistemicos",
+              "tipo": "pdf",
+              "titulo": "Arquetipos sistemicos",
+              "descripcion": "Resumen de los arquetipos sistemicos del pensamiento sistemico.",
+              "fecha": "",
+              "tecnologias": [
+                "Pensamiento sistemico"
+              ],
+              "ruta": "grupos/32/alumnos/miguel-garcia/actividades/act03-arquetipos-sistemicos/arquetipos-sistemicos.pdf"
+            },
+            {
+              "id": "act04-habilidades-del-pensamiento",
+              "tipo": "pdf",
+              "titulo": "Habilidades del pensamiento",
+              "descripcion": "Resumen sobre las habilidades del pensamiento.",
+              "fecha": "",
+              "tecnologias": [
+                "Pensamiento"
+              ],
+              "ruta": "grupos/32/alumnos/miguel-garcia/actividades/act04-habilidades-del-pensamiento/habilidades-del-pensamiento.pdf"
+            },
+            {
+              "id": "act05-pensagram",
+              "tipo": "pdf",
+              "titulo": "Pensagram",
+              "descripcion": "Actividad de Pensagram.",
+              "fecha": "",
+              "tecnologias": [
+                "Pensamiento"
+              ],
+              "ruta": "grupos/32/alumnos/miguel-garcia/actividades/act05-pensagram/pensagram.pdf"
+            },
+            {
+              "id": "act06-comentario-creatividad",
+              "tipo": "pdf",
+              "titulo": "Comentario sobre creatividad",
+              "descripcion": "Comentario y reflexion sobre la creatividad.",
+              "fecha": "",
+              "tecnologias": [
+                "Creatividad",
+                "Reflexion"
+              ],
+              "ruta": "grupos/32/alumnos/miguel-garcia/actividades/act06-comentario-creatividad/comentario-creatividad.pdf"
+            },
+            {
+              "id": "act07-filosofia-japonesa-vs-latinoamericana",
+              "tipo": "pdf",
+              "titulo": "Filosofia japonesa vs latinoamericana",
+              "descripcion": "Comparacion entre la filosofia japonesa y la latinoamericana.",
+              "fecha": "",
+              "tecnologias": [
+                "Reflexion"
+              ],
+              "ruta": "grupos/32/alumnos/miguel-garcia/actividades/act07-filosofia-japonesa-vs-latinoamericana/filosofia-japonesa-vs-latinoamericana.pdf"
+            },
+            {
+              "id": "act08-resumen-pensamiento-critico",
+              "tipo": "pdf",
+              "titulo": "Resumen: Sin pensamiento critico no eres nadie",
+              "descripcion": "Resumen del video sobre la importancia del pensamiento critico.",
+              "fecha": "",
+              "tecnologias": [
+                "Pensamiento critico"
+              ],
+              "ruta": "grupos/32/alumnos/miguel-garcia/actividades/act08-resumen-pensamiento-critico/resumen-pensamiento-critico.pdf"
+            },
+            {
+              "id": "act09-resumen-lectura",
+              "tipo": "pdf",
+              "titulo": "Resumen de lectura",
+              "descripcion": "Resumen de la lectura vista en clase.",
+              "fecha": "",
+              "tecnologias": [
+                "Lectura"
+              ],
+              "ruta": "grupos/32/alumnos/miguel-garcia/actividades/act09-resumen-lectura/resumen-lectura.pdf"
+            },
+            {
+              "id": "act10-empresario-mexicano-ideal",
+              "tipo": "pdf",
+              "titulo": "El empresario mexicano ideal",
+              "descripcion": "Resumen sobre el empresario mexicano ideal de Ernesto Valdes Rangel.",
+              "fecha": "",
+              "tecnologias": [
+                "Liderazgo"
+              ],
+              "ruta": "grupos/32/alumnos/miguel-garcia/actividades/act10-empresario-mexicano-ideal/empresario-mexicano-ideal.pdf"
+            },
+            {
+              "id": "act11-persuade-con-tu-voz",
+              "tipo": "pdf",
+              "titulo": "Persuade con tu voz",
+              "descripcion": "Resumen sobre como persuadir usando la voz.",
+              "fecha": "",
+              "tecnologias": [
+                "Comunicacion"
+              ],
+              "ruta": "grupos/32/alumnos/miguel-garcia/actividades/act11-persuade-con-tu-voz/persuade-con-tu-voz.pdf"
+            },
+            {
+              "id": "act12-super-ricos",
+              "tipo": "pdf",
+              "titulo": "Super ricos",
+              "descripcion": "Reflexion sobre los super ricos y su influencia.",
+              "fecha": "",
+              "tecnologias": [
+                "Reflexion"
+              ],
+              "ruta": "grupos/32/alumnos/miguel-garcia/actividades/act12-super-ricos/super-ricos.pdf"
+            },
+            {
+              "id": "act13-movimientos-sociales",
+              "tipo": "pdf",
+              "titulo": "Video de movimientos sociales",
+              "descripcion": "Resumen del video sobre movimientos sociales.",
+              "fecha": "",
+              "tecnologias": [
+                "Reflexion"
+              ],
+              "ruta": "grupos/32/alumnos/miguel-garcia/actividades/act13-movimientos-sociales/movimientos-sociales.pdf"
+            },
+            {
+              "id": "act14-actividad-colon",
+              "tipo": "imagen",
+              "titulo": "Actividad Colon",
+              "descripcion": "Actividad Colon.",
+              "fecha": "",
+              "tecnologias": [
+                "Actividad"
+              ],
+              "ruta": "grupos/32/alumnos/miguel-garcia/actividades/act14-actividad-colon/actividad-colon.jpeg"
+            },
+            {
+              "id": "act15-por-que-fracasan-los-paises",
+              "tipo": "imagen",
+              "titulo": "Por que fracasan los paises",
+              "descripcion": "Apuntes de Por que fracasan los paises.",
+              "fecha": "",
+              "tecnologias": [
+                "Lectura"
+              ],
+              "ruta": "grupos/32/alumnos/miguel-garcia/actividades/act15-por-que-fracasan-los-paises/por-que-fracasan-los-paises.jpeg"
+            },
+            {
+              "id": "act16-capitulo-1",
+              "tipo": "imagen",
+              "titulo": "Capitulo 1",
+              "descripcion": "Apuntes del capitulo 1.",
+              "fecha": "",
+              "tecnologias": [
+                "Lectura"
+              ],
+              "ruta": "grupos/32/alumnos/miguel-garcia/actividades/act16-capitulo-1/capitulo-1.jpeg"
+            },
+            {
+              "id": "act17-capitulo-2",
+              "tipo": "imagen",
+              "titulo": "Capitulo 2",
+              "descripcion": "Apuntes del capitulo 2.",
+              "fecha": "",
+              "tecnologias": [
+                "Lectura"
+              ],
+              "ruta": "grupos/32/alumnos/miguel-garcia/actividades/act17-capitulo-2/capitulo-2.jpeg"
+            },
+            {
+              "id": "act18-capitulo-3",
+              "tipo": "imagen",
+              "titulo": "Capitulo 3",
+              "descripcion": "Apuntes del capitulo 3.",
+              "fecha": "",
+              "tecnologias": [
+                "Lectura"
+              ],
+              "ruta": "grupos/32/alumnos/miguel-garcia/actividades/act18-capitulo-3/capitulo-3.jpeg"
+            },
+            {
+              "id": "act19-capitulo-4",
+              "tipo": "imagen",
+              "titulo": "Capitulo 4",
+              "descripcion": "Apuntes del capitulo 4.",
+              "fecha": "",
+              "tecnologias": [
+                "Lectura"
+              ],
+              "ruta": "grupos/32/alumnos/miguel-garcia/actividades/act19-capitulo-4/capitulo-4.jpeg"
+            },
+            {
+              "id": "act20-capitulo-5",
+              "tipo": "imagen",
+              "titulo": "Capitulo 5",
+              "descripcion": "Apuntes del capitulo 5.",
+              "fecha": "",
+              "tecnologias": [
+                "Lectura"
+              ],
+              "ruta": "grupos/32/alumnos/miguel-garcia/actividades/act20-capitulo-5/capitulo-5.jpeg"
+            },
+            {
+              "id": "act21-capitulo-7",
+              "tipo": "imagen",
+              "titulo": "Capitulo 7",
+              "descripcion": "Apuntes del capitulo 7.",
+              "fecha": "",
+              "tecnologias": [
+                "Lectura"
+              ],
+              "ruta": "grupos/32/alumnos/miguel-garcia/actividades/act21-capitulo-7/capitulo-7.jpeg"
+            },
+            {
+              "id": "act22-capitulo-8",
+              "tipo": "imagen",
+              "titulo": "Capitulo 8",
+              "descripcion": "Apuntes del capitulo 8.",
+              "fecha": "",
+              "tecnologias": [
+                "Lectura"
+              ],
+              "ruta": "grupos/32/alumnos/miguel-garcia/actividades/act22-capitulo-8/capitulo-8.jpeg"
+            },
+            {
+              "id": "act23-capitulo-10",
+              "tipo": "imagen",
+              "titulo": "Capitulo 10",
+              "descripcion": "Apuntes del capitulo 10.",
+              "fecha": "",
+              "tecnologias": [
+                "Lectura"
+              ],
+              "ruta": "grupos/32/alumnos/miguel-garcia/actividades/act23-capitulo-10/capitulo-10.jpeg"
+            }
+          ]
+        },
+        {
+          "id": "ximena-martinez",
+          "nombre": "Ximena Martínez Gudiño",
+          "github": "",
+          "sobreMi": "Estudiante de Ingeniería en Software, UAQ.",
+          "tecnologias": [
+            "HTML",
+            "CSS",
+            "JavaScript",
+            "PDF",
+            "Imagen"
+          ],
+          "actividades": [
+            {
+              "id": "act01-expediente-analisis",
+              "tipo": "web",
+              "titulo": "Expediente de análisis",
+              "descripcion": "",
+              "fecha": "2026-08-28",
+              "tecnologias": [
+                "HTML",
+                "CSS",
+                "JavaScript"
+              ],
+              "ruta": "grupos/32/alumnos/ximena-martinez/actividades/act01-expediente-analisis/index.html"
+            },
+            {
+              "id": "act02-por-que-fracasan-los-paises",
+              "tipo": "pdf",
+              "titulo": "Por qué fracasan los países",
+              "descripcion": "",
+              "fecha": "2026-09-09",
+              "tecnologias": [
+                "PDF"
+              ],
+              "ruta": "grupos/32/alumnos/ximena-martinez/actividades/act02-por-que-fracasan-los-paises/documento.pdf"
+            },
+            {
+              "id": "act03-infografia-colon",
+              "tipo": "pdf",
+              "titulo": "Infografía de Colón",
+              "descripcion": "",
+              "fecha": "2026-09-24",
+              "tecnologias": [
+                "PDF"
+              ],
+              "ruta": "grupos/32/alumnos/ximena-martinez/actividades/act03-infografia-colon/documento.pdf"
+            },
+            {
+              "id": "act04-infografia",
+              "tipo": "imagen",
+              "titulo": "Infografía",
+              "descripcion": "",
+              "fecha": "2026-10-13",
+              "tecnologias": [
+                "Imagen"
+              ],
+              "ruta": "grupos/32/alumnos/ximena-martinez/actividades/act04-infografia/imagen.png"
+            },
+            {
+              "id": "act05-infografia-mejoras",
+              "tipo": "pdf",
+              "titulo": "Infografía de mejoras",
+              "descripcion": "",
+              "fecha": "2026-10-20",
+              "tecnologias": [
+                "PDF"
+              ],
+              "ruta": "grupos/32/alumnos/ximena-martinez/actividades/act05-infografia-mejoras/documento.pdf"
+            },
+            {
+              "id": "act06-quinta-disciplina",
+              "tipo": "pdf",
+              "titulo": "Resumen La Quinta Disciplina (Cap. 1 al 3)",
+              "descripcion": "",
+              "fecha": "2026-10-26",
+              "tecnologias": [
+                "PDF"
+              ],
+              "ruta": "grupos/32/alumnos/ximena-martinez/actividades/act06-quinta-disciplina/documento.pdf"
+            },
+            {
+              "id": "act07-compensacion-proceso-demora",
+              "tipo": "web",
+              "titulo": "Compensación entre proceso y demora",
+              "descripcion": "",
+              "fecha": "2026-10-26",
+              "tecnologias": [
+                "HTML",
+                "CSS",
+                "JavaScript"
+              ],
+              "ruta": "grupos/32/alumnos/ximena-martinez/actividades/act07-compensacion-proceso-demora/index.html"
+            },
+            {
+              "id": "act08-infografia-creatividad-goldberg",
+              "tipo": "pdf",
+              "titulo": "Infografía Creatividad Goldberg",
+              "descripcion": "",
+              "fecha": "2026-10-26",
+              "tecnologias": [
+                "PDF"
+              ],
+              "ruta": "grupos/32/alumnos/ximena-martinez/actividades/act08-infografia-creatividad-goldberg/documento.pdf"
+            },
+            {
+              "id": "act09-metro-codigo-limpio",
+              "tipo": "web",
+              "titulo": "Metro Código Limpio",
+              "descripcion": "",
+              "fecha": "2026-11-03",
+              "tecnologias": [
+                "HTML",
+                "CSS",
+                "JavaScript"
+              ],
+              "ruta": "grupos/32/alumnos/ximena-martinez/actividades/act09-metro-codigo-limpio/index.html"
+            },
+            {
+              "id": "act10-visionaria-rena-olvera",
+              "tipo": "web",
+              "titulo": "La Visionaria Rena Olvera",
+              "descripcion": "",
+              "fecha": "2026-11-03",
+              "tecnologias": [
+                "HTML",
+                "CSS",
+                "JavaScript"
+              ],
+              "ruta": "grupos/32/alumnos/ximena-martinez/actividades/act10-visionaria-rena-olvera/index.html"
+            },
+            {
+              "id": "act11-7-habitos",
+              "tipo": "imagen",
+              "titulo": "Los 7 hábitos",
+              "descripcion": "",
+              "fecha": "2026-11-04",
+              "tecnologias": [
+                "Imagen"
+              ],
+              "ruta": "grupos/32/alumnos/ximena-martinez/actividades/act11-7-habitos/imagen.jpeg"
+            },
+            {
+              "id": "act12-filosofia-yokoi-kenji",
+              "tipo": "pdf",
+              "titulo": "Filosofía de Yokoi Kenji",
+              "descripcion": "",
+              "fecha": "2026-11-04",
+              "tecnologias": [
+                "PDF"
+              ],
+              "ruta": "grupos/32/alumnos/ximena-martinez/actividades/act12-filosofia-yokoi-kenji/documento.pdf"
+            },
+            {
+              "id": "act13-super-ricos",
+              "tipo": "pdf",
+              "titulo": "Súper ricos",
+              "descripcion": "",
+              "fecha": "2026-11-04",
+              "tecnologias": [
+                "PDF"
+              ],
+              "ruta": "grupos/32/alumnos/ximena-martinez/actividades/act13-super-ricos/documento.pdf"
+            },
+            {
+              "id": "act14-movimientos-sociales",
+              "tipo": "pdf",
+              "titulo": "Movimientos sociales",
+              "descripcion": "",
+              "fecha": "2026-11-04",
+              "tecnologias": [
+                "PDF"
+              ],
+              "ruta": "grupos/32/alumnos/ximena-martinez/actividades/act14-movimientos-sociales/documento.pdf"
+            },
+            {
+              "id": "act15-cuadro-empresarios-mexicanos",
+              "tipo": "pdf",
+              "titulo": "Cuadro comparativo de empresarios mexicanos",
+              "descripcion": "",
+              "fecha": "2026-11-04",
+              "tecnologias": [
+                "PDF"
+              ],
+              "ruta": "grupos/32/alumnos/ximena-martinez/actividades/act15-cuadro-empresarios-mexicanos/documento.pdf"
+            },
+            {
+              "id": "act16-habilidades-directivas-cap-1-2",
+              "tipo": "web",
+              "titulo": "Habilidades Directivas, Cap. 1 y 2",
+              "descripcion": "",
+              "fecha": "2026-11-04",
+              "tecnologias": [
+                "HTML",
+                "CSS",
+                "JavaScript"
+              ],
+              "ruta": "grupos/32/alumnos/ximena-martinez/actividades/act16-habilidades-directivas-cap-1-2/index.html"
+            },
+            {
+              "id": "act17-habilidades-directivas-cap-1-5",
+              "tipo": "web",
+              "titulo": "Habilidades Directivas, Cap. 1 y 5",
+              "descripcion": "",
+              "fecha": "2026-11-05",
+              "tecnologias": [
+                "HTML",
+                "CSS",
+                "JavaScript"
+              ],
+              "ruta": "grupos/32/alumnos/ximena-martinez/actividades/act17-habilidades-directivas-cap-1-5/index.html"
+            },
+            {
+              "id": "act18-habilidades-directivas-cap-3-7",
+              "tipo": "web",
+              "titulo": "Habilidades Directivas, Cap. 3 y 7",
+              "descripcion": "",
+              "fecha": "2026-11-10",
+              "tecnologias": [
+                "HTML",
+                "CSS",
+                "JavaScript"
+              ],
+              "ruta": "grupos/32/alumnos/ximena-martinez/actividades/act18-habilidades-directivas-cap-3-7/index.html"
+            },
+            {
+              "id": "act19-chispa",
+              "tipo": "web",
+              "titulo": "Chispa",
+              "descripcion": "",
+              "fecha": "2026-11-12",
+              "tecnologias": [
+                "HTML",
+                "CSS",
+                "JavaScript"
+              ],
+              "ruta": "grupos/32/alumnos/ximena-martinez/actividades/act19-chispa/index.html"
+            },
+            {
+              "id": "act20-creatividad-presentacion",
+              "tipo": "pdf",
+              "titulo": "Presentación de creatividad",
+              "descripcion": "",
+              "fecha": "2026-11-12",
+              "tecnologias": [
+                "PDF"
+              ],
+              "ruta": "grupos/32/alumnos/ximena-martinez/actividades/act20-creatividad-presentacion/documento.pdf"
+            },
+            {
+              "id": "act21-habilidades-directivas-cap-2-7-8-10-13",
+              "tipo": "web",
+              "titulo": "Habilidades Directivas, Cap. 2, 7, 8, 10 y 13",
+              "descripcion": "",
+              "fecha": "2026-11-12",
+              "tecnologias": [
+                "HTML",
+                "CSS",
+                "JavaScript"
+              ],
+              "ruta": "grupos/32/alumnos/ximena-martinez/actividades/act21-habilidades-directivas-cap-2-7-8-10-13/index.html"
+            },
+            {
+              "id": "act22-habilidades-directivas-cap-4-5-6-9-11-12",
+              "tipo": "web",
+              "titulo": "Habilidades Directivas, Cap. 4, 5, 6, 9, 11 y 12",
+              "descripcion": "",
+              "fecha": "2026-11-18",
+              "tecnologias": [
+                "HTML",
+                "CSS",
+                "JavaScript"
+              ],
+              "ruta": "grupos/32/alumnos/ximena-martinez/actividades/act22-habilidades-directivas-cap-4-5-6-9-11-12/index.html"
             }
           ]
         }
