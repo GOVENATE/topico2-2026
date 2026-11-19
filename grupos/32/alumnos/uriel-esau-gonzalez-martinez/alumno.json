@@ -25,7 +25,7 @@
       "tecnologias": [
         "Investigacion"
       ],
-      "ruta": "actividades/act02-secretos-mente-millonaria/Los secretos de la mente millonaria - Exposicion.pdf"
+      "ruta": "actividades/act02-secretos-mente-millonaria/exposicion.pdf"
     },
     {
       "id": "act03-codigo-limpio",
@@ -90,7 +90,7 @@
         "CSS",
         "JavaScript"
       ],
-      "ruta": "actividades/act07-collages-cap3-cap7/Collage  Habilidades directivas Cap 3 y 7.html"
+      "ruta": "actividades/act07-collages-cap3-cap7/index.html"
     },
     {
       "id": "act08-collages-2-8-10-13-psicologiadinero-dalio",
@@ -114,7 +114,7 @@
       "tecnologias": [
         "Investigacion"
       ],
-      "ruta": "actividades/act09-Yokoi Kenji-Carlos Kasuga/Conclusion Personal El exito desde la perspectiva de Yokoi Kenji y Carlos Kasuga.pdf"
+      "ruta": "actividades/act09-yokoi-kenji-carlos-kasuga/conclusion-personal.pdf"
     },
     {
       "id": "act10-3-empresario-mx",
@@ -125,7 +125,7 @@
       "tecnologias": [
         "Investigacion"
       ],
-      "ruta": "actividades/act10-3-empresario-mx/Cuadro Comparativo 3 Empresarios MX.pdf"
+      "ruta": "actividades/act10-3-empresario-mx/cuadro-comparativo.pdf"
     },
     {
       "id": "act11-empresario-perfecto",
@@ -166,7 +166,7 @@
         "CSS",
         "JavaScript"
       ],
-      "ruta": "actividades/act13_habilidades-vida-trabajo/Habilidades para la vida y el trabajo.html"
+      "ruta": "actividades/act13-habilidades-vida-trabajo/index.html"
     },
     {
       "id": "act14-infografia-colon",
@@ -177,7 +177,7 @@
       "tecnologias": [
         "Infografia"
       ],
-      "ruta": "actividades/act14-infografia-colon/Infografia colon.jpeg"
+      "ruta": "actividades/act14-infografia-colon/infografia.jpeg"
     },
     {
       "id": "act15-porque-fracasan-los-paises",
@@ -188,7 +188,7 @@
       "tecnologias": [
         "Infografia"
       ],
-      "ruta": "actividades/act15-porque-fracasan-los-paises/Infografia Porque fracasan los paises.jpeg"
+      "ruta": "actividades/act15-porque-fracasan-los-paises/infografia.jpeg"
     },
     {
       "id": "act16-influencia-superricos",
@@ -199,7 +199,7 @@
       "tecnologias": [
         "Investigacion"
       ],
-      "ruta": "actividades/act16-influencia-superricos/Resumen Cuanta influencia tienen los superricos DW Documental.pdf"
+      "ruta": "actividades/act16-influencia-superricos/resumen.pdf"
     },
     {
       "id": "act17-charla-tedxyouth",
@@ -210,7 +210,7 @@
       "tecnologias": [
         "Investigacion"
       ],
-      "ruta": "actividades/act17-charla-tedxyouth/Resumen de la charla TEDxYouth.pdf"
+      "ruta": "actividades/act17-charla-tedxyouth/resumen.pdf"
     },
     {
       "id": "act18-persuade-con-tu-voz",
@@ -221,7 +221,7 @@
       "tecnologias": [
         "Investigacion"
       ],
-      "ruta": "actividades/act18-persuade-con-tu-voz/Resumen Persuade con tu voz. Estrategias para sonar creible.  Emma Rodero TEDxMalagueta.pdf"
+      "ruta": "actividades/act18-persuade-con-tu-voz/resumen.pdf"
     },
     {
       "id": "act19-mentes-en-accion",
@@ -232,7 +232,7 @@
       "tecnologias": [
         "Investigacion"
       ],
-      "ruta": "actividades/act19-mentes-en-accion/Resumen Video - Mentes en accion-Ubaldo cap1 Inteligencia.pdf"
+      "ruta": "actividades/act19-mentes-en-accion/resumen.pdf"
     },
     {
       "id": "act20-app-mente-millonaria",
