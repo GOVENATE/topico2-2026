@@ -1,0 +1,13 @@
+{
+  "nombre": "Josue Uribe Ugalde",
+  "github": "JosueUribeUgalde",
+  "actividades": [
+    {
+      "id": "act01-menu-final",
+      "titulo": "Menu Final",
+      "descripcion": "Proyecto web desplegado en Vercel.",
+      "tipo": "enlace",
+      "url": "https://menu-final-two.vercel.app/"
+    }
+  ]
+}
