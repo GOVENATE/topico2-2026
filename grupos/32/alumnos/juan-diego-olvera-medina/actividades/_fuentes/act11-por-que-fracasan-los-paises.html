@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<title>Por qué fracasan los países</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;700&family=Source+Serif+4:ital,wght@0,400;0,600;1,400&display=swap">
+<link rel="stylesheet" href="fuente.css">
+<style>
+  .lado h3 { font-size: 28px; margin: 0 0 12px; }
+  .lado.inc h3 { color: var(--exito); }
+  .lado.ext h3 { color: var(--acento-2); }
+  .lado.inc { border-top: 8px solid var(--exito); }
+  .lado.ext { border-top: 8px solid var(--acento-2); }
+  .nogales { display: grid; grid-template-columns: 1fr 80px 1fr; align-items: center; text-align: center; }
+  .nogales .muro { height: 160px; border-left: 6px dashed var(--suave); margin: 0 auto; width: 0; }
+  .nogales b { font: 700 30px var(--f-titulo); display: block; }
+  .ciclo { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+  .ciclo p { font-size: 20px; }
+  .flecha { font: 700 22px var(--f-titulo); color: var(--acento); }
+</style>
+</head>
+<body class="info">
+<header class="banda">
+  <p class="rotulo">Actividad 11 · ¿Por qué fracasan los países?</p>
+  <h1>No es el clima ni la cultura: son las instituciones</h1>
+  <p>Daron Acemoglu y James Robinson explican por qué unos países prosperan y otros no, aunque compartan geografía, historia y cultura.</p>
+</header>
+
+<div class="bloques">
+  <section class="bloque">
+    <h2>Una ciudad, dos destinos</h2>
+    <div class="nogales">
+      <div><b>Nogales, Arizona</b><p>Ingresos más altos, mejores servicios, escuelas y seguridad.</p></div>
+      <div class="muro" aria-hidden="true"></div>
+      <div><b>Nogales, Sonora</b><p>Ingresos menores, más inseguridad y servicios más pobres.</p></div>
+    </div>
+    <p>Misma gente de origen, mismo clima, misma comida. Lo único distinto es la línea: de cada lado rigen reglas del juego diferentes.</p>
+  </section>
+
+  <section class="dos">
+    <div class="bloque lado inc">
+      <h3>Instituciones inclusivas</h3>
+      <ul>
+        <li>Propiedad privada protegida para todos.</li>
+        <li>Reglas iguales y justicia independiente.</li>
+        <li>Libertad para emprender y competir.</li>
+        <li>Poder político repartido y con contrapesos.</li>
+      </ul>
+      <p><strong>Resultado:</strong> incentivos para invertir, innovar y trabajar.</p>
+    </div>
+    <div class="bloque lado ext">
+      <h3>Instituciones extractivas</h3>
+      <ul>
+        <li>Una élite controla la riqueza y la tierra.</li>
+        <li>Reglas hechas a la medida de unos pocos.</li>
+        <li>Monopolios y privilegios protegidos.</li>
+        <li>Poder concentrado y sin rendición de cuentas.</li>
+      </ul>
+      <p><strong>Resultado:</strong> se extrae la riqueza de la mayoría y se frena la innovación.</p>
+    </div>
+  </section>
+
+  <section class="bloque">
+    <h2>Círculos que se refuerzan</h2>
+    <div class="ciclo">
+      <div><p><span class="flecha">Círculo virtuoso ↻</span><br>Las instituciones inclusivas reparten poder, y ese poder repartido protege a las instituciones inclusivas.</p></div>
+      <div><p><span class="flecha" style="color:var(--acento-2)">Círculo vicioso ↻</span><br>Las élites extractivas usan su riqueza para conservar el poder, y con el poder protegen su riqueza.</p></div>
+    </div>
+  </section>
+
+  <section class="bloque">
+    <h2>¿Cómo cambia un país?</h2>
+    <p>En <strong>coyunturas críticas</strong>: momentos de crisis (una guerra, una epidemia, un colapso económico) en que las reglas se pueden reescribir. Pequeñas diferencias en ese momento producen caminos muy distintos, como la Revolución Gloriosa de 1688 en Inglaterra.</p>
+  </section>
+</div>
+
+<footer class="pie">
+  <strong>Juan Diego Olvera Medina</strong> · LATI, 9.º semestre · Tópicos II<br>
+  Fuente: Acemoglu, D. y Robinson, J. A. (2012). <em>Por qué fracasan los países</em>. Deusto.
+</footer>
+<script src="fuente.js"></script>
+</body>
+</html>

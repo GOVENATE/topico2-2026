@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Los 7 hábitos · Juan Diego Olvera</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;700&family=Source+Serif+4:wght@400;600&display=swap">
+<link rel="stylesheet" href="../_comun/estilos.css">
+<style>
+  .indice { display: flex; flex-wrap: wrap; gap: var(--e2); margin-bottom: var(--e5); }
+  .habitos { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: var(--e3); }
+  .habito { height: 190px; padding: 0; border: 0; background: none; cursor: pointer; text-align: left; font: inherit; color: inherit; }
+  .habito .frente { background: var(--superficie); border: 1px solid var(--linea); flex-direction: column; align-items: flex-start; justify-content: flex-end; padding: var(--e4); }
+  .habito .frente b { font: 700 var(--t3)/1 var(--f-titulo); color: var(--acento); }
+  .habito .frente span { font: 600 17px/1.3 var(--f-titulo); margin-top: var(--e2); }
+  .habito .atras { background: var(--acento); color: #fff; padding: var(--e4); font-size: 15px; line-height: 1.45; align-items: flex-start; }
+  .grupo-habitos { font: 600 13px var(--f-titulo); color: var(--suave); margin: var(--e4) 0 var(--e2); }
+  #reto .zonas { grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); }
+  #reto .zona { min-height: 110px; }
+  .collage { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--e3); }
+  .collage figure { margin: 0; }
+  .collage img, .collage .marcador-foto { width: 100%; aspect-ratio: 1; object-fit: cover; border-radius: var(--radio); }
+  .collage figcaption { font-size: 14px; color: var(--suave); margin-top: var(--e1); }
+  @media (max-width: 600px) { .collage { grid-template-columns: 1fr 1fr; } .habito { height: 170px; } }
+</style>
+</head>
+<body>
+<main class="pagina">
+  <p class="rotulo">Actividad 02 · Los 7 hábitos de la gente altamente efectiva</p>
+  <h1>¿Qué hábitos me hacen efectivo?</h1>
+  <p class="caso">Stephen R. Covey propone siete hábitos que van de adentro hacia afuera: primero ganarte a ti mismo, después trabajar bien con los demás y al final mantenerte afilado.</p>
+  <nav class="indice" aria-label="Secciones">
+    <a class="etiqueta" href="#intro">Qué entendí</a>
+    <a class="etiqueta" href="#dinamica">Dinámica</a>
+    <a class="etiqueta" href="#autor">Autor</a>
+  </nav>
+
+  <section id="intro" class="interaccion">
+    <h2>Los siete, uno por uno</h2>
+    <p class="texto">Toca cada tarjeta para ver de qué se trata el hábito.</p>
+    <p class="grupo-habitos">Victoria privada: de la dependencia a la independencia</p>
+    <div class="habitos" id="privada"></div>
+    <p class="grupo-habitos">Victoria pública: de la independencia a la interdependencia</p>
+    <div class="habitos" id="publica"></div>
+    <p class="grupo-habitos">Renovación</p>
+    <div class="habitos" id="renovacion"></div>
+
+    <div class="aprendi">
+      <h3>Qué entendí</h3>
+      <p>El hábito que más me pegó es <strong>empezar con un fin en mente</strong>. Siempre es importante tener un objetivo, porque si no terminas perdiéndote. Aunque a veces ese objetivo no se alcanza, tenerlo claro cambia cómo decides en el camino: sabes qué decir que sí y qué decir que no.</p>
+      <p>El que más me cuesta es <strong>ser proactivo</strong>. A veces es difícil tomar la iniciativa y es más cómodo esperar a que las cosas pasen. Covey dice que la proactividad es el primer hábito porque todo lo demás depende de él, y por eso es el que más quiero practicar.</p>
+    </div>
+  </section>
+
+  <section id="dinamica" class="interaccion">
+    <h2>Dinámica: une cada frase con su hábito</h2>
+    <div id="reto">
+      <p class="estado" data-estado>0 de 7 colocadas</p>
+      <div class="tablero">
+        <div>
+          <div class="bandeja" aria-label="Frases sin colocar"></div>
+          <div class="mover" aria-label="Mover la frase elegida a"></div>
+        </div>
+        <div class="zonas"></div>
+      </div>
+      <p style="margin-top:var(--e4)"><button class="boton" type="button" data-revisar>Revisar</button></p>
+      <p data-aviso aria-live="polite" class="estado"></p>
+    </div>
+  </section>
+
+  <section id="autor" class="interaccion">
+    <h2>Autor: quién hizo esta página</h2>
+    <p class="texto">Soy Juan Diego Olvera Medina, estudiante de 9.º semestre de LATI. Fuera del salón me encuentras en una cancha de volleyball, explorando el sistema solar de Outer Wilds o en una mesa de juegos con amigos.</p>
+    <div class="collage">
+      <figure><img data-foto src="../../mis-fotos/yo-01.jpeg" alt="Juan Diego"><figcaption>Yo</figcaption></figure>
+      <figure><img data-foto src="../../mis-fotos/yo-02.jpeg" alt="Jugando volleyball"><figcaption>Volleyball: si no llegas, estorba</figcaption></figure>
+      <figure><img data-foto src="../../mis-fotos/yo-03.jpeg" alt="Mis perros"><figcaption>Los cuatro perros</figcaption></figure>
+      <figure><img data-foto src="../../mis-fotos/yo-04.jpeg" alt="Juegos de mesa"><figcaption>Noche de juegos de mesa</figcaption></figure>
+      <figure><img data-foto src="../../mis-fotos/yo-05.png" alt="Videojuegos"><figcaption>RPG: Outer Wilds es religión</figcaption></figure>
+      <figure><img data-foto src="../../mis-fotos/yo-06.jpeg" alt="En la universidad"><figcaption>LATI, 9.º semestre</figcaption></figure>
+    </div>
+  </section>
+
+  <section class="creditos" id="creditos">
+    <strong>Fuente</strong>
+    <ul><li>Covey, S. R. <em>Los 7 hábitos de la gente altamente efectiva</em>. Paidós.</li><li>Fotos del autor: propias.</li></ul>
+  </section>
+</main>
+
+<script src="../_comun/creditos.js"></script>
+<script src="../_comun/tarjetas.js"></script>
+<script>
+  var HABITOS = [
+    { n: 1, g: 'privada', nombre: 'Ser proactivo', txt: 'Tú eliges cómo responder a lo que pasa. En vez de culpar a las circunstancias, te enfocas en lo que sí puedes controlar.' },
+    { n: 2, g: 'privada', nombre: 'Empezar con un fin en mente', txt: 'Antes de actuar, define a dónde quieres llegar. Todo se crea dos veces: primero en la mente y después en la realidad.' },
+    { n: 3, g: 'privada', nombre: 'Primero lo primero', txt: 'Organiza tu tiempo por importancia, no por urgencia. Lo importante pero no urgente es lo que más rinde.' },
+    { n: 4, g: 'publica', nombre: 'Pensar en ganar-ganar', txt: 'Buscar acuerdos donde las dos partes salen beneficiadas, no que uno gane a costa del otro.' },
+    { n: 5, g: 'publica', nombre: 'Buscar primero entender', txt: 'Escuchar para comprender, no para responder. Solo después pedir que te entiendan.' },
+    { n: 6, g: 'publica', nombre: 'Sinergizar', txt: 'Trabajar con otros para lograr algo mejor de lo que cada uno haría solo. El todo vale más que la suma.' },
+    { n: 7, g: 'renovacion', nombre: 'Afilar la sierra', txt: 'Cuidarte en cuatro dimensiones: física, mental, social y espiritual, para no desgastarte.' }
+  ];
+
+  HABITOS.forEach(function (h) {
+    var b = document.createElement('button');
+    b.type = 'button';
+    b.className = 'habito volteo';
+    b.setAttribute('aria-pressed', 'false');
+    b.innerHTML = '<span class="cara-interna"><span class="cara frente"><b>' + h.n + '</b><span>' + h.nombre +
+      '</span></span><span class="cara atras">' + h.txt + '</span></span>';
+    b.addEventListener('click', function () {
+      var on = b.classList.toggle('volteada');
+      b.setAttribute('aria-pressed', on);
+    });
+    document.getElementById(h.g).appendChild(b);
+  });
+
+  Tarjetas.arrastre(document.getElementById('reto'), {
+    zonas: HABITOS.map(function (h) { return { id: 'h' + h.n, nombre: h.n + '. ' + h.nombre }; }),
+    fichas: [
+      { id: 'p1', zona: 'h1', texto: '"No me pasó, yo elegí cómo reaccionar."', porque: 'responsabilizarte de tu respuesta es la base de la proactividad.' },
+      { id: 'p2', zona: 'h2', texto: '"¿Cómo quiero que me recuerden?"', porque: 'pensar en el final define el rumbo; es empezar con un fin en mente.' },
+      { id: 'p3', zona: 'h3', texto: '"Lo urgente no siempre es lo importante."', porque: 'ordenar por importancia es poner primero lo primero.' },
+      { id: 'p4', zona: 'h4', texto: '"Si tú pierdes, al final yo también."', porque: 'un acuerdo que deja a uno perdiendo no dura; por eso se busca ganar-ganar.' },
+      { id: 'p5', zona: 'h5', texto: '"Cuéntame más, quiero entender tu punto."', porque: 'escuchar antes de opinar es buscar primero entender.' },
+      { id: 'p6', zona: 'h6', texto: '"Juntos hicimos algo que ninguno habría logrado solo."', porque: 'eso es la sinergia: el resultado del equipo supera a cada parte.' },
+      { id: 'p7', zona: 'h7', texto: '"Hoy descanso para rendir mañana."', porque: 'recuperarte también es trabajo: es afilar la sierra.' }
+    ]
+  });
+</script>
+</body>
+</html>

@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>La quinta disciplina y los arquetipos · Juan Diego Olvera</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;700&family=Source+Serif+4:wght@400;600&display=swap">
+<link rel="stylesheet" href="../_comun/estilos.css">
+<style>
+  .disciplinas { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: var(--e3); }
+  .disciplina h3 { margin: 0 0 var(--e1); font-size: 18px; }
+  .disciplina p { font-size: 15px; margin: 0; }
+  .disciplina.quinta { background: var(--acento); color: #fff; border-color: var(--acento); }
+  .ciclo { display: grid; grid-template-columns: 1fr 300px; gap: var(--e5); align-items: start; }
+  .ciclo svg { width: 100%; height: auto; }
+  .ciclo svg text { font: 600 14px var(--f-titulo); fill: currentColor; }
+  .ciclo .lazo { cursor: pointer; }
+  .ciclo .lazo circle { fill: var(--superficie); stroke: var(--acento); stroke-width: 2.5; }
+  .ciclo .lazo.b circle { stroke: var(--acento-2); }
+  .ciclo .lazo:focus-visible circle, .ciclo .lazo[aria-pressed="true"] circle { fill: var(--acento-suave); stroke-width: 4; }
+  .ciclo .nodo rect { fill: var(--superficie); stroke: var(--linea); }
+  .ciclo .flecha { fill: none; stroke: var(--suave); stroke-width: 2; marker-end: url(#punta); }
+  .ciclo .flecha.dano { stroke: var(--acento-2); stroke-dasharray: 6 4; marker-end: url(#punta2); }
+  @media (max-width: 760px) { .ciclo { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+<main class="pagina">
+  <p class="rotulo">Actividad 20 · La quinta disciplina y arquetipos sistémicos</p>
+  <h1>¿Por qué dos socios que se ayudan terminan como rivales?</h1>
+  <p class="caso">Peter Senge propone cinco disciplinas para que una organización aprenda. La quinta, el pensamiento sistémico, une a las otras: ver los ciclos en lugar de culpables. Aquí lo aplico a un arquetipo poco conocido: <strong>adversarios accidentales</strong>.</p>
+
+  <section class="interaccion">
+    <h2>Las cinco disciplinas</h2>
+    <div class="disciplinas">
+      <article class="panel disciplina"><h3>Dominio personal</h3><p>Aclarar lo que de verdad quieres y ver con honestidad dónde estás.</p></article>
+      <article class="panel disciplina"><h3>Modelos mentales</h3><p>Revisar los supuestos que damos por hechos y que guían cómo decidimos.</p></article>
+      <article class="panel disciplina"><h3>Visión compartida</h3><p>Una imagen del futuro que el equipo construye junto y hace suya.</p></article>
+      <article class="panel disciplina"><h3>Aprendizaje en equipo</h3><p>Dialogar para pensar juntos, no solo para convencer al otro.</p></article>
+      <article class="panel disciplina quinta"><h3>Pensamiento sistémico</h3><p>Ver relaciones y ciclos en lugar de eventos aislados. Integra a las otras cuatro.</p></article>
+    </div>
+  </section>
+
+  <section class="interaccion">
+    <h2>El arquetipo: adversarios accidentales</h2>
+    <p class="texto">Dos partes (A y B) descubren que ayudándose les va mejor a las dos. Pero cuando cada una se presiona por sus propios resultados, toma "arreglos locales" que, sin querer, le estorban a la otra. La otra lo nota, se protege, y la cooperación se convierte en rivalidad. Toca cada ciclo para ver cómo funciona.</p>
+    <div class="ciclo">
+      <svg viewBox="0 0 560 420" role="group" aria-label="Diagrama de ciclos causales del arquetipo adversarios accidentales">
+        <defs>
+          <marker id="punta" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="currentColor" opacity=".6"/></marker>
+          <marker id="punta2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#e5634d"/></marker>
+        </defs>
+        <path class="flecha" d="M200,70 C260,40 300,40 360,70"/>
+        <path class="flecha" d="M360,110 C300,140 260,140 200,110"/>
+        <path class="flecha" d="M110,120 C80,180 80,250 110,300"/>
+        <path class="flecha dano" d="M180,320 C280,260 330,190 400,120"/>
+        <path class="flecha" d="M450,120 C480,180 480,250 450,300"/>
+        <path class="flecha dano" d="M380,320 C280,260 230,190 160,120"/>
+        <g class="nodo"><rect x="40" y="70" width="160" height="44" rx="6"/><text x="120" y="97" text-anchor="middle">Éxito de A</text></g>
+        <g class="nodo"><rect x="360" y="70" width="160" height="44" rx="6"/><text x="440" y="97" text-anchor="middle">Éxito de B</text></g>
+        <g class="nodo"><rect x="30" y="300" width="180" height="44" rx="6"/><text x="120" y="327" text-anchor="middle">Arreglos locales de A</text></g>
+        <g class="nodo"><rect x="350" y="300" width="180" height="44" rx="6"/><text x="440" y="327" text-anchor="middle">Arreglos locales de B</text></g>
+        <text x="280" y="34" text-anchor="middle" style="font-size:12px;opacity:.7">A ayuda a B</text>
+        <text x="280" y="156" text-anchor="middle" style="font-size:12px;opacity:.7">B ayuda a A</text>
+        <g class="lazo" data-lazo="r" tabindex="0" role="button" aria-pressed="false" aria-label="Ciclo R: cooperación"><circle cx="280" cy="95" r="22"/><text x="280" y="100" text-anchor="middle">R</text></g>
+        <g class="lazo b" data-lazo="ba" tabindex="0" role="button" aria-pressed="false" aria-label="Ciclo B de A"><circle cx="150" cy="215" r="22"/><text x="150" y="220" text-anchor="middle">B1</text></g>
+        <g class="lazo b" data-lazo="bb" tabindex="0" role="button" aria-pressed="false" aria-label="Ciclo B de B"><circle cx="410" cy="215" r="22"/><text x="410" y="220" text-anchor="middle">B2</text></g>
+      </svg>
+      <div class="panel" id="explica" aria-live="polite">
+        <h3 style="margin-top:0">Toca un ciclo</h3>
+        <p>R es un ciclo de refuerzo; B1 y B2 son ciclos de balance. Las flechas punteadas son el daño que nadie planeó.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="interaccion">
+    <h2>Simulador</h2>
+    <p class="texto">Mueve cuánto se ayudan A y B, y qué tanto daño hacen sus arreglos locales. A partir del paso 8 cada quien empieza a "arreglar lo suyo".</p>
+    <div class="simulador" id="sim">
+      <svg viewBox="0 0 600 300" role="img" aria-label="Gráfica del éxito de A y B a lo largo de 20 pasos"></svg>
+      <div class="panel">
+        <div class="control"><label for="ayudaA">Cuánto ayuda A a B: <output for="ayudaA">70</output></label><input type="range" id="ayudaA" name="ayudaA" min="0" max="100" value="70"></div>
+        <div class="control"><label for="ayudaB">Cuánto ayuda B a A: <output for="ayudaB">50</output></label><input type="range" id="ayudaB" name="ayudaB" min="0" max="100" value="50"></div>
+        <div class="control"><label for="dano">Daño de los arreglos locales: <output for="dano">50</output></label><input type="range" id="dano" name="dano" min="0" max="100" value="50"></div>
+        <p data-lectura aria-live="polite" style="font-size:15px;margin:0"></p>
+      </div>
+    </div>
+  </section>
+
+  <section class="aprendi">
+    <h2>Lo que aprendí</h2>
+    <p>Este arquetipo lo veo todos los días en el lugar donde hago mis prácticas. Cada departamento aboga solamente por sí mismo: cada área cuida sus propios indicadores y toma decisiones que le resuelven a ella, aunque le compliquen la vida a la de al lado. Nadie lo hace con mala intención, pero el resultado es que las áreas que deberían ayudarse terminan desconfiando entre sí.</p>
+    <p>Lo que me deja la quinta disciplina es que culpar a "los de otro departamento" no resuelve nada, porque el problema es el ciclo. Para romperlo hace falta que las dos partes vean el sistema completo y acuerden cómo afectan sus arreglos al otro, antes de que la rivalidad se vuelva la costumbre.</p>
+  </section>
+
+  <section class="creditos" id="creditos">
+    <strong>Fuentes</strong>
+    <ul><li>Senge, P. <em>La quinta disciplina</em>. Granica.</li><li>Senge, P. et al. <em>La quinta disciplina en la práctica</em> (arquetipo de adversarios accidentales).</li></ul>
+  </section>
+</main>
+
+<script src="../_comun/tarjetas.js"></script>
+<script>
+  var TEXTOS = {
+    r: ['Ciclo R · cooperación', 'Cuando A ayuda a B, a B le va mejor; con más éxito, B puede ayudar más a A, y a A también le va mejor. Es un ciclo de refuerzo: la cooperación genera más cooperación.'],
+    ba: ['Ciclo B1 · los arreglos de A', 'Si a A le va mal, se presiona y toma arreglos locales para mejorar sus números. Esos arreglos le restan a B sin que A lo planee. B baja, ayuda menos a A, y el éxito de A se frena. Es un ciclo de balance que termina frenando a los dos.'],
+    bb: ['Ciclo B2 · los arreglos de B', 'Lo mismo del otro lado: B también arregla lo suyo, le estorba a A y A ayuda menos. Cuando B1 y B2 pesan más que R, los socios terminan viéndose como rivales.']
+  };
+  document.querySelectorAll('.lazo').forEach(function (g) {
+    function mostrar() {
+      document.querySelectorAll('.lazo').forEach(function (x) { x.setAttribute('aria-pressed', x === g); });
+      var t = TEXTOS[g.dataset.lazo];
+      var p = document.getElementById('explica');
+      p.innerHTML = '';
+      var h = document.createElement('h3'); h.style.marginTop = 0; h.textContent = t[0];
+      var q = document.createElement('p'); q.textContent = t[1];
+      p.appendChild(h); p.appendChild(q);
+    }
+    g.addEventListener('click', mostrar);
+    g.addEventListener('keydown', function (e) { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); mostrar(); } });
+  });
+  Tarjetas.simulador(document.getElementById('sim'), { pasos: 20, desde: 8 });
+</script>
+</body>
+</html>

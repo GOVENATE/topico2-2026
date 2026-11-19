@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<title>Código limpio</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;700&family=Source+Serif+4:ital,wght@0,400;0,600;1,400&display=swap">
+<link rel="stylesheet" href="fuente.css">
+</head>
+<body class="pdf">
+<header class="portada">
+  <p class="rotulo">Actividad 05 · Código limpio</p>
+  <h1>Código limpio: escribir para que otro lo entienda</h1>
+  <p class="datos">Juan Diego Olvera Medina · LATI, 9.º semestre · Resumen y mapa conceptual de <em>Clean Code</em>, de Robert C. Martin</p>
+</header>
+
+<h2>La idea central</h2>
+<p>Robert C. Martin parte de una observación incómoda: el código se lee muchas más veces de las que se escribe. Cada vez que alguien abre un archivo para corregir un error o agregar una función, paga el costo de entender lo que escribió otra persona (o uno mismo hace seis meses). El código limpio es el que reduce ese costo. No basta con que funcione; tiene que poder leerse, cambiarse y probarse sin miedo.</p>
+<p class="cita">"Cualquier tonto puede escribir código que una computadora entienda. Los buenos programadores escriben código que los humanos pueden entender." (Martin Fowler, citado en el libro)</p>
+
+<h2>Las reglas que más pesan</h2>
+<h3>1. Nombres que revelan la intención</h3>
+<p>Un nombre debe responder por qué existe algo, qué hace y cómo se usa. <code>d</code> no dice nada; <code>diasDesdeUltimoPago</code> lo dice todo. Si un nombre necesita un comentario para explicarse, el nombre está mal.</p>
+<h3>2. Funciones pequeñas que hacen una sola cosa</h3>
+<p>Una función debe hacer una cosa, hacerla bien y hacer solo esa. Si se puede extraer otra función con un nombre que no sea una simple repetición, la función original hacía más de una cosa. Menos argumentos es mejor: cero es ideal, tres ya es sospechoso.</p>
+<h3>3. Comentarios: el último recurso</h3>
+<p>Un comentario suele ser la disculpa por un código que no se explica solo. Los comentarios mienten con el tiempo porque el código cambia y ellos no. Valen para explicar una intención o advertir una consecuencia, no para describir lo que el código ya dice.</p>
+<h3>4. Formato y orden</h3>
+<p>El código se lee de arriba hacia abajo como un periódico: lo importante primero y los detalles después. Las funciones que se llaman entre sí van cerca, y los conceptos relacionados quedan juntos.</p>
+<h3>5. Manejo de errores sin ensuciar la lógica</h3>
+<p>Usar excepciones en lugar de códigos de error, no regresar <code>null</code> y no pasar <code>null</code> como argumento. El manejo de errores es una responsabilidad aparte y no debe esconder lo que la función realmente hace.</p>
+<h3>6. Pruebas limpias</h3>
+<p>Las pruebas son tan importantes como el código de producción. Siguen las reglas F.I.R.S.T.: rápidas, independientes, repetibles, que validan solas y escritas a tiempo. Sin pruebas, cualquier cambio da miedo y el código se pudre.</p>
+<h3>7. La regla del Boy Scout</h3>
+<p>Deja el código un poco más limpio de lo que lo encontraste. No hace falta una gran reescritura: renombrar una variable o partir una función larga, cada vez que pasas por ahí, evita que el sistema se degrade.</p>
+
+<h2>Mapa conceptual</h2>
+<svg class="mapa" viewBox="0 0 720 360" role="img" aria-label="Mapa conceptual de código limpio">
+  <style>.n{fill:#e3eafc;stroke:#1f4fd6;stroke-width:1.5}.c{fill:#1f4fd6}.t{font-size:13px;fill:#0f1726;text-anchor:middle}.tc{font-size:15px;fill:#fff;text-anchor:middle;font-weight:700}.l{stroke:#4a5568;stroke-width:1.2}.e{font-size:10.5px;fill:#4a5568;text-anchor:middle;font-style:italic}</style>
+  <g class="l">
+    <line x1="360" y1="60" x2="110" y2="160"/><line x1="360" y1="60" x2="290" y2="160"/><line x1="360" y1="60" x2="450" y2="160"/><line x1="360" y1="60" x2="620" y2="160"/>
+    <line x1="110" y1="190" x2="110" y2="270"/><line x1="290" y1="190" x2="290" y2="270"/><line x1="450" y1="190" x2="450" y2="270"/><line x1="620" y1="190" x2="620" y2="270"/>
+  </g>
+  <rect class="c" x="260" y="30" width="200" height="40" rx="6"/><text class="tc" x="360" y="56">Código limpio</text>
+  <text class="e" x="230" y="104">se logra con</text><text class="e" x="500" y="104">se protege con</text>
+  <rect class="n" x="40" y="160" width="140" height="34" rx="6"/><text class="t" x="110" y="182">Nombres claros</text>
+  <rect class="n" x="215" y="160" width="150" height="34" rx="6"/><text class="t" x="290" y="182">Funciones pequeñas</text>
+  <rect class="n" x="385" y="160" width="130" height="34" rx="6"/><text class="t" x="450" y="182">Pruebas limpias</text>
+  <rect class="n" x="545" y="160" width="150" height="34" rx="6"/><text class="t" x="620" y="182">Regla Boy Scout</text>
+  <text class="e" x="110" y="240">revelan</text><text class="e" x="290" y="240">hacen</text><text class="e" x="450" y="240">siguen</text><text class="e" x="620" y="240">mejora</text>
+  <rect class="n" x="35" y="270" width="150" height="34" rx="6"/><text class="t" x="110" y="292">la intención</text>
+  <rect class="n" x="215" y="270" width="150" height="34" rx="6"/><text class="t" x="290" y="292">una sola cosa</text>
+  <rect class="n" x="385" y="270" width="130" height="34" rx="6"/><text class="t" x="450" y="292">F.I.R.S.T.</text>
+  <rect class="n" x="545" y="270" width="150" height="34" rx="6"/><text class="t" x="620" y="292">poco a poco</text>
+  <text class="e" x="360" y="340">Objetivo: que leer y cambiar el código cueste poco</text>
+</svg>
+
+<section class="opinion">
+  <h2>Relación con la administración de las TI</h2>
+  <p>En un proyecto de TI el código es uno de los activos principales. El código sucio se convierte en deuda técnica: cada cambio tarda más, cuesta más y rompe más cosas. Conocer estas reglas ayuda a quien administra un proyecto a pedir, revisar y estimar mejor el trabajo de un equipo de desarrollo.</p>
+</section>
+
+<section class="fuentes">
+  <h2>Fuente</h2>
+  <p>Martin, R. C. (2012). <em>Código limpio: manual de estilo para el desarrollo ágil de software</em>. Anaya Multimedia.</p>
+</section>
+<script src="fuente.js"></script>
+</body>
+</html>
