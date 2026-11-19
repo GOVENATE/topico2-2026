@@ -1,5 +1,5 @@
 {
-  "generado": "2026-11-19T07:17:08.936Z",
+  "generado": "2026-11-19T07:24:34.900Z",
   "topico": {
     "titulo": "Tópico 2",
     "periodo": "UAQ · Facultad de Informática · 2026",
@@ -58,8 +58,8 @@
       "id": "empresarios",
       "nombre": "Empresarios mexicanos",
       "resumen": "Servitje, Zambrano, Slim y el perfil del empresario mexicano ideal.",
-      "alumnos": 13,
-      "actividades": 42,
+      "alumnos": 14,
+      "actividades": 43,
       "ejemplos": [
         {
           "grupo": "32",
@@ -88,8 +88,8 @@
       "id": "toma-decisiones",
       "nombre": "Toma de decisiones",
       "resumen": "Herramientas para analizar problemas y decidir: FODA, Ishikawa, Pareto y seis sombreros.",
-      "alumnos": 12,
-      "actividades": 19,
+      "alumnos": 13,
+      "actividades": 20,
       "ejemplos": [
         {
           "grupo": "32",
@@ -118,8 +118,8 @@
       "id": "7-habitos",
       "nombre": "Los 7 hábitos",
       "resumen": "Stephen Covey: proactividad, empezar con un fin en mente, primero lo primero y la mejora continua.",
-      "alumnos": 12,
-      "actividades": 17,
+      "alumnos": 13,
+      "actividades": 18,
       "ejemplos": [
         {
           "grupo": "32",
@@ -235,6 +235,36 @@
       ]
     },
     {
+      "id": "codigo-limpio",
+      "nombre": "Código limpio",
+      "resumen": "Robert C. Martin: nombres claros, funciones pequeñas y código fácil de leer y mantener.",
+      "alumnos": 11,
+      "actividades": 13,
+      "ejemplos": [
+        {
+          "grupo": "32",
+          "alumno": "alan-salvador-rojas-pina",
+          "nombre": "Alan Salvador Rojas Piña",
+          "actividad": "act17-codigo-limpio",
+          "titulo": "Código limpio · operación rescate"
+        },
+        {
+          "grupo": "32",
+          "alumno": "armando-altamirano-gurrion",
+          "nombre": "Armando Altamirano Gurrion",
+          "actividad": "act01-codigo-limpio",
+          "titulo": "Código Limpio Laboratorio"
+        },
+        {
+          "grupo": "32",
+          "alumno": "carolina-mejia-aguilar",
+          "nombre": "Carolina Mejia Aguilar",
+          "actividad": "act02-codigo-limpio",
+          "titulo": "Codigo limpio: una experiencia interactiva"
+        }
+      ]
+    },
+    {
       "id": "quinta-disciplina",
       "nombre": "La quinta disciplina",
       "resumen": "Peter Senge y las organizaciones que aprenden a través del pensamiento sistémico.",
@@ -295,32 +325,32 @@
       ]
     },
     {
-      "id": "codigo-limpio",
-      "nombre": "Código limpio",
-      "resumen": "Robert C. Martin: nombres claros, funciones pequeñas y código fácil de leer y mantener.",
+      "id": "arquetipos",
+      "nombre": "Arquetipos sistémicos",
+      "resumen": "Patrones que se repiten en los sistemas y explican por qué los problemas regresan.",
       "alumnos": 10,
-      "actividades": 12,
+      "actividades": 10,
       "ejemplos": [
         {
           "grupo": "32",
           "alumno": "alan-salvador-rojas-pina",
           "nombre": "Alan Salvador Rojas Piña",
-          "actividad": "act17-codigo-limpio",
-          "titulo": "Código limpio · operación rescate"
+          "actividad": "act20-s17-arquetipos",
+          "titulo": "Arquetipos sistémicos y psicológicos"
         },
         {
           "grupo": "32",
-          "alumno": "armando-altamirano-gurrion",
-          "nombre": "Armando Altamirano Gurrion",
-          "actividad": "act01-codigo-limpio",
-          "titulo": "Código Limpio Laboratorio"
+          "alumno": "bradley-reyes-altamirano",
+          "nombre": "Bradley Yeray Reyes Altamirano",
+          "actividad": "act05-pensamiento-sistemico",
+          "titulo": "Sistemas, patrones y nuevas ideas"
         },
         {
           "grupo": "32",
           "alumno": "carolina-mejia-aguilar",
           "nombre": "Carolina Mejia Aguilar",
-          "actividad": "act02-codigo-limpio",
-          "titulo": "Codigo limpio: una experiencia interactiva"
+          "actividad": "act01-arquetipos-sistemicos",
+          "titulo": "Arquetipos sistemicos en informatica"
         }
       ]
     },
@@ -385,6 +415,36 @@
       ]
     },
     {
+      "id": "habilidades-directivas",
+      "nombre": "Habilidades directivas",
+      "resumen": "Tiempo, inteligencia emocional, liderazgo, equipos y negociación para dirigir.",
+      "alumnos": 9,
+      "actividades": 33,
+      "ejemplos": [
+        {
+          "grupo": "32",
+          "alumno": "alan-salvador-rojas-pina",
+          "nombre": "Alan Salvador Rojas Piña",
+          "actividad": "act07-resumenes-habilidades-directivas",
+          "titulo": "Resúmenes de habilidades directivas"
+        },
+        {
+          "grupo": "32",
+          "alumno": "damian-elias-gonzalez-nieto",
+          "nombre": "Damián Elías González Nieto",
+          "actividad": "act01-collage-capitulo-1",
+          "titulo": "Collage capítulo 1"
+        },
+        {
+          "grupo": "32",
+          "alumno": "erick-arriola-aguillon",
+          "nombre": "Erick Arriola Aguillón",
+          "actividad": "act07-habilidades-directivas",
+          "titulo": "Resúmenes de habilidades directivas"
+        }
+      ]
+    },
+    {
       "id": "filosofia",
       "nombre": "Filosofía de vida",
       "resumen": "Yokoi Kenji y la comparación entre la filosofía japonesa y la latinoamericana.",
@@ -411,66 +471,6 @@
           "nombre": "Johan Juárez",
           "actividad": "act12-memorama-filosofia-japonesa",
           "titulo": "Memorama de Filosofía Japonesa"
-        }
-      ]
-    },
-    {
-      "id": "arquetipos",
-      "nombre": "Arquetipos sistémicos",
-      "resumen": "Patrones que se repiten en los sistemas y explican por qué los problemas regresan.",
-      "alumnos": 9,
-      "actividades": 9,
-      "ejemplos": [
-        {
-          "grupo": "32",
-          "alumno": "alan-salvador-rojas-pina",
-          "nombre": "Alan Salvador Rojas Piña",
-          "actividad": "act20-s17-arquetipos",
-          "titulo": "Arquetipos sistémicos y psicológicos"
-        },
-        {
-          "grupo": "32",
-          "alumno": "bradley-reyes-altamirano",
-          "nombre": "Bradley Yeray Reyes Altamirano",
-          "actividad": "act05-pensamiento-sistemico",
-          "titulo": "Sistemas, patrones y nuevas ideas"
-        },
-        {
-          "grupo": "32",
-          "alumno": "carolina-mejia-aguilar",
-          "nombre": "Carolina Mejia Aguilar",
-          "actividad": "act01-arquetipos-sistemicos",
-          "titulo": "Arquetipos sistemicos en informatica"
-        }
-      ]
-    },
-    {
-      "id": "habilidades-directivas",
-      "nombre": "Habilidades directivas",
-      "resumen": "Tiempo, inteligencia emocional, liderazgo, equipos y negociación para dirigir.",
-      "alumnos": 8,
-      "actividades": 30,
-      "ejemplos": [
-        {
-          "grupo": "32",
-          "alumno": "alan-salvador-rojas-pina",
-          "nombre": "Alan Salvador Rojas Piña",
-          "actividad": "act07-resumenes-habilidades-directivas",
-          "titulo": "Resúmenes de habilidades directivas"
-        },
-        {
-          "grupo": "32",
-          "alumno": "erick-arriola-aguillon",
-          "nombre": "Erick Arriola Aguillón",
-          "actividad": "act07-habilidades-directivas",
-          "titulo": "Resúmenes de habilidades directivas"
-        },
-        {
-          "grupo": "32",
-          "alumno": "johan-juarez",
-          "nombre": "Johan Juárez",
-          "actividad": "act05-exposiciones-habilidades-directivas",
-          "titulo": "Exposiciones: Habilidades Directivas (Capítulos 1 al 13)"
         }
       ]
     },
@@ -508,9 +508,16 @@
       "id": "dinero",
       "nombre": "Dinero y éxito",
       "resumen": "Efecto compuesto, lecciones de negocios y la psicología del dinero.",
-      "alumnos": 7,
-      "actividades": 10,
+      "alumnos": 8,
+      "actividades": 11,
       "ejemplos": [
+        {
+          "grupo": "32",
+          "alumno": "damian-elias-gonzalez-nieto",
+          "nombre": "Damián Elías González Nieto",
+          "actividad": "act13-psicologia-del-dinero",
+          "titulo": "Psicología del dinero"
+        },
         {
           "grupo": "32",
           "alumno": "erick-arriola-aguillon",
@@ -524,13 +531,6 @@
           "nombre": "Johan Juárez",
           "actividad": "act06-psicologia-del-dinero",
           "titulo": "La Psicología del Dinero (Morgan Housel)"
-        },
-        {
-          "grupo": "32",
-          "alumno": "juan-diego-olvera-medina",
-          "nombre": "Juan Diego Olvera Medina",
-          "actividad": "act03-efecto-compuesto",
-          "titulo": "Efecto compuesto"
         }
       ]
     },
@@ -1412,6 +1412,188 @@
                 "Investigacion"
               ],
               "ruta": "grupos/32/alumnos/carolina-mejia-aguilar/actividades/act13-sopa-de-letras-kasuga-yokoi/index.html"
+            }
+          ]
+        },
+        {
+          "id": "damian-elias-gonzalez-nieto",
+          "nombre": "Damián Elías González Nieto",
+          "github": "DamianGuardian",
+          "sobreMi": "",
+          "tecnologias": [
+            "HTML",
+            "CSS",
+            "JavaScript"
+          ],
+          "actividades": [
+            {
+              "id": "act01-collage-capitulo-1",
+              "tipo": "web",
+              "titulo": "Collage capítulo 1",
+              "descripcion": "Actividad interactiva en HTML.",
+              "fecha": "",
+              "tecnologias": [
+                "HTML",
+                "CSS",
+                "JavaScript"
+              ],
+              "ruta": "grupos/32/alumnos/damian-elias-gonzalez-nieto/actividades/act01-collage-capitulo-1/index.html"
+            },
+            {
+              "id": "act02-capitulo-3-emotiflix",
+              "tipo": "web",
+              "titulo": "Capítulo 3: EmotiFlix",
+              "descripcion": "Actividad interactiva en HTML.",
+              "fecha": "",
+              "tecnologias": [
+                "HTML",
+                "CSS",
+                "JavaScript"
+              ],
+              "ruta": "grupos/32/alumnos/damian-elias-gonzalez-nieto/actividades/act02-capitulo-3-emotiflix/index.html"
+            },
+            {
+              "id": "act03-collage-capitulo-5",
+              "tipo": "web",
+              "titulo": "Collage capítulo 5",
+              "descripcion": "Actividad interactiva en HTML.",
+              "fecha": "",
+              "tecnologias": [
+                "HTML",
+                "CSS",
+                "JavaScript"
+              ],
+              "ruta": "grupos/32/alumnos/damian-elias-gonzalez-nieto/actividades/act03-collage-capitulo-5/index.html"
+            },
+            {
+              "id": "act04-capitulos-6-11-y-12-del-libro",
+              "tipo": "web",
+              "titulo": "Capítulos 6, 11 y 12 del libro",
+              "descripcion": "Actividad interactiva en HTML.",
+              "fecha": "",
+              "tecnologias": [
+                "HTML",
+                "CSS",
+                "JavaScript"
+              ],
+              "ruta": "grupos/32/alumnos/damian-elias-gonzalez-nieto/actividades/act04-capitulos-6-11-y-12-del-libro/index.html"
+            },
+            {
+              "id": "act05-arquetipo-interactivo",
+              "tipo": "web",
+              "titulo": "Arquetipo interactivo",
+              "descripcion": "Actividad interactiva en HTML.",
+              "fecha": "",
+              "tecnologias": [
+                "HTML",
+                "CSS",
+                "JavaScript"
+              ],
+              "ruta": "grupos/32/alumnos/damian-elias-gonzalez-nieto/actividades/act05-arquetipo-interactivo/index.html"
+            },
+            {
+              "id": "act06-codigo-limpio-experiencia-interactiva",
+              "tipo": "web",
+              "titulo": "Código limpio: experiencia interactiva",
+              "descripcion": "Actividad interactiva en HTML.",
+              "fecha": "",
+              "tecnologias": [
+                "HTML",
+                "CSS",
+                "JavaScript"
+              ],
+              "ruta": "grupos/32/alumnos/damian-elias-gonzalez-nieto/actividades/act06-codigo-limpio-experiencia-interactiva/index.html"
+            },
+            {
+              "id": "act07-cuestionario-de-toma-de-decisiones",
+              "tipo": "web",
+              "titulo": "Cuestionario de toma de decisiones",
+              "descripcion": "Actividad interactiva en HTML.",
+              "fecha": "",
+              "tecnologias": [
+                "HTML",
+                "CSS",
+                "JavaScript"
+              ],
+              "ruta": "grupos/32/alumnos/damian-elias-gonzalez-nieto/actividades/act07-cuestionario-de-toma-de-decisiones/index.html"
+            },
+            {
+              "id": "act08-menu-interactivo",
+              "tipo": "web",
+              "titulo": "Menú interactivo",
+              "descripcion": "Actividad interactiva en HTML.",
+              "fecha": "",
+              "tecnologias": [
+                "HTML",
+                "CSS",
+                "JavaScript"
+              ],
+              "ruta": "grupos/32/alumnos/damian-elias-gonzalez-nieto/actividades/act08-menu-interactivo/index.html"
+            },
+            {
+              "id": "act09-tercer-parcial-11-caracteristicas",
+              "tipo": "web",
+              "titulo": "Tercer parcial: 11 características",
+              "descripcion": "Actividad interactiva en HTML.",
+              "fecha": "",
+              "tecnologias": [
+                "HTML",
+                "CSS",
+                "JavaScript"
+              ],
+              "ruta": "grupos/32/alumnos/damian-elias-gonzalez-nieto/actividades/act09-tercer-parcial-11-caracteristicas/index.html"
+            },
+            {
+              "id": "act10-los-7-habitos",
+              "tipo": "web",
+              "titulo": "Los 7 hábitos",
+              "descripcion": "Actividad interactiva en HTML.",
+              "fecha": "",
+              "tecnologias": [
+                "HTML",
+                "CSS",
+                "JavaScript"
+              ],
+              "ruta": "grupos/32/alumnos/damian-elias-gonzalez-nieto/actividades/act10-los-7-habitos/index.html"
+            },
+            {
+              "id": "act11-el-empresario-mexicano-ideal",
+              "tipo": "web",
+              "titulo": "El empresario mexicano ideal",
+              "descripcion": "Actividad interactiva en HTML.",
+              "fecha": "",
+              "tecnologias": [
+                "HTML",
+                "CSS",
+                "JavaScript"
+              ],
+              "ruta": "grupos/32/alumnos/damian-elias-gonzalez-nieto/actividades/act11-el-empresario-mexicano-ideal/index.html"
+            },
+            {
+              "id": "act12-serpientes-y-escaleras-mexico",
+              "tipo": "web",
+              "titulo": "Serpientes y escaleras México",
+              "descripcion": "Actividad interactiva en HTML.",
+              "fecha": "",
+              "tecnologias": [
+                "HTML",
+                "CSS",
+                "JavaScript"
+              ],
+              "ruta": "grupos/32/alumnos/damian-elias-gonzalez-nieto/actividades/act12-serpientes-y-escaleras-mexico/index.html"
+            },
+            {
+              "id": "act13-psicologia-del-dinero",
+              "tipo": "web",
+              "titulo": "Psicología del dinero",
+              "descripcion": "Actividad interactiva en HTML.",
+              "fecha": "",
+              "tecnologias": [
+                "HTML",
+                "CSS",
+                "JavaScript"
+              ],
+              "ruta": "grupos/32/alumnos/damian-elias-gonzalez-nieto/actividades/act13-psicologia-del-dinero/index.html"
             }
           ]
         },
