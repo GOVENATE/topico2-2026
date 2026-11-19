@@ -1,0 +1,162 @@
+{
+  "nombre": "Damián Elías González Nieto",
+  "github": "DamianGuardian",
+  "actividades": [
+    {
+      "id": "act01-collage-capitulo-1",
+      "titulo": "Collage capítulo 1",
+      "descripcion": "Actividad interactiva en HTML.",
+      "tipo": "web",
+      "tecnologias": [
+        "HTML",
+        "CSS",
+        "JavaScript"
+      ],
+      "ruta": "actividades/act01-collage-capitulo-1/index.html"
+    },
+    {
+      "id": "act02-capitulo-3-emotiflix",
+      "titulo": "Capítulo 3: EmotiFlix",
+      "descripcion": "Actividad interactiva en HTML.",
+      "tipo": "web",
+      "tecnologias": [
+        "HTML",
+        "CSS",
+        "JavaScript"
+      ],
+      "ruta": "actividades/act02-capitulo-3-emotiflix/index.html"
+    },
+    {
+      "id": "act03-collage-capitulo-5",
+      "titulo": "Collage capítulo 5",
+      "descripcion": "Actividad interactiva en HTML.",
+      "tipo": "web",
+      "tecnologias": [
+        "HTML",
+        "CSS",
+        "JavaScript"
+      ],
+      "ruta": "actividades/act03-collage-capitulo-5/index.html"
+    },
+    {
+      "id": "act04-capitulos-6-11-y-12-del-libro",
+      "titulo": "Capítulos 6, 11 y 12 del libro",
+      "descripcion": "Actividad interactiva en HTML.",
+      "tipo": "web",
+      "tecnologias": [
+        "HTML",
+        "CSS",
+        "JavaScript"
+      ],
+      "ruta": "actividades/act04-capitulos-6-11-y-12-del-libro/index.html"
+    },
+    {
+      "id": "act05-arquetipo-interactivo",
+      "titulo": "Arquetipo interactivo",
+      "descripcion": "Actividad interactiva en HTML.",
+      "tipo": "web",
+      "tecnologias": [
+        "HTML",
+        "CSS",
+        "JavaScript"
+      ],
+      "ruta": "actividades/act05-arquetipo-interactivo/index.html"
+    },
+    {
+      "id": "act06-codigo-limpio-experiencia-interactiva",
+      "titulo": "Código limpio: experiencia interactiva",
+      "descripcion": "Actividad interactiva en HTML.",
+      "tipo": "web",
+      "tecnologias": [
+        "HTML",
+        "CSS",
+        "JavaScript"
+      ],
+      "ruta": "actividades/act06-codigo-limpio-experiencia-interactiva/index.html"
+    },
+    {
+      "id": "act07-cuestionario-de-toma-de-decisiones",
+      "titulo": "Cuestionario de toma de decisiones",
+      "descripcion": "Actividad interactiva en HTML.",
+      "tipo": "web",
+      "tecnologias": [
+        "HTML",
+        "CSS",
+        "JavaScript"
+      ],
+      "ruta": "actividades/act07-cuestionario-de-toma-de-decisiones/index.html"
+    },
+    {
+      "id": "act08-menu-interactivo",
+      "titulo": "Menú interactivo",
+      "descripcion": "Actividad interactiva en HTML.",
+      "tipo": "web",
+      "tecnologias": [
+        "HTML",
+        "CSS",
+        "JavaScript"
+      ],
+      "ruta": "actividades/act08-menu-interactivo/index.html"
+    },
+    {
+      "id": "act09-tercer-parcial-11-caracteristicas",
+      "titulo": "Tercer parcial: 11 características",
+      "descripcion": "Actividad interactiva en HTML.",
+      "tipo": "web",
+      "tecnologias": [
+        "HTML",
+        "CSS",
+        "JavaScript"
+      ],
+      "ruta": "actividades/act09-tercer-parcial-11-caracteristicas/index.html"
+    },
+    {
+      "id": "act10-los-7-habitos",
+      "titulo": "Los 7 hábitos",
+      "descripcion": "Actividad interactiva en HTML.",
+      "tipo": "web",
+      "tecnologias": [
+        "HTML",
+        "CSS",
+        "JavaScript"
+      ],
+      "ruta": "actividades/act10-los-7-habitos/index.html"
+    },
+    {
+      "id": "act11-el-empresario-mexicano-ideal",
+      "titulo": "El empresario mexicano ideal",
+      "descripcion": "Actividad interactiva en HTML.",
+      "tipo": "web",
+      "tecnologias": [
+        "HTML",
+        "CSS",
+        "JavaScript"
+      ],
+      "ruta": "actividades/act11-el-empresario-mexicano-ideal/index.html"
+    },
+    {
+      "id": "act12-serpientes-y-escaleras-mexico",
+      "titulo": "Serpientes y escaleras México",
+      "descripcion": "Actividad interactiva en HTML.",
+      "tipo": "web",
+      "tecnologias": [
+        "HTML",
+        "CSS",
+        "JavaScript"
+      ],
+      "ruta": "actividades/act12-serpientes-y-escaleras-mexico/index.html"
+    },
+    {
+      "id": "act13-psicologia-del-dinero",
+      "titulo": "Psicología del dinero",
+      "descripcion": "Actividad interactiva en HTML.",
+      "tipo": "web",
+      "tecnologias": [
+        "HTML",
+        "CSS",
+        "JavaScript"
+      ],
+      "ruta": "actividades/act13-psicologia-del-dinero/index.html"
+    }
+  ]
+}

@@ -1,0 +1,752 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Damco | 7 hábitos</title>
+  <style>
+    :root{
+      --bg:#f5efe6;
+      --paper:#fffdf8;
+      --ink:#18333a;
+      --muted:#62757a;
+      --teal:#197b78;
+      --teal-dark:#105b59;
+      --coral:#ef6a5b;
+      --mustard:#e8ad38;
+      --violet:#7657a8;
+      --sky:#78b9cf;
+      --line:#d9d3c9;
+      --success:#3d9565;
+      --shadow:0 18px 45px rgba(35,53,57,.12);
+      --start-bg:none;
+    }
+
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    html,body{margin:0;min-height:100%;font-family:Verdana,Arial,sans-serif;background:var(--bg);color:var(--ink)}
+    body{overflow:hidden}
+    a{color:inherit;text-decoration:none}
+    button,input,select{font:inherit}
+    button{cursor:pointer}
+
+    body::before{
+      content:"";
+      position:fixed;
+      inset:0;
+      pointer-events:none;
+      background:
+        radial-gradient(circle at 12% 12%, rgba(239,106,91,.12), transparent 24%),
+        radial-gradient(circle at 92% 16%, rgba(25,123,120,.13), transparent 24%),
+        radial-gradient(circle at 65% 92%, rgba(118,87,168,.09), transparent 28%);
+      z-index:-2;
+    }
+
+    .layout{min-height:100vh;display:grid;grid-template-columns:245px 1fr}
+
+    .sidebar{
+      height:100vh;
+      position:sticky;
+      top:0;
+      padding:24px 18px;
+      background:var(--ink);
+      color:#fff;
+      display:flex;
+      flex-direction:column;
+      z-index:30;
+      box-shadow:8px 0 30px rgba(24,51,58,.13);
+    }
+
+    .brand{display:flex;align-items:center;gap:12px;padding:4px 8px 22px;border-bottom:1px solid rgba(255,255,255,.14)}
+    .brand img{width:44px;height:44px;object-fit:cover;border-radius:14px;background:#fff;border:2px solid rgba(255,255,255,.28)}
+    .brand-text strong{display:block;font-size:1.06rem;letter-spacing:.5px}
+    .brand-text small{display:block;color:#bbd2d6;margin-top:3px}
+
+    .side-nav{display:grid;gap:9px;margin-top:24px}
+    .side-nav a{
+      display:grid;
+      grid-template-columns:34px 1fr;
+      align-items:center;
+      gap:10px;
+      padding:10px 11px;
+      border-radius:14px;
+      color:#dbe9eb;
+      border:1px solid transparent;
+      transition:.2s ease;
+    }
+    .side-nav a:hover,.side-nav a.active{background:rgba(255,255,255,.10);border-color:rgba(255,255,255,.14);transform:translateX(3px)}
+    .side-nav b{width:31px;height:31px;border-radius:10px;display:grid;place-items:center;background:var(--coral);color:#fff;font-size:.78rem}
+    .side-nav a:nth-child(2) b{background:var(--mustard);color:var(--ink)}
+    .side-nav a:nth-child(3) b{background:var(--teal)}
+    .side-nav a:nth-child(4) b{background:var(--violet)}
+    .side-nav a:nth-child(5) b{background:var(--sky);color:var(--ink)}
+
+    .content{height:100vh;overflow:auto}
+    .screen{display:none;min-height:100vh;padding:34px clamp(20px,4vw,62px) 54px;animation:show .28s ease}
+    .screen.active{display:block}
+    @keyframes show{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+
+    .section-kicker{text-transform:uppercase;letter-spacing:2px;font-size:.74rem;font-weight:800;color:var(--coral);margin-bottom:10px}
+    .section-title{font-family:Georgia,serif;font-size:clamp(2.3rem,5vw,4.7rem);line-height:.96;margin:0;max-width:850px}
+    .section-intro{max-width:800px;color:var(--muted);font-size:1.02rem;line-height:1.65;margin:18px 0 28px}
+
+    .btn{
+      border:0;
+      padding:11px 16px;
+      border-radius:13px;
+      font-weight:800;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap:7px;
+      background:var(--ink);
+      color:#fff;
+      transition:.2s ease;
+      box-shadow:0 7px 18px rgba(24,51,58,.15);
+    }
+    .btn:hover{transform:translateY(-2px)}
+    .btn.coral{background:var(--coral)}
+    .btn.teal{background:var(--teal)}
+    .btn.violet{background:var(--violet)}
+    .btn.ghost{background:transparent;color:var(--ink);border:1px solid var(--line);box-shadow:none}
+
+    .hero{
+      min-height:calc(100vh - 70px);
+      display:grid;
+      grid-template-columns:1.15fr .85fr;
+      gap:34px;
+      align-items:center;
+      position:relative;
+    }
+    .hero-copy{position:relative;z-index:3}
+    .hero h1{font-family:Georgia,serif;font-size:clamp(4.3rem,9vw,8.7rem);line-height:.78;margin:0;letter-spacing:-5px}
+    .hero h1 span{display:block;color:var(--coral);font-size:.42em;letter-spacing:1px;margin-bottom:18px;font-family:Verdana,Arial,sans-serif;text-transform:uppercase}
+    .hero p{font-size:1.08rem;line-height:1.7;color:var(--muted);max-width:710px}
+    .hero-actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:24px}
+
+    .hero-art{
+      min-height:560px;
+      border-radius:44px 12px 44px 12px;
+      background:
+        linear-gradient(150deg,rgba(25,123,120,.10),rgba(239,106,91,.13)),
+        var(--start-bg),
+        var(--paper);
+      background-size:cover;
+      background-position:center;
+      box-shadow:var(--shadow);
+      position:relative;
+      overflow:hidden;
+      border:1px solid rgba(24,51,58,.1);
+    }
+    .hero-art::before{content:"7";position:absolute;right:20px;bottom:-46px;font-family:Georgia,serif;font-size:22rem;line-height:1;color:rgba(255,255,255,.68);text-shadow:0 8px 30px rgba(24,51,58,.1)}
+    .hero-logo{position:absolute;left:28px;top:28px;width:min(220px,55%);aspect-ratio:1;border-radius:50%;display:grid;place-items:center;background:rgba(255,253,248,.88);box-shadow:0 14px 34px rgba(24,51,58,.16);backdrop-filter:blur(8px)}
+    .hero-logo img{width:78%;height:78%;object-fit:contain}
+
+    .bento{display:grid;grid-template-columns:repeat(12,1fr);gap:16px}
+    .card{background:var(--paper);border:1px solid rgba(24,51,58,.09);border-radius:25px;padding:24px;box-shadow:var(--shadow)}
+    .menu-card{min-height:230px;position:relative;overflow:hidden;transition:.22s ease}
+    .menu-card:hover{transform:translateY(-6px)}
+    .menu-card h3{font-family:Georgia,serif;font-size:1.85rem;margin:42px 0 8px}
+    .menu-card p{color:var(--muted);line-height:1.55;margin:0}
+    .menu-card .big-number{position:absolute;right:16px;top:-18px;font-family:Georgia,serif;font-size:7rem;color:rgba(24,51,58,.08)}
+    .menu-card.one{grid-column:span 7;background:linear-gradient(135deg,#fffdf8,#eef8f6)}
+    .menu-card.two{grid-column:span 5;background:linear-gradient(135deg,#fffdf8,#fff1ed)}
+    .menu-card.three{grid-column:span 5;background:linear-gradient(135deg,#fffdf8,#f5f0fd)}
+    .menu-card.four{grid-column:span 7;background:linear-gradient(135deg,#fffdf8,#fff8e4)}
+    .tag{display:inline-flex;padding:7px 10px;border-radius:999px;background:rgba(24,51,58,.07);font-size:.76rem;font-weight:800;text-transform:uppercase;letter-spacing:.7px}
+
+    .intro-grid{display:grid;grid-template-columns:1.04fr .96fr;gap:18px}
+    .quote{font-family:Georgia,serif;font-size:clamp(1.65rem,3vw,2.65rem);line-height:1.25;margin:0;color:var(--teal-dark)}
+    .paragraph{color:var(--muted);line-height:1.7}
+    .habit-list{display:grid;gap:10px;margin-top:18px}
+    .habit-entry{border:1px solid var(--line);border-radius:15px;background:#fff;overflow:hidden;transition:.2s ease}
+    .habit-entry:hover{border-color:rgba(25,123,120,.55);box-shadow:0 8px 20px rgba(24,51,58,.08)}
+    .habit-entry[open]{border-color:var(--teal);box-shadow:0 10px 24px rgba(24,51,58,.10)}
+    .habit-item{list-style:none;display:grid;grid-template-columns:42px 1fr 28px;gap:13px;align-items:center;padding:12px;cursor:pointer;font-weight:700}
+    .habit-item::-webkit-details-marker{display:none}
+    .habit-item::after{content:"+";width:28px;height:28px;border-radius:50%;display:grid;place-items:center;background:#eef3f2;color:var(--teal-dark);font-size:1.25rem;font-weight:900;transition:.2s ease}
+    .habit-entry[open] .habit-item::after{content:"−";transform:rotate(180deg);background:var(--teal);color:#fff}
+    .habit-item b{width:42px;height:42px;border-radius:12px;display:grid;place-items:center;color:#fff;background:var(--teal)}
+    .habit-entry:nth-child(2) .habit-item b,.habit-entry:nth-child(5) .habit-item b{background:var(--coral)}
+    .habit-entry:nth-child(3) .habit-item b,.habit-entry:nth-child(7) .habit-item b{background:var(--mustard);color:var(--ink)}
+    .habit-entry:nth-child(4) .habit-item b{background:var(--violet)}
+    .habit-entry:nth-child(6) .habit-item b{background:var(--sky);color:var(--ink)}
+    .habit-info{margin:0;padding:0 18px 17px 67px;color:var(--muted);line-height:1.62;border-top:1px solid #ece6dc;animation:habitOpen .22s ease}
+    .habit-info strong{color:var(--ink)}
+    @keyframes habitOpen{from{opacity:0;transform:translateY(-8px)}to{opacity:1;transform:none}}
+
+    .activity-tabs{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 18px}
+    .activity-tab{border:1px solid var(--line);background:var(--paper);color:var(--ink);padding:10px 13px;border-radius:12px;font-weight:800}
+    .activity-tab.active{background:var(--ink);color:#fff;border-color:var(--ink)}
+    .activity-panel{display:none}
+    .activity-panel.active{display:block}
+
+    .activity-layout{display:grid;grid-template-columns:1fr .72fr;gap:18px;align-items:start}
+    .activity-card{background:var(--paper);border:1px solid rgba(24,51,58,.1);border-radius:25px;padding:24px;box-shadow:var(--shadow)}
+    .activity-card h3{font-family:Georgia,serif;font-size:1.8rem;margin:0 0 8px}
+    .activity-card p{color:var(--muted);line-height:1.6}
+    .scenario{padding:20px;border-radius:18px;background:#eef8f6;border-left:6px solid var(--teal);font-weight:700;line-height:1.55;margin:18px 0}
+    .choice-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+    .choice{border:1px solid var(--line);background:#fff;padding:13px;border-radius:13px;text-align:left;font-weight:700;color:var(--ink)}
+    .choice:hover{border-color:var(--teal)}
+    .choice.correct{background:#e6f6ed;border-color:var(--success);color:#246443}
+    .choice.wrong{background:#fff0ed;border-color:var(--coral);color:#9b4035}
+    .result{min-height:55px;margin-top:14px;padding:13px 15px;border-radius:14px;background:#f2eee7;color:var(--ink);line-height:1.5}
+    .score-box{text-align:center;padding:24px;border-radius:22px;background:var(--ink);color:#fff}
+    .score-box strong{display:block;font-family:Georgia,serif;font-size:4.3rem;line-height:1;color:var(--mustard)}
+
+    .priority-list{display:grid;gap:10px;margin:18px 0}
+    .priority-item{display:grid;grid-template-columns:34px 1fr auto;gap:10px;align-items:center;padding:13px;border:1px solid var(--line);border-radius:15px;background:#fff}
+    .priority-item .position{width:34px;height:34px;border-radius:10px;display:grid;place-items:center;background:var(--mustard);font-weight:900}
+    .move-buttons{display:flex;gap:5px}
+    .mini{width:34px;height:34px;border:0;border-radius:10px;background:var(--ink);color:#fff;font-weight:900}
+
+    .week-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:10px;margin:18px 0}
+    .day-card{position:relative}
+    .day-card input{position:absolute;opacity:0;pointer-events:none}
+    .day-card label{min-height:135px;display:flex;flex-direction:column;justify-content:space-between;padding:14px;border-radius:17px;background:#fff;border:2px solid var(--line);cursor:pointer;transition:.2s}
+    .day-card label b{font-family:Georgia,serif;font-size:1.25rem}
+    .day-card label span{font-size:.77rem;color:var(--muted);line-height:1.4}
+    .day-card input:checked + label{background:#e5f5ed;border-color:var(--success);transform:translateY(-4px)}
+    .progress{height:15px;border-radius:999px;background:#e5dfd5;overflow:hidden}
+    .progress span{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--teal),var(--mustard));transition:.25s}
+
+    .author-grid{display:grid;grid-template-columns:.82fr 1.18fr;gap:18px}
+    .author-data{font-family:"Courier New",monospace;white-space:pre-wrap;line-height:1.6;color:var(--ink);margin:0}
+    .preview{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+    .imgbox{border-radius:18px;overflow:hidden;border:1px solid var(--line);background:#fff;cursor:pointer;transition:.2s;box-shadow:0 8px 22px rgba(24,51,58,.08)}
+    .imgbox:hover{transform:translateY(-5px)}
+    .imgbox img{display:block;width:100%;height:185px;object-fit:cover}
+    .imgbox span{display:block;padding:10px 12px;font-size:.82rem;font-weight:800;color:var(--ink)}
+    .missing{height:185px;display:grid;place-items:center;text-align:center;padding:15px;background:#eee8df;color:var(--muted);font-size:.82rem}
+
+    .collage{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+    .collage .imgbox:nth-child(2),.collage .imgbox:nth-child(6),.collage .imgbox:nth-child(8){transform:translateY(22px)}
+    .collage .imgbox:hover{transform:translateY(-5px)}
+    .collage .imgbox:nth-child(2):hover,.collage .imgbox:nth-child(6):hover,.collage .imgbox:nth-child(8):hover{transform:translateY(17px)}
+    .collage .imgbox img{height:235px}
+
+    .modal{position:fixed;inset:0;display:none;place-items:center;padding:22px;background:rgba(24,51,58,.78);backdrop-filter:blur(8px);z-index:100}
+    .modal.active{display:grid}
+    .modal-box{width:min(900px,95vw);max-height:90vh;overflow:auto;background:var(--paper);padding:18px;border-radius:25px;position:relative;box-shadow:0 30px 80px rgba(0,0,0,.28)}
+    .modal-box img{display:block;width:100%;max-height:70vh;object-fit:contain;border-radius:17px;background:#eee}
+    .modal-box h3{font-family:Georgia,serif;font-size:1.7rem;margin:13px 4px 2px}
+    .close{position:absolute;right:25px;top:25px;width:41px;height:41px;border:0;border-radius:50%;background:var(--coral);color:#fff;font-size:1.4rem;font-weight:900}
+
+    .mobile-nav{display:none}
+
+    @media(max-width:980px){
+      body{overflow:auto}
+      .layout{display:block}
+      .sidebar{display:none}
+      .content{height:auto;overflow:visible}
+      .screen{min-height:100vh;padding:90px 18px 48px}
+      .mobile-nav{display:flex;position:fixed;left:10px;right:10px;top:10px;z-index:50;background:rgba(24,51,58,.95);padding:8px;border-radius:17px;gap:5px;overflow-x:auto;box-shadow:0 10px 30px rgba(24,51,58,.22)}
+      .mobile-nav a{white-space:nowrap;color:#fff;padding:9px 11px;border-radius:11px;font-size:.78rem;font-weight:800}
+      .mobile-nav a.active{background:var(--coral)}
+      .hero{grid-template-columns:1fr;min-height:auto}
+      .hero-art{min-height:420px}
+      .bento,.intro-grid,.activity-layout,.author-grid{grid-template-columns:1fr}
+      .menu-card.one,.menu-card.two,.menu-card.three,.menu-card.four{grid-column:auto}
+      .week-grid{grid-template-columns:repeat(2,1fr)}
+    }
+
+    @media(max-width:620px){
+      .hero h1{font-size:4.4rem;letter-spacing:-3px}
+      .hero-art{min-height:330px}
+      .choice-grid,.preview,.collage{grid-template-columns:1fr}
+      .collage .imgbox:nth-child(n){transform:none}
+      .week-grid{grid-template-columns:1fr}
+      .day-card label{min-height:100px}
+      .section-title{font-size:2.5rem}
+      .card,.activity-card{padding:19px}
+    }
+  </style>
+</head>
+<body>
+  <div class="mobile-nav">
+    <a href="#inicio">Inicio</a>
+    <a href="#menu">Menú</a>
+    <a href="#introduccion">Tema</a>
+    <a href="#dinamica">Actividades</a>
+    <a href="#autor">Autor</a>
+    <a href="#collage">Collage</a>
+  </div>
+
+  <div class="layout">
+    <aside class="sidebar">
+      <div class="brand">
+        <img src="img1.png" alt="Logo Damco">
+        <div class="brand-text"><strong>Damco</strong><small>Proyecto interactivo</small></div>
+      </div>
+      <nav class="side-nav">
+        <a href="#inicio"><b>00</b><span>Portada</span></a>
+        <a href="#menu"><b>01</b><span>Menú</span></a>
+        <a href="#introduccion"><b>02</b><span>Los 7 hábitos</span></a>
+        <a href="#dinamica"><b>03</b><span>Actividades</span></a>
+        <a href="#autor"><b>04</b><span>Autor</span></a>
+      </nav>
+    </aside>
+
+    <main class="content">
+      <section id="inicio" class="screen active">
+        <div class="hero">
+          <div class="hero-copy">
+            <div class="section-kicker">Proyecto interactivo</div>
+            <h1><span>Los siete hábitos</span>Damco</h1>
+            <p>Una experiencia visual sobre los hábitos de los adolescentes altamente efectivos. Explora el contenido, toma decisiones, organiza tus prioridades y completa un reto personal de siete días.</p>
+            <div class="hero-actions">
+              <a class="btn coral" href="#menu">Comenzar recorrido</a>
+              <a class="btn ghost" href="#dinamica">Ir a las actividades</a>
+            </div>
+          </div>
+          <div class="hero-art">
+            <div class="hero-logo"><img src="img2.png" alt="Logo Damco"></div>
+          </div>
+        </div>
+      </section>
+
+      <section id="menu" class="screen">
+        <div class="section-kicker">Elige una ruta</div>
+        <h2 class="section-title">Una presentación organizada como revista interactiva.</h2>
+        <p class="section-intro">Cada bloque abre una pantalla independiente. Puedes avanzar en orden o entrar directamente a la sección que necesites.</p>
+
+        <div class="bento">
+          <a class="card menu-card one" href="#introduccion">
+            <span class="tag">Conceptos</span><span class="big-number">01</span>
+            <h3>Comprender los hábitos</h3>
+            <p>Explicación breve, ruta de crecimiento y acceso a la infografía interactiva.</p>
+          </a>
+          <a class="card menu-card two" href="#dinamica">
+            <span class="tag">Actividad 1</span><span class="big-number">02</span>
+            <h3>Identifica el hábito</h3>
+            <p>Lee situaciones cotidianas y decide qué hábito se está aplicando.</p>
+          </a>
+          <a class="card menu-card three" href="#dinamica">
+            <span class="tag">Actividad 2 y 3</span><span class="big-number">03</span>
+            <h3>Prioridades y reto semanal</h3>
+            <p>Ordena tareas importantes y registra tu progreso durante siete días.</p>
+          </a>
+          <a class="card menu-card four" href="#autor">
+            <span class="tag">Presentación personal</span><span class="big-number">04</span>
+            <h3>Autor y collage</h3>
+            <p>Consulta los datos del estudiante y abre un collage de nueve imágenes.</p>
+          </a>
+        </div>
+      </section>
+
+      <section id="introduccion" class="screen">
+        <div class="section-kicker">Introducción</div>
+        <h2 class="section-title">Los hábitos forman una manera de pensar y actuar.</h2>
+        <p class="section-intro">La efectividad se construye con decisiones repetidas: primero se fortalece la responsabilidad personal y después se mejora la convivencia con los demás.</p>
+
+        <div class="intro-grid">
+          <article class="card">
+            <p class="quote">“Cambiar un hábito no significa ser perfecto; significa elegir una respuesta mejor cada vez.”</p>
+            <p class="paragraph">Comprendí que los siete hábitos ayudan a ordenar nuestra vida comenzando por nosotros mismos. Primero se fortalecen la responsabilidad, el establecimiento de objetivos y la organización de las prioridades. Después, se desarrollan habilidades para relacionarnos mejor con otras personas mediante el diálogo, la comprensión y la colaboración.</p>
+            <p class="paragraph">También aprendí que estos hábitos pueden ponerse en práctica en diferentes ámbitos, como la escuela, el hogar, las amistades y el cumplimiento de nuestros proyectos personales.</p>
+</article>
+
+          <article class="card">
+            <span class="tag">Ruta de crecimiento</span>
+            <div class="habit-list">
+              <details class="habit-entry">
+                <summary class="habit-item"><b>1</b><span>Ser proactivo</span></summary>
+                <p class="habit-info"><strong>¿Qué significa?</strong> Elegir cómo responder ante una situación en vez de actuar solamente por impulso. Se enfoca en lo que sí se puede controlar.<br><strong>Ejemplo:</strong> organizar el tiempo para entregar una tarea sin culpar a otras personas por el retraso.</p>
+              </details>
+              <details class="habit-entry">
+                <summary class="habit-item"><b>2</b><span>Comenzar con un fin en mente</span></summary>
+                <p class="habit-info"><strong>¿Qué significa?</strong> Definir una meta antes de actuar y pensar qué resultado se quiere alcanzar.<br><strong>Ejemplo:</strong> establecer el promedio deseado y preparar un plan de estudio para conseguirlo.</p>
+              </details>
+              <details class="habit-entry">
+                <summary class="habit-item"><b>3</b><span>Poner primero lo primero</span></summary>
+                <p class="habit-info"><strong>¿Qué significa?</strong> Dar prioridad a las actividades importantes antes que a las distracciones o tareas que pueden esperar.<br><strong>Ejemplo:</strong> terminar un proyecto escolar antes de jugar videojuegos.</p>
+              </details>
+              <details class="habit-entry">
+                <summary class="habit-item"><b>4</b><span>Pensar ganar-ganar</span></summary>
+                <p class="habit-info"><strong>¿Qué significa?</strong> Buscar acuerdos en los que todas las personas obtengan un beneficio justo y se sientan respetadas.<br><strong>Ejemplo:</strong> repartir las tareas de un equipo de acuerdo con las habilidades y el tiempo disponible de cada integrante.</p>
+              </details>
+              <details class="habit-entry">
+                <summary class="habit-item"><b>5</b><span>Entender antes de ser entendido</span></summary>
+                <p class="habit-info"><strong>¿Qué significa?</strong> Escuchar con atención el punto de vista de otra persona antes de explicar el propio.<br><strong>Ejemplo:</strong> dejar que un compañero termine de hablar y después confirmar lo que se entendió.</p>
+              </details>
+              <details class="habit-entry">
+                <summary class="habit-item"><b>6</b><span>Sinergizar</span></summary>
+                <p class="habit-info"><strong>¿Qué significa?</strong> Combinar ideas, capacidades y perspectivas diferentes para crear un resultado mejor que el trabajo individual.<br><strong>Ejemplo:</strong> unir una buena idea de diseño con la propuesta técnica de otro integrante del equipo.</p>
+              </details>
+              <details class="habit-entry">
+                <summary class="habit-item"><b>7</b><span>Afilar la sierra</span></summary>
+                <p class="habit-info"><strong>¿Qué significa?</strong> Renovar de manera equilibrada el cuerpo, la mente, las emociones y las relaciones personales.<br><strong>Ejemplo:</strong> descansar, hacer ejercicio, aprender algo nuevo y dedicar tiempo a personas importantes.</p>
+              </details>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section id="dinamica" class="screen">
+        <div class="section-kicker">Nuevas actividades</div>
+        <h2 class="section-title">Aprende aplicando los hábitos.</h2>
+        <p class="section-intro">Estas dinámicas sustituyen la sopa de letras. Puedes responder situaciones, ordenar prioridades y marcar avances durante una semana.</p>
+
+        <div class="activity-tabs">
+          <button class="activity-tab active" data-tab="identifica">1. Identifica el hábito</button>
+          <button class="activity-tab" data-tab="prioridades">2. Organiza prioridades</button>
+          <button class="activity-tab" data-tab="semana">3. Reto de siete días</button>
+        </div>
+
+        <div id="identifica" class="activity-panel active">
+          <div class="activity-layout">
+            <article class="activity-card">
+              <h3>¿Qué hábito corresponde?</h3>
+              <p>Lee la situación y selecciona la opción correcta.</p>
+              <div id="scenarioText" class="scenario"></div>
+              <div id="choiceGrid" class="choice-grid"></div>
+              <div id="quizResult" class="result">Selecciona una respuesta para continuar.</div>
+              <div style="margin-top:14px"><button id="nextQuestion" class="btn teal">Siguiente situación</button></div>
+            </article>
+            <aside class="activity-card">
+              <div class="score-box"><span>Puntuación</span><strong id="quizScore">0</strong><small>respuestas correctas</small></div>
+              <p>Observa qué decisión toma la persona. La clave no está en memorizar el número, sino en reconocer la conducta.</p>
+              <button id="resetQuiz" class="btn ghost">Reiniciar actividad</button>
+            </aside>
+          </div>
+        </div>
+
+        <div id="prioridades" class="activity-panel">
+          <div class="activity-layout">
+            <article class="activity-card">
+              <h3>Ordena tu día</h3>
+              <p>Mueve las tareas hasta colocarlas de mayor a menor prioridad.</p>
+              <div id="priorityList" class="priority-list"></div>
+              <button id="evaluatePriority" class="btn coral">Revisar mi orden</button>
+              <div id="priorityResult" class="result">Organiza las actividades considerando importancia y urgencia.</div>
+            </article>
+            <aside class="activity-card">
+              <span class="tag">Pista</span>
+              <p class="quote" style="font-size:1.8rem;margin-top:15px">Primero lo importante, después lo que puede esperar.</p>
+              <p>La propuesta de orden es orientativa. También puedes explicar por qué cambiarías una posición según tu situación personal.</p>
+            </aside>
+          </div>
+        </div>
+
+        <div id="semana" class="activity-panel">
+          <article class="activity-card">
+            <h3>Reto personal de siete días</h3>
+            <p>Marca cada día cuando realices la acción propuesta. El progreso se guarda en este navegador.</p>
+            <div class="week-grid">
+              <div class="day-card"><input id="day1" type="checkbox"><label for="day1"><b>Día 1</b><span>Escribe algo que sí puedes controlar.</span></label></div>
+              <div class="day-card"><input id="day2" type="checkbox"><label for="day2"><b>Día 2</b><span>Define una meta concreta para esta semana.</span></label></div>
+              <div class="day-card"><input id="day3" type="checkbox"><label for="day3"><b>Día 3</b><span>Termina una tarea importante antes de distraerte.</span></label></div>
+              <div class="day-card"><input id="day4" type="checkbox"><label for="day4"><b>Día 4</b><span>Busca una solución justa para dos personas.</span></label></div>
+              <div class="day-card"><input id="day5" type="checkbox"><label for="day5"><b>Día 5</b><span>Escucha a alguien sin interrumpir.</span></label></div>
+              <div class="day-card"><input id="day6" type="checkbox"><label for="day6"><b>Día 6</b><span>Combina tu idea con la de otra persona.</span></label></div>
+              <div class="day-card"><input id="day7" type="checkbox"><label for="day7"><b>Día 7</b><span>Haz algo que renueve tu cuerpo o tu mente.</span></label></div>
+            </div>
+            <div class="progress"><span id="weekProgress"></span></div>
+            <div id="weekText" class="result">Progreso: 0 de 7 días.</div>
+            <button id="resetWeek" class="btn ghost">Borrar progreso</button>
+          </article>
+        </div>
+      </section>
+
+      <section id="autor" class="screen">
+        <div class="section-kicker">Presentación personal</div>
+        <h2 class="section-title">Autor del proyecto.</h2>
+        <p class="section-intro">Datos del estudiante y una selección de imágenes relacionadas con sus gustos y espacios personales.</p>
+        <div class="author-grid">
+          <article class="card">
+<pre class="author-data">
+<pre>Autor: Damian Elias Gonzalez Nieto
+Edad: 23 años
+Carrera: ingenieria de software
+Semestre: septimo
+Fecha de entrega: 20-01-2025
+
+Sobre mi:
+Soy un estudiante de la facultad de ingenieria de software,
+me gusta dibujar tambien los videojuegos y tambien me gusta ver las pinturas en los museos.</pre>
+</article>
+          <article class="card">
+            <span class="tag">Imágenes de referencia</span>
+            <div class="preview" style="margin-top:16px">
+              <div class="imgbox" data-path="img3.png"><img src="img4.png" alt="Videojuegos"><span>Videojuegos</span></div>
+              <div class="imgbox" data-path="img5.jpg"><img src="img6.jpg" alt="Mascotas"><span>Mascotas</span></div>
+              <div class="imgbox" data-path="img7.jpg"><img src="img8.jpg" alt="Pintura"><span>Pintura</span></div>
+              <div class="imgbox" data-open="autor"><img data-img="autor" alt="Autor"><span>Foto del autor</span></div>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section id="collage" class="screen">
+        <div class="section-kicker">Galería personal</div>
+        <h2 class="section-title">Collage del autor.</h2>
+        <p class="section-intro">Nueve imágenes organizadas por gustos, actividades y espacios personales. Selecciona cualquiera para abrirla en grande.</p>
+        <div id="collageGrid" class="collage"></div>
+      </section>
+    </main>
+  </div>
+
+  <div class="modal" id="modal">
+    <div class="modal-box">
+      <button class="close" id="closeModal">×</button>
+      <img id="modalImg" alt="Imagen ampliada">
+      <h3 id="modalText"></h3>
+    </div>
+  </div>
+
+  <script>
+    const pageIds = ["inicio","menu","introduccion","dinamica","autor","collage"];
+
+    function route(){
+      let id = location.hash.replace("#","");
+      if(!pageIds.includes(id)) id = "inicio";
+      document.querySelectorAll(".screen").forEach(screen => screen.classList.remove("active"));
+      document.getElementById(id).classList.add("active");
+      document.querySelectorAll(".side-nav a,.mobile-nav a").forEach(a => a.classList.toggle("active", a.getAttribute("href") === "#" + id));
+      document.title = "Damco | " + id;
+      document.querySelector(".content")?.scrollTo(0,0);
+      window.scrollTo(0,0);
+    }
+
+    window.addEventListener("hashchange",route);
+    window.addEventListener("load",route);
+
+    const localBase = "file:///C:/Users/reydr/OneDrive/Desktop/topico%20II/imagenes/";
+
+    function candidates(name){
+      const extensions = ["jpg","jpeg","png","JPG","JPEG","PNG"];
+      return [
+        ...extensions.map(ext => "imagenes/" + name + "." + ext),
+        ...extensions.map(ext => localBase + name + "." + ext)
+      ];
+    }
+
+    function loadImagePath(name,callback,fail){
+      const paths = candidates(name);
+      let index = 0;
+      function tryNext(){
+        if(index >= paths.length){ if(fail) fail(); return; }
+        const test = new Image();
+        const current = paths[index];
+        test.onload = () => callback(current);
+        test.onerror = () => { index++; tryNext(); };
+        test.src = current;
+      }
+      tryNext();
+    }
+
+    function setSmartImages(){
+      document.querySelectorAll("img[data-img]").forEach(img => {
+        const name = img.dataset.img;
+        loadImagePath(name,path => {
+          img.src = path;
+          if(img.closest(".imgbox")) img.closest(".imgbox").dataset.path = path;
+        },() => {
+          const missing = document.createElement("div");
+          missing.className = "missing";
+          missing.textContent = "Falta imagen: " + name + " (.jpg o .png)";
+          img.replaceWith(missing);
+        });
+      });
+      loadImagePath("fondo-7-habitos",path => document.documentElement.style.setProperty("--start-bg",`url("${path}")`));
+    }
+
+    const quizData = [
+      {text:"Antes de responder un mensaje que le molestó, una estudiante respira, piensa y elige una respuesta respetuosa.",answer:"Ser proactivo",options:["Ser proactivo","Pensar ganar-ganar","Sinergizar","Afilar la sierra"]},
+      {text:"Un alumno escribe qué promedio quiere obtener y qué acciones realizará para alcanzarlo.",answer:"Fin en mente",options:["Escuchar primero","Fin en mente","Afilar la sierra","Ser proactivo"]},
+      {text:"Una persona termina su proyecto escolar antes de pasar la tarde jugando videojuegos.",answer:"Primero lo primero",options:["Sinergizar","Ganar-ganar","Primero lo primero","Fin en mente"]},
+      {text:"Dos compañeros tienen ideas distintas y diseñan una propuesta que incluye lo mejor de ambas.",answer:"Sinergizar",options:["Ser proactivo","Sinergizar","Escuchar primero","Afilar la sierra"]},
+      {text:"Durante una discusión, alguien escucha toda la explicación de la otra persona antes de defender su opinión.",answer:"Escuchar primero",options:["Fin en mente","Primero lo primero","Escuchar primero","Ganar-ganar"]},
+      {text:"Después de una semana pesada, una estudiante duerme bien, camina y dedica tiempo a una actividad que disfruta.",answer:"Afilar la sierra",options:["Afilar la sierra","Ser proactivo","Sinergizar","Fin en mente"]},
+      {text:"Dos amigos acuerdan una solución en la que ambos reciben algo importante y ninguno se siente utilizado.",answer:"Ganar-ganar",options:["Ganar-ganar","Primero lo primero","Escuchar primero","Sinergizar"]}
+    ];
+
+    let quizIndex = 0;
+    let quizScore = 0;
+    let answered = false;
+
+    function renderQuiz(){
+      answered = false;
+      const item = quizData[quizIndex];
+      document.getElementById("scenarioText").textContent = item.text;
+      const grid = document.getElementById("choiceGrid");
+      grid.innerHTML = "";
+      item.options.forEach(option => {
+        const button = document.createElement("button");
+        button.className = "choice";
+        button.textContent = option;
+        button.addEventListener("click",() => answerQuiz(button,option));
+        grid.appendChild(button);
+      });
+      document.getElementById("quizResult").textContent = "Selecciona una respuesta para continuar.";
+      document.getElementById("quizScore").textContent = quizScore;
+    }
+
+    function answerQuiz(button,option){
+      if(answered) return;
+      answered = true;
+      const correct = quizData[quizIndex].answer;
+      document.querySelectorAll(".choice").forEach(btn => {
+        if(btn.textContent === correct) btn.classList.add("correct");
+      });
+      if(option === correct){
+        quizScore++;
+        button.classList.add("correct");
+        document.getElementById("quizResult").textContent = "Correcto. La situación representa: " + correct + ".";
+      }else{
+        button.classList.add("wrong");
+        document.getElementById("quizResult").textContent = "La respuesta correcta es: " + correct + ".";
+      }
+      document.getElementById("quizScore").textContent = quizScore;
+    }
+
+    document.getElementById("nextQuestion").addEventListener("click",() => {
+      quizIndex = (quizIndex + 1) % quizData.length;
+      renderQuiz();
+    });
+
+    document.getElementById("resetQuiz").addEventListener("click",() => {
+      quizIndex = 0;
+      quizScore = 0;
+      renderQuiz();
+    });
+
+    const priorities = [
+      {text:"Entregar una tarea que vence hoy",rank:1},
+      {text:"Estudiar para un examen de mañana",rank:2},
+      {text:"Preparar materiales para la semana",rank:3},
+      {text:"Responder mensajes no urgentes",rank:4},
+      {text:"Ver videos por entretenimiento",rank:5}
+    ];
+    let currentPriorities = [...priorities].sort(() => Math.random() - .5);
+
+    function renderPriorities(){
+      const box = document.getElementById("priorityList");
+      box.innerHTML = "";
+      currentPriorities.forEach((item,index) => {
+        const row = document.createElement("div");
+        row.className = "priority-item";
+        row.innerHTML = `<span class="position">${index+1}</span><span>${item.text}</span><div class="move-buttons"><button class="mini" aria-label="Subir">↑</button><button class="mini" aria-label="Bajar">↓</button></div>`;
+        const [up,down] = row.querySelectorAll("button");
+        up.addEventListener("click",() => movePriority(index,-1));
+        down.addEventListener("click",() => movePriority(index,1));
+        box.appendChild(row);
+      });
+    }
+
+    function movePriority(index,direction){
+      const target = index + direction;
+      if(target < 0 || target >= currentPriorities.length) return;
+      [currentPriorities[index],currentPriorities[target]] = [currentPriorities[target],currentPriorities[index]];
+      renderPriorities();
+    }
+
+    document.getElementById("evaluatePriority").addEventListener("click",() => {
+      const correctPositions = currentPriorities.filter((item,index) => item.rank === index + 1).length;
+      const result = document.getElementById("priorityResult");
+      if(correctPositions === priorities.length){
+        result.textContent = "¡Excelente! Ordenaste todas las actividades de acuerdo con la propuesta de prioridad.";
+      }else{
+        result.textContent = `Tienes ${correctPositions} de ${priorities.length} posiciones en el orden propuesto. Revisa qué tareas tienen una fecha inmediata.`;
+      }
+    });
+
+    const weekChecks = [...document.querySelectorAll('.day-card input')];
+    function updateWeek(){
+      const total = weekChecks.filter(input => input.checked).length;
+      document.getElementById("weekProgress").style.width = (total / 7 * 100) + "%";
+      document.getElementById("weekText").textContent = total === 7 ? "¡Reto completo! Aplicaste una acción relacionada con cada hábito." : `Progreso: ${total} de 7 días.`;
+      localStorage.setItem("damcoWeek",JSON.stringify(weekChecks.map(input => input.checked)));
+    }
+    weekChecks.forEach(input => input.addEventListener("change",updateWeek));
+
+    function loadWeek(){
+      try{
+        const saved = JSON.parse(localStorage.getItem("damcoWeek") || "[]");
+        weekChecks.forEach((input,index) => input.checked = Boolean(saved[index]));
+      }catch(error){ console.warn("No se pudo recuperar el progreso."); }
+      updateWeek();
+    }
+
+    document.getElementById("resetWeek").addEventListener("click",() => {
+      weekChecks.forEach(input => input.checked = false);
+      updateWeek();
+    });
+
+    document.querySelectorAll(".activity-tab").forEach(tab => {
+      tab.addEventListener("click",() => {
+        document.querySelectorAll(".activity-tab").forEach(btn => btn.classList.remove("active"));
+        document.querySelectorAll(".activity-panel").forEach(panel => panel.classList.remove("active"));
+        tab.classList.add("active");
+        document.getElementById(tab.dataset.tab).classList.add("active");
+      });
+    });
+
+    function buildCollage(){
+      const names = [
+        "novela favorita",
+        "deporte favorito",
+        "plataforma favorita",
+        "comida favorita",
+        "lugares que me gustan",
+        "gran maestro",
+        "música favorita",
+        "espacio personal",
+        "cosas que hago en mi tiempo libre"
+      ];
+      const box = document.getElementById("collageGrid");
+      box.innerHTML = "";
+      for(let i=1;i<=9;i++){
+        const number = String(i).padStart(2,"0");
+        const name = "autor-" + number;
+        const item = document.createElement("div");
+        item.className = "imgbox";
+        item.dataset.open = name;
+        const img = document.createElement("img");
+        img.dataset.img = name;
+        img.alt = names[i-1];
+        const label = document.createElement("span");
+        label.textContent = names[i-1];
+        item.append(img,label);
+        box.appendChild(item);
+      }
+    }
+
+    function enableModal(){
+      const modal = document.getElementById("modal");
+      document.querySelectorAll(".imgbox").forEach(box => {
+        box.addEventListener("click",() => {
+          const path = box.dataset.path;
+          const name = box.dataset.open;
+          const open = finalPath => {
+            document.getElementById("modalImg").src = finalPath;
+            document.getElementById("modalText").textContent = box.innerText.trim();
+            modal.classList.add("active");
+          };
+          if(path) open(path); else loadImagePath(name,open);
+        });
+      });
+      document.getElementById("closeModal").addEventListener("click",() => modal.classList.remove("active"));
+      modal.addEventListener("click",event => { if(event.target === modal) modal.classList.remove("active"); });
+      document.addEventListener("keydown",event => { if(event.key === "Escape") modal.classList.remove("active"); });
+    }
+
+    document.querySelectorAll(".habit-entry").forEach(entry => {
+      entry.addEventListener("toggle",() => {
+        if(!entry.open) return;
+        document.querySelectorAll(".habit-entry").forEach(other => {
+          if(other !== entry) other.open = false;
+        });
+      });
+    });
+
+    buildCollage();
+    setSmartImages();
+    enableModal();
+    renderQuiz();
+    renderPriorities();
+    loadWeek();
+  </script>
+</body>
+</html>
