@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Arquetipo Sistémico - Compensación entre proceso y demora</title>
+  <style>
+    :root{
+      --bg:#0b1020;
+      --panel:#121936;
+      --panel2:#182247;
+      --accent:#6ee7ff;
+      --accent2:#8b5cf6;
+      --text:#ecf2ff;
+      --muted:#b8c3e0;
+      --ok:#34d399;
+      --warn:#fbbf24;
+      --danger:#fb7185;
+      --shadow:0 18px 40px rgba(0,0,0,.28);
+      --radius:22px;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family: Inter, Segoe UI, Arial, sans-serif;
+      background: radial-gradient(circle at top right, rgba(110,231,255,.10), transparent 20%),
+                  radial-gradient(circle at top left, rgba(139,92,246,.12), transparent 20%),
+                  linear-gradient(180deg,#09101c 0%, #0b1020 100%);
+      color:var(--text);
+      line-height:1.6;
+    }
+    header{
+      padding:42px 20px 24px;
+      text-align:center;
+      background:linear-gradient(180deg, rgba(255,255,255,.04), transparent);
+      border-bottom:1px solid rgba(255,255,255,.08);
+      position:sticky;
+      top:0;
+      backdrop-filter: blur(10px);
+      z-index:20;
+    }
+    header h1{margin:0;font-size:clamp(1.6rem,3vw,2.6rem);line-height:1.15}
+    header p{max-width:980px;margin:10px auto 0;color:var(--muted)}
+    .nav{
+      display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin-top:16px;
+    }
+    .nav a,.btn{
+      text-decoration:none;color:var(--text);padding:10px 14px;border-radius:999px;
+      border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.05);
+      transition:.25s transform,.25s background,.25s border-color;cursor:pointer;
+    }
+    .nav a:hover,.btn:hover{transform:translateY(-2px);background:rgba(255,255,255,.09);border-color:rgba(110,231,255,.4)}
+    main{max-width:1200px;margin:0 auto;padding:24px 18px 60px}
+    .grid{display:grid;gap:22px}
+    .hero{grid-template-columns:1.2fr .9fr;align-items:stretch}
+    @media(max-width:900px){.hero{grid-template-columns:1fr}}
+    .card{
+      background:linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.02));
+      border:1px solid rgba(255,255,255,.08);
+      border-radius:var(--radius);
+      box-shadow:var(--shadow);
+      overflow:hidden;
+    }
+    .card .content{padding:22px}
+    h2,h3{line-height:1.2;margin-top:0}
+    .tag{
+      display:inline-block;padding:6px 10px;border-radius:999px;
+      background:rgba(110,231,255,.14);color:var(--accent);font-size:.9rem;font-weight:700;
+      letter-spacing:.02em;
+    }
+    .muted{color:var(--muted)}
+    .diagram-wrap{padding:10px 18px 18px;background:linear-gradient(180deg, rgba(110,231,255,.05), transparent)}
+    svg{max-width:100%;height:auto;display:block}
+    .legend{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:14px}
+    @media(max-width:700px){.legend{grid-template-columns:1fr}}
+    .mini{
+      padding:12px 14px;border-radius:18px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);
+    }
+    .hotspot{cursor:pointer;transition:transform .2s ease, filter .2s ease}
+    .hotspot:hover{transform:scale(1.02);filter:drop-shadow(0 0 14px rgba(110,231,255,.28))}
+    #infoBox{
+      min-height:135px;background:rgba(255,255,255,.03);border:1px dashed rgba(255,255,255,.14);
+      border-radius:18px;padding:16px;margin-top:16px;
+    }
+    .cols{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+    @media(max-width:900px){.cols{grid-template-columns:1fr}}
+    .note{border-left:4px solid var(--accent);padding-left:12px}
+    .accordion .item{border-top:1px solid rgba(255,255,255,.09)}
+    .accordion button{
+      width:100%;text-align:left;background:none;color:var(--text);border:none;padding:18px 0;font-size:1rem;font-weight:700;cursor:pointer;
+    }
+    .accordion .panel{display:none;padding:0 0 18px;color:var(--muted)}
+    .accordion .item.active .panel{display:block}
+    .collage{
+      display:grid;grid-template-columns:1.1fr .9fr .9fr;gap:16px;
+      padding:6px;
+    }
+    @media(max-width:980px){.collage{grid-template-columns:1fr}}
+    .tile{
+      padding:18px;border-radius:22px;background:linear-gradient(180deg, rgba(139,92,246,.16), rgba(255,255,255,.03));
+      border:1px solid rgba(255,255,255,.08);min-height:160px;position:relative;overflow:hidden;
+    }
+    .tile::after{
+      content:"";position:absolute;inset:auto -60px -60px auto;width:150px;height:150px;border-radius:50%;
+      background:radial-gradient(circle, rgba(110,231,255,.18), transparent 65%);
+      pointer-events:none;
+    }
+    .tile h4{margin:0 0 8px}
+    .tile ul{padding-left:18px;margin:10px 0 0}
+    .centerpiece{
+      background:linear-gradient(180deg, rgba(52,211,153,.13), rgba(255,255,255,.03));
+      border:1px solid rgba(255,255,255,.1);
+    }
+    .server{
+      margin-top:14px;padding:14px;border-radius:18px;background:rgba(7,12,26,.8);border:1px solid rgba(255,255,255,.08)
+    }
+    .server .bar{height:12px;border-radius:999px;background:rgba(255,255,255,.08);overflow:hidden;margin:10px 0}
+    .server .fill{height:100%;background:linear-gradient(90deg,var(--accent),var(--accent2));width:68%;border-radius:999px}
+    .steps{counter-reset:step}
+    .steps li{list-style:none;position:relative;padding-left:52px;margin:18px 0}
+    .steps li::before{
+      counter-increment:step;content:counter(step);position:absolute;left:0;top:0;width:34px;height:34px;border-radius:50%;display:grid;place-items:center;
+      background:linear-gradient(135deg,var(--accent),var(--accent2));color:#03121c;font-weight:900;
+    }
+    .simulator{display:grid;grid-template-columns:1fr .9fr;gap:18px}
+    @media(max-width:900px){.simulator{grid-template-columns:1fr}}
+    .range-wrap{margin:16px 0}
+    input[type=range]{width:100%}
+    .result{
+      padding:18px;border-radius:22px;background:linear-gradient(180deg, rgba(251,191,36,.12), rgba(255,255,255,.03));border:1px solid rgba(255,255,255,.08)
+    }
+    .pillars{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin-top:20px}
+    @media(max-width:700px){.pillars{grid-template-columns:1fr}}
+    .pillars .mini strong{display:block;margin-bottom:6px}
+    .pillars-title{margin-top:22px;margin-bottom:8px}
+    footer{text-align:center;color:var(--muted);padding:24px 10px 38px}
+    .download{display:flex;gap:12px;flex-wrap:wrap;margin-top:10px}
+    .kbd{font-family:Consolas, monospace;font-size:.92rem;background:rgba(255,255,255,.06);padding:4px 8px;border-radius:8px}
+  </style>
+</head>
+<body>
+  <header>
+    
+    <h1>Arquetipo sistémico 1:<br>Compensación entre proceso y demora</h1>
+    <nav class="nav">
+      <a href="#diseno">Diseño mejorado</a>
+      <a href="#quees">Qué es</a>
+      <a href="#aplicacion">Aplicación</a>
+      <a href="#ejemplo">Mega ejemplo</a>
+      <a href="#simulador">Simulador</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="grid hero" id="diseno">
+      <article class="card">
+        
+        <div class="diagram-wrap">
+          <svg viewBox="0 0 900 540" aria-label="Diagrama interactivo de compensación entre proceso y demora">
+            <defs>
+              <linearGradient id="g1" x1="0" x2="1">
+                <stop offset="0%" stop-color="#6ee7ff"/>
+                <stop offset="100%" stop-color="#8b5cf6"/>
+              </linearGradient>
+              <linearGradient id="g2" x1="0" x2="1">
+                <stop offset="0%" stop-color="#34d399"/>
+                <stop offset="100%" stop-color="#6ee7ff"/>
+              </linearGradient>
+              <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+                <feDropShadow dx="0" dy="10" stdDeviation="10" flood-color="#000" flood-opacity=".35"/>
+              </filter>
+              <marker id="arrow" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto">
+                <path d="M0,0 L12,6 L0,12 z" fill="#8bd8ff"/>
+              </marker>
+            </defs>
+            <rect x="25" y="25" width="850" height="490" rx="28" fill="rgba(255,255,255,0.03)" stroke="rgba(255,255,255,0.09)"/>
+            <path d="M210 140 C360 40, 560 40, 700 140" stroke="url(#g1)" stroke-width="8" fill="none" marker-end="url(#arrow)" stroke-linecap="round"/>
+            <path d="M700 390 C540 500, 350 500, 210 390" stroke="url(#g2)" stroke-width="8" fill="none" marker-end="url(#arrow)" stroke-linecap="round"/>
+            <g class="hotspot" data-title="Condiciones reales" data-text="Representan la situación actual del sistema. En una empresa o en un proyecto de software, pueden ser datos reales como tiempos de respuesta, errores, carga del servidor o avance real del trabajo.">
+              <rect x="260" y="85" width="380" height="110" rx="26" fill="#1b2a55" stroke="#74e4ff" stroke-width="3" filter="url(#shadow)"/>
+              <text x="450" y="128" fill="#fff" font-size="34" font-weight="900" text-anchor="middle">CONDICIONES</text>
+              <text x="450" y="164" fill="#b6f2ff" font-size="34" font-weight="900" text-anchor="middle">REALES</text>
+            </g>
+            <g class="hotspot" data-title="Acción correctiva" data-text="Es la respuesta que se toma para acercar la realidad a la meta deseada. Puede ser aumentar recursos, cambiar una estrategia, hacer optimizaciones o corregir procesos.">
+              <rect x="285" y="345" width="330" height="110" rx="26" fill="#17213f" stroke="#7ee8c5" stroke-width="3" filter="url(#shadow)"/>
+              <text x="450" y="390" fill="#fff" font-size="32" font-weight="900" text-anchor="middle">ACCIÓN</text>
+              <text x="450" y="426" fill="#bff8e9" font-size="32" font-weight="900" text-anchor="middle">CORRECTIVA</text>
+            </g>
+            <g class="hotspot" data-title="Demora" data-text="La demora es el tiempo que tarda la acción correctiva en reflejarse en las condiciones reales. Si no la consideramos, podemos reaccionar de más o pensar erróneamente que nada está funcionando.">
+              <rect x="72" y="240" width="170" height="74" rx="18" fill="#2a183a" stroke="#f8b4ff" stroke-width="3" filter="url(#shadow)"/>
+              <text x="157" y="287" fill="#fff" font-size="30" font-weight="900" text-anchor="middle">DEMORA</text>
+            </g>
+            <g>
+              <line x1="250" y1="120" x2="260" y2="120" stroke="#fff" stroke-width="2" opacity=".4"/>
+              <line x1="250" y1="160" x2="260" y2="160" stroke="#fff" stroke-width="2" opacity=".4"/>
+              <line x1="615" y1="120" x2="640" y2="120" stroke="#fff" stroke-width="2" opacity=".4"/>
+              <line x1="615" y1="160" x2="640" y2="160" stroke="#fff" stroke-width="2" opacity=".4"/>
+            </g>
+            <g transform="translate(350,227)">
+              <rect x="0" y="0" width="200" height="18" rx="8" fill="#dce7ff"/>
+              <rect x="-5" y="-34" width="42" height="34" fill="#dce7ff" stroke="#a9b9dd" stroke-width="3"/>
+              <rect x="162" y="-34" width="42" height="34" fill="#dce7ff" stroke="#a9b9dd" stroke-width="3"/>
+              <polygon points="100,18 128,72 72,72" fill="#77809d"/>
+            </g>
+            <text x="450" y="286" fill="#d8dff1" font-size="24" text-anchor="middle">El sistema busca equilibrio, pero responde con retraso</text>
+          </svg>
+          <div id="infoBox">
+            <strong>Tip interactivo:</strong> da clic en <em>Condiciones reales</em>, <em>Acción correctiva</em> o <em>Demora</em> para ver su explicación.
+          </div>
+          <div class="legend">
+            <div class="mini"><strong>Objetivo del arquetipo</strong><br>Explicar por qué reaccionamos de más cuando los resultados tardan en aparecer.</div>
+            <div class="mini"><strong>Problema típico</strong><br>Se aplican correcciones repetidas antes de que la primera tenga tiempo de funcionar.</div>
+            <div class="mini"><strong>Consecuencia</strong><br>Se generan sobreajustes, inestabilidad o frustración.</div>
+          </div>
+          <h3 class="pillars-title">Ideas clave del arquetipo</h3>
+          <div class="pillars">
+            <div class="mini"><strong>Descripción</strong>Respuesta a una meta con realimentación demorada.</div>
+            <div class="mini"><strong>Advertencia</strong>“Creíamos estar en equilibrio, pero nos excedimos”.</div>
+            <div class="mini"><strong>Principio</strong>En sistemas lentos, la agresividad crea inestabilidad.</div>
+            <div class="mini"><strong>Clave</strong>Ser paciente o acelerar la capacidad de respuesta del sistema.</div>
+          </div>
+        </div>
+      </article>
+
+      <article class="card" id="quees">
+        <div class="content">
+          <h2>¿Qué es?</h2>
+          <p><strong>Compensación entre proceso y demora</strong> es un arquetipo sistémico que aparece cuando una persona, grupo u organización intenta corregir una situación, pero los resultados tardan en verse. Como no se percibe el cambio de inmediato, se toman más acciones correctivas de las necesarias o se abandona la estrategia antes de tiempo.</p>
+          <p class="note"><strong>En palabras simples:</strong> corriges algo, pero como el sistema responde lento, piensas que no funcionó y vuelves a corregir… hasta descontrolarlo.</p>
+          <div class="accordion" style="margin-top:18px">
+            <div class="item active">
+              <button type="button">¿Por qué sucede?</button>
+              <div class="panel">Porque solemos evaluar el sistema con base en resultados inmediatos. Cuando no vemos mejoras rápidas, asumimos que la acción no sirve, aunque el sistema todavía esté procesando el cambio.</div>
+            </div>
+            <div class="item">
+              <button type="button">¿Qué lo empeora?</button>
+              <div class="panel">La prisa, la presión por resultados, la mala lectura de métricas y la falta de comprensión sobre los tiempos reales de respuesta.</div>
+            </div>
+            <div class="item">
+              <button type="button">¿Cómo evitarlo?</button>
+              <div class="panel">Diseñando indicadores adecuados, definiendo ventanas de observación realistas, y diferenciando entre una respuesta lenta y una respuesta inexistente.</div>
+            </div>
+          </div>
+        </div>
+      </article>
+    </section>
+
+    <section class="card" id="aplicacion" style="margin-top:22px">
+      <div class="content">
+        <span class="tag">Aplicación</span>
+        <h2>¿Cómo se aplica este arquetipo?</h2>
+        <div class="cols">
+          <div>
+            <h3>1) Identificar la meta</h3>
+            <p class="muted">Primero se define qué se quiere equilibrar o mejorar: rendimiento, calidad, tiempos de entrega, satisfacción del usuario, etc.</p>
+          </div>
+          <div>
+            <h3>2) Detectar la acción correctiva</h3>
+            <p class="muted">Se observa qué medidas se toman para corregir el problema: aumentar recursos, cambiar procesos, reconfigurar un sistema, capacitar personas o corregir código.</p>
+          </div>
+          <div>
+            <h3>3) Reconocer la demora</h3>
+            <p class="muted">Aquí está la parte más importante: ¿cuánto tarda realmente la corrección en mostrar resultados? Si no se sabe, se puede sobreajustar el sistema.</p>
+          </div>
+        </div>
+        <ol class="steps">
+          <li><strong>Medir el estado actual</strong>: usar indicadores reales, no suposiciones.</li>
+          <li><strong>Aplicar una corrección razonable</strong>: evitar cambios impulsivos o extremos.</li>
+          <li><strong>Esperar el tiempo de respuesta del sistema</strong>: respetar la demora.</li>
+          <li><strong>Volver a medir</strong>: comparar datos antes y después.</li>
+          <li><strong>Ajustar con base en evidencia</strong>: no con ansiedad o presión.</li>
+        </ol>
+      </div>
+    </section>
+
+    <section class="card" id="ejemplo" style="margin-top:22px">
+      <div class="content">
+        <span class="tag">Mega ejemplo del área de informática</span>
+        <h2>Tipo collage: plataforma web universitaria con lentitud</h2>
+        <p class="muted">Ejemplo pensado para el área de informática: una plataforma web usada por estudiantes comienza a ponerse lenta en épocas de inscripción y entrega de tareas.</p>
+        <div class="collage">
+          <div class="tile centerpiece">
+            <h4>Escenario central</h4>
+            <p>Una aplicación web universitaria presenta tiempos de respuesta altos. El equipo de soporte empieza a recibir quejas, y el área técnica intenta corregir el problema rápidamente.</p>
+            <div class="server">
+              <strong>Dashboard del sistema</strong>
+              <div class="bar"><div class="fill" style="width:84%"></div></div>
+              <small>CPU alta / Respuesta lenta / Muchas peticiones simultáneas</small>
+              <div class="bar"><div class="fill" style="width:72%"></div></div>
+              <small>Errores intermitentes al cargar materias y tareas</small>
+            </div>
+          </div>
+          <div class="tile">
+            <h4>¿Qué es en este caso?</h4>
+            <p>El equipo quiere mejorar el rendimiento, pero cada optimización tarda tiempo en desplegarse, monitorearse y reflejarse en métricas reales.</p>
+            <ul>
+              <li>Meta: bajar el tiempo de respuesta.</li>
+              <li>Condición real: el sistema sigue lento.</li>
+              <li>Acción correctiva: optimizar base de datos o escalar servidores.</li>
+            </ul>
+          </div>
+          <div class="tile">
+            <h4>Aplicación</h4>
+            <p>Se aplica el arquetipo para entender que no conviene lanzar correcciones en cadena sin esperar evidencia del efecto de cada una.</p>
+            <ul>
+              <li>Se mide antes de intervenir.</li>
+              <li>Se aplica una mejora por iteración.</li>
+              <li>Se monitorea con una ventana de tiempo definida.</li>
+            </ul>
+          </div>
+          <div class="tile">
+            <h4>Demora</h4>
+            <p>La mejora no se ve al instante porque:</p>
+            <ul>
+              <li>El despliegue tarda.</li>
+              <li>La caché tarda en estabilizarse.</li>
+              <li>Las métricas requieren tráfico suficiente para validarse.</li>
+              <li>El horario pico todavía no termina.</li>
+            </ul>
+          </div>
+          <div class="tile">
+            <h4>Error común</h4>
+            <p>Como no se ven resultados en 15 minutos, el equipo:</p>
+            <ul>
+              <li>vuelve a tocar el servidor,</li>
+              <li>cambia parámetros de la base de datos,</li>
+              <li>aumenta recursos de forma exagerada,</li>
+              <li>o deshace una mejora que sí iba a funcionar.</li>
+            </ul>
+          </div>
+          <div class="tile">
+            <h4>Resultado final</h4>
+            <p>El sistema entra en inestabilidad: suben los costos, se mezclan cambios, se vuelve difícil saber qué funcionó y qué no, y el problema puede empeorar.</p>
+            <ul>
+              <li>Más complejidad.</li>
+              <li>Mayor riesgo de fallos.</li>
+              <li>Menor claridad para diagnosticar.</li>
+            </ul>
+          </div>
+          <div class="tile">
+            <h4>Buena práctica</h4>
+            <p>Aplicar correcciones controladas y esperar la respuesta del sistema.</p>
+            <ul>
+              <li>Definir hipótesis.</li>
+              <li>Usar métricas base.</li>
+              <li>Monitorear por periodos reales.</li>
+              <li>Documentar cada cambio.</li>
+            </ul>
+          </div>
+          <div class="tile">
+            <h4>Ejemplo redactado</h4>
+            <p><strong>Ejemplo:</strong> En una plataforma escolar, el equipo detecta lentitud y decide optimizar consultas SQL. Como en una hora no cambia mucho la percepción de los usuarios, agregan servidores y cambian la configuración del balanceador. Horas después el sistema responde de manera irregular y es difícil identificar la causa. El problema no era la falta de acción, sino no respetar la demora natural entre la corrección y sus efectos.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="card" id="simulador" style="margin-top:22px">
+      <div class="content">
+        <span class="tag">Interactividad</span>
+        <h2>Mini simulador de interpretación</h2>
+        <div class="simulator">
+          <div>
+            <p class="muted">Mueve los controles para ver cómo cambia el riesgo de sobrecorrección.</p>
+            <div class="range-wrap">
+              <label for="delay"><strong>Demora del sistema</strong> <span id="delayVal" class="kbd">6</span></label>
+              <input type="range" id="delay" min="1" max="10" value="6">
+            </div>
+            <div class="range-wrap">
+              <label for="agresividad"><strong>Agresividad de la corrección</strong> <span id="agresividadVal" class="kbd">7</span></label>
+              <input type="range" id="agresividad" min="1" max="10" value="7">
+            </div>
+            <div class="range-wrap">
+              <label for="observacion"><strong>Tiempo de observación antes de volver a actuar</strong> <span id="observacionVal" class="kbd">3</span></label>
+              <input type="range" id="observacion" min="1" max="10" value="3">
+            </div>
+          </div>
+          <div class="result" id="simResult">
+            <h3>Resultado</h3>
+            <p>Ajusta los controles para obtener una interpretación.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="card" style="margin-top:22px">
+      <div class="content">
+        <h2>Conclusión breve</h2>
+        <p>Este arquetipo enseña que no todo problema debe corregirse con rapidez extrema. En informática, muchas mejoras requieren tiempo para mostrar resultados. Si el equipo desconoce esa demora, puede sobreajustar el sistema y empeorar lo que quería resolver.</p>
+        
+         
+        </div>
+      </div>
+    </section>
+  </main>
+
+  
+
+  <script>
+    const infoBox = document.getElementById('infoBox');
+    document.querySelectorAll('.hotspot').forEach(el => {
+      el.addEventListener('click', () => {
+        infoBox.innerHTML = `<h3 style="margin-top:0">${el.dataset.title}</h3><p style="margin-bottom:0">${el.dataset.text}</p>`;
+      });
+    });
+
+    document.querySelectorAll('.accordion .item button').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const item = btn.parentElement;
+        item.classList.toggle('active');
+      });
+    });
+
+    const delay = document.getElementById('delay');
+    const agresividad = document.getElementById('agresividad');
+    const observacion = document.getElementById('observacion');
+    const result = document.getElementById('simResult');
+
+    function updateSim(){
+      document.getElementById('delayVal').textContent = delay.value;
+      document.getElementById('agresividadVal').textContent = agresividad.value;
+      document.getElementById('observacionVal').textContent = observacion.value;
+
+      const d = Number(delay.value);
+      const a = Number(agresividad.value);
+      const o = Number(observacion.value);
+
+      const riesgo = (d * a) - (o * 1.7);
+      let nivel = '';
+      let consejo = '';
+
+      if(riesgo <= 8){
+        nivel = 'Bajo';
+        consejo = 'Tu estrategia es relativamente estable. La observación es suficiente para no precipitar nuevas correcciones.';
+      }else if(riesgo <= 20){
+        nivel = 'Medio';
+        consejo = 'Existe posibilidad de sobrecorrección. Conviene documentar cambios y esperar más evidencia antes de volver a intervenir.';
+      }else{
+        nivel = 'Alto';
+        consejo = 'Hay alto riesgo de inestabilidad: la demora es considerable, la respuesta es agresiva y el tiempo de observación es corto.';
+      }
+
+      result.innerHTML = `
+        <h3>Resultado: riesgo ${nivel}</h3>
+        <p><strong>Lectura:</strong> demora = <strong>${d}</strong>, agresividad = <strong>${a}</strong>, observación = <strong>${o}</strong>.</p>
+        <p>${consejo}</p>
+        <p class="muted" style="margin-bottom:0"><strong>Interpretación académica:</strong> cuanto más lenta sea la respuesta del sistema y más impulsiva sea la corrección, mayor será la probabilidad de tomar decisiones excesivas.</p>
+      `;
+    }
+
+    [delay,agresividad,observacion].forEach(input => input.addEventListener('input', updateSim));
+    updateSim();
+  </script>
+</body>
+</html>
