@@ -4,6 +4,18 @@
   "sobreMi": "Estudiante de Ingeniería de Software en la UAQ. Me gusta crear software, la inteligencia artificial y tocar guitarra y piano.",
   "actividades": [
     {
+      "id": "act00-menu",
+      "titulo": "Menú de actividades",
+      "descripcion": "Todas mis actividades del semestre en un solo lugar, ordenadas por parcial y con buscador.",
+      "tipo": "web",
+      "tecnologias": [
+        "HTML",
+        "CSS",
+        "JavaScript"
+      ],
+      "ruta": "actividades/index.html"
+    },
+    {
       "id": "act01-7-habitos",
       "titulo": "Los 7 hábitos de los adolescentes altamente efectivos",
       "descripcion": "Introducción, sopa de letras, autor (Sean Covey) y collage.",
