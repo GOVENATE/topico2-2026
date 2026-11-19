@@ -1,0 +1,1110 @@
+<!DOCTYPE html>
+<html lang="es" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistemas & Creatividad - Proyecto Integrador</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            50: '#f0fdf4',
+                            500: '#22c55e',
+                            600: '#16a34a',
+                            dark: '#0B0F19',
+                            card: '#111827',
+                            border: '#1F2937',
+                            accent: '#6366F1',
+                            neonCyan: '#06B6D4',
+                            neonPurple: '#A855F7',
+                            neonPink: '#EC4899',
+                            amber: '#F59E0B'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- FontAwesome & Phosphor Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #090D16;
+            color: #F3F4F6;
+            overflow-x: hidden;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0B0F19;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #1F2937;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #374151;
+        }
+
+        /* Glassmorphism Card Style */
+        .glass-card {
+            background: rgba(17, 24, 39, 0.75);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .glass-card-hover {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .glass-card-hover:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 24px -10px rgba(99, 102, 241, 0.25);
+            border-color: rgba(99, 102, 241, 0.4);
+        }
+
+        /* Animated Pulse Line */
+        @keyframes flowLine {
+            0% { stroke-dashoffset: 100; }
+            100% { stroke-dashoffset: 0; }
+        }
+        .animated-line {
+            stroke-dasharray: 8;
+            animation: flowLine 2s linear infinite;
+        }
+
+        /* Instagram Story Border Gradient */
+        .insta-story-ring {
+            background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+            padding: 3px;
+            border-radius: 9999px;
+        }
+
+        /* Hide Scrollbars in Feed horizontal */
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+
+        /* Pulse glow animation */
+        @keyframes pulseGlow {
+            0%, 100% { opacity: 0.4; transform: scale(1); }
+            50% { opacity: 0.8; transform: scale(1.05); }
+        }
+        .pulse-glow {
+            animation: pulseGlow 4s ease-in-out infinite;
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col antialiased selection:bg-brand-accent selection:text-white pb-20 md:pb-6">
+
+    <!-- TOP NAVIGATION BAR -->
+    <header class="sticky top-0 z-50 glass-card border-b border-gray-800/80 px-4 py-3">
+        <div class="max-w-7xl mx-auto flex items-center justify-between">
+            <!-- Brand Logo -->
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-brand-accent via-brand-neonPurple to-brand-neonPink flex items-center justify-center shadow-lg shadow-indigo-500/30">
+                    <i class="fa-solid fa-diagram-project text-white text-xl"></i>
+                </div>
+                <div>
+                    <h1 class="font-bold text-lg leading-tight bg-gradient-to-r from-white via-gray-200 to-gray-400 bg-clip-text text-transparent">
+                        Sistemas & Creatividad
+                    </h1>
+                    <span class="text-xs text-brand-neonCyan font-medium flex items-center gap-1">
+                        <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+                        Proyecto Integrador • 2026
+                    </span>
+                </div>
+            </div>
+
+            <!-- Hub Switcher Dropdown & Group Select -->
+            <div class="hidden md:flex items-center gap-3">
+                <div class="relative inline-block text-left">
+                    <button id="groupSelectorBtn" onclick="toggleGroupMenu()" class="glass-card hover:bg-gray-800 text-sm px-3.5 py-2 rounded-xl flex items-center gap-2 border border-gray-700 transition-all">
+                        <i class="fa-solid fa-users text-brand-neonPurple"></i>
+                        <span id="currentGroupLabel" class="font-medium">Grupo Actual: G-31</span>
+                        <i class="fa-solid fa-chevron-down text-xs text-gray-400"></i>
+                    </button>
+                    <!-- Group Dropdown -->
+                    <div id="groupDropdown" class="hidden absolute right-0 mt-2 w-56 glass-card rounded-xl shadow-2xl border border-gray-700 py-2 z-50">
+                        <div class="px-3 py-1.5 text-xs text-gray-400 font-semibold uppercase tracking-wider">Cambiar de Grupo/Equipo</div>
+                        <button onclick="switchGroup('G-31')" class="w-full text-left px-3 py-2 text-sm hover:bg-indigo-600/20 hover:text-indigo-400 flex items-center justify-between">
+                            <span>Grupo 31 (Principal)</span>
+                            <i class="fa-solid fa-check text-indigo-400 text-xs"></i>
+                        </button>
+                        <button onclick="switchGroup('Salvador')" class="w-full text-left px-3 py-2 text-sm hover:bg-indigo-600/20 hover:text-indigo-400 flex items-center justify-between">
+                            <span>Equipo Salvador</span>
+                        </button>
+                        <button onclick="switchGroup('G-32')" class="w-full text-left px-3 py-2 text-sm hover:bg-indigo-600/20 hover:text-indigo-400 flex items-center justify-between">
+                            <span>Grupo 32 (Exposiciones)</span>
+                        </button>
+                    </div>
+                </div>
+
+                <a href="#hubSection" class="px-3.5 py-2 rounded-xl bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-500 hover:to-purple-500 text-sm font-semibold text-white shadow-lg shadow-indigo-500/20 transition-all flex items-center gap-2">
+                    <i class="fa-solid fa-globe"></i>
+                    <span>Navegar Hub Global</span>
+                </a>
+            </div>
+
+            <!-- Mobile Group Switch Trigger -->
+            <button onclick="toggleGroupMenu()" class="md:hidden glass-card p-2 rounded-xl border border-gray-700">
+                <i class="fa-solid fa-sliders text-brand-neonPurple"></i>
+            </button>
+        </div>
+    </header>
+
+    <!-- MAIN APP CONTAINER -->
+    <main class="max-w-7xl mx-auto px-4 py-6 flex-grow space-y-10">
+
+        <!-- HERO BANNER -->
+        <section class="relative rounded-3xl overflow-hidden p-6 md:p-10 glass-card border border-indigo-500/20 shadow-2xl">
+            <div class="absolute -top-24 -right-24 w-96 h-96 bg-brand-accent/20 rounded-full blur-3xl pulse-glow pointer-events-none"></div>
+            <div class="absolute -bottom-24 -left-24 w-96 h-96 bg-brand-neonPurple/20 rounded-full blur-3xl pulse-glow pointer-events-none"></div>
+
+            <div class="relative z-10 max-w-3xl space-y-4">
+                <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-indigo-500/10 border border-indigo-500/30 text-indigo-300 text-xs font-semibold tracking-wide uppercase">
+                    <i class="fa-solid fa-microchip"></i> Pensamiento Sistémico & Innovación TI
+                </div>
+                <h2 class="text-3xl md:text-5xl font-black tracking-tight leading-tight">
+                    Plataforma Integradora de <span class="bg-gradient-to-r from-indigo-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">Arquetipos & Creatividad</span>
+                </h2>
+                <p class="text-gray-300 text-sm md:text-base leading-relaxed">
+                    Un entorno visual interactivo diseñado para analizar las dinámicas complejas del software, comprender la retroalimentación de los sistemas y transformar las exposiciones académicas en experiencias dinámicas estilo Netflix / Instagram.
+                </p>
+
+                <!-- Stats Bar -->
+                <div class="pt-4 grid grid-cols-2 sm:grid-cols-4 gap-4 border-t border-gray-800">
+                    <div>
+                        <div class="text-xs text-gray-400 uppercase font-semibold">Arquetipos</div>
+                        <div class="text-xl md:text-2xl font-bold text-brand-neonCyan">10 Modelo</div>
+                    </div>
+                    <div>
+                        <div class="text-xs text-gray-400 uppercase font-semibold">Exposiciones</div>
+                        <div class="text-xl md:text-2xl font-bold text-brand-neonPurple">5 Productos</div>
+                    </div>
+                    <div>
+                        <div class="text-xs text-gray-400 uppercase font-semibold">Casos TI</div>
+                        <div class="text-xl md:text-2xl font-bold text-emerald-400">100% Reales</div>
+                    </div>
+                    <div>
+                        <div class="text-xs text-gray-400 uppercase font-semibold">Teoría Clave</div>
+                        <div class="text-xl md:text-2xl font-bold text-brand-amber">Senge & Goldberg</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- NAVIGATION TABS -->
+        <nav class="flex items-center gap-2 border-b border-gray-800 pb-2 overflow-x-auto no-scrollbar">
+            <button onclick="switchTab('arquetipos')" id="tab-arquetipos" class="tab-btn px-5 py-2.5 rounded-xl font-semibold text-sm whitespace-nowrap transition-all flex items-center gap-2 bg-indigo-600 text-white shadow-lg shadow-indigo-600/30">
+                <i class="fa-solid fa-chart-network"></i>
+                <span>Arquetipos Sistémicos (TI)</span>
+            </button>
+            <button onclick="switchTab('exposiciones')" id="tab-exposiciones" class="tab-btn px-5 py-2.5 rounded-xl font-semibold text-sm whitespace-nowrap transition-all flex items-center gap-2 bg-gray-800/80 text-gray-300 hover:bg-gray-700">
+                <i class="fa-solid fa-layer-group text-brand-neonPink"></i>
+                <span>Feed Exposiciones (5 Caps)</span>
+            </button>
+            <button onclick="switchTab('libros')" id="tab-libros" class="tab-btn px-5 py-2.5 rounded-xl font-semibold text-sm whitespace-nowrap transition-all flex items-center gap-2 bg-gray-800/80 text-gray-300 hover:bg-gray-700">
+                <i class="fa-solid fa-book-open text-brand-amber"></i>
+                <span>Resumen Libros & Teoría</span>
+            </button>
+            <button onclick="switchTab('hub')" id="tab-hub" class="tab-btn px-5 py-2.5 rounded-xl font-semibold text-sm whitespace-nowrap transition-all flex items-center gap-2 bg-gray-800/80 text-gray-300 hover:bg-gray-700">
+                <i class="fa-solid fa-sitemap text-brand-neonCyan"></i>
+                <span>Menú General (Hub)</span>
+            </button>
+        </nav>
+
+        <!-- SECTION 1: ARQUETIPOS SISTÉMICOS (Dinamico e interactivo) -->
+        <section id="section-arquetipos" class="space-y-8">
+            <div class="flex flex-col md:flex-row md:items-end justify-between gap-4">
+                <div>
+                    <h3 class="text-2xl font-bold text-white flex items-center gap-2">
+                        <i class="fa-solid fa-circle-nodes text-brand-neonCyan"></i>
+                        Arquetipos Sistémicos en Informática & Software
+                    </h3>
+                    <p class="text-gray-400 text-sm mt-1">
+                        A diferencia de los arquetipos psicológicos (que estudian la personalidad individual y el yo), los arquetipos sistémicos son patrones genéricos de comportamiento organizacional que causan problemas recurrentes en sistemas complejos.
+                    </p>
+                </div>
+                <!-- Filter Pills -->
+                <div class="flex items-center gap-2 bg-gray-900/80 p-1.5 rounded-2xl border border-gray-800">
+                    <button onclick="filterArchetypes('all')" class="arch-filter-btn px-3 py-1 rounded-xl text-xs font-semibold bg-indigo-600 text-white">Todos</button>
+                    <button onclick="filterArchetypes('demora')" class="arch-filter-btn px-3 py-1 rounded-xl text-xs font-semibold text-gray-400 hover:text-white">Demoras</button>
+                    <button onclick="filterArchetypes('limite')" class="arch-filter-btn px-3 py-1 rounded-xl text-xs font-semibold text-gray-400 hover:text-white">Límites</button>
+                    <button onclick="filterArchetypes('carga')" class="arch-filter-btn px-3 py-1 rounded-xl text-xs font-semibold text-gray-400 hover:text-white">Desplazamiento</button>
+                </div>
+            </div>
+
+            <!-- Archetypes Grid / Interactive Cards -->
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+
+                <!-- Archetype 1: Compensación de Proceso y Demora -->
+                <div class="arch-card glass-card glass-card-hover rounded-2xl p-6 space-y-5 border-t-4 border-t-cyan-500" data-category="demora">
+                    <div class="flex items-start justify-between">
+                        <span class="px-2.5 py-1 rounded-lg bg-cyan-500/10 text-cyan-400 text-xs font-bold uppercase border border-cyan-500/20">
+                            Arquetipo #1
+                        </span>
+                        <div class="w-9 h-9 rounded-xl bg-cyan-500/20 flex items-center justify-center text-cyan-400 font-bold">
+                            <i class="fa-solid fa-clock-rotate-left"></i>
+                        </div>
+                    </div>
+
+                    <div>
+                        <h4 class="text-xl font-bold text-white">Compensación de Proceso y Demora</h4>
+                        <p class="text-xs text-cyan-300 font-medium mt-0.5">Realimentación demorada & Reacción exagerada</p>
+                    </div>
+
+                    <!-- Diagram Visualizer -->
+                    <div class="bg-gray-900/90 rounded-xl p-4 border border-gray-800 space-y-3 relative overflow-hidden">
+                        <div class="text-xs font-semibold text-gray-400 uppercase tracking-wider flex justify-between">
+                            <span>Bucle de Realimentación</span>
+                            <span class="text-cyan-400 animate-pulse">Demora detectada</span>
+                        </div>
+                        
+                        <!-- Interactive SVG Feedback Loop -->
+                        <div class="flex items-center justify-between text-xs py-2">
+                            <div class="text-center bg-gray-800 p-2 rounded-lg border border-gray-700 w-24">
+                                <i class="fa-solid fa-sliders text-cyan-400 mb-1 block text-base"></i>
+                                Acción Correctiva
+                            </div>
+                            <i class="fa-solid fa-arrow-right-long text-cyan-500 text-lg"></i>
+                            <div class="text-center bg-gray-800 p-2 rounded-lg border border-yellow-500/40 w-20 relative">
+                                <span class="absolute -top-2 -right-1 bg-yellow-500 text-black text-[9px] font-black px-1 rounded">!!</span>
+                                <i class="fa-solid fa-hourglass-half text-yellow-400 mb-1 block text-base animate-bounce"></i>
+                                Demora
+                            </div>
+                            <i class="fa-solid fa-arrow-right-long text-cyan-500 text-lg"></i>
+                            <div class="text-center bg-gray-800 p-2 rounded-lg border border-gray-700 w-24">
+                                <i class="fa-solid fa-bullseye text-emerald-400 mb-1 block text-base"></i>
+                                Resultado Real
+                            </div>
+                        </div>
+
+                        <!-- Interactive Simulator Trigger -->
+                        <div class="bg-gray-950 p-3 rounded-lg border border-gray-800 text-xs space-y-2">
+                            <div class="flex justify-between items-center">
+                                <span class="text-gray-300 font-medium">Simulador: Regadera / Cloud Auto-scaling</span>
+                                <button onclick="simulateShower()" class="px-2 py-1 rounded bg-cyan-600 hover:bg-cyan-500 text-white font-bold text-[10px]">
+                                    Probar Efecto
+                                </button>
+                            </div>
+                            <p id="showerLog" class="text-[11px] text-gray-400 italic">Haz clic para simular la reajustada desesperada.</p>
+                        </div>
+                    </div>
+
+                    <!-- Definition in Own Words -->
+                    <div class="space-y-1.5">
+                        <h5 class="text-xs font-bold uppercase text-gray-400 tracking-wider">Definición en palabras sencillas:</h5>
+                        <p class="text-xs text-gray-300 leading-relaxed bg-gray-900/50 p-3 rounded-xl border border-gray-800">
+                            Ocurre cuando alguien actúa para alcanzar un objetivo pero la respuesta del sistema tarda en verse. Al no notar el efecto de inmediato, la persona hace correcciones desmedidas (pasa de frío a hirviendo), causando oscilaciones caóticas.
+                        </p>
+                    </div>
+
+                    <!-- Real IT Example -->
+                    <div class="space-y-1.5">
+                        <h5 class="text-xs font-bold uppercase text-brand-neonCyan tracking-wider flex items-center gap-1.5">
+                            <i class="fa-solid fa-server"></i> Ejemplo Real en Informática / TI:
+                        </h5>
+                        <div class="bg-indigo-950/30 p-3 rounded-xl border border-indigo-500/20 text-xs text-indigo-200 leading-relaxed">
+                            <strong>Aprovisionamiento de Servidores en la Nube (AWS/Azure):</strong> Ante un pico repentino de tráfico, levantar nuevas instancias tarda 5 minutos (demora). Como el sitio sigue lento, los ingenieros asignan desmedidamente 50 instancias más de golpe. Cuando responden todas, el pico pasó, dejando una factura híper-inflada y servidores desperdiciados.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Archetype 2: Límites del Crecimiento -->
+                <div class="arch-card glass-card glass-card-hover rounded-2xl p-6 space-y-5 border-t-4 border-t-purple-500" data-category="limite">
+                    <div class="flex items-start justify-between">
+                        <span class="px-2.5 py-1 rounded-lg bg-purple-500/10 text-purple-400 text-xs font-bold uppercase border border-purple-500/20">
+                            Arquetipo #2
+                        </span>
+                        <div class="w-9 h-9 rounded-xl bg-purple-500/20 flex items-center justify-center text-purple-400 font-bold">
+                            <i class="fa-solid fa-chart-line-up"></i>
+                        </div>
+                    </div>
+
+                    <div>
+                        <h4 class="text-xl font-bold text-white">Límites del Crecimiento</h4>
+                        <p class="text-xs text-purple-300 font-medium mt-0.5">Aceleración inicial & Freno inesperado</p>
+                    </div>
+
+                    <!-- Diagram Visualizer -->
+                    <div class="bg-gray-900/90 rounded-xl p-4 border border-gray-800 space-y-3">
+                        <div class="text-xs font-semibold text-gray-400 uppercase tracking-wider flex justify-between">
+                            <span>Bucle Reforzador vs Bucle Compensador</span>
+                        </div>
+                        
+                        <div class="grid grid-cols-2 gap-2 text-center text-xs">
+                            <div class="p-2 bg-emerald-950/40 rounded-lg border border-emerald-500/30">
+                                <span class="text-emerald-400 font-bold block mb-1">Crecimiento (+ )</span>
+                                Éxito Viral / Más Usuarios
+                            </div>
+                            <div class="p-2 bg-rose-950/40 rounded-lg border border-rose-500/30">
+                                <span class="text-rose-400 font-bold block mb-1">Límite ( - )</span>
+                                Saturación DB / Cuello Botella
+                            </div>
+                        </div>
+
+                        <!-- Interactive Simulator Trigger -->
+                        <div class="bg-gray-950 p-3 rounded-lg border border-gray-800 text-xs space-y-2">
+                            <div class="flex justify-between items-center">
+                                <span class="text-gray-300 font-medium">Simular Crecimiento Viral de App</span>
+                                <button onclick="simulateAppGrowth()" class="px-2 py-1 rounded bg-purple-600 hover:bg-purple-500 text-white font-bold text-[10px]">
+                                    Lanzar App
+                                </button>
+                            </div>
+                            <div class="w-full bg-gray-800 h-2 rounded-full overflow-hidden">
+                                <div id="growthBar" class="bg-gradient-to-r from-emerald-400 to-rose-500 h-full w-0 transition-all duration-500"></div>
+                            </div>
+                            <p id="growthLog" class="text-[11px] text-gray-400 italic">Estado: Esperando lanzamiento...</p>
+                        </div>
+                    </div>
+
+                    <!-- Definition in Own Words -->
+                    <div class="space-y-1.5">
+                        <h5 class="text-xs font-bold uppercase text-gray-400 tracking-wider">Definición en palabras sencillas:</h5>
+                        <p class="text-xs text-gray-300 leading-relaxed bg-gray-900/50 p-3 rounded-xl border border-gray-800">
+                            Un proceso que empieza con enorme éxito y aceleración, pero que inevitablemente choca contra una limitación física, de recursos o de capacidad estructural que frena en seco el rendimiento o provoca un colapso.
+                        </p>
+                    </div>
+
+                    <!-- Real IT Example -->
+                    <div class="space-y-1.5">
+                        <h5 class="text-xs font-bold uppercase text-brand-neonPurple tracking-wider flex items-center gap-1.5">
+                            <i class="fa-solid fa-database"></i> Ejemplo Real en Informática / TI:
+                        </h5>
+                        <div class="bg-purple-950/30 p-3 rounded-xl border border-purple-500/20 text-xs text-purple-200 leading-relaxed">
+                            <strong>Startup de App Móvil Viral & Base de Datos Unificada:</strong> Una nueva red social crece de 10K a 2M de usuarios en semanas. Sin embargo, no fragmentaron su base de datos principal (Base de datos monolítica = límite). Las consultas se bloquean, los tiempos de carga escalan a 30s y los usuarios abandonan la app en masa.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Archetype 3: Desplazamiento de la Carga -->
+                <div class="arch-card glass-card glass-card-hover rounded-2xl p-6 space-y-5 border-t-4 border-t-pink-500" data-category="carga">
+                    <div class="flex items-start justify-between">
+                        <span class="px-2.5 py-1 rounded-lg bg-pink-500/10 text-pink-400 text-xs font-bold uppercase border border-pink-500/20">
+                            Arquetipo #3
+                        </span>
+                        <div class="w-9 h-9 rounded-xl bg-pink-500/20 flex items-center justify-center text-pink-400 font-bold">
+                            <i class="fa-solid fa-bandage"></i>
+                        </div>
+                    </div>
+
+                    <div>
+                        <h4 class="text-xl font-bold text-white">Desplazamiento de la Carga</h4>
+                        <p class="text-xs text-pink-300 font-medium mt-0.5">Parche rápido vs. Solución fundamental</p>
+                    </div>
+
+                    <!-- Diagram Visualizer -->
+                    <div class="bg-gray-900/90 rounded-xl p-4 border border-gray-800 space-y-3">
+                        <div class="text-xs font-semibold text-gray-400 uppercase tracking-wider flex justify-between">
+                            <span>Síntoma vs Solución Raíz</span>
+                        </div>
+                        
+                        <div class="space-y-2 text-xs">
+                            <div class="p-2 bg-pink-950/40 rounded-lg border border-pink-500/30 flex justify-between items-center">
+                                <span>Solución Sintomática (Atajo)</span>
+                                <span class="text-pink-400 font-bold">Alivio Inmediato</span>
+                            </div>
+                            <div class="p-2 bg-indigo-950/40 rounded-lg border border-indigo-500/30 flex justify-between items-center opacity-60">
+                                <span>Solución Fundamental (Raíz)</span>
+                                <span class="text-indigo-300 font-bold">Atrofiada</span>
+                            </div>
+                        </div>
+
+                        <!-- Interactive Patch Simulator -->
+                        <div class="bg-gray-950 p-3 rounded-lg border border-gray-800 text-xs space-y-2">
+                            <div class="flex justify-between items-center">
+                                <span class="text-gray-300 font-medium">Memory Leak (Fuga de Memoria)</span>
+                                <button onclick="applyPatch()" class="px-2 py-1 rounded bg-pink-600 hover:bg-pink-500 text-white font-bold text-[10px]">
+                                    Aplicar Parche
+                                </button>
+                            </div>
+                            <p id="patchLog" class="text-[11px] text-gray-400 italic">Bug detectado. ¿Qué solución aplicarás?</p>
+                        </div>
+                    </div>
+
+                    <!-- Definition in Own Words -->
+                    <div class="space-y-1.5">
+                        <h5 class="text-xs font-bold uppercase text-gray-400 tracking-wider">Definición en palabras sencillas:</h5>
+                        <p class="text-xs text-gray-300 leading-relaxed bg-gray-900/50 p-3 rounded-xl border border-gray-800">
+                            Frente a un problema complejo, se aplica una "solución fácil o sintomática" que alivia el síntoma rápido pero debilita la capacidad de resolver el problema de fondo a largo plazo, creando una adicción destructiva a las soluciones temporales.
+                        </p>
+                    </div>
+
+                    <!-- Real IT Example -->
+                    <div class="space-y-1.5">
+                        <h5 class="text-xs font-bold uppercase text-brand-neonPink tracking-wider flex items-center gap-1.5">
+                            <i class="fa-solid fa-code-merge"></i> Ejemplo Real en Informática / TI:
+                        </h5>
+                        <div class="bg-pink-950/30 p-3 rounded-xl border border-pink-500/20 text-xs text-pink-200 leading-relaxed">
+                            <strong>Hotfixes Superficiales vs Refactorización de Código:</strong> Un software tiene una fuga de memoria grave. En lugar de auditarlo y refactorizar la arquitectura (solución fundamental), el equipo programa un script que reinicia el servidor en producción a las 3 AM automáticamente (solución sintomática). A la larga, la deuda técnica hace inmanejable el sistema.
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- SECTION 2: EXPOSICIONES EN FEED REELS / INSTAGRAM STYLE -->
+        <section id="section-exposiciones" class="space-y-6 hidden">
+            <div class="flex items-center justify-between">
+                <div>
+                    <h3 class="text-2xl font-bold text-white flex items-center gap-2">
+                        <i class="fa-solid fa-photo-film text-brand-neonPink"></i>
+                        Feed Interactivo de Exposiciones
+                    </h3>
+                    <p class="text-gray-400 text-sm mt-1">
+                        Compilación gráfica estilo Instagram Reels / Netflix con los 5 productos adicionales presentados por los equipos.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Instagram Stories Bar -->
+            <div class="flex items-center gap-4 overflow-x-auto pb-3 no-scrollbar border-b border-gray-800">
+                <div class="flex flex-col items-center gap-1 min-w-[72px] cursor-pointer" onclick="openStoryModal(1)">
+                    <div class="insta-story-ring">
+                        <div class="w-14 h-14 rounded-full bg-gray-900 flex items-center justify-center border-2 border-gray-950">
+                            <i class="fa-solid fa-brain text-indigo-400 text-xl"></i>
+                        </div>
+                    </div>
+                    <span class="text-[11px] text-gray-300 font-medium">Cap 1</span>
+                </div>
+                <div class="flex flex-col items-center gap-1 min-w-[72px] cursor-pointer" onclick="openStoryModal(2)">
+                    <div class="insta-story-ring">
+                        <div class="w-14 h-14 rounded-full bg-gray-900 flex items-center justify-center border-2 border-gray-950">
+                            <i class="fa-solid fa-beer-mug-empty text-amber-400 text-xl"></i>
+                        </div>
+                    </div>
+                    <span class="text-[11px] text-gray-300 font-medium">Cap 2</span>
+                </div>
+                <div class="flex flex-col items-center gap-1 min-w-[72px] cursor-pointer" onclick="openStoryModal(3)">
+                    <div class="insta-story-ring">
+                        <div class="w-14 h-14 rounded-full bg-gray-900 flex items-center justify-center border-2 border-gray-950">
+                            <i class="fa-solid fa-frog text-emerald-400 text-xl"></i>
+                        </div>
+                    </div>
+                    <span class="text-[11px] text-gray-300 font-medium">Cap 3</span>
+                </div>
+                <div class="flex flex-col items-center gap-1 min-w-[72px] cursor-pointer" onclick="openStoryModal(4)">
+                    <div class="insta-story-ring">
+                        <div class="w-14 h-14 rounded-full bg-gray-900 flex items-center justify-center border-2 border-gray-950">
+                            <i class="fa-solid fa-lightbulb text-purple-400 text-xl"></i>
+                        </div>
+                    </div>
+                    <span class="text-[11px] text-gray-300 font-medium">Cap 4</span>
+                </div>
+                <div class="flex flex-col items-center gap-1 min-w-[72px] cursor-pointer" onclick="openStoryModal(5)">
+                    <div class="insta-story-ring">
+                        <div class="w-14 h-14 rounded-full bg-gray-900 flex items-center justify-center border-2 border-gray-950">
+                            <i class="fa-solid fa-head-side-virus text-cyan-400 text-xl"></i>
+                        </div>
+                    </div>
+                    <span class="text-[11px] text-gray-300 font-medium">Cap 5</span>
+                </div>
+            </div>
+
+            <!-- Feed Cards Grid (5 Products) -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+
+                <!-- Post 1 -->
+                <article class="glass-card rounded-2xl overflow-hidden border border-gray-800 flex flex-col justify-between">
+                    <div>
+                        <!-- Header Post -->
+                        <div class="p-4 flex items-center justify-between border-b border-gray-800/60">
+                            <div class="flex items-center gap-3">
+                                <div class="w-9 h-9 rounded-full bg-gradient-to-tr from-indigo-500 to-purple-500 flex items-center justify-center text-white font-bold text-xs">
+                                    E1
+                                </div>
+                                <div>
+                                    <h4 class="text-sm font-bold text-white leading-tight">Equipo 1 • Modelos Mentales</h4>
+                                    <span class="text-[10px] text-gray-400">Exposición en Clase • Tema 1-3</span>
+                                </div>
+                            </div>
+                            <i class="fa-solid fa-ellipsis-vertical text-gray-400"></i>
+                        </div>
+                        <!-- Content Image / Graphics Placeholder -->
+                        <div class="relative bg-gradient-to-br from-indigo-950 via-gray-900 to-purple-950 p-6 flex flex-col items-center justify-center min-h-[200px] text-center border-b border-gray-800">
+                            <i class="fa-solid fa-brain text-5xl text-indigo-400 mb-3 animate-pulse"></i>
+                            <span class="text-xs font-bold uppercase tracking-wider text-indigo-300">Infografía Dinámica</span>
+                            <h5 class="text-lg font-bold text-white mt-1">Las 7 Barreras del Aprendizaje</h5>
+                        </div>
+                        <!-- Caption -->
+                        <div class="p-4 space-y-2">
+                            <p class="text-xs text-gray-300 leading-relaxed">
+                                <strong class="text-white">Resumen:</strong> La ilusión de "Yo soy mi puesto" incapacita la visión global. Cuando las personas solo ven sus tareas inmediatas, culpan siempre al "enemigo externo" ante las fallas del sistema.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="px-4 pb-4 pt-2 flex items-center justify-between text-xs text-gray-400 border-t border-gray-800/40">
+                        <button onclick="toggleLike(this)" class="hover:text-pink-500 transition-colors flex items-center gap-1.5">
+                            <i class="fa-regular fa-heart text-sm"></i>
+                            <span>128 Likes</span>
+                        </button>
+                        <button onclick="openStoryModal(1)" class="text-brand-neonCyan font-semibold hover:underline">
+                            Ver Flash Interactivo →
+                        </button>
+                    </div>
+                </article>
+
+                <!-- Post 2 -->
+                <article class="glass-card rounded-2xl overflow-hidden border border-gray-800 flex flex-col justify-between">
+                    <div>
+                        <div class="p-4 flex items-center justify-between border-b border-gray-800/60">
+                            <div class="flex items-center gap-3">
+                                <div class="w-9 h-9 rounded-full bg-gradient-to-tr from-amber-500 to-red-500 flex items-center justify-center text-white font-bold text-xs">
+                                    E2
+                                </div>
+                                <div>
+                                    <h4 class="text-sm font-bold text-white leading-tight">Equipo 2 • El Juego de la Cerveza</h4>
+                                    <span class="text-[10px] text-gray-400">Exposición en Clase • Tema 4-7</span>
+                                </div>
+                            </div>
+                            <i class="fa-solid fa-ellipsis-vertical text-gray-400"></i>
+                        </div>
+                        <div class="relative bg-gradient-to-br from-amber-950 via-gray-900 to-red-950 p-6 flex flex-col items-center justify-center min-h-[200px] text-center border-b border-gray-800">
+                            <i class="fa-solid fa-truck-ramp-box text-5xl text-amber-400 mb-3"></i>
+                            <span class="text-xs font-bold uppercase tracking-wider text-amber-300">Simulación Sistémica</span>
+                            <h5 class="text-lg font-bold text-white mt-1">Efecto Látigo en Cadenas de Suministro</h5>
+                        </div>
+                        <div class="p-4 space-y-2">
+                            <p class="text-xs text-gray-300 leading-relaxed">
+                                <strong class="text-white">Resumen:</strong> Un pequeño cambio en la demanda del consumidor final genera inventarios gigantescos o escasez destructiva en la fábrica debido a las retrasos de información sin retroalimentación.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="px-4 pb-4 pt-2 flex items-center justify-between text-xs text-gray-400 border-t border-gray-800/40">
+                        <button onclick="toggleLike(this)" class="hover:text-pink-500 transition-colors flex items-center gap-1.5">
+                            <i class="fa-regular fa-heart text-sm"></i>
+                            <span>95 Likes</span>
+                        </button>
+                        <button onclick="openStoryModal(2)" class="text-brand-neonCyan font-semibold hover:underline">
+                            Ver Flash Interactivo →
+                        </button>
+                    </div>
+                </article>
+
+                <!-- Post 3 -->
+                <article class="glass-card rounded-2xl overflow-hidden border border-gray-800 flex flex-col justify-between">
+                    <div>
+                        <div class="p-4 flex items-center justify-between border-b border-gray-800/60">
+                            <div class="flex items-center gap-3">
+                                <div class="w-9 h-9 rounded-full bg-gradient-to-tr from-emerald-500 to-teal-500 flex items-center justify-center text-white font-bold text-xs">
+                                    E3
+                                </div>
+                                <div>
+                                    <h4 class="text-sm font-bold text-white leading-tight">Equipo 3 • La Rana Hervida</h4>
+                                    <span class="text-[10px] text-gray-400">Exposición en Clase • Tema 8-11</span>
+                                </div>
+                            </div>
+                            <i class="fa-solid fa-ellipsis-vertical text-gray-400"></i>
+                        </div>
+                        <div class="relative bg-gradient-to-br from-emerald-950 via-gray-900 to-teal-950 p-6 flex flex-col items-center justify-center min-h-[200px] text-center border-b border-gray-800">
+                            <i class="fa-solid fa-temperature-arrow-up text-5xl text-emerald-400 mb-3"></i>
+                            <span class="text-xs font-bold uppercase tracking-wider text-emerald-300">Metáfora Organizacional</span>
+                            <h5 class="text-lg font-bold text-white mt-1">Incapacidad de Ver Procesos Lentos</h5>
+                        </div>
+                        <div class="p-4 space-y-2">
+                            <p class="text-xs text-gray-300 leading-relaxed">
+                                <strong class="text-white">Resumen:</strong> Si el agua se calienta gradualmente, la rana no percibe la amenaza hasta morir. Las organizaciones suelen ignorar las amenazas lentas de obsolescencia tecnológica.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="px-4 pb-4 pt-2 flex items-center justify-between text-xs text-gray-400 border-t border-gray-800/40">
+                        <button onclick="toggleLike(this)" class="hover:text-pink-500 transition-colors flex items-center gap-1.5">
+                            <i class="fa-regular fa-heart text-sm"></i>
+                            <span>142 Likes</span>
+                        </button>
+                        <button onclick="openStoryModal(3)" class="text-brand-neonCyan font-semibold hover:underline">
+                            Ver Flash Interactivo →
+                        </button>
+                    </div>
+                </article>
+
+                <!-- Post 4 -->
+                <article class="glass-card rounded-2xl overflow-hidden border border-gray-800 flex flex-col justify-between">
+                    <div>
+                        <div class="p-4 flex items-center justify-between border-b border-gray-800/60">
+                            <div class="flex items-center gap-3">
+                                <div class="w-9 h-9 rounded-full bg-gradient-to-tr from-purple-500 to-pink-500 flex items-center justify-center text-white font-bold text-xs">
+                                    E4
+                                </div>
+                                <div>
+                                    <h4 class="text-sm font-bold text-white leading-tight">Equipo 4 • Dominio Personal</h4>
+                                    <span class="text-[10px] text-gray-400">Exposición en Clase • Tema 12-15</span>
+                                </div>
+                            </div>
+                            <i class="fa-solid fa-ellipsis-vertical text-gray-400"></i>
+                        </div>
+                        <div class="relative bg-gradient-to-br from-purple-950 via-gray-900 to-pink-950 p-6 flex flex-col items-center justify-center min-h-[200px] text-center border-b border-gray-800">
+                            <i class="fa-solid fa-bullseye-arrow text-5xl text-purple-400 mb-3"></i>
+                            <span class="text-xs font-bold uppercase tracking-wider text-purple-300">Visión & Tensión Creativa</span>
+                            <h5 class="text-lg font-bold text-white mt-1">Aclarar la Visión Personal</h5>
+                        </div>
+                        <div class="p-4 space-y-2">
+                            <p class="text-xs text-gray-300 leading-relaxed">
+                                <strong class="text-white">Resumen:</strong> La brecha entre la visión deseada y la realidad actual genera "tensión creativa", la fuerza motriz principal para la innovación constante.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="px-4 pb-4 pt-2 flex items-center justify-between text-xs text-gray-400 border-t border-gray-800/40">
+                        <button onclick="toggleLike(this)" class="hover:text-pink-500 transition-colors flex items-center gap-1.5">
+                            <i class="fa-regular fa-heart text-sm"></i>
+                            <span>110 Likes</span>
+                        </button>
+                        <button onclick="openStoryModal(4)" class="text-brand-neonCyan font-semibold hover:underline">
+                            Ver Flash Interactivo →
+                        </button>
+                    </div>
+                </article>
+
+                <!-- Post 5 -->
+                <article class="glass-card rounded-2xl overflow-hidden border border-gray-800 flex flex-col justify-between">
+                    <div>
+                        <div class="p-4 flex items-center justify-between border-b border-gray-800/60">
+                            <div class="flex items-center gap-3">
+                                <div class="w-9 h-9 rounded-full bg-gradient-to-tr from-cyan-500 to-blue-500 flex items-center justify-center text-white font-bold text-xs">
+                                    E5
+                                </div>
+                                <div>
+                                    <h4 class="text-sm font-bold text-white leading-tight">Equipo 5 • Neuro-Creatividad</h4>
+                                    <span class="text-[10px] text-gray-400">Exposición en Clase • Tema 16-19</span>
+                                </div>
+                            </div>
+                            <i class="fa-solid fa-ellipsis-vertical text-gray-400"></i>
+                        </div>
+                        <div class="relative bg-gradient-to-br from-cyan-950 via-gray-900 to-blue-950 p-6 flex flex-col items-center justify-center min-h-[200px] text-center border-b border-gray-800">
+                            <i class="fa-solid fa-dna text-5xl text-cyan-400 mb-3"></i>
+                            <span class="text-xs font-bold uppercase tracking-wider text-cyan-300">Cerebro e Innovación</span>
+                            <h5 class="text-lg font-bold text-white mt-1">Lóbulos Frontales & Novedad</h5>
+                        </div>
+                        <div class="p-4 space-y-2">
+                            <p class="text-xs text-gray-300 leading-relaxed">
+                                <strong class="text-white">Resumen:</strong> Análisis del libro de Goldberg sobre la novedad cognitiva. Cómo los lóbulos frontales rompen patrones para orquestar respuestas originales.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="px-4 pb-4 pt-2 flex items-center justify-between text-xs text-gray-400 border-t border-gray-800/40">
+                        <button onclick="toggleLike(this)" class="hover:text-pink-500 transition-colors flex items-center gap-1.5">
+                            <i class="fa-regular fa-heart text-sm"></i>
+                            <span>180 Likes</span>
+                        </button>
+                        <button onclick="openStoryModal(5)" class="text-brand-neonCyan font-semibold hover:underline">
+                            Ver Flash Interactivo →
+                        </button>
+                    </div>
+                </article>
+
+            </div>
+        </section>
+
+        <!-- SECTION 3: RESUMEN DE LIBROS & TEORÍA -->
+        <section id="section-libros" class="space-y-8 hidden">
+            <div>
+                <h3 class="text-2xl font-bold text-white flex items-center gap-2">
+                    <i class="fa-solid fa-book text-brand-amber"></i>
+                    Fundamentos Teóricos & Síntesis de Lecturas
+                </h3>
+                <p class="text-gray-400 text-sm mt-1">
+                    Análisis conceptual detallado de las dos obras principales del curso.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+
+                <!-- Libro 1: La Quinta Disciplina -->
+                <div class="glass-card rounded-2xl p-6 border border-gray-800 space-y-5">
+                    <div class="flex items-center gap-4">
+                        <div class="w-12 h-12 rounded-xl bg-indigo-600/20 flex items-center justify-center text-indigo-400 text-2xl border border-indigo-500/30">
+                            <i class="fa-solid fa-diagram-nested"></i>
+                        </div>
+                        <div>
+                            <h4 class="text-xl font-bold text-white">La Quinta Disciplina</h4>
+                            <p class="text-xs text-indigo-300 font-medium">Peter Senge • Capítulos 1 al 3 & Arquetipos</p>
+                        </div>
+                    </div>
+
+                    <div class="space-y-4 text-xs text-gray-300">
+                        <!-- Accordion Items -->
+                        <div class="bg-gray-900/80 rounded-xl p-4 border border-gray-800">
+                            <h5 class="font-bold text-white text-sm mb-1 flex items-center gap-2">
+                                <i class="fa-solid fa-triangle-exclamation text-amber-400"></i>
+                                Las 7 Barreras del Aprendizaje
+                            </h5>
+                            <ul class="list-disc pl-4 space-y-1 text-gray-300 mt-2">
+                                <li><strong>Yo soy mi puesto:</strong> Ceguera funcional hacia el propósito del sistema.</li>
+                                <li><strong>El enemigo externo:</strong> Culpar factores ajenos por fallos de estructura interna.</li>
+                                <li><strong>La ilusión de hacerse cargo:</strong> Reactividad disfrazada de proactividad.</li>
+                                <li><strong>Fijación en los hechos:</strong> Reaccionar ante eventos instantáneos e ignorar procesos lentos.</li>
+                                <li><strong>La parábola de la rana hervida:</strong> Incapacidad de percibir amenazas graduales.</li>
+                                <li><strong>La ilusión de aprender con la experiencia:</strong> Cuando las consecuencias son lejanas en el tiempo.</li>
+                                <li><strong>El mito del equipo administrativo:</strong> Falsa cohesión que silencia el debate real.</li>
+                            </ul>
+                        </div>
+
+                        <div class="bg-gray-900/80 rounded-xl p-4 border border-gray-800">
+                            <h5 class="font-bold text-white text-sm mb-1 flex items-center gap-2">
+                                <i class="fa-solid fa-rotate text-cyan-400"></i>
+                                El Juego de la Cerveza (Beer Game)
+                            </h5>
+                            <p class="leading-relaxed">
+                                Demuestra cómo la estructura del sistema (minorista, mayorista, distribuidor, fábrica) genera fluctuaciones extremas de inventario independientemente de la inteligencia individual de los actores.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Libro 2: Creatividad de Elkhonon Goldberg -->
+                <div class="glass-card rounded-2xl p-6 border border-gray-800 space-y-5">
+                    <div class="flex items-center gap-4">
+                        <div class="w-12 h-12 rounded-xl bg-purple-600/20 flex items-center justify-center text-purple-400 text-2xl border border-purple-500/30">
+                            <i class="fa-solid fa-brain"></i>
+                        </div>
+                        <div>
+                            <h4 class="text-xl font-bold text-white">Creatividad: El Cerebro Humano</h4>
+                            <p class="text-xs text-purple-300 font-medium">Elkhonon Goldberg • Era de la Innovación</p>
+                        </div>
+                    </div>
+
+                    <div class="space-y-4 text-xs text-gray-300">
+                        <div class="bg-gray-900/80 rounded-xl p-4 border border-gray-800">
+                            <h5 class="font-bold text-white text-sm mb-1 flex items-center gap-2">
+                                <i class="fa-solid fa-wave-square text-purple-400"></i>
+                                La Curva de la Novedad vs Rutina
+                            </h5>
+                            <p class="leading-relaxed">
+                                El cerebro está dividido entre el procesamiento de la **novedad** (hemisferio derecho y córtex prefrontal) y la gestión de **rutinas consolidadas** (hemisferio izquierdo). La innovación exige salir del piloto automático mental.
+                            </p>
+                        </div>
+
+                        <div class="bg-gray-900/80 rounded-xl p-4 border border-gray-800">
+                            <h5 class="font-bold text-white text-sm mb-1 flex items-center gap-2">
+                                <i class="fa-solid fa-cubes text-pink-400"></i>
+                                Lóbulos Frontales: El Director de Orquesta
+                            </h5>
+                            <p class="leading-relaxed">
+                                Los lóbulos frontales no almacenan recuerdos rígidos; funcionan como ensambladores dinámicos que combinan conocimientos viejos en configuraciones totalmente inéditas frente a entornos cambiantes.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- SECTION 4: MENU GENERAL / HUB GLOBAL DE NAVEGACIÓN -->
+        <section id="section-hub" class="space-y-6 hidden">
+            <div class="glass-card rounded-2xl p-6 border border-gray-800 space-y-4">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <h3 class="text-2xl font-bold text-white flex items-center gap-2">
+                            <i class="fa-solid fa-network-wired text-brand-neonCyan"></i>
+                            Hub General de Proyectos Integradores
+                        </h3>
+                        <p class="text-gray-400 text-sm">
+                            Directorio global para conectar y navegar con un solo clic entre las entregas de los distintos equipos y salones (Grupo 31, Equipo Salvador, etc.).
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Interactive Links Table/Grid -->
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4 pt-4">
+
+                    <!-- Node 1 -->
+                    <div class="bg-gray-900 p-4 rounded-xl border border-gray-800 flex flex-col justify-between space-y-3">
+                        <div class="flex items-center justify-between">
+                            <span class="text-xs font-bold px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-400">ACTIVO</span>
+                            <i class="fa-solid fa-folder-open text-gray-400"></i>
+                        </div>
+                        <div>
+                            <h5 class="text-sm font-bold text-white">Grupo 31 - Aplicación Principal</h5>
+                            <p class="text-xs text-gray-400">Sistemas & Arquetipos (Versión Actual)</p>
+                        </div>
+                        <button onclick="switchTab('arquetipos')" class="w-full py-2 rounded-lg bg-indigo-600 hover:bg-indigo-500 text-white font-semibold text-xs transition-colors">
+                            Ingresar a Proyecto
+                        </button>
+                    </div>
+
+                    <!-- Node 2 -->
+                    <div class="bg-gray-900 p-4 rounded-xl border border-gray-800 flex flex-col justify-between space-y-3">
+                        <div class="flex items-center justify-between">
+                            <span class="text-xs font-bold px-2 py-0.5 rounded bg-indigo-500/20 text-indigo-400">ENLACE CLOUD</span>
+                            <i class="fa-solid fa-link text-gray-400"></i>
+                        </div>
+                        <div>
+                            <h5 class="text-sm font-bold text-white">Equipo Salvador (G-31)</h5>
+                            <p class="text-xs text-gray-400">Exposiciones y Módulos de Sistemas</p>
+                        </div>
+                        <button onclick="alert('Redirigiendo a la App del Equipo Salvador...')" class="w-full py-2 rounded-lg bg-gray-800 hover:bg-gray-700 text-gray-200 font-semibold text-xs border border-gray-700 transition-colors">
+                            Abrir Enlace Directo
+                        </button>
+                    </div>
+
+                    <!-- Node 3 -->
+                    <div class="bg-gray-900 p-4 rounded-xl border border-gray-800 flex flex-col justify-between space-y-3">
+                        <div class="flex items-center justify-between">
+                            <span class="text-xs font-bold px-2 py-0.5 rounded bg-purple-500/20 text-purple-400">INTER-GRUPO</span>
+                            <i class="fa-solid fa-users-viewfinder text-gray-400"></i>
+                        </div>
+                        <div>
+                            <h5 class="text-sm font-bold text-white">Grupo 32 - Repositorio Unificado</h5>
+                            <p class="text-xs text-gray-400">Conexión Global Salones 31 y 32</p>
+                        </div>
+                        <button onclick="alert('Conectando con el servidor del Grupo 32...')" class="w-full py-2 rounded-lg bg-gray-800 hover:bg-gray-700 text-gray-200 font-semibold text-xs border border-gray-700 transition-colors">
+                            Navegar Ecosistema
+                        </button>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- STORY MODAL (INTERACTIVE FLASH) -->
+    <div id="storyModal" class="fixed inset-0 z-50 bg-black/90 backdrop-blur-md hidden flex items-center justify-center p-4">
+        <div class="relative w-full max-w-sm glass-card rounded-3xl overflow-hidden border border-gray-700 shadow-2xl flex flex-col h-[550px]">
+            <!-- Progress Line -->
+            <div class="w-full bg-gray-800 h-1">
+                <div id="storyProgress" class="bg-brand-neonPink h-full w-0 transition-all duration-300"></div>
+            </div>
+            <!-- Header -->
+            <div class="p-4 flex items-center justify-between bg-gray-900/80 border-b border-gray-800">
+                <div class="flex items-center gap-2">
+                    <div class="w-7 h-7 rounded-full bg-brand-neonPink flex items-center justify-center text-white font-bold text-xs">
+                        FB
+                    </div>
+                    <div>
+                        <h5 id="storyTitle" class="text-xs font-bold text-white">Flash Interactivo</h5>
+                        <span class="text-[10px] text-gray-400">Exposición de Clase</span>
+                    </div>
+                </div>
+                <button onclick="closeStoryModal()" class="text-gray-400 hover:text-white p-1">
+                    <i class="fa-solid fa-xmark text-lg"></i>
+                </button>
+            </div>
+            <!-- Content -->
+            <div class="p-6 flex-grow flex flex-col justify-center items-center text-center space-y-4 bg-gradient-to-b from-gray-900 to-gray-950">
+                <div id="storyIcon" class="w-20 h-20 rounded-2xl bg-indigo-500/20 border border-indigo-500/30 flex items-center justify-center text-indigo-400 text-4xl">
+                    <i class="fa-solid fa-lightbulb"></i>
+                </div>
+                <h4 id="storyHeading" class="text-xl font-bold text-white">Título de la Exposición</h4>
+                <p id="storyBody" class="text-xs text-gray-300 leading-relaxed px-2">
+                    Contenido sintetizado del tema presentado por el equipo durante la sesión.
+                </p>
+            </div>
+            <!-- Footer -->
+            <div class="p-4 bg-gray-900 border-t border-gray-800 text-center">
+                <button onclick="closeStoryModal()" class="px-6 py-2 rounded-full bg-indigo-600 text-white font-bold text-xs">
+                    Entendido / Cerrar
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- MOBILE BOTTOM NAVIGATION -->
+    <nav class="md:hidden fixed bottom-0 left-0 right-0 glass-card border-t border-gray-800 px-2 py-2 z-40 flex items-center justify-around">
+        <button onclick="switchTab('arquetipos')" class="flex flex-col items-center gap-1 text-xs text-indigo-400 font-medium">
+            <i class="fa-solid fa-diagram-project text-base"></i>
+            <span>Arquetipos</span>
+        </button>
+        <button onclick="switchTab('exposiciones')" class="flex flex-col items-center gap-1 text-xs text-gray-400 hover:text-white font-medium">
+            <i class="fa-solid fa-layer-group text-base"></i>
+            <span>Feed Caps</span>
+        </button>
+        <button onclick="switchTab('libros')" class="flex flex-col items-center gap-1 text-xs text-gray-400 hover:text-white font-medium">
+            <i class="fa-solid fa-book-open text-base"></i>
+            <span>Libros</span>
+        </button>
+        <button onclick="switchTab('hub')" class="flex flex-col items-center gap-1 text-xs text-gray-400 hover:text-white font-medium">
+            <i class="fa-solid fa-sitemap text-base"></i>
+            <span>Hub</span>
+        </button>
+    </nav>
+
+    <!-- JAVASCRIPT LOGIC -->
+    <script>
+        // Tab Switcher Logic
+        function switchTab(tabName) {
+            const sections = ['arquetipos', 'exposiciones', 'libros', 'hub'];
+            sections.forEach(s => {
+                const secEl = document.getElementById(`section-${s}`);
+                const tabBtn = document.getElementById(`tab-${s}`);
+                if (s === tabName) {
+                    secEl.classList.remove('hidden');
+                    if(tabBtn) {
+                        tabBtn.className = 'tab-btn px-5 py-2.5 rounded-xl font-semibold text-sm whitespace-nowrap transition-all flex items-center gap-2 bg-indigo-600 text-white shadow-lg shadow-indigo-600/30';
+                    }
+                } else {
+                    secEl.classList.add('hidden');
+                    if(tabBtn) {
+                        tabBtn.className = 'tab-btn px-5 py-2.5 rounded-xl font-semibold text-sm whitespace-nowrap transition-all flex items-center gap-2 bg-gray-800/80 text-gray-300 hover:bg-gray-700';
+                    }
+                }
+            });
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // Group Selector Dropdown
+        function toggleGroupMenu() {
+            const menu = document.getElementById('groupDropdown');
+            menu.classList.toggle('hidden');
+        }
+
+        function switchGroup(groupCode) {
+            document.getElementById('currentGroupLabel').innerText = `Grupo Actual: ${groupCode}`;
+            toggleGroupMenu();
+        }
+
+        // Archetype Filter Logic
+        function filterArchetypes(category) {
+            const cards = document.querySelectorAll('.arch-card');
+            const btns = document.querySelectorAll('.arch-filter-btn');
+
+            btns.forEach(b => {
+                b.classList.remove('bg-indigo-600', 'text-white');
+                b.classList.add('text-gray-400');
+            });
+            event.target.classList.add('bg-indigo-600', 'text-white');
+
+            cards.forEach(card => {
+                if (category === 'all' || card.dataset.category === category) {
+                    card.style.display = 'block';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+
+        // Simulators Interactive Handlers
+        let showerClicks = 0;
+        function simulateShower() {
+            showerClicks++;
+            const log = document.getElementById('showerLog');
+            if (showerClicks === 1) {
+                log.innerText = "Sientes agua fría 🥶 -> Abres la llave caliente al 100% desesperado.";
+                log.className = "text-[11px] text-cyan-400 font-semibold";
+            } else if (showerClicks === 2) {
+                log.innerText = "Demora de tubería... ¡Agua hirviendo! 🔥 Te quemas y cierras de golpe a fría.";
+                log.className = "text-[11px] text-rose-400 font-semibold";
+            } else {
+                log.innerText = "Oscilación caótica: Pasa igual en AWS cuando aprovisionas 50 servidores desmedidos.";
+                log.className = "text-[11px] text-yellow-400 font-semibold";
+                showerClicks = 0;
+            }
+        }
+
+        let growthCount = 0;
+        function simulateAppGrowth() {
+            const bar = document.getElementById('growthBar');
+            const log = document.getElementById('growthLog');
+            growthCount += 33;
+            if (growthCount > 100) growthCount = 0;
+
+            bar.style.width = growthCount + '%';
+
+            if (growthCount === 33) {
+                log.innerText = "¡App viral en TikTok! 100,000 usuarios nuevos en 1 hora.";
+            } else if (growthCount === 66) {
+                log.innerText = "Advertencia: Base de datos monolítica al 98% de CPU...";
+            } else if (growthCount >= 99) {
+                log.innerText = "❌ COLAPSO: Time-out de base de datos. Pérdida masiva de usuarios.";
+            } else {
+                log.innerText = "Estado: Esperando lanzamiento...";
+            }
+        }
+
+        let patchCount = 0;
+        function applyPatch() {
+            const log = document.getElementById('patchLog');
+            patchCount++;
+            if (patchCount === 1) {
+                log.innerText = "🩹 Script de reinicio diario programado (Solución Sintomática). Memoria liberada temporalmente.";
+            } else if (patchCount === 2) {
+                log.innerText = "⚠️ La fuga crece. El servidor ahora se reinicia cada 2 horas en pleno uso de clientes.";
+            } else {
+                log.innerText = "💥 Deuda Técnica Insostenible. Se requiere refactorización estructural (Solución Fundamental).";
+                patchCount = 0;
+            }
+        }
+
+        // Story Modal Handler
+        const storyData = {
+            1: {
+                title: "Capítulo 1: Modelos Mentales",
+                heading: "Las 7 Barreras de Aprendizaje",
+                icon: "fa-brain",
+                body: "Resumen de las barreras organizacionales expuestas. La fijación en hechos cortos impide detectar las dinámicas estructurales profundas de las empresas."
+            },
+            2: {
+                title: "Capítulo 2: El Juego de la Cerveza",
+                heading: "Oscilaciones y Retrasos",
+                icon: "fa-beer-mug-empty",
+                body: "Demostración práctica de cómo los pequeños cambios en los pedidos crean caos en la cadena de suministros sin comunicación transparente."
+            },
+            3: {
+                title: "Capítulo 3: La Rana Hervida",
+                heading: "Procesos Lentos e Imperceptibles",
+                icon: "fa-frog",
+                body: "Análisis de la falta de adaptación tecnológica. Las empresas quebradas suelen ignorar los pequeños deterioros graduales del mercado."
+            },
+            4: {
+                title: "Capítulo 4: Dominio Personal",
+                heading: "Tensión Creativa",
+                icon: "fa-lightbulb",
+                body: "Aclarar lo que realmente nos importa para mantener una energía constante de innovación, superando la tensión emocional con visión clara."
+            },
+            5: {
+                title: "Capítulo 5: Neuro-Creatividad",
+                heading: "Lóbulos Frontales y Novedad",
+                icon: "fa-head-side-virus",
+                body: "Elkhonon Goldberg demuestra cómo la mente reconfigura patrones previos para generar respuestas innovadoras frente a entornos imprevistos."
+            }
+        };
+
+        function openStoryModal(num) {
+            const data = storyData[num];
+            document.getElementById('storyTitle').innerText = data.title;
+            document.getElementById('storyHeading').innerText = data.heading;
+            document.getElementById('storyBody').innerText = data.body;
+            document.getElementById('storyIcon').innerHTML = `<i class="fa-solid ${data.icon}"></i>`;
+            
+            const modal = document.getElementById('storyModal');
+            const progress = document.getElementById('storyProgress');
+            modal.classList.remove('hidden');
+            progress.style.width = '0%';
+            setTimeout(() => { progress.style.width = '100%'; }, 100);
+        }
+
+        function closeStoryModal() {
+            document.getElementById('storyModal').classList.add('hidden');
+        }
+
+        // Like Counter Toggle
+        function toggleLike(btn) {
+            const heart = btn.querySelector('i');
+            heart.classList.toggle('fa-regular');
+            heart.classList.toggle('fa-solid');
+            heart.classList.toggle('text-pink-500');
+        }
+    </script>
+</body>
+</html>

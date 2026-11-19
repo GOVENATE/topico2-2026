@@ -1,0 +1,1163 @@
+<!DOCTYPE html>
+<html lang="es" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SistémiKa - Hub de Pensamiento Sistémico & Creatividad</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            50: '#eef2ff',
+                            100: '#e0e7ff',
+                            500: '#6366f1',
+                            600: '#4f46e5',
+                            700: '#4338ca',
+                            900: '#312e81',
+                            neon: '#22d3ee',
+                            pink: '#ec4899',
+                            violet: '#a855f7'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Chart.js for Interactive Charts -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #0b0f19;
+            color: #f3f4f6;
+            overflow-x: hidden;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #111827;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #374151;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #4f46e5;
+        }
+
+        /* Glow Effects */
+        .glow-violet {
+            box-shadow: 0 0 25px -5px rgba(168, 85, 247, 0.3);
+        }
+        .glow-cyan {
+            box-shadow: 0 0 25px -5px rgba(34, 211, 238, 0.3);
+        }
+        .glow-pink {
+            box-shadow: 0 0 25px -5px rgba(236, 72, 153, 0.3);
+        }
+
+        /* Gradient Text */
+        .text-gradient {
+            background: linear-gradient(135deg, #22d3ee 0%, #a855f7 50%, #ec4899 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* Card Hover Animations */
+        .hover-card {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .hover-card:hover {
+            transform: translateY(-5px) scale(1.01);
+        }
+
+        /* Pulse Animation for Feedback Loops */
+        @keyframes pulse-loop {
+            0% { stroke-dashoffset: 100; }
+            100% { stroke-dashoffset: 0; }
+        }
+        .animated-path {
+            stroke-dasharray: 8, 8;
+            animation: pulse-loop 3s linear infinite;
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col md:flex-row">
+
+    <!-- SIDEBAR / NAVIGATION NATIVE APP STYLE -->
+    <aside class="w-full md:w-64 bg-gray-900 border-r border-gray-800 flex-shrink-0 z-30 md:min-h-screen flex flex-col justify-between p-4">
+        <div>
+            <!-- App Brand Logo -->
+            <div class="flex items-center gap-3 px-2 py-3 mb-6 border-b border-gray-800">
+                <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-brand-600 to-brand-neon flex items-center justify-center text-white text-xl font-black shadow-lg shadow-brand-500/30">
+                    S
+                </div>
+                <div>
+                    <h1 class="text-lg font-bold tracking-tight text-white leading-none">Sistémi<span class="text-brand-neon">Ka</span></h1>
+                    <span class="text-xs text-gray-400 font-medium">Hub Pro Systems v2.5</span>
+                </div>
+            </div>
+
+            <!-- Global Selector for Groups / Classrooms -->
+            <div class="mb-6">
+                <label class="block text-xs font-semibold text-gray-400 uppercase tracking-wider mb-2">
+                    <i class="fa-solid fa-network-wired text-brand-violet mr-1"></i> Selección de Grupo / Aula
+                </label>
+                <select id="groupSelect" onchange="changeGroup(this.value)" class="w-full bg-gray-800 border border-gray-700 text-white text-sm rounded-xl px-3 py-2.5 focus:outline-none focus:border-brand-500 transition-colors">
+                    <option value="equipo-pro">🚀 Mi Equipo (Proyecto Principal)</option>
+                    <option value="grupo-31">🏫 Grupo 31 - Inter-Aulas</option>
+                    <option value="equipo-salvador">👤 Equipo Salvador & Colaboradores</option>
+                    <option value="grupo-32">🔬 Grupo 32 - Laboratorio TI</option>
+                </select>
+            </div>
+
+            <!-- Navigation Links -->
+            <nav class="space-y-1.5">
+                <button onclick="switchTab('hub')" id="nav-hub" class="nav-btn active w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium transition-all text-white bg-brand-600/30 border border-brand-500/40">
+                    <i class="fa-solid fa-compass text-brand-neon w-5"></i> Hub General & Menú
+                </button>
+                <button onclick="switchTab('arquetipos')" id="nav-arquetipos" class="nav-btn w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium transition-all text-gray-400 hover:text-white hover:bg-gray-800">
+                    <i class="fa-solid fa-diagram-project text-brand-violet w-5"></i> Arquetipos Sistémicos
+                </button>
+                <button onclick="switchTab('exposiciones')" id="nav-exposiciones" class="nav-btn w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium transition-all text-gray-400 hover:text-white hover:bg-gray-800">
+                    <i class="fa-solid fa-[#000] fa-photo-film text-brand-pink w-5"></i> Exposiciones (5 Stories)
+                </button>
+                <button onclick="switchTab('teoria')" id="nav-teoria" class="nav-btn w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium transition-all text-gray-400 hover:text-white hover:bg-gray-800">
+                    <i class="fa-solid fa-book-open-reader text-yellow-400 w-5"></i> Quinta Disciplina & Libros
+                </button>
+                            <button onclick="switchTab('directivas')" id="nav-directivas" class="nav-btn w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium transition-all text-gray-400 hover:text-white hover:bg-gray-800">
+                    <i class="fa-solid fa-user-tie text-emerald-400 w-5"></i> Habilidades Directivas
+                </button>
+            </nav>
+        </div>
+
+        <!-- System Footer Info -->
+        <div class="mt-6 pt-4 border-t border-gray-800 text-xs text-gray-500 flex flex-col gap-2">
+            <div class="flex items-center justify-between">
+                <span>Estado Servidor:</span>
+                <span class="flex items-center gap-1.5 text-emerald-400 font-medium">
+                    <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span> En Línea
+                </span>
+            </div>
+            <p>© 2026 Plataforma Interactiva de Aprendizaje Sistémico</p>
+        </div>
+    </aside>
+
+    <!-- MAIN CONTENT AREA -->
+    <main class="flex-1 flex flex-col min-w-0 bg-gray-950 overflow-y-auto">
+
+        <!-- HEADER BAR -->
+        <header class="h-16 border-b border-gray-800 bg-gray-900/50 backdrop-blur-md sticky top-0 z-20 px-6 flex items-center justify-between">
+            <div class="flex items-center gap-3">
+                <span id="current-group-badge" class="px-2.5 py-1 rounded-full text-xs font-semibold bg-brand-500/20 text-brand-neon border border-brand-500/30">
+                    🚀 Mi Equipo (Proyecto Principal)
+                </span>
+                <h2 id="header-title" class="text-base font-bold text-gray-200">Menú Global de Navegación</h2>
+            </div>
+            
+            <div class="flex items-center gap-3">
+                <!-- Direct Links Modal Trigger -->
+                <button onclick="openLinksModal()" class="px-3 py-1.5 rounded-lg bg-gray-800 hover:bg-gray-700 text-xs font-medium text-gray-200 border border-gray-700 flex items-center gap-2 transition-all">
+                    <i class="fa-solid fa-link text-brand-neon"></i> Ligas Directas
+                </button>
+                <div class="w-8 h-8 rounded-full bg-gradient-to-tr from-brand-violet to-brand-pink flex items-center justify-center text-xs font-bold text-white shadow-md">
+                    IT
+                </div>
+            </div>
+        </header>
+
+        <!-- CONTAINER FOR TAB SECTIONS -->
+        <div class="p-4 md:p-8 space-y-8 max-w-7xl mx-auto w-full">
+
+            <!-- TAB 1: HUB GENERAL Y MENU INTER-AULAS -->
+            <section id="tab-hub" class="tab-content space-y-6">
+                <!-- Hero Banner -->
+                <div class="relative rounded-3xl overflow-hidden p-6 md:p-10 bg-gradient-to-r from-gray-900 via-brand-900/60 to-purple-950/80 border border-gray-800 shadow-2xl">
+                    <div class="absolute -right-10 -bottom-10 w-64 h-64 bg-brand-500/20 rounded-full blur-3xl pointer-events-none"></div>
+                    <div class="relative z-10 max-w-2xl space-y-4">
+                        <span class="inline-block px-3 py-1 rounded-full text-xs font-bold tracking-wider uppercase bg-brand-neon/10 text-brand-neon border border-brand-neon/20">
+                            Ecosistema Integrado 2026
+                        </span>
+                        <h1 class="text-3xl md:text-5xl font-extrabold tracking-tight text-white leading-tight">
+                            Plataforma de <span class="text-gradient">Pensamiento Sistémico</span>
+                        </h1>
+                        <p class="text-gray-300 text-sm md:text-base leading-relaxed">
+                            Explora la app interactiva completa: Arquetipos dinámicos con simulación de demoras en tiempo real, catálogo de exposiciones estilo Instagram/Netflix y el repositorio unificado para el Grupo 31.
+                        </p>
+                        <div class="flex flex-wrap gap-3 pt-2">
+                            <button onclick="switchTab('arquetipos')" class="px-5 py-2.5 rounded-xl bg-gradient-to-r from-brand-600 to-brand-violet text-white text-sm font-semibold shadow-lg shadow-brand-500/25 hover:opacity-90 transition-all flex items-center gap-2">
+                                <i class="fa-solid fa-play"></i> Probar Arquetipos Dinámicos
+                            </button>
+                            <button onclick="switchTab('exposiciones')" class="px-5 py-2.5 rounded-xl bg-gray-800 hover:bg-gray-700 text-gray-200 text-sm font-semibold border border-gray-700 transition-all flex items-center gap-2">
+                                <i class="fa-solid fa-layer-group"></i> Ver Exposiciones (5 Stories)
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Navigation Hub Cards Grid -->
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <!-- Card 1: Proyecto Local -->
+                    <div class="hover-card rounded-2xl bg-gray-900/80 border border-gray-800 p-6 flex flex-col justify-between space-y-4 relative overflow-hidden">
+                        <div class="w-12 h-12 rounded-xl bg-brand-500/20 border border-brand-500/30 flex items-center justify-center text-brand-neon text-xl">
+                            <i class="fa-solid fa-cubes"></i>
+                        </div>
+                        <div>
+                            <span class="text-xs font-bold text-brand-neon tracking-wider uppercase">Proyecto Activo</span>
+                            <h3 class="text-xl font-bold text-white mt-1">Nuestra Aplicación</h3>
+                            <p class="text-xs text-gray-400 mt-2">
+                                Contiene los 10 Arquetipos con simulador de la regla de temperatura, gráficos interactivos y análisis de TI.
+                            </p>
+                        </div>
+                        <button onclick="switchTab('arquetipos')" class="w-full py-2.5 rounded-xl bg-gray-800 hover:bg-brand-600 text-xs font-semibold text-white transition-all border border-gray-700 hover:border-brand-500 flex items-center justify-center gap-2">
+                            Ingresar a la App <i class="fa-solid fa-arrow-right"></i>
+                        </button>
+                    </div>
+
+                    <!-- Card 2: Grupo 31 Hub Inter-Aulas -->
+                    <div class="hover-card rounded-2xl bg-gray-900/80 border border-gray-800 p-6 flex flex-col justify-between space-y-4 relative overflow-hidden">
+                        <div class="w-12 h-12 rounded-xl bg-brand-violet/20 border border-brand-violet/30 flex items-center justify-center text-brand-violet text-xl">
+                            <i class="fa-solid fa-users-rectangle"></i>
+                        </div>
+                        <div>
+                            <span class="text-xs font-bold text-brand-violet tracking-wider uppercase">Conexión Inter-Salones</span>
+                            <h3 class="text-xl font-bold text-white mt-1">Menú Grupo 31</h3>
+                            <p class="text-xs text-gray-400 mt-2">
+                                Enlace centralizado con las aplicaciones de los otros equipos. Navega sin salir de esta interfaz.
+                            </p>
+                        </div>
+                        <button onclick="changeGroup('grupo-31')" class="w-full py-2.5 rounded-xl bg-gray-800 hover:bg-brand-violet text-xs font-semibold text-white transition-all border border-gray-700 hover:border-brand-violet flex items-center justify-center gap-2">
+                            Conectar Grupo 31 <i class="fa-solid fa-link"></i>
+                        </button>
+                    </div>
+
+                    <!-- Card 3: Equipo Salvador -->
+                    <div class="hover-card rounded-2xl bg-gray-900/80 border border-gray-800 p-6 flex flex-col justify-between space-y-4 relative overflow-hidden">
+                        <div class="w-12 h-12 rounded-xl bg-brand-pink/20 border border-brand-pink/30 flex items-center justify-center text-brand-pink text-xl">
+                            <i class="fa-solid fa-user-gear"></i>
+                        </div>
+                        <div>
+                            <span class="text-xs font-bold text-brand-pink tracking-wider uppercase">Acceso Rápido</span>
+                            <h3 class="text-xl font-bold text-white mt-1">Equipo Salvador</h3>
+                            <p class="text-xs text-gray-400 mt-2">
+                                Módulo específico para la revisión de materiales, entregables y evaluaciones correspondientes.
+                            </p>
+                        </div>
+                        <button onclick="changeGroup('equipo-salvador')" class="w-full py-2.5 rounded-xl bg-gray-800 hover:bg-brand-pink text-xs font-semibold text-white transition-all border border-gray-700 hover:border-brand-pink flex items-center justify-center gap-2">
+                            Ver Módulo Salvador <i class="fa-solid fa-folder-open"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Status Panel -->
+                <div class="rounded-2xl bg-gray-900/50 border border-gray-800 p-6 space-y-4">
+                    <h3 class="text-base font-bold text-white flex items-center gap-2">
+                        <i class="fa-solid fa-circle-info text-brand-neon"></i> Resumen de Contenidos Integrados en esta App
+                    </h3>
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
+                        <div class="p-3 rounded-xl bg-gray-800/60 border border-gray-700/50">
+                            <div class="text-2xl font-black text-brand-neon">10</div>
+                            <div class="text-xs text-gray-400">Arquetipos Ilustrados</div>
+                        </div>
+                        <div class="p-3 rounded-xl bg-gray-800/60 border border-gray-700/50">
+                            <div class="text-2xl font-black text-brand-violet">5</div>
+                            <div class="text-xs text-gray-400">Exposiciones (Stories)</div>
+                        </div>
+                        <div class="p-3 rounded-xl bg-gray-800/60 border border-gray-700/50">
+                            <div class="text-2xl font-black text-brand-pink">1</div>
+                            <div class="text-xs text-gray-400">Simulador de Demora</div>
+                        </div>
+                        <div class="p-3 rounded-xl bg-gray-800/60 border border-gray-700/50">
+                            <div class="text-2xl font-black text-emerald-400">100%</div>
+                            <div class="text-xs text-gray-400">Nube & Responsivo</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- TAB 2: ARQUETIPOS SISTÉMICOS INTERACTIVOS -->
+            <section id="tab-arquetipos" class="tab-content hidden space-y-8">
+                <!-- Section Header -->
+                <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-gray-800 pb-4">
+                    <div>
+                        <h2 class="text-2xl font-extrabold text-white">Catálogo de Arquetipos Sistémicos</h2>
+                        <p class="text-xs text-gray-400">Casos tipo y estructuras recurrentes en las organizaciones y la informática.</p>
+                    </div>
+                    <div class="flex gap-2">
+                        <button onclick="filterArchetype('all')" class="px-3 py-1.5 rounded-lg bg-brand-600 text-xs font-semibold text-white">Todos</button>
+                        <button onclick="filterArchetype('demora')" class="px-3 py-1.5 rounded-lg bg-gray-800 hover:bg-gray-700 text-xs font-semibold text-gray-300">Demoras</button>
+                        <button onclick="filterArchetype('limite')" class="px-3 py-1.5 rounded-lg bg-gray-800 hover:bg-gray-700 text-xs font-semibold text-gray-300">Límites</button>
+                        <button onclick="filterArchetype('carga')" class="px-3 py-1.5 rounded-lg bg-gray-800 hover:bg-gray-700 text-xs font-semibold text-gray-300">Desplazamiento</button>
+                    </div>
+                </div>
+
+                <!-- FEATURED ARQUETIPO 1: COMPENSACIÓN ENTRE PROCESO Y DEMORA (CON SIMULADOR) -->
+                <div class="arch-card arch-demora rounded-3xl bg-gray-900 border border-gray-800 overflow-hidden shadow-xl">
+                    <div class="p-6 md:p-8 space-y-6">
+                        <div class="flex flex-wrap items-center justify-between gap-2">
+                            <span class="px-3 py-1 rounded-full text-xs font-bold bg-amber-500/20 text-amber-400 border border-amber-500/30">
+                                Arquetipo Primario #1
+                            </span>
+                            <span class="text-xs text-gray-400"><i class="fa-solid fa-clock"></i> Efecto de Retroalimentación Retardada</span>
+                        </div>
+
+                        <h3 class="text-2xl font-bold text-white">1. Compensación entre Proceso y Demora</h3>
+
+                        <!-- Definition & Explanation -->
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 text-sm">
+                            <div class="bg-gray-950 p-4 rounded-xl border border-gray-800 space-y-2">
+                                <h4 class="font-bold text-brand-neon flex items-center gap-2">
+                                    <i class="fa-solid fa-align-left"></i> Definición con Palabras Propias
+                                </h4>
+                                <p class="text-gray-300 text-xs leading-relaxed">
+                                    Ocurre cuando una persona u organización toma acciones deliberadas para alcanzar un objetivo, pero la respuesta del sistema tarda en manifestarse (existe una <strong>demora o retraso involuntario</strong>). Al no percibir un cambio inmediato, la gente se impacienta y realiza más correcciones de las necesarias, provocando una sobre-reacción violenta o una oscilación destructiva.
+                                </p>
+                            </div>
+
+                            <div class="bg-gray-950 p-4 rounded-xl border border-gray-800 space-y-2">
+                                <h4 class="font-bold text-brand-violet flex items-center gap-2">
+                                    <i class="fa-solid fa-server"></i> Aplicación & Ejemplo en Informática / TI
+                                </h4>
+                                <p class="text-gray-300 text-xs leading-relaxed">
+                                    <strong>Auto-Scaling de Servidores Cloud:</strong> Ante un pico repentino de tráfico, los servidores se saturan. El sistema activa el aprovisionamiento de nuevas máquinas en la nube, pero estas tardan 5 minutos en iniciar (demora). Como los ingenieros ven que la página sigue lenta, abren manualmente 50 servidores más. Cuando todos terminan de encender, el tráfico bajó y quedan con un costo gigantesco y desperdicio masivo de recursos.
+                                </p>
+                            </div>
+                        </div>
+
+                        <!-- SIMULADOR INTERACTIVO: LA REGADERA Y LA DEMORA -->
+                        <div class="bg-gradient-to-br from-gray-950 to-slate-900 p-6 rounded-2xl border border-gray-800 space-y-4">
+                            <div class="flex items-center justify-between">
+                                <h4 class="font-bold text-white text-base flex items-center gap-2">
+                                    <i class="fa-solid fa-shower text-brand-neon"></i> Metáfora Interactiva: La Regadera con Agua Caliente y Demora
+                                </h4>
+                                <span class="text-xs text-amber-400 bg-amber-400/10 px-2.5 py-1 rounded-md border border-amber-400/20">
+                                    ¡Pruébalo en vivo!
+                                </span>
+                            </div>
+
+                            <p class="text-xs text-gray-400">
+                                Ajusta la perilla de agua. Nota cómo el agua tarda <strong>2.5 segundos en reaccionar a la tubería</strong>. Si te impacientas y abres toda la caliente, terminarás quemándote por sobre-ajuste.
+                            </p>
+
+                            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 items-center">
+                                <!-- Controls -->
+                                <div class="space-y-4 bg-gray-900 p-4 rounded-xl border border-gray-800">
+                                    <label class="block text-xs font-bold text-gray-300">
+                                        Ajuste de la Llave de Agua: <span id="knob-value" class="text-brand-neon font-black text-sm">50%</span>
+                                    </label>
+                                    <input type="range" id="waterKnob" min="0" max="100" value="50" oninput="updateShower(this.value)" class="w-full accent-brand-neon bg-gray-800 rounded-lg cursor-pointer">
+                                    <div class="flex justify-between text-[10px] text-gray-500 font-semibold">
+                                        <span>❄️ 0% Helada</span>
+                                        <span>🔥 100% Hirviendo</span>
+                                    </div>
+                                </div>
+
+                                <!-- Visual Shower Display -->
+                                <div class="flex flex-col items-center justify-center p-4 bg-gray-900 rounded-xl border border-gray-800 min-h-[160px] relative">
+                                    <div id="showerHead" class="text-4xl text-gray-600 transition-colors duration-300">
+                                        <i class="fa-solid fa-shower"></i>
+                                    </div>
+                                    <!-- Animated Water Stream -->
+                                    <div id="waterStream" class="w-4 h-16 my-2 rounded-full bg-cyan-400 opacity-80 transition-all duration-500"></div>
+                                    <div id="tempStatus" class="text-xs font-extrabold px-3 py-1 rounded-full bg-cyan-950 text-cyan-300 border border-cyan-800">
+                                        Temperatura Agua: 22°C (Agradable)
+                                    </div>
+                                </div>
+
+                                <!-- IT Parallel Chart / Meter -->
+                                <div class="space-y-2 bg-gray-900 p-4 rounded-xl border border-gray-800 text-xs">
+                                    <span class="font-bold text-gray-300 block mb-1"><i class="fa-solid fa-microchip text-brand-violet"></i> Equivalente en Servidores TI:</span>
+                                    <div class="space-y-1">
+                                        <div class="flex justify-between text-[11px]">
+                                            <span>Capacidad de Carga:</span>
+                                            <span id="cloudLoadText" class="font-bold text-brand-neon">50% Servidores</span>
+                                        </div>
+                                        <div class="w-full h-2 bg-gray-800 rounded-full overflow-hidden">
+                                            <div id="cloudLoadBar" class="h-full bg-brand-neon w-[50%] transition-all duration-500"></div>
+                                        </div>
+                                    </div>
+                                    <p id="systemWarning" class="text-[10px] text-gray-400 pt-2 italic">
+                                        Estado: Carga estable. Ajuste de tubería/servidores dentro del margen.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Causal Loop Diagram (SVG Color Animated) -->
+                        <div class="bg-gray-950 p-4 rounded-xl border border-gray-800 space-y-3">
+                            <h4 class="text-xs font-bold text-gray-300 uppercase tracking-wider">
+                                Diagrama Estructural de Retroalimentación con Demora
+                            </h4>
+                            <div class="flex justify-center">
+                                <svg class="w-full max-w-lg h-40" viewBox="0 0 500 150">
+                                    <!-- Nodes -->
+                                    <rect x="20" y="50" width="120" height="50" rx="10" fill="#1e1b4b" stroke="#6366f1" stroke-width="2"/>
+                                    <text x="80" y="80" fill="#ffffff" font-size="12" font-weight="bold" text-anchor="middle">Acción Correctiva</text>
+
+                                    <rect x="190" y="50" width="120" height="50" rx="10" fill="#022c22" stroke="#10b981" stroke-width="2"/>
+                                    <text x="250" y="80" fill="#ffffff" font-size="12" font-weight="bold" text-anchor="middle">Estado Real</text>
+
+                                    <rect x="360" y="50" width="120" height="50" rx="10" fill="#450a0a" stroke="#ef4444" stroke-width="2"/>
+                                    <text x="420" y="80" fill="#ffffff" font-size="12" font-weight="bold" text-anchor="middle">Brecha / Error</text>
+
+                                    <!-- Connecting Animated Lines -->
+                                    <!-- Arrow 1: Action to State with Delay -->
+                                    <path d="M 140 75 L 190 75" stroke="#22d3ee" stroke-width="3" fill="none" class="animated-path"/>
+                                    <!-- Delay Marker -->
+                                    <line x1="160" y1="65" x2="170" y2="85" stroke="#f59e0b" stroke-width="4"/>
+                                    <line x1="168" y1="65" x2="178" y2="85" stroke="#f59e0b" stroke-width="4"/>
+                                    <text x="165" y="55" fill="#f59e0b" font-size="10" font-weight="bold" text-anchor="middle">DEMORA</text>
+
+                                    <!-- Arrow 2: State to Gap -->
+                                    <path d="M 310 75 L 360 75" stroke="#22d3ee" stroke-width="3" fill="none"/>
+
+                                    <!-- Arrow 3: Gap back to Action -->
+                                    <path d="M 420 100 Q 250 140 80 100" stroke="#a855f7" stroke-width="3" fill="none" class="animated-path"/>
+                                </svg>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ARQUETIPO 2: LÍMITES DEL CRECIMIENTO -->
+                <div class="arch-card arch-limite rounded-3xl bg-gray-900 border border-gray-800 p-6 md:p-8 space-y-6 shadow-xl">
+                    <div class="flex flex-wrap items-center justify-between gap-2">
+                        <span class="px-3 py-1 rounded-full text-xs font-bold bg-cyan-500/20 text-cyan-400 border border-cyan-500/30">
+                            Arquetipo #2
+                        </span>
+                        <span class="text-xs text-gray-400"><i class="fa-solid fa-chart-line"></i> Frenado por Condición Límite</span>
+                    </div>
+
+                    <h3 class="text-2xl font-bold text-white">2. Límites del Crecimiento</h3>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 text-sm">
+                        <div class="bg-gray-950 p-4 rounded-xl border border-gray-800 space-y-2">
+                            <h4 class="font-bold text-brand-neon flex items-center gap-2">
+                                <i class="fa-solid fa-quote-left"></i> Mi Definición
+                            </h4>
+                            <p class="text-gray-300 text-xs leading-relaxed">
+                                Un proceso donde los resultados iniciales son extraordinariamente exitosos y acelerados gracias a un refuerzo positivo. Sin embargo, conforme el sistema se expande, topa con un <strong>límite implícito (recurso agotado, tope físico o cuello de botella)</strong> que frena bruscamente el crecimiento o causa un colapso.
+                            </p>
+                        </div>
+
+                        <div class="bg-gray-950 p-4 rounded-xl border border-gray-800 space-y-2">
+                            <h4 class="font-bold text-brand-pink flex items-center gap-2">
+                                <i class="fa-solid fa-database"></i> Caso Real Informativo / TI
+                            </h4>
+                            <p class="text-gray-300 text-xs leading-relaxed">
+                                <strong>Saturación de Base de Datos SQL:</strong> Una app móvil suma miles de usuarios al día (crecimiento acelerado). Pero el equipo nunca migró la base de datos a un clúster distribuido. Al llegar al límite de conexiones concurrentes de la base de datos, las peticiones fallan, la app colapsa y la tasa de desinstalación es masiva.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Interactive Chart Container -->
+                    <div class="bg-gray-950 p-4 rounded-xl border border-gray-800">
+                        <h4 class="text-xs font-bold text-gray-300 mb-3">Comportamiento en el Tiempo: Crecimiento vs Cuello de Botella</h4>
+                        <div class="h-56 relative">
+                            <canvas id="limitsChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ARQUETIPO 3: DESPLAZAMIENTO DE LA CARGA -->
+                <div class="arch-card arch-carga rounded-3xl bg-gray-900 border border-gray-800 p-6 md:p-8 space-y-6 shadow-xl">
+                    <div class="flex flex-wrap items-center justify-between gap-2">
+                        <span class="px-3 py-1 rounded-full text-xs font-bold bg-pink-500/20 text-pink-400 border border-pink-500/30">
+                            Arquetipo #3
+                        </span>
+                        <span class="text-xs text-gray-400"><i class="fa-solid fa-kit-medical"></i> Solución Sintomática vs Fundamental</span>
+                    </div>
+
+                    <h3 class="text-2xl font-bold text-white">3. Desplazamiento de la Carga</h3>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 text-sm">
+                        <div class="bg-gray-950 p-4 rounded-xl border border-gray-800 space-y-2">
+                            <h4 class="font-bold text-brand-neon flex items-center gap-2">
+                                <i class="fa-solid fa-align-left"></i> Definición Simplificada
+                            </h4>
+                            <p class="text-gray-300 text-xs leading-relaxed">
+                                Ocurre cuando ante un problema complejo se aplica una <strong>solución sintomática ("parche rápido")</strong> que alivia la urgencia a corto plazo, pero no resuelve la causa raíz. Esto atrofia la capacidad de implementar la solución fundamental a largo plazo y genera adicción al parche.
+                            </p>
+                        </div>
+
+                        <div class="bg-gray-950 p-4 rounded-xl border border-gray-800 space-y-2">
+                            <h4 class="font-bold text-brand-violet flex items-center gap-2">
+                                <i class="fa-solid fa-code text-brand-violet"></i> Ejemplo en Software y Desarrollo
+                            </h4>
+                            <p class="text-gray-300 text-xs leading-relaxed">
+                                <strong>Memory Leak arreglado con CronJob:</strong> Un software tiene una fuga de memoria por código mal optimizado. En lugar de refactorizar el código (solución fundamental), los ingenieros crean un script que reinicia el servidor cada 3 horas (solución sintomática). Con el tiempo, el sistema se llena de errores y nadie sabe reparar el código base.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Comparison Diagram -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div class="p-4 rounded-xl bg-amber-950/30 border border-amber-500/30 space-y-2">
+                            <div class="text-xs font-bold text-amber-400 uppercase tracking-wider"><i class="fa-solid fa-triangle-exclamation"></i> Ciclo Sintomático (Trampa)</div>
+                            <p class="text-xs text-gray-300">Solución rápida ➔ Alivio temporal ➔ Se ignora la causa de raíz ➔ La capacidad fundamental se atrofia ➔ Mayor dependencia del parche.</p>
+                        </div>
+                        <div class="p-4 rounded-xl bg-emerald-950/30 border border-emerald-500/30 space-y-2">
+                            <div class="text-xs font-bold text-emerald-400 uppercase tracking-wider"><i class="fa-solid fa-circle-check"></i> Ciclo Fundamental (Sostenible)</div>
+                            <p class="text-xs text-gray-300">Análisis causa raíz ➔ Inversión de tiempo y re-arquitectura ➔ Solución definitiva ➔ El sistema gana madurez y robustez a largo plazo.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- TAB 3: EXPOSICIONES (5 STORIES - FEED INSTAGRAM / NETFLIX STYLE) -->
+            <section id="tab-exposiciones" class="tab-content hidden space-y-6">
+                <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-gray-800 pb-4">
+                    <div>
+                        <h2 class="text-2xl font-extrabold text-white">Feed de Exposiciones Integradas</h2>
+                        <p class="text-xs text-gray-400">Los 5 productos dinámicos síntesis de las ponencias presentadas en clase.</p>
+                    </div>
+                    <span class="text-xs px-3 py-1.5 rounded-full bg-brand-pink/20 text-brand-pink border border-brand-pink/30 font-semibold">
+                        <i class="fa-solid fa-clapperboard"></i> Formato Reels & Stories
+                    </span>
+                </div>
+
+                <!-- Instagram/Netflix Horizontal Carousel Grid -->
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                    
+                    <!-- Exposition Card 1 -->
+                    <div class="hover-card rounded-2xl bg-gray-900 border border-gray-800 overflow-hidden flex flex-col justify-between">
+                        <div>
+                            <div class="relative h-48 bg-gradient-to-tr from-purple-900 to-indigo-900 p-4 flex flex-col justify-between">
+                                <div class="flex items-center justify-between">
+                                    <span class="px-2.5 py-1 rounded-full text-[10px] font-extrabold bg-black/60 text-white backdrop-blur-md">
+                                        EXP #01
+                                    </span>
+                                    <button onclick="playAudioSim('pensamiento-sistemico')" class="w-8 h-8 rounded-full bg-white/20 hover:bg-white/40 backdrop-blur-md flex items-center justify-center text-white transition-all">
+                                        <i class="fa-solid fa-volume-high text-xs"></i>
+                                    </button>
+                                </div>
+                                <div>
+                                    <span class="text-xs text-brand-neon font-semibold">Tema 1 al 4</span>
+                                    <h3 class="text-lg font-bold text-white">La Ilusión de la Fragmentación</h3>
+                                </div>
+                            </div>
+                            <div class="p-4 space-y-3">
+                                <p class="text-xs text-gray-300 leading-relaxed">
+                                    Fragmentar los problemas oculta las consecuencias globales. Ver el mundo como partes desconectadas genera soluciones que empeoran los problemas.
+                                </p>
+                                <div class="bg-gray-950 p-2.5 rounded-xl border border-gray-800 text-[11px] text-gray-400">
+                                    <strong class="text-brand-violet block">🔑 Síntesis Interactiva:</strong>
+                                    "No se puede ensamblar un espejo roto para ver una imagen fiel".
+                                </div>
+                            </div>
+                        </div>
+                        <div class="p-4 pt-0">
+                            <button onclick="openExpoModal(1)" class="w-full py-2 rounded-xl bg-gray-800 hover:bg-brand-600 text-xs font-semibold text-white transition-all border border-gray-700">
+                                Abrir Infografía Interactiva
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Exposition Card 2 -->
+                    <div class="hover-card rounded-2xl bg-gray-900 border border-gray-800 overflow-hidden flex flex-col justify-between">
+                        <div>
+                            <div class="relative h-48 bg-gradient-to-tr from-cyan-950 to-blue-900 p-4 flex flex-col justify-between">
+                                <div class="flex items-center justify-between">
+                                    <span class="px-2.5 py-1 rounded-full text-[10px] font-extrabold bg-black/60 text-white backdrop-blur-md">
+                                        EXP #02
+                                    </span>
+                                    <button onclick="playAudioSim('barreras')" class="w-8 h-8 rounded-full bg-white/20 hover:bg-white/40 backdrop-blur-md flex items-center justify-center text-white transition-all">
+                                        <i class="fa-solid fa-volume-high text-xs"></i>
+                                    </button>
+                                </div>
+                                <div>
+                                    <span class="text-xs text-cyan-400 font-semibold">Tema 5 al 8</span>
+                                    <h3 class="text-lg font-bold text-white">Las 7 Barreras del Aprendizaje</h3>
+                                </div>
+                            </div>
+                            <div class="p-4 space-y-3">
+                                <p class="text-xs text-gray-300 leading-relaxed">
+                                    Análisis de "Yo soy mi puesto", la fijación en los hechos y el mito del equipo administrativo que impiden el crecimiento real.
+                                </p>
+                                <div class="bg-gray-950 p-2.5 rounded-xl border border-gray-800 text-[11px] text-gray-400">
+                                    <strong class="text-cyan-400 block">🔑 Parábola Clave:</strong>
+                                    La rana hervida: Incapacidad de notar amenazas graduales.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="p-4 pt-0">
+                            <button onclick="openExpoModal(2)" class="w-full py-2 rounded-xl bg-gray-800 hover:bg-brand-600 text-xs font-semibold text-white transition-all border border-gray-700">
+                                Abrir Infografía Interactiva
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Exposition Card 3 -->
+                    <div class="hover-card rounded-2xl bg-gray-900 border border-gray-800 overflow-hidden flex flex-col justify-between">
+                        <div>
+                            <div class="relative h-48 bg-gradient-to-tr from-amber-950 to-orange-900 p-4 flex flex-col justify-between">
+                                <div class="flex items-center justify-between">
+                                    <span class="px-2.5 py-1 rounded-full text-[10px] font-extrabold bg-black/60 text-white backdrop-blur-md">
+                                        EXP #03
+                                    </span>
+                                    <button onclick="playAudioSim('juego-cerveza')" class="w-8 h-8 rounded-full bg-white/20 hover:bg-white/40 backdrop-blur-md flex items-center justify-center text-white transition-all">
+                                        <i class="fa-solid fa-volume-high text-xs"></i>
+                                    </button>
+                                </div>
+                                <div>
+                                    <span class="text-xs text-amber-400 font-semibold">Tema 9 al 12</span>
+                                    <h3 class="text-lg font-bold text-white">El Juego de la Cerveza</h3>
+                                </div>
+                            </div>
+                            <div class="p-4 space-y-3">
+                                <p class="text-xs text-gray-300 leading-relaxed">
+                                    Simulación de cadena de suministro que demuestra cómo la estructura del sistema genera pánico, desabasto y distorsión.
+                                </p>
+                                <div class="bg-gray-950 p-2.5 rounded-xl border border-gray-800 text-[11px] text-gray-400">
+                                    <strong class="text-amber-400 block">🔑 Lección Central:</strong>
+                                    La estructura influye directamente sobre la conducta humana.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="p-4 pt-0">
+                            <button onclick="openExpoModal(3)" class="w-full py-2 rounded-xl bg-gray-800 hover:bg-brand-600 text-xs font-semibold text-white transition-all border border-gray-700">
+                                Abrir Infografía Interactiva
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Exposition Card 4 -->
+                    <div class="hover-card rounded-2xl bg-gray-900 border border-gray-800 overflow-hidden flex flex-col justify-between">
+                        <div>
+                            <div class="relative h-48 bg-gradient-to-tr from-emerald-950 to-teal-900 p-4 flex flex-col justify-between">
+                                <div class="flex items-center justify-between">
+                                    <span class="px-2.5 py-1 rounded-full text-[10px] font-extrabold bg-black/60 text-white backdrop-blur-md">
+                                        EXP #04
+                                    </span>
+                                    <button onclick="playAudioSim('modelos-mentales')" class="w-8 h-8 rounded-full bg-white/20 hover:bg-white/40 backdrop-blur-md flex items-center justify-center text-white transition-all">
+                                        <i class="fa-solid fa-volume-high text-xs"></i>
+                                    </button>
+                                </div>
+                                <div>
+                                    <span class="text-xs text-emerald-400 font-semibold">Tema 13 al 16</span>
+                                    <h3 class="text-lg font-bold text-white">Modelos Mentales & Visión</h3>
+                                </div>
+                            </div>
+                            <div class="p-4 space-y-3">
+                                <p class="text-xs text-gray-300 leading-relaxed">
+                                    Cómo las supuestas verdades arraigadas sesgan nuestras decisiones y cómo una visión compartida cataliza la innovación.
+                                </p>
+                                <div class="bg-gray-950 p-2.5 rounded-xl border border-gray-800 text-[11px] text-gray-400">
+                                    <strong class="text-emerald-400 block">🔑 Habilidad Requerida:</strong>
+                                    Aprender a indagar y desafiar nuestros supuestos internos.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="p-4 pt-0">
+                            <button onclick="openExpoModal(4)" class="w-full py-2 rounded-xl bg-gray-800 hover:bg-brand-600 text-xs font-semibold text-white transition-all border border-gray-700">
+                                Abrir Infografía Interactiva
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Exposition Card 5 -->
+                    <div class="hover-card rounded-2xl bg-gray-900 border border-gray-800 overflow-hidden flex flex-col justify-between">
+                        <div>
+                            <div class="relative h-48 bg-gradient-to-tr from-pink-950 to-rose-900 p-4 flex flex-col justify-between">
+                                <div class="flex items-center justify-between">
+                                    <span class="px-2.5 py-1 rounded-full text-[10px] font-extrabold bg-black/60 text-white backdrop-blur-md">
+                                        EXP #05
+                                    </span>
+                                    <button onclick="playAudioSim('goldberg')" class="w-8 h-8 rounded-full bg-white/20 hover:bg-white/40 backdrop-blur-md flex items-center justify-center text-white transition-all">
+                                        <i class="fa-solid fa-volume-high text-xs"></i>
+                                    </button>
+                                </div>
+                                <div>
+                                    <span class="text-xs text-brand-pink font-semibold">Tema 17 al 19</span>
+                                    <h3 class="text-lg font-bold text-white">Neuro-Creatividad Goldberg</h3>
+                                </div>
+                            </div>
+                            <div class="p-4 space-y-3">
+                                <p class="text-xs text-gray-300 leading-relaxed">
+                                    La neurobiología de la innovación, lóbulos frontales y adaptación constante en un mundo de conocimiento acelerado.
+                                </p>
+                                <div class="bg-gray-950 p-2.5 rounded-xl border border-gray-800 text-[11px] text-gray-400">
+                                    <strong class="text-brand-pink block">🔑 Concepto Clave:</strong>
+                                    "El cerebro como ensamblador de ideas en la era de la novedad".
+                                </div>
+                            </div>
+                        </div>
+                        <div class="p-4 pt-0">
+                            <button onclick="openExpoModal(5)" class="w-full py-2 rounded-xl bg-gray-800 hover:bg-brand-600 text-xs font-semibold text-white transition-all border border-gray-700">
+                                Abrir Infografía Interactiva
+                            </button>
+                        </div>
+                    </div>
+
+                </div>
+            </section>
+
+            <!-- TAB: HABILIDADES DIRECTIVAS (resumen por capítulo / alumno) -->
+            <section id="tab-directivas" class="tab-content hidden space-y-6">
+                <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-gray-800 pb-4">
+                    <div>
+                        <h2 class="text-2xl font-extrabold text-white">Habilidades Directivas: un capítulo por alumno</h2>
+                        <p class="text-xs text-gray-400">Libro de Berta E. Madrigal Torres (2a ed.). Número = capítulo, letra = grupo en el pizarrón.</p>
+                    </div>
+                    <button onclick="dirMine()" class="px-4 py-2 rounded-xl bg-brand-600 hover:bg-brand-500 text-xs font-bold text-white flex items-center gap-2">
+                        <i class="fa-solid fa-user-check"></i> Mi tema (1A)
+                    </button>
+                </div>
+                <div class="flex flex-col md:flex-row gap-3">
+                    <input id="dirSearch" oninput="dirRender()" placeholder="Buscar alumno o tema..." class="flex-1 bg-gray-800 border border-gray-700 text-sm text-white rounded-xl px-3 py-2 focus:outline-none focus:border-brand-500">
+                    <div id="dirChips" class="flex flex-wrap gap-2"></div>
+                </div>
+                <div id="dirGrid" class="grid grid-cols-1 md:grid-cols-2 gap-5"></div>
+            </section>
+
+            <!-- TAB 4: LITERATURA & TEORÍA COMPLETA -->
+            <section id="tab-teoria" class="tab-content hidden space-y-8">
+                <!-- Peter Senge Section -->
+                <div class="rounded-3xl bg-gray-900 border border-gray-800 p-6 md:p-8 space-y-6">
+                    <div class="flex items-center gap-3">
+                        <div class="w-12 h-12 rounded-xl bg-yellow-500/20 border border-yellow-500/30 flex items-center justify-center text-yellow-400 text-2xl">
+                            <i class="fa-solid fa-book"></i>
+                        </div>
+                        <div>
+                            <h2 class="text-2xl font-bold text-white">La Quinta Disciplina — Peter Senge</h2>
+                            <p class="text-xs text-gray-400">Resumen Ejecutivo estructurado (Páginas 1 a 30)</p>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 text-xs">
+                        <div class="bg-gray-950 p-5 rounded-2xl border border-gray-800 space-y-3">
+                            <h3 class="text-sm font-bold text-yellow-400 uppercase tracking-wider">Las 7 Barreras del Aprendizaje</h3>
+                            <ul class="space-y-2 text-gray-300">
+                                <li><strong class="text-white">1. "Yo soy mi puesto":</strong> Limitar la identidad al rol individual sin ver la totalidad.</li>
+                                <li><strong class="text-white">2. "El enemigo externo":</strong> Buscar siempre un culpable fuera del sistema.</li>
+                                <li><strong class="text-white">3. La ilusión de hacerse cargo:</strong> Reactividad disfrazada de proactividad.</li>
+                                <li><strong class="text-white">4. Fijación en los hechos:</strong> Preocuparse solo por los eventos inmediatos y no por las tendencias.</li>
+                                <li><strong class="text-white">5. La parábola de la rana hervida:</strong> Incapacidad de reaccionar ante cambios lentos y graduales.</li>
+                                <li><strong class="text-white">6. La ilusión de aprender con la experiencia:</strong> Desconexión entre las causas y sus efectos distantes.</li>
+                                <li><strong class="text-white">7. El mito del equipo administrativo:</strong> Falsa cohesión que castiga el desacuerdo indagador.</li>
+                            </ul>
+                        </div>
+
+                        <div class="bg-gray-950 p-5 rounded-2xl border border-gray-800 space-y-3">
+                            <h3 class="text-sm font-bold text-brand-neon uppercase tracking-wider">Las 5 Disciplinas del Aprendizaje</h3>
+                            <div class="space-y-2 text-gray-300">
+                                <p><strong class="text-brand-neon">1. Pensamiento Sistémico:</strong> La quinta disciplina que integra a todas las demás.</p>
+                                <p><strong class="text-brand-violet">2. Dominio Personal:</strong> Expandir la capacidad individual para crear los resultados deseados.</p>
+                                <p><strong class="text-brand-pink">3. Modelos Mentales:</strong> Desenterrar nuestras imágenes internas del mundo.</p>
+                                <p><strong class="text-amber-400">4. Visión Compartida:</strong> Crear un compromiso común hacia el futuro.</p>
+                                <p><strong class="text-emerald-400">5. Aprendizaje en Equipo:</strong> Transformar la conversación en diálogo genuino.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Elkhonon Goldberg Section -->
+                <div class="rounded-3xl bg-gray-900 border border-gray-800 p-6 md:p-8 space-y-6">
+                    <div class="flex items-center gap-3">
+                        <div class="w-12 h-12 rounded-xl bg-brand-pink/20 border border-brand-pink/30 flex items-center justify-center text-brand-pink text-2xl">
+                            <i class="fa-solid fa-brain"></i>
+                        </div>
+                        <div>
+                            <h2 class="text-2xl font-bold text-white">Creatividad — Elkhonon Goldberg</h2>
+                            <p class="text-xs text-gray-400">El cerebro humano en la era de la innovación constante</p>
+                        </div>
+                    </div>
+
+                    <div class="bg-gray-950 p-5 rounded-2xl border border-gray-800 space-y-4 text-xs text-gray-300 leading-relaxed">
+                        <p>
+                            En su obra, Goldberg demuestra cómo la aceleración del conocimiento obliga al cerebro humano a abandonar los patrones automatizados ("rutinas cognitivas") para activar permanentemente las redes prefrontales y el hemisferio derecho.
+                        </p>
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-left">
+                            <div class="p-3 bg-gray-900 rounded-xl border border-gray-800">
+                                <strong class="text-brand-neon block mb-1">La Curva de la Novedad</strong>
+                                La obsolescencia rápida exige que la mente se reconfigure constantemente frente a problemas inéditos.
+                            </div>
+                            <div class="p-3 bg-gray-900 rounded-xl border border-gray-800">
+                                <strong class="text-brand-violet block mb-1">El "Maestro de Lego®"</strong>
+                                La creatividad no surge de la nada; es el reensamblaje novedoso de conocimientos previamente adquiridos.
+                            </div>
+                            <div class="p-3 bg-gray-900 rounded-xl border border-gray-800">
+                                <strong class="text-brand-pink block mb-1">Validación Social</strong>
+                                Una idea creativa adquiere valor real cuando resuelve una necesidad genuina en el contexto cultural.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+        </div>
+    </main>
+
+    <!-- MODAL LIGAS DIRECTAS / MENÚ GLOBAL -->
+    <div id="linksModal" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+        <div class="bg-gray-900 border border-gray-800 rounded-2xl max-w-md w-full p-6 space-y-5">
+            <div class="flex items-center justify-between border-b border-gray-800 pb-3">
+                <h3 class="text-base font-bold text-white flex items-center gap-2">
+                    <i class="fa-solid fa-link text-brand-neon"></i> Ligas Directas a Proyectos
+                </h3>
+                <button onclick="closeLinksModal()" class="text-gray-400 hover:text-white"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <p class="text-xs text-gray-400">
+                Selecciona la liga directa para navegar entre la batería de aplicaciones del Grupo 31 y los equipos evaluados:
+            </p>
+            <div class="space-y-2 text-xs">
+                <a href="#" onclick="copyLinkSim('https://sistemika-app.cloud/grupo31/salvador')" class="block p-3 rounded-xl bg-gray-950 hover:bg-gray-800 border border-gray-800 transition-all flex items-center justify-between">
+                    <span><i class="fa-solid fa-folder text-brand-neon mr-2"></i> App Equipo Salvador</span>
+                    <span class="text-brand-neon text-[10px]">Copiar Liga</span>
+                </a>
+                <a href="#" onclick="copyLinkSim('https://sistemika-app.cloud/grupo31/general')" class="block p-3 rounded-xl bg-gray-950 hover:bg-gray-800 border border-gray-800 transition-all flex items-center justify-between">
+                    <span><i class="fa-solid fa-network-wired text-brand-violet mr-2"></i> Hub General Grupo 31</span>
+                    <span class="text-brand-violet text-[10px]">Copiar Liga</span>
+                </a>
+                <a href="#" onclick="copyLinkSim('https://sistemika-app.cloud/grupo32/lab')" class="block p-3 rounded-xl bg-gray-950 hover:bg-gray-800 border border-gray-800 transition-all flex items-center justify-between">
+                    <span><i class="fa-solid fa-flask text-brand-pink mr-2"></i> Módulo Laboratorio TI</span>
+                    <span class="text-brand-pink text-[10px]">Copiar Liga</span>
+                </a>
+            </div>
+            <button onclick="closeLinksModal()" class="w-full py-2.5 rounded-xl bg-gray-800 text-xs font-semibold text-white">Cerrar</button>
+        </div>
+    </div>
+
+    <!-- MODAL INFOGRAFÍA INTERACTIVA DE EXPOSICIONES -->
+    <div id="expoModal" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+        <div class="bg-gray-900 border border-gray-800 rounded-3xl max-w-lg w-full p-6 space-y-4">
+            <div class="flex items-center justify-between border-b border-gray-800 pb-3">
+                <h3 id="expoModalTitle" class="text-lg font-bold text-white">Infografía Interactiva</h3>
+                <button onclick="closeExpoModal()" class="text-gray-400 hover:text-white"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <div id="expoModalBody" class="text-xs text-gray-300 space-y-3 max-h-80 overflow-y-auto pr-2">
+                <!-- Dynamic Content Loaded via JS -->
+            </div>
+            <button onclick="closeExpoModal()" class="w-full py-2.5 rounded-xl bg-brand-600 text-xs font-semibold text-white">Aceptar</button>
+        </div>
+    </div>
+
+    <!-- TOAST NOTIFICATION CONTAINER -->
+    <div id="toast" class="fixed bottom-5 right-5 bg-brand-600 text-white text-xs px-4 py-3 rounded-xl shadow-2xl opacity-0 transition-all duration-300 pointer-events-none z-50 flex items-center gap-2">
+        <i class="fa-solid fa-check-circle"></i> <span id="toastMsg">Acción realizada</span>
+    </div>
+
+    <!-- JAVASCRIPT APP LOGIC & INTERACTIVITY -->
+    <script>
+        // 1. Tab Navigation Logic
+        function switchTab(tabId) {
+            // Hide all tabs
+            document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
+            // Remove active style from buttons
+            document.querySelectorAll('.nav-btn').forEach(btn => {
+                btn.classList.remove('text-white', 'bg-brand-600/30', 'border', 'border-brand-500/40');
+                btn.classList.add('text-gray-400');
+            });
+
+            // Show selected tab
+            document.getElementById('tab-' + tabId).classList.remove('hidden');
+
+            // Style active button
+            const activeBtn = document.getElementById('nav-' + tabId);
+            activeBtn.classList.remove('text-gray-400');
+            activeBtn.classList.add('text-white', 'bg-brand-600/30', 'border', 'border-brand-500/40');
+
+            // Update Header Title
+            const titles = {
+                'hub': 'Menú Global de Navegación',
+                'arquetipos': 'Arquetipos Sistémicos con Simulación',
+                'exposiciones': 'Feed de Exposiciones (5 Stories)',
+                'teoria': 'Quinta Disciplina & Neuro-Creatividad',
+                'directivas': 'Habilidades Directivas por Capítulo'
+            };
+            document.getElementById('header-title').innerText = titles[tabId];
+        }
+
+        // 2. Change Group / Classroom Selector
+        function changeGroup(val) {
+            const badge = document.getElementById('current-group-badge');
+            const map = {
+                'equipo-pro': '🚀 Mi Equipo (Proyecto Principal)',
+                'grupo-31': '🏫 Grupo 31 - Inter-Aulas',
+                'equipo-salvador': '👤 Equipo Salvador & Colaboradores',
+                'grupo-32': '🔬 Grupo 32 - Laboratorio TI'
+            };
+            badge.innerText = map[val] || val;
+            showToast('Navegando al módulo: ' + map[val]);
+        }
+
+        // 3. Shower Simulation with Delay (Arquetipo 1)
+        let showerTimeout = null;
+        function updateShower(val) {
+            document.getElementById('knob-value').innerText = val + '%';
+            
+            // Show Delay Alert in Status
+            const tempStatus = document.getElementById('tempStatus');
+            const showerHead = document.getElementById('showerHead');
+            const waterStream = document.getElementById('waterStream');
+            const cloudLoadBar = document.getElementById('cloudLoadBar');
+            const cloudLoadText = document.getElementById('cloudLoadText');
+            const systemWarning = document.getElementById('systemWarning');
+
+            tempStatus.innerText = "⏳ Tubería reaccionando... (Demora de 2.5s)";
+            tempStatus.className = "text-xs font-extrabold px-3 py-1 rounded-full bg-amber-950 text-amber-300 border border-amber-800 animate-pulse";
+
+            // Simulated Delay of 2.5 seconds
+            clearTimeout(showerTimeout);
+            showerTimeout = setTimeout(() => {
+                const tempNum = parseInt(val);
+                cloudLoadBar.style.width = tempNum + '%';
+                cloudLoadText.innerText = tempNum + '% Servidores';
+
+                if (tempNum < 30) {
+                    // Ice Cold
+                    tempStatus.innerText = `🥶 Agua Helada: ${10 + Math.floor(tempNum/3)}°C (¡Congelándose!)`;
+                    tempStatus.className = "text-xs font-extrabold px-3 py-1 rounded-full bg-blue-950 text-blue-300 border border-blue-800";
+                    showerHead.className = "text-4xl text-blue-400 transition-colors duration-300";
+                    waterStream.className = "w-4 h-16 my-2 rounded-full bg-blue-400 opacity-80 transition-all duration-500";
+                    systemWarning.innerText = "Estado TI: Sub-aprovisionamiento de servidores. La app está lenta.";
+                } else if (tempNum > 70) {
+                    // Boiling Hot
+                    tempStatus.innerText = `🔥 Agua Hirviendo: ${45 + Math.floor(tempNum/2)}°C (¡Sobre-ajuste / Quemadura!)`;
+                    tempStatus.className = "text-xs font-extrabold px-3 py-1 rounded-full bg-red-950 text-red-300 border border-red-800";
+                    showerHead.className = "text-4xl text-red-500 transition-colors duration-300";
+                    waterStream.className = "w-4 h-16 my-2 rounded-full bg-red-500 opacity-90 transition-all duration-500";
+                    systemWarning.innerText = "CRÍTICO TI: Demasiados servidores encendidos. ¡Presupuesto Nube colapsado!";
+                } else {
+                    // Ideal
+                    tempStatus.innerText = `✨ Agua Templada: ${35}°C (Ideal & Estabilizado)`;
+                    tempStatus.className = "text-xs font-extrabold px-3 py-1 rounded-full bg-emerald-950 text-emerald-300 border border-emerald-800";
+                    showerHead.className = "text-4xl text-emerald-400 transition-colors duration-300";
+                    waterStream.className = "w-4 h-16 my-2 rounded-full bg-emerald-400 opacity-80 transition-all duration-500";
+                    systemWarning.innerText = "Estado TI: Carga balanceada con éxito en la nube.";
+                }
+            }, 1200);
+        }
+
+        // 4. Initialize Interactive Limits Chart (Arquetipo 2)
+        window.onload = function() {
+            const ctx = document.getElementById('limitsChart').getContext('2d');
+            new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: ['Mes 1', 'Mes 2', 'Mes 3', 'Mes 4', 'Mes 5', 'Mes 6', 'Mes 7', 'Mes 8'],
+                    datasets: [{
+                        label: 'Crecimiento de Usuarios App',
+                        data: [1000, 3000, 8000, 25000, 48000, 50000, 49000, 45000],
+                        borderColor: '#22d3ee',
+                        backgroundColor: 'rgba(34, 211, 238, 0.1)',
+                        fill: true,
+                        tension: 0.4,
+                        borderWidth: 3
+                    },
+                    {
+                        label: 'Capacidad Máxima Base de Datos (Límite)',
+                        data: [50000, 50000, 50000, 50000, 50000, 50000, 50000, 50000],
+                        borderColor: '#ef4444',
+                        borderDash: [5, 5],
+                        borderWidth: 2,
+                        fill: false,
+                        pointRadius: 0
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { labels: { color: '#9ca3af', font: { size: 10 } } }
+                    },
+                    scales: {
+                        x: { grid: { color: '#1f2937' }, ticks: { color: '#9ca3af', font: { size: 10 } } },
+                        y: { grid: { color: '#1f2937' }, ticks: { color: '#9ca3af', font: { size: 10 } } }
+                    }
+                }
+            });
+        };
+
+        // 5. Filter Archetypes
+        function filterArchetype(type) {
+            const cards = document.querySelectorAll('.arch-card');
+            cards.forEach(card => {
+                if (type === 'all') {
+                    card.classList.remove('hidden');
+                } else {
+                    if (card.classList.contains('arch-' + type)) {
+                        card.classList.remove('hidden');
+                    } else {
+                        card.classList.add('hidden');
+                    }
+                }
+            });
+        }
+
+        // 6. Audio Audio Simulation Toast
+        function playAudioSim(topic) {
+            showToast(`🔊 Reproduciendo resumen de voz para: ${topic}`);
+        }
+
+        // 7. Modals Control
+        function openLinksModal() {
+            document.getElementById('linksModal').classList.remove('hidden');
+        }
+        function closeLinksModal() {
+            document.getElementById('linksModal').classList.add('hidden');
+        }
+
+        function openExpoModal(id) {
+            const modal = document.getElementById('expoModal');
+            const title = document.getElementById('expoModalTitle');
+            const body = document.getElementById('expoModalBody');
+
+            const contentMap = {
+                1: {
+                    t: "Infografía #1: La Ilusión de la Fragmentación",
+                    b: "<p><strong>Problema Sistémico:</strong> Cuando fragmentamos los problemas complejos en partes pequeñas, perdemos la visión de conjunto.</p><p><strong>Impacto en TI:</strong> Desarrollar módulos aislados sin integración causa incompatibilidad arquitectónica.</p>"
+                },
+                2: {
+                    t: "Infografía #2: Las 7 Barreras del Aprendizaje",
+                    b: "<p><strong>Clave:</strong> Identificar la fijación en los eventos inmediatos y la paradoja de la rana hervida para prevenir crisis lentas.</p>"
+                },
+                3: {
+                    t: "Infografía #3: Juego de la Cerveza",
+                    b: "<p><strong>Aprendizaje:</strong> Las oscilaciones del inventario son provocadas por la falta de comunicación y la demora en la información de pedidos.</p>"
+                },
+                4: {
+                    t: "Infografía #4: Modelos Mentales",
+                    b: "<p><strong>Aplicación:</strong> Cuestionar los dogmas de 'siempre se ha hecho así' para dar paso a soluciones disruptivas.</p>"
+                },
+                5: {
+                    t: "Infografía #5: Neuro-Creatividad de Goldberg",
+                    b: "<p><strong>Análisis:</strong> Uso activo de la corteza prefrontal para reconfigurar el conocimiento en soluciones totalmente novedosas.</p>"
+                }
+            };
+
+            title.innerText = contentMap[id].t;
+            body.innerHTML = contentMap[id].b;
+            modal.classList.remove('hidden');
+        }
+
+        function closeExpoModal() {
+            document.getElementById('expoModal').classList.add('hidden');
+        }
+
+        function copyLinkSim(url) {
+            // Document execCommand fallback for iFrame compatibility
+            const el = document.createElement('textarea');
+            el.value = url;
+            document.body.appendChild(el);
+            el.select();
+            document.execCommand('copy');
+            document.body.removeChild(el);
+            showToast('✅ Liga copiada al portapapeles');
+        }
+
+        // 9. Habilidades Directivas: resumen por capítulo y alumno
+        const DIR_STUDENTS = [
+            {n:1,l:"A",name:"José María P."},{n:2,l:"C",name:"Kevin Alonso"},{n:3,l:"B",name:"Damián González"},
+            {n:4,l:"B",name:"Carolina Mejía"},{n:5,l:"A",name:"Erick Arriola"},{n:6,l:"E",name:"Ximena Gudiño"},
+            {n:7,l:"F",name:"Axel Daniel"},{n:8,l:"C",name:"Bjany Tienda"},{n:9,l:"",name:""},
+            {n:10,l:"D",name:"Josué Uribe"},{n:11,l:"E",name:"Johan González"},{n:12,l:"F",name:"Salvador Rojas"},
+            {n:13,l:"D",name:"Miguel García"}
+        ];
+        const DIR_CH = {
+            1:{t:"Habilidades directivas y su clasificación",p:"pp. 1-18",
+               r:"Una habilidad es una capacidad adquirida por aprendizaje que produce resultados previstos con la máxima certeza, el mínimo de tiempo y economía y la máxima seguridad. Por eso las habilidades directivas no se heredan: se aprenden y se desarrollan.",
+               k:["Clasifica las habilidades en conceptuales (ver la organización como un todo), técnicas y profesionales, interpersonales y sociales.","Las sociales son conductas aprendidas, no un rasgo de personalidad; se agrupan en seis grupos (de las primeras habilidades a las de planificación).","Megahabilidades del liderazgo (Burt Nanus): visión de futuro, dominio de los cambios, diseño de la organización, aprendizaje anticipado, iniciativa e integridad.","Saber (conocimientos), saber hacer (habilidades) y saber ser (cualidades) son lo que necesita un directivo.","Estudio de caso: mismo puesto, distintos directivos, resultados distintos según su perfil, estilo de mando y habilidades.","Internacionalización: aprender a vivir con otras culturas; el directivo del siglo XXI cambia de empleo 8 a 10 veces."]},
+            2:{t:"La alta dirección y sus habilidades",p:"pp. 21-34",
+               r:"Identifica el alcance de la alta dirección, sus funciones y habilidades. Analiza qué dicen los autores sobre dirección y la distingue de la administración y del liderazgo.",
+               k:["Conceptos y componentes de la dirección dentro del proceso administrativo.","Diferencias entre administración, dirección y liderazgo; administrador frente a líder.","Gerente y ejecutivo: puestos, funciones y habilidades del ejecutivo.","Misión y visión: cómo redactar la misión y recomendaciones para la visión.","El papel de los valores y los pilares de la dirección y del liderazgo."]},
+            3:{t:"Inteligencia emocional, habilidad imprescindible para dirigir",p:"pp. 35-52",
+               r:"El directivo debe identificar y manejar sus emociones y las de su equipo para orientarlas con empatía hacia un objetivo común. Con Goleman, plantea que en el liderazgo la inteligencia emocional pesa más que la intelectual.",
+               k:["Importancia de contar con directivos de inteligencia emocional alta.","Narcisismo y emociones.","Clasificación: inteligencia personal e interpersonal.","Relación entre inteligencia emocional y éxito del directivo.","Se aprende; diferencias entre hombre y mujer y relación con los estilos de liderazgo."]},
+            4:{t:"Comunicación",p:"pp. 55-75",
+               r:"Mejora la competencia comunicativa integrando teoría, práctica y autoconocimiento. Muchos problemas de personas y organizaciones nacen de una comunicación inadecuada.",
+               k:["La comunicación como proceso: modelo de los siete pasos.","Niveles: intrapersonal, interpersonal, grupal y organizacional; papel de la tecnología.","Asertividad y sus técnicas: guion DEEC, disco rayado, banco de niebla, recepción activa, entre otras.","Comunicación no verbal y el arte de escuchar.","Comunicación escrita (correo electrónico), hablar en público y dar noticias desagradables."]},
+            5:{t:"Administración del tiempo",p:"pp. 77-93",
+               r:"Busca que el alumno administre su tiempo y el de su equipo. El tiempo es un recurso más del proceso administrativo y quien no lo administra difícilmente administra otra cosa.",
+               k:["Lo principal: identificar roles, elegir metas del cuadrante II, planear la semana, actuar con integridad y evaluar.","Enfoques: organícese (orden) y 101 (habilidades).","Los enemigos del tiempo: ladrones del tiempo del directivo.","Mitos acerca del tiempo y personalidad del ejecutivo que lo administra bien.","Cómo hacer eficientes las reuniones de trabajo."]},
+            6:{t:"Creatividad",p:"pp. 95-111",
+               r:"La creatividad no es cosa de genios: es un proceso psicológico educable que existe en todas las personas y que se puede rescatar. Aplicada en las organizaciones, beneficia a todos.",
+               k:["Fases del pensamiento creativo y características de la persona creativa.","Inhibidores individuales y organizacionales de la creatividad.","Cómo descubrir el espíritu creativo laboral; la dirección como aventura creativa.","Principios rectores del cerebro."]},
+            7:{t:"Toma de decisiones, esencia de la dirección",p:"pp. 113-129",
+               r:"Toda decisión es una elección entre alternativas, casi siempre sin conocer con certeza las consecuencias. El capítulo enseña el proceso para decidir con efectividad, de forma individual y en equipo.",
+               k:["Método científico y proceso racional de toma de decisiones: etapas y pasos.","Naturaleza y tipos de decisiones.","Elementos cuantitativos, productividad y papel de las matemáticas.","Decisiones en equipo y barreras para decidir bien.","Cualidades del directivo, teoría de la decisión y clasificación de problemas."]},
+            8:{t:"Trabajo en equipo y manejo de conflictos",p:"pp. 131-151",
+               r:"Ofrece recursos para manejar grupos, sobre todo equipos participativos, y estrategias para entender y resolver conflictos, con el fin de mejorar el desempeño organizacional.",
+               k:["Cultura organizacional y competitividad.","Qué es un equipo y responsabilidad compartida entre dirección y personal.","Dificultades de los equipos y características de los equipos efectivos.","Aceptar la diversidad dentro del equipo.","Claves del conflicto."]},
+            9:{t:"Liderazgo",p:"pp. 153-172",
+               r:"Presenta las principales teorías y corrientes del liderazgo para identificar y desarrollar las propias fortalezas, y eliminar inhibidores como el temor y la duda.",
+               k:["Liderazgo y dirección; estilos autocrático, democrático y laissez-faire.","Funciones del líder y papel del poder y la autoridad.","Estilos: estructurador, entrenador, alentador, delegador y carismático.","Personalidad del líder (resuelto, persistente, arriesgado) y liderazgo femenino.","Actitudes y aptitudes esenciales para liderar."]},
+            10:{t:"Negociación como habilidad",p:"pp. 173-185",
+               r:"La principal habilidad para negociar es la comunicación. Muestra los componentes, herramientas y pasos de una negociación exitosa, con la tendencia ganar-ganar.",
+               k:["Negociación cara a cara y cómo lograr ganar-ganar.","Importancia de la negociación, negociación internacional y liderazgo negociador.","Variables: marco, partes, evolución del acuerdo y variables secundarias.","Etapas del proceso y personalidad del negociador.","Problemas que provoca una mala negociación."]},
+            11:{t:"Motivación, habilidad elemental del directivo",p:"pp. 187-206",
+               r:"Un directivo que no está motivado difícilmente motiva a su equipo. Revisa el proceso de la motivación, cómo motivar a los empleados y las teorías que lo explican.",
+               k:["Proceso de la motivación y estrategias para motivar al personal.","Modelos mecanicista y conductista.","Teoría de la jerarquía de necesidades de Maslow, de las expectativas y de la equidad.","Motivación intrínseca (automotivación) y extrínseca.","Qué motiva al directivo y factores motivacionales."]},
+            12:{t:"La habilidad estratégica",p:"pp. 209-228",
+               r:"Un directivo sin estrategia clara y definida tiene dificultades para alcanzar objetivos. Busca desarrollar la habilidad estratega para diseñar estrategias asertivas.",
+               k:["Habilidad frente a estrategia y liderazgo estratégico eficaz.","Mapas de estrategia, ventajas intangibles y flexibilidad.","Planeación estratégica y ventaja competitiva.","Pilares: pensamiento, actitud e intención estratégica.","Talento humano, gestión del conocimiento y factores incontrolables."]},
+            13:{t:"Habilidades del pensamiento",p:"pp. 229-246",
+               r:"Desarrolla el pensamiento creativo y crítico aplicado a la dirección y al liderazgo, a partir de la curiosidad, el aprendizaje continuo y el uso del conocimiento.",
+               k:["Importancia de las habilidades del pensamiento y pensamiento crítico.","Elementos del pensamiento y solución de problemas (incluye analogías).","Aprender a hacer e inteligencias múltiples.","Pensamiento lateral.","Habilidades lectoras y mapa conceptual."]}
+        };
+        let dirLetter = "Todos";
+        const dirOpen = new Set();
+        function dirChips() {
+            document.getElementById("dirChips").innerHTML = ["Todos","A","B","C","D","E","F"].map(l =>
+                `<button onclick="dirLetter='${l}';dirChips();dirRender()" class="px-3 py-1.5 rounded-lg text-xs font-bold border ${l===dirLetter?'bg-brand-600 border-brand-500 text-white':'bg-gray-800 border-gray-700 text-gray-300 hover:bg-gray-700'}">${l==="Todos"?l:"Grupo "+l}</button>`).join("");
+        }
+        function dirRender() {
+            const q = document.getElementById("dirSearch").value.toLowerCase();
+            const html = DIR_STUDENTS.filter(s => {
+                const c = DIR_CH[s.n];
+                if (dirLetter !== "Todos" && s.l !== dirLetter) return false;
+                return !q || (s.name + " " + c.t + " " + s.n + s.l).toLowerCase().includes(q);
+            }).map(s => {
+                const c = DIR_CH[s.n], open = dirOpen.has(s.n), free = !s.name;
+                return `<div id="dir-${s.n}" class="rounded-2xl bg-gray-900 border ${free?'border-dashed border-gray-600':'border-gray-800'} p-5 space-y-3">
+                    <div class="flex items-center justify-between gap-2">
+                        <span class="px-2.5 py-1 rounded-full text-[10px] font-extrabold bg-brand-600/30 text-brand-neon border border-brand-500/40">CAP. ${s.n}${s.l?' · '+s.n+s.l:''}</span>
+                        <span class="text-[10px] text-gray-500">${c.p}</span>
+                    </div>
+                    <div>
+                        <p class="text-sm font-extrabold ${free?'text-amber-400':'text-white'}"><i class="fa-solid ${free?'fa-circle-question':'fa-user'} text-brand-violet mr-1"></i>${free?'Sin alumno asignado en el pizarrón':s.name}</p>
+                        <h3 class="text-base font-bold text-gradient">${c.t}</h3>
+                    </div>
+                    <p class="text-xs text-gray-300 leading-relaxed">${c.r}</p>
+                    <button onclick="dirToggle(${s.n})" class="text-xs font-semibold text-brand-neon hover:underline">${open?'Ocultar puntos clave':'Ver puntos clave'}</button>
+                    <ul class="${open?'':'hidden'} list-disc pl-5 space-y-1.5 text-[11px] text-gray-400">${c.k.map(x=>`<li>${x}</li>`).join("")}</ul>
+                </div>`;
+            }).join("");
+            document.getElementById("dirGrid").innerHTML = html || '<p class="text-xs text-gray-400">Sin resultados.</p>';
+        }
+        function dirToggle(n) { dirOpen.has(n) ? dirOpen.delete(n) : dirOpen.add(n); dirRender(); }
+        function dirMine() {
+            dirLetter = "Todos"; document.getElementById("dirSearch").value = "";
+            dirOpen.add(1); dirChips(); dirRender();
+            document.getElementById("dir-1").scrollIntoView({behavior:"smooth", block:"center"});
+        }
+        dirChips(); dirRender();
+
+        // 8. Toast Helper
+        function showToast(msg) {
+            const toast = document.getElementById('toast');
+            document.getElementById('toastMsg').innerText = msg;
+            toast.classList.remove('opacity-0', 'pointer-events-none');
+            setTimeout(() => {
+                toast.classList.add('opacity-0', 'pointer-events-none');
+            }, 3000);
+        }
+    </script>
+</body>
+</html>

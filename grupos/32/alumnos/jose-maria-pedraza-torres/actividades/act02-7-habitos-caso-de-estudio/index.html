@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Los 7 Hábitos & Caso de Estudio - José María Pedraza</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    :root {
+      --bg-dark: #0f172a;
+      --card-bg: #1e293b;
+      --accent: #38bdf8;
+      --text: #f8fafc;
+      --text-muted: #94a3b8;
+      --ink: #22303c;
+      --paper: #f6f3ec;
+      --paper-dark: #ece7da;
+      --hairline: #d8d2c2;
+      --muted-quiz: #8a8064;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+    body { background-color: var(--bg-dark); color: var(--text); height: 100vh; overflow: hidden; }
+
+    /* PORTADA INICIAL */
+    .cover-screen {
+      position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+      background: radial-gradient(circle at center, #1e293b 0%, #0f172a 100%);
+      display: flex; flex-direction: column; justify-content: center; align-items: center;
+      text-align: center; padding: 20px; z-index: 1000; transition: opacity 0.5s ease, visibility 0.5s ease;
+    }
+    .cover-screen.hidden { opacity: 0; visibility: hidden; pointer-events: none; }
+    .cover-logo-box {
+      background-color: rgba(56, 189, 248, 0.08); border: 2px solid var(--accent);
+      border-radius: 24px; padding: 20px; margin-bottom: 25px; box-shadow: 0 0 30px rgba(56, 189, 248, 0.25);
+    }
+    .cover-logo-box svg { width: 90px; height: 90px; display: block; }
+    .cover-screen h1 { font-size: 2.8rem; color: var(--text); margin-bottom: 10px; }
+    .cover-screen h1 span { color: var(--accent); }
+    .cover-screen p { font-size: 1.2rem; color: var(--text-muted); margin-bottom: 35px; }
+    .btn-enter {
+      background-color: var(--accent); color: #0f172a; font-size: 1.1rem; font-weight: bold;
+      padding: 16px 36px; border: none; border-radius: 30px; cursor: pointer;
+      box-shadow: 0 4px 15px rgba(56, 189, 248, 0.4); transition: transform 0.2s ease;
+    }
+    .btn-enter:hover { transform: translateY(-2px); }
+
+    /* CONTENEDOR PRINCIPAL */
+    .app-container { display: flex; height: 100vh; width: 100vw; }
+    .sidebar { width: 320px; background-color: #020617; border-right: 1px solid #1e293b; display: flex; flex-direction: column; padding: 20px 0; }
+    .brand-logo { display: flex; items-center; gap: 12px; padding: 0 20px 20px 20px; border-bottom: 1px solid #1e293b; }
+    .brand-logo svg { width: 36px; height: 36px; }
+    .brand-logo h2 { font-size: 1rem; text-transform: uppercase; letter-spacing: 1px; color: var(--accent); }
+    .menu { list-style: none; margin-top: 10px; overflow-y: auto; }
+    .menu li button {
+      width: 100%; padding: 15px 20px; background: none; border: none; color: var(--text-muted);
+      text-align: left; font-size: 0.95rem; cursor: pointer; transition: all 0.3s ease;
+      display: flex; align-items: center; gap: 10px;
+    }
+    .menu li button:hover, .menu li button.active { background-color: var(--card-bg); color: var(--accent); border-left: 4px solid var(--accent); }
+
+    .content-area { flex: 1; padding: 40px; overflow-y: auto; display: flex; justify-content: center; align-items: flex-start; }
+    .card {
+      background-color: var(--card-bg); border-radius: 16px; max-width: 800px; width: 100%;
+      padding: 30px; box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5); display: none;
+      animation: fadeIn 0.4s ease-in-out forwards;
+    }
+    .card.active { display: block; }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+    .card h1 { font-size: 2rem; color: var(--accent); margin-bottom: 15px; }
+    .card-img { width: 100%; height: 320px; object-fit: cover; border-radius: 12px; margin-bottom: 20px; }
+    .card p { line-height: 1.6; font-size: 1.05rem; margin-bottom: 20px; color: #cbd5e1; }
+    .interactive-box { background-color: #0f172a; border: 1px dashed var(--accent); border-radius: 8px; padding: 20px; margin-top: 20px; }
+    .interactive-box h3 { font-size: 1rem; color: var(--accent); margin-bottom: 10px; }
+    textarea { width: 100%; height: 80px; background-color: #1e293b; border: 1px solid #334155; border-radius: 6px; color: var(--text); padding: 10px; resize: none; margin-top: 10px; }
+
+    /* QUIZ COMPONENT STYLES */
+    .quiz-container { background-color: var(--paper); color: var(--ink); border-radius: 12px; padding: 30px; font-family: Georgia, serif; }
+    .quiz-btn {
+      width: 100%; text-align: left; padding: 12px 16px; border-radius: 6px; border: 1px solid var(--hairline);
+      background: white; color: var(--ink); font-size: 0.95rem; cursor: pointer; margin-bottom: 10px;
+      display: flex; justify-content: space-between; align-items: center; transition: all 0.2s ease;
+    }
+    .quiz-btn:hover { border-color: #b8862b; background: #fcfbf8; }
+
+    /* GALERÍA AUTOR */
+    .author-card { text-align: center; }
+    .author-avatar { width: 120px; height: 120px; border-radius: 50%; background-color: #0f172a; color: var(--accent); border: 4px solid var(--accent); display: flex; align-items: center; justify-content: center; font-size: 2.5rem; font-weight: bold; margin: 0 auto 20px auto; }
+    .author-email { display: inline-block; margin: 15px 0 30px 0; padding: 10px 20px; background-color: var(--accent); color: #0f172a; font-weight: bold; text-decoration: none; border-radius: 6px; }
+    .gallery-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; margin-top: 15px; }
+    .gallery-item { position: relative; border-radius: 8px; overflow: hidden; height: 150px; }
+    .gallery-item img { width: 100%; height: 100%; object-fit: cover; }
+    .gallery-caption { position: absolute; bottom: 0; left: 0; right: 0; background: rgba(15, 23, 42, 0.85); color: var(--text); font-size: 0.85rem; padding: 6px; text-align: center; }
+  </style>
+</head>
+<body>
+
+  <!-- PORTADA INICIAL -->
+  <div class="cover-screen" id="coverScreen">
+    <div class="cover-logo-box">
+      <svg viewBox="0 0 100 100">
+        <path d="M25 20 L75 20 L75 35 L55 35 L55 80 L35 80 L35 35 L25 35 Z" fill="#38bdf8" />
+        <path d="M45 45 L65 45 C75 45 82 52 82 62 C82 72 75 80 65 80 L45 80" fill="none" stroke="#38bdf8" stroke-width="10" stroke-linecap="round" />
+      </svg>
+    </div>
+    <h1>José María Pedraza <span>Software Eng.</span></h1>
+    <p>Presentación Interactiva: Los 7 Hábitos & Caso de Estudio Toma de Decisiones</p>
+    <button class="btn-enter" onclick="enterApp()">Explorar el Sitio</button>
+  </div>
+
+  <div class="app-container">
+    <nav class="sidebar">
+      <div class="brand-logo">
+        <svg viewBox="0 0 100 100">
+          <path d="M25 20 L75 20 L75 35 L55 35 L55 80 L35 80 L35 35 L25 35 Z" fill="#38bdf8" />
+          <path d="M45 45 L65 45 C75 45 82 52 82 62 C82 72 75 80 65 80 L45 80" fill="none" stroke="#38bdf8" stroke-width="10" stroke-linecap="round" />
+        </svg>
+        <h2>J. M. Pedraza | Dev</h2>
+      </div>
+      <ul class="menu">
+        <li><button class="active" onclick="showTab(0)">📌 Introducción</button></li>
+        <li><button onclick="showTab(1)">🐴 Hábito 1: Ser Proactivo</button></li>
+        <li><button onclick="showTab(2)">🚗 Hábito 2: Fin en Mente</button></li>
+        <li><button onclick="showTab(3)">⏳ Hábito 3: Primero lo Primero</button></li>
+        <li><button onclick="showTab(4)">⚽ Hábito 4: Ganar-Ganar</button></li>
+        <li><button onclick="showTab(5)">🎧 Hábito 5: Comprender Primero</button></li>
+        <li><button onclick="showTab(6)">🎸 Hábito 6: Sinergizar</button></li>
+        <li><button onclick="showTab(7)">🌲 Hábito 7: Afilar la Sierra</button></li>
+        <li><button onclick="showTab(8)">📊 Quiz Toma de Decisiones</button></li>
+        <li><button onclick="showTab(9)">👤 Autor</button></li>
+      </ul>
+    </nav>
+
+    <main class="content-area">
+      <section class="card active">
+        <h1>Los 7 Hábitos de la Gente Altamente Efectiva</h1>
+        <img class="card-img" src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1000&q=80" />
+        <p>Bienvenido a esta experiencia interactiva basada en la obra de Stephen R. Covey y herramientas avanzadas de toma de decisiones. Explora los módulos desde el menú lateral.</p>
+      </section>
+
+      <section class="card">
+        <h1>Hábito 1: Ser Proactivo</h1>
+        <img class="card-img" src="https://images.unsplash.com/photo-1553284965-83fd3e82fa5a?auto=format&fit=crop&w=1000&q=80" />
+        <p>Tomar la iniciativa implica asumir la responsabilidad de tus decisiones. No eres víctima de las circunstancias, sino el piloto de tu propia vida.</p>
+        <div class="interactive-box"><h3>💡 Reflexión Interactiva</h3><textarea placeholder="Escribe tu reflexión aquí..."></textarea></div>
+      </section>
+
+      <section class="card">
+        <h1>Hábito 2: Empezar con un Fin en Mente</h1>
+        <img class="card-img" src="https://images.unsplash.com/photo-1568605117036-5fe5e7bab0b7?auto=format&fit=crop&w=1000&q=80" />
+        <p>Trazar la ruta antes de arrancar. Desarrolla una visión clara de lo que quieres lograr para que cada paso te acerque a tu destino.</p>
+        <div class="interactive-box"><h3>💡 Definición de Metas</h3><textarea placeholder="Define tu meta principal..."></textarea></div>
+      </section>
+
+      <section class="card">
+        <h1>Hábito 3: Establecer Primero lo Primero</h1>
+        <img class="card-img" src="https://images.unsplash.com/photo-1508962914676-134849a727f0?auto=format&fit=crop&w=1000&q=80" />
+        <p>Organizar y ejecutar según prioridades. Administra tu tiempo enfocándote en lo importante sobre lo urgente.</p>
+        <div class="interactive-box"><h3>💡 Gestión del Tiempo</h3><textarea placeholder="Tu prioridad real..."></textarea></div>
+      </section>
+
+      <section class="card">
+        <h1>Hábito 4: Pensar en Ganar/Ganar</h1>
+        <img class="card-img" src="https://images.unsplash.com/photo-1579952318891-21b2203cfc40?auto=format&fit=crop&w=1000&q=80" />
+        <p>Buscar el beneficio mutuo en todas las interacciones humanas. La victoria compartida impulsa relaciones sólidas.</p>
+        <div class="interactive-box"><h3>💡 Mentalidad de Abundancia</h3><textarea placeholder="Tu estrategia colaborativa..."></textarea></div>
+      </section>
+
+      <section class="card">
+        <h1>Hábito 5: Buscar Primero Comprender, Luego Ser Comprendido</h1>
+        <img class="card-img" src="https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?auto=format&fit=crop&w=1000&q=80" />
+        <p>Escuchar con empatía antes de responder. La atención profunda requiere silenciar nuestros juicios previos.</p>
+        <div class="interactive-box"><h3>💡 Escucha Empática</h3><textarea placeholder="Tu compromiso de escucha..."></textarea></div>
+      </section>
+
+      <section class="card">
+        <h1>Hábito 6: Sinergizar</h1>
+        <img class="card-img" src="https://images.unsplash.com/photo-1511379938547-c1f69419868d?auto=format&fit=crop&w=1000&q=80" />
+        <p>El trabajo en equipo logra resultados superiores a la suma de las partes individuales.</p>
+        <div class="interactive-box"><h3>💡 Trabajo en Equipo</h3><textarea placeholder="Sinergia grupal..."></textarea></div>
+      </section>
+
+      <section class="card">
+        <h1>Hábito 7: Afilar la Sierra</h1>
+        <img class="card-img" src="https://images.unsplash.com/photo-1448375240586-882707db888b?auto=format&fit=crop&w=1000&q=80" />
+        <p>Renovación continua en tus dimensiones física, mental, emocional y espiritual.</p>
+        <div class="interactive-box"><h3>💡 Renovación Personal</h3><textarea placeholder="Tu plan de renovación..."></textarea></div>
+      </section>
+
+      <!-- QUIZ JSX REPLICADO EXACTO -->
+      <section class="card">
+        <div class="quiz-container" id="quizApp"></div>
+      </section>
+
+      <!-- AUTOR Y GALERÍA -->
+      <section class="card author-card">
+        <h1>Autor</h1>
+        <div class="author-avatar">JP</div>
+        <h2>José María Pedraza Torres</h2>
+        <p>Estudiante de Ingeniería de Software & Apasionado del Desarrollo Personal</p>
+        <a href="mailto:josepedrazatorres15@gmail.com" class="author-email">josepedrazatorres15@gmail.com</a>
+        <h3 style="margin-top:25px; color:var(--accent);">Intereses & Pasiones</h3>
+        <div class="gallery-grid">
+          <div class="gallery-item"><img src="https://images.unsplash.com/photo-1579952318891-21b2203cfc40?auto=format&fit=crop&w=500&q=80"><div class="gallery-caption">⚽ Fútbol</div></div>
+          <div class="gallery-item"><img src="https://images.unsplash.com/photo-1553284965-83fd3e82fa5a?auto=format&fit=crop&w=500&q=80"><div class="gallery-caption">🐴 Caballos</div></div>
+          <div class="gallery-item"><img src="https://images.unsplash.com/photo-1543466835-00a7907e9de1?auto=format&fit=crop&w=500&q=80"><div class="gallery-caption">🐶 Perros</div></div>
+          <div class="gallery-item"><img src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=500&q=80"><div class="gallery-caption">🍔 Comida</div></div>
+          <div class="gallery-item"><img src="https://images.unsplash.com/photo-1511379938547-c1f69419868d?auto=format&fit=crop&w=500&q=80"><div class="gallery-caption">🎸 Guitarra</div></div>
+          <div class="gallery-item"><img src="https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?auto=format&fit=crop&w=500&q=80"><div class="gallery-caption">🎧 Música</div></div>
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <script>
+    function enterApp() { document.getElementById('coverScreen').classList.add('hidden'); }
+    function showTab(index) {
+      document.querySelectorAll('.card').forEach((c, i) => c.classList.toggle('active', i === index));
+      document.querySelectorAll('.menu button').forEach((b, i) => b.classList.toggle('active', i === index));
+    }
+
+    const TOOLS = [
+      { id: "foda", name: "FODA", subtitle: "Fortalezas, Oportunidades, Debilidades, Amenazas", color: "#B8862B" },
+      { id: "sombreros", name: "6 Sombreros para Pensar", subtitle: "La decisión desde 6 perspectivas", color: "#4C7A78" },
+      { id: "pareto", name: "Diagrama de Pareto", subtitle: "Ranking de problemas (regla 80/20)", color: "#8B4A3B" },
+      { id: "ishikawa", name: "Diagrama de Ishikawa", subtitle: "Causa - efecto (espina de pescado)", color: "#3E5C76" },
+      { id: "catwoe", name: "CATWOE", subtitle: "Cliente, Actores, Transformación, Cosmovisión, Dueños, Entorno", color: "#6B7A3A" },
+      { id: "resumen", name: "Resumen ejecutivo", subtitle: "Una recomendación construida con las cinco herramientas", color: "#22303C" },
+    ];
+
+    const PROBLEMS = ["Baja matrícula de nuevo ingreso", "Alta deserción estudiantil", "Falta de innovación en los métodos de enseñanza", "Presupuesto operativo limitado"];
+
+    const CATEGORIES = {
+      personas: { label: "Personas", causes: ["Falta de capacitación docente", "Resistencia al cambio del personal", "Alta rotación de profesores", "Sobrecarga laboral del personal"] },
+      procesos: { label: "Procesos y metodología", causes: ["Planes de estudio desactualizados", "Procesos administrativos lentos", "Falta de evaluación continua", "Poca coordinación entre áreas"] },
+      tecnologia: { label: "Tecnología y recursos", causes: ["Infraestructura tecnológica insuficiente", "Falta de licencias de software", "Conectividad limitada en campus", "Equipo de laboratorio obsoleto"] },
+      entorno: { label: "Entorno y mercado", causes: ["Alta competencia de otras instituciones", "Cambios en la demanda laboral", "Situación económica regional", "Nuevas regulaciones educativas"] },
+    };
+
+    const QUESTIONS = [
+      { tool: "foda", prompt: "¿Qué recurso interno consideras más valioso para la universidad?", options: [
+        { label: "Un cuerpo docente con amplia experiencia", fortaleza: "El cuerpo docente tiene amplia experiencia y trayectoria académica.", debilidad: "Falta renovación e innovación en las prácticas pedagógicas." },
+        { label: "Instalaciones y tecnología modernas", fortaleza: "Cuenta con instalaciones y equipamiento tecnológico modernos.", debilidad: "Los altos costos de mantenimiento tecnológico presionan el presupuesto." },
+        { label: "Prestigio y reconocimiento en la región", fortaleza: "Goza de buen prestigio y reconocimiento en la región.", debilidad: "Existe dependencia excesiva de la reputación histórica, sin renovarla." },
+        { label: "Costos de colegiatura competitivos", fortaleza: "Ofrece colegiaturas competitivas frente a la competencia.", debilidad: "Los márgenes financieros son ajustados para nuevas inversiones." },
+      ]},
+      { tool: "foda", prompt: "¿Qué factor externo representa la mayor posibilidad de crecimiento?", options: [
+        { label: "La demanda de educación en línea", oportunidad: "Existe una demanda creciente de educación en modalidad en línea.", amenaza: "Plataformas educativas digitales compiten directamente por esos estudiantes." },
+        { label: "Alianzas con empresas", oportunidad: "Hay posibilidad de alianzas con empresas para prácticas profesionales.", amenaza: "Cambios regulatorios en la educación superior pueden limitar esas alianzas." },
+        { label: "Becas gubernamentales", oportunidad: "Los programas de becas gubernamentales están en expansión.", amenaza: "Un recorte de presupuesto público a la educación es un riesgo constante." },
+        { label: "Estudiantes internacionales", oportunidad: "Crece el interés de estudiantes internacionales por nuevas opciones.", amenaza: "Universidades competidoras ofrecen becas más agresivas para captarlos." },
+      ]},
+      { tool: "sombreros", prompt: "¿Qué decisión concreta está evaluando la universidad?", options: [
+        { label: "Expandir la modalidad en línea", detail: "abrir cursos virtuales adicionales y capacitar al profesorado en enseñanza remota" },
+        { label: "Abrir una nueva sede", detail: "invertir en un nuevo campus físico en otra ciudad" },
+        { label: "Reducir la oferta académica", detail: "cerrar o fusionar programas con baja demanda" },
+        { label: "Aumentar la colegiatura", detail: "ajustar el precio de las colegiaturas para el próximo ciclo" },
+      ]},
+      { tool: "sombreros", prompt: "¿Cuál es la mayor inquietud respecto a esta decisión?", options: [
+        { label: "Los costos", risk: "el gasto en infraestructura y capacitación supere el presupuesto disponible" },
+        { label: "La calidad educativa", risk: "la calidad de la enseñanza se vea afectada durante la transición" },
+        { label: "La aceptación de los estudiantes", risk: "los estudiantes actuales no respondan bien al cambio" },
+        { label: "El tiempo de implementación", risk: "el plazo para implementar la decisión sea insuficiente" },
+      ]},
+      { tool: "pareto", prompt: "¿Cuál consideras el problema más grave que enfrenta la universidad?", options: PROBLEMS.map(p => ({ label: p })) },
+      { tool: "pareto", prompt: "¿Cuál es el segundo problema en importancia?", options: PROBLEMS.map(p => ({ label: p })) },
+      { tool: "ishikawa", prompt: "¿Qué categoría de causas crees que más afecta el problema principal?", options: Object.entries(CATEGORIES).map(([key, val]) => ({ label: val.label, key })) },
+      { tool: "ishikawa", prompt: "¿Cuál es la causa específica más relevante dentro de esa categoría?", options: [] },
+      { tool: "catwoe", prompt: "¿Quién es el cliente principal que se beneficia de esta decisión?", options: [
+        { label: "Estudiantes actuales" }, { label: "Estudiantes potenciales" }, { label: "Empleadores" }, { label: "Sociedad en general" },
+      ]},
+      { tool: "catwoe", prompt: "¿Cuál es la restricción del entorno más relevante a considerar?", options: [
+        { label: "Normativas gubernamentales de educación" }, { label: "Competencia de mercado" }, { label: "Recursos financieros limitados" }, { label: "Cambios tecnológicos acelerados" },
+      ]},
+    ];
+
+    let currentStep = 0;
+    let userAnswers = Array(10).fill(null);
+    let currentQuizView = "intro";
+    let selectedToolId = null;
+
+    function renderQuiz() {
+      const container = document.getElementById('quizApp');
+      if (currentQuizView === "intro") {
+        container.innerHTML = `
+          <div style="text-align: center;">
+            <p style="text-transform: uppercase; font-size: 0.8rem; color: var(--muted-quiz);">Caso de estudio</p>
+            <h2 style="font-size: 1.8rem; margin: 10px 0; font-family: Georgia, serif;">Herramientas para la toma de decisiones</h2>
+            <p style="font-size: 1rem; color: #4A4032; margin-bottom: 25px;">
+              Una universidad debe tomar una decisión importante sobre su futuro. Responde 10 preguntas — dos por cada herramienta — y se construirán cinco análisis interactivos y un resumen ejecutivo final.
+            </p>
+            <button onclick="startQuiz()" class="btn-enter" style="padding: 12px 30px; font-size: 1rem;">Comenzar Cuestionario</button>
+          </div>
+        `;
+      } else if (currentQuizView === "quiz") {
+        const q = QUESTIONS[currentStep];
+        const tool = TOOLS.find(t => t.id === q.tool);
+        let opts = q.options;
+
+        if (currentStep === 5) {
+          const first = userAnswers[4]?.label;
+          opts = PROBLEMS.filter(p => p !== first).map(p => ({ label: p }));
+        } else if (currentStep === 7) {
+          const catKey = userAnswers[6]?.key;
+          opts = catKey ? CATEGORIES[catKey].causes.map(c => ({ label: c })) : [];
+        }
+
+        container.innerHTML = `
+          <div>
+            <p style="font-size: 0.8rem; text-transform: uppercase; color: ${tool.color}; font-weight: bold;">
+              ${tool.name} · Pregunta ${(currentStep % 2) + 1} de 2
+            </p>
+            <h3 style="font-size: 1.4rem; margin: 15px 0;">${q.prompt}</h3>
+            <div>
+              ${opts.map((opt, idx) => `
+                <button class="quiz-btn" onclick="selectAnswer(${idx})">
+                  <span>${opt.label}</span>
+                  <span>→</span>
+                </button>
+              `).join('')}
+            </div>
+            ${currentStep > 0 ? `<button onclick="prevStep()" style="margin-top: 15px; background: none; border: none; cursor: pointer; text-decoration: underline; color: #7A6E56;">← Volver</button>` : ''}
+          </div>
+        `;
+      } else if (currentQuizView === "menu") {
+        container.innerHTML = `
+          <div>
+            <h2 style="font-size: 1.6rem; margin-bottom: 5px;">Resultados del Análisis</h2>
+            <p style="font-size: 0.9rem; color: var(--muted-quiz); margin-bottom: 20px;">Abre cada herramienta para explorar las respuestas analizadas.</p>
+            <div>
+              ${TOOLS.slice(0, 5).map(t => `
+                <button class="quiz-btn" style="border-left: 5px solid ${t.color}; padding: 15px;" onclick="viewResult('${t.id}')">
+                  <div>
+                    <strong>${t.name}</strong>
+                    <div style="font-size: 0.8rem; color: var(--muted-quiz);">${t.subtitle}</div>
+                  </div>
+                  <span>→</span>
+                </button>
+              `).join('')}
+              <button class="quiz-btn" style="background: var(--ink); color: white; padding: 15px;" onclick="viewResult('resumen')">
+                <div>
+                  <strong>Resumen Ejecutivo</strong>
+                  <div style="font-size: 0.8rem; color: #C9C2AC;">Recomendación construida con las 5 herramientas</div>
+                </div>
+                <span>→</span>
+              </button>
+            </div>
+            <button onclick="startQuiz()" style="margin-top: 20px; padding: 8px 16px; border: 1px solid var(--hairline); border-radius: 4px; background: white; cursor: pointer;">Reiniciar / Cambiar respuestas</button>
+          </div>
+        `;
+      } else if (currentQuizView === "result") {
+        const tool = TOOLS.find(t => t.id === selectedToolId);
+        let content = '';
+
+        if (selectedToolId === 'foda') {
+          content = `
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+              <div style="background: #B8862B14; border: 1px solid #B8862B; padding: 12px; border-radius: 6px;"><strong>Fortalezas:</strong> ${userAnswers[0]?.fortaleza || ''}</div>
+              <div style="background: #4C7A7814; border: 1px solid #4C7A78; padding: 12px; border-radius: 6px;"><strong>Oportunidades:</strong> ${userAnswers[1]?.oportunidad || ''}</div>
+              <div style="background: #8B4A3B14; border: 1px solid #8B4A3B; padding: 12px; border-radius: 6px;"><strong>Debilidades:</strong> ${userAnswers[0]?.debilidad || ''}</div>
+              <div style="background: #6B7A3A14; border: 1px solid #6B7A3A; padding: 12px; border-radius: 6px;"><strong>Amenazas:</strong> ${userAnswers[1]?.amenaza || ''}</div>
+            </div>
+          `;
+        } else if (selectedToolId === 'sombreros') {
+          const decision = userAnswers[2], concern = userAnswers[3];
+          const hats = [
+            { label: "Blanco — hechos", color: "#8A8064", text: `La universidad evalúa ${decision?.label?.toLowerCase() || 'esta medida'}, lo que implica ${decision?.detail || 'nuevos procesos'}.` },
+            { label: "Rojo — emociones", color: "#B23A48", text: `Hay entusiasmo por innovar, pero también incertidumbre sobre ${concern?.label?.toLowerCase() || 'los cambios'}.` },
+            { label: "Negro — riesgos", color: "#2B2B2B", text: `El principal riesgo es que ${concern?.risk || 'los recursos no sean suficientes'}.` },
+            { label: "Amarillo — beneficios", color: "#C9A227", text: "Si se implementa bien, la universidad fortalecerá su posición competitiva." },
+            { label: "Verde — creatividad", color: "#4C7A3D", text: "Una alternativa es probar la iniciativa con un programa piloto previo." },
+            { label: "Azul — proceso", color: "#3E5C76", text: "Conviene formar un comité directivo que monitoree los avances." },
+          ];
+          content = `
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+              ${hats.map(h => `
+                <div style="border: 1px solid var(--hairline); padding: 12px; border-radius: 6px; background: white;">
+                  <strong style="color: ${h.color}; font-size: 0.85rem; text-transform: uppercase;">${h.label}</strong>
+                  <p style="font-size: 0.9rem; margin-top: 5px;">${h.text}</p>
+                </div>
+              `).join('')}
+            </div>
+          `;
+        } else if (selectedToolId === 'pareto') {
+          content = `
+            <p style="margin-bottom: 10px; font-size: 0.9rem;">Tus dos problemas priorizados concentran el 80% del impacto:</p>
+            <div style="background: white; padding: 15px; border-radius: 8px;">
+              <canvas id="paretoChart" height="200"></canvas>
+            </div>
+          `;
+        } else if (selectedToolId === 'ishikawa') {
+          const chosenKey = userAnswers[6]?.key;
+          const chosenCause = userAnswers[7]?.label;
+          const effect = userAnswers[4]?.label || "Problema principal";
+
+          content = `
+            <div>
+              <div style="background: white; border: 1px solid var(--hairline); padding: 10px; border-radius: 6px; margin-bottom: 15px; text-align: center;">
+                <svg viewBox="0 0 400 90" style="width: 100%; height: 90px;">
+                  <line x1="20" y1="45" x2="300" y2="45" stroke="#22303C" stroke-width="2" />
+                  <polygon points="300,38 300,52 315,45" fill="#22303C" />
+                  <rect x="320" y="20" width="72" height="50" rx="6" fill="#3E5C7614" stroke="#3E5C76" />
+                  <text x="356" y="48" text-anchor="middle" font-size="9" fill="#22303C">${effect.slice(0, 15)}...</text>
+                </svg>
+              </div>
+              <div style="display: flex; flex-direction: column; gap: 10px;">
+                ${Object.entries(CATEGORIES).map(([key, cat]) => {
+                  const active = key === chosenKey;
+                  return `
+                    <div style="border: 1px solid ${active ? '#3E5C76' : 'var(--hairline)'}; background: ${active ? '#3E5C7614' : 'white'}; padding: 12px; border-radius: 6px;">
+                      <strong style="color: ${active ? '#3E5C76' : 'var(--muted-quiz)'}; text-transform: uppercase; font-size: 0.85rem;">${cat.label} ${active ? '· Causa raíz priorizada' : ''}</strong>
+                      <ul style="padding-left: 20px; font-size: 0.9rem; margin-top: 5px;">
+                        ${cat.causes.map(c => `<li style="font-weight: ${active && c === chosenCause ? 'bold' : 'normal'}">${c}</li>`).join('')}
+                      </ul>
+                    </div>
+                  `;
+                }).join('')}
+              </div>
+            </div>
+          `;
+        } else if (selectedToolId === 'catwoe') {
+          const decision = userAnswers[2];
+          const cliente = userAnswers[8]?.label, entorno = userAnswers[9]?.label;
+          const rows = [
+            { letter: "C", label: "Clientes", text: cliente },
+            { letter: "A", label: "Actores", text: "Rectoría, docentes, personal administrativo y estudiantes." },
+            { letter: "T", label: "Transformación", text: `Pasar de una universidad con problemas a una que implementó ${decision?.label?.toLowerCase() || 'soluciones'}.` },
+            { letter: "W", label: "Cosmovisión", text: "La educación debe adaptarse a las necesidades cambiantes del mercado." },
+            { letter: "O", label: "Dueños", text: "El consejo directivo y la rectoría." },
+            { letter: "E", label: "Entorno", text: entorno },
+          ];
+          content = `
+            <div style="display: flex; flex-direction: column; gap: 8px;">
+              ${rows.map(r => `
+                <div style="border: 1px solid var(--hairline); padding: 12px; border-radius: 6px; background: white; display: flex; gap: 12px; align-items: center;">
+                  <div style="background: #6B7A3A; color: white; width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; flex-shrink: 0;">${r.letter}</div>
+                  <div>
+                    <strong style="color: #6B7A3A; font-size: 0.85rem; text-transform: uppercase;">${r.label}</strong>
+                    <p style="font-size: 0.9rem;">${r.text || ''}</p>
+                  </div>
+                </div>
+              `).join('')}
+            </div>
+          `;
+        } else if (selectedToolId === 'resumen') {
+          content = `
+            <div style="background: white; padding: 20px; border-radius: 8px; border: 1px solid var(--hairline);">
+              <h3 style="color: var(--ink); margin-bottom: 10px;">Recomendación Final</h3>
+              <p style="line-height: 1.5; font-size: 0.95rem; margin-bottom: 10px;">
+                Proceder con <strong>${userAnswers[2]?.label || ''}</strong>, priorizando la atención de <strong>${userAnswers[4]?.label || ''}</strong> y <strong>${userAnswers[5]?.label || ''}</strong>. 
+                La causa raíz a intervenir es <strong>${userAnswers[7]?.label || ''}</strong>.
+              </p>
+              <p style="line-height: 1.5; font-size: 0.9rem; color: #4A4032;">
+                Esta decisión beneficia a <strong>${userAnswers[8]?.label || ''}</strong>, apoyándose en que ${userAnswers[0]?.fortaleza || ''} y aprovechando que ${userAnswers[1]?.oportunidad || ''}
+              </p>
+            </div>
+          `;
+        }
+
+        container.innerHTML = `
+          <div>
+            <button onclick="currentQuizView='menu'; renderQuiz();" style="background: none; border: none; cursor: pointer; text-decoration: underline; margin-bottom: 15px; color: #7A6E56;">← Volver al menú</button>
+            <h3 style="color: ${tool.color}; margin-bottom: 5px;">${tool.name}</h3>
+            <p style="font-size: 0.9rem; color: var(--muted-quiz); margin-bottom: 15px;">${tool.subtitle}</p>
+            ${content}
+          </div>
+        `;
+
+        if (selectedToolId === 'pareto') {
+          setTimeout(() => renderParetoChart(), 100);
+        }
+      }
+    }
+
+    function startQuiz() { currentStep = 0; userAnswers = Array(10).fill(null); currentQuizView = "quiz"; renderQuiz(); }
+    function selectAnswer(index) {
+      let opts = QUESTIONS[currentStep].options;
+      if (currentStep === 5) {
+        const first = userAnswers[4]?.label;
+        opts = PROBLEMS.filter(p => p !== first).map(p => ({ label: p }));
+      } else if (currentStep === 7) {
+        const catKey = userAnswers[6]?.key;
+        opts = catKey ? CATEGORIES[catKey].causes.map(c => ({ label: c })) : [];
+      }
+      userAnswers[currentStep] = opts[index];
+      if (currentStep < 9) { currentStep++; renderQuiz(); } 
+      else { currentQuizView = "menu"; renderQuiz(); }
+    }
+    function prevStep() { if (currentStep > 0) { currentStep--; renderQuiz(); } }
+    function viewResult(id) { selectedToolId = id; currentQuizView = "result"; renderQuiz(); }
+
+    function renderParetoChart() {
+      const ctx = document.getElementById('paretoChart');
+      if (!ctx) return;
+      const first = userAnswers[4]?.label || "Problema 1";
+      const second = userAnswers[5]?.label || "Problema 2";
+      new Chart(ctx, {
+        type: 'bar',
+        data: {
+          labels: [first.slice(0, 18) + '...', second.slice(0, 18) + '...', 'Otros 1', 'Otros 2'],
+          datasets: [
+            { label: 'Participación %', data: [45, 35, 12, 8], backgroundColor: '#8B4A3B' },
+            { label: 'Acumulado %', data: [45, 80, 92, 100], type: 'line', borderColor: '#22303C', fill: false }
+          ]
+        },
+        options: { responsive: true, scales: { y: { beginAtZero: true, max: 100 } } }
+      });
+    }
+
+    renderQuiz();
+  </script>
+</body>
+</html>
