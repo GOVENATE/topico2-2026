@@ -1,0 +1,1711 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Juego educativo de serpientes y escaleras sobre Yokoi Kenji, Carlos Kasuga y propuestas para una mejor versión de México.">
+  <title>México: Serpientes, Escaleras y Valores</title>
+  <style>
+    :root {
+      --ink: #102c2a;
+      --muted: #60716e;
+      --paper: #fffdf5;
+      --cream: #f6f0df;
+      --green: #087f5b;
+      --green-dark: #05553e;
+      --green-soft: #dff4e8;
+      --pink: #d6336c;
+      --pink-dark: #9c1f4a;
+      --pink-soft: #ffe2ed;
+      --gold: #f0b429;
+      --gold-soft: #fff1bf;
+      --blue: #315c8c;
+      --red: #b42318;
+      --white: #ffffff;
+      --shadow: 0 18px 50px rgba(16, 44, 42, .14);
+      --radius-lg: 28px;
+      --radius-md: 18px;
+      --radius-sm: 12px;
+    }
+
+    * { box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at 10% 0%, rgba(214, 51, 108, .12), transparent 31rem),
+        radial-gradient(circle at 95% 8%, rgba(8, 127, 91, .14), transparent 34rem),
+        var(--cream);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    body::before {
+      content: "";
+      display: block;
+      height: 9px;
+      background: linear-gradient(90deg, var(--green) 0 33%, var(--white) 33% 66%, var(--pink) 66%);
+    }
+
+    button, input { font: inherit; }
+
+    button { -webkit-tap-highlight-color: transparent; }
+
+    button:focus-visible, input:focus-visible, a:focus-visible {
+      outline: 4px solid rgba(49, 92, 140, .28);
+      outline-offset: 3px;
+    }
+
+    .hidden, [hidden] { display: none !important; }
+
+    .screen {
+      width: min(1420px, calc(100% - 28px));
+      margin: 0 auto;
+    }
+
+    .setup-screen {
+      min-height: calc(100vh - 9px);
+      display: grid;
+      place-items: center;
+      padding: 38px 0 60px;
+    }
+
+    .setup-shell {
+      width: min(1080px, 100%);
+      display: grid;
+      grid-template-columns: 1.05fr .95fr;
+      gap: 28px;
+      align-items: stretch;
+    }
+
+    .intro-panel, .setup-panel {
+      border: 1px solid rgba(16, 44, 42, .11);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow);
+    }
+
+    .intro-panel {
+      position: relative;
+      overflow: hidden;
+      padding: clamp(30px, 5vw, 62px);
+      color: var(--white);
+      background: var(--ink);
+      isolation: isolate;
+    }
+
+    .intro-panel::before, .intro-panel::after {
+      position: absolute;
+      content: "";
+      border-radius: 50%;
+      z-index: -1;
+    }
+
+    .intro-panel::before {
+      width: 330px;
+      height: 330px;
+      right: -120px;
+      top: -100px;
+      border: 52px solid rgba(240, 180, 41, .18);
+    }
+
+    .intro-panel::after {
+      width: 220px;
+      height: 220px;
+      left: -100px;
+      bottom: -110px;
+      background: rgba(214, 51, 108, .18);
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      margin: 0 0 18px;
+      padding: 8px 12px;
+      border: 1px solid rgba(255,255,255,.24);
+      border-radius: 999px;
+      color: #fff6d6;
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+    }
+
+    .eyebrow-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--gold);
+      box-shadow: 0 0 0 5px rgba(240, 180, 41, .15);
+    }
+
+    h1 {
+      margin: 0;
+      max-width: 620px;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: clamp(42px, 6vw, 78px);
+      line-height: .94;
+      letter-spacing: -.055em;
+    }
+
+    h1 span { color: #ffd86b; }
+
+    .intro-copy {
+      max-width: 590px;
+      margin: 24px 0 30px;
+      color: rgba(255,255,255,.76);
+      font-size: clamp(16px, 1.8vw, 19px);
+      line-height: 1.65;
+    }
+
+    .topic-pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 9px;
+    }
+
+    .topic-pill {
+      padding: 9px 12px;
+      border-radius: 999px;
+      background: rgba(255,255,255,.1);
+      color: rgba(255,255,255,.88);
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    .how-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+      margin-top: 34px;
+    }
+
+    .how-card {
+      min-height: 112px;
+      padding: 15px;
+      border-radius: 16px;
+      background: rgba(255,255,255,.08);
+      border: 1px solid rgba(255,255,255,.1);
+    }
+
+    .how-card strong {
+      display: block;
+      margin-bottom: 8px;
+      color: #ffd86b;
+      font-size: 12px;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+
+    .how-card span {
+      color: rgba(255,255,255,.78);
+      font-size: 13px;
+      line-height: 1.45;
+    }
+
+    .setup-panel {
+      padding: clamp(26px, 4vw, 42px);
+      background: rgba(255,253,245,.96);
+    }
+
+    .setup-panel h2 {
+      margin: 0 0 8px;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: clamp(28px, 4vw, 40px);
+      letter-spacing: -.03em;
+    }
+
+    .setup-panel > p {
+      margin: 0 0 28px;
+      color: var(--muted);
+      line-height: 1.55;
+    }
+
+    .field-label {
+      display: block;
+      margin: 22px 0 10px;
+      font-size: 13px;
+      font-weight: 850;
+      letter-spacing: .07em;
+      text-transform: uppercase;
+    }
+
+    .count-selector {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+    }
+
+    .count-btn {
+      min-height: 64px;
+      border: 1.5px solid #d7dfda;
+      border-radius: 15px;
+      color: var(--ink);
+      background: var(--white);
+      cursor: pointer;
+      font-weight: 850;
+      transition: transform .18s ease, border-color .18s ease, background .18s ease;
+    }
+
+    .count-btn:hover { transform: translateY(-2px); border-color: var(--green); }
+    .count-btn[aria-pressed="true"] { color: var(--white); background: var(--green); border-color: var(--green); }
+
+    .players-inputs { display: grid; gap: 10px; }
+
+    .player-input-wrap {
+      display: grid;
+      grid-template-columns: 50px 1fr;
+      gap: 12px;
+      align-items: center;
+      padding: 9px 10px;
+      border: 1px solid rgba(16, 44, 42, .1);
+      border-radius: 15px;
+      background: rgba(255,255,255,.65);
+    }
+
+    .player-avatar {
+      position: relative;
+      display: grid;
+      place-items: center;
+      width: 45px;
+      height: 45px;
+      border: 3px solid var(--white);
+      border-radius: var(--avatar-radius, 50%);
+      color: var(--white);
+      background: var(--player-color);
+      box-shadow: 0 4px 10px rgba(16,44,42,.2), 0 0 0 2px var(--player-color);
+      font-size: 23px;
+      font-weight: 950;
+    }
+
+    .player-avatar.style-1 { --avatar-radius: 10px 50% 50% 50%; transform: rotate(-8deg); }
+    .player-avatar.style-1 span { transform: rotate(8deg); }
+    .player-avatar.style-2 { --avatar-radius: 35% 65% 35% 65%; }
+    .player-avatar.style-3 { --avatar-radius: 12px; clip-path: polygon(50% 0, 94% 24%, 94% 76%, 50% 100%, 6% 76%, 6% 24%); }
+
+    .player-field { min-width: 0; }
+
+    .player-design-name {
+      display: block;
+      margin: 0 0 5px 3px;
+      color: var(--muted);
+      font-size: 10px;
+      font-weight: 850;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+
+    .player-input {
+      width: 100%;
+      height: 48px;
+      padding: 0 15px;
+      border: 1.5px solid #d7dfda;
+      border-radius: 13px;
+      color: var(--ink);
+      background: var(--white);
+    }
+
+    .player-input:focus { border-color: var(--blue); }
+
+    .start-btn, .primary-btn, .secondary-btn, .ghost-btn, .answer-option, .modal-action {
+      border: 0;
+      cursor: pointer;
+      font-weight: 800;
+      transition: transform .16s ease, filter .16s ease, opacity .16s ease;
+    }
+
+    .start-btn:hover, .primary-btn:hover, .modal-action:hover { transform: translateY(-2px); filter: brightness(1.04); }
+    .start-btn:active, .primary-btn:active, .modal-action:active { transform: translateY(0); }
+
+    .start-btn {
+      width: 100%;
+      min-height: 56px;
+      margin-top: 26px;
+      border-radius: 15px;
+      color: var(--white);
+      background: linear-gradient(135deg, var(--pink), var(--pink-dark));
+      box-shadow: 0 12px 26px rgba(214, 51, 108, .24);
+      font-size: 16px;
+    }
+
+    .setup-note {
+      margin-top: 16px !important;
+      text-align: center;
+      font-size: 12px;
+    }
+
+    .game-screen { padding: 24px 0 48px; }
+
+    .topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      margin-bottom: 18px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .brand-mark {
+      display: grid;
+      place-items: center;
+      width: 48px;
+      height: 48px;
+      border-radius: 15px;
+      color: var(--white);
+      background: var(--ink);
+      font-family: Georgia, serif;
+      font-size: 20px;
+      font-weight: 900;
+      box-shadow: 0 8px 20px rgba(16,44,42,.17);
+    }
+
+    .brand-text strong { display: block; font-family: Georgia, serif; font-size: 21px; }
+    .brand-text span { color: var(--muted); font-size: 12px; }
+
+    .top-actions { display: flex; gap: 8px; }
+
+    .ghost-btn {
+      min-height: 42px;
+      padding: 0 15px;
+      border: 1px solid rgba(16, 44, 42, .14);
+      border-radius: 12px;
+      color: var(--ink);
+      background: rgba(255,255,255,.7);
+    }
+
+    .ghost-btn:hover { background: var(--white); }
+
+    .game-layout {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 350px;
+      gap: 20px;
+      align-items: start;
+    }
+
+    .board-panel, .side-card, .ideas-section {
+      border: 1px solid rgba(16, 44, 42, .11);
+      background: rgba(255,253,245,.95);
+      box-shadow: var(--shadow);
+    }
+
+    .board-panel { padding: clamp(12px, 2vw, 20px); border-radius: var(--radius-lg); }
+
+    .board-topline {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      margin: 0 2px 13px;
+    }
+
+    .board-title strong { display: block; font-family: Georgia, serif; font-size: 21px; }
+    .board-title span { color: var(--muted); font-size: 12px; }
+
+    .board-legend { display: flex; gap: 8px; flex-wrap: wrap; justify-content: flex-end; }
+
+    .legend-chip {
+      padding: 7px 9px;
+      border-radius: 999px;
+      font-size: 11px;
+      font-weight: 800;
+    }
+
+    .legend-chip.up { color: var(--green-dark); background: var(--green-soft); }
+    .legend-chip.down { color: var(--pink-dark); background: var(--pink-soft); }
+
+    .board-wrap {
+      position: relative;
+      width: 100%;
+      max-width: calc(100vh - 148px);
+      margin: 0 auto;
+      aspect-ratio: 1;
+      overflow: hidden;
+      border: 3px solid var(--ink);
+      border-radius: 20px;
+      background: var(--white);
+      box-shadow: inset 0 0 0 1px rgba(255,255,255,.55);
+    }
+
+    .board {
+      position: absolute;
+      inset: 0;
+      display: grid;
+      grid-template-columns: repeat(10, 1fr);
+      grid-template-rows: repeat(10, 1fr);
+    }
+
+    .cell {
+      position: relative;
+      min-width: 0;
+      border-right: 1px solid rgba(16, 44, 42, .12);
+      border-bottom: 1px solid rgba(16, 44, 42, .12);
+      background: #fffaf0;
+    }
+
+    .cell:nth-child(4n+2), .cell:nth-child(4n+3) { background: #edf6ed; }
+    .cell:nth-child(7n) { background: #fff0f5; }
+    .cell.special-up { background: #d8f4e6; }
+    .cell.special-down { background: #ffe0eb; }
+    .cell.finish { background: linear-gradient(135deg, #ffd86b, #f0b429); }
+    .cell.start { background: linear-gradient(135deg, #bcebd2, #7ed4ad); }
+
+    .cell.step-flash::after {
+      position: absolute;
+      inset: 7%;
+      z-index: 4;
+      content: "";
+      border: 3px solid var(--gold);
+      border-radius: 10px;
+      box-shadow: 0 0 18px rgba(240, 180, 41, .85);
+      animation: cellFlash .42s ease both;
+    }
+
+    @keyframes cellFlash {
+      0% { transform: scale(.55); opacity: 0; }
+      55% { opacity: 1; }
+      100% { transform: scale(1.06); opacity: 0; }
+    }
+
+    .cell-number {
+      position: absolute;
+      left: 6px;
+      top: 4px;
+      z-index: 3;
+      color: rgba(16, 44, 42, .78);
+      font-size: clamp(8px, 1.25vw, 13px);
+      font-weight: 900;
+    }
+
+    .cell-jump {
+      position: absolute;
+      right: 4px;
+      bottom: 3px;
+      z-index: 3;
+      padding: 1px 4px;
+      border-radius: 5px;
+      background: rgba(255,255,255,.72);
+      font-size: clamp(6px, .85vw, 10px);
+      font-weight: 900;
+    }
+
+    .connections {
+      position: absolute;
+      inset: 0;
+      z-index: 2;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+    }
+
+    .board-connection { transition: opacity .25s ease, filter .25s ease; }
+    .connections.special-mode .board-connection:not(.active-connection) { opacity: .15; }
+    .board-connection.active-connection { opacity: 1; animation: connectionGlow .55s ease-in-out infinite alternate; }
+    .active-connection .ladder-rail { stroke: #f0b429; stroke-width: 14; }
+    .active-connection .ladder-rung { stroke: #fff7d2; stroke-width: 10; }
+    .active-connection .snake-body { stroke-width: 22; }
+
+    @keyframes connectionGlow {
+      from { filter: drop-shadow(0 0 4px rgba(255,255,255,.8)); }
+      to { filter: drop-shadow(0 0 15px rgba(240,180,41,1)); }
+    }
+
+    .tokens-layer { position: absolute; inset: 0; z-index: 5; pointer-events: none; }
+
+    .token {
+      position: absolute;
+      display: grid;
+      place-items: center;
+      width: clamp(25px, 3.5vw, 42px);
+      height: clamp(25px, 3.5vw, 42px);
+      border: 3px solid var(--white);
+      border-radius: var(--token-radius, 50%);
+      color: var(--white);
+      background: var(--player-color);
+      box-shadow: 0 4px 10px rgba(0,0,0,.42), 0 0 0 2px var(--player-color);
+      font-size: clamp(13px, 1.8vw, 22px);
+      font-weight: 950;
+      transform: translate(-50%, -50%);
+      transition: left .15s ease, top .15s ease, transform .15s ease, filter .15s ease;
+    }
+
+    .token.style-1 { --token-radius: 9px 50% 50% 50%; }
+    .token.style-2 { --token-radius: 35% 65% 35% 65%; }
+    .token.style-3 { --token-radius: 11px; clip-path: polygon(50% 0, 94% 24%, 94% 76%, 50% 100%, 6% 76%, 6% 24%); }
+    .token-icon { line-height: 1; filter: drop-shadow(0 1px 1px rgba(0,0,0,.28)); }
+
+    .token-number {
+      position: absolute;
+      right: -7px;
+      bottom: -7px;
+      display: grid;
+      place-items: center;
+      width: 18px;
+      height: 18px;
+      border: 2px solid var(--player-color);
+      border-radius: 50%;
+      color: var(--ink);
+      background: var(--white);
+      font-size: 9px;
+      font-weight: 950;
+    }
+
+    .token.active {
+      z-index: 10;
+      transform: translate(-50%, -50%) scale(1.23);
+      box-shadow: 0 0 0 5px rgba(255,255,255,.9), 0 6px 14px rgba(0,0,0,.42), 0 0 24px var(--player-color);
+    }
+
+    .token.step-hop { animation: tokenHop .28s ease; }
+    .token.special-travel { z-index: 30; transition: none; filter: brightness(1.12); }
+
+    @keyframes tokenHop {
+      0%, 100% { transform: translate(-50%, -50%) scale(1.23); }
+      45% { transform: translate(-50%, -78%) scale(1.36) rotate(-6deg); }
+    }
+
+    .movement-banner {
+      position: absolute;
+      left: 50%;
+      top: 14px;
+      z-index: 40;
+      padding: 10px 16px;
+      border: 3px solid rgba(255,255,255,.9);
+      border-radius: 999px;
+      color: var(--white);
+      background: var(--green);
+      box-shadow: 0 9px 24px rgba(16,44,42,.3);
+      transform: translateX(-50%);
+      font-size: clamp(11px, 1.5vw, 15px);
+      font-weight: 950;
+      white-space: nowrap;
+      animation: bannerIn .24s ease both;
+    }
+
+    .movement-banner.snake { background: var(--pink); }
+
+    @keyframes bannerIn {
+      from { opacity: 0; transform: translate(-50%, -12px) scale(.92); }
+      to { opacity: 1; transform: translate(-50%, 0) scale(1); }
+    }
+
+    .side-panel { display: grid; gap: 14px; }
+
+    .side-card { padding: 20px; border-radius: var(--radius-md); }
+
+    .turn-card {
+      overflow: hidden;
+      color: var(--white);
+      background: var(--ink);
+    }
+
+    .turn-card-label {
+      margin: 0 0 10px;
+      color: rgba(255,255,255,.62);
+      font-size: 11px;
+      font-weight: 850;
+      letter-spacing: .11em;
+      text-transform: uppercase;
+    }
+
+    .current-player {
+      display: flex;
+      align-items: center;
+      gap: 11px;
+      margin-bottom: 16px;
+    }
+
+    .current-dot {
+      display: grid;
+      place-items: center;
+      width: 42px;
+      height: 42px;
+      border: 3px solid rgba(255,255,255,.9);
+      border-radius: var(--current-radius, 50%);
+      font-size: 21px;
+      box-shadow: 0 5px 14px rgba(0,0,0,.28);
+    }
+    .current-player strong { font-family: Georgia, serif; font-size: 27px; line-height: 1; }
+
+    .status-box {
+      min-height: 60px;
+      padding: 12px 13px;
+      border: 1px solid rgba(255,255,255,.13);
+      border-radius: 13px;
+      color: rgba(255,255,255,.82);
+      background: rgba(255,255,255,.07);
+      font-size: 13px;
+      line-height: 1.45;
+    }
+
+    .action-area { margin-top: 14px; }
+
+    .primary-btn, .secondary-btn {
+      width: 100%;
+      min-height: 52px;
+      border-radius: 14px;
+    }
+
+    .primary-btn { color: var(--ink); background: var(--gold); }
+    .secondary-btn { color: var(--white); background: var(--green); }
+    .primary-btn:disabled, .secondary-btn:disabled { cursor: not-allowed; opacity: .48; transform: none; }
+
+    .dice-button {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+    }
+
+    .dice-face { font-size: 28px; line-height: 1; }
+
+    .roster-title, .ideas-title {
+      margin: 0 0 13px;
+      font-size: 12px;
+      font-weight: 900;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+    }
+
+    .roster { display: grid; gap: 9px; }
+
+    .player-row {
+      display: grid;
+      grid-template-columns: 34px minmax(0, 1fr) auto;
+      gap: 10px;
+      align-items: center;
+      padding: 10px 11px;
+      border-radius: 12px;
+      background: #f1eee4;
+      border: 1px solid transparent;
+    }
+
+    .player-row.current { background: var(--white); border-color: rgba(16,44,42,.18); box-shadow: 0 5px 14px rgba(16,44,42,.08); }
+    .roster-dot {
+      display: grid;
+      place-items: center;
+      width: 30px;
+      height: 30px;
+      border: 2px solid var(--white);
+      border-radius: var(--roster-radius, 50%);
+      color: var(--white);
+      box-shadow: 0 2px 7px rgba(16,44,42,.24), 0 0 0 1px currentColor;
+      font-size: 15px;
+      font-weight: 950;
+    }
+    .roster-name { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-weight: 800; font-size: 13px; }
+    .roster-meta { color: var(--muted); font-size: 11px; text-align: right; }
+    .roster-meta strong { display: block; color: var(--ink); font-size: 14px; }
+
+    .idea-mini {
+      padding: 12px 0;
+      border-top: 1px solid rgba(16,44,42,.1);
+    }
+
+    .idea-mini:first-of-type { padding-top: 0; border-top: 0; }
+    .idea-mini strong { display: block; margin-bottom: 4px; font-size: 13px; }
+    .idea-mini p { margin: 0; color: var(--muted); font-size: 12px; line-height: 1.5; }
+
+    .ideas-section {
+      margin-top: 20px;
+      padding: clamp(22px, 4vw, 38px);
+      border-radius: var(--radius-lg);
+    }
+
+    .ideas-header {
+      display: flex;
+      justify-content: space-between;
+      gap: 20px;
+      align-items: end;
+      margin-bottom: 20px;
+    }
+
+    .ideas-header h2 { margin: 0; font-family: Georgia, serif; font-size: clamp(28px, 4vw, 42px); letter-spacing: -.03em; }
+    .ideas-header p { max-width: 650px; margin: 8px 0 0; color: var(--muted); line-height: 1.6; }
+
+    .ideas-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+
+    .idea-card {
+      padding: 21px;
+      border: 1px solid rgba(16,44,42,.1);
+      border-radius: 18px;
+      background: var(--white);
+    }
+
+    .idea-card:nth-child(1) { border-top: 5px solid var(--blue); }
+    .idea-card:nth-child(2) { border-top: 5px solid var(--green); }
+    .idea-card:nth-child(3) { border-top: 5px solid var(--pink); }
+    .idea-card h3 { margin: 0 0 10px; font-family: Georgia, serif; font-size: 22px; }
+    .idea-card p { margin: 0; color: var(--muted); font-size: 14px; line-height: 1.65; }
+    .idea-card ul { margin: 14px 0 0; padding-left: 20px; color: var(--ink); font-size: 13px; line-height: 1.6; }
+
+    .source-note {
+      margin: 20px 0 0;
+      padding-top: 18px;
+      border-top: 1px solid rgba(16,44,42,.1);
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.6;
+    }
+
+    .source-note a { color: var(--blue); font-weight: 750; }
+
+    .modal-backdrop {
+      position: fixed;
+      inset: 0;
+      z-index: 100;
+      display: grid;
+      place-items: center;
+      padding: 18px;
+      background: rgba(8, 29, 27, .76);
+      backdrop-filter: blur(8px);
+    }
+
+    .modal {
+      width: min(660px, 100%);
+      max-height: min(780px, calc(100vh - 36px));
+      overflow-y: auto;
+      padding: clamp(22px, 4vw, 35px);
+      border: 1px solid rgba(255,255,255,.2);
+      border-radius: 25px;
+      background: var(--paper);
+      box-shadow: 0 30px 90px rgba(0,0,0,.34);
+      animation: modalIn .22s ease both;
+    }
+
+    @keyframes modalIn { from { transform: translateY(14px) scale(.98); opacity: 0; } to { transform: none; opacity: 1; } }
+
+    .question-category {
+      display: inline-flex;
+      padding: 7px 10px;
+      border-radius: 999px;
+      color: var(--white);
+      background: var(--blue);
+      font-size: 11px;
+      font-weight: 900;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+
+    .question-title {
+      margin: 16px 0 20px;
+      font-family: Georgia, serif;
+      font-size: clamp(25px, 4.4vw, 36px);
+      line-height: 1.16;
+      letter-spacing: -.025em;
+    }
+
+    .answer-list { display: grid; gap: 10px; }
+
+    .answer-option {
+      display: grid;
+      grid-template-columns: 34px 1fr;
+      gap: 11px;
+      align-items: center;
+      width: 100%;
+      min-height: 57px;
+      padding: 10px 14px;
+      border: 1.5px solid #d7dfda;
+      border-radius: 14px;
+      color: var(--ink);
+      background: var(--white);
+      text-align: left;
+    }
+
+    .answer-option:hover:not(:disabled) { border-color: var(--blue); transform: translateX(3px); }
+    .answer-option:disabled { cursor: default; }
+    .answer-letter { display: grid; place-items: center; width: 30px; height: 30px; border-radius: 9px; background: #eef1ed; font-weight: 900; }
+    .answer-option.correct { border-color: var(--green); background: var(--green-soft); }
+    .answer-option.correct .answer-letter { color: var(--white); background: var(--green); }
+    .answer-option.wrong { border-color: var(--red); background: #ffebe8; }
+    .answer-option.wrong .answer-letter { color: var(--white); background: var(--red); }
+
+    .feedback-box {
+      margin-top: 16px;
+      padding: 14px 15px;
+      border-radius: 13px;
+      font-size: 13px;
+      line-height: 1.55;
+    }
+
+    .feedback-box.good { color: var(--green-dark); background: var(--green-soft); }
+    .feedback-box.bad { color: #7e1c14; background: #ffebe8; }
+    .feedback-box strong { display: block; margin-bottom: 3px; }
+
+    .modal-action {
+      width: 100%;
+      min-height: 52px;
+      margin-top: 16px;
+      border-radius: 14px;
+      color: var(--white);
+      background: var(--ink);
+    }
+
+    .rules-modal h2, .winner-modal h2 { margin: 0 0 10px; font-family: Georgia, serif; font-size: 35px; }
+    .rules-modal p, .rules-modal li, .winner-modal p { color: var(--muted); line-height: 1.6; }
+    .rules-modal ol { padding-left: 22px; }
+
+    .winner-mark {
+      display: grid;
+      place-items: center;
+      width: 82px;
+      height: 82px;
+      margin: 0 auto 18px;
+      border-radius: 50%;
+      color: var(--ink);
+      background: var(--gold);
+      font-family: Georgia, serif;
+      font-size: 31px;
+      font-weight: 900;
+      box-shadow: 0 0 0 10px var(--gold-soft);
+    }
+
+    .winner-modal { text-align: center; }
+    .winner-stats { margin: 16px 0; padding: 14px; border-radius: 13px; background: #f1eee4; font-weight: 800; }
+
+    .confetti {
+      position: fixed;
+      z-index: 120;
+      top: -20px;
+      width: 10px;
+      height: 16px;
+      pointer-events: none;
+      animation: confettiFall 2.8s linear forwards;
+    }
+
+    @keyframes confettiFall {
+      to { transform: translate3d(var(--drift), 110vh, 0) rotate(780deg); opacity: .85; }
+    }
+
+    .sr-only {
+      position: absolute !important;
+      width: 1px !important;
+      height: 1px !important;
+      padding: 0 !important;
+      margin: -1px !important;
+      overflow: hidden !important;
+      clip: rect(0, 0, 0, 0) !important;
+      white-space: nowrap !important;
+      border: 0 !important;
+    }
+
+    @media (max-width: 1050px) {
+      .setup-shell { grid-template-columns: 1fr; }
+      .intro-panel { min-height: 500px; }
+      .game-layout { grid-template-columns: minmax(0, 1fr) 310px; }
+    }
+
+    @media (max-width: 820px) {
+      .game-layout { grid-template-columns: 1fr; }
+      .board-wrap { max-width: 720px; }
+      .side-panel { grid-template-columns: 1fr 1fr; }
+      .turn-card { grid-row: span 2; }
+      .ideas-grid { grid-template-columns: 1fr; }
+    }
+
+    @media (max-width: 600px) {
+      .screen { width: min(100% - 16px, 1420px); }
+      .setup-screen { padding-top: 16px; }
+      .intro-panel, .setup-panel { border-radius: 21px; }
+      .how-grid { grid-template-columns: 1fr; }
+      .how-card { min-height: auto; }
+      .topbar { align-items: flex-start; }
+      .brand-text span { display: none; }
+      .ghost-btn { padding: 0 10px; font-size: 12px; }
+      .board-topline { align-items: flex-start; }
+      .board-legend { max-width: 140px; }
+      .side-panel { grid-template-columns: 1fr; }
+      .turn-card { grid-row: auto; }
+      .ideas-header { display: block; }
+      .cell-number { left: 3px; top: 2px; }
+      .cell-jump { display: none; }
+      .token { border-width: 2px; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
+    }
+  </style>
+</head>
+<body>
+  <section class="screen setup-screen" id="setupScreen">
+    <div class="setup-shell">
+      <article class="intro-panel">
+        <p class="eyebrow"><span class="eyebrow-dot"></span> Juego educativo · 2 a 4 jugadores</p>
+        <h1>Sube con <span>valores.</span></h1>
+        <p class="intro-copy">Recorre cien casillas, supera preguntas sobre Yokoi Kenji y Carlos Kasuga, y descubre acciones cotidianas que pueden ayudar a México a construir una mejor versión de sí mismo.</p>
+        <div class="topic-pills" aria-label="Temas del juego">
+          <span class="topic-pill">Disciplina</span>
+          <span class="topic-pill">Educación</span>
+          <span class="topic-pill">Honestidad</span>
+          <span class="topic-pill">Trabajo en equipo</span>
+          <span class="topic-pill">Responsabilidad</span>
+        </div>
+        <div class="how-grid" aria-label="Cómo se juega">
+          <div class="how-card"><strong>01 · Responde</strong><span>Cada turno comienza con una pregunta de opción múltiple.</span></div>
+          <div class="how-card"><strong>02 · Avanza</strong><span>Si aciertas, lanzas el dado y mueves tu ficha.</span></div>
+          <div class="how-card"><strong>03 · Llega</strong><span>Escaleras ayudan, serpientes bajan. Gana quien llegue exactamente a 100.</span></div>
+        </div>
+      </article>
+
+      <section class="setup-panel" aria-labelledby="setupTitle">
+        <h2 id="setupTitle">Prepara la partida</h2>
+        <p>Elige cuántas personas jugarán, escribe sus nombres y reconoce la ficha especial de cada participante.</p>
+
+        <span class="field-label">Número de jugadores</span>
+        <div class="count-selector" role="group" aria-label="Número de jugadores">
+          <button class="count-btn" type="button" data-count="2" aria-pressed="true">2 jugadores</button>
+          <button class="count-btn" type="button" data-count="3" aria-pressed="false">3 jugadores</button>
+          <button class="count-btn" type="button" data-count="4" aria-pressed="false">4 jugadores</button>
+        </div>
+
+        <label class="field-label" for="player1">Nombres</label>
+        <div class="players-inputs" id="playersInputs"></div>
+
+        <button class="start-btn" id="startButton" type="button">Comenzar partida</button>
+        <p class="setup-note">No necesitas internet. El juego funciona directamente en este archivo.</p>
+      </section>
+    </div>
+  </section>
+
+  <main class="screen game-screen" id="gameScreen" hidden>
+    <header class="topbar">
+      <div class="brand">
+        <span class="brand-mark" aria-hidden="true">MX</span>
+        <div class="brand-text"><strong>Escaleras y Valores</strong><span>Aprender, responder y avanzar</span></div>
+      </div>
+      <div class="top-actions">
+        <button class="ghost-btn" id="rulesButton" type="button">Cómo jugar</button>
+        <button class="ghost-btn" id="restartButton" type="button">Nueva partida</button>
+      </div>
+    </header>
+
+    <div class="game-layout">
+      <section class="board-panel" aria-label="Tablero de juego">
+        <div class="board-topline">
+          <div class="board-title"><strong>Camino al 100</strong><span>Debes llegar con el número exacto</span></div>
+          <div class="board-legend" aria-label="Leyenda">
+            <span class="legend-chip up">▥ Escalera · sube</span>
+            <span class="legend-chip down">〰 Serpiente · baja</span>
+          </div>
+        </div>
+        <div class="board-wrap" id="boardWrap">
+          <div class="board" id="board"></div>
+          <svg class="connections" id="connections" viewBox="0 0 1000 1000" aria-hidden="true"></svg>
+          <div class="tokens-layer" id="tokensLayer"></div>
+          <div class="movement-banner" id="movementBanner" hidden></div>
+        </div>
+      </section>
+
+      <aside class="side-panel">
+        <section class="side-card turn-card">
+          <p class="turn-card-label">Turno actual</p>
+          <div class="current-player">
+            <span class="current-dot" id="currentDot" aria-hidden="true"><span id="currentIcon">●</span></span>
+            <strong id="currentName">Jugador 1</strong>
+          </div>
+          <div class="status-box" id="statusBox" role="status" aria-live="polite">Responde una pregunta para desbloquear el dado.</div>
+          <div class="action-area">
+            <button class="primary-btn" id="questionButton" type="button">Responder pregunta</button>
+            <button class="primary-btn dice-button" id="diceButton" type="button" hidden>
+              <span class="dice-face" id="diceFace" aria-hidden="true">⚀</span>
+              <span>Lanzar dado</span>
+            </button>
+            <button class="secondary-btn" id="nextTurnButton" type="button" hidden>Siguiente jugador</button>
+          </div>
+        </section>
+
+        <section class="side-card">
+          <h2 class="roster-title">Marcador</h2>
+          <div class="roster" id="roster"></div>
+        </section>
+
+        <section class="side-card">
+          <h2 class="ideas-title">Tres ideas para recordar</h2>
+          <div class="idea-mini"><strong>Yokoi Kenji</strong><p>La constancia y la disciplina convierten la capacidad en resultados.</p></div>
+          <div class="idea-mini"><strong>Carlos Kasuga</strong><p>La calidad comienza en la persona: ser bien, hacer bien y servir con valores.</p></div>
+          <div class="idea-mini"><strong>México</strong><p>El cambio colectivo se construye con hábitos responsables y cooperación diaria.</p></div>
+        </section>
+      </aside>
+    </div>
+
+    <section class="ideas-section" id="ideasSection">
+      <div class="ideas-header">
+        <div>
+          <h2>Ideas que sostienen el juego</h2>
+          <p>Una guía breve para repasar antes o después de jugar. Las propuestas para México son una síntesis educativa inspirada en ambos enfoques; no son citas textuales de los autores.</p>
+        </div>
+      </div>
+      <div class="ideas-grid">
+        <article class="idea-card">
+          <h3>Yokoi Kenji</h3>
+          <p>Su trabajo intercultural invita a aprender tanto de las fortalezas japonesas como de las latinoamericanas, sin idealizar ninguna cultura. Destaca el valor de la disciplina sostenida y del equilibrio.</p>
+          <ul><li>Organización, limpieza y puntualidad.</li><li>Constancia por encima del talento sin práctica.</li><li>Equilibrio entre disciplina, creatividad y humanidad.</li></ul>
+        </article>
+        <article class="idea-card">
+          <h3>Carlos Kasuga</h3>
+          <p>Propone una ruta de calidad personal: bien ser, bien hacer, bien estar y bien tener. Da especial importancia a la educación formativa, el respeto, la honestidad y el ejemplo.</p>
+          <ul><li>Primero valores; después resultados.</li><li>Hacer bien las tareas desde el inicio.</li><li>Liderar con ejemplo y asumir responsabilidades.</li></ul>
+        </article>
+        <article class="idea-card">
+          <h3>México, mejor versión</h3>
+          <p>La aplicación práctica puede comenzar en casa, la escuela, el trabajo y la comunidad: pequeñas conductas repetidas que mejoran la confianza y la colaboración.</p>
+          <ul><li>Combinar conocimiento con educación en valores.</li><li>Cuidar espacios comunes y respetar el tiempo ajeno.</li><li>Reconocer errores, cumplir acuerdos y trabajar en equipo.</li></ul>
+        </article>
+      </div>
+      <p class="source-note">Referencias de consulta: <a href="https://yokoikenjioficial.com/" target="_blank" rel="noopener">sitio oficial de Yokoi Kenji</a>, <a href="https://aprendemosjuntos.bbva.com/especial/la-vida-es-maravillosa-yokoi-kenji/" target="_blank" rel="noopener">entrevista de Aprendemos Juntos 2030</a> y <a href="https://discovernikkei.org/es/journal/2009/4/23/carlos-kasuga/" target="_blank" rel="noopener">síntesis de la conferencia “El bien ser y hacerlo bien” de Carlos Kasuga</a>.</p>
+    </section>
+  </main>
+
+  <div class="modal-backdrop" id="questionModal" hidden>
+    <section class="modal" role="dialog" aria-modal="true" aria-labelledby="questionTitle">
+      <span class="question-category" id="questionCategory">Yokoi Kenji</span>
+      <h2 class="question-title" id="questionTitle"></h2>
+      <div class="answer-list" id="answerList"></div>
+      <div class="feedback-box" id="feedbackBox" hidden></div>
+      <button class="modal-action" id="questionAction" type="button" hidden>Continuar</button>
+    </section>
+  </div>
+
+  <div class="modal-backdrop" id="rulesModal" hidden>
+    <section class="modal rules-modal" role="dialog" aria-modal="true" aria-labelledby="rulesTitle">
+      <h2 id="rulesTitle">Cómo jugar</h2>
+      <ol>
+        <li>En cada turno, selecciona <strong>Responder pregunta</strong>.</li>
+        <li>Si la respuesta es correcta, se desbloquea el dado. Si es incorrecta, pierdes ese turno.</li>
+        <li>Tu ficha avanza casilla por casilla. Si llega a una escalera o serpiente, verás cómo recorre el camino completo.</li>
+        <li>Para ganar debes llegar exactamente a la casilla 100. Si el dado se pasa, permaneces en tu lugar.</li>
+      </ol>
+      <button class="modal-action" id="closeRulesButton" type="button">Entendido</button>
+    </section>
+  </div>
+
+  <div class="modal-backdrop" id="winnerModal" hidden>
+    <section class="modal winner-modal" role="dialog" aria-modal="true" aria-labelledby="winnerTitle">
+      <div class="winner-mark">100</div>
+      <h2 id="winnerTitle">¡Tenemos ganador!</h2>
+      <p id="winnerMessage"></p>
+      <div class="winner-stats" id="winnerStats"></div>
+      <button class="modal-action" id="playAgainButton" type="button">Jugar otra vez</button>
+    </section>
+  </div>
+
+  <div class="sr-only" id="liveRegion" aria-live="assertive"></div>
+
+  <script>
+    "use strict";
+
+    const PLAYER_COLORS = ["#d6336c", "#087f5b", "#315c8c", "#8b5cf6"];
+    const PLAYER_STYLES = [
+      { icon: "☀", label: "Ficha Sol", radius: "50%" },
+      { icon: "◆", label: "Ficha Jade", radius: "9px 50% 50% 50%" },
+      { icon: "★", label: "Ficha Estrella", radius: "35% 65% 35% 65%" },
+      { icon: "▲", label: "Ficha Pirámide", radius: "11px" }
+    ];
+    const DIE_FACES = ["⚀", "⚁", "⚂", "⚃", "⚄", "⚅"];
+    const ladders = { 4: 14, 9: 31, 20: 38, 28: 84, 40: 59, 51: 67, 63: 81, 71: 91 };
+    const snakes = { 17: 7, 54: 34, 62: 19, 64: 60, 87: 36, 93: 73, 95: 75, 99: 78 };
+
+    const questions = [
+      { category: "Yokoi Kenji", q: "¿Qué idea expresa mejor la relación entre disciplina e inteligencia en el enfoque de Yokoi Kenji?", options: ["La inteligencia vuelve innecesario el esfuerzo", "La constancia disciplinada puede superar al talento sin práctica", "La disciplina solo sirve en la escuela", "Ambas cualidades se adquieren de inmediato"], answer: 1, why: "La idea central es que la capacidad necesita constancia para convertirse en resultados sostenidos." },
+      { category: "Yokoi Kenji", q: "¿Cuáles son tres bases que Yokoi Kenji relaciona con la disciplina?", options: ["Dinero, fama y competencia", "Velocidad, fuerza y suerte", "Organización, limpieza y puntualidad", "Silencio, obediencia y aislamiento"], answer: 2, why: "Organización, limpieza y puntualidad aparecen como hábitos concretos que ayudan a construir disciplina." },
+      { category: "Yokoi Kenji", q: "¿Qué significa practicar la puntualidad en este enfoque?", options: ["Respetar el tiempo y la palabra acordada", "Llegar temprano solo cuando hay premio", "Evitar todos los cambios de plan", "Hacer más cosas al mismo tiempo"], answer: 0, why: "La puntualidad se entiende como respeto por los acuerdos y por el tiempo de otras personas." },
+      { category: "Yokoi Kenji", q: "Al comparar culturas japonesa y latinoamericana, ¿qué propone Yokoi Kenji?", options: ["Copiar una cultura por completo", "Demostrar que una cultura es superior", "Buscar equilibrio y aprender de las fortalezas de ambas", "Eliminar las costumbres locales"], answer: 2, why: "Su perspectiva intercultural resalta fortalezas y límites de ambas culturas y propone equilibrio." },
+      { category: "Yokoi Kenji", q: "¿Qué fortaleza latinoamericana puede complementar la disciplina y la planificación?", options: ["La improvisación creativa ante dificultades", "La falta de acuerdos", "El trabajo aislado", "La indiferencia ante los problemas"], answer: 0, why: "La creatividad y la capacidad de reaccionar ante situaciones difíciles pueden ser valiosas cuando se equilibran con orden." },
+      { category: "Yokoi Kenji", q: "¿Cuál es un ejemplo de organización aplicada a la vida diaria?", options: ["Comprar más objetos", "Saber dónde están las cosas y planear su uso", "Cambiar de meta todos los días", "Dejar todo para el último momento"], answer: 1, why: "Organizar implica dar un lugar, un orden y un momento a las tareas y recursos." },
+      { category: "Yokoi Kenji", q: "¿Cómo se construye una disciplina duradera?", options: ["Con una decisión aislada", "Con hábitos pequeños y repetidos", "Esperando inspiración", "Evitando cualquier error"], answer: 1, why: "La disciplina no aparece de un día a otro; se fortalece mediante conductas constantes." },
+      { category: "Yokoi Kenji", q: "¿Qué riesgo existe al idealizar por completo a otro país?", options: ["Aprender demasiado rápido", "Ignorar fortalezas propias y problemas reales de la otra cultura", "Ser más puntual", "Trabajar en equipo"], answer: 1, why: "Una comparación útil reconoce matices: ninguna cultura tiene todas las respuestas ni carece de fortalezas." },
+      { category: "Yokoi Kenji", q: "¿Qué combinación refleja mejor un enfoque equilibrado?", options: ["Disciplina sin humanidad", "Creatividad sin compromiso", "Constancia, creatividad y sentido humano", "Talento sin práctica"], answer: 2, why: "El equilibrio permite unir la constancia con la creatividad y el cuidado de las personas." },
+      { category: "Yokoi Kenji", q: "Cuando no hay aplausos ni supervisión, una persona disciplinada…", options: ["Abandona el objetivo", "Mantiene sus compromisos", "Culpa a los demás", "Solo hace lo más fácil"], answer: 1, why: "La disciplina se demuestra al sostener el compromiso incluso sin reconocimiento inmediato." },
+      { category: "Yokoi Kenji", q: "¿Para qué sirve comparar culturas de manera crítica?", options: ["Para crear estereotipos", "Para rechazar la identidad propia", "Para identificar aprendizajes aplicables sin copiar ciegamente", "Para evitar la colaboración"], answer: 2, why: "La comparación crítica ayuda a adaptar aprendizajes al contexto propio sin convertirlos en estereotipos." },
+      { category: "Yokoi Kenji", q: "¿Qué actitud ayuda a transformar una meta en un proceso real?", options: ["Esperar el momento perfecto", "Convertirla en acciones frecuentes y medibles", "Cambiarla cuando aparece una dificultad", "Mantenerla en secreto y no actuar"], answer: 1, why: "Las acciones frecuentes permiten dar continuidad y observar avances concretos." },
+
+      { category: "Carlos Kasuga", q: "¿Cuál es el orden de los cuatro pasos de calidad personal propuestos por Carlos Kasuga?", options: ["Bien tener, bien estar, bien hacer, bien ser", "Bien ser, bien hacer, bien estar, bien tener", "Bien hacer, bien tener, bien ser, bien estar", "Bien estar, bien ser, bien tener, bien hacer"], answer: 1, why: "La ruta parte del bien ser y avanza hacia el bien hacer, el bien estar y, como resultado, el bien tener." },
+      { category: "Carlos Kasuga", q: "¿Qué valores corresponden principalmente al “bien ser”?", options: ["Puntualidad, honestidad, trabajo, disciplina y respeto", "Popularidad, riqueza y competencia", "Rapidez, silencio y obediencia", "Premios, ventas y publicidad"], answer: 0, why: "El bien ser coloca primero la calidad humana y los valores que orientan la conducta." },
+      { category: "Carlos Kasuga", q: "¿Qué significa “bien hacer”?", options: ["Hacer solo lo que se revisará", "Realizar las tareas con calidad desde el principio", "Buscar resultados rápidos sin proceso", "Trabajar sin escuchar a nadie"], answer: 1, why: "El bien hacer se refiere a dar calidad y atención a las acciones, incluso a las cotidianas." },
+      { category: "Carlos Kasuga", q: "En esta filosofía, el “bien tener” debe entenderse como…", options: ["El primer objetivo a cualquier costo", "Un resultado de haber desarrollado los pasos anteriores", "Una recompensa basada en la suerte", "La única medida de felicidad"], answer: 1, why: "El bien tener no se plantea como un atajo, sino como una consecuencia del ser, hacer y estar bien." },
+      { category: "Carlos Kasuga", q: "¿Qué tipo de educación considera indispensable Carlos Kasuga además del conocimiento académico?", options: ["Educación exclusivamente técnica", "Educación formativa basada en valores", "Educación sin evaluación", "Educación enfocada solo en competir"], answer: 1, why: "La educación formativa busca desarrollar honestidad, respeto, responsabilidad y otros valores." },
+      { category: "Carlos Kasuga", q: "¿Qué principio de honestidad resume la idea “si no es tuyo…”?", options: ["Puedes usarlo si nadie mira", "No tiene importancia", "Pertenece a alguien y debe respetarse", "Debe entregarse únicamente a una autoridad"], answer: 2, why: "La frase invita a reconocer y respetar la propiedad ajena aun cuando nadie supervise." },
+      { category: "Carlos Kasuga", q: "¿Cómo debe promover disciplina una persona que dirige a otras?", options: ["Solo mediante castigos", "Con discursos largos", "Dando primero el ejemplo", "Aplicando reglas distintas para sí misma"], answer: 2, why: "El liderazgo coherente comienza por practicar las conductas que se piden al equipo." },
+      { category: "Carlos Kasuga", q: "¿Por qué la limpieza aparece como un valor importante?", options: ["Porque sustituye la educación", "Porque expresa cuidado, dignidad y respeto por el espacio compartido", "Porque solo mejora la apariencia", "Porque debe ser un castigo"], answer: 1, why: "La limpieza puede reflejar respeto por las personas, por el trabajo y por los espacios comunes." },
+      { category: "Carlos Kasuga", q: "Ante un error propio, ¿qué conducta coincide con la responsabilidad?", options: ["Decir que ocurrió solo", "Ocultarlo", "Reconocerlo y participar en la solución", "Buscar inmediatamente a quién culpar"], answer: 2, why: "Asumir la responsabilidad permite aprender, reparar y mejorar los procesos." },
+      { category: "Carlos Kasuga", q: "¿Qué expresa una educación de calidad, según este enfoque?", options: ["Solo obtener calificaciones altas", "Combinar conocimiento, valores y conducta", "Memorizar sin aplicar", "Competir sin colaborar"], answer: 1, why: "La formación integral une lo que una persona sabe con la manera en que actúa." },
+      { category: "Carlos Kasuga", q: "¿Qué relación existe entre esfuerzo y resultados duraderos?", options: ["El esfuerzo constante ayuda a construirlos", "No existe ninguna relación", "Solo importa el contacto correcto", "El esfuerzo se usa únicamente al inicio"], answer: 0, why: "Los resultados sostenibles suelen requerir trabajo constante y atención a la calidad." },
+      { category: "Carlos Kasuga", q: "Un equipo se compromete más cuando sus integrantes reciben…", options: ["Reglas sin explicación", "Respeto, condiciones dignas y buen ejemplo", "Competencia permanente entre compañeros", "Órdenes contradictorias"], answer: 1, why: "El trato digno y la coherencia favorecen confianza y sentido de pertenencia." },
+
+      { category: "México: mejor versión", q: "¿Qué acción escolar combina conocimiento y educación en valores?", options: ["Calificar solo la memoria", "Resolver un proyecto comunitario con roles y responsabilidad", "Evitar el trabajo en equipo", "Premiar únicamente la velocidad"], answer: 1, why: "Un proyecto comunitario permite aplicar conocimientos y practicar colaboración, responsabilidad y servicio." },
+      { category: "México: mejor versión", q: "¿Qué hábito fortalece la confianza entre ciudadanía e instituciones?", options: ["Cambiar las reglas según la persona", "Cumplir acuerdos y transparentar resultados", "Ocultar los errores", "Evitar rendir cuentas"], answer: 1, why: "La coherencia, el cumplimiento y la rendición de cuentas ayudan a construir confianza." },
+      { category: "México: mejor versión", q: "¿Cuál es una forma cotidiana de respeto cívico?", options: ["Cuidar los espacios comunes", "Dejar residuos para que alguien más los recoja", "Ignorar las filas", "Usar recursos públicos como propios"], answer: 0, why: "Cuidar lo compartido reconoce que el bienestar de la comunidad también depende de cada persona." },
+      { category: "México: mejor versión", q: "Si un equipo detecta un problema, ¿qué respuesta es más productiva?", options: ["Ocultarlo para evitar críticas", "Buscar culpables antes de conocer la causa", "Analizar la causa, proponer una solución y dar seguimiento", "Esperar que otro equipo lo resuelva"], answer: 2, why: "La mejora requiere reconocer el problema, entenderlo, actuar y revisar el resultado." },
+      { category: "México: mejor versión", q: "¿Cómo puede aplicarse la puntualidad en una comunidad?", options: ["Respetando horarios, citas y compromisos", "Llegando tarde si la reunión es informal", "Exigiéndola solo a otras personas", "Cancelando sin avisar"], answer: 0, why: "Cumplir tiempos acordados demuestra respeto y facilita la coordinación colectiva." },
+      { category: "México: mejor versión", q: "¿Qué práctica ayuda a reducir la corrupción desde la vida diaria?", options: ["Aceptar atajos pequeños", "Normalizar favores indebidos", "Actuar con honestidad incluso cuando nadie observa", "Evitar preguntar cómo se toman decisiones"], answer: 2, why: "La integridad cotidiana rechaza ventajas indebidas y fortalece normas iguales para todas las personas." },
+      { category: "México: mejor versión", q: "¿Qué combinación puede impulsar mejores resultados colectivos?", options: ["Talento individual sin coordinación", "Creatividad, disciplina y trabajo en equipo", "Competencia sin reglas", "Ideas sin seguimiento"], answer: 1, why: "La creatividad aporta soluciones; la disciplina da continuidad y el equipo amplía su alcance." },
+      { category: "México: mejor versión", q: "¿Cuál es un ejemplo de liderazgo con congruencia?", options: ["Pedir ahorro y desperdiciar recursos", "Exigir puntualidad y llegar tarde", "Cumplir primero la norma que se solicita al equipo", "Delegar toda la responsabilidad"], answer: 2, why: "La congruencia convierte el ejemplo en una referencia clara para el grupo." },
+      { category: "México: mejor versión", q: "¿Qué acción mejora un servicio público o privado?", options: ["Ignorar comentarios de usuarios", "Medir resultados, escuchar y corregir procesos", "Cambiar objetivos cada semana", "Premiar la cantidad sin revisar calidad"], answer: 1, why: "Medir, escuchar y ajustar permite convertir la experiencia en mejora continua." },
+      { category: "México: mejor versión", q: "¿Cómo se transforma una buena intención en cambio social?", options: ["Con acciones concretas, responsables y sostenidas", "Con una promesa sin fecha", "Esperando a que todos estén de acuerdo", "Actuando una sola vez"], answer: 0, why: "El cambio colectivo necesita acciones repetidas, responsables y observables." },
+      { category: "México: mejor versión", q: "¿Qué decisión favorece una cultura de responsabilidad?", options: ["Decir “se perdió” sin investigar", "Registrar quién hace qué y revisar compromisos", "Evitar documentar acuerdos", "Cambiar responsables después de cada error"], answer: 1, why: "Los roles claros y el seguimiento facilitan asumir resultados y aprender de ellos." },
+      { category: "México: mejor versión", q: "¿Qué propuesta equilibra identidad nacional y aprendizaje internacional?", options: ["Copiar modelos sin adaptarlos", "Rechazar cualquier idea externa", "Conservar fortalezas propias y adaptar prácticas útiles al contexto", "Suponer que todos los países enfrentan lo mismo"], answer: 2, why: "Aprender de otros funciona mejor cuando las ideas se adaptan a la realidad y a las capacidades locales." }
+    ];
+
+    const state = {
+      playerCount: 2,
+      players: [],
+      current: 0,
+      phase: "setup",
+      deck: [],
+      question: null,
+      questionAnswered: false,
+      modalOutcome: null,
+      turnNumber: 1,
+      gameOver: false
+    };
+
+    const $ = (id) => document.getElementById(id);
+    const setupScreen = $("setupScreen");
+    const gameScreen = $("gameScreen");
+    const playersInputs = $("playersInputs");
+    const board = $("board");
+    const connections = $("connections");
+    const tokensLayer = $("tokensLayer");
+    const statusBox = $("statusBox");
+    const questionButton = $("questionButton");
+    const diceButton = $("diceButton");
+    const nextTurnButton = $("nextTurnButton");
+    const questionModal = $("questionModal");
+    const feedbackBox = $("feedbackBox");
+    const questionAction = $("questionAction");
+
+    function escapeHTML(value) {
+      return String(value).replace(/[&<>'"]/g, (char) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", "'": "&#39;", '"': "&quot;" }[char]));
+    }
+
+    function renderPlayerInputs() {
+      const oldValues = [...playersInputs.querySelectorAll("input")].map((input) => input.value);
+      playersInputs.innerHTML = "";
+      for (let i = 0; i < state.playerCount; i++) {
+        const style = PLAYER_STYLES[i];
+        const wrap = document.createElement("div");
+        wrap.className = "player-input-wrap";
+        wrap.innerHTML = `<span class="player-avatar style-${i}" style="--player-color:${PLAYER_COLORS[i]}" aria-hidden="true"><span>${style.icon}</span></span><div class="player-field"><span class="player-design-name">${style.label}</span><input class="player-input" id="player${i + 1}" maxlength="18" autocomplete="off" value="${escapeHTML(oldValues[i] || `Jugador ${i + 1}`)}" aria-label="Nombre del jugador ${i + 1}"></div>`;
+        playersInputs.appendChild(wrap);
+      }
+    }
+
+    document.querySelectorAll(".count-btn").forEach((button) => {
+      button.addEventListener("click", () => {
+        state.playerCount = Number(button.dataset.count);
+        document.querySelectorAll(".count-btn").forEach((item) => item.setAttribute("aria-pressed", String(item === button)));
+        renderPlayerInputs();
+      });
+    });
+
+    function cellCoordinates(position) {
+      const row = Math.floor((position - 1) / 10);
+      const index = (position - 1) % 10;
+      const column = row % 2 === 0 ? index : 9 - index;
+      return { x: (column + .5) * 100, y: (9 - row + .5) * 100 };
+    }
+
+    function buildBoard() {
+      board.innerHTML = "";
+      for (let row = 9; row >= 0; row--) {
+        const numbers = [];
+        for (let i = 1; i <= 10; i++) numbers.push(row * 10 + i);
+        if (row % 2 === 1) numbers.reverse();
+        numbers.forEach((number) => {
+          const cell = document.createElement("div");
+          cell.className = "cell";
+          if (ladders[number]) cell.classList.add("special-up");
+          if (snakes[number]) cell.classList.add("special-down");
+          if (number === 1) cell.classList.add("start");
+          if (number === 100) cell.classList.add("finish");
+          cell.dataset.position = number;
+          const jump = ladders[number] ? `<span class="cell-jump">↑ ${ladders[number]}</span>` : snakes[number] ? `<span class="cell-jump">↓ ${snakes[number]}</span>` : "";
+          cell.innerHTML = `<span class="cell-number">${number}</span>${jump}`;
+          board.appendChild(cell);
+        });
+      }
+      drawConnections();
+    }
+
+    function svgElement(name, attrs) {
+      const node = document.createElementNS("http://www.w3.org/2000/svg", name);
+      Object.entries(attrs).forEach(([key, value]) => node.setAttribute(key, value));
+      return node;
+    }
+
+    function snakeGeometry(fromPosition, toPosition, forcedIndex) {
+      const start = cellCoordinates(fromPosition);
+      const end = cellCoordinates(toPosition);
+      const index = Number.isInteger(forcedIndex) ? forcedIndex : Object.keys(snakes).indexOf(String(fromPosition));
+      const sway = index % 2 === 0 ? 7.8 : -7.8;
+      return {
+        p0: start,
+        p1: { x: start.x + sway, y: (start.y + end.y) / 2 - 8 },
+        p2: { x: end.x - sway, y: (start.y + end.y) / 2 + 8 },
+        p3: end
+      };
+    }
+
+    function cubicPoint(geometry, t) {
+      const u = 1 - t;
+      return {
+        x: u * u * u * geometry.p0.x + 3 * u * u * t * geometry.p1.x + 3 * u * t * t * geometry.p2.x + t * t * t * geometry.p3.x,
+        y: u * u * u * geometry.p0.y + 3 * u * u * t * geometry.p1.y + 3 * u * t * t * geometry.p2.y + t * t * t * geometry.p3.y
+      };
+    }
+
+    function drawConnections() {
+      connections.innerHTML = "";
+      const defs = svgElement("defs", {});
+      const shadow = svgElement("filter", { id: "lineShadow", x: "-30%", y: "-30%", width: "160%", height: "160%" });
+      shadow.appendChild(svgElement("feDropShadow", { dx: "0", dy: "5", stdDeviation: "5", "flood-opacity": ".3" }));
+      defs.appendChild(shadow);
+
+      Object.keys(snakes).forEach((_, index) => {
+        const gradient = svgElement("linearGradient", { id: `snakeGradient${index}`, x1: "0%", y1: "0%", x2: "100%", y2: "100%" });
+        gradient.appendChild(svgElement("stop", { offset: "0%", "stop-color": index % 2 ? "#7c3aed" : "#d6336c" }));
+        gradient.appendChild(svgElement("stop", { offset: "55%", "stop-color": index % 2 ? "#d6336c" : "#ef6c35" }));
+        gradient.appendChild(svgElement("stop", { offset: "100%", "stop-color": "#9c1f4a" }));
+        defs.appendChild(gradient);
+      });
+      connections.appendChild(defs);
+
+      Object.entries(ladders).forEach(([fromRaw, toRaw]) => {
+        const from = cellCoordinates(Number(fromRaw));
+        const to = cellCoordinates(Number(toRaw));
+        const x1 = from.x * 10, y1 = from.y * 10, x2 = to.x * 10, y2 = to.y * 10;
+        const dx = x2 - x1, dy = y2 - y1, length = Math.hypot(dx, dy);
+        const ox = (-dy / length) * 14, oy = (dx / length) * 14;
+        const group = svgElement("g", { class: "board-connection ladder-connection", "data-from": fromRaw, "data-to": toRaw, filter: "url(#lineShadow)", opacity: ".96" });
+        group.appendChild(svgElement("line", { class: "ladder-rail", x1: x1 + ox, y1: y1 + oy, x2: x2 + ox, y2: y2 + oy, stroke: "#087f5b", "stroke-width": "11", "stroke-linecap": "round" }));
+        group.appendChild(svgElement("line", { class: "ladder-rail", x1: x1 - ox, y1: y1 - oy, x2: x2 - ox, y2: y2 - oy, stroke: "#087f5b", "stroke-width": "11", "stroke-linecap": "round" }));
+        for (let i = 1; i <= 9; i++) {
+          const t = i / 10;
+          const cx = x1 + dx * t, cy = y1 + dy * t;
+          group.appendChild(svgElement("line", { class: "ladder-rung", x1: cx + ox, y1: cy + oy, x2: cx - ox, y2: cy - oy, stroke: "#fff8dc", "stroke-width": "8", "stroke-linecap": "round" }));
+        }
+        group.appendChild(svgElement("circle", { cx: x1, cy: y1, r: "12", fill: "#f0b429", stroke: "white", "stroke-width": "4" }));
+        group.appendChild(svgElement("circle", { cx: x2, cy: y2, r: "12", fill: "#087f5b", stroke: "white", "stroke-width": "4" }));
+        connections.appendChild(group);
+      });
+
+      Object.entries(snakes).forEach(([fromRaw, toRaw], index) => {
+        const geometry = snakeGeometry(Number(fromRaw), Number(toRaw), index);
+        const p0 = { x: geometry.p0.x * 10, y: geometry.p0.y * 10 };
+        const p1 = { x: geometry.p1.x * 10, y: geometry.p1.y * 10 };
+        const p2 = { x: geometry.p2.x * 10, y: geometry.p2.y * 10 };
+        const p3 = { x: geometry.p3.x * 10, y: geometry.p3.y * 10 };
+        const path = `M ${p0.x} ${p0.y} C ${p1.x} ${p1.y}, ${p2.x} ${p2.y}, ${p3.x} ${p3.y}`;
+        const group = svgElement("g", { class: "board-connection snake-connection", "data-from": fromRaw, "data-to": toRaw, filter: "url(#lineShadow)" });
+        group.appendChild(svgElement("path", { d: path, fill: "none", stroke: "rgba(255,255,255,.92)", "stroke-width": "28", "stroke-linecap": "round" }));
+        group.appendChild(svgElement("path", { class: "snake-body", d: path, fill: "none", stroke: `url(#snakeGradient${index})`, "stroke-width": "17", "stroke-linecap": "round" }));
+        [0.22, 0.42, 0.62, 0.82].forEach((t) => {
+          const point = cubicPoint(geometry, t);
+          group.appendChild(svgElement("circle", { cx: point.x * 10, cy: point.y * 10, r: "5", fill: "#ffd86b", opacity: ".92" }));
+        });
+        group.appendChild(svgElement("ellipse", { cx: p0.x, cy: p0.y, rx: "25", ry: "21", fill: index % 2 ? "#7c3aed" : "#d6336c", stroke: "white", "stroke-width": "5" }));
+        group.appendChild(svgElement("circle", { cx: p0.x - 9, cy: p0.y + 4, r: "5", fill: "white" }));
+        group.appendChild(svgElement("circle", { cx: p0.x + 9, cy: p0.y + 4, r: "5", fill: "white" }));
+        group.appendChild(svgElement("circle", { cx: p0.x - 9, cy: p0.y + 5, r: "2.3", fill: "#102c2a" }));
+        group.appendChild(svgElement("circle", { cx: p0.x + 9, cy: p0.y + 5, r: "2.3", fill: "#102c2a" }));
+        group.appendChild(svgElement("path", { d: `M ${p0.x} ${p0.y + 18} L ${p0.x} ${p0.y + 32} M ${p0.x} ${p0.y + 32} L ${p0.x - 7} ${p0.y + 39} M ${p0.x} ${p0.y + 32} L ${p0.x + 7} ${p0.y + 39}`, fill: "none", stroke: "#9c1f4a", "stroke-width": "4", "stroke-linecap": "round" }));
+        connections.appendChild(group);
+      });
+    }
+
+    function shuffle(array) {
+      const result = [...array];
+      for (let i = result.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [result[i], result[j]] = [result[j], result[i]];
+      }
+      return result;
+    }
+
+    function refillDeck() { state.deck = shuffle(questions.map((_, index) => index)); }
+
+    function getNextQuestion() {
+      if (!state.deck.length) refillDeck();
+      return questions[state.deck.pop()];
+    }
+
+    function startGame() {
+      const inputs = [...playersInputs.querySelectorAll("input")];
+      state.players = inputs.map((input, index) => ({
+        name: input.value.trim() || `Jugador ${index + 1}`,
+        color: PLAYER_COLORS[index],
+        icon: PLAYER_STYLES[index].icon,
+        design: PLAYER_STYLES[index].label,
+        radius: PLAYER_STYLES[index].radius,
+        position: 1,
+        correct: 0,
+        asked: 0
+      }));
+      state.current = 0;
+      state.phase = "question";
+      state.turnNumber = 1;
+      state.gameOver = false;
+      refillDeck();
+      setupScreen.hidden = true;
+      gameScreen.hidden = false;
+      createTokens();
+      setPhase("question", "Responde una pregunta para desbloquear el dado.");
+      updateUI();
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+
+    function createTokens() {
+      tokensLayer.innerHTML = "";
+      state.players.forEach((player, index) => {
+        const token = document.createElement("div");
+        token.className = `token style-${index}`;
+        token.id = `token${index}`;
+        token.style.setProperty("--player-color", player.color);
+        token.innerHTML = `<span class="token-icon">${player.icon}</span><span class="token-number">${index + 1}</span>`;
+        token.setAttribute("aria-label", `${player.design} de ${player.name}`);
+        tokensLayer.appendChild(token);
+      });
+      updateTokens();
+    }
+
+    function tokenOffset(index, count) {
+      const boardWidth = $("boardWrap").getBoundingClientRect().width || 600;
+      const spread = Math.max(5, Math.min(13, boardWidth / 44));
+      const offsets = count === 2 ? [[-spread, -spread], [spread, spread]] : count === 3 ? [[-spread, -spread], [spread, -spread], [0, spread]] : [[-spread, -spread], [spread, -spread], [-spread, spread], [spread, spread]];
+      return offsets[index] || [0, 0];
+    }
+
+    function updateTokens() {
+      state.players.forEach((player, index) => {
+        const token = $(`token${index}`);
+        if (!token) return;
+        const point = cellCoordinates(player.position);
+        const [ox, oy] = tokenOffset(index, state.players.length);
+        token.style.left = `calc(${point.x}% + ${ox}px)`;
+        token.style.top = `calc(${point.y}% + ${oy}px)`;
+        if (!token.classList.contains("special-travel")) token.style.transform = "";
+        token.classList.toggle("active", index === state.current && !state.gameOver);
+      });
+    }
+
+    function updateRoster() {
+      $("roster").innerHTML = state.players.map((player, index) => {
+        const rate = player.asked ? Math.round(player.correct / player.asked * 100) : 0;
+        return `<div class="player-row ${index === state.current && !state.gameOver ? "current" : ""}"><span class="roster-dot" style="background:${player.color};--roster-radius:${player.radius}" title="${player.design}">${player.icon}</span><span class="roster-name">${escapeHTML(player.name)}<span class="sr-only">, ${player.design}</span></span><span class="roster-meta"><strong>${player.position}</strong>${player.correct}/${player.asked} · ${rate}%</span></div>`;
+      }).join("");
+    }
+
+    function updateUI() {
+      const player = state.players[state.current];
+      if (!player) return;
+      $("currentName").textContent = player.name;
+      $("currentDot").style.background = player.color;
+      $("currentDot").style.setProperty("--current-radius", player.radius);
+      $("currentIcon").textContent = player.icon;
+      updateTokens();
+      updateRoster();
+    }
+
+    function setPhase(phase, message) {
+      state.phase = phase;
+      if (message) statusBox.textContent = message;
+      questionButton.hidden = phase !== "question";
+      diceButton.hidden = phase !== "roll" && phase !== "moving";
+      diceButton.disabled = phase === "moving";
+      nextTurnButton.hidden = phase !== "end";
+      updateUI();
+    }
+
+    function categoryColor(category) {
+      if (category === "Carlos Kasuga") return "#087f5b";
+      if (category === "México: mejor versión") return "#d6336c";
+      return "#315c8c";
+    }
+
+    function openQuestion() {
+      if (state.phase !== "question") return;
+      state.question = getNextQuestion();
+      state.questionAnswered = false;
+      state.modalOutcome = null;
+      $("questionCategory").textContent = state.question.category;
+      $("questionCategory").style.background = categoryColor(state.question.category);
+      $("questionTitle").textContent = state.question.q;
+      feedbackBox.hidden = true;
+      feedbackBox.className = "feedback-box";
+      questionAction.hidden = true;
+      $("answerList").innerHTML = "";
+      state.question.options.forEach((option, index) => {
+        const button = document.createElement("button");
+        button.type = "button";
+        button.className = "answer-option";
+        button.innerHTML = `<span class="answer-letter">${String.fromCharCode(65 + index)}</span><span>${escapeHTML(option)}</span>`;
+        button.addEventListener("click", () => answerQuestion(index));
+        $("answerList").appendChild(button);
+      });
+      questionModal.hidden = false;
+      setTimeout(() => $("answerList").querySelector("button")?.focus(), 50);
+    }
+
+    function answerQuestion(selectedIndex) {
+      if (state.questionAnswered) return;
+      state.questionAnswered = true;
+      const player = state.players[state.current];
+      player.asked++;
+      const isCorrect = selectedIndex === state.question.answer;
+      if (isCorrect) player.correct++;
+
+      [...$("answerList").children].forEach((button, index) => {
+        button.disabled = true;
+        if (index === state.question.answer) button.classList.add("correct");
+        if (index === selectedIndex && !isCorrect) button.classList.add("wrong");
+      });
+
+      feedbackBox.hidden = false;
+      feedbackBox.classList.add(isCorrect ? "good" : "bad");
+      feedbackBox.innerHTML = `<strong>${isCorrect ? "Respuesta correcta. El dado está listo." : "Respuesta incorrecta. Este turno termina."}</strong>${escapeHTML(state.question.why)}`;
+      state.modalOutcome = isCorrect ? "roll" : "end";
+      questionAction.textContent = isCorrect ? "Ir al dado" : "Terminar turno";
+      questionAction.hidden = false;
+      updateRoster();
+      questionAction.focus();
+    }
+
+    function finishQuestionModal() {
+      if (!state.modalOutcome) return;
+      questionModal.hidden = true;
+      if (state.modalOutcome === "roll") {
+        setPhase("roll", "¡Correcto! Ahora lanza el dado para avanzar.");
+        diceButton.focus();
+      } else {
+        setPhase("end", "No avanzas esta vez. Revisa la explicación y vuelve a intentarlo en tu próximo turno.");
+        nextTurnButton.focus();
+      }
+    }
+
+    function randomDie() {
+      if (window.crypto && window.crypto.getRandomValues) {
+        const data = new Uint32Array(1);
+        window.crypto.getRandomValues(data);
+        return data[0] % 6 + 1;
+      }
+      return Math.floor(Math.random() * 6) + 1;
+    }
+
+    const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+
+    function flashCell(position) {
+      const cell = board.querySelector(`[data-position="${position}"]`);
+      if (!cell) return;
+      cell.classList.remove("step-flash");
+      void cell.offsetWidth;
+      cell.classList.add("step-flash");
+      setTimeout(() => cell.classList.remove("step-flash"), 440);
+    }
+
+    function hopToken(playerIndex) {
+      const token = $(`token${playerIndex}`);
+      if (!token) return;
+      token.classList.remove("step-hop");
+      void token.offsetWidth;
+      token.classList.add("step-hop");
+      setTimeout(() => token.classList.remove("step-hop"), 300);
+    }
+
+    function activateConnection(from, kind, playerName, to) {
+      connections.classList.add("special-mode");
+      const connection = connections.querySelector(`[data-from="${from}"]`);
+      if (connection) connection.classList.add("active-connection");
+      const banner = $("movementBanner");
+      banner.textContent = kind === "ladder" ? `${playerName} sube: ${from} → ${to}` : `${playerName} baja: ${from} → ${to}`;
+      banner.className = `movement-banner${kind === "snake" ? " snake" : ""}`;
+      banner.hidden = false;
+      return connection;
+    }
+
+    function clearConnection(connection) {
+      if (connection) connection.classList.remove("active-connection");
+      connections.classList.remove("special-mode");
+      $("movementBanner").hidden = true;
+    }
+
+    function easeInOutCubic(t) {
+      return t < .5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
+    }
+
+    async function animateSpecialMove(playerIndex, from, to, kind) {
+      const player = state.players[playerIndex];
+      const token = $(`token${playerIndex}`);
+      if (!token) {
+        player.position = to;
+        updateUI();
+        return;
+      }
+
+      const connection = activateConnection(from, kind, player.name, to);
+      const startPoint = cellCoordinates(from);
+      const endPoint = cellCoordinates(to);
+      const geometry = kind === "snake" ? snakeGeometry(from, to) : null;
+      const [ox, oy] = tokenOffset(playerIndex, state.players.length);
+      const reducedMotion = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      const duration = reducedMotion ? 80 : kind === "ladder" ? 1350 : 1650;
+      token.classList.add("special-travel");
+      token.classList.remove("step-hop");
+
+      await new Promise((resolve) => {
+        let startedAt = null;
+        const frame = (now) => {
+          if (startedAt === null) startedAt = now;
+          const raw = Math.min(1, (now - startedAt) / duration);
+          const t = easeInOutCubic(raw);
+          const point = kind === "snake" ? cubicPoint(geometry, t) : {
+            x: startPoint.x + (endPoint.x - startPoint.x) * t,
+            y: startPoint.y + (endPoint.y - startPoint.y) * t
+          };
+          const lift = 1.23 + Math.sin(Math.PI * raw) * .22;
+          const rotation = kind === "snake" ? Math.sin(raw * Math.PI * 6) * 9 : -Math.sin(raw * Math.PI) * 5;
+          token.style.left = `calc(${point.x}% + ${ox}px)`;
+          token.style.top = `calc(${point.y}% + ${oy}px)`;
+          token.style.transform = `translate(-50%, -50%) scale(${lift}) rotate(${rotation}deg)`;
+          if (raw < 1) requestAnimationFrame(frame);
+          else resolve();
+        };
+        requestAnimationFrame(frame);
+      });
+
+      player.position = to;
+      token.classList.remove("special-travel");
+      token.style.transform = "";
+      updateUI();
+      flashCell(to);
+      await delay(reducedMotion ? 40 : 480);
+      clearConnection(connection);
+    }
+
+    async function rollDice() {
+      if (state.phase !== "roll") return;
+      setPhase("moving", "El dado está girando…");
+      const face = $("diceFace");
+      for (let i = 0; i < 10; i++) {
+        face.textContent = DIE_FACES[Math.floor(Math.random() * 6)];
+        await delay(65);
+      }
+      const value = randomDie();
+      face.textContent = DIE_FACES[value - 1];
+      const player = state.players[state.current];
+      $("liveRegion").textContent = `${player.name} obtuvo ${value}`;
+      statusBox.textContent = `${player.name} obtuvo ${value}.`;
+      await delay(350);
+
+      if (player.position + value > 100) {
+        setPhase("end", `Necesitas llegar exactamente a 100. Con ${value} te pasabas, así que permaneces en la casilla ${player.position}.`);
+        return;
+      }
+
+      const destination = player.position + value;
+      while (player.position < destination) {
+        player.position++;
+        updateUI();
+        flashCell(player.position);
+        hopToken(state.current);
+        await delay(250);
+      }
+
+      if (ladders[player.position]) {
+        const from = player.position;
+        const to = ladders[from];
+        statusBox.textContent = `¡Escalera! Mira cómo ${player.name} sube de la casilla ${from} a la ${to}.`;
+        $("liveRegion").textContent = `${player.name} usa una escalera de ${from} a ${to}`;
+        await delay(420);
+        await animateSpecialMove(state.current, from, to, "ladder");
+      } else if (snakes[player.position]) {
+        const from = player.position;
+        const to = snakes[from];
+        statusBox.textContent = `¡Serpiente! Mira cómo ${player.name} baja de la casilla ${from} a la ${to}.`;
+        $("liveRegion").textContent = `${player.name} usa una serpiente de ${from} a ${to}`;
+        await delay(420);
+        await animateSpecialMove(state.current, from, to, "snake");
+      }
+
+      if (player.position === 100) {
+        showWinner(player);
+        return;
+      }
+
+      setPhase("end", `${player.name} termina el turno en la casilla ${player.position}.`);
+    }
+
+    function nextTurn() {
+      if (state.phase !== "end" || state.gameOver) return;
+      state.current = (state.current + 1) % state.players.length;
+      state.turnNumber++;
+      const next = state.players[state.current];
+      $("diceFace").textContent = DIE_FACES[0];
+      setPhase("question", `Turno de ${next.name}. Responde una pregunta para desbloquear el dado.`);
+      questionButton.focus();
+    }
+
+    function showWinner(player) {
+      state.gameOver = true;
+      setPhase("finished", `${player.name} llegó a la casilla 100.`);
+      $("winnerMessage").textContent = `${player.name} llegó exactamente a la meta y ganó la partida.`;
+      const accuracy = player.asked ? Math.round(player.correct / player.asked * 100) : 0;
+      $("winnerStats").textContent = `${player.correct} respuestas correctas de ${player.asked} · ${accuracy}% de aciertos`;
+      $("winnerModal").hidden = false;
+      createConfetti();
+      setTimeout(() => $("playAgainButton").focus(), 50);
+    }
+
+    function createConfetti() {
+      const colors = ["#087f5b", "#d6336c", "#f0b429", "#315c8c", "#8b5cf6"];
+      for (let i = 0; i < 70; i++) {
+        const piece = document.createElement("span");
+        piece.className = "confetti";
+        piece.style.left = `${Math.random() * 100}vw`;
+        piece.style.background = colors[i % colors.length];
+        piece.style.animationDelay = `${Math.random() * .8}s`;
+        piece.style.setProperty("--drift", `${Math.random() * 180 - 90}px`);
+        document.body.appendChild(piece);
+        setTimeout(() => piece.remove(), 3800);
+      }
+    }
+
+    function resetToSetup() {
+      $("winnerModal").hidden = true;
+      $("rulesModal").hidden = true;
+      questionModal.hidden = true;
+      gameScreen.hidden = true;
+      setupScreen.hidden = false;
+      state.phase = "setup";
+      state.gameOver = false;
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+
+    $("startButton").addEventListener("click", startGame);
+    questionButton.addEventListener("click", openQuestion);
+    questionAction.addEventListener("click", finishQuestionModal);
+    diceButton.addEventListener("click", rollDice);
+    nextTurnButton.addEventListener("click", nextTurn);
+    $("rulesButton").addEventListener("click", () => { $("rulesModal").hidden = false; setTimeout(() => $("closeRulesButton").focus(), 50); });
+    $("closeRulesButton").addEventListener("click", () => { $("rulesModal").hidden = true; $("rulesButton").focus(); });
+    $("restartButton").addEventListener("click", () => { if (confirm("¿Quieres terminar esta partida y comenzar una nueva?")) resetToSetup(); });
+    $("playAgainButton").addEventListener("click", resetToSetup);
+    window.addEventListener("resize", () => { if (!gameScreen.hidden && state.players.length) updateTokens(); });
+
+    document.addEventListener("keydown", (event) => {
+      if (event.key !== "Escape") return;
+      if (!$("rulesModal").hidden) $("rulesModal").hidden = true;
+    });
+
+    renderPlayerInputs();
+    buildBoard();
+  </script>
+</body>
+</html>

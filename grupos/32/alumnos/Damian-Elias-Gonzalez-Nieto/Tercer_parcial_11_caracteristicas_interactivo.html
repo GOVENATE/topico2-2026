@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="dark">
+  <meta name="description" content="Proyecto interactivo del tercer parcial: ocho características de las diapositivas y tres propuestas, con definición, aplicación y desarrollo.">
+  <title>Tercer parcial · 11 características para crecer</title>
+  <style>
+    :root{--bg:#0a1022;--bg2:#111b33;--surface:#141e36;--border:rgba(255,255,255,.11);--text:#f6f7fe;--muted:#b0bcd4;--accent:#89e4d0;--accent2:#f5bd73;--purple:#a6a0fd;--radius:24px}
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{margin:0;background:radial-gradient(ellipse 48% 37% at 9% 10%,#1d3650 0%,transparent 80%),radial-gradient(ellipse 40% 45% at 89% 44%,#251d46 0%,transparent 80%),var(--bg);font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",Arial,sans-serif;color:var(--text);min-height:100vh}
+    body::before{content:"";position:fixed;inset:0;z-index:-1;opacity:.16;background-image:radial-gradient(#d7e9ff .65px,transparent .65px);background-size:28px 28px;pointer-events:none}
+    button,input{font:inherit}
+    button{cursor:pointer}
+    button:focus-visible,a:focus-visible,input:focus-visible{outline:3px solid var(--accent);outline-offset:4px}
+    .shell{max-width:1500px;margin:auto;padding:0 34px}
+    .topbar{position:relative;z-index:3;border-bottom:1px solid var(--border);background:rgba(10,16,34,.72);backdrop-filter:blur(16px)}
+    .topbar .shell{display:flex;align-items:center;justify-content:space-between;gap:22px;min-height:84px}
+    .brand{display:flex;align-items:center;gap:13px;font-size:17px;font-weight:800;letter-spacing:-.04em;text-decoration:none;color:var(--text)}
+    .brandmark{display:grid;place-items:center;background:linear-gradient(145deg,var(--accent),#6486ed);color:#0a1022;width:43px;height:43px;border-radius:15px;font-size:23px;box-shadow:0 12px 30px #60e9b524}
+    .brand small{display:block;font-size:10px;letter-spacing:.17em;text-transform:uppercase;font-weight:650;color:var(--muted);margin-top:2px}
+    .navigation{display:flex;gap:8px;flex-wrap:wrap}
+    .navigation a{color:var(--muted);text-decoration:none;padding:11px 16px;border-radius:12px;font-size:13px;font-weight:700;transition:background .2s,color .2s}
+    .navigation a:hover,.navigation a.current{background:rgba(137,228,208,.12);color:var(--accent)}
+    .header{padding:64px 0 14px}
+    .eyebrow{display:inline-flex;align-items:center;gap:8px;color:var(--accent);font-size:12px;text-transform:uppercase;font-weight:800;letter-spacing:.2em}
+    .eyebrow:before{content:"";width:23px;height:2px;background:currentColor;border-radius:10px}
+    h1{font-size:clamp(38px,5vw,68px);line-height:1.08;margin:17px 0 18px;font-weight:850;letter-spacing:-.065em;max-width:1060px}
+    h1 .gradient{background:linear-gradient(100deg,#92ead0,#b1b0ff 50%,#f4bf82);color:transparent;background-clip:text;-webkit-background-clip:text}
+    .lead{font-size:16px;line-height:1.75;color:var(--muted);max-width:830px;margin:0 0 26px}
+    .info-row{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-bottom:28px}
+    .tag{padding:8px 12px;border-radius:99px;border:1px solid var(--border);background:#ffffff08;font-weight:680;color:#dbe6fb;font-size:12px}
+    .tag strong{color:var(--accent)}
+    .section-divider{display:flex;align-items:center;gap:14px;margin:24px 0 20px;color:#cad7f3;font-size:12px;letter-spacing:.18em;text-transform:uppercase;font-weight:800}
+    .section-divider::after{content:"";height:1px;flex:1;background:var(--border)}
+    .main-grid{display:grid;grid-template-columns:minmax(570px,1.05fr) minmax(400px,.95fr);gap:30px;align-items:start}
+    .wheel-card{min-width:0;background:linear-gradient(140deg,#16213b99,#12192dba);border:1px solid var(--border);border-radius:var(--radius);padding:20px 12px 25px;box-shadow:0 20px 80px #04091633;overflow:hidden}
+    .card-top{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:5px 20px 10px}
+    .card-top h2{font-size:16px;letter-spacing:-.025em;margin:0}
+    .mini-help{color:var(--muted);font-size:12px}
+    .wheel{width:100%;max-width:665px;aspect-ratio:1;position:relative;margin:0 auto;isolation:isolate}
+    .orbit{position:absolute;inset:11%;border:1px dashed #8ba4d454;border-radius:50%;pointer-events:none}
+    .orbit.o2{inset:21%;border-color:#a6a0fd25;border-style:solid}
+    .orbital-shine{position:absolute;inset:11%;border-radius:50%;background:radial-gradient(circle, #7592f416 0%,#8e91ef06 50%,transparent 68%);pointer-events:none}
+    .center{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);height:31%;width:31%;min-width:145px;min-height:145px;border-radius:50%;display:flex;flex-direction:column;align-items:center;justify-content:center;background:linear-gradient(145deg,#222d51,#171d39);box-shadow:0 0 0 9px #7a87b111,0 16px 60px #090e2388,inset 0 0 38px #a7a0fa12;border:1px solid #abaffd4c;text-align:center;z-index:1;pointer-events:none}
+    .center .big{font-size:clamp(43px,6vw,70px);line-height:1;font-weight:850;letter-spacing:-.08em;color:var(--accent)}
+    .center strong{font-size:13px;max-width:125px;line-height:1.3;margin-top:6px}
+    .center small{font-size:10px;color:var(--muted);margin-top:5px}
+    .skill-node{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:143px;min-height:65px;border:1px solid #7183ac77;border-radius:15px;background:#192540ee;color:#eaf1ff;display:flex;align-items:center;justify-content:center;gap:7px;padding:10px 9px;box-shadow:0 8px 28px #070b1d5c;transition:background .18s,border .18s,scale .18s,box-shadow .18s;z-index:2}
+    .skill-node:hover,.skill-node.active{background:linear-gradient(125deg,#277b7b,#314a76);border-color:#8df1d9;box-shadow:0 0 0 4px #75eac31a,0 15px 35px #01071466;scale:1.065}
+    .skill-node.proposed{border-style:dashed}
+    .skill-node .num{display:inline-grid;place-items:center;flex:none;width:23px;height:23px;border-radius:8px;background:#ffffff18;color:var(--accent);font-size:11px;font-weight:900}
+    .skill-node.proposed .num{color:var(--accent2)}
+    .skill-node .name{font-size:11px;font-weight:730;line-height:1.25;text-align:left;overflow-wrap:anywhere}
+    .legend{display:flex;justify-content:center;align-items:center;gap:21px;flex-wrap:wrap;color:var(--muted);font-size:12px;padding:3px 5px 0}
+    .legend span{display:inline-flex;align-items:center;gap:7px}.swatch{display:inline-block;width:13px;height:13px;border-radius:4px;background:#71cdbc}.swatch.proposed{background:#e9b66e}
+    .details{min-width:0;overflow:hidden;border-radius:var(--radius);background:linear-gradient(150deg,#1b2542 0%,#121b32 80%);border:1px solid #9cadd12c;box-shadow:0 20px 65px #0206184f;position:relative}
+    .details::before{content:"";position:absolute;right:-130px;top:-160px;width:390px;height:390px;background:radial-gradient(circle,var(--skillglow,#73e2c3) 0%,transparent 70%);opacity:.10;pointer-events:none}
+    .detail-head{padding:28px 30px 21px;border-bottom:1px solid var(--border);position:relative}
+    .detail-meta{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+    .detail-index{font-size:11px;font-weight:800;letter-spacing:.18em;color:var(--accent);text-transform:uppercase}
+    .orig-label{font-size:10px;padding:5px 9px;border:1px solid #e6f0ff39;border-radius:99px;color:#d8e3fa;letter-spacing:.05em;text-transform:uppercase;font-weight:750}
+    .orig-label.proposed{border-color:#e8bd7c8a;color:var(--accent2)}
+    .hero-line{display:flex;align-items:center;gap:18px;margin-top:16px}
+    .icon-tile{width:75px;height:75px;flex:none;display:grid;place-items:center;border-radius:19px;background:linear-gradient(135deg,#90e6d624,#948fe828);border:1px solid #b9fdfb21;font-size:38px}
+    .hero-line h2{font-size:clamp(24px,2.3vw,35px);letter-spacing:-.055em;line-height:1.12;margin:0}
+    .summary{font-size:13px;line-height:1.6;color:#b9cbe5;margin:16px 0 0}
+    .detail-body{padding:8px 30px 20px}
+    .learning-section{padding:16px 0;border-bottom:1px solid var(--border)}
+    .learning-section:last-of-type{border:0}
+    .learning-section h3{display:flex;align-items:center;gap:10px;font-size:15px;margin:0 0 8px;letter-spacing:-.02em}
+    .section-dot{display:inline-grid;place-items:center;width:28px;height:28px;border-radius:10px;background:#8fe7d31a;color:var(--accent);font-size:14px}
+    .learning-section p{font-size:13px;line-height:1.72;color:#d1daee;margin:0}
+    .learning-section ul{padding-left:18px;margin:4px 0 0;color:#d1daee;font-size:13px;line-height:1.7}
+    .learning-section li+li{margin-top:4px}
+    .micro{margin-top:12px;background:#7de0c90b;border:1px solid #8ae8d04b;padding:13px 15px;border-radius:14px}
+    .micro strong{display:block;color:#9fe6d9;font-size:12px;margin-bottom:4px}
+    .micro p{color:#c8d6e8;font-size:12px;line-height:1.6;margin:0}
+    .detail-actions{display:flex;gap:10px;align-items:center;flex-wrap:wrap;justify-content:space-between;padding:18px 30px 26px}
+    .buttons{display:flex;gap:8px}
+    .navbtn{height:39px;min-width:42px;padding:0 13px;border-radius:12px;border:1px solid var(--border);background:#ffffff0a;color:#e7f1ff;font-weight:700}
+    .navbtn:hover{background:#ffffff1c}
+    .complete{display:inline-flex;align-items:center;gap:8px;padding:10px 13px;border:1px solid #81deca66;border-radius:12px;background:#70d3b71a;color:#a8f4e1;font-size:12px;font-weight:780}
+    .complete.done{background:#71ddbc;color:#102c2c}
+    .tools{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:14px;margin:26px 0 20px}
+    .search{position:relative;max-width:480px;flex:1 1 250px}
+    .search input{width:100%;background:#17223b;border:1px solid var(--border);border-radius:14px;padding:14px 17px 14px 44px;color:var(--text);outline:0;font-size:13px}
+    .search input:focus{border-color:var(--accent)}
+    .search input::placeholder{color:#a7b5cb}
+    .search svg{position:absolute;width:18px;left:15px;top:50%;transform:translateY(-50%);stroke:#aec8dc;pointer-events:none}
+    .progress-area{min-width:220px;display:flex;align-items:center;gap:12px;color:var(--muted);font-size:12px}
+    .progress-area strong{font-size:14px;color:var(--accent)}
+    .track{width:100px;height:8px;border-radius:99px;background:#65759251;overflow:hidden}
+    .fill{height:100%;width:0;background:linear-gradient(90deg,var(--accent),#969aff);border-radius:inherit;transition:width .3s}
+    .list-section{margin:36px 0 58px}
+    .section-heading{display:flex;justify-content:space-between;align-items:end;gap:20px;flex-wrap:wrap;margin-bottom:18px}
+    .section-heading h2{margin:0;font-size:clamp(24px,3.2vw,36px);letter-spacing:-.055em}
+    .section-heading p{font-size:13px;color:var(--muted);margin:7px 0 0;max-width:780px;line-height:1.6}
+    .skill-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
+    .skill-item{display:flex;gap:11px;align-items:center;text-align:left;border:1px solid var(--border);border-radius:16px;padding:16px 13px;background:#152038af;color:var(--text);min-height:76px;transition:background .2s,transform .2s,border .2s}
+    .skill-item:hover{transform:translateY(-3px);background:#233454;border-color:#8ce9d169}
+    .skill-item.selected{border-color:#82ecd0;background:#1e3f4b}
+    .skill-item .grid-emoji{font-size:24px;flex:none}
+    .skill-item strong{display:block;font-size:12px;line-height:1.25}.skill-item small{display:block;color:var(--muted);font-size:10px;margin-top:6px}
+    .skill-item .check{color:var(--accent);margin-left:auto}
+    .no-result{display:none;padding:25px;text-align:center;color:var(--muted);border:1px solid var(--border);border-radius:14px}
+    .pillars{margin:36px 0 60px;padding:30px;background:linear-gradient(125deg,#1a2942,#171d34);border:1px solid var(--border);border-radius:var(--radius)}
+    .pillars h2{font-size:28px;letter-spacing:-.05em;margin:5px 0 8px}.pillars>p{font-size:13px;line-height:1.6;color:var(--muted);margin:0 0 20px}
+    .pillars-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:13px}
+    .pillar{background:#0d1528aa;border:1px solid var(--border);border-radius:16px;padding:18px}
+    .pillar .p-icon{font-size:26px}.pillar h3{font-size:15px;margin:13px 0 7px}.pillar p{margin:0;color:#c4d0e3;font-size:12px;line-height:1.65}
+    .footer{border-top:1px solid var(--border);padding:30px 0 42px;color:var(--muted);font-size:12px;line-height:1.7}
+    .footer strong{color:var(--text)}
+    @media(max-width:1250px){.main-grid{grid-template-columns:minmax(500px,1fr) minmax(355px,1fr);gap:16px}.wheel-card{padding-left:3px;padding-right:3px}.skill-node{width:125px;padding:9px 6px;min-height:58px}.skill-node .name{font-size:10px}.detail-head,.detail-body{padding-left:22px;padding-right:22px}.detail-actions{padding-left:22px;padding-right:22px}.skill-grid{grid-template-columns:repeat(3,1fr)}}
+    @media(max-width:960px){.main-grid{grid-template-columns:1fr}.wheel-card{max-width:750px;margin:auto;width:100%}.details{max-width:750px;margin:auto;width:100%}.wheel{max-width:610px}.skill-node{width:137px}.skill-node .name{font-size:11px}.skill-grid,.pillars-grid{grid-template-columns:repeat(2,1fr)}}
+    @media(max-width:600px){.shell{padding:0 17px}.topbar .shell{min-height:72px;flex-wrap:wrap;padding-top:12px;padding-bottom:12px}.brand{font-size:15px}.navigation a{font-size:11px;padding:9px 10px}.header{padding-top:35px}.lead{font-size:14px}.section-divider{margin-top:13px}.wheel-card{padding:14px 10px 20px}.card-top{padding:5px 5px 15px}.mini-help{max-width:130px;text-align:right}.wheel{width:100%;height:auto;aspect-ratio:auto;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px;max-width:none}.orbit,.orbital-shine,.center{display:none}.skill-node{position:static!important;left:auto!important;top:auto!important;transform:none!important;width:100%;min-height:58px;display:flex;justify-content:flex-start;padding:10px 8px;border-radius:12px}.skill-node:hover,.skill-node.active{scale:1.015}.skill-node .name{font-size:11px}.legend{padding-top:18px}.detail-head{padding:23px 19px 17px}.detail-body{padding:8px 19px 14px}.detail-actions{padding:10px 19px 24px}.icon-tile{width:57px;height:57px;font-size:28px}.hero-line{gap:11px}.hero-line h2{font-size:26px}.tools{margin-top:25px}.skill-grid,.pillars-grid{grid-template-columns:1fr 1fr;gap:9px}.skill-item{min-height:76px;padding:12px 9px;gap:8px}.skill-item .grid-emoji{font-size:21px}.pillars{padding:18px}.pillar{padding:13px}.pillar h3{font-size:13px}.pillars h2{font-size:24px}}
+    @media(max-width:390px){.skill-grid,.pillars-grid{grid-template-columns:1fr}.skill-node .name{font-size:10px}.skill-node .num{width:20px;height:20px}.navigation{gap:0}}
+    @media(prefers-reduced-motion:reduce){*,*:before,*:after{scroll-behavior:auto!important;transition:none!important;animation:none!important}}
+  </style>
+</head>
+<body>
+<header class="topbar">
+ <div class="shell">
+  <a class="brand" href="#inicio" aria-label="Ir al inicio"><span class="brandmark">✦</span><span>PROYECTO INTERACTIVO<small>Habilidades para la vida</small></span></a>
+  <nav class="navigation" aria-label="Menú principal">
+   <a href="#inicio">Inicio</a><a href="#tercer-parcial" class="current">Tercer parcial</a><a href="#cuatro-pilares">4 pilares</a>
+  </nav>
+ </div>
+</header>
+<main class="shell">
+ <section class="header" id="inicio" aria-labelledby="page-title">
+  <div class="eyebrow">Tercer parcial · Desarrollo personal y profesional</div>
+  <h1 id="page-title">11 características para <span class="gradient">crecer y emprender</span></h1>
+  <p class="lead">Una experiencia interactiva para explorar las <strong>8 características de las diapositivas</strong> y <strong>3 características adicionales propuestas</strong>. Descubre qué significa cada una, cómo aplicarla y qué puedes hacer para desarrollarla.</p>
+  <div class="info-row"><span class="tag"><strong>08</strong> características originales</span><span class="tag"><strong>03</strong> propuestas nuevas</span><span class="tag">Explora la rueda · Pasa el cursor o haz clic</span></div>
+ </section>
+ <section id="tercer-parcial" aria-label="Rueda interactiva de características">
+  <div class="section-divider">Explora y aprende</div>
+  <div class="tools">
+    <div class="search"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"></circle><path d="m16 16 5 5"></path></svg><input id="skillSearch" type="search" autocomplete="off" placeholder="Buscar una característica…" aria-label="Buscar características"></div>
+    <div class="progress-area"><span>Mi avance: <strong id="progressText">0 / 11</strong></span><div class="track" role="progressbar" aria-label="Características revisadas" aria-valuemin="0" aria-valuemax="11" aria-valuenow="0" id="progressbar"><div class="fill" id="progressFill"></div></div></div>
+  </div>
+  <div class="main-grid">
+   <div class="wheel-card">
+    <div class="card-top"><h2>Rueda de las 11 habilidades</h2><span class="mini-help">Selecciona una habilidad</span></div>
+    <div class="wheel" id="wheel" role="group" aria-label="Selecciona una de las 11 características">
+     <div class="orbital-shine"></div><div class="orbit"></div><div class="orbit o2"></div>
+     <div class="center" aria-hidden="true"><span class="big">11</span><strong>HABILIDADES</strong><small>Un mismo propósito</small></div>
+    </div>
+    <div class="legend"><span><i class="swatch"></i> Originales (1–8)</span><span><i class="swatch proposed"></i> Propuestas (9–11)</span></div>
+   </div>
+   <article class="details" id="details" style="--skillglow:#75decf" aria-live="polite">
+     <div class="detail-head">
+       <div class="detail-meta"><span class="detail-index" id="detailIndex">CARACTERÍSTICA 01 / 11</span><span class="orig-label" id="detailOrigin">De las diapositivas</span></div>
+       <div class="hero-line"><div class="icon-tile" id="detailIcon" aria-hidden="true">🤝</div><h2 id="detailTitle">Dominio de la interdependencia</h2></div>
+       <p class="summary" id="detailSummary"></p>
+     </div>
+     <div class="detail-body">
+       <section class="learning-section"><h3><span class="section-dot">?</span>¿Qué es?</h3><p id="detailWhat"></p></section>
+       <section class="learning-section"><h3><span class="section-dot">↗</span>¿Cómo se aplica?</h3><p id="detailApply"></p></section>
+       <section class="learning-section"><h3><span class="section-dot">✦</span>¿Cómo lo podemos desarrollar?</h3><ul id="detailDevelop"></ul></section>
+       <div class="micro"><strong>💡 Reto para ponerlo en práctica</strong><p id="detailChallenge"></p></div>
+     </div>
+     <div class="detail-actions"><div class="buttons"><button class="navbtn" id="prev" aria-label="Ver característica anterior">← Anterior</button><button class="navbtn" id="next" aria-label="Ver característica siguiente">Siguiente →</button></div><button class="complete" id="complete" aria-pressed="false">✓ Marcar como revisada</button></div>
+   </article>
+  </div>
+ </section>
+ <section class="list-section" aria-labelledby="overview-title">
+   <div class="section-heading"><div><div class="eyebrow">Vista rápida</div><h2 id="overview-title">Las 11 características</h2><p>También puedes seleccionarlas desde estas tarjetas. Las tres nuevas se identifican como propuestas para complementar el material original.</p></div></div>
+   <div class="skill-grid" id="skillGrid"></div><div class="no-result" id="empty">No se encontraron características con esa búsqueda.</div>
+ </section>
+ <section class="pillars" id="cuatro-pilares" aria-labelledby="pillars-title">
+   <div class="eyebrow">Complemento del material</div><h2 id="pillars-title">Los cuatro pilares de la educación</h2>
+   <p>La diapositiva sobre el Informe Delors presenta cuatro enfoques educativos que sirven como marco para las once características.</p>
+   <div class="pillars-grid">
+     <div class="pillar"><div class="p-icon">📚</div><h3>Aprender a conocer</h3><p>Adquirir conocimientos generales y profundizar en temas de interés. Investigar, cuestionar y mantener la curiosidad.</p></div>
+     <div class="pillar"><div class="p-icon">🛠️</div><h3>Aprender a hacer</h3><p>Convertir conocimientos en habilidades prácticas para resolver situaciones, colaborar y emprender proyectos.</p></div>
+     <div class="pillar"><div class="p-icon">🌎</div><h3>Aprender a vivir juntos</h3><p>Comprender a las personas, respetar la diversidad y construir relaciones de cooperación e interdependencia.</p></div>
+     <div class="pillar"><div class="p-icon">🌱</div><h3>Aprender a ser</h3><p>Fortalecer la autonomía, el criterio propio, la personalidad y la responsabilidad personal.</p></div>
+   </div>
+ </section>
+</main>
+<footer class="footer"><div class="shell"><strong>Proyecto de tercer parcial</strong> · Elaborado a partir de las ocho características de las imágenes proporcionadas y tres características propuestas como ampliación. Los textos explicativos y actividades son adaptaciones didácticas. Funciona sin conexión y guarda el avance en este navegador cuando el almacenamiento está disponible.</div></footer>
+<script>
+(()=>{'use strict';
+ const skills=[
+  {name:'Dominio de la interdependencia',short:'Interdependencia',emoji:'🤝',color:'#88e1d0',summary:'Entender que el trabajo en equipo puede potenciar las capacidades individuales.',what:'Es reconocer que las personas dependemos unas de otras para alcanzar objetivos comunes. Supone escuchar, aceptar diferencias y construir relaciones de confianza.',apply:'En una tarea escolar, un proyecto o una empresa, cada integrante aporta sus talentos, escucha al resto y cumple acuerdos. El equipo evalúa fortalezas y aspectos a mejorar sin descalificarse.',develop:['Practicar la escucha activa: no interrumpir y resumir lo que dijo otra persona.','Aceptar puntos de vista diferentes y reconocer el papel de cada integrante.','Crear redes de apoyo, negociar acuerdos ganar-ganar y dar seguimiento a compromisos.','Evaluar con respeto las habilidades y la confianza dentro del equipo.'],challenge:'En tu siguiente trabajo grupal, pregunta qué necesita cada persona y acuerden una responsabilidad concreta por integrante.'},
+  {name:'Habilidades de emprendimiento',short:'Emprendimiento',emoji:'🚀',color:'#ffc485',summary:'Transformar necesidades de los clientes en soluciones y oportunidades.',what:'Es el conjunto de capacidades para detectar oportunidades, organizar recursos, negociar y crear valor mediante una idea o proyecto.',apply:'Escuchando lo que realmente preocupa a un cliente, elaborando una propuesta útil, coordinando compromisos y revisando si el proyecto es viable desde el punto de vista económico.',develop:['Identificar a los posibles clientes y escuchar sus necesidades detrás de cada petición.','Coordinar tareas con acuerdos claros, anticiparse a dificultades y aprender de errores.','Crear redes de colaboración con personas que puedan aportar conocimientos.','Aprender nociones de costos, ingresos, estados financieros y oportunidades de mercado.'],challenge:'Piensa en una necesidad de tu comunidad y escribe una solución, quién la usaría y cuánto costaría ponerla en marcha.'},
+  {name:'Liderazgo',short:'Liderazgo',emoji:'🧭',color:'#abb2ff',summary:'Inspirar y organizar a las personas para alcanzar metas compartidas.',what:'Es la capacidad de orientar, motivar y acompañar a otras personas, tomando decisiones responsables y aprovechando los talentos de un equipo.',apply:'Definiendo metas, invitando a participar con propuestas relevantes, repartiendo tareas, supervisando varios proyectos y negociando con clientes o proveedores cuando haga falta.',develop:['Escuchar inquietudes antes de presentar propuestas y recibir retroalimentación.','Organizar tiempos y compromisos, y detectar a tiempo retrasos o dificultades.','Evaluar capacidades con criterios claros y reconocer los talentos del equipo.','Cuidar el ambiente emocional y negociar con información y respeto.'],challenge:'Coordina una actividad pequeña, asigna roles, acuerda una fecha y al finalizar pregunta cómo podría mejorar el equipo.'},
+  {name:'Responsabilidad',short:'Responsabilidad',emoji:'✅',color:'#94ddc3',summary:'Responder por nuestros compromisos, decisiones y emociones.',what:'Es asumir las consecuencias de lo que hacemos y cumplir acuerdos de manera consciente, tanto en lo académico como en nuestras relaciones.',apply:'Entregando trabajos a tiempo, cumpliendo tareas acordadas, avisando cuando algo no es posible y expresando las emociones sin culpar a los demás.',develop:['Escribir compromisos con una fecha y revisar su cumplimiento.','Aprender a decir “no” cuando no puedas asumir más actividades.','Definir con otras personas lo que cada quien debe hacer y comunicar incumplimientos de forma respetuosa.','Reconocer las emociones propias y respetar los sentimientos ajenos.'],challenge:'Elige un compromiso de esta semana y prepara un plan con fecha, pasos y una forma de comprobar que lo cumpliste.'},
+  {name:'Comunicación efectiva',short:'Comunicación',emoji:'💬',color:'#f0abda',summary:'Escuchar con empatía y expresar mensajes que generen entendimiento.',what:'Es compartir información e ideas con claridad, atención y respeto, procurando que las personas construyan interpretaciones comunes.',apply:'En exposiciones, conversaciones, mensajes y reuniones: escuchar antes de responder, adaptar el lenguaje al público, verificar que el mensaje se entendió y observar señales no verbales.',develop:['Practicar la escucha activa e identificar lo que la otra persona entendió.','Mejorar dicción, ortografía y redacción; evitar muletillas que dificulten el mensaje.','Observar el tono de voz, los gestos y los estados de ánimo.','Hacer preguntas y confirmar acuerdos al cerrar una conversación.'],challenge:'Explica una idea en un minuto y pide a un compañero que te diga qué entendió; ajusta tu explicación si es necesario.'},
+  {name:'Los otros',short:'Los otros',emoji:'🌎',color:'#b1d59b',summary:'Tener conciencia y responsabilidad social y cultural.',what:'Es reconocer que nuestras acciones afectan a otras personas y comprender que convivimos con diversas culturas, experiencias y necesidades.',apply:'Respetando diferencias sociales y culturales, siendo solidarios, evitando la discriminación y participando en actividades que beneficien a la comunidad.',develop:['Escuchar experiencias y perspectivas distintas a las propias.','Investigar sobre otras culturas y tratar a todas las personas con respeto.','Colaborar en acciones de servicio o mejora del entorno.','Reflexionar sobre cómo nuestras decisiones afectan a otras personas.'],challenge:'Identifica un problema de convivencia en tu escuela y propón una acción sencilla que ayude a incluir a más personas.'},
+  {name:'Lenguaje',short:'Lenguaje',emoji:'🗣️',color:'#a0cafa',summary:'La forma en que hablamos, concebimos, expresamos y representamos el mundo.',what:'Es nuestra capacidad de construir y transmitir significados mediante palabras, imágenes, símbolos, gestos y otras formas de expresión.',apply:'Al argumentar una opinión, explicar conceptos, redactar mensajes, elaborar presentaciones o representar ideas con esquemas e imágenes.',develop:['Ampliar el vocabulario mediante lectura y búsqueda de términos desconocidos.','Escribir y revisar ideas procurando claridad y coherencia.','Practicar exposiciones y explicar un concepto con tus propias palabras.','Usar ejemplos, diagramas y recursos visuales para comunicar ideas complejas.'],challenge:'Escoge un tema y explícalo de dos maneras: un párrafo breve y un dibujo o esquema.'},
+  {name:'Finanzas',short:'Finanzas',emoji:'💰',color:'#f3cb89',summary:'Entender para qué sirve el dinero y cómo cuidarlo.',what:'Es la capacidad de administrar ingresos, gastos, ahorros y recursos para tomar decisiones económicas con criterio.',apply:'Haciendo un presupuesto, comparando precios, evitando compras impulsivas y reservando recursos para metas o imprevistos.',develop:['Registrar gastos e ingresos durante una semana.','Distinguir necesidades de deseos y establecer prioridades.','Definir una meta de ahorro realista y revisar el avance.','Aprender conceptos básicos: presupuesto, deuda, intereses y ahorro.'],challenge:'Crea un presupuesto sencillo para la semana con tres apartados: gastos necesarios, ahorro y gastos opcionales.'},
+  {name:'Pensamiento crítico',short:'Pensamiento crítico',emoji:'🔎',color:'#ffa996',proposed:true,summary:'Analizar información y tomar decisiones basadas en razones y evidencias.',what:'Es la habilidad de hacer preguntas, distinguir hechos de opiniones y evaluar alternativas antes de decidir o aceptar una afirmación.',apply:'Al investigar para una tarea, resolver un conflicto, revisar información en internet o comparar opciones de un proyecto.',develop:['Cuestionar de dónde proviene una información y qué evidencia la respalda.','Contrastar varias fuentes y reconocer posibles sesgos.','Analizar las ventajas, limitaciones y consecuencias de cada alternativa.','Explicar por qué se llegó a una conclusión y estar dispuesto a revisarla.'],challenge:'Elige una noticia y separa tres hechos verificables de las opiniones que contiene.'},
+  {name:'Creatividad e innovación',short:'Creatividad',emoji:'💡',color:'#d6a5ff',proposed:true,summary:'Generar ideas originales y convertirlas en mejoras útiles.',what:'Es la capacidad de explorar posibilidades diferentes y aplicar soluciones nuevas o mejoradas a una necesidad real.',apply:'Cuando se propone una nueva forma de estudiar, mejorar un producto, resolver una falla o diseñar un servicio más sencillo para las personas.',develop:['Anotar varias soluciones antes de elegir la primera.','Hacer lluvias de ideas sin descartar propuestas demasiado pronto.','Crear prototipos sencillos, probarlos y pedir comentarios.','Aprender de los resultados y realizar mejoras sucesivas.'],challenge:'Elige un objeto cotidiano y dibuja tres modificaciones para que sea más útil, accesible o cómodo.'},
+  {name:'Competencias digitales',short:'Competencias digitales',emoji:'💻',color:'#87baff',proposed:true,summary:'Utilizar la tecnología de forma útil, responsable y segura.',what:'Es saber usar herramientas digitales para aprender, comunicarse, crear contenido y solucionar problemas con criterio ético.',apply:'Al colaborar en documentos compartidos, organizar proyectos en línea, buscar información confiable y cuidar los datos personales.',develop:['Practicar el uso de hojas de cálculo, presentaciones y herramientas colaborativas.','Verificar las fuentes antes de compartir información digital.','Usar contraseñas seguras y aprender hábitos básicos de privacidad.','Crear un proyecto digital pequeño: una página, un portafolio o un tablero de organización.'],challenge:'Crea una carpeta organizada para un proyecto, comparte un documento de práctica y define permisos adecuados.'}
+ ];
+ const wheel=document.getElementById('wheel'),grid=document.getElementById('skillGrid'),search=document.getElementById('skillSearch');
+ let selected=0;let completeSet=new Set();
+ try{const saved=JSON.parse(localStorage.getItem('tercerParcial11Avance')||'[]');if(Array.isArray(saved))completeSet=new Set(saved.filter(n=>Number.isInteger(n)&&n>=0&&n<skills.length));}catch(e){}
+ const nodes=[],cards=[];
+ skills.forEach((item,i)=>{
+  const node=document.createElement('button');node.type='button';node.className='skill-node'+(item.proposed?' proposed':'');node.dataset.skill=String(i);node.setAttribute('aria-label',`Característica ${i+1}: ${item.name}${item.proposed?', propuesta nueva':''}`);node.style.left=(50+38.6*Math.cos(-Math.PI/2+i*2*Math.PI/skills.length))+'%';node.style.top=(50+38.6*Math.sin(-Math.PI/2+i*2*Math.PI/skills.length))+'%';
+  const num=document.createElement('span');num.className='num';num.textContent=String(i+1).padStart(2,'0');const name=document.createElement('span');name.className='name';name.textContent=item.short;node.append(num,name);
+  node.addEventListener('mouseenter',()=>render(i));node.addEventListener('focus',()=>render(i));node.addEventListener('click',()=>render(i));wheel.appendChild(node);nodes.push(node);
+  const card=document.createElement('button');card.type='button';card.className='skill-item';card.dataset.skill=String(i);const ico=document.createElement('span');ico.className='grid-emoji';ico.textContent=item.emoji;const txt=document.createElement('span');const ttl=document.createElement('strong');ttl.textContent=(i+1)+'. '+item.name;const subtitle=document.createElement('small');subtitle.textContent=item.proposed?'Propuesta nueva':'De las diapositivas';txt.append(ttl,subtitle);const ck=document.createElement('span');ck.className='check';ck.setAttribute('aria-hidden','true');card.append(ico,txt,ck);card.addEventListener('click',()=>{render(i);document.getElementById('tercer-parcial').scrollIntoView({behavior:window.matchMedia('(prefers-reduced-motion: reduce)').matches?'instant':'smooth',block:'start'});});grid.appendChild(card);cards.push(card);
+ });
+ function setText(id,value){document.getElementById(id).textContent=value}
+ function render(index){selected=((index%skills.length)+skills.length)%skills.length;const item=skills[selected];
+   nodes.forEach((node,i)=>{node.classList.toggle('active',i===selected);node.setAttribute('aria-pressed',i===selected?'true':'false')});
+   cards.forEach((card,i)=>{card.classList.toggle('selected',i===selected);card.setAttribute('aria-pressed',i===selected?'true':'false')});
+   setText('detailIndex',`CARACTERÍSTICA ${String(selected+1).padStart(2,'0')} / 11`);const origin=document.getElementById('detailOrigin');origin.textContent=item.proposed?'Propuesta nueva':'De las diapositivas';origin.classList.toggle('proposed',!!item.proposed);
+   setText('detailIcon',item.emoji);setText('detailTitle',item.name);setText('detailSummary',item.summary);setText('detailWhat',item.what);setText('detailApply',item.apply);setText('detailChallenge',item.challenge);document.getElementById('details').style.setProperty('--skillglow',item.color);
+   const ul=document.getElementById('detailDevelop');ul.replaceChildren();item.develop.forEach(t=>{const li=document.createElement('li');li.textContent=t;ul.appendChild(li)});
+   const btn=document.getElementById('complete'),done=completeSet.has(selected);btn.classList.toggle('done',done);btn.setAttribute('aria-pressed',done?'true':'false');btn.textContent=done?'✓ Revisada · Desmarcar':'✓ Marcar como revisada';
+ }
+ function updateProgress(){let n=completeSet.size;setText('progressText',`${n} / 11`);document.getElementById('progressFill').style.width=(100*n/11)+'%';document.getElementById('progressbar').setAttribute('aria-valuenow',String(n));cards.forEach((card,i)=>card.querySelector('.check').textContent=completeSet.has(i)?'✓':'');}
+ function setComplete(){completeSet.has(selected)?completeSet.delete(selected):completeSet.add(selected);try{localStorage.setItem('tercerParcial11Avance',JSON.stringify([...completeSet]));}catch(e){}updateProgress();render(selected)}
+ document.getElementById('complete').addEventListener('click',setComplete);document.getElementById('prev').addEventListener('click',()=>render(selected-1));document.getElementById('next').addEventListener('click',()=>render(selected+1));
+ document.addEventListener('keydown',event=>{if(event.altKey||event.ctrlKey||event.metaKey||/INPUT|TEXTAREA|SELECT/.test(document.activeElement?.tagName||''))return;if(event.key==='ArrowRight'){render(selected+1)}else if(event.key==='ArrowLeft'){render(selected-1)}});
+ search.addEventListener('input',()=>{const q=search.value.toLocaleLowerCase('es').normalize('NFD').replace(/[\u0300-\u036f]/g,'').trim();let visible=0;const normalize=s=>s.toLocaleLowerCase('es').normalize('NFD').replace(/[\u0300-\u036f]/g,'');skills.forEach((skill,i)=>{const yes=normalize(skill.name+' '+skill.summary+' '+skill.what+' '+skill.apply+' '+skill.develop.join(' ')).includes(q);nodes[i].hidden=!yes;nodes[i].style.display=yes?'':'none';cards[i].hidden=!yes;cards[i].style.display=yes?'':'none';if(yes)visible++});document.getElementById('empty').style.display=visible?'none':'block';if(visible&&!(!nodes[selected].hidden)){render(skills.findIndex((s,i)=>!nodes[i].hidden));}});
+ const links=[...document.querySelectorAll('.navigation a')];links.forEach(a=>a.addEventListener('click',()=>{links.forEach(l=>l.classList.remove('current'));a.classList.add('current')}));
+ render(0);updateProgress();
+})();
+</script>
+</body>
+</html>

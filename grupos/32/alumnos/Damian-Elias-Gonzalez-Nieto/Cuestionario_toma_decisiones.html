@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Cuestionario para la toma de decisiones</title>
+  <meta name="description" content="Cuestionario interactivo con FODA, Seis Sombreros, CATWDA e Ishikawa, cálculos y gráficas automáticas.">
+  <style>
+    :root{--navy:#18374f;--teal:#0e6f68;--ink:#203442;--muted:#687a86;--line:#d7e1e7;--canvas:#eef3f6;--white:#fff;--green:#2f9364;--amber:#d5a019;--blue:#377fdd;--red:#d6534f;--purple:#7d4ac7}
+    *{box-sizing:border-box}html{scroll-behavior:smooth;color-scheme:light}body{margin:0;min-width:320px;background:radial-gradient(circle at 5% 2%,rgba(47,147,100,.1),transparent 24rem),linear-gradient(#f8fbfc,#eef3f6 28rem);color:var(--ink);font-family:"Trebuchet MS","Segoe UI",sans-serif}button,textarea,input{font:inherit}main{width:min(1500px,100%);margin:auto;padding:16px clamp(10px,2vw,28px) 28px}
+    header{display:flex;align-items:center;gap:14px;padding:16px;color:#fff;background:var(--navy);border-radius:20px;box-shadow:0 18px 40px rgba(24,55,79,.16)}.mark{display:grid;place-items:center;width:52px;height:52px;border-radius:16px;background:linear-gradient(145deg,#2aa198,var(--teal));font-size:26px}.headcopy{flex:1}.headcopy small,.kicker{display:block;margin-bottom:4px;color:#a8dcd7;font-size:12px;font-weight:900;letter-spacing:.12em;text-transform:uppercase}.headcopy h1{margin:0;font-size:clamp(21px,2.3vw,31px)}.actions{display:flex;align-items:center;gap:8px}.actions button{min-height:43px;padding:0 15px;border-radius:10px;border:1px solid rgba(255,255,255,.25);font-weight:800;cursor:pointer}.secondary{color:#fff;background:rgba(255,255,255,.08)}.primary{color:#fff;background:var(--teal);border-color:var(--teal)!important}.status{font-size:12px;color:#c8deda;margin-right:5px}
+    .problem{display:grid;grid-template-columns:minmax(240px,.75fr) minmax(340px,1.65fr);gap:28px;align-items:center;margin:16px 0;padding:20px;background:#fff;border:1px solid var(--line);border-left:7px solid var(--teal);border-radius:18px}.kicker{color:var(--teal)}h2{margin:0;font-size:22px}.problem p{margin:6px 0 0;color:var(--muted)}.problem label{display:grid;gap:6px;font-size:13px;font-weight:900}.problem textarea{min-height:66px;padding:11px 12px;resize:vertical;border:1px solid #bdccd5;border-radius:11px;outline:none;color:var(--ink);background:#f8fbfc;font-size:16px}.problem textarea:focus{border-color:#2a928a;box-shadow:0 0 0 3px rgba(42,146,138,.15)}
+    .metrics{display:grid;grid-template-columns:repeat(6,minmax(145px,1fr));gap:10px;margin-bottom:16px}.metric{--tone:var(--teal);--soft:#dcefeb;display:flex;align-items:center;gap:10px;min-height:94px;padding:11px;background:#fff;border:1px solid var(--line);border-top:4px solid var(--tone);border-radius:15px}.ring{--p:0%;position:relative;display:grid;place-items:center;flex:0 0 56px;width:56px;height:56px;border-radius:50%;background:conic-gradient(var(--tone) var(--p),var(--soft) 0)}.ring:after{content:"";position:absolute;inset:6px;background:#fff;border-radius:50%}.ring b{position:relative;z-index:1;color:var(--tone);font-size:14px}.metric p{margin:0 0 3px;font-size:14px;font-weight:900}.metric small{color:var(--muted);font-size:11px;line-height:1.2}.green{--tone:var(--green);--soft:#dcefe5}.red{--tone:#c94d4d;--soft:#f4dddd}.amber{--tone:#c18c09;--soft:#f8ebc8}.blue{--tone:var(--blue);--soft:#dfebfb}.coral{--tone:var(--red);--soft:#f5dfde}.purple{--tone:var(--purple);--soft:#ece3f7}
+    .layout{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(420px,.85fr);gap:16px;align-items:start}.intro,.results-head{display:flex;justify-content:space-between;align-items:center;padding:15px 17px;background:#fff;border:1px solid var(--line);border-radius:15px}.scale{font-size:12px;color:var(--muted)}.scale b{display:inline-grid;place-items:center;width:25px;height:25px;color:#fff;background:var(--navy);border-radius:50%}
+    .tool{--tool:var(--green);--soft:#e7f3eb;position:relative;overflow:hidden;margin-top:16px;background:#fff;border:1px solid var(--line);border-radius:18px}.tool:before{content:"";position:absolute;inset:0 auto 0 0;width:7px;background:var(--tool)}.tool.hats{--tool:var(--amber);--soft:#fff6d8}.tool.catwda{--tool:var(--blue);--soft:#e9f1fd}.tool.ishikawa{--tool:var(--red);--soft:#fbe9e8}.tool-head{display:flex;justify-content:space-between;align-items:center;padding:16px 16px 10px 21px}.tool-head small{color:var(--tool);font-weight:900;text-transform:uppercase;letter-spacing:.09em}.tool-head h2{margin-top:2px}.count{padding:6px 10px;color:var(--tool);background:var(--soft);border-radius:99px;font-size:12px;font-weight:900}.tool-desc{margin:0;padding:0 16px 14px 21px;color:var(--muted);font-size:14px}.question{padding:16px 16px 16px 21px;border-top:1px solid #e3eaee}.qcopy{display:grid;grid-template-columns:32px 1fr;gap:11px}.num{display:grid;place-items:center;width:31px;height:31px;color:var(--tool);background:var(--soft);border-radius:9px;font-size:12px;font-weight:900}.dimension{margin:0 0 3px;color:var(--tool);font-size:13px;font-weight:900}.prompt{margin:0;line-height:1.5;font-size:15px}.scores{display:grid;grid-template-columns:repeat(5,1fr);gap:7px;margin:12px 0 0 43px}.score{position:relative;display:grid;place-items:center;min-height:54px;padding:5px;background:#f6f9fa;border:1px solid #dce5ea;border-radius:10px;cursor:pointer}.score input{position:absolute;opacity:0}.score b{font-size:16px}.score span{font-size:10px;text-align:center}.score.selected{color:#fff;background:var(--tool);border-color:var(--tool);box-shadow:0 5px 12px color-mix(in srgb,var(--tool) 25%,transparent)}
+    aside{position:sticky;top:10px;display:grid;gap:13px}.insights{display:grid;grid-template-columns:1fr 1fr;gap:9px}.insight{padding:13px;background:#fff;border:1px solid var(--line);border-radius:13px}.insight.wide{grid-column:1/-1;border-left:5px solid var(--red)}.insight span{display:block;margin-bottom:5px;color:#758590;font-size:11px;font-weight:900;text-transform:uppercase;letter-spacing:.05em}.insight b{font-size:15px}.chart{padding:15px;background:#fff;border:1px solid var(--line);border-radius:15px}.chart h3{margin:0;font-size:17px}.chart p{margin:4px 0 9px;color:var(--muted);font-size:12px}.chart canvas{display:block;width:100%;height:245px}.method{padding:14px;background:#e8f1f4;border:1px solid #cbdce4;border-radius:15px;font-size:13px;line-height:1.5}.method p{margin:4px 0 0;color:#5f717d}footer{padding:18px;text-align:center;color:var(--muted);font-size:13px}
+    @media(max-width:1200px){.metrics{grid-template-columns:repeat(3,1fr)}.layout{grid-template-columns:minmax(0,1fr) minmax(380px,.75fr)}.score span{display:none}}
+    @media(max-width:900px){header{flex-wrap:wrap}.actions{width:100%;flex-wrap:wrap}.status{width:100%}.layout{grid-template-columns:1fr}aside{position:static;grid-row:1;grid-template-columns:1fr 1fr}.results-head,.insights,.method{grid-column:1/-1}}
+    @media(max-width:680px){main{padding:7px}.problem{grid-template-columns:1fr;gap:14px}.metrics{grid-template-columns:repeat(2,1fr)}aside{grid-template-columns:1fr}.results-head,.insights,.method{grid-column:auto}.intro{align-items:flex-start;gap:8px;flex-direction:column}.scores{margin-left:0}.actions button{flex:1}.chart canvas{height:225px}}
+    @media(max-width:430px){.metrics{grid-template-columns:1fr}.insights{grid-template-columns:1fr}.insight.wide{grid-column:auto}.headcopy h1{font-size:19px}.mark{width:44px;height:44px}}
+  </style>
+</head>
+<body>
+<main>
+  <header>
+    <div class="mark" aria-hidden="true">◎</div>
+    <div class="headcopy"><small>Laboratorio de decisiones</small><h1>Cuestionario y análisis en vivo</h1></div>
+    <div class="actions"><span class="status" id="status">Ejemplo cargado</span><button class="secondary" id="reset">Restablecer</button><button class="primary" id="save">Guardar respuestas</button></div>
+  </header>
+
+  <section class="problem">
+    <div><span class="kicker">Paso 1</span><h2>Define la decisión o problema</h2><p></p></div>
+    <label>Problema analizado<textarea id="problem" maxlength="240" rows="2"></textarea></label>
+  </section>
+
+  <section class="metrics" id="metrics" aria-label="Resumen de resultados"></section>
+
+  <div class="layout">
+    <section>
+      <div class="intro"><div><span class="kicker">Paso 2</span><h2>Responde las 22 preguntas</h2></div><div class="scale"><b>1</b> Muy bajo &nbsp;—&nbsp; <b>5</b> Muy alto</div></div>
+      <div id="questions"></div>
+    </section>
+    <aside>
+      <div class="results-head"><div><span class="kicker">Paso 3</span><h2>Resultados en vivo</h2></div><b aria-hidden="true">✦</b></div>
+      <div class="insights">
+        <article class="insight"><span>Perspectiva menos utilizada</span><b id="weakHat"></b></article>
+        <article class="insight"><span>Elemento CATWDA menos claro</span><b id="weakCatwda"></b></article>
+        <article class="insight wide"><span>Causas con mayor impacto</span><b id="topCauses"></b></article>
+      </div>
+      <article class="chart"><h3>FODA</h3><p>Valoración por dimensión · escala 1–5</p><canvas id="fodaChart" aria-label="Gráfica FODA"></canvas></article>
+      <article class="chart"><h3>Seis Sombreros</h3><p>Equilibrio de perspectivas · escala 1–5</p><canvas id="hatsChart" aria-label="Gráfica de Seis Sombreros"></canvas></article>
+      <article class="chart"><h3>CATWDA</h3><p>Claridad de cada elemento · escala 1–5</p><canvas id="catwdaChart" aria-label="Gráfica CATWDA"></canvas></article>
+      <article class="chart"><h3>Ishikawa</h3><p>Impacto de las familias de causas · escala 1–5</p><canvas id="ishikawaChart" aria-label="Gráfica Ishikawa"></canvas></article>
+      <div class="method"><b>Cómo se calculan</b><p>Los porcentajes normalizan el promedio de 1–5 a una escala de 0–100. En FODA, el balance resta el riesgo al potencial.</p></div>
+    </aside>
+  </div>
+  <footer>Las puntuaciones organizan las valoraciones de quien responde; no determinan por sí solas una decisión correcta.</footer>
+</main>
+<script>
+const defaultProblem="¿Cómo mejorar la calidad y eficiencia de los servicios escolares?";
+const questions=[
+{id:1,tool:"FODA",dimension:"Fortalezas",prompt:"¿Qué tan sólidos son los recursos internos (personal, infraestructura, innovación y capacidades) para resolver el problema?",sample:4},
+{id:2,tool:"FODA",dimension:"Oportunidades",prompt:"¿Qué tan aprovechables son los apoyos externos, convenios, alianzas o nuevas tecnologías?",sample:4},
+{id:3,tool:"FODA",dimension:"Debilidades",prompt:"¿Qué tan graves son las limitaciones internas, como fallas de Internet, presupuesto u organización?",sample:5},
+{id:4,tool:"FODA",dimension:"Amenazas",prompt:"¿Qué tanto podrían empeorar el problema factores externos, como recortes, cambios normativos o menor contratación?",sample:4},
+{id:5,tool:"Seis Sombreros",dimension:"Blanco",prompt:"¿En qué medida la decisión se basa en datos verificables y en información suficiente?",sample:4},
+{id:6,tool:"Seis Sombreros",dimension:"Rojo",prompt:"¿En qué medida se consideran las emociones, intuiciones y percepciones de estudiantes y personal?",sample:3},
+{id:7,tool:"Seis Sombreros",dimension:"Negro",prompt:"¿En qué medida se revisan riesgos, obstáculos y consecuencias negativas?",sample:5},
+{id:8,tool:"Seis Sombreros",dimension:"Amarillo",prompt:"¿En qué medida se identifican beneficios, ventajas y resultados positivos posibles?",sample:4},
+{id:9,tool:"Seis Sombreros",dimension:"Verde",prompt:"¿En qué medida se generan ideas nuevas y alternativas diferentes?",sample:2},
+{id:10,tool:"Seis Sombreros",dimension:"Azul",prompt:"¿En qué medida existe un proceso ordenado para dirigir la discusión y llegar a acuerdos?",sample:4},
+{id:11,tool:"CATWDA",dimension:"Cliente",prompt:"¿Qué tan claro está quién recibe el beneficio o perjuicio de la decisión (por ejemplo, estudiantes)?",sample:5},
+{id:12,tool:"CATWDA",dimension:"Actores",prompt:"¿Qué tan claro está quiénes realizarán las actividades necesarias para el cambio?",sample:4},
+{id:13,tool:"CATWDA",dimension:"Transformación",prompt:"¿Qué tan definido está el cambio entre la situación actual y la situación deseada?",sample:5},
+{id:14,tool:"CATWDA",dimension:"Weltanschauung",prompt:"¿Qué tan comprendida está la razón de fondo por la que el cambio es importante?",sample:4},
+{id:15,tool:"CATWDA",dimension:"Dueños",prompt:"¿Qué tan claro está quién puede autorizar, detener o modificar la decisión?",sample:3},
+{id:16,tool:"CATWDA",dimension:"Ambiente",prompt:"¿Qué tan consideradas están las restricciones de presupuesto, tiempo, normas y contexto?",sample:4},
+{id:17,tool:"Ishikawa",dimension:"Personas",prompt:"¿Qué tanto influyen la capacitación, la comunicación o la falta de personal en el problema?",sample:4},
+{id:18,tool:"Ishikawa",dimension:"Métodos",prompt:"¿Qué tanto influyen procedimientos lentos, confusos o inconsistentes?",sample:5},
+{id:19,tool:"Ishikawa",dimension:"Tecnología",prompt:"¿Qué tanto influyen Internet, sistemas, software o equipos insuficientes?",sample:5},
+{id:20,tool:"Ishikawa",dimension:"Infraestructura",prompt:"¿Qué tanto influyen espacios, materiales o instalaciones inadecuadas?",sample:4},
+{id:21,tool:"Ishikawa",dimension:"Entorno",prompt:"¿Qué tanto influyen horarios, carga de trabajo, cultura o condiciones externas?",sample:3},
+{id:22,tool:"Ishikawa",dimension:"Gestión",prompt:"¿Qué tanto influyen políticas, coordinación, liderazgo o decisiones presupuestales?",sample:5}
+];
+const tools={FODA:{cls:"",sub:"Diagnóstico estratégico",desc:"Valora factores internos y externos del problema."},"Seis Sombreros":{cls:"hats",sub:"Perspectivas de pensamiento",desc:"Revisa qué miradas utiliza el equipo al decidir."},CATWDA:{cls:"catwda",sub:"Visión del sistema",desc:"Mide qué tan claros están los participantes y el cambio."},Ishikawa:{cls:"ishikawa",sub:"Análisis de causas",desc:"Estima el impacto de cada familia de causas."}};
+const order=["FODA","Seis Sombreros","CATWDA","Ishikawa"],labels=["","Muy bajo","Bajo","Medio","Alto","Muy alto"];
+let answers=Object.fromEntries(questions.map(q=>[q.id,q.sample]));
+const problem=document.getElementById("problem"),status=document.getElementById("status");problem.value=defaultProblem;
+
+function renderQuestions(){
+  const root=document.getElementById("questions");root.innerHTML=order.map(tool=>{
+    const list=questions.filter(q=>q.tool===tool),meta=tools[tool];
+    return `<section class="tool ${meta.cls}"><div class="tool-head"><div><small>${meta.sub}</small><h2>${tool}</h2></div><span class="count">${list.length} preguntas</span></div><p class="tool-desc">${meta.desc}</p>${list.map(q=>`<article class="question"><div class="qcopy"><span class="num">${String(q.id).padStart(2,"0")}</span><div><p class="dimension">${q.dimension}</p><p class="prompt">${q.prompt}</p></div></div><div class="scores">${[1,2,3,4,5].map(v=>`<label class="score ${answers[q.id]===v?"selected":""}"><input type="radio" name="q${q.id}" value="${v}" ${answers[q.id]===v?"checked":""}><b>${v}</b><span>${labels[v]}</span></label>`).join("")}</div></article>`).join("")}</section>`
+  }).join("");
+  root.querySelectorAll("input[type=radio]").forEach(input=>input.addEventListener("change",e=>{answers[Number(e.target.name.slice(1))]=Number(e.target.value);status.textContent="Cambios sin guardar";renderQuestions();updateResults()}));
+}
+const avg=a=>a.reduce((s,v)=>s+v,0)/a.length,norm=v=>Math.round((v-1)/4*100);
+function values(tool){return questions.filter(q=>q.tool===tool).map(q=>({name:q.dimension,value:answers[q.id]}))}
+function calculations(){const foda=values("FODA"),hats=values("Seis Sombreros"),catwda=values("CATWDA"),ishikawa=values("Ishikawa");const potential=norm(avg(foda.slice(0,2).map(x=>x.value))),risk=norm(avg(foda.slice(2).map(x=>x.value))),hat=norm(avg(hats.map(x=>x.value))),cat=norm(avg(catwda.map(x=>x.value))),ish=norm(avg(ishikawa.map(x=>x.value)));return{foda,hats,catwda,ishikawa,potential,risk,hat,cat,ish,balance:potential-risk}}
+function metric(label,value,tone,note){const display=`${value>0?"+":""}${value}%`;return `<article class="metric ${tone}"><div class="ring" style="--p:${Math.max(0,value)}%"><b>${display}</b></div><div><p>${label}</p><small>${note}</small></div></article>`}
+function fit(canvas){const r=canvas.getBoundingClientRect(),d=Math.min(window.devicePixelRatio||1,2),h=parseFloat(getComputedStyle(canvas).height);canvas.width=Math.max(1,r.width*d);canvas.height=Math.max(1,h*d);const ctx=canvas.getContext("2d");ctx.setTransform(d,0,0,d,0,0);ctx.clearRect(0,0,r.width,h);return{ctx,w:r.width,h}}
+function drawBars(canvas,data,colors,horizontal=false){const{ctx,w,h}=fit(canvas);ctx.font="12px Segoe UI";ctx.fillStyle="#667783";ctx.strokeStyle="#dce5ea";ctx.lineWidth=1;if(horizontal){const l=Math.min(115,w*.31),r=18,t=10,b=26,pw=w-l-r,step=(h-t-b)/data.length;for(let i=0;i<=5;i++){const x=l+pw*i/5;ctx.beginPath();ctx.moveTo(x,t);ctx.lineTo(x,h-b);ctx.stroke();ctx.fillText(String(i),x-3,h-7)}data.forEach((d,i)=>{const y=t+i*step+step*.2;ctx.fillStyle="#526673";ctx.fillText(d.name,4,y+step*.42);ctx.fillStyle=Array.isArray(colors)?colors[i]:colors;ctx.beginPath();ctx.roundRect(l,y,pw*d.value/5,step*.6,[0,7,7,0]);ctx.fill();ctx.fillStyle="#fff";ctx.font="bold 12px Segoe UI";ctx.fillText(String(d.value),l+Math.max(15,pw*d.value/5-18),y+step*.4);ctx.font="12px Segoe UI"})}else{const l=34,r=10,t=10,b=56,pw=w-l-r,ph=h-t-b;for(let i=0;i<=5;i++){const y=t+ph-ph*i/5;ctx.beginPath();ctx.moveTo(l,y);ctx.lineTo(w-r,y);ctx.stroke();ctx.fillStyle="#667783";ctx.fillText(String(i),10,y+4)}const step=pw/data.length;data.forEach((d,i)=>{const bw=step*.56,x=l+i*step+step*.22,bh=ph*d.value/5,y=t+ph-bh;ctx.fillStyle=Array.isArray(colors)?colors[i]:colors;ctx.beginPath();ctx.roundRect(x,y,bw,bh,[7,7,0,0]);ctx.fill();ctx.save();ctx.translate(x+bw/2,h-8);ctx.rotate(-.35);ctx.fillStyle="#526673";ctx.textAlign="right";ctx.fillText(d.name,0,0);ctx.restore()})}}
+function drawRadar(canvas,data){const{ctx,w,h}=fit(canvas),cx=w/2,cy=h/2+5,rad=Math.min(w,h)*.31,n=data.length;ctx.font="12px Segoe UI";ctx.textAlign="center";for(let level=1;level<=5;level++){ctx.beginPath();data.forEach((_,i)=>{const a=-Math.PI/2+i*2*Math.PI/n,x=cx+Math.cos(a)*rad*level/5,y=cy+Math.sin(a)*rad*level/5;i?ctx.lineTo(x,y):ctx.moveTo(x,y)});ctx.closePath();ctx.strokeStyle="#d5dfe5";ctx.stroke()}data.forEach((d,i)=>{const a=-Math.PI/2+i*2*Math.PI/n,x=cx+Math.cos(a)*rad,y=cy+Math.sin(a)*rad;ctx.beginPath();ctx.moveTo(cx,cy);ctx.lineTo(x,y);ctx.strokeStyle="#d5dfe5";ctx.stroke();ctx.fillStyle="#526673";ctx.fillText(d.name,cx+Math.cos(a)*(rad+22),cy+Math.sin(a)*(rad+15)+4)});ctx.beginPath();data.forEach((d,i)=>{const a=-Math.PI/2+i*2*Math.PI/n,x=cx+Math.cos(a)*rad*d.value/5,y=cy+Math.sin(a)*rad*d.value/5;i?ctx.lineTo(x,y):ctx.moveTo(x,y)});ctx.closePath();ctx.fillStyle="rgba(213,160,25,.25)";ctx.fill();ctx.strokeStyle="#c18c09";ctx.lineWidth=3;ctx.stroke()}
+function updateResults(){const r=calculations();document.getElementById("metrics").innerHTML=metric("Potencial FODA",r.potential,"green","Fortalezas y oportunidades")+metric("Riesgo FODA",r.risk,"red","Debilidades y amenazas")+metric("Cobertura de sombreros",r.hat,"amber","Perspectivas utilizadas")+metric("Claridad CATWDA",r.cat,"blue","Definición del sistema")+metric("Impacto Ishikawa",r.ish,"coral","Intensidad de las causas")+metric("Balance FODA",r.balance,"purple","Potencial menos riesgo");const minH=Math.min(...r.hats.map(x=>x.value)),minC=Math.min(...r.catwda.map(x=>x.value)),maxI=Math.max(...r.ishikawa.map(x=>x.value));document.getElementById("weakHat").textContent=r.hats.filter(x=>x.value===minH).map(x=>x.name).join(", ");document.getElementById("weakCatwda").textContent=r.catwda.filter(x=>x.value===minC).map(x=>x.name).join(", ");document.getElementById("topCauses").textContent=r.ishikawa.filter(x=>x.value===maxI).map(x=>x.name).join(", ");drawBars(document.getElementById("fodaChart"),r.foda,["#2f9364","#d5a019","#d6534f","#9d433f"]);drawRadar(document.getElementById("hatsChart"),r.hats);drawBars(document.getElementById("catwdaChart"),r.catwda,"#377fdd",true);drawBars(document.getElementById("ishikawaChart"),r.ishikawa,"#d6534f",true)}
+document.getElementById("save").addEventListener("click",()=>{if(!problem.value.trim()){status.textContent="Escribe el problema antes de guardar";problem.focus();return}localStorage.setItem("decision-questionnaire-v1",JSON.stringify({problem:problem.value.trim(),answers}));status.textContent="Guardado en este navegador"});
+document.getElementById("reset").addEventListener("click",()=>{problem.value=defaultProblem;answers=Object.fromEntries(questions.map(q=>[q.id,q.sample]));localStorage.removeItem("decision-questionnaire-v1");status.textContent="Ejemplo restablecido";renderQuestions();updateResults()});problem.addEventListener("input",()=>status.textContent="Cambios sin guardar");
+try{const saved=JSON.parse(localStorage.getItem("decision-questionnaire-v1")||"null");if(saved&&saved.problem&&saved.answers&&questions.every(q=>saved.answers[q.id]>=1&&saved.answers[q.id]<=5)){problem.value=saved.problem;answers=saved.answers;status.textContent="Respuestas recuperadas"}}catch(e){status.textContent="No se pudieron recuperar datos anteriores"}
+let resizeTimer;window.addEventListener("resize",()=>{clearTimeout(resizeTimer);resizeTimer=setTimeout(updateResults,120)});renderQuestions();updateResults();
+</script>
+</body>
+</html>

@@ -1,0 +1,202 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="dark">
+<title>Mi biblioteca de HTML | Menú interactivo</title>
+<style>
+:root{--bg:#0b1020;--surface:#151d32;--line:#29334a;--text:#eff4ff;--muted:#9daac3;--lavender:#ab9aff;--mint:#7de5d4}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;min-height:100vh;background:var(--bg);color:var(--text);font-family:Inter,ui-sans-serif,system-ui,-apple-system,'Segoe UI',Arial,sans-serif;line-height:1.45}
+body::before{content:"";position:fixed;inset:0;pointer-events:none;background:radial-gradient(ellipse 700px 390px at 100% 0%,rgba(117,103,229,.17),transparent 75%),radial-gradient(ellipse 620px 330px at -10% 54%,rgba(34,189,189,.09),transparent 80%);z-index:-1}
+.container{max-width:1230px;margin:0 auto;padding:0 34px}
+a{color:inherit;text-decoration:none}button,input{font:inherit}
+.top{border-bottom:1px solid rgba(174,187,218,.12)}
+.top-inner{height:83px;display:flex;align-items:center;justify-content:space-between;gap:20px}
+.brand{display:flex;align-items:center;gap:13px;font-weight:800;letter-spacing:-.04em;font-size:19px}
+.brand-symbol{height:40px;width:40px;border-radius:13px;display:grid;place-items:center;background:linear-gradient(145deg,#9d86f9,#51dbc5);box-shadow:0 10px 28px #7974e52f;font-size:22px;color:#0b1020;font-weight:900;line-height:1}
+.brand strong{color:var(--mint)}
+.top-info{font-size:12px;font-weight:700;color:var(--muted);display:flex;align-items:center;gap:9px}
+.status-dot{height:7px;width:7px;border-radius:50%;background:#69d6b1;box-shadow:0 0 12px #69d6b177}
+.hero{padding:56px 0 43px;display:grid;grid-template-columns:minmax(0,1fr) 260px;gap:22px;align-items:center}
+.eyebrow{display:inline-flex;align-items:center;gap:9px;font-size:11px;text-transform:uppercase;font-weight:800;letter-spacing:.16em;color:#a8c4d3}
+.eyebrow::before{content:"";height:2px;width:24px;background:var(--mint);border-radius:5px}
+.hero h1{font-size:clamp(35px,5vw,61px);line-height:1.06;letter-spacing:-.065em;margin:17px 0 16px;max-width:780px}
+.hero h1 span{background:linear-gradient(115deg,#b6a5ff,#79e8dc);background-clip:text;-webkit-background-clip:text;color:transparent}
+.hero p{color:var(--muted);font-size:15px;max-width:610px;margin:0;line-height:1.75}
+.hero-art{position:relative;height:205px;display:grid;place-items:center}
+.art-orbit{position:absolute;height:205px;width:205px;border:1px solid #4c537d;border-radius:50%;transform:rotate(-25deg) scaleY(.6)}
+.art-orbit.two{transform:rotate(48deg) scaleY(.6);border-color:#3d6b70}
+.art-center{position:relative;height:117px;width:117px;display:grid;place-items:center;border:1px solid #6764b0;background:linear-gradient(140deg,#25274a,#162a36);border-radius:32px;box-shadow:0 25px 60px #0007;transform:rotate(-13deg)}
+.art-center span{transform:rotate(13deg);font-size:50px;line-height:1;color:#ae9bff}
+.art-dot{position:absolute;width:11px;height:11px;background:#7ce1d2;border-radius:50%;top:34px;left:36px;box-shadow:0 0 21px #7ce1d2aa}
+.art-dot.purple{background:#baa2ff;top:auto;left:auto;bottom:21px;right:24px;box-shadow:0 0 21px #baa2ff99}
+.tool-bar{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:18px;padding-bottom:24px}
+.heading-small{font-size:19px;letter-spacing:-.03em;font-weight:750}
+.heading-small small{color:#7e8fae;font-weight:600;font-size:13px;margin-left:9px;letter-spacing:0}
+.search-wrap{min-width:290px;width:min(100%,375px);position:relative}
+.search-icon{position:absolute;left:17px;top:50%;transform:translateY(-50%);color:#8da0bf;font-size:20px;line-height:1;pointer-events:none}
+#search{display:block;width:100%;border:1px solid #323d57;background:#141b2e;color:#eff5ff;border-radius:12px;outline:none;padding:14px 16px 14px 48px;font-size:14px;transition:border .2s,box-shadow .2s}
+#search::placeholder{color:#8490ac}
+#search:focus{border-color:#a696ff;box-shadow:0 0 0 3px #a696ff22}
+.filters{display:flex;align-items:center;gap:8px;overflow-x:auto;padding:0 0 23px;scrollbar-width:thin}
+.filter{border:1px solid #2b354a;border-radius:10px;background:#141b2d;color:#9caac1;display:inline-flex;align-items:center;gap:12px;white-space:nowrap;padding:10px 15px;cursor:pointer;font-size:13px;font-weight:650;transition:background .2s,border .2s,color .2s}
+.filter:hover{border-color:#756dad;color:#eae7ff}
+.filter.selected{background:#292541;border-color:#7568be;color:#e6dbff}
+.filter-count{font-size:11px;color:#a7a3ba}
+.filter.selected .filter-count{color:#beaefa}
+.grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:17px}
+.project-card{min-height:240px;padding:22px;background:linear-gradient(135deg,#192137,#151c2f);border:1px solid #30394d;border-radius:18px;display:flex;flex-direction:column;position:relative;overflow:hidden;transition:transform .2s,border-color .2s,background .2s,box-shadow .2s}
+.project-card::after{content:"";position:absolute;height:145px;width:145px;right:-75px;top:-90px;border:1px solid #8d80d322;border-radius:50%;pointer-events:none}
+.project-card:hover{transform:translateY(-4px);border-color:#8e82da;box-shadow:0 16px 34px #0005;background:linear-gradient(135deg,#1e2842,#192039)}
+.project-card:focus-visible{outline:3px solid #9d8dff;outline-offset:4px}
+.card-head,.card-bottom{display:flex;justify-content:space-between;align-items:center}
+.glyph{width:44px;height:44px;background:#2d2a4f;border:1px solid #48466f;color:#b7a8ff;border-radius:13px;display:grid;place-items:center;font-size:22px;font-weight:800}
+.serial{font-size:11px;color:#75839f;font-weight:750;letter-spacing:.07em}
+.card-body{padding:16px 0 21px;flex:1}
+.card-category{font-size:10px;letter-spacing:.11em;text-transform:uppercase;color:#7fdcca;font-weight:850}
+.card-body h2{font-size:17px;line-height:1.31;letter-spacing:-.025em;overflow-wrap:anywhere;margin:8px 0 10px;font-weight:760}
+.card-body p{font-size:12px;color:#8593ad;margin:0}
+.card-bottom{border-top:1px solid #333d50;padding-top:15px;font-size:13px;color:#beb9fe;font-weight:700}
+.arrow{display:grid;place-items:center;height:26px;width:26px;border-radius:8px;background:#2b2945;font-size:19px;transition:transform .2s}
+.project-card:hover .arrow{transform:translate(2px,-2px)}
+.project-card[hidden]{display:none!important}
+.empty{display:none;text-align:center;padding:70px 24px;border:1px dashed #46506a;border-radius:16px;color:var(--muted)}
+.empty.visible{display:block}
+.empty .big{font-size:38px;display:block;margin-bottom:10px}
+.empty strong{display:block;font-size:17px;color:var(--text);margin-bottom:7px}
+.guide{display:flex;align-items:flex-start;gap:15px;padding:19px 21px;border:1px solid #314750;background:linear-gradient(110deg,#172b34,#171f32);border-radius:15px;margin:35px 0 50px}
+.guide-icon{height:37px;width:37px;display:grid;place-items:center;flex-shrink:0;border-radius:10px;background:#254344;color:#8be6d9;font-size:21px}
+.guide h3{font-size:13px;letter-spacing:.01em;margin:0 0 5px}
+.guide p{font-size:12px;color:#a0b0c1;margin:0;line-height:1.7}
+.guide code{padding:2px 5px;border-radius:4px;background:#ffffff10;color:#d7ebff}
+footer{border-top:1px solid #ffffff12;text-align:center;font-size:12px;color:#71809c;padding:22px 10px 32px}
+@media(max-width:930px){.grid{grid-template-columns:repeat(2,minmax(0,1fr))}.hero{grid-template-columns:1fr 170px}.hero-art{transform:scale(.8)}}
+@media(max-width:600px){.container{padding:0 18px}.hero{display:block;padding:39px 0 34px}.hero-art{display:none}.top-inner{height:72px}.top-info{font-size:0}.top-info .status-dot{font-size:0}.hero h1{font-size:40px}.tool-bar{align-items:stretch}.search-wrap{width:100%;min-width:0}.grid{grid-template-columns:1fr}.project-card{min-height:210px}.heading-small{font-size:18px}}
+@media(prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
+</style>
+</head>
+<body>
+<header class="top"><div class="container top-inner">
+  <div class="brand"><div class="brand-symbol" aria-hidden="true">✳</div><div>Mi biblioteca <strong>HTML</strong></div></div>
+  <div class="top-info"><span class="status-dot"></span> Disponible sin conexión</div>
+</div></header>
+<main class="container">
+<section class="hero" aria-labelledby="hero-title">
+  <div><span class="eyebrow">Tu espacio de proyectos</span><h1 id="hero-title">Todo tu contenido.<br><span>En un solo lugar.</span></h1><p>Encuentra y abre tus archivos HTML interactivos desde un solo menú. Elige una tarjeta y continúa en una pestaña nueva.</p></div>
+  <div class="hero-art" aria-hidden="true"><span class="art-orbit"></span><span class="art-orbit two"></span><span class="art-dot"></span><span class="art-dot purple"></span><div class="art-center"><span>⌘</span></div></div>
+</section>
+<section aria-label="Explorar proyectos">
+  <div class="tool-bar"><div class="heading-small">Explorar archivos <small id="shown-count">12 de 12</small></div><div class="search-wrap"><span class="search-icon" aria-hidden="true">⌕</span><input type="search" id="search" placeholder="Buscar un archivo..." autocomplete="off" aria-label="Buscar archivos HTML"></div></div>
+  <nav class="filters" aria-label="Filtrar por categoría">
+  <button class="filter selected" data-filter="Todos" aria-pressed="true"><span>Todos</span><span class="filter-count">12</span></button>
+<button class="filter " data-filter="Capítulos" aria-pressed="false"><span>Capítulos</span><span class="filter-count">5</span></button>
+<button class="filter " data-filter="Collages" aria-pressed="false"><span>Collages</span><span class="filter-count">2</span></button>
+<button class="filter " data-filter="Actividades" aria-pressed="false"><span>Actividades</span><span class="filter-count">4</span></button>
+<button class="filter " data-filter="Juegos" aria-pressed="false"><span>Juegos</span><span class="filter-count">1</span></button>
+  </nav>
+  <div class="grid" id="projects">
+  <a class="project-card" href="Arquetipo_Interactivo.html" target="_blank" rel="noopener noreferrer" data-category="Actividades" data-search="arquetipo interactivo actividades" aria-label="Abrir Arquetipo_Interactivo en una pestaña nueva">
+  <div class="card-head"><span class="glyph" aria-hidden="true">✦</span><span class="serial">N.º 01</span></div>
+  <div class="card-body"><span class="card-category">Actividades</span><h2>Arquetipo_Interactivo</h2><p>Archivo HTML interactivo</p></div>
+  <div class="card-bottom"><span>Abrir archivo</span><span class="arrow" aria-hidden="true">↗</span></div>
+</a>
+<a class="project-card" href="Capitulo_3_EmotiFlix.html" target="_blank" rel="noopener noreferrer" data-category="Capítulos" data-search="capitulo 3 emotiflix capítulos" aria-label="Abrir Capitulo_3_EmotiFlix en una pestaña nueva">
+  <div class="card-head"><span class="glyph" aria-hidden="true">◈</span><span class="serial">N.º 02</span></div>
+  <div class="card-body"><span class="card-category">Capítulos</span><h2>Capitulo_3_EmotiFlix</h2><p>Archivo HTML interactivo</p></div>
+  <div class="card-bottom"><span>Abrir archivo</span><span class="arrow" aria-hidden="true">↗</span></div>
+</a>
+<a class="project-card" href="Codigo_Limpio_Experiencia_Interactiva.html" target="_blank" rel="noopener noreferrer" data-category="Capítulos" data-search="codigo limpio experiencia interactiva capítulos" aria-label="Abrir Codigo_Limpio_Experiencia_Interactiva en una pestaña nueva">
+  <div class="card-head"><span class="glyph" aria-hidden="true">⌘</span><span class="serial">N.º 03</span></div>
+  <div class="card-body"><span class="card-category">Capítulos</span><h2>Codigo_Limpio_Experiencia_Interactiva</h2><p>Archivo HTML interactivo</p></div>
+  <div class="card-bottom"><span>Abrir archivo</span><span class="arrow" aria-hidden="true">↗</span></div>
+</a>
+<a class="project-card" href="COLLAGE_CAPITULO_1_LISTO.html" target="_blank" rel="noopener noreferrer" data-category="Collages" data-search="collage capitulo 1 listo collages" aria-label="Abrir COLLAGE_CAPITULO_1_LISTO en una pestaña nueva">
+  <div class="card-head"><span class="glyph" aria-hidden="true">▦</span><span class="serial">N.º 04</span></div>
+  <div class="card-body"><span class="card-category">Collages</span><h2>COLLAGE_CAPITULO_1_LISTO</h2><p>Archivo HTML interactivo</p></div>
+  <div class="card-bottom"><span>Abrir archivo</span><span class="arrow" aria-hidden="true">↗</span></div>
+</a>
+<a class="project-card" href="COLLAGE_CAPITULO_5_LISTO.html" target="_blank" rel="noopener noreferrer" data-category="Collages" data-search="collage capitulo 5 listo collages" aria-label="Abrir COLLAGE_CAPITULO_5_LISTO en una pestaña nueva">
+  <div class="card-head"><span class="glyph" aria-hidden="true">▤</span><span class="serial">N.º 05</span></div>
+  <div class="card-body"><span class="card-category">Collages</span><h2>COLLAGE_CAPITULO_5_LISTO</h2><p>Archivo HTML interactivo</p></div>
+  <div class="card-bottom"><span>Abrir archivo</span><span class="arrow" aria-hidden="true">↗</span></div>
+</a>
+<a class="project-card" href="Cuestionario_toma_decisiones.html" target="_blank" rel="noopener noreferrer" data-category="Actividades" data-search="cuestionario toma decisiones actividades" aria-label="Abrir Cuestionario_toma_decisiones en una pestaña nueva">
+  <div class="card-head"><span class="glyph" aria-hidden="true">?</span><span class="serial">N.º 06</span></div>
+  <div class="card-body"><span class="card-category">Actividades</span><h2>Cuestionario_toma_decisiones</h2><p>Archivo HTML interactivo</p></div>
+  <div class="card-bottom"><span>Abrir archivo</span><span class="arrow" aria-hidden="true">↗</span></div>
+</a>
+<a class="project-card" href="damco_7_habitos_habitos_desplegables.html" target="_blank" rel="noopener noreferrer" data-category="Capítulos" data-search="damco 7 habitos habitos desplegables capítulos" aria-label="Abrir damco_7_habitos_habitos_desplegables en una pestaña nueva">
+  <div class="card-head"><span class="glyph" aria-hidden="true">✺</span><span class="serial">N.º 07</span></div>
+  <div class="card-body"><span class="card-category">Capítulos</span><h2>damco_7_habitos_habitos_desplegables</h2><p>Archivo HTML interactivo</p></div>
+  <div class="card-bottom"><span>Abrir archivo</span><span class="arrow" aria-hidden="true">↗</span></div>
+</a>
+<a class="project-card" href="empresario_mexicano_ideal_interactivo.html" target="_blank" rel="noopener noreferrer" data-category="Actividades" data-search="empresario mexicano ideal interactivo actividades" aria-label="Abrir empresario_mexicano_ideal_interactivo en una pestaña nueva">
+  <div class="card-head"><span class="glyph" aria-hidden="true">◎</span><span class="serial">N.º 08</span></div>
+  <div class="card-body"><span class="card-category">Actividades</span><h2>empresario_mexicano_ideal_interactivo</h2><p>Archivo HTML interactivo</p></div>
+  <div class="card-bottom"><span>Abrir archivo</span><span class="arrow" aria-hidden="true">↗</span></div>
+</a>
+<a class="project-card" href="juego_serpientes_escaleras_mexico.html" target="_blank" rel="noopener noreferrer" data-category="Juegos" data-search="juego serpientes escaleras mexico juegos" aria-label="Abrir juego_serpientes_escaleras_mexico en una pestaña nueva">
+  <div class="card-head"><span class="glyph" aria-hidden="true">♟</span><span class="serial">N.º 09</span></div>
+  <div class="card-body"><span class="card-category">Juegos</span><h2>juego_serpientes_escaleras_mexico</h2><p>Archivo HTML interactivo</p></div>
+  <div class="card-bottom"><span>Abrir archivo</span><span class="arrow" aria-hidden="true">↗</span></div>
+</a>
+<a class="project-card" href="psicologia_dinero_interactivo_actualizado.html" target="_blank" rel="noopener noreferrer" data-category="Capítulos" data-search="psicologia dinero interactivo actualizado capítulos" aria-label="Abrir psicologia_dinero_interactivo_actualizado en una pestaña nueva">
+  <div class="card-head"><span class="glyph" aria-hidden="true">◉</span><span class="serial">N.º 10</span></div>
+  <div class="card-body"><span class="card-category">Capítulos</span><h2>psicologia_dinero_interactivo_actualizado</h2><p>Archivo HTML interactivo</p></div>
+  <div class="card-bottom"><span>Abrir archivo</span><span class="arrow" aria-hidden="true">↗</span></div>
+</a>
+<a class="project-card" href="Tercer_parcial_11_caracteristicas_interactivo.html" target="_blank" rel="noopener noreferrer" data-category="Actividades" data-search="tercer parcial 11 caracteristicas interactivo actividades" aria-label="Abrir Tercer_parcial_11_caracteristicas_interactivo en una pestaña nueva">
+  <div class="card-head"><span class="glyph" aria-hidden="true">✳</span><span class="serial">N.º 11</span></div>
+  <div class="card-body"><span class="card-category">Actividades</span><h2>Tercer_parcial_11_caracteristicas_interactivo</h2><p>Archivo HTML interactivo</p></div>
+  <div class="card-bottom"><span>Abrir archivo</span><span class="arrow" aria-hidden="true">↗</span></div>
+</a>
+<a class="project-card" href="Capitulos_12_6_11_del_libro.html" target="_blank" rel="noopener noreferrer" data-category="Capítulos" data-search="capitulos 12 6 11 del libro capítulos" aria-label="Abrir Capitulos_12_6_11_del_libro en una pestaña nueva">
+  <div class="card-head"><span class="glyph" aria-hidden="true">▧</span><span class="serial">N.º 12</span></div>
+  <div class="card-body"><span class="card-category">Capítulos</span><h2>Capitulos_12_6_11_del_libro</h2><p>Archivo HTML interactivo</p></div>
+  <div class="card-bottom"><span>Abrir archivo</span><span class="arrow" aria-hidden="true">↗</span></div>
+</a>
+  </div>
+  <div class="empty" id="empty-state" role="status"><span class="big" aria-hidden="true">⌕</span><strong>No hay archivos con ese nombre</strong>Prueba con otra palabra o selecciona «Todos».</div>
+</section>
+<div class="guide"><span class="guide-icon" aria-hidden="true">ⓘ</span><div><h3>Importante: ubicación de tus archivos</h3><p>Para que los enlaces funcionen, guarda <code>Menu_Interactivo_HTML.html</code> en la <strong>misma carpeta</strong> donde están los 12 HTML de tu captura. Al pulsar «Abrir archivo» se abrirá el archivo original en una pestaña nueva de Microsoft Edge u otro navegador.</p></div></div>
+</main>
+<footer>Menú interactivo · 12 archivos · Funciona sin internet</footer>
+<script>
+(() => {
+  const search=document.getElementById('search');
+  const buttons=[...document.querySelectorAll('.filter')];
+  const cards=[...document.querySelectorAll('.project-card')];
+  const counter=document.getElementById('shown-count');
+  const empty=document.getElementById('empty-state');
+  let current='Todos';
+  const normalized=s=>s.normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLocaleLowerCase('es').trim();
+  function filtrar() {
+    const q=normalized(search.value);
+    let visible=0;
+    for(const card of cards) {
+      const matchesCategory=current==='Todos'||card.dataset.category===current;
+      const matchesText=normalized(card.dataset.search).includes(q);
+      card.hidden=!(matchesCategory&&matchesText);
+      if(!card.hidden) visible++;
+    }
+    counter.textContent=`${visible} de ${cards.length}`;
+    empty.classList.toggle('visible',visible===0);
+  }
+  buttons.forEach(btn=>btn.addEventListener('click',()=>{
+    current=btn.dataset.filter;
+    buttons.forEach(other=>{
+      const selected=other===btn;
+      other.classList.toggle('selected',selected);
+      other.setAttribute('aria-pressed',String(selected));
+    });
+    filtrar();
+  }));
+  search.addEventListener('input',filtrar);
+  filtrar();
+})();
+</script>
+</body>
+</html>
