@@ -1,0 +1,182 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Herramientas para la toma de decisiones · Juan Diego Olvera</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;700&family=Source+Serif+4:wght@400;600&display=swap">
+<link rel="stylesheet" href="../_comun/estilos.css">
+<style>
+  .sombreros { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: var(--e3); }
+  .sombrero { border-top: 6px solid var(--c); }
+  .sombrero h3 { margin-top: 0; }
+  .ishikawa svg { width: 100%; height: auto; }
+  .ishikawa text { font: 600 13px var(--f-titulo); fill: currentColor; }
+  .pareto svg { width: 100%; max-width: 720px; height: auto; }
+  .pareto text { font: 13px var(--f-titulo); fill: currentColor; }
+  dl.catwoe { display: grid; grid-template-columns: 56px 1fr; gap: var(--e3) var(--e4); }
+  dl.catwoe dt { font: 700 var(--t2) var(--f-titulo); color: var(--acento); line-height: 1; }
+  dl.catwoe dd { margin: 0; }
+  dl.catwoe dd strong { font-family: var(--f-titulo); }
+</style>
+</head>
+<body>
+<main class="pagina">
+  <p class="rotulo">Actividad 04 · Toma de decisiones</p>
+  <h1>Caso: la universidad que pierde alumnos</h1>
+  <p class="caso">Una universidad privada de Querétaro bajó su matrícula de primer ingreso un 18% en dos años. Tiene buenos profesores y buena ubicación, pero los aspirantes eligen a la competencia. ¿Qué está pasando y qué debería decidir la rectoría? Lo analizo con cinco herramientas.</p>
+
+  <div class="pestanas" role="tablist" aria-label="Herramientas">
+    <button role="tab" aria-selected="true" aria-controls="t-foda" id="b-foda">FODA</button>
+    <button role="tab" aria-selected="false" aria-controls="t-sombreros" id="b-sombreros" tabindex="-1">6 Sombreros</button>
+    <button role="tab" aria-selected="false" aria-controls="t-pareto" id="b-pareto" tabindex="-1">Pareto</button>
+    <button role="tab" aria-selected="false" aria-controls="t-ishikawa" id="b-ishikawa" tabindex="-1">Ishikawa</button>
+    <button role="tab" aria-selected="false" aria-controls="t-catwoe" id="b-catwoe" tabindex="-1">CATWOE</button>
+  </div>
+
+  <!-- FODA: interaccion principal -->
+  <section id="t-foda" role="tabpanel" aria-labelledby="b-foda" class="interaccion">
+    <div id="foda">
+      <p class="estado" data-estado>0 de 8 colocadas</p>
+      <div class="tablero">
+        <div>
+          <h3>Tarjetas del caso</h3>
+          <p style="font-size:14px;color:var(--suave)">Arrastra cada tarjeta a su cuadrante, o tócala y elige el cuadrante.</p>
+          <div class="bandeja" aria-label="Tarjetas sin colocar"></div>
+          <div class="mover" aria-label="Mover la tarjeta elegida a"></div>
+        </div>
+        <div class="zonas"></div>
+      </div>
+      <p style="margin-top:var(--e4)"><button class="boton" type="button" data-revisar>Revisar</button></p>
+      <p data-aviso aria-live="polite" class="estado"></p>
+    </div>
+    <noscript><p>Fortalezas: planta docente con posgrado; campus bien ubicado. Debilidades: colegiaturas más altas que la competencia; poca presencia en redes. Oportunidades: nuevo parque industrial cercano; becas de empresas para ingenieros. Amenazas: universidades en línea más baratas; baja de egresados de prepa en la zona.</p></noscript>
+  </section>
+
+  <section id="t-sombreros" role="tabpanel" aria-labelledby="b-sombreros" class="interaccion" hidden>
+    <h2>Seis sombreros para pensar (Edward de Bono)</h2>
+    <p class="texto">Cada sombrero obliga a mirar el problema de una sola manera a la vez. Así no se mezclan los datos con las emociones ni las ideas con las críticas.</p>
+    <div class="sombreros">
+      <article class="panel sombrero" style="--c:#c9ced6"><h3>Blanco · datos</h3><p>Primer ingreso: 640 a 525 alumnos en dos años. Colegiatura 22% arriba del promedio de la zona. 7 de cada 10 aspirantes nos conocen por recomendación, no por redes.</p></article>
+      <article class="panel sombrero" style="--c:#e5634d"><h3>Rojo · emociones</h3><p>Los aspirantes sienten que la universidad es "cara y lejana". Los profesores sienten que su trabajo no se nota fuera del campus.</p></article>
+      <article class="panel sombrero" style="--c:#0f1726"><h3>Negro · riesgos</h3><p>Si se baja la colegiatura sin cambiar nada más, los ingresos caen y no está claro que lleguen más alumnos.</p></article>
+      <article class="panel sombrero" style="--c:#e8b82b"><h3>Amarillo · beneficios</h3><p>La calidad docente es real y medible. Contarla bien es más barato que competir por precio.</p></article>
+      <article class="panel sombrero" style="--c:#1f7a4d"><h3>Verde · ideas</h3><p>Convenios de beca con las empresas del parque industrial; clases muestra abiertas; egresados contando su historia en redes.</p></article>
+      <article class="panel sombrero" style="--c:#1f4fd6"><h3>Azul · control</h3><p>Primero atacar la causa principal (precio percibido), medir en un ciclo de admisión y después decidir el siguiente paso.</p></article>
+    </div>
+  </section>
+
+  <section id="t-pareto" role="tabpanel" aria-labelledby="b-pareto" class="interaccion pareto" hidden>
+    <h2>Pareto: ¿por qué eligen a la competencia?</h2>
+    <p class="texto">Encuesta a 200 aspirantes que no se inscribieron. Las dos primeras causas explican casi el 70% de los casos: ahí conviene actuar primero.</p>
+    <svg viewBox="0 0 720 320" role="img" aria-label="Diagrama de Pareto: precio 42%, poca información 27%, distancia 14%, horarios 10%, otros 7%">
+      <g fill="var(--acento)">
+        <rect x="60" y="74" width="100" height="196"/><rect x="190" y="144" width="100" height="126"/><rect x="320" y="205" width="100" height="65"/><rect x="450" y="223" width="100" height="47"/><rect x="580" y="237" width="100" height="33"/>
+      </g>
+      <polyline fill="none" stroke="var(--acento-2)" stroke-width="3" points="110,174 240,113 370,82 500,59 630,37"/>
+      <g fill="var(--acento-2)"><circle cx="110" cy="174" r="4"/><circle cx="240" cy="113" r="4"/><circle cx="370" cy="82" r="4"/><circle cx="500" cy="59" r="4"/><circle cx="630" cy="37" r="4"/></g>
+      <line x1="40" y1="270" x2="700" y2="270" stroke="currentColor" opacity=".4"/>
+      <text x="110" y="292" text-anchor="middle">Precio</text><text x="240" y="292" text-anchor="middle">Poca info</text><text x="370" y="292" text-anchor="middle">Distancia</text><text x="500" y="292" text-anchor="middle">Horarios</text><text x="630" y="292" text-anchor="middle">Otros</text>
+      <text x="110" y="66" text-anchor="middle">42%</text><text x="240" y="136" text-anchor="middle">27%</text><text x="370" y="197" text-anchor="middle">14%</text><text x="500" y="215" text-anchor="middle">10%</text><text x="630" y="229" text-anchor="middle">7%</text>
+      <text x="640" y="28" fill="var(--acento-2)">100% acumulado</text>
+    </svg>
+  </section>
+
+  <section id="t-ishikawa" role="tabpanel" aria-labelledby="b-ishikawa" class="interaccion ishikawa" hidden>
+    <h2>Ishikawa: causas de la baja de matrícula</h2>
+    <svg viewBox="0 0 760 340" role="img" aria-label="Diagrama de Ishikawa con seis categorías de causas que llevan a la baja de matrícula">
+      <g stroke="currentColor" stroke-width="2" fill="none" opacity=".7">
+        <line x1="40" y1="170" x2="600" y2="170"/>
+        <line x1="140" y1="40" x2="220" y2="170"/><line x1="320" y1="40" x2="400" y2="170"/><line x1="500" y1="40" x2="580" y2="170"/>
+        <line x1="140" y1="300" x2="220" y2="170"/><line x1="320" y1="300" x2="400" y2="170"/><line x1="500" y1="300" x2="580" y2="170"/>
+      </g>
+      <rect x="604" y="138" width="146" height="64" rx="6" fill="var(--acento)"/>
+      <text x="677" y="166" text-anchor="middle" fill="#fff" style="fill:#fff">Baja de</text><text x="677" y="184" text-anchor="middle" style="fill:#fff">matrícula</text>
+      <text x="140" y="30" text-anchor="middle">Precio</text><text x="320" y="30" text-anchor="middle">Comunicación</text><text x="500" y="30" text-anchor="middle">Oferta</text>
+      <text x="140" y="324" text-anchor="middle">Entorno</text><text x="320" y="324" text-anchor="middle">Procesos</text><text x="500" y="324" text-anchor="middle">Personas</text>
+      <g style="font-weight:400;font-size:12px" opacity=".85">
+        <text x="186" y="88">Colegiatura alta</text><text x="200" y="118">Pocas becas</text>
+        <text x="366" y="88">Sin redes activas</text><text x="380" y="118">No se ve la calidad</text>
+        <text x="546" y="88">Pocos horarios</text><text x="560" y="118">Sin modalidad mixta</text>
+        <text x="186" y="240">Menos egresados</text><text x="170" y="270">de prepa</text>
+        <text x="366" y="240">Admisión lenta</text><text x="350" y="270">(3 semanas)</text>
+        <text x="546" y="240">Egresados no</text><text x="530" y="270">vinculados</text>
+      </g>
+    </svg>
+  </section>
+
+  <section id="t-catwoe" role="tabpanel" aria-labelledby="b-catwoe" class="interaccion" hidden>
+    <h2>CATWOE (Peter Checkland)</h2>
+    <dl class="catwoe">
+      <dt>C</dt><dd><strong>Clientes.</strong> Aspirantes de prepa y sus familias, y las empresas que contratan egresados.</dd>
+      <dt>A</dt><dd><strong>Actores.</strong> Rectoría, área de admisiones, profesores y egresados.</dd>
+      <dt>T</dt><dd><strong>Transformación.</strong> Pasar de "universidad cara que nadie conoce" a "universidad que vale lo que cuesta y lo demuestra".</dd>
+      <dt>W</dt><dd><strong>Visión del mundo.</strong> La educación se elige por confianza; la confianza se construye mostrando resultados.</dd>
+      <dt>O</dt><dd><strong>Dueños.</strong> El consejo directivo, que aprueba presupuesto y becas.</dd>
+      <dt>E</dt><dd><strong>Entorno.</strong> Competencia en línea más barata, menos egresados de prepa y un parque industrial que busca ingenieros.</dd>
+    </dl>
+  </section>
+
+  <section class="aprendi" id="aprendi">
+    <h2>Lo que aprendí</h2>
+    <p>De las cinco herramientas, la que más me convence es el FODA. Es muy confiable y se puede aplicar en cualquier momento y en cualquier situación de la vida, no solo en una empresa o en una universidad.</p>
+    <p>Lo que más me sirve es que obliga a ordenar el panorama en cuatro preguntas: dónde estoy, qué tengo que cuidar y qué puedo aprovechar. En este caso dejó claro que el problema no era la calidad (una fortaleza) sino cómo se comunica y cuánto cuesta (debilidades), y que había una oportunidad enfrente con el parque industrial. Las otras herramientas ayudan a profundizar, pero el FODA es el que me pone los pies en la tierra antes de decidir.</p>
+  </section>
+
+  <section class="creditos" id="creditos">
+    <strong>Fuentes</strong>
+    <ul>
+      <li>De Bono, E. <em>Seis sombreros para pensar</em>. Paidós.</li>
+      <li>Checkland, P. <em>Systems Thinking, Systems Practice</em>. Wiley.</li>
+      <li>Caso y datos elaborados por mí para la actividad.</li>
+    </ul>
+  </section>
+</main>
+
+<script src="../_comun/creditos.js"></script>
+<script src="../_comun/tarjetas.js"></script>
+<script>
+  // Pestanas
+  (function () {
+    var tabs = Array.prototype.slice.call(document.querySelectorAll('[role=tab]'));
+    function activar(t) {
+      tabs.forEach(function (x) {
+        var on = x === t;
+        x.setAttribute('aria-selected', on);
+        x.tabIndex = on ? 0 : -1;
+        document.getElementById(x.getAttribute('aria-controls')).hidden = !on;
+      });
+      t.focus();
+    }
+    tabs.forEach(function (t, i) {
+      t.addEventListener('click', function () { activar(t); });
+      t.addEventListener('keydown', function (e) {
+        if (e.key === 'ArrowRight') activar(tabs[(i + 1) % tabs.length]);
+        if (e.key === 'ArrowLeft') activar(tabs[(i - 1 + tabs.length) % tabs.length]);
+      });
+    });
+  })();
+
+  Tarjetas.arrastre(document.getElementById('foda'), {
+    zonas: [
+      { id: 'f', nombre: 'Fortalezas' },
+      { id: 'o', nombre: 'Oportunidades' },
+      { id: 'd', nombre: 'Debilidades' },
+      { id: 'a', nombre: 'Amenazas' }
+    ],
+    fichas: [
+      { id: 'f1', zona: 'f', texto: 'Planta docente con posgrado', porque: 'es algo propio de la universidad y le da ventaja: es interno y positivo.' },
+      { id: 'f2', zona: 'f', texto: 'Campus bien ubicado y con laboratorios nuevos', porque: 'es un recurso que la universidad ya tiene y controla.' },
+      { id: 'd1', zona: 'd', texto: 'Colegiaturas 22% más altas que la competencia', porque: 'depende de la propia universidad y hoy le resta aspirantes: es interno y negativo.' },
+      { id: 'd2', zona: 'd', texto: 'Casi nula presencia en redes sociales', porque: 'es una carencia interna; la universidad puede corregirla por su cuenta.' },
+      { id: 'o1', zona: 'o', texto: 'Nuevo parque industrial a 15 minutos', porque: 'está fuera de la universidad y puede aprovecharse con convenios: externo y positivo.' },
+      { id: 'o2', zona: 'o', texto: 'Empresas que ofrecen becas a ingenieros', porque: 'es una ayuda que viene de afuera y la universidad no controla, pero puede aprovechar.' },
+      { id: 'a1', zona: 'a', texto: 'Universidades en línea más baratas', porque: 'es competencia externa que la universidad no controla: externo y negativo.' },
+      { id: 'a2', zona: 'a', texto: 'Menos egresados de prepa en la zona', porque: 'es un cambio demográfico externo que reduce a todos los posibles alumnos.' }
+    ]
+  });
+</script>
+</body>
+</html>

@@ -1,0 +1,34 @@
+MIS FOTOS
+=========
+
+Pon aqui tus fotos con estos nombres exactos (minusculas, .jpg, menos de 1 MB cada una).
+Mientras no esten, las paginas muestran un recuadro "Tu foto aqui".
+
+  yo-01.jpg ... yo-06.jpg       fotos tuyas (autor de 7 habitos y portafolio)
+  gusto-01.jpg futbol (Pumas)     gusto-05.jpg enchiladas verdes
+  gusto-02.jpg volleyball         gusto-06.jpg dramas
+  gusto-03.jpg puzzles            gusto-07.jpg novela negra (Mankell)
+  gusto-04.jpg tus perros         gusto-08.jpg musica
+
+ANTES DE COPIARLAS: QUITA LA UBICACION
+--------------------------------------
+Las fotos del celular guardan donde se tomaron (GPS). Para quitarlo en Windows:
+  clic derecho en la foto > Propiedades > Detalles >
+  "Quitar propiedades e informacion personal" > "Crear una copia con todas las propiedades posibles quitadas"
+Usa la copia.
+
+CHEQUEO AUTOMATICO
+------------------
+Cada commit revisa estas fotos y se detiene si alguna trae GPS.
+En otra compu (despues de clonar) reinstala el chequeo una vez, desde la raiz del repo:
+
+  printf '#!/bin/sh\nnode grupos/32/alumnos/juan-diego-olvera-medina/actividades/_herramientas/exif-gps.mjs grupos/32/alumnos/juan-diego-olvera-medina/mis-fotos\n' > .git/hooks/pre-commit
+
+Para revisarlas a mano:
+
+  node grupos/32/alumnos/juan-diego-olvera-medina/actividades/_herramientas/exif-gps.mjs grupos/32/alumnos/juan-diego-olvera-medina/mis-fotos
+
+LOS PDF E INFOGRAFIAS
+---------------------
+Las paginas web toman las fotos solas. Los PDF o PNG que usen tus fotos hay que volver a exportarlos
+(pideselo a Claude o usa los comandos de Edge del plan).

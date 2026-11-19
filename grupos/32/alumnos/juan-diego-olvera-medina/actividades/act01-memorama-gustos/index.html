@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Memorama de mis gustos · Juan Diego Olvera</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;700&family=Source+Serif+4:wght@400;600&display=swap">
+<link rel="stylesheet" href="../_comun/estilos.css">
+<style>
+  .juego { display: grid; grid-template-columns: auto 1fr; gap: var(--e6); align-items: start; }
+  #salida { min-height: 120px; }
+  #salida p { font: 600 var(--t1)/1.35 var(--f-titulo); }
+  @media (max-width: 760px) { .juego { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+<main class="pagina">
+  <p class="rotulo">Actividad 01 · Presentación</p>
+  <h1>Memorama de mis gustos</h1>
+  <p class="caso">Soy Juan Diego, estudio el 9.º semestre de LATI. En lugar de una lista, te dejo ocho cosas que me gustan escondidas en un memorama: cada par que encuentres te cuenta algo de mí.</p>
+
+  <section class="interaccion juego" aria-label="Memorama">
+    <div>
+      <p class="estado" data-estado>0 de 8 pares · 0 intentos</p>
+      <div class="memorama" id="memorama"></div>
+    </div>
+    <div class="panel" id="salida" aria-live="polite">
+      <p style="font:400 17px/1.6 var(--f-texto);color:var(--suave)">Voltea dos cartas. Si son iguales, aquí aparece lo que hay detrás de ese gusto.</p>
+    </div>
+  </section>
+
+  <noscript>
+    <ul>
+      <li>Futbol: mi maldición es irle a los Pumas.</li>
+      <li>Volleyball: si no llegas, estorba.</li>
+      <li>Puzzles: la respuesta siempre la encuentro mañana.</li>
+      <li>Perros: tengo 4, y porque ya no caben más.</li>
+      <li>Enchiladas verdes: siempre confiables.</li>
+      <li>Dramas: dan más miedo que el terror.</li>
+      <li>Novela negra: fan de Henning Mankell.</li>
+      <li>Música: siempre dispuesto a escuchar algo nuevo.</li>
+    </ul>
+  </noscript>
+
+  <section class="aprendi">
+    <h2>Por qué un memorama</h2>
+    <p>Presentarse con una lista es fácil de olvidar. Con un juego, quien me conoce tiene que buscar, equivocarse y volver a intentar, igual que cuando conoces a alguien de verdad. Además, como buen fan de los puzzles, la respuesta siempre llega un intento después.</p>
+  </section>
+
+  <section class="creditos" id="creditos">
+    <strong>Fotos</strong>: propias. <ul></ul>
+  </section>
+</main>
+
+<script src="../_comun/creditos.js"></script>
+<script src="../_comun/tarjetas.js"></script>
+<script>
+  var f = '../../mis-fotos/';
+  Tarjetas.memorama(document.getElementById('memorama'), {
+    salida: document.getElementById('salida'),
+    fin: 'Ya mañana vemos qué pasa.',
+    pares: [
+      { img: f + 'gusto-01.jpg', nombre: 'Futbol', linea: 'mi maldición es irle a los Pumas.' },
+      { img: f + 'gusto-02.jpg', nombre: 'Volleyball', linea: 'si no llegas, estorba.' },
+      { img: f + 'gusto-03.jpg', nombre: 'Puzzles', linea: 'la respuesta siempre la encuentro mañana.' },
+      { img: f + 'gusto-04.jpg', nombre: 'Perros', linea: 'tengo 4, y porque ya no caben más.' },
+      { img: f + 'gusto-05.jpg', nombre: 'Enchiladas verdes', linea: 'siempre confiables.' },
+      { img: f + 'gusto-06.jpg', nombre: 'Dramas', linea: 'dan más miedo que el terror.' },
+      { img: f + 'gusto-07.jpg', nombre: 'Novela negra', linea: 'fan de Henning Mankell.' },
+      { img: f + 'gusto-08.jpg', nombre: 'Música', linea: 'siempre dispuesto a escuchar algo nuevo.' }
+    ]
+  });
+</script>
+</body>
+</html>

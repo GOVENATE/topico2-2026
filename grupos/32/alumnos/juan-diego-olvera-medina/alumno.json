@@ -1,0 +1,55 @@
+{
+  "nombre": "Juan Diego Olvera Medina",
+  "github": "juandiegoolveramedina20-wq",
+  "sobreMi": "Estudiante de 9.º semestre de LATI (Lic. en Administración de las TI). Me gustan los deportes de equipo, sobre todo el volleyball, los RPG (Outer Wilds es religión) y los juegos de mesa.",
+  "actividades": [
+    {
+      "id": "act01-memorama-gustos",
+      "titulo": "Memorama de mis gustos",
+      "descripcion": "Memorama de 8 pares con mis gustos: cada par revela algo de mí. Funciona con teclado y en el celular.",
+      "tipo": "web",
+      "tecnologias": [
+        "HTML",
+        "CSS",
+        "JavaScript"
+      ],
+      "ruta": "actividades/act01-memorama-gustos/index.html"
+    },
+    {
+      "id": "act02-7-habitos",
+      "titulo": "Los 7 hábitos de la gente altamente efectiva",
+      "descripcion": "Tarjetas con los siete hábitos de Covey, dinámica para unir cada frase con su hábito, lo que entendí y sección del autor.",
+      "tipo": "web",
+      "tecnologias": [
+        "HTML",
+        "CSS",
+        "JavaScript"
+      ],
+      "ruta": "actividades/act02-7-habitos/index.html"
+    },
+    {
+      "id": "act03-efecto-compuesto",
+      "titulo": "Efecto compuesto",
+      "descripcion": "Calculadora interactiva: qué pasa si mejoras o empeoras un pequeño porcentaje cada día.",
+      "tipo": "web",
+      "tecnologias": [
+        "HTML",
+        "CSS",
+        "JavaScript"
+      ],
+      "ruta": "actividades/act03-efecto-compuesto/index.html"
+    },
+    {
+      "id": "act04-toma-de-decisiones",
+      "titulo": "Herramientas para la toma de decisiones",
+      "descripcion": "Caso de una universidad que pierde alumnos: FODA para arrastrar con revisión, seis sombreros, Pareto, Ishikawa y CATWOE.",
+      "tipo": "web",
+      "tecnologias": [
+        "HTML",
+        "CSS",
+        "JavaScript"
+      ],
+      "ruta": "actividades/act04-toma-de-decisiones/index.html"
+    }
+  ]
+}
