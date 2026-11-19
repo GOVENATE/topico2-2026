@@ -115,7 +115,10 @@ function revisarActividad(act, dirAlumno, donde) {
     return null;
   }
 
-  const abs = path.resolve(dirAlumno, ruta);
+  // permite anclas tipo "pagina.html#seccion": se valida el archivo y se conserva el ancla
+  const [rutaArchivo, ...resto] = ruta.split('#');
+  const ancla = resto.length ? '#' + resto.join('#').replace(/[^\w-]/g, '') : '';
+  const abs = path.resolve(dirAlumno, rutaArchivo);
   if (!abs.startsWith(dirAlumno + path.sep)) {
     errores.push(`${donde} (${id}): "ruta" no puede salirse de tu carpeta`);
     return null;
@@ -131,7 +134,7 @@ function revisarActividad(act, dirAlumno, donde) {
     return null;
   }
 
-  limpia.ruta = rel(abs);
+  limpia.ruta = rel(abs) + ancla;
   return limpia;
 }
 
