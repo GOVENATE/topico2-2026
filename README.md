@@ -259,7 +259,7 @@ Abre la direccion que aparece en la terminal (normalmente http://localhost:4321)
 
 ## Para el administrador
 
-**Desplegar:** es automatico. Cada push a `main` corre el workflow `publicar.yml`: arma el catalogo, compila con `npm run build` y deja el resultado en la rama `sitio`. Hostinger (hPanel > Git) esta conectado a la rama `sitio`. Para compilar a mano: `npm run build` y la carpeta lista queda en `dist/`.
+**Desplegar:** es automatico. Cada push a `main` corre el workflow `publicar.yml`: arma el catalogo, compila con `npm run build` y copia las paginas listas (`index.html`, `404.html`, `g/`, `_astro/`) a la raiz de `main`. Hostinger (hPanel > Git) despliega `main` tal cual. Para compilar a mano: `npm run build` y la carpeta lista queda en `dist/`.
 
 **Como funciona el repo:**
 

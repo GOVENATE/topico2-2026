@@ -1,11 +1,18 @@
 name: Publicar sitio
 
-# Cada push a main compila el sitio (Astro) y deja el resultado en la rama "sitio".
-# Hostinger (hPanel > Git) se conecta a la rama "sitio", directorio topico2.
+# Cada push a main compila el sitio (Astro) y deja las paginas ya listas
+# en la raiz de main (index.html, 404.html, g/, _astro/).
+# Asi Hostinger puede desplegar main directamente, sin compilar nada.
+# Los archivos de los alumnos (grupos/) ya estan en la raiz.
 
 on:
   push:
     branches: [main]
+    paths-ignore:
+      - 'index.html'
+      - '404.html'
+      - 'g/**'
+      - '_astro/**'
   workflow_dispatch:
 
 permissions:
@@ -13,7 +20,7 @@ permissions:
 
 concurrency:
   group: publicar
-  cancel-in-progress: true
+  cancel-in-progress: false
 
 jobs:
   publicar:
@@ -30,14 +37,20 @@ jobs:
       - run: npm ci
       - run: npm run build
 
-      - name: Subir dist/ a la rama sitio
-        uses: peaceiris/actions-gh-pages@v4
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_branch: sitio
-          publish_dir: ./dist
-          force_orphan: true
-          enable_jekyll: true
-          user_name: GOVENATE
-          user_email: GOVENATE@users.noreply.github.com
-          commit_message: Publicar sitio
+      - name: Copiar paginas compiladas a la raiz
+        run: |
+          rm -rf g _astro index.html 404.html
+          cp -r dist/g dist/_astro dist/index.html dist/404.html .
+
+      - name: Commit si hubo cambios
+        run: |
+          git config user.name "GOVENATE"
+          git config user.email "GOVENATE@users.noreply.github.com"
+          git add -A g _astro index.html 404.html data/catalogo.json
+          if git diff --cached --quiet; then
+            echo "Sin cambios en el sitio."
+          else
+            git commit -m "Publicar sitio [skip ci]"
+            git pull --rebase origin main
+            git push origin HEAD:main
+          fi
