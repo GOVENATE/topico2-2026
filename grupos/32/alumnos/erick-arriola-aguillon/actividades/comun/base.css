@@ -1,0 +1,126 @@
+/* Estilos compartidos de las actividades de Erick Arriola Aguillón.
+   Cada página cambia el acento con --acc en <body style="--acc:...">. */
+:root{
+  --bg:#f6f3ec; --surface:#ffffff; --surface-2:#efe9dc; --ink:#1d1b16; --muted:#5d584c;
+  --line:#ddd5c3; --acc:#2f5bd3; --on-acc:#ffffff; --ok:#1c7a4b; --bad:#b4401f;
+  --display:"Bricolage Grotesque","Segoe UI",system-ui,sans-serif;
+  --body:"Instrument Sans","Segoe UI",system-ui,sans-serif;
+  --mono:"JetBrains Mono",ui-monospace,Menlo,Consolas,monospace;
+  color-scheme:light;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#15140f; --surface:#1f1d17; --surface-2:#2a2720; --ink:#f1ece0; --muted:#b2ab9b;
+    --line:#3a362c; --on-acc:#0f0e0b; --ok:#5fd39a; --bad:#ff8f6b;
+    color-scheme:dark;
+  }
+  :root:not([data-theme="light"]) body{--acc:var(--acc-dark,#8fb0ff)}
+}
+:root[data-theme="dark"]{
+  --bg:#15140f; --surface:#1f1d17; --surface-2:#2a2720; --ink:#f1ece0; --muted:#b2ab9b;
+  --line:#3a362c; --on-acc:#0f0e0b; --ok:#5fd39a; --bad:#ff8f6b; color-scheme:dark;
+}
+:root[data-theme="dark"] body{--acc:var(--acc-dark,#8fb0ff)}
+
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 16px/1.6 var(--body);overflow-x:hidden}
+img{max-width:100%;display:block}
+button{font:inherit;color:inherit;cursor:pointer}
+:focus-visible{outline:3px solid var(--acc);outline-offset:2px}
+.wrap{max-width:1080px;margin-inline:auto;padding:28px 16px 56px;display:flex;flex-direction:column;gap:32px}
+
+/* Encabezado */
+.hero{display:flex;flex-direction:column;gap:12px;padding-bottom:22px;border-bottom:2px solid var(--ink)}
+.eyebrow{margin:0;font:600 .76rem/1.3 var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--acc)}
+h1{margin:0;font:800 clamp(2rem,6.5vw,3.6rem)/1 var(--display);letter-spacing:-.025em;text-wrap:balance}
+h2{margin:0 0 14px;font:700 clamp(1.35rem,3.4vw,1.85rem)/1.15 var(--display);letter-spacing:-.015em}
+h3{margin:0 0 6px;font:700 1.08rem/1.3 var(--display)}
+p{margin:0 0 12px}
+.lede{max-width:64ch;color:var(--muted);font-size:1.07rem;margin:0}
+.meta{display:flex;flex-wrap:wrap;gap:8px;margin-top:4px}
+.chip{display:inline-flex;align-items:center;gap:6px;padding:4px 10px;border:1px solid var(--line);border-radius:999px;background:var(--surface);font:500 .8rem/1.3 var(--mono);color:var(--muted)}
+.chip.acc{background:var(--acc);border-color:var(--acc);color:var(--on-acc)}
+
+/* Secciones y tarjetas */
+section{display:flex;flex-direction:column;gap:14px}
+.num{font:600 .78rem/1 var(--mono);color:var(--acc);letter-spacing:.08em}
+.grid{display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(min(100%,240px),1fr))}
+.grid.dos{grid-template-columns:repeat(auto-fit,minmax(min(100%,340px),1fr))}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:18px;display:flex;flex-direction:column;gap:6px}
+.card p:last-child{margin-bottom:0}
+.card.acc{border-color:var(--acc);box-shadow:inset 4px 0 0 var(--acc)}
+.callout{background:var(--surface-2);border-radius:14px;padding:18px 20px;border-left:5px solid var(--acc)}
+.callout p:last-child{margin:0}
+.muted{color:var(--muted)}
+.small{font-size:.88rem}
+ul.lista{margin:0;padding-left:1.2em}
+ul.lista li{margin-bottom:6px}
+
+/* Pestañas */
+.tabs{display:flex;flex-wrap:wrap;gap:8px}
+.tab{border:1px solid var(--line);background:var(--surface);border-radius:999px;padding:8px 16px;font-weight:600}
+.tab:hover{border-color:var(--acc)}
+.tab[aria-selected="true"]{background:var(--acc);border-color:var(--acc);color:var(--on-acc)}
+.panel{animation:entra .25s ease}
+@keyframes entra{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){.panel,.flip-in{animation:none}}
+
+/* Selector + detalle */
+.picker{display:flex;flex-wrap:wrap;gap:8px}
+.pick{border:1px solid var(--line);background:var(--surface);border-radius:10px;padding:10px 14px;text-align:left;font-weight:600;flex:1 1 180px}
+.pick:hover{border-color:var(--acc)}
+.pick[aria-pressed="true"]{border-color:var(--acc);background:var(--acc);color:var(--on-acc)}
+.detalle{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:20px;min-height:120px}
+.detalle .k{font:600 .74rem/1.2 var(--mono);text-transform:uppercase;letter-spacing:.1em;color:var(--acc);margin:12px 0 4px}
+
+/* Tarjetas que se voltean (botón que revela) */
+.flip{all:unset;box-sizing:border-box;cursor:pointer;background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:18px;display:flex;flex-direction:column;gap:6px;min-height:130px}
+.flip:hover{border-color:var(--acc)}
+.flip:focus-visible{outline:3px solid var(--acc);outline-offset:2px}
+.flip .back{display:none;color:var(--muted)}
+.flip[aria-expanded="true"]{background:var(--surface-2);border-color:var(--acc)}
+.flip[aria-expanded="true"] .back{display:block;animation:entra .2s ease}
+.flip .hint{margin-top:auto;font:500 .74rem/1 var(--mono);color:var(--acc)}
+.flip[aria-expanded="true"] .hint{display:none}
+
+/* Tablas */
+.tabla-wrap{overflow-x:auto;border:1px solid var(--line);border-radius:14px;background:var(--surface)}
+table{border-collapse:collapse;width:100%;min-width:640px;font-size:.93rem}
+th,td{padding:12px 14px;text-align:left;vertical-align:top;border-bottom:1px solid var(--line)}
+thead th{background:var(--surface-2);font:700 .9rem/1.3 var(--display)}
+tbody th{font:600 .88rem/1.3 var(--body);color:var(--acc);width:18%}
+tr:last-child td,tr:last-child th{border-bottom:0}
+
+/* Cuestionario */
+.quiz{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:20px;display:flex;flex-direction:column;gap:12px}
+.quiz .q{font:700 1.08rem/1.35 var(--display);margin:0}
+.quiz .opts{display:grid;gap:8px}
+.opt{border:1px solid var(--line);background:var(--bg);border-radius:10px;padding:11px 14px;text-align:left}
+.opt:hover:not(:disabled){border-color:var(--acc)}
+.opt:disabled{cursor:default}
+.opt.bien{border-color:var(--ok);background:color-mix(in srgb,var(--ok) 14%,var(--surface))}
+.opt.mal{border-color:var(--bad);background:color-mix(in srgb,var(--bad) 12%,var(--surface))}
+.quiz .fb{margin:0;color:var(--muted)}
+.quiz .pie{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
+.quiz .marcador{font:600 .82rem/1 var(--mono);color:var(--muted)}
+
+/* Botones */
+.btn{border:0;border-radius:10px;background:var(--acc);color:var(--on-acc);padding:10px 16px;font-weight:700}
+.btn:hover{filter:brightness(1.08)}
+.btn.ghost{background:transparent;color:var(--ink);border:1px solid var(--line)}
+.btn:disabled{opacity:.5;cursor:default}
+.acciones{display:flex;flex-wrap:wrap;gap:8px}
+
+/* Barras */
+.barra{height:12px;background:var(--surface-2);border-radius:999px;overflow:hidden}
+.barra > i{display:block;height:100%;background:var(--acc);border-radius:inherit;transition:width .35s ease}
+
+/* Formularios */
+label.campo{display:flex;flex-direction:column;gap:4px;font-weight:600;font-size:.92rem}
+input[type=text],textarea,select{font:inherit;color:var(--ink);background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:10px 12px;width:100%}
+textarea{min-height:70px;resize:vertical}
+input[type=range]{width:100%;accent-color:var(--acc)}
+
+footer.pie-pag{border-top:1px solid var(--line);padding-top:16px;color:var(--muted);font-size:.86rem;display:flex;flex-wrap:wrap;justify-content:space-between;gap:8px}

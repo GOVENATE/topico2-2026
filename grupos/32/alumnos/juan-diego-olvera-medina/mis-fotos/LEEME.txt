@@ -1,0 +1,31 @@
+MIS FOTOS
+=========
+
+Aqui van tus fotos personales (minusculas, menos de 1 MB cada una).
+Solo se usan en act02 (Los 7 habitos), seccion Autor. Si cambias una foto,
+conserva el mismo nombre y extension, o avisa para actualizar la pagina.
+
+  yo-01.jpeg   tu, de frente              yo-04.jpeg   juegos de mesa
+  yo-02.jpeg   volleyball                 yo-05.png    videojuegos (Outer Wilds)
+  yo-03.jpeg   tus perros                 yo-06.jpeg   LATI / universidad
+
+Las imagenes del memorama (act01) son de Wikimedia Commons y viven en
+actividades/act01-memorama-gustos/img/, con sus creditos en _comun/creditos.js.
+
+ANTES DE COPIARLAS: QUITA LA UBICACION
+--------------------------------------
+Las fotos del celular guardan donde se tomaron (GPS). Para quitarlo en Windows:
+  clic derecho en la foto > Propiedades > Detalles >
+  "Quitar propiedades e informacion personal" > "Crear una copia con todas las propiedades posibles quitadas"
+Usa la copia.
+
+CHEQUEO AUTOMATICO
+------------------
+Cada commit revisa estas fotos (.jpg, .jpeg y .png) y se detiene si alguna trae GPS.
+En otra compu (despues de clonar) reinstala el chequeo una vez, desde la raiz del repo:
+
+  printf '#!/bin/sh\nnode grupos/32/alumnos/juan-diego-olvera-medina/actividades/_herramientas/exif-gps.mjs grupos/32/alumnos/juan-diego-olvera-medina/mis-fotos\n' > .git/hooks/pre-commit
+
+Para revisarlas a mano:
+
+  node grupos/32/alumnos/juan-diego-olvera-medina/actividades/_herramientas/exif-gps.mjs grupos/32/alumnos/juan-diego-olvera-medina/mis-fotos

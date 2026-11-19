@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<title>Creatividad según Goldberg</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;700&family=Source+Serif+4:ital,wght@0,400;0,600;1,400&display=swap">
+<link rel="stylesheet" href="fuente.css">
+<style>
+  .autor { display: grid; grid-template-columns: 200px 1fr; gap: 32px; align-items: center; }
+  .autor img { width: 200px; height: 254px; object-fit: cover; border-radius: var(--radio); }
+  .hemis { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+  .hemis div { border-radius: var(--radio); padding: 22px 26px; }
+  .hemis .der { background: var(--acento-suave); }
+  .hemis .izq { background: var(--acento-2-suave); }
+  .hemis h3 { margin: 0 0 6px; font-size: 26px; }
+  .ingredientes { display: grid; grid-template-columns: repeat(2, 1fr); gap: 18px 28px; }
+  .ingredientes b { font: 700 24px var(--f-titulo); color: var(--acento); display: block; }
+</style>
+</head>
+<body class="info">
+<header class="banda">
+  <p class="rotulo">Actividad 21 · Creatividad e innovación</p>
+  <h1>¿Dónde nace una idea nueva? La creatividad según el cerebro</h1>
+  <p>El neuropsicólogo Elkhonon Goldberg explica que la creatividad no es un don misterioso, sino el trabajo de redes del cerebro que se pueden entender y cultivar.</p>
+</header>
+
+<div class="bloques">
+  <section class="bloque">
+    <div>
+      <h2>El autor</h2>
+      <p>Elkhonon Goldberg, neurocientífico nacido en Riga y discípulo del neuropsicólogo soviético Alexander Luria. Es profesor de neurología en la Universidad de Nueva York.</p>
+      <p>En <em>Creatividad: el cerebro humano en la era de la innovación</em> une neurociencia y cultura para explicar de dónde vienen las ideas nuevas.</p>
+    </div>
+  </section>
+
+  <section class="bloque">
+    <h2>Lo nuevo y lo conocido</h2>
+    <div class="hemis">
+      <div class="der"><h3>Hemisferio derecho</h3><p>Se activa ante lo nuevo: situaciones desconocidas, problemas sin receta.</p></div>
+      <div class="izq"><h3>Hemisferio izquierdo</h3><p>Guarda lo aprendido: rutinas, reglas y conocimiento que ya dominamos.</p></div>
+    </div>
+    <p style="margin-top:16px">La creatividad necesita a los dos: el conocimiento acumulado para tener material, y la apertura a lo nuevo para combinarlo de otra forma. Los <strong>lóbulos frontales</strong> coordinan ese ir y venir.</p>
+  </section>
+
+  <section class="bloque">
+    <h2>Los ingredientes</h2>
+    <div class="ingredientes">
+      <div><b>Saliencia</b>Saber qué problema vale la pena resolver. Ver lo importante antes que los demás.</div>
+      <div><b>Búsqueda de novedad</b>La curiosidad que empuja a salir de lo conocido.</div>
+      <div><b>Mente errante</b>Los momentos en que la mente divaga, en el baño o caminando, conectan ideas lejanas.</div>
+      <div><b>Conocimiento</b>No se crea de la nada: hace falta saber mucho de algo para transformarlo.</div>
+    </div>
+  </section>
+
+  <section class="bloque" style="background:var(--acento-suave)">
+    <h2>Idea clave</h2>
+    <p style="font:700 30px/1.25 var(--f-titulo);margin:0">La creatividad es reconocer el problema correcto y combinar lo que ya sabes de una forma que nadie había intentado.</p>
+  </section>
+</div>
+
+<footer class="pie">
+  <strong>Juan Diego Olvera Medina</strong> · LATI, 9.º semestre · Tópicos II<br>
+  Fuente: Goldberg, E. (2018). <em>Creativity: The Human Brain in the Age of Innovation</em>. Oxford University Press.
+</footer>
+<script src="fuente.js"></script>
+</body>
+</html>

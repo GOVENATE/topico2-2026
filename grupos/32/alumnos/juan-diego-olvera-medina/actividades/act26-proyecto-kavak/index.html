@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Proyecto final: el caso Kavak · Juan Diego Olvera</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;700&family=Source+Serif+4:wght@400;600&display=swap">
+<link rel="stylesheet" href="../_comun/estilos.css">
+<style>
+  .cifras { display: grid; grid-template-columns: repeat(auto-fill, minmax(190px, 1fr)); gap: var(--e3); }
+  .cifra b { display: block; font: 700 var(--t3)/1 var(--f-titulo); color: var(--acento); margin-bottom: var(--e1); }
+  .cifra span { font-size: 15px; }
+  .foda { display: grid; grid-template-columns: 1fr 1fr; gap: var(--e3); }
+  .foda h3 { margin: 0 0 var(--e2); font-size: 18px; }
+  .foda ul { margin: 0; padding-left: var(--e4); font-size: 15px; }
+  .foda .f { border-top: 4px solid var(--exito); } .foda .o { border-top: 4px solid var(--acento); }
+  .foda .d { border-top: 4px solid var(--acento-2); } .foda .a { border-top: 4px solid var(--suave); }
+  .causas { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: var(--e3); }
+  .causa button { width: 100%; text-align: left; min-height: 44px; background: var(--superficie); border: 1px solid var(--linea); border-radius: var(--radio); padding: var(--e3) var(--e4); font: 600 16px var(--f-titulo); color: var(--tinta); cursor: pointer; }
+  .causa button[aria-expanded="true"] { border-color: var(--acento); background: var(--acento-suave); }
+  .causa p { font-size: 15px; margin: var(--e2) var(--e1) 0; }
+  .reco { counter-reset: r; list-style: none; padding: 0; }
+  .reco li { counter-increment: r; display: grid; grid-template-columns: 48px 1fr; gap: var(--e3); margin-bottom: var(--e4); }
+  .reco li::before { content: counter(r); font: 700 var(--t2)/1 var(--f-titulo); color: var(--acento-2); }
+  .reco h3 { margin: 0 0 var(--e1); font-size: 18px; }
+  .reco p { margin: 0; }
+  @media (max-width: 600px) { .foda { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+<main class="pagina">
+  <p class="rotulo">Actividad 26 · Proyecto final</p>
+  <h1>Caso Kavak: ¿cómo cae un unicornio que vendía confianza?</h1>
+  <p class="caso">Kavak nació en 2016 en la Ciudad de México para resolver un problema real: comprar un auto usado en México da miedo. En cuatro años se volvió el primer unicornio mexicano (una startup valuada en más de mil millones de dólares). Dos años después despedía personal y acumulaba quejas. Lo analizo con las herramientas del curso.</p>
+
+  <section class="interaccion">
+    <h2>El caso en cifras</h2>
+    <div class="cifras">
+      <div class="panel cifra"><b>2016</b><span>Fundación en la Ciudad de México.</span></div>
+      <div class="panel cifra"><b>2020</b><span>Primer unicornio mexicano.</span></div>
+      <div class="panel cifra"><b>~8,700</b><span>millones de dólares de valuación en 2021.</span></div>
+      <div class="panel cifra"><b>2022</b><span>Despidos, quejas ante Profeco y salida de algunos países.</span></div>
+    </div>
+    <p class="texto" style="margin-top:var(--e4)">El modelo: Kavak compra autos usados, los revisa y repara, y los vende con garantía, financiamiento y la promesa de encargarse de todos los trámites. Vende tranquilidad en un mercado lleno de desconfianza.</p>
+  </section>
+
+  <section class="interaccion">
+    <h2>FODA</h2>
+    <div class="foda">
+      <div class="panel f"><h3>Fortalezas</h3><ul><li>Resolvió la desconfianza con revisión y garantía.</li><li>Financiamiento propio para quien no califica en un banco.</li><li>Marca muy conocida y experiencia digital.</li></ul></div>
+      <div class="panel o"><h3>Oportunidades</h3><ul><li>Mercado de autos usados enorme e informal.</li><li>Clientes sin historial crediticio.</li><li>Expansión a otros países de Latinoamérica.</li></ul></div>
+      <div class="panel d"><h3>Debilidades</h3><ul><li>Inventario caro: cada auto es dinero inmovilizado.</li><li>Trámites (placas, tarjeta de circulación) lentos.</li><li>Crecimiento financiado con capital de inversionistas.</li></ul></div>
+      <div class="panel a"><h3>Amenazas</h3><ul><li>Subida de tasas de interés desde 2022.</li><li>Fin del dinero barato para startups.</li><li>Competencia de lotes tradicionales y plataformas.</li></ul></div>
+    </div>
+  </section>
+
+  <section class="interaccion">
+    <h2>Ishikawa: ¿por qué crecieron las quejas?</h2>
+    <p class="texto">Toca cada categoría para ver la causa.</p>
+    <div class="causas" id="causas">
+      <div class="causa"><button type="button" aria-expanded="false">Procesos</button><p hidden>Los trámites vehiculares dependen de oficinas de gobierno; al vender miles de autos, los retrasos en placas y tarjetas se volvieron masivos.</p></div>
+      <div class="causa"><button type="button" aria-expanded="false">Personas</button><p hidden>Contratación acelerada y después despidos: menos gente para atender a más clientes.</p></div>
+      <div class="causa"><button type="button" aria-expanded="false">Estrategia</button><p hidden>Prioridad a crecer en ventas y países antes que a cumplir bien la promesa de servicio.</p></div>
+      <div class="causa"><button type="button" aria-expanded="false">Finanzas</button><p hidden>El modelo necesita mucho capital; cuando el dinero de inversionistas se encareció, hubo que recortar.</p></div>
+      <div class="causa"><button type="button" aria-expanded="false">Producto</button><p hidden>Algunos autos llegaron con fallas que la revisión debía detectar, lo que dañó justo la confianza que vendían.</p></div>
+      <div class="causa"><button type="button" aria-expanded="false">Entorno</button><p hidden>Alza de tasas, inflación y escasez de autos nuevos que subió el precio de los usados.</p></div>
+    </div>
+  </section>
+
+  <section class="interaccion">
+    <h2>Recomendaciones</h2>
+    <ol class="reco">
+      <li><div><h3>Primero cumplir, después crecer</h3><p>Si vendes confianza, cada trámite atrasado te cuesta más que una venta. Frenar la expansión hasta que el servicio postventa funcione.</p></div></li>
+      <li><div><h3>Cuidar a la gente</h3><p>Crecer contratando y luego despedir es tratar a los empleados como inventario. Crecer al ritmo que se puede sostener.</p></div></li>
+      <li><div><h3>Ser honestos con el cliente</h3><p>Decir desde el principio cuánto tardan los trámites. Prometer menos y cumplir más.</p></div></li>
+      <li><div><h3>Ganar dinero de verdad</h3><p>Medir el éxito por utilidades y clientes satisfechos, no por valuación ni por número de países.</p></div></li>
+    </ol>
+  </section>
+
+  <section class="aprendi">
+    <h2>Mi opinión</h2>
+    <p>Kavak hizo bien en ver un problema real: comprar un auto usado en México da miedo y nadie lo estaba resolviendo. Hizo mal en creer que crecer rápido era lo mismo que hacerlo bien. Apostó por lo que más generaba, no por lo mejor.</p>
+    <p>Si fuera su asesor, le recomendaría volver a lo básico: cumplir con lo que vende antes de abrir otro país, y tratar a sus empleados y clientes como personas, no como números para impresionar a inversionistas. Un unicornio que pierde la confianza de sus clientes ya no vale lo que dice su valuación.</p>
+  </section>
+
+  <section class="creditos" id="creditos">
+    <strong>Fuentes</strong>
+    <ul><li>Notas de prensa sobre la valuación, los despidos de 2022 y las quejas ante Profeco (El Economista, Expansión, Forbes México).</li><li>Sitio corporativo de Kavak.</li></ul>
+  </section>
+</main>
+
+<script src="../_comun/tarjetas.js"></script>
+<script>
+  document.querySelectorAll('#causas button').forEach(function (b) {
+    b.addEventListener('click', function () {
+      var abierta = b.getAttribute('aria-expanded') === 'true';
+      b.setAttribute('aria-expanded', !abierta);
+      b.nextElementSibling.hidden = abierta;
+    });
+  });
+</script>
+</body>
+</html>

@@ -1,5 +1,5 @@
 {
-  "generado": "2026-11-19T05:38:11.642Z",
+  "generado": "2026-11-19T06:16:08.671Z",
   "topico": {
     "titulo": "Tópico 2",
     "periodo": "UAQ · Facultad de Informática · 2026",
@@ -8,16 +8,25 @@
   },
   "tecnologias": [
     "Actividad",
+    "Análisis",
+    "Chart.js",
     "Collage",
+    "Comentario",
     "Comunicacion",
+    "Comunicación",
     "Creatividad",
     "CSS",
+    "Cuadro comparativo",
+    "Desarrollo personal",
     "Diseno",
+    "Diseño",
+    "Economía",
     "Framer Motion",
     "HTML",
     "Ilustracion",
     "Imagen",
     "Infografia",
+    "Infografía",
     "Investigacion",
     "Investigación",
     "JavaScript",
@@ -25,15 +34,22 @@
     "Liderazgo",
     "Mapa conceptual",
     "Mapa mental",
+    "Next.js",
     "PDF",
+    "Pensagrama",
     "Pensamiento",
     "Pensamiento critico",
+    "Pensamiento crítico",
     "Pensamiento sistemico",
+    "Perfil",
     "Programacion",
     "React",
     "Reflexion",
+    "Reflexión",
     "Reporte de lectura",
     "Resumen",
+    "Tailwind CSS",
+    "Tecnología",
     "TypeScript",
     "Vite"
   ],
@@ -42,8 +58,8 @@
       "id": "empresarios",
       "nombre": "Empresarios mexicanos",
       "resumen": "Servitje, Zambrano, Slim y el perfil del empresario mexicano ideal.",
-      "alumnos": 7,
-      "actividades": 20,
+      "alumnos": 13,
+      "actividades": 42,
       "ejemplos": [
         {
           "grupo": "32",
@@ -72,8 +88,8 @@
       "id": "toma-decisiones",
       "nombre": "Toma de decisiones",
       "resumen": "Herramientas para analizar problemas y decidir: FODA, Ishikawa, Pareto y seis sombreros.",
-      "alumnos": 7,
-      "actividades": 11,
+      "alumnos": 12,
+      "actividades": 19,
       "ejemplos": [
         {
           "grupo": "32",
@@ -102,8 +118,8 @@
       "id": "7-habitos",
       "nombre": "Los 7 hábitos",
       "resumen": "Stephen Covey: proactividad, empezar con un fin en mente, primero lo primero y la mejora continua.",
-      "alumnos": 7,
-      "actividades": 10,
+      "alumnos": 12,
+      "actividades": 17,
       "ejemplos": [
         {
           "grupo": "32",
@@ -129,101 +145,11 @@
       ]
     },
     {
-      "id": "quinta-disciplina",
-      "nombre": "La quinta disciplina",
-      "resumen": "Peter Senge y las organizaciones que aprenden a través del pensamiento sistémico.",
-      "alumnos": 7,
-      "actividades": 7,
-      "ejemplos": [
-        {
-          "grupo": "32",
-          "alumno": "alan-salvador-rojas-pina",
-          "nombre": "Alan Salvador Rojas Piña",
-          "actividad": "act19-s16-senge",
-          "titulo": "La quinta disciplina · Parte I"
-        },
-        {
-          "grupo": "32",
-          "alumno": "armando-altamirano-gurrion",
-          "nombre": "Armando Altamirano Gurrion",
-          "actividad": "act16-quintadisciplina",
-          "titulo": "Quinta Disciplina"
-        },
-        {
-          "grupo": "32",
-          "alumno": "bradley-reyes-altamirano",
-          "nombre": "Bradley Yeray Reyes Altamirano",
-          "actividad": "act05-pensamiento-sistemico",
-          "titulo": "Sistemas, patrones y nuevas ideas"
-        }
-      ]
-    },
-    {
-      "id": "creatividad",
-      "nombre": "Creatividad e innovación",
-      "resumen": "Elkhonon Goldberg y cómo el cerebro genera ideas nuevas.",
-      "alumnos": 6,
-      "actividades": 8,
-      "ejemplos": [
-        {
-          "grupo": "32",
-          "alumno": "alan-salvador-rojas-pina",
-          "nombre": "Alan Salvador Rojas Piña",
-          "actividad": "act21-s18-creatividad",
-          "titulo": "Creatividad · Elkhonon Goldberg"
-        },
-        {
-          "grupo": "32",
-          "alumno": "armando-altamirano-gurrion",
-          "nombre": "Armando Altamirano Gurrion",
-          "actividad": "act15-creatividad",
-          "titulo": "Creatividad"
-        },
-        {
-          "grupo": "32",
-          "alumno": "bradley-reyes-altamirano",
-          "nombre": "Bradley Yeray Reyes Altamirano",
-          "actividad": "act05-pensamiento-sistemico",
-          "titulo": "Sistemas, patrones y nuevas ideas"
-        }
-      ]
-    },
-    {
-      "id": "movimientos-sociales",
-      "nombre": "Movimientos sociales",
-      "resumen": "Mentes en acción: cómo se organizan las personas para cambiar su entorno.",
-      "alumnos": 6,
-      "actividades": 7,
-      "ejemplos": [
-        {
-          "grupo": "32",
-          "alumno": "alan-salvador-rojas-pina",
-          "nombre": "Alan Salvador Rojas Piña",
-          "actividad": "act12-movimientos-sociales",
-          "titulo": "Movimientos sociales (Mentes en acción)"
-        },
-        {
-          "grupo": "32",
-          "alumno": "armando-altamirano-gurrion",
-          "nombre": "Armando Altamirano Gurrion",
-          "actividad": "act08-movimientos-sociales",
-          "titulo": "Movimientos Sociales"
-        },
-        {
-          "grupo": "32",
-          "alumno": "miguel-belman",
-          "nombre": "Miguel Ángel Belman Mejía",
-          "actividad": "act09-movimientos-sociales",
-          "titulo": "Movimientos sociales"
-        }
-      ]
-    },
-    {
       "id": "persuade-voz",
       "nombre": "Persuade con tu voz",
       "resumen": "Emma Rodero y el poder de la voz para comunicar y convencer.",
-      "alumnos": 6,
-      "actividades": 6,
+      "alumnos": 12,
+      "actividades": 12,
       "ejemplos": [
         {
           "grupo": "32",
@@ -249,41 +175,11 @@
       ]
     },
     {
-      "id": "superricos",
-      "nombre": "La influencia de los superricos",
-      "resumen": "Cómo la riqueza extrema moldea ciudades, política y sociedad.",
-      "alumnos": 6,
-      "actividades": 6,
-      "ejemplos": [
-        {
-          "grupo": "32",
-          "alumno": "alan-salvador-rojas-pina",
-          "nombre": "Alan Salvador Rojas Piña",
-          "actividad": "act10-superricos",
-          "titulo": "¿Cuánta influencia tienen los superricos?"
-        },
-        {
-          "grupo": "32",
-          "alumno": "armando-altamirano-gurrion",
-          "nombre": "Armando Altamirano Gurrion",
-          "actividad": "act10-super-ricos",
-          "titulo": "Super Ricos Video DW"
-        },
-        {
-          "grupo": "32",
-          "alumno": "kevin-alonso",
-          "nombre": "Kevin Alonso",
-          "actividad": "act15-documental-los-ricos",
-          "titulo": "Reflexion: la influencia de los ricos en las ciudades"
-        }
-      ]
-    },
-    {
       "id": "gigantes-tecnologicos",
       "nombre": "Gigantes tecnológicos y poder",
       "resumen": "El poder de las grandes empresas y lo que hay debajo de la nube.",
-      "alumnos": 5,
-      "actividades": 12,
+      "alumnos": 11,
+      "actividades": 24,
       "ejemplos": [
         {
           "grupo": "32",
@@ -309,11 +205,101 @@
       ]
     },
     {
+      "id": "creatividad",
+      "nombre": "Creatividad e innovación",
+      "resumen": "Elkhonon Goldberg y cómo el cerebro genera ideas nuevas.",
+      "alumnos": 11,
+      "actividades": 17,
+      "ejemplos": [
+        {
+          "grupo": "32",
+          "alumno": "alan-salvador-rojas-pina",
+          "nombre": "Alan Salvador Rojas Piña",
+          "actividad": "act21-s18-creatividad",
+          "titulo": "Creatividad · Elkhonon Goldberg"
+        },
+        {
+          "grupo": "32",
+          "alumno": "armando-altamirano-gurrion",
+          "nombre": "Armando Altamirano Gurrion",
+          "actividad": "act15-creatividad",
+          "titulo": "Creatividad"
+        },
+        {
+          "grupo": "32",
+          "alumno": "bradley-reyes-altamirano",
+          "nombre": "Bradley Yeray Reyes Altamirano",
+          "actividad": "act05-pensamiento-sistemico",
+          "titulo": "Sistemas, patrones y nuevas ideas"
+        }
+      ]
+    },
+    {
+      "id": "quinta-disciplina",
+      "nombre": "La quinta disciplina",
+      "resumen": "Peter Senge y las organizaciones que aprenden a través del pensamiento sistémico.",
+      "alumnos": 11,
+      "actividades": 13,
+      "ejemplos": [
+        {
+          "grupo": "32",
+          "alumno": "alan-salvador-rojas-pina",
+          "nombre": "Alan Salvador Rojas Piña",
+          "actividad": "act19-s16-senge",
+          "titulo": "La quinta disciplina · Parte I"
+        },
+        {
+          "grupo": "32",
+          "alumno": "armando-altamirano-gurrion",
+          "nombre": "Armando Altamirano Gurrion",
+          "actividad": "act16-quintadisciplina",
+          "titulo": "Quinta Disciplina"
+        },
+        {
+          "grupo": "32",
+          "alumno": "bradley-reyes-altamirano",
+          "nombre": "Bradley Yeray Reyes Altamirano",
+          "actividad": "act05-pensamiento-sistemico",
+          "titulo": "Sistemas, patrones y nuevas ideas"
+        }
+      ]
+    },
+    {
+      "id": "movimientos-sociales",
+      "nombre": "Movimientos sociales",
+      "resumen": "Mentes en acción: cómo se organizan las personas para cambiar su entorno.",
+      "alumnos": 11,
+      "actividades": 12,
+      "ejemplos": [
+        {
+          "grupo": "32",
+          "alumno": "alan-salvador-rojas-pina",
+          "nombre": "Alan Salvador Rojas Piña",
+          "actividad": "act12-movimientos-sociales",
+          "titulo": "Movimientos sociales (Mentes en acción)"
+        },
+        {
+          "grupo": "32",
+          "alumno": "armando-altamirano-gurrion",
+          "nombre": "Armando Altamirano Gurrion",
+          "actividad": "act08-movimientos-sociales",
+          "titulo": "Movimientos Sociales"
+        },
+        {
+          "grupo": "32",
+          "alumno": "carolina-mejia-aguilar",
+          "nombre": "Carolina Mejia Aguilar",
+          "actividad": "act08-movimientos-sociales",
+          "titulo": "Mentes en accion: movimientos sociales"
+        }
+      ]
+    },
+    {
       "id": "codigo-limpio",
       "nombre": "Código limpio",
       "resumen": "Robert C. Martin: nombres claros, funciones pequeñas y código fácil de leer y mantener.",
-      "alumnos": 5,
-      "actividades": 7,
+      "alumnos": 10,
+      "actividades": 12,
       "ejemplos": [
         {
           "grupo": "32",
@@ -331,10 +317,40 @@
         },
         {
           "grupo": "32",
-          "alumno": "miguel-fuentes-fanjul",
-          "nombre": "Miguel Fuentes Fanjul",
-          "actividad": "act02-codigolimpio",
-          "titulo": "Codigo Limpio"
+          "alumno": "carolina-mejia-aguilar",
+          "nombre": "Carolina Mejia Aguilar",
+          "actividad": "act02-codigo-limpio",
+          "titulo": "Codigo limpio: una experiencia interactiva"
+        }
+      ]
+    },
+    {
+      "id": "superricos",
+      "nombre": "La influencia de los superricos",
+      "resumen": "Cómo la riqueza extrema moldea ciudades, política y sociedad.",
+      "alumnos": 10,
+      "actividades": 10,
+      "ejemplos": [
+        {
+          "grupo": "32",
+          "alumno": "alan-salvador-rojas-pina",
+          "nombre": "Alan Salvador Rojas Piña",
+          "actividad": "act10-superricos",
+          "titulo": "¿Cuánta influencia tienen los superricos?"
+        },
+        {
+          "grupo": "32",
+          "alumno": "armando-altamirano-gurrion",
+          "nombre": "Armando Altamirano Gurrion",
+          "actividad": "act10-super-ricos",
+          "titulo": "Super Ricos Video DW"
+        },
+        {
+          "grupo": "32",
+          "alumno": "erick-arriola-aguillon",
+          "nombre": "Erick Arriola Aguillón",
+          "actividad": "act09-superricos",
+          "titulo": "¿Cuánta influencia tienen los superricos?"
         }
       ]
     },
@@ -342,8 +358,8 @@
       "id": "fracasan-paises",
       "nombre": "¿Por qué fracasan los países?",
       "resumen": "Acemoglu y Robinson: instituciones inclusivas frente a extractivas.",
-      "alumnos": 5,
-      "actividades": 5,
+      "alumnos": 10,
+      "actividades": 10,
       "ejemplos": [
         {
           "grupo": "32",
@@ -361,40 +377,40 @@
         },
         {
           "grupo": "32",
-          "alumno": "miguel-fuentes-fanjul",
-          "nombre": "Miguel Fuentes Fanjul",
-          "actividad": "act17-porquefracasan",
-          "titulo": "Por que fracasan los paises"
+          "alumno": "carolina-mejia-aguilar",
+          "nombre": "Carolina Mejia Aguilar",
+          "actividad": "act06-por-que-fracasan-los-paises",
+          "titulo": "Por que fracasan los paises: instituciones y prosperidad"
         }
       ]
     },
     {
-      "id": "habilidades-directivas",
-      "nombre": "Habilidades directivas",
-      "resumen": "Tiempo, inteligencia emocional, liderazgo, equipos y negociación para dirigir.",
-      "alumnos": 4,
-      "actividades": 20,
+      "id": "filosofia",
+      "nombre": "Filosofía de vida",
+      "resumen": "Yokoi Kenji y la comparación entre la filosofía japonesa y la latinoamericana.",
+      "alumnos": 9,
+      "actividades": 10,
       "ejemplos": [
         {
           "grupo": "32",
-          "alumno": "alan-salvador-rojas-pina",
-          "nombre": "Alan Salvador Rojas Piña",
-          "actividad": "act07-resumenes-habilidades-directivas",
-          "titulo": "Resúmenes de habilidades directivas"
+          "alumno": "carolina-mejia-aguilar",
+          "nombre": "Carolina Mejia Aguilar",
+          "actividad": "act13-sopa-de-letras-kasuga-yokoi",
+          "titulo": "Sopa de letras Kasuga y Yokoi Kenji"
         },
         {
           "grupo": "32",
-          "alumno": "miguel-belman",
-          "nombre": "Miguel Ángel Belman Mejía",
-          "actividad": "act03-habilidades-directivas",
-          "titulo": "Habilidades directivas y su clasificación"
+          "alumno": "erick-arriola-aguillon",
+          "nombre": "Erick Arriola Aguillón",
+          "actividad": "act21-proyecto-mexico",
+          "titulo": "Proyecto: México en su mejor versión"
         },
         {
           "grupo": "32",
-          "alumno": "miguel-garcia",
-          "nombre": "Miguel Garcia",
-          "actividad": "act04-habilidades-del-pensamiento",
-          "titulo": "Habilidades del pensamiento"
+          "alumno": "johan-juarez",
+          "nombre": "Johan Juárez",
+          "actividad": "act12-memorama-filosofia-japonesa",
+          "titulo": "Memorama de Filosofía Japonesa"
         }
       ]
     },
@@ -402,8 +418,8 @@
       "id": "arquetipos",
       "nombre": "Arquetipos sistémicos",
       "resumen": "Patrones que se repiten en los sistemas y explican por qué los problemas regresan.",
-      "alumnos": 4,
-      "actividades": 4,
+      "alumnos": 9,
+      "actividades": 9,
       "ejemplos": [
         {
           "grupo": "32",
@@ -421,10 +437,40 @@
         },
         {
           "grupo": "32",
-          "alumno": "miguel-fuentes-fanjul",
-          "nombre": "Miguel Fuentes Fanjul",
-          "actividad": "act01-arquetipos",
-          "titulo": "Arquetipos"
+          "alumno": "carolina-mejia-aguilar",
+          "nombre": "Carolina Mejia Aguilar",
+          "actividad": "act01-arquetipos-sistemicos",
+          "titulo": "Arquetipos sistemicos en informatica"
+        }
+      ]
+    },
+    {
+      "id": "habilidades-directivas",
+      "nombre": "Habilidades directivas",
+      "resumen": "Tiempo, inteligencia emocional, liderazgo, equipos y negociación para dirigir.",
+      "alumnos": 8,
+      "actividades": 30,
+      "ejemplos": [
+        {
+          "grupo": "32",
+          "alumno": "alan-salvador-rojas-pina",
+          "nombre": "Alan Salvador Rojas Piña",
+          "actividad": "act07-resumenes-habilidades-directivas",
+          "titulo": "Resúmenes de habilidades directivas"
+        },
+        {
+          "grupo": "32",
+          "alumno": "erick-arriola-aguillon",
+          "nombre": "Erick Arriola Aguillón",
+          "actividad": "act07-habilidades-directivas",
+          "titulo": "Resúmenes de habilidades directivas"
+        },
+        {
+          "grupo": "32",
+          "alumno": "johan-juarez",
+          "nombre": "Johan Juárez",
+          "actividad": "act05-exposiciones-habilidades-directivas",
+          "titulo": "Exposiciones: Habilidades Directivas (Capítulos 1 al 13)"
         }
       ]
     },
@@ -432,8 +478,8 @@
       "id": "pensamiento-critico",
       "nombre": "Pensamiento crítico",
       "resumen": "Cuestionar la información y formar una opinión propia con argumentos.",
-      "alumnos": 3,
-      "actividades": 5,
+      "alumnos": 8,
+      "actividades": 13,
       "ejemplos": [
         {
           "grupo": "32",
@@ -444,47 +490,17 @@
         },
         {
           "grupo": "32",
-          "alumno": "miguel-fuentes-fanjul",
-          "nombre": "Miguel Fuentes Fanjul",
-          "actividad": "act11-comentario",
-          "titulo": "Comentario de video"
+          "alumno": "erick-arriola-aguillon",
+          "nombre": "Erick Arriola Aguillón",
+          "actividad": "act08-pensamiento-critico",
+          "titulo": "Sin pensamiento crítico no eres nadie"
         },
         {
           "grupo": "32",
-          "alumno": "miguel-garcia",
-          "nombre": "Miguel Garcia",
-          "actividad": "act05-pensagram",
-          "titulo": "Pensagram"
-        }
-      ]
-    },
-    {
-      "id": "filosofia",
-      "nombre": "Filosofía de vida",
-      "resumen": "Yokoi Kenji y la comparación entre la filosofía japonesa y la latinoamericana.",
-      "alumnos": 3,
-      "actividades": 3,
-      "ejemplos": [
-        {
-          "grupo": "32",
-          "alumno": "miguel-fuentes-fanjul",
-          "nombre": "Miguel Fuentes Fanjul",
-          "actividad": "act09-analisis",
-          "titulo": "Analisis Yokoi Kenji y Carlos Kasuaga"
-        },
-        {
-          "grupo": "32",
-          "alumno": "miguel-garcia",
-          "nombre": "Miguel Garcia",
-          "actividad": "act07-filosofia-japonesa-vs-latinoamericana",
-          "titulo": "Filosofia japonesa vs latinoamericana"
-        },
-        {
-          "grupo": "32",
-          "alumno": "ximena-martinez",
-          "nombre": "Ximena Martínez Gudiño",
-          "actividad": "act12-filosofia-yokoi-kenji",
-          "titulo": "Filosofía de Yokoi Kenji"
+          "alumno": "johan-juarez",
+          "nombre": "Johan Juárez",
+          "actividad": "act14-persuade-con-tu-voz",
+          "titulo": "Persuade con tu voz: Estrategias para sonar creíble"
         }
       ]
     },
@@ -492,29 +508,29 @@
       "id": "dinero",
       "nombre": "Dinero y éxito",
       "resumen": "Efecto compuesto, lecciones de negocios y la psicología del dinero.",
-      "alumnos": 3,
-      "actividades": 3,
+      "alumnos": 7,
+      "actividades": 10,
       "ejemplos": [
         {
           "grupo": "32",
-          "alumno": "kevin-alonso",
-          "nombre": "Kevin Alonso",
-          "actividad": "act06-iceberg-gigantes-tecnologicos",
-          "titulo": "El iceberg de los gigantes tecnologicos"
+          "alumno": "erick-arriola-aguillon",
+          "nombre": "Erick Arriola Aguillón",
+          "actividad": "act04-elias-ayub",
+          "titulo": "Siete lecciones de negocios de Arturo Elías Ayub"
         },
         {
           "grupo": "32",
-          "alumno": "miguel-belman",
-          "nombre": "Miguel Ángel Belman Mejía",
-          "actividad": "act01-efecto-compuesto",
-          "titulo": "Efecto Compuesto"
+          "alumno": "johan-juarez",
+          "nombre": "Johan Juárez",
+          "actividad": "act06-psicologia-del-dinero",
+          "titulo": "La Psicología del Dinero (Morgan Housel)"
         },
         {
           "grupo": "32",
-          "alumno": "miguel-fuentes-fanjul",
-          "nombre": "Miguel Fuentes Fanjul",
-          "actividad": "act18-lecciones",
-          "titulo": "Lecciones de negocios, dinero y exito"
+          "alumno": "juan-diego-olvera-medina",
+          "nombre": "Juan Diego Olvera Medina",
+          "actividad": "act03-efecto-compuesto",
+          "titulo": "Efecto compuesto"
         }
       ]
     },
@@ -522,22 +538,29 @@
       "id": "colon",
       "nombre": "Colón y la historia",
       "resumen": "Infografías sobre Cristóbal Colón y su contexto.",
-      "alumnos": 2,
-      "actividades": 2,
+      "alumnos": 5,
+      "actividades": 5,
       "ejemplos": [
+        {
+          "grupo": "32",
+          "alumno": "johan-juarez",
+          "nombre": "Johan Juárez",
+          "actividad": "act23-big-tech-queretaro-colon",
+          "titulo": "Impacto de Big Tech y Centros de Datos en Querétaro (Colón)"
+        },
+        {
+          "grupo": "32",
+          "alumno": "juan-diego-olvera-medina",
+          "nombre": "Juan Diego Olvera Medina",
+          "actividad": "act10-infografia-colon",
+          "titulo": "Infografía de Colón"
+        },
         {
           "grupo": "32",
           "alumno": "miguel-garcia",
           "nombre": "Miguel Garcia",
           "actividad": "act14-actividad-colon",
           "titulo": "Actividad Colon"
-        },
-        {
-          "grupo": "32",
-          "alumno": "ximena-martinez",
-          "nombre": "Ximena Martínez Gudiño",
-          "actividad": "act03-infografia-colon",
-          "titulo": "Infografía de Colón"
         }
       ]
     }
@@ -1034,6 +1057,32 @@
           ]
         },
         {
+          "id": "axel-daniel-estrada",
+          "nombre": "Axel Daniel Estrada Malagon",
+          "github": "aestrada40-blip",
+          "sobreMi": "expediente 285736",
+          "tecnologias": [
+            "HTML",
+            "CSS",
+            "JavaScript"
+          ],
+          "actividades": [
+            {
+              "id": "act01-portafolio-actividades",
+              "tipo": "web",
+              "titulo": "Portafolio de actividades",
+              "descripcion": "Portafolio de actividades en formato web.",
+              "fecha": "2026-11-18",
+              "tecnologias": [
+                "HTML",
+                "CSS",
+                "JavaScript"
+              ],
+              "ruta": "grupos/32/alumnos/axel-daniel-estrada/actividades/portafolio_de_actividades_axel_daniel.html"
+            }
+          ]
+        },
+        {
           "id": "bradley-reyes-altamirano",
           "nombre": "Bradley Yeray Reyes Altamirano",
           "github": "brad2442",
@@ -1198,6 +1247,1324 @@
               "fecha": "",
               "tecnologias": [],
               "ruta": "grupos/32/alumnos/bradley-reyes-altamirano/actividades/act15-documental-ricos/resumen.pdf"
+            }
+          ]
+        },
+        {
+          "id": "carolina-mejia-aguilar",
+          "nombre": "Carolina Mejia Aguilar",
+          "github": "Carolmej",
+          "sobreMi": "",
+          "tecnologias": [
+            "HTML",
+            "CSS",
+            "JavaScript",
+            "Investigacion"
+          ],
+          "actividades": [
+            {
+              "id": "act01-arquetipos-sistemicos",
+              "tipo": "web",
+              "titulo": "Arquetipos sistemicos en informatica",
+              "descripcion": "Pagina interactiva sobre los arquetipos sistemicos aplicados a la informatica.",
+              "fecha": "",
+              "tecnologias": [
+                "HTML",
+                "CSS",
+                "JavaScript"
+              ],
+              "ruta": "grupos/32/alumnos/carolina-mejia-aguilar/actividades/act01-arquetipos-sistemicos/index.html"
+            },
+            {
+              "id": "act02-codigo-limpio",
+              "tipo": "web",
+              "titulo": "Codigo limpio: una experiencia interactiva",
+              "descripcion": "Experiencia interactiva sobre Codigo limpio.",
+              "fecha": "",
+              "tecnologias": [
+                "HTML",
+                "CSS",
+                "JavaScript"
+              ],
+              "ruta": "grupos/32/alumnos/carolina-mejia-aguilar/actividades/act02-codigo-limpio/index.html"
+            },
+            {
+              "id": "act03-empresario-mexicano-ideal",
+              "tipo": "web",
+              "titulo": "El empresario mexicano ideal",
+              "descripcion": "Pagina sobre el perfil del empresario mexicano ideal.",
+              "fecha": "",
+              "tecnologias": [
+                "HTML",
+                "CSS",
+                "JavaScript"
+              ],
+              "ruta": "grupos/32/alumnos/carolina-mejia-aguilar/actividades/act03-empresario-mexicano-ideal/index.html"
+            },
+            {
+              "id": "act04-resumen-exposiciones",
+              "tipo": "web",
+              "titulo": "Resumenes de exposiciones",
+              "descripcion": "Mapa mental con los resumenes de las exposiciones.",
+              "fecha": "",
+              "tecnologias": [
+                "HTML",
+                "CSS",
+                "JavaScript"
+              ],
+              "ruta": "grupos/32/alumnos/carolina-mejia-aguilar/actividades/act04-resumen-exposiciones/index.html"
+            },
+            {
+              "id": "act05-carlos-slim",
+              "tipo": "imagen",
+              "titulo": "Carlos Slim: gigante de Mexico",
+              "descripcion": "Infografia sobre el empresario Carlos Slim.",
+              "fecha": "",
+              "tecnologias": [
+                "Investigacion"
+              ],
+              "ruta": "grupos/32/alumnos/carolina-mejia-aguilar/actividades/act05-carlos-slim/imagen.png"
+            },
+            {
+              "id": "act06-por-que-fracasan-los-paises",
+              "tipo": "imagen",
+              "titulo": "Por que fracasan los paises: instituciones y prosperidad",
+              "descripcion": "Infografia sobre instituciones y prosperidad.",
+              "fecha": "",
+              "tecnologias": [
+                "Investigacion"
+              ],
+              "ruta": "grupos/32/alumnos/carolina-mejia-aguilar/actividades/act06-por-que-fracasan-los-paises/imagen.png"
+            },
+            {
+              "id": "act07-gigantes-digitales",
+              "tipo": "pdf",
+              "titulo": "Gigantes digitales",
+              "descripcion": "Infografia sobre los gigantes tecnologicos.",
+              "fecha": "",
+              "tecnologias": [
+                "Investigacion"
+              ],
+              "ruta": "grupos/32/alumnos/carolina-mejia-aguilar/actividades/act07-gigantes-digitales/documento.pdf"
+            },
+            {
+              "id": "act08-movimientos-sociales",
+              "tipo": "web",
+              "titulo": "Mentes en accion: movimientos sociales",
+              "descripcion": "Investigacion sobre movimientos sociales.",
+              "fecha": "",
+              "tecnologias": [
+                "Investigacion"
+              ],
+              "ruta": "grupos/32/alumnos/carolina-mejia-aguilar/actividades/act08-movimientos-sociales/index.html"
+            },
+            {
+              "id": "act09-persuade-con-tu-voz",
+              "tipo": "pdf",
+              "titulo": "La voz humana",
+              "descripcion": "Investigacion sobre la voz humana (Persuade con tu voz, Emma Rodero).",
+              "fecha": "",
+              "tecnologias": [
+                "Investigacion"
+              ],
+              "ruta": "grupos/32/alumnos/carolina-mejia-aguilar/actividades/act09-persuade-con-tu-voz/documento.pdf"
+            },
+            {
+              "id": "act10-resumen-creatividad",
+              "tipo": "pdf",
+              "titulo": "Resumen de Creatividad (hasta la pagina 30)",
+              "descripcion": "Resumen del libro de creatividad de Goldberg.",
+              "fecha": "",
+              "tecnologias": [
+                "Investigacion"
+              ],
+              "ruta": "grupos/32/alumnos/carolina-mejia-aguilar/actividades/act10-resumen-creatividad/documento.pdf"
+            },
+            {
+              "id": "act11-opinion-creatividad-goldberg",
+              "tipo": "pdf",
+              "titulo": "Opinion del libro Creatividad de Goldberg",
+              "descripcion": "Opinion personal sobre el libro de creatividad de Goldberg.",
+              "fecha": "",
+              "tecnologias": [
+                "Investigacion"
+              ],
+              "ruta": "grupos/32/alumnos/carolina-mejia-aguilar/actividades/act11-opinion-creatividad-goldberg/documento.pdf"
+            },
+            {
+              "id": "act12-comparativo-empresarios",
+              "tipo": "web",
+              "titulo": "Cuadro comparativo de empresarios mexicanos",
+              "descripcion": "Cuadro comparativo de empresarios mexicanos (Slim, Salinas Pliego y Azcarraga).",
+              "fecha": "",
+              "tecnologias": [
+                "Investigacion"
+              ],
+              "ruta": "grupos/32/alumnos/carolina-mejia-aguilar/actividades/act12-comparativo-empresarios/index.html"
+            },
+            {
+              "id": "act13-sopa-de-letras-kasuga-yokoi",
+              "tipo": "web",
+              "titulo": "Sopa de letras Kasuga y Yokoi Kenji",
+              "descripcion": "Sopa de letras con palabras clave de la filosofia de Carlos Kasuga y Yokoi Kenji.",
+              "fecha": "",
+              "tecnologias": [
+                "Investigacion"
+              ],
+              "ruta": "grupos/32/alumnos/carolina-mejia-aguilar/actividades/act13-sopa-de-letras-kasuga-yokoi/index.html"
+            }
+          ]
+        },
+        {
+          "id": "erick-arriola-aguillon",
+          "nombre": "Erick Arriola Aguillón",
+          "github": "ErickHub192",
+          "sobreMi": "Estudiante de Ingeniería de Software en la UAQ. Me gusta crear software, la inteligencia artificial y tocar guitarra y piano.",
+          "tecnologias": [
+            "HTML",
+            "CSS",
+            "JavaScript",
+            "Diseño"
+          ],
+          "actividades": [
+            {
+              "id": "act00-menu",
+              "tipo": "web",
+              "titulo": "Menú de actividades",
+              "descripcion": "Todas mis actividades del semestre en un solo lugar, ordenadas por parcial y con buscador.",
+              "fecha": "",
+              "tecnologias": [
+                "HTML",
+                "CSS",
+                "JavaScript"
+              ],
+              "ruta": "grupos/32/alumnos/erick-arriola-aguillon/actividades/index.html"
+            },
+            {
+              "id": "act01-7-habitos",
+              "tipo": "web",
+              "titulo": "Los 7 hábitos de los adolescentes altamente efectivos",
+              "descripcion": "Introducción, sopa de letras, autor (Sean Covey) y collage.",
+              "fecha": "2026-08-11",
+              "tecnologias": [
+                "HTML",
+                "CSS",
+                "JavaScript"
+              ],
+              "ruta": "grupos/32/alumnos/erick-arriola-aguillon/actividades/act01-7-habitos/index.html"
+            },
+            {
+              "id": "act01-infografia-7-habitos",
+              "tipo": "imagen",
+              "titulo": "Infografía: los 7 hábitos",
+              "descripcion": "Infografía de los 7 hábitos.",
+              "fecha": "2026-08-06",
+              "tecnologias": [
+                "Diseño"
+              ],
+              "ruta": "grupos/32/alumnos/erick-arriola-aguillon/actividades/act01-7-habitos/infografia_7_habitos.jpg"
+            },
+            {
+              "id": "act01-persuade-voz",
+              "tipo": "web",
+              "titulo": "Persuade con tu voz",
+              "descripcion": "Resumen de la charla de Emma Rodero: intensidad, tono, timbre y duración.",
+              "fecha": "2026-08-11",
+              "tecnologias": [
+                "HTML",
+                "CSS",
+                "JavaScript"
+              ],
+              "ruta": "grupos/32/alumnos/erick-arriola-aguillon/actividades/act01-7-habitos/index.html#voz"
+            },
+            {
+              "id": "act07-habilidades-directivas",
+              "tipo": "web",
+              "titulo": "Resúmenes de habilidades directivas",
+              "descripcion": "Capítulos 1, 2, 3, 5, 7, 8, 10 y 13, con matriz de urgente contra importante y repaso.",
+              "fecha": "",
+              "tecnologias": [
+                "HTML",
+                "CSS",
+                "JavaScript"
+              ],
+              "ruta": "grupos/32/alumnos/erick-arriola-aguillon/actividades/act07-habilidades-directivas/index.html"
+            },
+            {
+              "id": "act08-pensamiento-critico",
+              "tipo": "web",
+              "titulo": "Sin pensamiento crítico no eres nadie",
+              "descripcion": "Lo que entendí de la charla TEDx de Pablo Pérez-Paetow, mi opinión y un ejercicio de hechos contra opiniones.",
+              "fecha": "",
+              "tecnologias": [
+                "HTML",
+                "CSS",
+                "JavaScript"
+              ],
+              "ruta": "grupos/32/alumnos/erick-arriola-aguillon/actividades/act08-pensamiento-critico/index.html"
+            },
+            {
+              "id": "act09-superricos",
+              "tipo": "web",
+              "titulo": "¿Cuánta influencia tienen los superricos?",
+              "descripcion": "Análisis del documental de DW y simulación de un alcalde ante un donante.",
+              "fecha": "",
+              "tecnologias": [
+                "HTML",
+                "CSS",
+                "JavaScript"
+              ],
+              "ruta": "grupos/32/alumnos/erick-arriola-aguillon/actividades/act09-superricos/index.html"
+            },
+            {
+              "id": "act10-fracasan-paises",
+              "tipo": "web",
+              "titulo": "Infografía: ¿por qué fracasan los países?",
+              "descripcion": "Instituciones inclusivas y extractivas según Acemoglu y Robinson.",
+              "fecha": "",
+              "tecnologias": [
+                "HTML",
+                "CSS",
+                "JavaScript"
+              ],
+              "ruta": "grupos/32/alumnos/erick-arriola-aguillon/actividades/act10-fracasan-paises/index.html"
+            },
+            {
+              "id": "act11-movimientos-sociales",
+              "tipo": "web",
+              "titulo": "Movimientos sociales (Mentes en acción)",
+              "descripcion": "Cómo nacen los movimientos sociales y qué logran.",
+              "fecha": "",
+              "tecnologias": [
+                "HTML",
+                "CSS",
+                "JavaScript"
+              ],
+              "ruta": "grupos/32/alumnos/erick-arriola-aguillon/actividades/act11-movimientos-sociales/index.html"
+            },
+            {
+              "id": "act02-poder-empresas",
+              "tipo": "web",
+              "titulo": "El poder de las empresas",
+              "descripcion": "Infografía sobre multinacionales, regulación y recursos públicos.",
+              "fecha": "2026-10-13",
+              "tecnologias": [
+                "HTML",
+                "CSS",
+                "JavaScript"
+              ],
+              "ruta": "grupos/32/alumnos/erick-arriola-aguillon/actividades/act02-poder-empresas/index.html"
+            },
+            {
+              "id": "act12-gigantes-mexico",
+              "tipo": "web",
+              "titulo": "Gigantes de México: Slim y Zambrano",
+              "descripcion": "Trayectorias de Carlos Slim y Lorenzo Zambrano con línea de tiempo y repaso.",
+              "fecha": "",
+              "tecnologias": [
+                "HTML",
+                "CSS",
+                "JavaScript"
+              ],
+              "ruta": "grupos/32/alumnos/erick-arriola-aguillon/actividades/act12-gigantes-mexico/index.html"
+            },
+            {
+              "id": "act13-comparativo-empresarios",
+              "tipo": "web",
+              "titulo": "Cuadro comparativo de empresarios mexicanos",
+              "descripcion": "Slim, Zambrano y Servitje en diez categorías.",
+              "fecha": "",
+              "tecnologias": [
+                "HTML",
+                "CSS",
+                "JavaScript"
+              ],
+              "ruta": "grupos/32/alumnos/erick-arriola-aguillon/actividades/act13-comparativo-empresarios/index.html"
+            },
+            {
+              "id": "act14-empresario-ideal",
+              "tipo": "web",
+              "titulo": "Empresario mexicano ideal",
+              "descripcion": "Mi perfil del empresario ideal en diez rasgos.",
+              "fecha": "",
+              "tecnologias": [
+                "HTML",
+                "CSS",
+                "JavaScript"
+              ],
+              "ruta": "grupos/32/alumnos/erick-arriola-aguillon/actividades/act14-empresario-ideal/index.html"
+            },
+            {
+              "id": "act03-codigo-limpio",
+              "tipo": "web",
+              "titulo": "Código limpio: lavandería de código",
+              "descripcion": "Juego interactivo sobre Clean Code de Robert C. Martin.",
+              "fecha": "2026-10-13",
+              "tecnologias": [
+                "HTML",
+                "CSS",
+                "JavaScript"
+              ],
+              "ruta": "grupos/32/alumnos/erick-arriola-aguillon/actividades/act03-codigo-limpio/index.html"
+            },
+            {
+              "id": "act04-elias-ayub",
+              "tipo": "web",
+              "titulo": "Siete lecciones de negocios de Arturo Elías Ayub",
+              "descripcion": "Lecciones de negocios y dinero del episodio de Dimes y Billetes.",
+              "fecha": "2026-10-13",
+              "tecnologias": [
+                "HTML",
+                "CSS",
+                "JavaScript"
+              ],
+              "ruta": "grupos/32/alumnos/erick-arriola-aguillon/actividades/act04-elias-ayub/index.html"
+            },
+            {
+              "id": "act15-caracteristicas-desarrollo",
+              "tipo": "web",
+              "titulo": "11 características para el desarrollo",
+              "descripcion": "Rueda de competencias: ocho vistas en clase y tres propuestas.",
+              "fecha": "",
+              "tecnologias": [
+                "HTML",
+                "CSS",
+                "JavaScript"
+              ],
+              "ruta": "grupos/32/alumnos/erick-arriola-aguillon/actividades/act15-caracteristicas-desarrollo/index.html"
+            },
+            {
+              "id": "act16-quinta-disciplina",
+              "tipo": "web",
+              "titulo": "La quinta disciplina · Parte I",
+              "descripcion": "Peter Senge: cinco disciplinas, siete barreras y el juego de la cerveza.",
+              "fecha": "",
+              "tecnologias": [
+                "HTML",
+                "CSS",
+                "JavaScript"
+              ],
+              "ruta": "grupos/32/alumnos/erick-arriola-aguillon/actividades/act16-quinta-disciplina/index.html"
+            },
+            {
+              "id": "act17-arquetipos",
+              "tipo": "web",
+              "titulo": "Arquetipos sistémicos",
+              "descripcion": "Diez patrones sistémicos con ejemplos y un ejercicio para identificarlos.",
+              "fecha": "",
+              "tecnologias": [
+                "HTML",
+                "CSS",
+                "JavaScript"
+              ],
+              "ruta": "grupos/32/alumnos/erick-arriola-aguillon/actividades/act17-arquetipos/index.html"
+            },
+            {
+              "id": "act18-creatividad",
+              "tipo": "web",
+              "titulo": "Creatividad · Elkhonon Goldberg",
+              "descripcion": "Las tres redes del cerebro y un taller para combinar ideas.",
+              "fecha": "",
+              "tecnologias": [
+                "HTML",
+                "CSS",
+                "JavaScript"
+              ],
+              "ruta": "grupos/32/alumnos/erick-arriola-aguillon/actividades/act18-creatividad/index.html"
+            },
+            {
+              "id": "act19-habilidad-estrategica",
+              "tipo": "web",
+              "titulo": "La habilidad estratégica · capítulo 12",
+              "descripcion": "Mapa estratégico, ciclo de dirección y un caso para decidir.",
+              "fecha": "",
+              "tecnologias": [
+                "HTML",
+                "CSS",
+                "JavaScript"
+              ],
+              "ruta": "grupos/32/alumnos/erick-arriola-aguillon/actividades/act19-habilidad-estrategica/index.html"
+            },
+            {
+              "id": "act05-psicologia-dinero",
+              "tipo": "web",
+              "titulo": "La psicología del dinero: lotería del dinero",
+              "descripcion": "Ideas de Morgan Housel en forma de cartas de lotería.",
+              "fecha": "2026-11-12",
+              "tecnologias": [
+                "HTML",
+                "CSS",
+                "JavaScript"
+              ],
+              "ruta": "grupos/32/alumnos/erick-arriola-aguillon/actividades/act05-psicologia-dinero/index.html"
+            },
+            {
+              "id": "act06-psicologia-dinero-historia",
+              "tipo": "web",
+              "titulo": "Diez años, cinco decisiones",
+              "descripcion": "La psicología del dinero en forma de historia interactiva.",
+              "fecha": "2026-11-12",
+              "tecnologias": [
+                "HTML",
+                "CSS",
+                "JavaScript"
+              ],
+              "ruta": "grupos/32/alumnos/erick-arriola-aguillon/actividades/act06-psicologia-dinero-historia/index.html"
+            },
+            {
+              "id": "act20-proyecto1-decisiones",
+              "tipo": "web",
+              "titulo": "Proyecto 1: herramientas para la toma de decisiones",
+              "descripcion": "FODA, 6 sombreros, CATWDA, Ishikawa y Pareto aplicados a una decisión propia.",
+              "fecha": "",
+              "tecnologias": [
+                "HTML",
+                "CSS",
+                "JavaScript"
+              ],
+              "ruta": "grupos/32/alumnos/erick-arriola-aguillon/actividades/act20-proyecto1-decisiones/index.html"
+            },
+            {
+              "id": "act21-proyecto-mexico",
+              "tipo": "web",
+              "titulo": "Proyecto: México en su mejor versión",
+              "descripcion": "Yokoi Kenji, Carlos Kasuga y el decálogo del desarrollo con un juego de decisiones.",
+              "fecha": "",
+              "tecnologias": [
+                "HTML",
+                "CSS",
+                "JavaScript"
+              ],
+              "ruta": "grupos/32/alumnos/erick-arriola-aguillon/actividades/act21-proyecto-mexico/index.html"
+            }
+          ]
+        },
+        {
+          "id": "johan-juarez",
+          "nombre": "Johan Juárez",
+          "github": "Johanhash",
+          "sobreMi": "Estudiante de la Facultad de Informática UAQ · Grupo 32 · Tópico 2.",
+          "tecnologias": [
+            "Next.js",
+            "React",
+            "TypeScript",
+            "Tailwind CSS",
+            "Comunicación",
+            "Reflexión",
+            "Análisis",
+            "Pensamiento crítico",
+            "Liderazgo",
+            "Infografía",
+            "Economía",
+            "Tecnología",
+            "Desarrollo personal"
+          ],
+          "actividades": [
+            {
+              "id": "act01-codigo-limpio",
+              "tipo": "web",
+              "titulo": "Código Limpio: Explorador interactivo",
+              "descripcion": "Aplicación interactiva sobre el libro Clean Code de Robert C. Martin y principios para escribir código limpio.",
+              "fecha": "",
+              "tecnologias": [
+                "Next.js",
+                "React",
+                "TypeScript",
+                "Tailwind CSS"
+              ],
+              "ruta": "grupos/32/alumnos/johan-juarez/actividades/act01-codigo-limpio/index.html"
+            },
+            {
+              "id": "act02-la-quinta-disciplina",
+              "tipo": "web",
+              "titulo": "La Quinta Disciplina (Peter Senge)",
+              "descripcion": "Análisis interactivo sobre el pensamiento sistémico y las organizaciones que aprenden en La Quinta Disciplina de Peter Senge.",
+              "fecha": "",
+              "tecnologias": [
+                "Next.js",
+                "React",
+                "TypeScript",
+                "Tailwind CSS"
+              ],
+              "ruta": "grupos/32/alumnos/johan-juarez/actividades/act02-sistemas-y-creatividad/quinta-disciplina.html"
+            },
+            {
+              "id": "act03-arquetipos-sistemicos",
+              "tipo": "web",
+              "titulo": "Arquetipos Sistémicos",
+              "descripcion": "Explorador interactivo de arquetipos sistémicos y patrones recurrentes que explican por qué reaparecen los problemas en un sistema.",
+              "fecha": "",
+              "tecnologias": [
+                "Next.js",
+                "React",
+                "TypeScript",
+                "Tailwind CSS"
+              ],
+              "ruta": "grupos/32/alumnos/johan-juarez/actividades/act02-sistemas-y-creatividad/arquetipos.html"
+            },
+            {
+              "id": "act04-creatividad-goldberg",
+              "tipo": "web",
+              "titulo": "Creatividad e Innovación (Elkhonon Goldberg)",
+              "descripcion": "Vista interactiva sobre neurobiología de la creatividad y cómo el cerebro humano genera ideas nuevas según Elkhonon Goldberg.",
+              "fecha": "",
+              "tecnologias": [
+                "Next.js",
+                "React",
+                "TypeScript",
+                "Tailwind CSS"
+              ],
+              "ruta": "grupos/32/alumnos/johan-juarez/actividades/act02-sistemas-y-creatividad/creatividad.html"
+            },
+            {
+              "id": "act05-exposiciones-habilidades-directivas",
+              "tipo": "web",
+              "titulo": "Exposiciones: Habilidades Directivas (Capítulos 1 al 13)",
+              "descripcion": "Collages interactivos de las exposiciones de Habilidades Directivas: clasificación, alta dirección, inteligencia emocional, administración del tiempo, creatividad, toma de decisiones, trabajo en equipo, negociación, habilidad estratégica y habilidades del pensamiento.",
+              "fecha": "",
+              "tecnologias": [
+                "Next.js",
+                "React",
+                "TypeScript",
+                "Tailwind CSS"
+              ],
+              "ruta": "grupos/32/alumnos/johan-juarez/actividades/act05-exposiciones/index.html"
+            },
+            {
+              "id": "act06-psicologia-del-dinero",
+              "tipo": "web",
+              "titulo": "La Psicología del Dinero (Morgan Housel)",
+              "descripcion": "Collage interactivo sobre comportamiento financiero, paciencia, azar, riesgo, construcción de patrimonio y control del tiempo.",
+              "fecha": "",
+              "tecnologias": [
+                "Next.js",
+                "React",
+                "TypeScript",
+                "Tailwind CSS"
+              ],
+              "ruta": "grupos/32/alumnos/johan-juarez/actividades/act05-exposiciones/psicologia-del-dinero.html"
+            },
+            {
+              "id": "act07-principios-ray-dalio",
+              "tipo": "web",
+              "titulo": "Principios (Ray Dalio)",
+              "descripcion": "Collage interactivo sobre los principios vitales y laborales de Ray Dalio: proceso de 5 pasos, mente abierta radical y cultura de aprendizaje.",
+              "fecha": "",
+              "tecnologias": [
+                "Next.js",
+                "React",
+                "TypeScript",
+                "Tailwind CSS"
+              ],
+              "ruta": "grupos/32/alumnos/johan-juarez/actividades/act05-exposiciones/principios.html"
+            },
+            {
+              "id": "act08-leyes-naturaleza-humana",
+              "tipo": "web",
+              "titulo": "Las 18 Leyes de la Naturaleza Humana (Robert Greene)",
+              "descripcion": "Collage interactivo sobre irracionalidad, narcisismo, máscaras, carácter y las fuerzas que guían el comportamiento humano.",
+              "fecha": "",
+              "tecnologias": [
+                "Next.js",
+                "React",
+                "TypeScript",
+                "Tailwind CSS"
+              ],
+              "ruta": "grupos/32/alumnos/johan-juarez/actividades/act05-exposiciones/leyes-naturaleza-humana.html"
+            },
+            {
+              "id": "act09-secretos-mente-millonaria",
+              "tipo": "web",
+              "titulo": "Los Secretos de la Mente Millonaria (T. Harv Eker)",
+              "descripcion": "Collage interactivo sobre el termostato financiero, programación verbal, modelado de experiencias y hábitos de dinero y éxito.",
+              "fecha": "",
+              "tecnologias": [
+                "Next.js",
+                "React",
+                "TypeScript",
+                "Tailwind CSS"
+              ],
+              "ruta": "grupos/32/alumnos/johan-juarez/actividades/act05-exposiciones/mente-millonaria.html"
+            },
+            {
+              "id": "act10-motivacion-directiva",
+              "tipo": "web",
+              "titulo": "Habilidades Directivas Cap. 11: Motivación",
+              "descripcion": "Aplicación interactiva sobre el Capítulo 11: Motivación, habilidad elemental del directivo (Maslow, Herzberg, equidad y expectativas).",
+              "fecha": "",
+              "tecnologias": [
+                "Next.js",
+                "React",
+                "TypeScript",
+                "Tailwind CSS"
+              ],
+              "ruta": "grupos/32/alumnos/johan-juarez/actividades/act10-motivacion-directiva/index.html"
+            },
+            {
+              "id": "act11-herramientas-toma-decisiones",
+              "tipo": "web",
+              "titulo": "Herramientas para la Toma de Decisiones",
+              "descripcion": "Aplicación interactiva de diagnóstico y toma de decisiones con FODA, Seis Sombreros, Pareto, Ishikawa y CATWOE.",
+              "fecha": "",
+              "tecnologias": [
+                "Next.js",
+                "React",
+                "TypeScript",
+                "Tailwind CSS"
+              ],
+              "ruta": "grupos/32/alumnos/johan-juarez/actividades/act11-herramientas-toma-decisiones/index.html"
+            },
+            {
+              "id": "act12-memorama-filosofia-japonesa",
+              "tipo": "web",
+              "titulo": "Memorama de Filosofía Japonesa",
+              "descripcion": "Juego interactivo de memoria sobre los principios y filosofía de vida de Carlos Kasuga y Yokoi Kenji, con sección de autor.",
+              "fecha": "",
+              "tecnologias": [
+                "Next.js",
+                "React",
+                "TypeScript",
+                "Tailwind CSS"
+              ],
+              "ruta": "grupos/32/alumnos/johan-juarez/actividades/act12-memorama-filosofia-japonesa/index.html"
+            },
+            {
+              "id": "act13-impulso-desarrollo-personal",
+              "tipo": "web",
+              "titulo": "Impulso: 11 habilidades para el desarrollo personal",
+              "descripcion": "Propuesta interactiva sobre el decálogo y 11 características para el desarrollo personal con retos, misiones y plan propio.",
+              "fecha": "",
+              "tecnologias": [
+                "Next.js",
+                "React",
+                "TypeScript",
+                "Tailwind CSS"
+              ],
+              "ruta": "grupos/32/alumnos/johan-juarez/actividades/act13-impulso-desarrollo-personal/index.html"
+            },
+            {
+              "id": "act14-persuade-con-tu-voz",
+              "tipo": "pdf",
+              "titulo": "Persuade con tu voz: Estrategias para sonar creíble",
+              "descripcion": "Resumen de la charla TEDx de Emma Rodero sobre intensidad, tono, timbre y duración de la voz para proyectar credibilidad.",
+              "fecha": "",
+              "tecnologias": [
+                "Comunicación"
+              ],
+              "ruta": "grupos/32/alumnos/johan-juarez/actividades/act14-persuade-con-tu-voz/persuade-con-tu-voz.pdf"
+            },
+            {
+              "id": "act15-influencia-superricos",
+              "tipo": "pdf",
+              "titulo": "¿Cuánta influencia tienen los superricos?",
+              "descripcion": "Resumen y punto de vista sobre el documental acerca de la influencia de los superricos, la filantropía privada y los impuestos.",
+              "fecha": "",
+              "tecnologias": [
+                "Reflexión"
+              ],
+              "ruta": "grupos/32/alumnos/johan-juarez/actividades/act15-influencia-superricos/influencia-superricos.pdf"
+            },
+            {
+              "id": "act16-movimientos-sociales",
+              "tipo": "pdf",
+              "titulo": "Movimientos sociales (Mentes en acción)",
+              "descripcion": "Resumen del episodio sobre los movimientos sociales como motores de la transformación histórica y la ciudadanía activa.",
+              "fecha": "",
+              "tecnologias": [
+                "Análisis"
+              ],
+              "ruta": "grupos/32/alumnos/johan-juarez/actividades/act16-movimientos-sociales/movimientos-sociales.pdf"
+            },
+            {
+              "id": "act17-pensamiento-critico",
+              "tipo": "pdf",
+              "titulo": "Opinión: Sin pensamiento crítico no eres nadie",
+              "descripcion": "Reflexión y opinión sobre el video acerca del pensamiento crítico frente a la enseñanza memorística tradicional.",
+              "fecha": "",
+              "tecnologias": [
+                "Pensamiento crítico"
+              ],
+              "ruta": "grupos/32/alumnos/johan-juarez/actividades/act17-pensamiento-critico/sin-pensamiento-critico.pdf"
+            },
+            {
+              "id": "act18-cuadro-comparativo-empresarios",
+              "tipo": "pdf",
+              "titulo": "Cuadro comparativo: Liderazgo y modelos empresariales en México",
+              "descripcion": "Comparativo de 10 categorías entre Daniel Servitje Montull (Grupo Bimbo), Lorenzo Zambrano Treviño (CEMEX) y José Antonio Fernández Carbajal (FEMSA / Tec de Monterrey).",
+              "fecha": "",
+              "tecnologias": [
+                "Análisis",
+                "Liderazgo"
+              ],
+              "ruta": "grupos/32/alumnos/johan-juarez/actividades/act18-cuadro-comparativo-empresarios/cuadro-comparativo-empresarios.pdf"
+            },
+            {
+              "id": "act19-empresario-mexicano-ideal",
+              "tipo": "imagen",
+              "titulo": "El empresario mexicano ideal",
+              "descripcion": "Infografía sobre las cualidades y atributos de éxito del empresario mexicano ideal: visión estratégica, resiliencia, ética y liderazgo.",
+              "fecha": "",
+              "tecnologias": [
+                "Infografía",
+                "Liderazgo"
+              ],
+              "ruta": "grupos/32/alumnos/johan-juarez/actividades/act19-empresario-mexicano-ideal/empresario-mexicano-ideal.jpg"
+            },
+            {
+              "id": "act20-gigantes-mexico-bimbo-cemex",
+              "tipo": "imagen",
+              "titulo": "Gigantes de México: Lorenzo Servitje (Bimbo) y Lorenzo Zambrano (CEMEX)",
+              "descripcion": "Infografía comparativa sobre la trayectoria, visión, innovación y expansión multinacional de Grupo Bimbo y CEMEX.",
+              "fecha": "",
+              "tecnologias": [
+                "Infografía",
+                "Liderazgo"
+              ],
+              "ruta": "grupos/32/alumnos/johan-juarez/actividades/act20-gigantes-mexico-bimbo-cemex/lorenzo-servitje-bimbo-lorenzo-zambrano-cemex.jpg"
+            },
+            {
+              "id": "act21-carlos-slim-gigante-mexico",
+              "tipo": "imagen",
+              "titulo": "Carlos Slim: Trayectoria y filosofía",
+              "descripcion": "Infografía sobre la infancia, educación, primeras inversiones, estrategia en crisis, revolución telefónica y legado social de Carlos Slim.",
+              "fecha": "",
+              "tecnologias": [
+                "Infografía",
+                "Liderazgo"
+              ],
+              "ruta": "grupos/32/alumnos/johan-juarez/actividades/act21-carlos-slim-gigante-mexico/carlos-slim.jpg"
+            },
+            {
+              "id": "act22-por-que-fracasan-los-paises",
+              "tipo": "imagen",
+              "titulo": "¿Por qué fracasan los países? El poder de las instituciones",
+              "descripcion": "Infografía sobre instituciones inclusivas vs. instituciones extractivas, destrucción creativa, coyunturas críticas y círculos virtuosos y viciosos.",
+              "fecha": "",
+              "tecnologias": [
+                "Infografía",
+                "Economía"
+              ],
+              "ruta": "grupos/32/alumnos/johan-juarez/actividades/act22-por-que-fracasan-los-paises/por-que-fracasan-los-paises.jpg"
+            },
+            {
+              "id": "act23-big-tech-queretaro-colon",
+              "tipo": "imagen",
+              "titulo": "Impacto de Big Tech y Centros de Datos en Querétaro (Colón)",
+              "descripcion": "Infografía sobre el impacto de los gigantes tecnológicos y centros de datos en Colón, Querétaro: crecimiento digital, consumo de agua, demanda eléctrica y presión urbana.",
+              "fecha": "",
+              "tecnologias": [
+                "Infografía",
+                "Tecnología"
+              ],
+              "ruta": "grupos/32/alumnos/johan-juarez/actividades/act23-big-tech-queretaro-colon/big-tech-centros-datos-queretaro.jpg"
+            },
+            {
+              "id": "act24-los-7-habitos",
+              "tipo": "imagen",
+              "titulo": "Los 7 Hábitos para las Personas Altamente Efectivas",
+              "descripcion": "Infografía sobre los 7 hábitos de Stephen Covey (ser proactivo, empezar con un fin en mente, primero lo primero, ganar/ganar, comprender y ser comprendido, sinergia y afilar la sierra) aplicados en una agencia de comunicación.",
+              "fecha": "",
+              "tecnologias": [
+                "Infografía",
+                "Desarrollo personal"
+              ],
+              "ruta": "grupos/32/alumnos/johan-juarez/actividades/act24-los-7-habitos/los-7-habitos.jpg"
+            }
+          ]
+        },
+        {
+          "id": "jose-maria-pedraza-torres",
+          "nombre": "Jose Maria Pedraza Torres",
+          "github": "josepedrazatorres15-cpu",
+          "sobreMi": "",
+          "tecnologias": [
+            "HTML",
+            "CSS",
+            "JavaScript",
+            "Investigacion"
+          ],
+          "actividades": [
+            {
+              "id": "act01-7-habitos",
+              "tipo": "web",
+              "titulo": "Los 7 Habitos de la Gente Altamente Efectiva",
+              "descripcion": "Pagina interactiva sobre Los 7 Habitos.",
+              "fecha": "",
+              "tecnologias": [
+                "HTML",
+                "CSS",
+                "JavaScript"
+              ],
+              "ruta": "grupos/32/alumnos/jose-maria-pedraza-torres/actividades/act01-7-habitos/index.html"
+            },
+            {
+              "id": "act02-7-habitos-caso-de-estudio",
+              "tipo": "web",
+              "titulo": "Los 7 Habitos y caso de estudio",
+              "descripcion": "Los 7 Habitos aplicados a un caso de estudio.",
+              "fecha": "",
+              "tecnologias": [
+                "HTML",
+                "CSS",
+                "JavaScript"
+              ],
+              "ruta": "grupos/32/alumnos/jose-maria-pedraza-torres/actividades/act02-7-habitos-caso-de-estudio/index.html"
+            },
+            {
+              "id": "act03-memorama-filosofia-japonesa",
+              "tipo": "web",
+              "titulo": "Memorama de filosofia japonesa",
+              "descripcion": "Juego de memoria sobre la filosofia japonesa (Yokoi Kenji).",
+              "fecha": "",
+              "tecnologias": [
+                "HTML",
+                "CSS",
+                "JavaScript"
+              ],
+              "ruta": "grupos/32/alumnos/jose-maria-pedraza-torres/actividades/act03-memorama-filosofia-japonesa/index.html"
+            },
+            {
+              "id": "act04-toma-de-decisiones",
+              "tipo": "web",
+              "titulo": "Herramientas para la toma de decisiones",
+              "descripcion": "Herramientas para analizar problemas y tomar decisiones.",
+              "fecha": "",
+              "tecnologias": [
+                "HTML",
+                "CSS",
+                "JavaScript"
+              ],
+              "ruta": "grupos/32/alumnos/jose-maria-pedraza-torres/actividades/act04-toma-de-decisiones/index.html"
+            },
+            {
+              "id": "act05-pensamiento-critico",
+              "tipo": "web",
+              "titulo": "Pensamiento critico: centro de comando sistemico",
+              "descripcion": "Pensamiento critico y pensamiento sistemico.",
+              "fecha": "",
+              "tecnologias": [
+                "HTML",
+                "CSS",
+                "JavaScript"
+              ],
+              "ruta": "grupos/32/alumnos/jose-maria-pedraza-torres/actividades/act05-pensamiento-critico/index.html"
+            },
+            {
+              "id": "act06-proyecto-integrador",
+              "tipo": "web",
+              "titulo": "Sistemas y creatividad: proyecto integrador",
+              "descripcion": "Proyecto integrador de pensamiento sistemico y creatividad.",
+              "fecha": "",
+              "tecnologias": [
+                "HTML",
+                "CSS",
+                "JavaScript"
+              ],
+              "ruta": "grupos/32/alumnos/jose-maria-pedraza-torres/actividades/act06-proyecto-integrador/index.html"
+            },
+            {
+              "id": "act07-sistemika",
+              "tipo": "web",
+              "titulo": "SistemiKa: hub de pensamiento sistemico y creatividad",
+              "descripcion": "Aplicacion final que reune pensamiento sistemico y creatividad.",
+              "fecha": "",
+              "tecnologias": [
+                "HTML",
+                "CSS",
+                "JavaScript"
+              ],
+              "ruta": "grupos/32/alumnos/jose-maria-pedraza-torres/actividades/act07-sistemika/index.html"
+            },
+            {
+              "id": "act08-resumen-exposiciones",
+              "tipo": "pdf",
+              "titulo": "Resumen de exposiciones",
+              "descripcion": "Resumen de las exposiciones de la clase.",
+              "fecha": "",
+              "tecnologias": [
+                "Investigacion"
+              ],
+              "ruta": "grupos/32/alumnos/jose-maria-pedraza-torres/actividades/act08-resumen-exposiciones/documento.pdf"
+            },
+            {
+              "id": "act08b-resumen-exposiciones",
+              "tipo": "pdf",
+              "titulo": "Resumen de exposiciones (segunda version)",
+              "descripcion": "Segunda version del resumen de exposiciones.",
+              "fecha": "",
+              "tecnologias": [
+                "Investigacion"
+              ],
+              "ruta": "grupos/32/alumnos/jose-maria-pedraza-torres/actividades/act08-resumen-exposiciones/documento-2.pdf"
+            },
+            {
+              "id": "act09-persuade-con-tu-voz",
+              "tipo": "pdf",
+              "titulo": "Resumen sobre la comunicacion oral (Emma Rodero)",
+              "descripcion": "Persuade con tu voz: resumen sobre la comunicacion oral de Emma Rodero.",
+              "fecha": "",
+              "tecnologias": [
+                "Investigacion"
+              ],
+              "ruta": "grupos/32/alumnos/jose-maria-pedraza-torres/actividades/act09-persuade-con-tu-voz/documento.pdf"
+            },
+            {
+              "id": "act10-empresario-ideal",
+              "tipo": "imagen",
+              "titulo": "Empresario mexicano ideal",
+              "descripcion": "Infografia del empresario ideal.",
+              "fecha": "",
+              "tecnologias": [
+                "Investigacion"
+              ],
+              "ruta": "grupos/32/alumnos/jose-maria-pedraza-torres/actividades/act10-empresario-ideal/imagen.jpg"
+            },
+            {
+              "id": "act11-comparativo-empresarios",
+              "tipo": "imagen",
+              "titulo": "Cuadro comparativo de empresarios",
+              "descripcion": "Cuadro comparativo de empresarios mexicanos.",
+              "fecha": "",
+              "tecnologias": [
+                "Investigacion"
+              ],
+              "ruta": "grupos/32/alumnos/jose-maria-pedraza-torres/actividades/act11-comparativo-empresarios/imagen.jpg"
+            },
+            {
+              "id": "act12-dos-empresarios-mexicanos",
+              "tipo": "imagen",
+              "titulo": "Dos empresarios mexicanos",
+              "descripcion": "Infografia de dos empresarios mexicanos.",
+              "fecha": "",
+              "tecnologias": [
+                "Investigacion"
+              ],
+              "ruta": "grupos/32/alumnos/jose-maria-pedraza-torres/actividades/act12-dos-empresarios-mexicanos/imagen.jpg"
+            },
+            {
+              "id": "act13-gigantes-tecnologicos-queretaro",
+              "tipo": "imagen",
+              "titulo": "Gigantes tecnologicos en Queretaro",
+              "descripcion": "Infografia de las grandes empresas de tecnologia en Queretaro.",
+              "fecha": "",
+              "tecnologias": [
+                "Investigacion"
+              ],
+              "ruta": "grupos/32/alumnos/jose-maria-pedraza-torres/actividades/act13-gigantes-tecnologicos-queretaro/imagen.jpg"
+            },
+            {
+              "id": "act14-los-4-grandes",
+              "tipo": "imagen",
+              "titulo": "Los 4 grandes",
+              "descripcion": "Infografia de los gigantes tecnologicos y su poder.",
+              "fecha": "",
+              "tecnologias": [
+                "Investigacion"
+              ],
+              "ruta": "grupos/32/alumnos/jose-maria-pedraza-torres/actividades/act14-los-4-grandes/imagen.jpg"
+            },
+            {
+              "id": "act15-carlos-slim",
+              "tipo": "imagen",
+              "titulo": "Carlos Slim",
+              "descripcion": "Infografia sobre el empresario Carlos Slim.",
+              "fecha": "",
+              "tecnologias": [
+                "Investigacion"
+              ],
+              "ruta": "grupos/32/alumnos/jose-maria-pedraza-torres/actividades/act15-carlos-slim/imagen.jpg"
+            }
+          ]
+        },
+        {
+          "id": "juan-diego-olvera-medina",
+          "nombre": "Juan Diego Olvera Medina",
+          "github": "juandiegoolveramedina20-wq",
+          "sobreMi": "Estudiante de 9.º semestre de LATI (Lic. en Administración de las TI). Me gustan los deportes de equipo, sobre todo el volleyball, los RPG (Outer Wilds es religión) y los juegos de mesa.",
+          "tecnologias": [
+            "HTML",
+            "CSS",
+            "JavaScript",
+            "Resumen",
+            "Mapa conceptual",
+            "Comentario",
+            "Cuadro comparativo",
+            "Reflexión",
+            "Pensagrama",
+            "Infografía",
+            "Perfil"
+          ],
+          "actividades": [
+            {
+              "id": "act01-memorama-gustos",
+              "tipo": "web",
+              "titulo": "Memorama de mis gustos",
+              "descripcion": "Memorama de 8 pares con mis gustos: cada par revela algo de mí. Funciona con teclado y en el celular.",
+              "fecha": "",
+              "tecnologias": [
+                "HTML",
+                "CSS",
+                "JavaScript"
+              ],
+              "ruta": "grupos/32/alumnos/juan-diego-olvera-medina/actividades/act01-memorama-gustos/index.html"
+            },
+            {
+              "id": "act02-7-habitos",
+              "tipo": "web",
+              "titulo": "Los 7 hábitos de la gente altamente efectiva",
+              "descripcion": "Tarjetas con los siete hábitos de Covey, dinámica para unir cada frase con su hábito, lo que entendí y sección del autor.",
+              "fecha": "",
+              "tecnologias": [
+                "HTML",
+                "CSS",
+                "JavaScript"
+              ],
+              "ruta": "grupos/32/alumnos/juan-diego-olvera-medina/actividades/act02-7-habitos/index.html"
+            },
+            {
+              "id": "act03-efecto-compuesto",
+              "tipo": "web",
+              "titulo": "Efecto compuesto",
+              "descripcion": "Calculadora interactiva: qué pasa si mejoras o empeoras un pequeño porcentaje cada día.",
+              "fecha": "",
+              "tecnologias": [
+                "HTML",
+                "CSS",
+                "JavaScript"
+              ],
+              "ruta": "grupos/32/alumnos/juan-diego-olvera-medina/actividades/act03-efecto-compuesto/index.html"
+            },
+            {
+              "id": "act04-toma-de-decisiones",
+              "tipo": "web",
+              "titulo": "Herramientas para la toma de decisiones",
+              "descripcion": "Caso de una universidad que pierde alumnos: FODA para arrastrar con revisión, seis sombreros, Pareto, Ishikawa y CATWOE.",
+              "fecha": "",
+              "tecnologias": [
+                "HTML",
+                "CSS",
+                "JavaScript"
+              ],
+              "ruta": "grupos/32/alumnos/juan-diego-olvera-medina/actividades/act04-toma-de-decisiones/index.html"
+            },
+            {
+              "id": "act05-codigo-limpio",
+              "tipo": "pdf",
+              "titulo": "Código limpio",
+              "descripcion": "Resumen y mapa conceptual de Clean Code de Robert C. Martin: nombres, funciones, comentarios, errores y pruebas.",
+              "fecha": "",
+              "tecnologias": [
+                "Resumen",
+                "Mapa conceptual"
+              ],
+              "ruta": "grupos/32/alumnos/juan-diego-olvera-medina/actividades/act05-codigo-limpio/documento.pdf"
+            },
+            {
+              "id": "act06-pensamiento-critico",
+              "tipo": "pdf",
+              "titulo": "Sin pensamiento crítico no eres nadie",
+              "descripcion": "Comentario de video sobre pensamiento crítico, con un ejemplo propio y mi postura sobre el título.",
+              "fecha": "",
+              "tecnologias": [
+                "Comentario"
+              ],
+              "ruta": "grupos/32/alumnos/juan-diego-olvera-medina/actividades/act06-pensamiento-critico/documento.pdf"
+            },
+            {
+              "id": "act07-yokoi-kenji-kasuga",
+              "tipo": "pdf",
+              "titulo": "Filosofía de Yokoi Kenji y Carlos Kasuga",
+              "descripcion": "Cuadro comparativo de las dos visiones y mi reflexión sobre cuál aplica a México.",
+              "fecha": "",
+              "tecnologias": [
+                "Cuadro comparativo",
+                "Reflexión"
+              ],
+              "ruta": "grupos/32/alumnos/juan-diego-olvera-medina/actividades/act07-yokoi-kenji-kasuga/documento.pdf"
+            },
+            {
+              "id": "act08-persuade-con-tu-voz",
+              "tipo": "pdf",
+              "titulo": "Persuade con tu voz",
+              "descripcion": "Resumen de la conferencia de Emma Rodero: tono, entonación, velocidad y pausas.",
+              "fecha": "",
+              "tecnologias": [
+                "Resumen"
+              ],
+              "ruta": "grupos/32/alumnos/juan-diego-olvera-medina/actividades/act08-persuade-con-tu-voz/documento.pdf"
+            },
+            {
+              "id": "act09-habilidades-pensamiento",
+              "tipo": "pdf",
+              "titulo": "Habilidades del pensamiento y pensagram",
+              "descripcion": "Resumen de las habilidades básicas y superiores del pensamiento, con un pensagrama.",
+              "fecha": "",
+              "tecnologias": [
+                "Resumen",
+                "Pensagrama"
+              ],
+              "ruta": "grupos/32/alumnos/juan-diego-olvera-medina/actividades/act09-habilidades-pensamiento/documento.pdf"
+            },
+            {
+              "id": "act10-infografia-colon",
+              "tipo": "imagen",
+              "titulo": "Infografía de Colón",
+              "descripcion": "Quién era Cristóbal Colón, sus cuatro viajes, lo que cambió y un mito común.",
+              "fecha": "",
+              "tecnologias": [
+                "Infografía"
+              ],
+              "ruta": "grupos/32/alumnos/juan-diego-olvera-medina/actividades/act10-infografia-colon/infografia.png"
+            },
+            {
+              "id": "act11-por-que-fracasan-los-paises",
+              "tipo": "imagen",
+              "titulo": "¿Por qué fracasan los países?",
+              "descripcion": "Infografía del libro de Acemoglu y Robinson: instituciones inclusivas frente a extractivas.",
+              "fecha": "",
+              "tecnologias": [
+                "Infografía"
+              ],
+              "ruta": "grupos/32/alumnos/juan-diego-olvera-medina/actividades/act11-por-que-fracasan-los-paises/infografia.png"
+            },
+            {
+              "id": "act12-iceberg-gigantes-tecnologicos",
+              "tipo": "imagen",
+              "titulo": "El iceberg de los gigantes tecnológicos",
+              "descripcion": "Lo que no se ve de las grandes tecnológicas: datos, poder de mercado, poder político y los centros de datos en Querétaro.",
+              "fecha": "",
+              "tecnologias": [
+                "Infografía"
+              ],
+              "ruta": "grupos/32/alumnos/juan-diego-olvera-medina/actividades/act12-iceberg-gigantes-tecnologicos/infografia.png"
+            },
+            {
+              "id": "act13-super-ricos",
+              "tipo": "pdf",
+              "titulo": "La influencia de los súper ricos",
+              "descripcion": "Reflexión sobre el documental de DW: cómo los multimillonarios influyen en las ciudades.",
+              "fecha": "",
+              "tecnologias": [
+                "Reflexión"
+              ],
+              "ruta": "grupos/32/alumnos/juan-diego-olvera-medina/actividades/act13-super-ricos/documento.pdf"
+            },
+            {
+              "id": "act14-movimientos-sociales",
+              "tipo": "pdf",
+              "titulo": "Movimientos sociales (Mentes en acción)",
+              "descripcion": "Resumen: qué es un movimiento social, sus elementos, etapas y ejemplos.",
+              "fecha": "",
+              "tecnologias": [
+                "Resumen"
+              ],
+              "ruta": "grupos/32/alumnos/juan-diego-olvera-medina/actividades/act14-movimientos-sociales/documento.pdf"
+            },
+            {
+              "id": "act15-lider-visionario",
+              "tipo": "imagen",
+              "titulo": "Líder visionario: Patricia Armendáriz",
+              "descripcion": "Infografía del líder visionario: la fundadora de Financiera Sustentable y qué la hace visionaria.",
+              "fecha": "",
+              "tecnologias": [
+                "Infografía"
+              ],
+              "ruta": "grupos/32/alumnos/juan-diego-olvera-medina/actividades/act15-lider-visionario/infografia.png"
+            },
+            {
+              "id": "act16-empresario-mexicano-ideal",
+              "tipo": "pdf",
+              "titulo": "El empresario mexicano ideal",
+              "descripcion": "Resumen del texto de Ernesto Valdés Rangel y mi perfil de un empresario con conciencia social.",
+              "fecha": "",
+              "tecnologias": [
+                "Resumen",
+                "Perfil"
+              ],
+              "ruta": "grupos/32/alumnos/juan-diego-olvera-medina/actividades/act16-empresario-mexicano-ideal/documento.pdf"
+            },
+            {
+              "id": "act17-lorenzo-servitje-bimbo",
+              "tipo": "imagen",
+              "titulo": "Lorenzo Servitje: la visión detrás de Bimbo",
+              "descripcion": "Línea del tiempo del fundador de Bimbo y su forma de hacer empresa.",
+              "fecha": "",
+              "tecnologias": [
+                "Infografía"
+              ],
+              "ruta": "grupos/32/alumnos/juan-diego-olvera-medina/actividades/act17-lorenzo-servitje-bimbo/infografia.png"
+            },
+            {
+              "id": "act18-lorenzo-zambrano-cemex",
+              "tipo": "imagen",
+              "titulo": "Lorenzo Zambrano: la visión que hizo global a Cemex",
+              "descripcion": "Trayectoria del empresario que llevó a Cemex a más de 50 países.",
+              "fecha": "",
+              "tecnologias": [
+                "Infografía"
+              ],
+              "ruta": "grupos/32/alumnos/juan-diego-olvera-medina/actividades/act18-lorenzo-zambrano-cemex/infografia.png"
+            },
+            {
+              "id": "act19-comparativo-empresarios",
+              "tipo": "pdf",
+              "titulo": "Cuadro comparativo de empresarios mexicanos",
+              "descripcion": "Roberto González Barrera (Gruma, Banorte) frente a Alberto Baillères (Grupo BAL), con mi postura.",
+              "fecha": "",
+              "tecnologias": [
+                "Cuadro comparativo"
+              ],
+              "ruta": "grupos/32/alumnos/juan-diego-olvera-medina/actividades/act19-comparativo-empresarios/documento.pdf"
+            },
+            {
+              "id": "act20-quinta-disciplina",
+              "tipo": "web",
+              "titulo": "La quinta disciplina y arquetipos sistémicos",
+              "descripcion": "Las cinco disciplinas de Senge y el arquetipo adversarios accidentales: ciclos causales interactivos y simulador.",
+              "fecha": "",
+              "tecnologias": [
+                "HTML",
+                "CSS",
+                "JavaScript"
+              ],
+              "ruta": "grupos/32/alumnos/juan-diego-olvera-medina/actividades/act20-quinta-disciplina/index.html"
+            },
+            {
+              "id": "act21-creatividad-goldberg",
+              "tipo": "imagen",
+              "titulo": "Creatividad según Goldberg",
+              "descripcion": "Infografía sobre cómo el cerebro crea ideas nuevas según Elkhonon Goldberg.",
+              "fecha": "",
+              "tecnologias": [
+                "Infografía"
+              ],
+              "ruta": "grupos/32/alumnos/juan-diego-olvera-medina/actividades/act21-creatividad-goldberg/infografia.png"
+            },
+            {
+              "id": "act22-habilidades-directivas",
+              "tipo": "web",
+              "titulo": "Habilidades directivas: liderazgo y motivación",
+              "descripcion": "Capítulos 9 y 11: estilos de liderazgo y test de motivación de McClelland, vistos desde el volleyball.",
+              "fecha": "",
+              "tecnologias": [
+                "HTML",
+                "CSS",
+                "JavaScript"
+              ],
+              "ruta": "grupos/32/alumnos/juan-diego-olvera-medina/actividades/act22-habilidades-directivas/index.html"
+            },
+            {
+              "id": "act26-proyecto-kavak",
+              "tipo": "web",
+              "titulo": "Proyecto final: el caso Kavak",
+              "descripcion": "Análisis del primer unicornio mexicano con FODA, Ishikawa interactivo, recomendaciones y mi opinión.",
+              "fecha": "",
+              "tecnologias": [
+                "HTML",
+                "CSS",
+                "JavaScript"
+              ],
+              "ruta": "grupos/32/alumnos/juan-diego-olvera-medina/actividades/act26-proyecto-kavak/index.html"
             }
           ]
         },
@@ -2059,6 +3426,267 @@
                 "Lectura"
               ],
               "ruta": "grupos/32/alumnos/miguel-garcia/actividades/act23-capitulo-10/capitulo-10.jpeg"
+            }
+          ]
+        },
+        {
+          "id": "uriel-esau-gonzalez-martinez",
+          "nombre": "Uriel Esau Gonzalez Martinez",
+          "github": "bxuri3l",
+          "sobreMi": "Estudiante de la UAQ, 8vo semestre.",
+          "tecnologias": [
+            "HTML",
+            "CSS",
+            "JavaScript",
+            "Investigacion",
+            "Chart.js",
+            "Tailwind CSS",
+            "Infografia"
+          ],
+          "actividades": [
+            {
+              "id": "act01-7habitos",
+              "tipo": "web",
+              "titulo": "Los 7 hábitos: sitio con menú, introducción, dinámica y autor",
+              "descripcion": "Sitio de varias páginas sobre Los 7 hábitos, con menú, introducción con infografía, sopa de letras y sección del autor.",
+              "fecha": "2026-08-06",
+              "tecnologias": [
+                "HTML",
+                "CSS",
+                "JavaScript"
+              ],
+              "ruta": "grupos/32/alumnos/uriel-esau-gonzalez-martinez/actividades/act01-7habitos/Menu.html"
+            },
+            {
+              "id": "act02-secretos-mente-millonaria",
+              "tipo": "pdf",
+              "titulo": "Los secretos de la mente millonaria: exposición",
+              "descripcion": "Presentación de la exposición Los secretos de la mente millonaria, en PDF.",
+              "fecha": "2026-11-19",
+              "tecnologias": [
+                "Investigacion"
+              ],
+              "ruta": "grupos/32/alumnos/uriel-esau-gonzalez-martinez/actividades/act02-secretos-mente-millonaria/exposicion.pdf"
+            },
+            {
+              "id": "act03-codigo-limpio",
+              "tipo": "web",
+              "titulo": "Código Limpio: aprende jugando",
+              "descripcion": "App interactiva para aprender principios de código limpio mediante juegos.",
+              "fecha": "2026-10-15",
+              "tecnologias": [
+                "HTML",
+                "CSS",
+                "JavaScript"
+              ],
+              "ruta": "grupos/32/alumnos/uriel-esau-gonzalez-martinez/actividades/act03-codigo-limpio/app_codigo_limpio.html"
+            },
+            {
+              "id": "act04-arquetipos-sistemicos",
+              "tipo": "web",
+              "titulo": "Arquetipos Sistémicos: explorador interactivo",
+              "descripcion": "Explorador interactivo de los arquetipos sistémicos.",
+              "fecha": "2026-10-29",
+              "tecnologias": [
+                "HTML",
+                "CSS",
+                "JavaScript"
+              ],
+              "ruta": "grupos/32/alumnos/uriel-esau-gonzalez-martinez/actividades/act04-arquetipos-sistemicos/arquetipos_sistemicos_interactivo.html"
+            },
+            {
+              "id": "act05-collage-cap1",
+              "tipo": "web",
+              "titulo": "Collage: Habilidades directivas (Cap. 1)",
+              "descripcion": "Collage visual del capítulo 1 de habilidades directivas.",
+              "fecha": "2026-11-05",
+              "tecnologias": [
+                "HTML",
+                "CSS",
+                "JavaScript"
+              ],
+              "ruta": "grupos/32/alumnos/uriel-esau-gonzalez-martinez/actividades/act05-collage-cap1/coll_cap1.html"
+            },
+            {
+              "id": "act06-collage-cap5",
+              "tipo": "web",
+              "titulo": "Collage: Administración del tiempo (Cap. 5)",
+              "descripcion": "Collage visual del capítulo 5 sobre administración del tiempo.",
+              "fecha": "2026-11-05",
+              "tecnologias": [
+                "HTML",
+                "CSS",
+                "JavaScript"
+              ],
+              "ruta": "grupos/32/alumnos/uriel-esau-gonzalez-martinez/actividades/act06-collage-cap5/coll_cap5.html"
+            },
+            {
+              "id": "act07-collages-cap3-cap7",
+              "tipo": "web",
+              "titulo": "Collage: Habilidades directivas (Cap. 3 y 7)",
+              "descripcion": "Collage de los capítulos 3 y 7 de habilidades directivas.",
+              "fecha": "2026-11-10",
+              "tecnologias": [
+                "HTML",
+                "CSS",
+                "JavaScript"
+              ],
+              "ruta": "grupos/32/alumnos/uriel-esau-gonzalez-martinez/actividades/act07-collages-cap3-cap7/index.html"
+            },
+            {
+              "id": "act08-collages-2-8-10-13-psicologiadinero-dalio",
+              "tipo": "web",
+              "titulo": "Collages: capítulos 2, 8, 10 y 13, Psicología del dinero y Dalio",
+              "descripcion": "Collages unificados de varios capítulos, Psicología del dinero y Ray Dalio.",
+              "fecha": "2026-11-12",
+              "tecnologias": [
+                "HTML",
+                "CSS",
+                "JavaScript"
+              ],
+              "ruta": "grupos/32/alumnos/uriel-esau-gonzalez-martinez/actividades/act08-collages-2-8-10-13-psicologiadinero-dalio/collages_unificado.html"
+            },
+            {
+              "id": "act09-yokoi-kasuga",
+              "tipo": "pdf",
+              "titulo": "Conclusión personal: el éxito según Yokoi Kenji y Carlos Kasuga",
+              "descripcion": "Conclusión personal sobre el éxito desde la perspectiva de Yokoi Kenji y Carlos Kasuga.",
+              "fecha": "2026-09-01",
+              "tecnologias": [
+                "Investigacion"
+              ],
+              "ruta": "grupos/32/alumnos/uriel-esau-gonzalez-martinez/actividades/act09-yokoi-kenji-carlos-kasuga/conclusion-personal.pdf"
+            },
+            {
+              "id": "act10-3-empresario-mx",
+              "tipo": "pdf",
+              "titulo": "Cuadro comparativo de 3 empresarios mexicanos",
+              "descripcion": "Cuadro comparativo de tres empresarios de México.",
+              "fecha": "2026-10-06",
+              "tecnologias": [
+                "Investigacion"
+              ],
+              "ruta": "grupos/32/alumnos/uriel-esau-gonzalez-martinez/actividades/act10-3-empresario-mx/cuadro-comparativo.pdf"
+            },
+            {
+              "id": "act11-empresario-perfecto",
+              "tipo": "web",
+              "titulo": "El Empresario Perfecto",
+              "descripcion": "Actividad interactiva para construir al empresario perfecto.",
+              "fecha": "2026-10-06",
+              "tecnologias": [
+                "HTML",
+                "CSS",
+                "JavaScript"
+              ],
+              "ruta": "grupos/32/alumnos/uriel-esau-gonzalez-martinez/actividades/act11-empresario-perfecto/empresario_perfecto_interactivo.html"
+            },
+            {
+              "id": "act12-foda",
+              "tipo": "web",
+              "titulo": "Sistema de análisis de decisiones y diagnóstico operacional (FODA)",
+              "descripcion": "Sistema de análisis FODA con gráficas para diagnóstico operacional.",
+              "fecha": "2026-09-01",
+              "tecnologias": [
+                "HTML",
+                "CSS",
+                "JavaScript",
+                "Chart.js",
+                "Tailwind CSS"
+              ],
+              "ruta": "grupos/32/alumnos/uriel-esau-gonzalez-martinez/actividades/act12-foda/Foda.html"
+            },
+            {
+              "id": "act13-habilidades-vida-trabajo",
+              "tipo": "web",
+              "titulo": "Habilidades para la vida y el trabajo",
+              "descripcion": "Página sobre habilidades para la vida y el trabajo.",
+              "fecha": "2026-11-03",
+              "tecnologias": [
+                "HTML",
+                "CSS",
+                "JavaScript"
+              ],
+              "ruta": "grupos/32/alumnos/uriel-esau-gonzalez-martinez/actividades/act13-habilidades-vida-trabajo/index.html"
+            },
+            {
+              "id": "act14-infografia-colon",
+              "tipo": "imagen",
+              "titulo": "Infografía: colon",
+              "descripcion": "Infografía sobre el colon.",
+              "fecha": "2026-09-24",
+              "tecnologias": [
+                "Infografia"
+              ],
+              "ruta": "grupos/32/alumnos/uriel-esau-gonzalez-martinez/actividades/act14-infografia-colon/infografia.jpeg"
+            },
+            {
+              "id": "act15-porque-fracasan-los-paises",
+              "tipo": "imagen",
+              "titulo": "Infografía: Por qué fracasan los países",
+              "descripcion": "Infografía sobre por qué fracasan los países.",
+              "fecha": "2026-10-15",
+              "tecnologias": [
+                "Infografia"
+              ],
+              "ruta": "grupos/32/alumnos/uriel-esau-gonzalez-martinez/actividades/act15-porque-fracasan-los-paises/infografia.jpeg"
+            },
+            {
+              "id": "act16-influencia-superricos",
+              "tipo": "pdf",
+              "titulo": "Resumen: Cuánta influencia tienen los superricos (DW)",
+              "descripcion": "Resumen del documental de DW sobre la influencia de los superricos.",
+              "fecha": "2026-08-25",
+              "tecnologias": [
+                "Investigacion"
+              ],
+              "ruta": "grupos/32/alumnos/uriel-esau-gonzalez-martinez/actividades/act16-influencia-superricos/resumen.pdf"
+            },
+            {
+              "id": "act17-charla-tedxyouth",
+              "tipo": "pdf",
+              "titulo": "Resumen de la charla TEDxYouth",
+              "descripcion": "Resumen de una charla TEDxYouth.",
+              "fecha": "2026-11-03",
+              "tecnologias": [
+                "Investigacion"
+              ],
+              "ruta": "grupos/32/alumnos/uriel-esau-gonzalez-martinez/actividades/act17-charla-tedxyouth/resumen.pdf"
+            },
+            {
+              "id": "act18-persuade-con-tu-voz",
+              "tipo": "pdf",
+              "titulo": "Resumen: Persuade con tu voz (Emma Rodero)",
+              "descripcion": "Resumen de la charla TEDx de Emma Rodero sobre estrategias para sonar creíble.",
+              "fecha": "2026-08-25",
+              "tecnologias": [
+                "Investigacion"
+              ],
+              "ruta": "grupos/32/alumnos/uriel-esau-gonzalez-martinez/actividades/act18-persuade-con-tu-voz/resumen.pdf"
+            },
+            {
+              "id": "act19-mentes-en-accion",
+              "tipo": "pdf",
+              "titulo": "Resumen: Mentes en acción, cap. 1 Inteligencia",
+              "descripcion": "Resumen del video Mentes en acción (Ubaldo), capítulo 1: Inteligencia.",
+              "fecha": "2026-09-24",
+              "tecnologias": [
+                "Investigacion"
+              ],
+              "ruta": "grupos/32/alumnos/uriel-esau-gonzalez-martinez/actividades/act19-mentes-en-accion/resumen.pdf"
+            },
+            {
+              "id": "act20-app-mente-millonaria",
+              "tipo": "web",
+              "titulo": "Mentefy: app de la mente millonaria",
+              "descripcion": "Página interactiva Mentefy basada en la exposición Los secretos de la mente millonaria.",
+              "fecha": "2026-11-12",
+              "tecnologias": [
+                "HTML",
+                "CSS",
+                "JavaScript"
+              ],
+              "ruta": "grupos/32/alumnos/uriel-esau-gonzalez-martinez/actividades/act20-app-mente-millonaria/Mentefy.html"
             }
           ]
         },

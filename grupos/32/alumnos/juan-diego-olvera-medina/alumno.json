@@ -1,0 +1,255 @@
+{
+  "nombre": "Juan Diego Olvera Medina",
+  "github": "juandiegoolveramedina20-wq",
+  "sobreMi": "Estudiante de 9.º semestre de LATI (Lic. en Administración de las TI). Me gustan los deportes de equipo, sobre todo el volleyball, los RPG (Outer Wilds es religión) y los juegos de mesa.",
+  "actividades": [
+    {
+      "id": "act01-memorama-gustos",
+      "titulo": "Memorama de mis gustos",
+      "descripcion": "Memorama de 8 pares con mis gustos: cada par revela algo de mí. Funciona con teclado y en el celular.",
+      "tipo": "web",
+      "tecnologias": [
+        "HTML",
+        "CSS",
+        "JavaScript"
+      ],
+      "ruta": "actividades/act01-memorama-gustos/index.html"
+    },
+    {
+      "id": "act02-7-habitos",
+      "titulo": "Los 7 hábitos de la gente altamente efectiva",
+      "descripcion": "Tarjetas con los siete hábitos de Covey, dinámica para unir cada frase con su hábito, lo que entendí y sección del autor.",
+      "tipo": "web",
+      "tecnologias": [
+        "HTML",
+        "CSS",
+        "JavaScript"
+      ],
+      "ruta": "actividades/act02-7-habitos/index.html"
+    },
+    {
+      "id": "act03-efecto-compuesto",
+      "titulo": "Efecto compuesto",
+      "descripcion": "Calculadora interactiva: qué pasa si mejoras o empeoras un pequeño porcentaje cada día.",
+      "tipo": "web",
+      "tecnologias": [
+        "HTML",
+        "CSS",
+        "JavaScript"
+      ],
+      "ruta": "actividades/act03-efecto-compuesto/index.html"
+    },
+    {
+      "id": "act04-toma-de-decisiones",
+      "titulo": "Herramientas para la toma de decisiones",
+      "descripcion": "Caso de una universidad que pierde alumnos: FODA para arrastrar con revisión, seis sombreros, Pareto, Ishikawa y CATWOE.",
+      "tipo": "web",
+      "tecnologias": [
+        "HTML",
+        "CSS",
+        "JavaScript"
+      ],
+      "ruta": "actividades/act04-toma-de-decisiones/index.html"
+    },
+    {
+      "id": "act05-codigo-limpio",
+      "titulo": "Código limpio",
+      "descripcion": "Resumen y mapa conceptual de Clean Code de Robert C. Martin: nombres, funciones, comentarios, errores y pruebas.",
+      "tipo": "pdf",
+      "tecnologias": [
+        "Resumen",
+        "Mapa conceptual"
+      ],
+      "ruta": "actividades/act05-codigo-limpio/documento.pdf"
+    },
+    {
+      "id": "act06-pensamiento-critico",
+      "titulo": "Sin pensamiento crítico no eres nadie",
+      "descripcion": "Comentario de video sobre pensamiento crítico, con un ejemplo propio y mi postura sobre el título.",
+      "tipo": "pdf",
+      "tecnologias": [
+        "Comentario"
+      ],
+      "ruta": "actividades/act06-pensamiento-critico/documento.pdf"
+    },
+    {
+      "id": "act07-yokoi-kenji-kasuga",
+      "titulo": "Filosofía de Yokoi Kenji y Carlos Kasuga",
+      "descripcion": "Cuadro comparativo de las dos visiones y mi reflexión sobre cuál aplica a México.",
+      "tipo": "pdf",
+      "tecnologias": [
+        "Cuadro comparativo",
+        "Reflexión"
+      ],
+      "ruta": "actividades/act07-yokoi-kenji-kasuga/documento.pdf"
+    },
+    {
+      "id": "act08-persuade-con-tu-voz",
+      "titulo": "Persuade con tu voz",
+      "descripcion": "Resumen de la conferencia de Emma Rodero: tono, entonación, velocidad y pausas.",
+      "tipo": "pdf",
+      "tecnologias": [
+        "Resumen"
+      ],
+      "ruta": "actividades/act08-persuade-con-tu-voz/documento.pdf"
+    },
+    {
+      "id": "act09-habilidades-pensamiento",
+      "titulo": "Habilidades del pensamiento y pensagram",
+      "descripcion": "Resumen de las habilidades básicas y superiores del pensamiento, con un pensagrama.",
+      "tipo": "pdf",
+      "tecnologias": [
+        "Resumen",
+        "Pensagrama"
+      ],
+      "ruta": "actividades/act09-habilidades-pensamiento/documento.pdf"
+    },
+    {
+      "id": "act10-infografia-colon",
+      "titulo": "Infografía de Colón",
+      "descripcion": "Quién era Cristóbal Colón, sus cuatro viajes, lo que cambió y un mito común.",
+      "tipo": "imagen",
+      "tecnologias": [
+        "Infografía"
+      ],
+      "ruta": "actividades/act10-infografia-colon/infografia.png"
+    },
+    {
+      "id": "act11-por-que-fracasan-los-paises",
+      "titulo": "¿Por qué fracasan los países?",
+      "descripcion": "Infografía del libro de Acemoglu y Robinson: instituciones inclusivas frente a extractivas.",
+      "tipo": "imagen",
+      "tecnologias": [
+        "Infografía"
+      ],
+      "ruta": "actividades/act11-por-que-fracasan-los-paises/infografia.png"
+    },
+    {
+      "id": "act12-iceberg-gigantes-tecnologicos",
+      "titulo": "El iceberg de los gigantes tecnológicos",
+      "descripcion": "Lo que no se ve de las grandes tecnológicas: datos, poder de mercado, poder político y los centros de datos en Querétaro.",
+      "tipo": "imagen",
+      "tecnologias": [
+        "Infografía"
+      ],
+      "ruta": "actividades/act12-iceberg-gigantes-tecnologicos/infografia.png"
+    },
+    {
+      "id": "act13-super-ricos",
+      "titulo": "La influencia de los súper ricos",
+      "descripcion": "Reflexión sobre el documental de DW: cómo los multimillonarios influyen en las ciudades.",
+      "tipo": "pdf",
+      "tecnologias": [
+        "Reflexión"
+      ],
+      "ruta": "actividades/act13-super-ricos/documento.pdf"
+    },
+    {
+      "id": "act14-movimientos-sociales",
+      "titulo": "Movimientos sociales (Mentes en acción)",
+      "descripcion": "Resumen: qué es un movimiento social, sus elementos, etapas y ejemplos.",
+      "tipo": "pdf",
+      "tecnologias": [
+        "Resumen"
+      ],
+      "ruta": "actividades/act14-movimientos-sociales/documento.pdf"
+    },
+    {
+      "id": "act15-lider-visionario",
+      "titulo": "Líder visionario: Patricia Armendáriz",
+      "descripcion": "Infografía del líder visionario: la fundadora de Financiera Sustentable y qué la hace visionaria.",
+      "tipo": "imagen",
+      "tecnologias": [
+        "Infografía"
+      ],
+      "ruta": "actividades/act15-lider-visionario/infografia.png"
+    },
+    {
+      "id": "act16-empresario-mexicano-ideal",
+      "titulo": "El empresario mexicano ideal",
+      "descripcion": "Resumen del texto de Ernesto Valdés Rangel y mi perfil de un empresario con conciencia social.",
+      "tipo": "pdf",
+      "tecnologias": [
+        "Resumen",
+        "Perfil"
+      ],
+      "ruta": "actividades/act16-empresario-mexicano-ideal/documento.pdf"
+    },
+    {
+      "id": "act17-lorenzo-servitje-bimbo",
+      "titulo": "Lorenzo Servitje: la visión detrás de Bimbo",
+      "descripcion": "Línea del tiempo del fundador de Bimbo y su forma de hacer empresa.",
+      "tipo": "imagen",
+      "tecnologias": [
+        "Infografía"
+      ],
+      "ruta": "actividades/act17-lorenzo-servitje-bimbo/infografia.png"
+    },
+    {
+      "id": "act18-lorenzo-zambrano-cemex",
+      "titulo": "Lorenzo Zambrano: la visión que hizo global a Cemex",
+      "descripcion": "Trayectoria del empresario que llevó a Cemex a más de 50 países.",
+      "tipo": "imagen",
+      "tecnologias": [
+        "Infografía"
+      ],
+      "ruta": "actividades/act18-lorenzo-zambrano-cemex/infografia.png"
+    },
+    {
+      "id": "act19-comparativo-empresarios",
+      "titulo": "Cuadro comparativo de empresarios mexicanos",
+      "descripcion": "Roberto González Barrera (Gruma, Banorte) frente a Alberto Baillères (Grupo BAL), con mi postura.",
+      "tipo": "pdf",
+      "tecnologias": [
+        "Cuadro comparativo"
+      ],
+      "ruta": "actividades/act19-comparativo-empresarios/documento.pdf"
+    },
+    {
+      "id": "act20-quinta-disciplina",
+      "titulo": "La quinta disciplina y arquetipos sistémicos",
+      "descripcion": "Las cinco disciplinas de Senge y el arquetipo adversarios accidentales: ciclos causales interactivos y simulador.",
+      "tipo": "web",
+      "tecnologias": [
+        "HTML",
+        "CSS",
+        "JavaScript"
+      ],
+      "ruta": "actividades/act20-quinta-disciplina/index.html"
+    },
+    {
+      "id": "act21-creatividad-goldberg",
+      "titulo": "Creatividad según Goldberg",
+      "descripcion": "Infografía sobre cómo el cerebro crea ideas nuevas según Elkhonon Goldberg.",
+      "tipo": "imagen",
+      "tecnologias": [
+        "Infografía"
+      ],
+      "ruta": "actividades/act21-creatividad-goldberg/infografia.png"
+    },
+    {
+      "id": "act22-habilidades-directivas",
+      "titulo": "Habilidades directivas: liderazgo y motivación",
+      "descripcion": "Capítulos 9 y 11: estilos de liderazgo y test de motivación de McClelland, vistos desde el volleyball.",
+      "tipo": "web",
+      "tecnologias": [
+        "HTML",
+        "CSS",
+        "JavaScript"
+      ],
+      "ruta": "actividades/act22-habilidades-directivas/index.html"
+    },
+    {
+      "id": "act26-proyecto-kavak",
+      "titulo": "Proyecto final: el caso Kavak",
+      "descripcion": "Análisis del primer unicornio mexicano con FODA, Ishikawa interactivo, recomendaciones y mi opinión.",
+      "tipo": "web",
+      "tecnologias": [
+        "HTML",
+        "CSS",
+        "JavaScript"
+      ],
+      "ruta": "actividades/act26-proyecto-kavak/index.html"
+    }
+  ]
+}

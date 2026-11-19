@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Habilidades para la vida y el trabajo</title>
+<style>
+:root{--bg:#faf6f3;--card:#fff;--tx:#2b2220;--mut:#7a6a66;--bd:#eaded9;--hl:#f7e34a;--hlt:#2a2500;color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#171312;--card:#241d1c;--tx:#f3eae7;--mut:#b9a7a2;--bd:#3b2f2b;--hl:#d4c22f;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#171312;--card:#241d1c;--tx:#f3eae7;--mut:#b9a7a2;--bd:#3b2f2b;--hl:#d4c22f;color-scheme:dark}
+html{scroll-padding-top:env(safe-area-inset-top,0px);scroll-behavior:smooth}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--tx);font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;line-height:1.55}
+.wrap{max-width:980px;margin:auto;padding:0 18px 48px}
+.hero{padding:48px 0 24px;text-align:center}
+.globe{font-size:3.2rem;display:inline-block;animation:spin 14s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.hero h1{font-size:clamp(1.8rem,5vw,2.8rem);margin:8px 0;line-height:1.15}
+.hero p{color:var(--mut);margin:0 auto;max-width:520px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:14px;margin-top:26px}
+.tile{all:unset;box-sizing:border-box;cursor:pointer;position:relative;overflow:hidden;border-radius:18px;padding:20px;background:var(--card);border:1px solid var(--bd);min-height:140px;display:flex;flex-direction:column;justify-content:space-between;transition:transform .25s,box-shadow .25s;animation:up .5s both}
+.tile:hover,.tile:focus-visible{transform:translateY(-6px) rotate(-.4deg);box-shadow:0 14px 28px hsla(var(--h),60%,40%,.25)}
+.tile::before{content:"";position:absolute;inset:0 0 auto 0;height:6px;background:hsl(var(--h),60%,55%)}
+.tile::after{content:"";position:absolute;right:-30px;bottom:-30px;width:110px;height:110px;border-radius:50%;background:hsl(var(--h),60%,55%);opacity:.14;transition:transform .35s}
+.tile:hover::after{transform:scale(2.2)}
+.tile .ic{font-size:1.8rem}
+.tile b{font-size:1.05rem}
+.tile small{color:var(--mut)}
+@keyframes up{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
+.top{display:flex;justify-content:space-between;align-items:center;padding:16px 0;gap:8px}
+.btn{all:unset;box-sizing:border-box;cursor:pointer;padding:9px 16px;border-radius:999px;border:1px solid var(--bd);background:var(--card);font-size:.9rem;transition:.2s}
+.btn:hover{background:hsl(var(--h,12),55%,50%);color:#fff;border-color:transparent}
+.sec{animation:up .45s both}
+.head{border-radius:22px;padding:28px 24px;color:#fff;background:linear-gradient(135deg,hsl(var(--h),55%,45%),hsl(calc(var(--h) + 30),60%,58%));position:relative;overflow:hidden}
+.head .num{position:absolute;right:14px;top:-18px;font-size:8rem;font-weight:800;opacity:.15}
+.head h2{margin:0;font-size:clamp(1.5rem,4.5vw,2.2rem);position:relative}
+.head p{margin:6px 0 0;opacity:.9;position:relative}
+.banner{background:var(--hl);color:var(--hlt);padding:14px 18px;border-radius:12px;margin:18px 0;font-weight:600;border-left:6px solid hsl(var(--h),60%,40%);animation:up .5s .1s both}
+.box{border:2px dashed hsl(var(--h),50%,55%);border-radius:12px;padding:14px 18px;margin:18px 0;animation:up .5s .15s both}
+.lead{font-weight:700;color:hsl(var(--h),50%,50%);margin:18px 0 0}
+.lab{letter-spacing:.12em;font-size:.78rem;color:var(--mut);margin:24px 0 10px;font-weight:700}
+.acc{background:var(--card);border:1px solid var(--bd);border-radius:14px;margin-bottom:10px;animation:up .5s both;transition:box-shadow .2s}
+.acc:hover{box-shadow:0 6px 18px hsla(var(--h),50%,40%,.18)}
+.acc>button{all:unset;box-sizing:border-box;display:flex;align-items:center;gap:12px;width:100%;padding:14px 16px;cursor:pointer;font-weight:600}
+.acc .n{flex:none;width:30px;height:30px;border-radius:50%;background:hsl(var(--h),55%,50%);color:#fff;display:grid;place-items:center;font-size:.85rem;transition:transform .3s}
+.acc.open .n{transform:rotate(360deg) scale(1.12)}
+.acc .ch{margin-left:auto;color:var(--mut);transition:transform .3s}
+.acc.open .ch{transform:rotate(180deg)}
+.acc .bd{display:grid;grid-template-rows:0fr;transition:grid-template-rows .35s}
+.acc.open .bd{grid-template-rows:1fr}
+.acc .bd>div{overflow:hidden}
+.acc .bd p{margin:0;padding:0 16px 16px 58px;color:var(--mut)}
+.pillars{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:14px;margin-top:18px}
+.pil{perspective:900px;height:210px;cursor:pointer;animation:up .5s both}
+.pil .in{position:relative;width:100%;height:100%;transition:transform .6s;transform-style:preserve-3d}
+.pil.flip .in{transform:rotateY(180deg)}
+.pil .f,.pil .b{position:absolute;inset:0;border-radius:18px;padding:20px;backface-visibility:hidden;display:flex;flex-direction:column;justify-content:center}
+.pil .f{background:linear-gradient(135deg,hsl(var(--h),55%,45%),hsl(calc(var(--h) + 30),60%,58%));color:#fff;align-items:center;text-align:center;font-size:1.3rem;font-weight:700;gap:8px}
+.pil .f span{font-size:2.4rem}
+.pil .f small{font-weight:400;opacity:.85;font-size:.8rem}
+.pil .b{background:var(--card);border:2px solid hsl(var(--h),55%,50%);transform:rotateY(180deg);font-size:.95rem;overflow:auto}
+.big{background:var(--card);border:1px solid var(--bd);border-radius:20px;padding:36px 24px;text-align:center;margin-top:22px;animation:up .5s .1s both}
+.big .e{font-size:3.4rem;display:inline-block;animation:bob 3s ease-in-out infinite}
+@keyframes bob{50%{transform:translateY(-10px)}}
+.big h3{font-size:clamp(1.3rem,4vw,1.9rem);margin:12px 0 8px;color:hsl(var(--h),50%,50%)}
+.big p{color:var(--mut);margin:0}
+.pager{display:flex;justify-content:space-between;gap:10px;margin-top:28px}
+.dots{display:flex;gap:6px;justify-content:center;margin-top:20px;flex-wrap:wrap}
+.dots i{width:10px;height:10px;border-radius:50%;background:var(--bd);cursor:pointer;transition:.2s}
+.dots i.on{background:hsl(var(--h),55%,50%);transform:scale(1.4)}
+.seg{display:flex;gap:6px;background:var(--card);border:1px solid var(--bd);border-radius:999px;padding:5px;margin:22px 0 16px;flex-wrap:wrap}
+.seg button{all:unset;box-sizing:border-box;flex:1;min-width:120px;text-align:center;cursor:pointer;padding:10px 12px;border-radius:999px;font-weight:600;font-size:.9rem;transition:.25s}
+.seg button.on{background:hsl(var(--h),55%,48%);color:#fff;box-shadow:0 4px 12px hsla(var(--h),55%,40%,.35)}
+.pan{display:none}
+.pan.on{display:block;animation:up .4s both}
+.pan .lede{font-size:1.15rem;border-left:5px solid hsl(var(--h),55%,50%);padding:4px 0 4px 16px;margin:0 0 16px}
+.pan ul{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:12px}
+.pan li{background:var(--card);border:1px solid var(--bd);border-radius:14px;padding:16px;transition:transform .2s,box-shadow .2s}
+.pan li:hover{transform:translateY(-4px);box-shadow:0 8px 18px hsla(var(--h),50%,40%,.2)}
+.pan li::before{content:attr(data-n);font-size:1.6rem;font-weight:800;color:hsl(var(--h),55%,50%);opacity:.55;display:block}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<div class="wrap" id="app"></div>
+<script>
+const S=[
+{n:"Los cuatro pilares de la educación",ic:"🏛️",h:12,sub:"Informe Delors",pil:true,items:[
+["Aprender a conocer","📚","Combinando una cultura general suficientemente amplia con la posibilidad de profundizar los conocimientos en un pequeño número de materias."],
+["Aprender a hacer","🛠️","A fin de adquirir una competencia que capacite al individuo para hacer frente a gran número de situaciones y trabajar en equipo."],
+["Aprender a vivir juntos","🤝","Desarrollando la comprensión del otro y la percepción de las formas de interdependencia."],
+["Aprender a ser","🌱","Para que florezca mejor la propia personalidad y se esté en condiciones de obrar con creciente capacidad de autonomía, de juicio y de responsabilidad personal, respetando la diversidad."]]},
+{n:"Dominio de la interdependencia",ic:"🔗",h:200,banner:"La convicción de que el trabajo en equipo es más potente que el individual.",items:[
+["Escuchar a otros","Callarse cuando el otro habla, parafrasear, identificar los intereses que están detrás."],
+["Legitimar a otros","Aceptar diferentes puntos de vista, dar permiso, aceptar el rol del otro, fundar los juicios del otro."],
+["Construir redes de ayuda","Hacer ofertas, considerar expectativas del otro, seducir al otro, seguimiento de compromisos, negociación ganar-ganar."],
+["Capacidad de evaluar","Declarar roles, evaluar las competencias de los otros, capacidad de realizar juicios que aportan valor, capacidad para evaluar áreas de confianza y desconfianza en el equipo."]]},
+{n:"Habilidades de emprendimiento",ic:"🚀",h:30,banner:"Autoconfianza, compromiso con el cliente, atención, cercanía.",items:[
+["Sensibilidad para escuchar preocupaciones detrás de peticiones","Identificar a los clientes, identificar y articular preocupaciones."],
+["Capacidad de generar coordinación","Definición clara de compromisos, capacidad de negociar acuerdos, capacidad para generar acciones, anticipar y declarar quiebres, cerrar conversaciones, pedir evaluación, aprender de los errores."],
+["Capacidad para generar redes de ayuda","Construir y mantener relaciones de apoyo mutuo."],
+["Visión de negocio","Capacidad de detectar áreas de negocio, habilidad para leer estados financieros, interés constante en la economía y el extranjero."]]},
+{n:"Liderazgo",ic:"🧭",h:280,banner:"Pasión por el oficio, armonía con el entorno, satisfacción por el trabajo, manejo de presión y agobio.",items:[
+["Capacidad para convocar a otros con ofertas seductoras y relevantes","Escuchar, sensibilidad para escuchar preocupaciones, proponer interpretaciones novedosas, pedir evaluación del carácter seductor y relevante de las ofertas."],
+["Capacidad para cuidar varios proyectos a la vez","Calendarizar y cuidar compromisos personales y de otros, prever quiebres, cuidado de los estados de ánimo (resignación, agobio, estrés, frustración, resentimiento, rivalidades)."],
+["Capacidad para evaluar habilidades de su equipo","Fundamentar las evaluaciones que realiza, aprovechar el valor de la evaluación, contribuir al desarrollo del equipo, aceptar evaluaciones sobre su trabajo, aprovechar talentos."],
+["Capacidad de negociación con clientes y proveedores","Escuchar, hacer pedidos, sinceridad, buscar y proveer datos, evaluar datos y hechos, proponer."]]},
+{n:"Responsabilidad",ic:"✅",h:150,items:[
+["Responsabilidad académica","Definición clara de compromisos, cumplimiento impecable de los compromisos académicos, seguimiento de los compromisos de otros miembros del equipo, saber cuándo declarar NO."],
+["Responsabilidad hacia otros","Definir claramente compromisos, definir los compromisos que son necesarios para cubrir sus objetivos, hacer reclamos."],
+["Responsabilidad emocional","Distinguir responsabilidad de culpa, contacto con sus emociones, legitimar y aceptar los sentimientos propios, sensibilidad hacia los sentimientos y emociones de otros, legitimar sentimientos de otros."]]},
+{n:"Comunicación efectiva",ic:"💬",h:340,banner:"Empatía: sintonizarse con las preocupaciones del otro, enfocarse, calidez.",lead:"Empatía, escuchar, producir coordinaciones efectivas",box:"Diseñar conversaciones que se hacen cargo al escuchar al otro para generar interpretaciones comunes.",items:[
+["Escuchar","Callarse cuando el otro habla, identificar qué está entendiendo el otro, identificar desde dónde escucha el otro, manejo de forma y fondo de la comunicación (oral: dicción, muletillas; escrita: sintaxis, uso de tecnologías)."],
+["“Escuchar” estados de ánimo","Sensibilidad en el manejo del lenguaje corporal (propio y del otro)."]]},
+{n:"Los otros",ic:"🌎",h:175,big:["🌎","Conciencia y responsabilidad social y cultural."]},
+{n:"Lenguaje",ic:"🗣️",h:250,big:["🗣️","Cómo hablas, concibes, expresas, representas."]},
+{n:"Finanzas",ic:"💰",h:45,big:["💰","¿Y tu dinero para qué sirve? ¿Cómo lo cuido?"]},
+{n:"Pensamiento crítico",ic:"🔍",h:95,tri:[
+["¿Qué es?","Es la capacidad de analizar información, cuestionar supuestos y evaluar argumentos con evidencia antes de aceptar una idea o tomar una decisión.",["Distinguir hechos de opiniones","Detectar sesgos y falacias","Evaluar la calidad de las fuentes","Llegar a conclusiones propias y fundamentadas"]],
+["¿Cómo se aplica?","Se aplica cada vez que recibimos información o debemos elegir entre varias opciones.",["Contrastar varias fuentes antes de creer una noticia","Pedir datos y pruebas en una reunión de trabajo","Revisar los supuestos de un plan antes de ejecutarlo","Decidir con evidencia y no solo con intuición"]],
+["¿Cómo lo desarrollamos?","Se entrena con preguntas, lectura diversa y práctica constante.",["Preguntarte “¿cómo lo sé?” ante cada afirmación","Leer posturas contrarias a la tuya","Practicar debates con reglas claras","Escribir un argumento y buscar sus puntos débiles"]]]},
+{n:"Resiliencia y adaptabilidad",ic:"🌊",h:305,tri:[
+["¿Qué es?","Es la capacidad de recuperarse ante las dificultades y ajustarse a los cambios o imprevistos sin perder el rumbo.",["Recuperarse tras un fracaso","Mantener la calma bajo presión","Flexibilidad ante lo inesperado","Mirar los problemas como oportunidades de aprendizaje"]],
+["¿Cómo se aplica?","Aparece cuando los planes cambian, cuando algo sale mal o cuando enfrentamos situaciones nuevas.",["Reorganizar un proyecto cuando cambian las condiciones","Aprender del error y volver a intentarlo","Aceptar la retroalimentación sin tomarla como ataque","Adaptarse a nuevas herramientas, equipos o entornos"]],
+["¿Cómo lo desarrollamos?","Se fortalece con hábitos de cuidado personal y exposición gradual a retos.",["Reencuadrar los errores como aprendizaje","Cuidar el sueño, el ejercicio y el descanso","Enfrentar retos nuevos poco a poco","Construir una red de apoyo y pedir ayuda a tiempo"]]]},
+{n:"Creatividad e innovación",ic:"💡",h:220,tri:[
+["¿Qué es?","Es la habilidad de generar ideas nuevas y útiles, y convertirlas en soluciones concretas.",["Imaginar alternativas distintas","Combinar ideas de campos diferentes","Resolver problemas de forma original","Llevar una idea a la práctica"]],
+["¿Cómo se aplica?","Se usa para resolver problemas, mejorar lo que ya existe y crear propuestas diferentes.",["Hacer lluvias de ideas en equipo","Mejorar un proceso que ya no funciona","Crear prototipos rápidos para probar una idea","Ofrecer soluciones nuevas a las necesidades de un cliente"]],
+["¿Cómo lo desarrollamos?","Crece con curiosidad, experimentación y espacio para equivocarse.",["Preguntarte “¿y si…?” con frecuencia","Explorar temas fuera de tu área","Prototipar y probar antes de perfeccionar","Separar el momento de generar ideas del de criticarlas"]]]}
+];
+const app=document.getElementById("app");
+let cur=-1;
+const lab=i=>i===0?"Pilares":"Tema "+i;
+function home(){
+ cur=-1;
+ app.innerHTML=`<div class="hero"><div class="globe">🌍</div><h1>Habilidades para la vida y el trabajo</h1><p>Explora los pilares de la educación y las ocho áreas clave. Toca un tema para empezar.</p></div>
+ <div class="grid">${S.map((s,i)=>`<button class="tile" style="--h:${s.h};animation-delay:${i*60}ms" onclick="open_(${i})"><span class="ic">${s.ic}</span><span><b>${s.n}</b><br><small>${lab(i)}${s.items&&!s.pil?" · "+s.items.length+" sub-habilidades":""}</small></span></button>`).join("")}</div>`;
+ window.scrollTo(0,0);
+}
+function open_(i){
+ cur=i;const s=S[i];let h=`<div style="--h:${s.h}" class="sec"><div class="top"><button class="btn" onclick="home()">← Inicio</button><span style="color:var(--mut);font-size:.85rem">${i+1} / ${S.length}</span></div>
+ <div class="head"><div class="num">${i===0?"★":i}</div><h2>${i>0?i+") ":""}${s.n}</h2>${s.sub?`<p>${s.sub}</p>`:""}</div>`;
+ if(s.banner)h+=`<div class="banner">${s.banner}</div>`;
+ if(s.lead)h+=`<p class="lead">${s.lead}</p>`;
+ if(s.box)h+=`<div class="box">${s.box}</div>`;
+ if(s.pil){h+=`<div class="lab">TOCA UNA TARJETA PARA GIRARLA</div><div class="pillars">${s.items.map((p,k)=>`<div class="pil" style="--h:${[12,200,150,280][k]};animation-delay:${k*90}ms" onclick="this.classList.toggle('flip')"><div class="in"><div class="f"><span>${p[1]}</span>${p[0]}<small>toca para ver más</small></div><div class="b"><b>${p[0]}</b><p>${p[2]}</p></div></div></div>`).join("")}</div>`}
+ else if(s.tri){h+=`<div class="seg">${s.tri.map((t,k)=>`<button class="${k===0?"on":""}" onclick="tab(this,${k})">${t[0]}</button>`).join("")}</div>`+s.tri.map((t,k)=>`<div class="pan ${k===0?"on":""}"><p class="lede">${t[1]}</p><ul>${t[2].map((x,j)=>`<li data-n="0${j+1}">${x}</li>`).join("")}</ul></div>`).join("")}
+ else if(s.big){h+=`<div class="big"><div class="e">${s.big[0]}</div><h3>${s.big[1]}</h3></div>`}
+ else{h+=`<div class="lab">SUB-HABILIDADES</div>`+s.items.map((p,k)=>`<div class="acc ${k===0?"open":""}" style="animation-delay:${k*80}ms"><button onclick="this.parentElement.classList.toggle('open')"><span class="n">${k+1}</span>${p[0]}<span class="ch">▾</span></button><div class="bd"><div><p>${p[1]}</p></div></div></div>`).join("")}
+ h+=`<div class="dots">${S.map((_,k)=>`<i class="${k===i?"on":""}" onclick="open_(${k})"></i>`).join("")}</div>
+ <div class="pager">${i>0?`<button class="btn" onclick="open_(${i-1})">← ${S[i-1].n}</button>`:"<span></span>"}${i<S.length-1?`<button class="btn" onclick="open_(${i+1})">${S[i+1].n} →</button>`:"<span></span>"}</div></div>`;
+ app.innerHTML=h;window.scrollTo(0,0);
+}
+function tab(b,k){const r=b.closest(".sec");r.querySelectorAll(".seg button").forEach((x,j)=>x.classList.toggle("on",j===k));r.querySelectorAll(".pan").forEach((x,j)=>x.classList.toggle("on",j===k))}
+document.addEventListener("keydown",e=>{if(cur<0)return;if(e.key==="ArrowRight"&&cur<S.length-1)open_(cur+1);if(e.key==="ArrowLeft"&&cur>0)open_(cur-1);if(e.key==="Escape")home()});
+home();
+</script>
+</body>
+</html>

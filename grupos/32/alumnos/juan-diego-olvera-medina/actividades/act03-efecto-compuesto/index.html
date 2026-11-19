@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Efecto compuesto · Juan Diego Olvera</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;700&family=Source+Serif+4:wght@400;600&display=swap">
+<link rel="stylesheet" href="../_comun/estilos.css">
+<style>
+  .calc { display: grid; grid-template-columns: 280px 1fr; gap: var(--e5); align-items: start; }
+  .calc svg { width: 100%; height: auto; background: var(--superficie); border: 1px solid var(--linea); border-radius: var(--radio); }
+  .calc svg text { font: 13px var(--f-titulo); fill: currentColor; }
+  .cifra { font: 700 var(--t4)/1 var(--f-titulo); color: var(--acento); margin: var(--e2) 0; }
+  .cifra.baja { color: var(--acento-2); }
+  .control output { font: 600 15px var(--f-titulo); }
+  .aviso { color: var(--acento-2); font: 600 14px var(--f-titulo); min-height: 1.2em; }
+  @media (max-width: 600px) { .calc { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+<main class="pagina">
+  <p class="rotulo">Actividad 03 · Efecto compuesto</p>
+  <h1>¿Qué pasa si mejoras 1% cada día?</h1>
+  <p class="caso">El efecto compuesto dice que los resultados grandes vienen de pequeñas decisiones repetidas. Mejorar 1% diario parece nada; empeorar 1% diario también. Mueve los controles y mira a dónde llegas.</p>
+
+  <section class="interaccion calc">
+    <div class="panel">
+      <div class="control">
+        <label for="pct">Cambio diario: <output for="pct" id="o-pct">1</output>%</label>
+        <input type="range" id="pct" min="-3" max="3" step="0.5" value="1">
+      </div>
+      <div class="control">
+        <label for="dias">Días: <output for="dias" id="o-dias">365</output></label>
+        <input type="range" id="dias" min="30" max="730" step="5" value="365">
+      </div>
+      <p class="estado">Al final del periodo eres</p>
+      <p class="cifra" id="cifra">×37.8</p>
+      <p id="lectura" style="font-size:15px"></p>
+      <p class="aviso" id="aviso" aria-live="polite"></p>
+    </div>
+    <svg id="grafica" viewBox="0 0 600 320" role="img" aria-label="Curva de crecimiento compuesto"></svg>
+  </section>
+
+  <noscript><p>Mejorar 1% diario durante un año: 1.01^365 ≈ 37.8 veces mejor. Empeorar 1% diario: 0.99^365 ≈ 0.03, casi nada.</p></noscript>
+
+  <section class="aprendi">
+    <h2>Lo que aprendí</h2>
+    <p>Esta idea me hizo verme a mí mismo. Tengo el hábito de pensar de más antes de actuar, y con el tiempo eso se acumula: termino con más planes que acciones. Un día de darle vueltas a algo no parece grave, pero repetido todos los días es el 1% hacia abajo de la gráfica.</p>
+    <p>Lo que me llevo es que el efecto compuesto funciona en las dos direcciones y no avisa: ni el 1% de mejora ni el 1% de descuido se notan en el día a día, solo al final. Por eso prefiero dar un paso pequeño hoy que esperar el plan perfecto.</p>
+  </section>
+
+  <section class="creditos" id="creditos">
+    <strong>Fuentes</strong>
+    <ul><li>Hardy, D. <em>El efecto compuesto</em>.</li><li>Clear, J. <em>Hábitos atómicos</em>.</li></ul>
+  </section>
+</main>
+
+<script src="../_comun/tarjetas.js"></script>
+<script>
+  function compuesto(pct, dias) { return Math.pow(1 + pct / 100, dias); }
+
+  var pct = document.getElementById('pct'), dias = document.getElementById('dias');
+  var svg = document.getElementById('grafica');
+
+  function dibujar() {
+    var p = +pct.value, d = +dias.value;
+    document.getElementById('o-pct').textContent = p;
+    document.getElementById('o-dias').textContent = d;
+    var aviso = document.getElementById('aviso');
+    if (!isFinite(p) || !isFinite(d) || d <= 0) { aviso.textContent = 'Elige un número de días mayor que cero.'; return; }
+    aviso.textContent = '';
+    var final = compuesto(p, d);
+    var cifra = document.getElementById('cifra');
+    cifra.textContent = '×' + (final >= 100 ? final.toFixed(0) : final.toFixed(final < 1 ? 3 : 1));
+    cifra.classList.toggle('baja', final < 1);
+    document.getElementById('lectura').textContent = p === 0
+      ? 'Sin cambio diario, terminas igual que empezaste.'
+      : (final > 1 ? 'Pequeñas mejoras acumuladas te multiplican.' : 'Pequeños descuidos acumulados te dejan casi en cero.');
+
+    var w = 600, h = 320, m = 34, n = 60, puntos = [], max = Math.max(final, 1);
+    for (var i = 0; i <= n; i++) {
+      var v = compuesto(p, d * i / n);
+      puntos.push((m + i / n * (w - 2 * m)).toFixed(1) + ',' + (h - m - v / max * (h - 2 * m)).toFixed(1));
+    }
+    var y1 = h - m - 1 / max * (h - 2 * m);
+    var cs = getComputedStyle(document.documentElement);
+    var color = final < 1 ? cs.getPropertyValue('--acento-2') : cs.getPropertyValue('--acento');
+    svg.innerHTML =
+      '<line x1="' + m + '" y1="' + (h - m) + '" x2="' + (w - m) + '" y2="' + (h - m) + '" stroke="currentColor" opacity=".3"/>' +
+      '<line x1="' + m + '" y1="' + y1 + '" x2="' + (w - m) + '" y2="' + y1 + '" stroke="currentColor" stroke-dasharray="4 4" opacity=".4"/>' +
+      '<text x="' + (m + 4) + '" y="' + (y1 - 6) + '" opacity=".7">punto de partida (×1)</text>' +
+      '<polyline fill="none" stroke="' + color.trim() + '" stroke-width="3" points="' + puntos.join(' ') + '"/>' +
+      '<text x="' + m + '" y="' + (h - 10) + '">día 0</text><text x="' + (w - m) + '" y="' + (h - 10) + '" text-anchor="end">día ' + d + '</text>';
+  }
+  pct.addEventListener('input', dibujar);
+  dias.addEventListener('input', dibujar);
+  dibujar();
+
+  if (/[?&]test\b/.test(location.search)) {
+    console.assert(Math.abs(compuesto(1, 365) - 37.78) < 0.01, 'efecto compuesto: 1% por 365 días ≈ 37.78');
+    console.assert(compuesto(-1, 365) < 0.03, 'efecto compuesto: -1% por 365 días < 0.03');
+    console.assert(compuesto(0, 365) === 1, 'efecto compuesto: 0% no cambia');
+    console.log('efecto compuesto: autopruebas terminadas');
+  }
+</script>
+</body>
+</html>

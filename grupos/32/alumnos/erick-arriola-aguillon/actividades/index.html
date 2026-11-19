@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Menú de Tópico 2</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;700;800&family=Instrument+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600&display=swap">
+<link rel="stylesheet" href="comun/base.css">
+<style>
+  .perfil{display:flex;flex-wrap:wrap;gap:8px}
+  .buscar{max-width:420px}
+  #menu{display:flex;flex-direction:column;gap:36px}
+  .parcial{display:flex;flex-direction:column;gap:14px}
+  .parcial-head{display:flex;align-items:baseline;justify-content:space-between;gap:12px;flex-wrap:wrap;border-bottom:1px solid var(--line);padding-bottom:8px}
+  .parcial-head h2{margin:0}
+  .tarjetas{display:grid;gap:12px;grid-template-columns:repeat(auto-fill,minmax(min(100%,250px),1fr))}
+  a.act{display:flex;flex-direction:column;gap:6px;text-decoration:none;color:inherit;background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:16px;border-top:4px solid var(--c);transition:transform .15s ease,border-color .15s ease}
+  a.act:hover{transform:translateY(-2px);border-color:var(--c)}
+  a.act:focus-visible{outline:3px solid var(--c);outline-offset:2px}
+  a.act h3{margin:0}
+  a.act p{margin:0;color:var(--muted);font-size:.9rem}
+  a.act .n{font:600 .74rem/1 var(--mono);color:var(--c)}
+  a.act .tipo{margin-top:auto;font:500 .74rem/1 var(--mono);color:var(--muted)}
+  .vacio{color:var(--muted)}
+  @media (prefers-reduced-motion:reduce){a.act{transition:none}a.act:hover{transform:none}}
+</style>
+</head>
+<body style="--acc:#2f5bd3;--acc-dark:#8fb0ff">
+<main class="wrap">
+  <header class="hero">
+    <p class="eyebrow">Tópico 2 · Grupo 32 · 2026</p>
+    <h1>Erick Arriola Aguillón</h1>
+    <p class="lede">Estudiante de Ingeniería de Software en la UAQ. Me gusta crear software, la inteligencia artificial y tocar guitarra y piano. Aquí están todas mis actividades del semestre, ordenadas por parcial.</p>
+    <div class="perfil"><span class="chip acc" id="total"></span><span class="chip">3 parciales</span></div>
+  </header>
+
+  <label class="campo buscar">Buscar actividad
+    <input type="text" id="q" placeholder="Ej. Senge, empresarios, Pareto…" autocomplete="off">
+  </label>
+
+  <div id="menu"></div>
+  <p class="vacio" id="vacio" hidden>No hay actividades con esa búsqueda.</p>
+
+  <footer class="pie-pag"><span>Portafolio de Tópico 2.</span><span>Erick Arriola Aguillón</span></footer>
+</main>
+<script>
+const PARCIALES = [
+  {t:'Primer parcial', c:'#c2410c', acts:[
+    ['act01-7-habitos/index.html#intro','7 hábitos: ¿qué entendí?','Introducción e infografía de Los 7 hábitos de los adolescentes altamente efectivos.','Infografía'],
+    ['act01-7-habitos/index.html#dinamica','7 hábitos: dinámica','Sopa de letras de los hábitos.','Juego'],
+    ['act01-7-habitos/index.html#autor','7 hábitos: autor y collage','Sean Covey y mi collage.','Collage'],
+    ['act01-7-habitos/index.html#voz','Persuade con tu voz','Emma Rodero: intensidad, tono, timbre y duración.','Resumen'],
+    ['act09-superricos/index.html','¿Cuánta influencia tienen los superricos?','Documental de DW y simulación de alcalde.','Análisis'],
+    ['act20-proyecto1-decisiones/index.html','Proyecto 1: toma de decisiones','FODA, 6 sombreros, CATWDA, Ishikawa y Pareto.','Proyecto'],
+    ['act21-proyecto-mexico/index.html','Proyecto: México en su mejor versión','Yokoi Kenji, Carlos Kasuga y el decálogo del desarrollo.','Proyecto']
+  ]},
+  {t:'Segundo parcial', c:'#0f5fa6', acts:[
+    ['act10-fracasan-paises/index.html','¿Por qué fracasan los países?','Instituciones inclusivas y extractivas.','Infografía'],
+    ['act11-movimientos-sociales/index.html','Movimientos sociales','Mentes en acción: cómo nacen y qué logran.','Resumen'],
+    ['act02-poder-empresas/index.html','El poder de las empresas','Multinacionales, regulación y recursos públicos.','Infografía'],
+    ['act12-gigantes-mexico/index.html','Gigantes de México','Carlos Slim y Lorenzo Zambrano.','Línea de tiempo'],
+    ['act13-comparativo-empresarios/index.html','Comparativo de empresarios','Slim, Zambrano y Servitje en diez categorías.','Cuadro'],
+    ['act14-empresario-ideal/index.html','Empresario mexicano ideal','Mi perfil en diez rasgos.','Perfil'],
+    ['act03-codigo-limpio/index.html','Código limpio','Lavandería de código: Clean Code.','Juego'],
+    ['act04-elias-ayub/index.html','Siete lecciones de Elías Ayub','Negocios y dinero en Dimes y Billetes.','Interactivo']
+  ]},
+  {t:'Tercer parcial', c:'#1f6f5c', acts:[
+    ['act15-caracteristicas-desarrollo/index.html','11 características para el desarrollo','Rueda de competencias y tres propuestas.','Autoevaluación'],
+    ['act16-quinta-disciplina/index.html','La quinta disciplina · Parte I','Cinco disciplinas, siete barreras y el juego de la cerveza.','Simulación'],
+    ['act17-arquetipos/index.html','Arquetipos sistémicos','Diez patrones y cómo reconocerlos.','Interactivo'],
+    ['act18-creatividad/index.html','Creatividad · Goldberg','Las tres redes del cerebro y un taller de ideas.','Taller'],
+    ['act19-habilidad-estrategica/index.html','La habilidad estratégica','Capítulo 12: mapa estratégico y caso práctico.','Caso'],
+    ['act08-pensamiento-critico/index.html','Sin pensamiento crítico no eres nadie','Charla TEDx de Pablo Pérez-Paetow.','Opinión'],
+    ['act07-habilidades-directivas/index.html','Resúmenes de habilidades directivas','Capítulos 1, 2, 3, 5, 7, 8, 10 y 13.','Resúmenes'],
+    ['act05-psicologia-dinero/index.html','La psicología del dinero','Lotería del dinero con las ideas de Morgan Housel.','Juego'],
+    ['act06-psicologia-dinero-historia/index.html','Diez años, cinco decisiones','La psicología del dinero como historia.','Historia']
+  ]}
+];
+const esc = s => String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const norm = s => s.normalize('NFD').replace(/[̀-ͯ]/g,'').toLowerCase();
+const pintar = (q = '') => {
+  const nq = norm(q.trim());
+  let visibles = 0;
+  document.getElementById('menu').innerHTML = PARCIALES.map(p => {
+    const acts = p.acts.filter(a => !nq || norm(a[1] + ' ' + a[2] + ' ' + a[3]).includes(nq));
+    visibles += acts.length;
+    if (!acts.length) return '';
+    return `<section class="parcial" style="--c:${p.c}"><div class="parcial-head"><h2>${p.t}</h2><span class="small muted">${acts.length} actividad${acts.length===1?'':'es'}</span></div>
+      <div class="tarjetas">${acts.map(a => `<a class="act" href="${a[0]}"><span class="n">${esc(a[3]).toUpperCase()}</span><h3>${esc(a[1])}</h3><p>${esc(a[2])}</p><span class="tipo">Abrir →</span></a>`).join('')}</div></section>`;
+  }).join('');
+  document.getElementById('vacio').hidden = visibles > 0;
+};
+const total = PARCIALES.reduce((s,p) => s + p.acts.length, 0);
+document.getElementById('total').textContent = `${total} actividades`;
+document.getElementById('q').addEventListener('input', e => pintar(e.target.value));
+pintar();
+</script>
+</body>
+</html>

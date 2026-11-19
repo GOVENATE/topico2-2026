@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Autor</title>
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial, Helvetica, sans-serif;
+}
+
+body{
+    background:linear-gradient(135deg,#050505,#19002b,#000);
+    color:white;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    min-height:100vh;
+    overflow:auto;
+}
+
+body::before{
+    content:"";
+    position:fixed;
+    width:900px;
+    height:900px;
+    background:#8f00ff;
+    filter:blur(220px);
+    opacity:.12;
+    z-index:-1;
+}
+
+.panel{
+
+    width:1000px;
+    max-width:95%;
+
+    background:rgba(10,10,10,.78);
+
+    border:2px solid #9d4dff;
+
+    border-radius:25px;
+
+    padding:35px;
+
+    box-shadow:0 0 30px #8f00ff;
+
+    position:relative;
+}
+
+.btnVolver{
+
+    position:absolute;
+    top:20px;
+    left:20px;
+
+    border:none;
+    border-radius:30px;
+
+    padding:12px 22px;
+
+    background:linear-gradient(90deg,#5a00ff,#b100ff);
+
+    color:white;
+
+    font-size:15px;
+    font-weight:bold;
+
+    cursor:pointer;
+
+    transition:.3s;
+
+    box-shadow:0 0 15px #8f00ff;
+}
+
+.btnVolver:hover{
+
+    transform:scale(1.05);
+
+    box-shadow:0 0 25px #cc00ff;
+
+}
+
+h1{
+
+    text-align:center;
+
+    margin-bottom:35px;
+
+    font-size:40px;
+
+    text-shadow:0 0 15px #b100ff;
+
+}
+
+.informacion{
+
+    display:flex;
+
+    gap:40px;
+
+    align-items:center;
+
+    margin-bottom:40px;
+
+    flex-wrap:wrap;
+
+    justify-content:center;
+
+}
+
+.foto{
+
+    width:220px;
+    height:220px;
+
+    border-radius:20px;
+
+    object-fit:cover;
+
+    border:4px solid #9d4dff;
+
+    box-shadow:0 0 20px #8f00ff;
+
+}
+
+.datos{
+
+    font-size:22px;
+
+    line-height:2;
+
+}
+
+.datos span{
+
+    color:#d39dff;
+
+    font-weight:bold;
+
+}
+
+.representacion{
+
+    margin-top:20px;
+
+    background:#111;
+
+    border:2px solid #8f00ff;
+
+    border-radius:20px;
+
+    padding:25px;
+
+}
+
+.representacion h2{
+
+    text-align:center;
+
+    margin-bottom:20px;
+
+    color:#d39dff;
+
+}
+
+.galeria{
+
+    display:grid;
+
+    grid-template-columns:repeat(3,1fr);
+
+    gap:20px;
+
+}
+
+.galeria img{
+
+    width:100%;
+
+    aspect-ratio:1;
+
+    object-fit:cover;
+
+    border-radius:15px;
+
+    border:2px solid #9d4dff;
+
+    transition:.3s;
+
+}
+
+.galeria img:hover{
+
+    transform:scale(1.05);
+
+    box-shadow:0 0 20px #b100ff;
+
+}
+
+@media(max-width:700px){
+
+.informacion{
+
+    flex-direction:column;
+
+}
+
+.galeria{
+
+    grid-template-columns:repeat(2,1fr);
+
+}
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="panel">
+
+<button class="btnVolver" onclick="location.href='Menu.html'">
+⬅ Volver al menú
+</button>
+
+<h1>Autor</h1>
+
+<div class="informacion">
+
+<img src="Yo.jpeg" class="foto">
+ 
+<div class="datos">
+
+<p><span>Nombre:</span> Uriel Esaú González Martínez</p>
+
+<p><span>Carrera:</span> Ingeniería en Software</p>
+
+<p><span>Correo:</span> uriel20047920@gmail.com</p>
+
+</div>
+
+</div>
+
+<div class="representacion">
+
+<h2>9 imágenes que me representan</h2>
+
+<div class="galeria">
+
+<img src="NFL.jpg">
+<img src="NBA.jpg">
+<img src="Tocho.jpg">
+
+<img src="Gears.png">
+<img src="Halo.jpg">
+<img src="CapitanA.jpg">
+
+<img src="Joker.jpg">
+<img src="Eladio.jpg">
+<img src="JustinJ.jpg">
+
+</div>
+
+</div>
+
+</div>
+
+</body>
+</html>

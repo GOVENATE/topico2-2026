@@ -1,0 +1,16 @@
+{
+  "nombre": "Axel Daniel Estrada Malagon",
+  "github": "aestrada40-blip",
+  "sobreMi": "expediente 285736",
+  "actividades": [
+    {
+      "id": "act01-portafolio-actividades",
+      "titulo": "Portafolio de actividades",
+      "descripcion": "Portafolio de actividades en formato web.",
+      "fecha": "2026-11-18",
+      "tipo": "web",
+      "tecnologias": ["HTML", "CSS", "JavaScript"],
+      "ruta": "actividades/portafolio_de_actividades_axel_daniel.html"
+    }
+  ]
+}

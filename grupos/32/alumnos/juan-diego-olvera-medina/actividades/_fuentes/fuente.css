@@ -1,0 +1,90 @@
+/* Estilo de las fuentes que se exportan a PDF (Letter) e infografias (PNG de 1080 px).
+   Siempre en modo claro para imprimir. */
+@import url("../_comun/estilos.css");
+
+:root, html { color-scheme: light; }
+@media (prefers-color-scheme: dark) {
+  :root {
+    --fondo: #edeff2; --superficie: #ffffff; --tinta: #0f1726; --suave: #4a5568;
+    --acento: #1f4fd6; --acento-suave: #e3eafc; --acento-2: #e5634d; --acento-2-suave: #fce8e4;
+    --exito: #1f7a4d; --exito-suave: #e2f3ea; --linea: #d5dae1;
+  }
+}
+
+/* ---------- PDF ---------- */
+@page { size: Letter; margin: 18mm 18mm 20mm; }
+
+body.pdf { background: #fff; font-size: 11.5pt; line-height: 1.55; }
+.pdf .portada {
+  border-bottom: 3px solid var(--acento);
+  padding-bottom: 10pt;
+  margin-bottom: 16pt;
+}
+.pdf .portada .rotulo { font-size: 9.5pt; color: var(--acento); margin: 0 0 4pt; }
+.pdf h1 { font-size: 22pt; margin: 0 0 6pt; }
+.pdf .datos { font: 600 9.5pt var(--f-titulo); color: var(--suave); margin: 0; }
+.pdf h2 { font-size: 14pt; margin: 18pt 0 6pt; color: var(--acento); break-after: avoid; }
+.pdf h3 { font-size: 12pt; margin: 12pt 0 4pt; break-after: avoid; }
+.pdf p, .pdf li { orphans: 3; widows: 3; }
+.pdf ul, .pdf ol { padding-left: 16pt; margin: 0 0 10pt; }
+.pdf li { margin-bottom: 4pt; }
+.pdf table { font-size: 10pt; margin: 6pt 0 12pt; break-inside: avoid; }
+.pdf th { background: var(--acento-suave); }
+.pdf .cita {
+  border-left: 3px solid var(--acento-2);
+  padding: 2pt 0 2pt 10pt;
+  margin: 10pt 0;
+  font-style: italic;
+  color: var(--suave);
+}
+.pdf .opinion {
+  background: var(--acento-suave);
+  border-radius: var(--radio);
+  padding: 10pt 12pt;
+  margin: 12pt 0;
+  break-inside: avoid;
+}
+.pdf .opinion h2 { margin-top: 0; }
+.pdf .fuentes { margin-top: 18pt; font-size: 9pt; color: var(--suave); border-top: 1px solid var(--linea); padding-top: 6pt; }
+.pdf .fuentes h2 { font-size: 10pt; color: var(--suave); margin: 0 0 4pt; }
+.pdf .mapa { width: 100%; height: auto; margin: 8pt 0; break-inside: avoid; }
+.pdf .mapa text { font-family: var(--f-titulo); }
+.pdf figure { margin: 8pt 0; break-inside: avoid; }
+.pdf figcaption { font-size: 8.5pt; color: var(--suave); }
+
+/* ---------- Infografia ---------- */
+body.info {
+  width: 1080px;
+  margin: 0;
+  background: var(--fondo);
+  font-size: 22px;
+  line-height: 1.45;
+}
+.info .banda {
+  background: var(--tinta);
+  color: #fff;
+  padding: 64px 72px 56px;
+}
+.info .banda .rotulo { color: #9db4ff; font-size: 20px; margin-bottom: 12px; }
+.info .banda h1 { font-size: 64px; line-height: 1.05; margin: 0 0 16px; }
+.info .banda p { color: #c9d2e3; font-size: 24px; margin: 0; max-width: 34ch; }
+.info .banda p.rotulo { max-width: none; color: #9db4ff; font-size: 20px; margin-bottom: 12px; }
+.info .bloques { padding: 48px 72px 24px; display: grid; gap: 32px; }
+.info .bloque {
+  background: var(--superficie);
+  border-radius: var(--radio);
+  padding: 32px 36px;
+}
+.info .bloque h2 { font-size: 34px; margin: 0 0 12px; color: var(--acento); }
+.info .bloque p { margin: 0 0 10px; }
+.info .bloque ul { margin: 0; padding-left: 28px; }
+.info .num { font: 700 72px/1 var(--f-titulo); color: var(--acento-2); }
+.info .dos { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; }
+.info .pie {
+  padding: 24px 72px 48px;
+  font-size: 15px;
+  line-height: 1.5;
+  color: var(--suave);
+}
+.info .pie strong { color: var(--tinta); }
+.info img.foto { width: 100%; height: 420px; object-fit: cover; border-radius: var(--radio); display: block; }
