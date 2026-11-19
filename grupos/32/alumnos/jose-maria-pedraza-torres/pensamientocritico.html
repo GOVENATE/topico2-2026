@@ -1,0 +1,967 @@
+<!doctype html>
+<html lang="es" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Centro de Comando Sistémico & Arcade Tech</title>
+<style>
+:root {
+  --bg: #07090e;
+  --surface: #0f131f;
+  --surface-border: #1e2638;
+  --panel-bg: rgba(15, 19, 31, 0.82);
+  --ink: #ecf1f8;
+  --muted: #7f8ca5;
+  --accent-cyan: #00f2fe;
+  --accent-purple: #9d4edd;
+  --accent-emerald: #10b981;
+  --accent-rose: #ff2a6d;
+  --accent-amber: #f59e0b;
+  --glow-cyan: rgba(0, 242, 254, 0.3);
+  --glow-purple: rgba(157, 78, 221, 0.3);
+  --shadow: 0 12px 35px rgba(0, 0, 0, 0.6);
+  --radius: 18px;
+}
+
+[data-theme="light"] {
+  --bg: #f4f7fc;
+  --surface: #ffffff;
+  --surface-border: #d4dfec;
+  --panel-bg: rgba(255, 255, 255, 0.9);
+  --ink: #0d1322;
+  --muted: #64748b;
+  --accent-cyan: #0284c7;
+  --accent-purple: #7c3aed;
+  --accent-emerald: #059669;
+  --accent-rose: #e11d48;
+  --accent-amber: #d97706;
+  --glow-cyan: rgba(2, 132, 199, 0.2);
+  --glow-purple: rgba(124, 58, 237, 0.2);
+  --shadow: 0 10px 30px rgba(13, 19, 34, 0.08);
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font: 16px/1.6 system-ui, -apple-system, sans-serif;
+  overflow-x: hidden;
+  background-image: 
+    radial-gradient(circle at 5% 5%, rgba(0, 242, 254, 0.04) 0%, transparent 35%),
+    radial-gradient(circle at 95% 95%, rgba(157, 78, 221, 0.04) 0%, transparent 35%);
+}
+
+.wrap { max-width: 1140px; margin: 0 auto; padding: 0 20px 90px; }
+
+/* Sticky Top Navigation Bar */
+.top-bar {
+  position: sticky;
+  top: 12px;
+  z-index: 100;
+  background: var(--panel-bg);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--surface-border);
+  border-radius: 999px;
+  padding: 10px 22px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: var(--shadow);
+  margin-bottom: 35px;
+}
+.brand { font-weight: 800; font-size: 1.05rem; display: flex; align-items: center; gap: 8px; color: var(--accent-cyan); }
+.brand i { color: var(--accent-purple); }
+.status-pill {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  font-size: 0.85rem;
+  font-weight: 700;
+}
+.xp-badge {
+  background: linear-gradient(135deg, var(--accent-cyan), var(--accent-purple));
+  color: #fff;
+  padding: 5px 14px;
+  border-radius: 999px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  box-shadow: 0 0 15px var(--glow-cyan);
+}
+.theme-toggle {
+  background: var(--surface);
+  border: 1px solid var(--surface-border);
+  color: var(--ink);
+  border-radius: 50%;
+  width: 38px;
+  height: 38px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.2s;
+}
+.theme-toggle:hover { transform: scale(1.1); }
+
+/* Hero Banner */
+.hero { text-align: center; padding: 15px 0 35px; }
+.kicker {
+  font-size: 0.78rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.22em;
+  color: var(--accent-cyan);
+  margin-bottom: 8px;
+}
+h1 {
+  font-size: clamp(2.2rem, 5vw, 3.4rem);
+  font-weight: 900;
+  line-height: 1.15;
+  margin: 0 0 14px;
+  background: linear-gradient(135deg, var(--ink) 20%, var(--accent-cyan) 70%, var(--accent-purple) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.sub { color: var(--muted); max-width: 68ch; margin: 0 auto 24px; font-size: 1.02rem; }
+
+/* 5 Main Modules Navigation Grid */
+.nav-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 14px;
+  margin-bottom: 40px;
+}
+.nav-card {
+  background: var(--surface);
+  border: 1px solid var(--surface-border);
+  border-radius: var(--radius);
+  padding: 18px;
+  text-decoration: none;
+  color: inherit;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+.nav-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; width: 100%; height: 3px;
+  background: linear-gradient(90deg, var(--accent-cyan), var(--accent-purple));
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+.nav-card:hover {
+  transform: translateY(-4px);
+  border-color: var(--accent-cyan);
+  box-shadow: 0 10px 25px -5px var(--glow-cyan);
+}
+.nav-card:hover::before { opacity: 1; }
+.nav-card .num {
+  font-size: 1.8rem;
+  font-weight: 900;
+  opacity: 0.15;
+  position: absolute;
+  top: 8px; right: 14px;
+}
+.nav-card .ico { font-size: 1.5rem; color: var(--accent-cyan); margin-bottom: 10px; display: block; }
+.nav-card h3 { margin: 0 0 4px; font-size: 1rem; }
+.nav-card p { margin: 0; font-size: 0.8rem; color: var(--muted); line-height: 1.35; }
+
+/* Panel Container */
+section.panel {
+  background: var(--surface);
+  border: 1px solid var(--surface-border);
+  border-radius: var(--radius);
+  padding: 30px;
+  margin-bottom: 40px;
+  box-shadow: var(--shadow);
+  position: relative;
+}
+.panel-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid var(--surface-border);
+  padding-bottom: 16px;
+  margin-bottom: 24px;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+.panel-title {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 1.35rem;
+  font-weight: 800;
+  margin: 0;
+}
+.panel-title i { color: var(--accent-cyan); }
+
+/* Buttons & Segmented Control */
+.btn {
+  background: linear-gradient(135deg, var(--accent-cyan), var(--accent-purple));
+  color: #fff;
+  border: 0;
+  border-radius: 10px;
+  padding: 9px 16px;
+  font-weight: 700;
+  font-size: 0.88rem;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  transition: all 0.2s;
+  box-shadow: 0 4px 14px var(--glow-cyan);
+}
+.btn:hover { transform: translateY(-2px); opacity: 0.95; }
+.btn.ghost {
+  background: transparent;
+  border: 1px solid var(--surface-border);
+  color: var(--ink);
+  box-shadow: none;
+}
+.btn.ghost:hover { border-color: var(--accent-cyan); color: var(--accent-cyan); }
+.btn.rose {
+  background: linear-gradient(135deg, var(--accent-rose), var(--accent-purple));
+  box-shadow: 0 4px 14px rgba(255, 42, 109, 0.3);
+}
+
+.seg-group {
+  display: inline-flex;
+  background: var(--bg);
+  border: 1px solid var(--surface-border);
+  border-radius: 999px;
+  padding: 4px;
+  gap: 4px;
+  flex-wrap: wrap;
+}
+.seg-btn {
+  background: transparent;
+  border: 0;
+  color: var(--muted);
+  padding: 6px 14px;
+  border-radius: 999px;
+  font-size: 0.82rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.seg-btn[aria-pressed="true"] {
+  background: var(--surface);
+  color: var(--accent-cyan);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+}
+
+/* MÓDULO 1: RESÚMENES MAGISTRALES */
+.summary-tabs { display: flex; gap: 8px; margin-bottom: 20px; }
+.summary-tab-btn {
+  background: var(--bg);
+  border: 1px solid var(--surface-border);
+  color: var(--muted);
+  padding: 10px 20px;
+  border-radius: 12px;
+  font-weight: 700;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: all 0.2s;
+}
+.summary-tab-btn.active {
+  background: var(--surface);
+  color: var(--accent-cyan);
+  border-color: var(--accent-cyan);
+  box-shadow: 0 4px 12px var(--glow-cyan);
+}
+.summary-content { display: none; background: var(--bg); border: 1px solid var(--surface-border); border-radius: 14px; padding: 22px; }
+.summary-content.active { display: block; }
+.summary-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px; margin-top: 16px; }
+.summary-card {
+  background: var(--surface);
+  border: 1px solid var(--surface-border);
+  border-radius: 12px;
+  padding: 16px;
+}
+.summary-card h4 { margin: 0 0 8px; color: var(--accent-cyan); font-size: 1rem; display: flex; align-items: center; gap: 8px; }
+
+/* MÓDULO 2: ARQUETIPOS MATRIX */
+.arq-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+  gap: 16px;
+  margin-bottom: 30px;
+}
+.arq-card { perspective: 1000px; height: 280px; cursor: pointer; }
+.arq-card-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+  transform-style: preserve-3d;
+}
+.arq-card.flipped .arq-card-inner { transform: rotateY(180deg); }
+.arq-face {
+  position: absolute;
+  inset: 0;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  border-radius: var(--radius);
+  border: 1px solid var(--surface-border);
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  background: var(--surface);
+}
+.arq-face.front { background: linear-gradient(145deg, var(--surface), var(--bg)); text-align: center; align-items: center; }
+.arq-face.front i { font-size: 2.6rem; color: var(--accent-cyan); margin-top: 15px; }
+.arq-face.front h4 { margin: 8px 0 4px; font-size: 1rem; }
+.arq-face.back { transform: rotateY(180deg); font-size: 0.82rem; overflow-y: auto; }
+.arq-face.back h5 { margin: 0 0 6px; color: var(--accent-cyan); font-size: 0.92rem; }
+.tag-badge {
+  display: inline-block;
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-weight: 700;
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  margin-top: 6px;
+}
+.tag-sys { background: rgba(0, 242, 254, 0.15); color: var(--accent-cyan); }
+.tag-psy { background: rgba(255, 42, 109, 0.15); color: var(--accent-rose); }
+
+.quiz-box { background: var(--bg); border: 1px solid var(--surface-border); border-radius: 14px; padding: 20px; }
+.quiz-opt {
+  width: 100%;
+  text-align: left;
+  background: var(--surface);
+  border: 1px solid var(--surface-border);
+  color: var(--ink);
+  padding: 12px 16px;
+  border-radius: 10px;
+  margin-top: 8px;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.quiz-opt:hover:not(:disabled) { border-color: var(--accent-cyan); transform: translateX(4px); }
+.quiz-opt.correct { border-color: var(--accent-emerald); background: rgba(16, 185, 129, 0.15); }
+.quiz-opt.wrong { border-color: var(--accent-rose); background: rgba(255, 42, 109, 0.15); }
+
+/* MÓDULO 3: SIMULADOR TI & DESPLAZAMIENTO DE CARGA */
+.sim-grid { display: grid; grid-template-columns: 320px 1fr; gap: 20px; }
+.sim-panel-controls {
+  background: var(--bg);
+  border: 1px solid var(--surface-border);
+  border-radius: 14px;
+  padding: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.sim-slider-group { display: flex; flex-direction: column; gap: 6px; }
+.sim-slider-group label { font-size: 0.85rem; font-weight: 700; display: flex; justify-content: space-between; }
+.sim-slider-group input[type="range"] { width: 100%; accent-color: var(--accent-cyan); }
+.metrics-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; margin-bottom: 16px; }
+.metric-card { background: var(--bg); border: 1px solid var(--surface-border); border-radius: 12px; padding: 14px; }
+.metric-card span { font-size: 0.75rem; color: var(--muted); font-weight: 700; text-transform: uppercase; }
+.metric-card .val { font-size: 1.4rem; font-weight: 900; margin-top: 4px; }
+.sim-canvas-box { background: var(--bg); border: 1px solid var(--surface-border); border-radius: 14px; height: 210px; position: relative; }
+.sim-canvas-box canvas { width: 100%; height: 100%; display: block; }
+
+/* MÓDULO 4: NEURO-MATRIX DE GOLDBERG */
+.neuro-grid { display: grid; grid-template-columns: 1fr 320px; gap: 20px; }
+.neuro-canvas-box { background: var(--bg); border: 1px solid var(--surface-border); border-radius: 14px; height: 350px; position: relative; }
+.neuro-canvas-box canvas { width: 100%; height: 100%; display: block; }
+.neuro-info {
+  background: var(--bg);
+  border: 1px solid var(--surface-border);
+  border-radius: 14px;
+  padding: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.wave-indicator {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 0.85rem;
+  font-weight: 700;
+  padding: 8px 12px;
+  background: var(--surface);
+  border-radius: 8px;
+  border: 1px solid var(--surface-border);
+}
+.wave-dot { width: 10px; height: 10px; border-radius: 50%; background: var(--accent-cyan); box-shadow: 0 0 10px var(--accent-cyan); }
+
+/* MÓDULO 5: CENTRO DE PROYECTOS Y EXPOSICIONES (HUB) */
+.hub-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px; }
+.hub-card {
+  background: var(--bg);
+  border: 1px solid var(--surface-border);
+  border-radius: 14px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  transition: transform 0.2s, border-color 0.2s;
+}
+.hub-card:hover { transform: translateY(-3px); border-color: var(--accent-cyan); }
+.hub-card h4 { margin: 0 0 6px; font-size: 1.05rem; display: flex; align-items: center; gap: 8px; color: var(--accent-cyan); }
+.hub-card p { font-size: 0.85rem; color: var(--muted); margin: 0 0 16px; line-height: 1.4; }
+
+@media (max-width: 850px) {
+  .sim-grid, .neuro-grid { grid-template-columns: 1fr; }
+  .metrics-grid { grid-template-columns: 1fr; }
+}
+</style>
+<script src="https://unpkg.com/lucide@0.344.0/dist/umd/lucide.min.js"></script>
+</head>
+<body>
+
+<div class="wrap">
+  <!-- Top Navigation Bar -->
+  <div class="top-bar">
+    <div class="brand">
+      <i data-lucide="cpu"></i> CENTRO DE COMANDO SISTÉMICO
+    </div>
+    <div class="status-pill">
+      <div class="xp-badge" id="xpBadge">
+        <i data-lucide="zap"></i> XP: <span id="xpVal">0</span>
+      </div>
+      <button class="theme-toggle" id="themeBtn" aria-label="Cambiar tema">◐</button>
+    </div>
+  </div>
+
+  <!-- Hero Banner -->
+  <header class="hero">
+    <div class="kicker">Proyecto Integrador Definitivo</div>
+    <h1>Sistema Interactivo & Arcade Tech</h1>
+    <p class="sub">Plataforma integral con 5 módulos avanzados para el análisis de sistemas complejos, arquetipos organizacionales, simulaciones de TI, neuro-creatividad y hub de exposiciones.</p>
+  </header>
+
+  <!-- 5 Main Modules Navigation Grid -->
+  <nav class="nav-grid">
+    <a href="#mod1" class="nav-card">
+      <span class="num">01</span>
+      <i data-lucide="book-open" class="ico"></i>
+      <h3>Resúmenes Magistrales</h3>
+      <p>Senge & Goldberg explicados en profundidad y puntos clave.</p>
+    </a>
+    <a href="#mod2" class="nav-card">
+      <span class="num">02</span>
+      <i data-lucide="layers" class="ico"></i>
+      <h3>Arquetipos Matrix</h3>
+      <p>10 arquetipos con doble enfoque y test táctico interactivo.</p>
+    </a>
+    <a href="#mod3" class="nav-card">
+      <span class="num">03</span>
+      <i data-lucide="server" class="ico"></i>
+      <h3>Simulador TI & Caos</h3>
+      <p>Parches rápidos vs refactorización y demoras en la nube.</p>
+    </a>
+    <a href="#mod4" class="nav-card">
+      <span class="num">04</span>
+      <i data-lucide="activity" class="ico"></i>
+      <h3>Neuro-Matrix</h3>
+      <p>Redes cerebrales de la creatividad según Elkhonon Goldberg.</p>
+    </a>
+    <a href="#mod5" class="nav-card">
+      <span class="num">05</span>
+      <i data-lucide="compass" class="ico"></i>
+      <h3>Centro de Proyectos</h3>
+      <p>Hub general con enlaces a los 5 productos y exposiciones.</p>
+    </a>
+  </nav>
+
+  <!-- MÓDULO 1: RESÚMENES MAGISTRALES -->
+  <section class="panel" id="mod1">
+    <div class="panel-header">
+      <h2 class="panel-title"><i data-lucide="book-open"></i> 1. Resúmenes Magistrales</h2>
+      <div class="summary-tabs">
+        <button class="summary-tab-btn active" data-target="sumSenge">La Quinta Disciplina (Senge)</button>
+        <button class="summary-tab-btn" data-target="sumGoldberg">Creatividad (Goldberg)</button>
+      </div>
+    </div>
+
+    <!-- Senge Content -->
+    <div class="summary-content active" id="sumSenge">
+      <h3 style="margin:0 0 10px; color:var(--accent-cyan);">Peter Senge: Construyendo Organizaciones Inteligentes</h3>
+      <p style="font-size:0.95rem; color:var(--muted); line-height:1.6;">
+        El texto analiza cómo el pensamiento fragmentado (lineal) destruye la capacidad de adaptación empresarial. Senge propone abandonar las barreras de aprendizaje (*"Yo soy mi puesto"*, *"El enemigo externo"*, *"La ilusión de hacerse cargo"*) para adoptar las 5 disciplinas sistémicas.
+      </p>
+      <div class="summary-grid">
+        <div class="summary-card">
+          <h4><i data-lucide="shield"></i> Dominio Personal</h4>
+          <p style="font-size:0.85rem; color:var(--muted); margin:0;">Aclarar y profundizar continuamente nuestra visión personal, enfocando las energías con paciencia.</p>
+        </div>
+        <div class="summary-card">
+          <h4><i data-lucide="eye"></i> Modelos Mentales</h4>
+          <p style="font-size:0.85rem; color:var(--muted); margin:0;">Reflexionar sobre nuestras imágenes internas del mundo para abrirlas a escrutinio y mejora.</p>
+        </div>
+        <div class="summary-card">
+          <h4><i data-lucide="users"></i> Visión Compartida</h4>
+          <p style="font-size:0.85rem; color:var(--muted); margin:0;">Construir un sentido de compromiso genuino en torno a futuros deseados compartidos.</p>
+        </div>
+        <div class="summary-card">
+          <h4><i data-lucide="cpu"></i> Pensamiento Sistémico</h4>
+          <p style="font-size:0.85rem; color:var(--muted); margin:0;">La <b>quinta disciplina</b> que integra a las demás, permitiendo ver interrelaciones en lugar de cadenas lineales.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Goldberg Content -->
+    <div class="summary-content" id="sumGoldberg">
+      <h3 style="margin:0 0 10px; color:var(--accent-purple);">Elkhonon Goldberg: El Cerebro Humano en la Era de la Innovación</h3>
+      <p style="font-size:0.95rem; color:var(--muted); line-height:1.6;">
+        Goldberg aborda la neurobiología de la novedad. En un entorno donde el conocimiento se vuelve obsoleto rápidamente, el cerebro humano se enfrenta a la curva de la novedad, requiriendo flexibilidad frontal y redes dinámicas complejas.
+      </p>
+      <div class="summary-grid">
+        <div class="summary-card">
+          <h4><i data-lucide="cpu"></i> Lóbulos Frontales</h4>
+          <p style="font-size:0.85rem; color:var(--muted); margin:0;">El epicentro de la novedad, la formulación de metas y la resolución de problemas no rutinarios.</p>
+        </div>
+        <div class="summary-card">
+          <h4><i data-lucide="git-merge"></i> El Modelo de los Bloques Lego</h4>
+          <p style="font-size:0.85rem; color:var(--muted); margin:0;">La creatividad no es crear de la nada, sino ensamblar conocimientos previos en configuraciones totalmente novedosas.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MÓDULO 2: ARQUETIPOS MATRIX -->
+  <section class="panel" id="mod2">
+    <div class="panel-header">
+      <h2 class="panel-title"><i data-lucide="layers"></i> 2. Los 10 Arquetipos Sistémicos</h2>
+      <div class="seg-group" id="arqFilter">
+        <button class="seg-btn" aria-pressed="true" data-f="all">Todos</button>
+        <button class="seg-btn" aria-pressed="false" data-f="sys">Sistémico / TI</button>
+        <button class="seg-btn" aria-pressed="false" data-f="psy">Psicológico</button>
+      </div>
+    </div>
+    <p style="color:var(--muted); font-size:0.92rem; margin-top:-10px; margin-bottom:20px;">
+      Toca cualquier tarjeta para girarla y descubrir su doble ejemplo (empresarial/informático y psicológico/personal).
+    </p>
+
+    <div class="arq-grid" id="arqGrid"></div>
+
+    <div class="quiz-box" id="quizBox">
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
+        <h3 style="margin:0; font-size:1.05rem; display:flex; align-items:center; gap:8px;">
+          <i data-lucide="crosshair" style="color:var(--accent-rose);"></i> Mini-Quiz de Diagnóstico Sistémico
+        </h3>
+        <span style="font-weight:800; color:var(--accent-cyan);" id="quizCombo">Combo: x1</span>
+      </div>
+      <p id="quizQuestion" style="font-size:0.92rem; font-weight:600; margin-bottom:12px;"></p>
+      <div id="quizOptions"></div>
+      <div id="quizFeedback" style="margin-top:10px; font-weight:700; font-size:0.85rem; min-height:22px;"></div>
+    </div>
+  </section>
+
+  <!-- MÓDULO 3: SIMULADOR TI & DESPLAZAMIENTO DE CARGA -->
+  <section class="panel" id="mod3">
+    <div class="panel-header">
+      <h2 class="panel-title"><i data-lucide="server"></i> 3. Simulador de Sistemas TI & Desplazamiento de la Carga</h2>
+      <button class="btn rose" id="btnSimReset"><i data-lucide="rotate-ccw"></i> Reiniciar Servidores</button>
+    </div>
+    <p style="color:var(--muted); font-size:0.92rem; margin-top:-10px; margin-bottom:20px;">
+      Gestiona la carga de peticiones (RPS), aprovisiona servidores en la nube (experimentando demoras) y decide entre aplicar <b>Parches Rápidos</b> o <b>Refactorizar Código</b>.
+    </p>
+
+    <div class="sim-grid">
+      <div class="sim-panel-controls">
+        <div class="sim-slider-group">
+          <label><span>Carga de Peticiones (RPS)</span> <b id="valRequests">500</b></label>
+          <input type="range" id="rngRequests" min="100" max="2000" value="500">
+        </div>
+
+        <div class="sim-slider-group">
+          <label><span>Servidores Aprovisionados</span> <b id="valServers">5</b></label>
+          <input type="range" id="rngServers" min="1" max="20" value="5">
+        </div>
+
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px; margin-top:8px;">
+          <button class="btn" id="btnApplyHotfix"><i data-lucide="zap"></i> Parche Rápido</button>
+          <button class="btn ghost" id="btnRefactorCode"><i data-lucide="wrench"></i> Refactorizar</button>
+        </div>
+      </div>
+
+      <div>
+        <div class="metrics-grid">
+          <div class="metric-card">
+            <span>Latencia del Sistema</span>
+            <div class="val" id="metLatency" style="color:var(--accent-cyan);">45 ms</div>
+          </div>
+          <div class="metric-card">
+            <span>Deuda Técnica</span>
+            <div class="val" id="metDebt" style="color:var(--accent-rose);">10%</div>
+          </div>
+          <div class="metric-card">
+            <span>Tasa de Error (HTTP 500)</span>
+            <div class="val" id="metErrors" style="color:var(--accent-amber);">0.0%</div>
+          </div>
+          <div class="metric-card">
+            <span>Costo por Hora (USD)</span>
+            <div class="val" id="metCost" style="color:var(--accent-emerald);">$12/h</div>
+          </div>
+        </div>
+
+        <div class="sim-canvas-box">
+          <canvas id="simCanvas"></canvas>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MÓDULO 4: NEURO-MATRIX DE GOLDBERG -->
+  <section class="panel" id="mod4">
+    <div class="panel-header">
+      <h2 class="panel-title"><i data-lucide="activity"></i> 4. Redes Neuronales y Creatividad (Goldberg)</h2>
+      <div class="seg-group" id="neuroModes">
+        <button class="seg-btn" aria-pressed="true" data-m="rec">Enfoque Ejecutivo</button>
+        <button class="seg-btn" aria-pressed="false" data-m="rnd">Divagación Libre</button>
+        <button class="seg-btn" aria-pressed="false" data-m="eureka">Insight Creativo</button>
+      </div>
+    </div>
+    <p style="color:var(--muted); font-size:0.92rem; margin-top:-10px; margin-bottom:20px;">
+      Visualiza en tiempo real la activación de las redes cerebrales descritas por Elkhonon Goldberg durante la generación de ideas.
+    </p>
+
+    <div class="neuro-grid">
+      <div class="neuro-canvas-box">
+        <canvas id="neuroCanvas"></canvas>
+      </div>
+      <div class="neuro-info">
+        <div class="wave-indicator">
+          <div class="wave-dot" id="waveDot"></div>
+          <span id="waveTxt">Ondas Beta (15-30 Hz) - Modo Foco</span>
+        </div>
+        <h4 id="neuroTitle" style="margin:0; font-size:1.05rem; color:var(--accent-cyan);">Red Ejecutiva Central</h4>
+        <p id="neuroDesc" style="font-size:0.85rem; color:var(--muted); margin:0; line-height:1.5;">
+          Activada durante tareas altamente focalizadas. Modela y ejecuta lógica analítica estructurada.
+        </p>
+        <div style="margin-top:auto; background:var(--surface); border:1px solid var(--surface-border); border-radius:10px; padding:10px; font-size:0.78rem;">
+          <b>Analogía Goldberg:</b> <span id="neuroAnalogy" style="color:var(--ink);">Construcción consciente con bloques estandarizados.</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MÓDULO 5: CENTRO DE PROYECTOS Y EXPOSICIONES (HUB) -->
+  <section class="panel" id="mod5">
+    <div class="panel-header">
+      <h2 class="panel-title"><i data-lucide="compass"></i> 5. Centro de Proyectos y Exposiciones (Hub)</h2>
+      <span style="font-size:0.85rem; color:var(--accent-cyan); font-weight:700;">Directorio Dinámico de Equipos</span>
+    </div>
+    <p style="color:var(--muted); font-size:0.92rem; margin-top:-10px; margin-bottom:20px;">
+      Acceso centralizado a los 5 productos adicionales correspondientes a las exposiciones de los compañeros del curso y equipos colaboradores.
+    </p>
+
+    <div class="hub-grid">
+      <div class="hub-card">
+        <div>
+          <h4><i data-lucide="folder-git-2"></i> Producto 01: Feed Temático Grupal</h4>
+          <p>Repositorio interactivo tipo carrusel con infografías de los primeros temas de exposición.</p>
+        </div>
+        <button class="btn ghost" onclick="alertNav('Producto 01')"><i data-lucide="external-link"></i> Explorar Módulo</button>
+      </div>
+
+      <div class="hub-card">
+        <div>
+          <h4><i data-lucide="cpu"></i> Producto 02: Simulador de Arquetipos TI</h4>
+          <p>Casos de estudio prácticos sobre límites del crecimiento en plataformas escalables.</p>
+        </div>
+        <button class="btn ghost" onclick="alertNav('Producto 02')"><i data-lucide="external-link"></i> Explorar Módulo</button>
+      </div>
+
+      <div class="hub-card">
+        <div>
+          <h4><i data-lucide="layers"></i> Producto 03: Infografía Dinámica Senge</h4>
+          <p>Síntesis visual de las 7 barreras de aprendizaje organizacional y el Juego de la Cerveza.</p>
+        </div>
+        <button class="btn ghost" onclick="alertNav('Producto 03')"><i data-lucide="external-link"></i> Explorar Módulo</button>
+      </div>
+
+      <div class="hub-card">
+        <div>
+          <h4><i data-lucide="brain"></i> Producto 04: Módulo de Neuro-Innovación</h4>
+          <p>Aplicación práctica de la plasticidad cerebral y los lóbulos frontales según Goldberg.</p>
+        </div>
+        <button class="btn ghost" onclick="alertNav('Producto 04')"><i data-lucide="external-link"></i> Explorar Módulo</button>
+      </div>
+
+      <div class="hub-card">
+        <div>
+          <h4><i data-lucide="network"></i> Producto 05: Dashboard Grupo 31 / Colaborativo</h4>
+          <p>Enlace maestro unificado con los proyectos intergrupales y entregas finales integradas.</p>
+        </div>
+        <button class="btn ghost" onclick="alertNav('Producto 05')"><i data-lucide="external-link"></i> Explorar Módulo</button>
+      </div>
+    </div>
+  </section>
+</div>
+
+<script>
+/* Global XP System */
+let xp = 0;
+function addXP(amount) {
+  xp += amount;
+  document.getElementById('xpVal').textContent = xp;
+  const badge = document.getElementById('xpBadge');
+  badge.style.transform = 'scale(1.2)';
+  setTimeout(() => badge.style.transform = 'scale(1)', 200);
+}
+
+function alertNav(name) {
+  addXP(10);
+  alert("Abriendo el " + name + " integrado en el Centro de Comando.");
+}
+
+/* Theme Toggle */
+document.getElementById('themeBtn').addEventListener('click', () => {
+  const root = document.documentElement;
+  const next = root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+  root.setAttribute('data-theme', next);
+});
+
+/* MÓDULO 1: Resúmenes Tabs */
+document.querySelectorAll('.summary-tab-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.summary-tab-btn').forEach(b => b.classList.remove('active'));
+    document.querySelectorAll('.summary-content').forEach(c => c.classList.remove('active'));
+    btn.classList.add('active');
+    document.getElementById(btn.dataset.target).classList.add('active');
+    addXP(5);
+  });
+});
+
+/* MÓDULO 2: Arquetipos Matrix */
+const arqData = [
+  { name: "Compensación entre Proceso y Demora", cat: "sys", desc: "Ajustar una variable con respuesta retardada genera oscilaciones violentas.", sys: "Aprovisionar servidores sin esperar el tiempo de boot.", psy: "Tomar decisiones de pánico por falta de retroalimentación inmediata." },
+  { name: "Límites del Crecimiento", cat: "sys", desc: "El éxito acelerado choca contra un cuello de botella no previsto.", sys: "Crecimiento viral de app que colapsa la base de datos monolítica.", psy: "Aprender una habilidad rápido hasta estancarse sin fundamentos." },
+  { name: "Desplazamiento de la Carga", cat: "sys", desc: "Aplicar parches sintomáticos atrofia la capacidad de solución de raíz.", sys: "Reiniciar el servidor en vez de corregir la fuga de memoria.", psy: "Usar estimulantes para tapar el agotamiento acumulado." },
+  { name: "Desplazamiento hacia la Intervención", cat: "sys", desc: "Depender de un consultor o agente externo reduce las capacidades internas.", sys: "Outsourcing total del código clave de la empresa.", psy: "Permitir que otros tomen tus decisiones complejas siempre." },
+  { name: "Erosión de Metas", cat: "sys", desc: "Rebajar sistemáticamente los estándares para encubrir la falta de rendimiento.", sys: "Aceptar más bugs en producción para cumplir fechas límite.", psy: "Bajar tus expectativas personales tras sufrir tropiezos." },
+  { name: "Escalada", cat: "sys", desc: "Dos actores compiten agresivamente en una espiral que daña a ambos.", sys: "Guerra de precios entre plataformas SaaS.", psy: "Escalación de discusiones acaloradas en el equipo." },
+  { name: "Éxito para quien tiene éxito", cat: "sys", desc: "Asignar todos los recursos al ganador previo sofoca la innovación.", sys: "Invertir solo en productos heredados ignorando I+D.", psy: "Favoritismo hacia un colaborador en perjuicio del resto." },
+  { name: "Tragedia del Terreno Común", cat: "sys", desc: "Uso desmedido e individualista de un recurso compartido que termina agotándolo.", sys: "Saturación de un canal de ancho de banda compartido.", psy: "Descuido generalizado del espacio de trabajo del equipo." },
+  { name: "Soluciones Rápidas que Fallan", cat: "sys", desc: "La solución rápida de hoy genera un problema severo mañana.", sys: "Desactivar parches de seguridad para acelerar el software.", psy: "Apostar por atajos poco éticos para lograr metas a corto plazo." },
+  { name: "Crecimiento y Subinversión", cat: "sys", desc: "El crecimiento se frena por falta deliberada de inversión en capacidad.", sys: "No escalar la infraestructura previa al lanzamiento global.", psy: "Aceptar nuevos compromisos sin dedicar tiempo a prepararse." }
+];
+
+const arqGrid = document.getElementById('arqGrid');
+function renderArq(filter = 'all') {
+  arqGrid.innerHTML = '';
+  arqData.forEach((a, i) => {
+    if (filter !== 'all' && a.cat !== filter) return;
+    const card = document.createElement('div');
+    card.className = 'arq-card';
+    card.innerHTML = `
+      <div class="arq-card-inner">
+        <div class="arq-face front">
+          <i data-lucide="${a.cat === 'sys' ? 'cpu' : 'user'}"></i>
+          <h4>${a.name}</h4>
+          <span class="tag-badge ${a.cat === 'sys' ? 'tag-sys' : 'tag-psy'}">${a.cat === 'sys' ? 'TI / Sistemas' : 'Psicología'}</span>
+        </div>
+        <div class="arq-face back">
+          <h5>${a.name}</h5>
+          <p>${a.desc}</p>
+          <p><b>Ejemplo:</b> ${a.sys}</p>
+        </div>
+      </div>
+    `;
+    card.addEventListener('click', () => {
+      card.classList.toggle('flipped');
+      addXP(2);
+    });
+    arqGrid.appendChild(card);
+  });
+  lucide.createIcons();
+}
+renderArq();
+
+document.querySelectorAll('#arqFilter button').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('#arqFilter button').forEach(b => b.setAttribute('aria-pressed', 'false'));
+    btn.setAttribute('aria-pressed', 'true');
+    renderArq(btn.dataset.f);
+  });
+});
+
+/* Quiz Mechanics */
+const quizQuestions = [
+  { q: "Tu app se vuelve lenta. En vez de optimizar la consulta SQL, agregas un script que reinicia el servidor cada hora. ¿Qué arquetipo es?", opts: ["Desplazamiento de la Carga", "Escalada", "Erosión de Metas"], ans: 0 },
+  { q: "Dos empresas SaaS bajan suscripciones a $1/mes hasta arruinar sus ingresos. ¿Qué arquetipo representan?", opts: ["Límites del Crecimiento", "Escalada", "Tragedia del Terreno Común"], ans: 1 }
+];
+let currentQ = 0;
+function renderQuiz() {
+  const q = quizQuestions[currentQ];
+  document.getElementById('quizQuestion').textContent = q.q;
+  const optsDiv = document.getElementById('quizOptions');
+  optsDiv.innerHTML = '';
+  q.opts.forEach((opt, idx) => {
+    const btn = document.createElement('button');
+    btn.className = 'quiz-opt';
+    btn.textContent = opt;
+    btn.addEventListener('click', () => {
+      const correct = idx === q.ans;
+      btn.classList.add(correct ? 'correct' : 'wrong');
+      document.getElementById('quizFeedback').textContent = correct ? "¡Excelente! Diagnóstico certero." : "Incorrecto. Revisa las tarjetas.";
+      if (correct) addXP(25);
+      setTimeout(() => {
+        currentQ = (currentQ + 1) % quizQuestions.length;
+        renderQuiz();
+        document.getElementById('quizFeedback').textContent = "";
+      }, 1500);
+    });
+    optsDiv.appendChild(btn);
+  });
+}
+renderQuiz();
+
+/* MÓDULO 3: Simulador TI */
+const simCanvas = document.getElementById('simCanvas');
+const simCtx = simCanvas.getContext('2d');
+function resizeCanvas(c) {
+  c.width = c.parentElement.clientWidth;
+  c.height = c.parentElement.clientHeight;
+}
+resizeCanvas(simCanvas);
+
+let simRps = 500, simServers = 5, simDebt = 10;
+let simHistory = [];
+
+document.getElementById('rngRequests').addEventListener('input', e => {
+  simRps = parseInt(e.target.value);
+  document.getElementById('valRequests').textContent = simRps;
+});
+document.getElementById('rngServers').addEventListener('input', e => {
+  simServers = parseInt(e.target.value);
+  document.getElementById('valServers').textContent = simServers;
+});
+document.getElementById('btnApplyHotfix').addEventListener('click', () => {
+  simDebt = Math.min(100, simDebt + 15);
+  addXP(10);
+});
+document.getElementById('btnRefactorCode').addEventListener('click', () => {
+  simDebt = Math.max(0, simDebt - 20);
+  addXP(15);
+});
+document.getElementById('btnSimReset').addEventListener('click', () => {
+  simRps = 500; simServers = 5; simDebt = 10;
+  document.getElementById('rngRequests').value = 500;
+  document.getElementById('rngServers').value = 5;
+  document.getElementById('valRequests').textContent = 500;
+  document.getElementById('valServers').textContent = 5;
+});
+
+function drawSim() {
+  const w = simCanvas.width, h = simCanvas.height;
+  simCtx.clearRect(0, 0, w, h);
+
+  const capacity = simServers * 120;
+  const loadRatio = simRps / capacity;
+  const latency = Math.round(30 + loadRatio * 150 + (simDebt * 2));
+  const errorRate = loadRatio > 1.2 ? ((loadRatio - 1.2) * 50).toFixed(1) : "0.0";
+  const cost = simServers * 2.4;
+
+  document.getElementById('metLatency').textContent = latency + " ms";
+  document.getElementById('metDebt').textContent = simDebt + "%";
+  document.getElementById('metErrors').textContent = errorRate + "%";
+  document.getElementById('metCost').textContent = "$" + cost.toFixed(0) + "/h";
+
+  simHistory.push(latency);
+  if (simHistory.length > w / 4) simHistory.shift();
+
+  simCtx.beginPath();
+  simCtx.strokeStyle = '#00f2fe';
+  simCtx.lineWidth = 2;
+  simHistory.forEach((val, x) => {
+    const y = h - (val / 300) * h;
+    if (x === 0) simCtx.moveTo(x * 4, y);
+    else simCtx.lineTo(x * 4, y);
+  });
+  simCtx.stroke();
+
+  requestAnimationFrame(drawSim);
+}
+drawSim();
+
+/* MÓDULO 4: Neuro-Matrix Goldberg */
+const neuroCanvas = document.getElementById('neuroCanvas');
+const neuroCtx = neuroCanvas.getContext('2d');
+resizeCanvas(neuroCanvas);
+
+let neuroMode = 'rec';
+const neuroModesInfo = {
+  rec: { title: "Red Ejecutiva Central", wave: "Ondas Beta (15-30 Hz)", desc: "Alta concentración analítica. Pensamiento lógico y convergente.", analogy: "Construcción consciente con bloques estandarizados." },
+  rnd: { title: "Red por Defecto (Default Mode)", wave: "Ondas Alfa (8-12 Hz)", desc: "Asociación libre, memoria autobiográfica y divagación.", analogy: "Navegación espacial por la biblioteca de experiencias pasadas." },
+  eureka: { title: "Insight Creativo (Red de Relevancia)", wave: "Ondas Gamma (>30 Hz)", desc: "Conexión súbita entre nodulos no relacionados previamente.", analogy: "Ensamble inesperado de bloques Lego previamente distantes." }
+};
+
+document.querySelectorAll('#neuroModes button').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('#neuroModes button').forEach(b => b.setAttribute('aria-pressed', 'false'));
+    btn.setAttribute('aria-pressed', 'true');
+    neuroMode = btn.dataset.m;
+    const info = neuroModesInfo[neuroMode];
+    document.getElementById('neuroTitle').textContent = info.title;
+    document.getElementById('waveTxt').textContent = info.wave;
+    document.getElementById('neuroDesc').textContent = info.desc;
+    document.getElementById('neuroAnalogy').textContent = info.analogy;
+    addXP(10);
+  });
+});
+
+let neuroAngle = 0;
+function drawNeuro() {
+  const w = neuroCanvas.width, h = neuroCanvas.height;
+  neuroCtx.clearRect(0, 0, w, h);
+
+  const cx = w / 2, cy = h / 2;
+  neuroAngle += 0.02;
+
+  const nodes = 8;
+  for (let i = 0; i < nodes; i++) {
+    const ang = (i / nodes) * Math.PI * 2 + neuroAngle;
+    const rad = neuroMode === 'rnd' ? 95 : 65;
+    const nx = cx + Math.cos(ang) * rad;
+    const ny = cy + Math.sin(ang) * rad;
+
+    neuroCtx.beginPath();
+    neuroCtx.arc(nx, ny, 8, 0, Math.PI * 2);
+    neuroCtx.fillStyle = neuroMode === 'eureka' ? '#ff2a6d' : '#00f2fe';
+    neuroCtx.fill();
+
+    neuroCtx.beginPath();
+    neuroCtx.moveTo(cx, cy);
+    neuroCtx.lineTo(nx, ny);
+    neuroCtx.strokeStyle = neuroMode === 'eureka' ? 'rgba(255, 42, 109, 0.4)' : 'rgba(0, 242, 254, 0.2)';
+    neuroCtx.stroke();
+  }
+
+  neuroCtx.beginPath();
+  neuroCtx.arc(cx, cy, 16, 0, Math.PI * 2);
+  neuroCtx.fillStyle = '#9d4edd';
+  neuroCtx.fill();
+
+  requestAnimationFrame(drawNeuro);
+}
+drawNeuro();
+
+window.addEventListener('resize', () => {
+  resizeCanvas(simCanvas);
+  resizeCanvas(neuroCanvas);
+});
+
+lucide.createIcons();
+</script>
+</body>
+</html>
