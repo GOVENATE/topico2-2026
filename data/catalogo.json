@@ -1,15 +1,10 @@
 {
-  "generado": "2026-11-19T00:48:14.297Z",
+  "generado": "2026-11-19T00:58:57.003Z",
   "topico": {
-    "titulo": "Topico 2",
-    "periodo": "Agosto - Diciembre 2026",
+    "titulo": "Tópico 2",
+    "periodo": "UAQ · Facultad de Informática · 2026",
     "profesor": "",
-    "resumen": "Recopilacion de las tecnologias y actividades que trabajamos durante el semestre. Cada alumno sube sus practicas y proyectos en su propia carpeta y aqui se juntan todas.",
-    "temas": [
-      "Tema 1 - cambiar por los temas reales del semestre",
-      "Tema 2",
-      "Tema 3"
-    ]
+    "resumen": "Las actividades, lecturas y proyectos del grupo en un solo lugar. Cada alumno sube su trabajo y el sitio lo organiza por temas."
   },
   "tecnologias": [
     "Actividad",
@@ -41,6 +36,511 @@
     "Resumen",
     "TypeScript",
     "Vite"
+  ],
+  "temas": [
+    {
+      "id": "empresarios",
+      "nombre": "Empresarios mexicanos",
+      "resumen": "Servitje, Zambrano, Slim y el perfil del empresario mexicano ideal.",
+      "alumnos": 6,
+      "actividades": 18,
+      "ejemplos": [
+        {
+          "grupo": "32",
+          "alumno": "alan-salvador-rojas-pina",
+          "nombre": "Alan Salvador Rojas Piña",
+          "actividad": "act15-comparativo-empresarios",
+          "titulo": "Cuadro comparativo de empresarios mexicanos"
+        },
+        {
+          "grupo": "32",
+          "alumno": "bradley-reyes-altamirano",
+          "nombre": "Bradley Yeray Reyes Altamirano",
+          "actividad": "act09-lider-visionario",
+          "titulo": "Receta del empresario ideal"
+        },
+        {
+          "grupo": "32",
+          "alumno": "kevin-alonso",
+          "nombre": "Kevin Alonso",
+          "actividad": "act09-lider-visionario",
+          "titulo": "Infografia del lider visionario"
+        }
+      ]
+    },
+    {
+      "id": "toma-decisiones",
+      "nombre": "Toma de decisiones",
+      "resumen": "Herramientas para analizar problemas y decidir: FODA, Ishikawa, Pareto y seis sombreros.",
+      "alumnos": 6,
+      "actividades": 10,
+      "ejemplos": [
+        {
+          "grupo": "32",
+          "alumno": "alan-salvador-rojas-pina",
+          "nombre": "Alan Salvador Rojas Piña",
+          "actividad": "act07-resumenes-habilidades-directivas",
+          "titulo": "Resúmenes de habilidades directivas"
+        },
+        {
+          "grupo": "32",
+          "alumno": "bradley-reyes-altamirano",
+          "nombre": "Bradley Yeray Reyes Altamirano",
+          "actividad": "act03-toma-decisiones",
+          "titulo": "Asistente de decisiones"
+        },
+        {
+          "grupo": "32",
+          "alumno": "kevin-alonso",
+          "nombre": "Kevin Alonso",
+          "actividad": "act03-toma-de-decisiones",
+          "titulo": "Herramientas para la Toma de Decisiones"
+        }
+      ]
+    },
+    {
+      "id": "7-habitos",
+      "nombre": "Los 7 hábitos",
+      "resumen": "Stephen Covey: proactividad, empezar con un fin en mente, primero lo primero y la mejora continua.",
+      "alumnos": 6,
+      "actividades": 9,
+      "ejemplos": [
+        {
+          "grupo": "32",
+          "alumno": "alan-salvador-rojas-pina",
+          "nombre": "Alan Salvador Rojas Piña",
+          "actividad": "act02-infografia-habitos",
+          "titulo": "Infografía: los 7 hábitos"
+        },
+        {
+          "grupo": "32",
+          "alumno": "bradley-reyes-altamirano",
+          "nombre": "Bradley Yeray Reyes Altamirano",
+          "actividad": "act01-7-habitos",
+          "titulo": "Los 7 Hábitos"
+        },
+        {
+          "grupo": "32",
+          "alumno": "kevin-alonso",
+          "nombre": "Kevin Alonso",
+          "actividad": "act01-los-7-habitos",
+          "titulo": "Los 7 Habitos"
+        }
+      ]
+    },
+    {
+      "id": "quinta-disciplina",
+      "nombre": "La quinta disciplina",
+      "resumen": "Peter Senge y las organizaciones que aprenden a través del pensamiento sistémico.",
+      "alumnos": 6,
+      "actividades": 6,
+      "ejemplos": [
+        {
+          "grupo": "32",
+          "alumno": "alan-salvador-rojas-pina",
+          "nombre": "Alan Salvador Rojas Piña",
+          "actividad": "act19-s16-senge",
+          "titulo": "La quinta disciplina · Parte I"
+        },
+        {
+          "grupo": "32",
+          "alumno": "bradley-reyes-altamirano",
+          "nombre": "Bradley Yeray Reyes Altamirano",
+          "actividad": "act05-pensamiento-sistemico",
+          "titulo": "Sistemas, patrones y nuevas ideas"
+        },
+        {
+          "grupo": "32",
+          "alumno": "kevin-alonso",
+          "nombre": "Kevin Alonso",
+          "actividad": "act05-pensamiento-sistemico",
+          "titulo": "Pensamiento sistemico y creatividad"
+        }
+      ]
+    },
+    {
+      "id": "creatividad",
+      "nombre": "Creatividad e innovación",
+      "resumen": "Elkhonon Goldberg y cómo el cerebro genera ideas nuevas.",
+      "alumnos": 5,
+      "actividades": 7,
+      "ejemplos": [
+        {
+          "grupo": "32",
+          "alumno": "alan-salvador-rojas-pina",
+          "nombre": "Alan Salvador Rojas Piña",
+          "actividad": "act21-s18-creatividad",
+          "titulo": "Creatividad · Elkhonon Goldberg"
+        },
+        {
+          "grupo": "32",
+          "alumno": "bradley-reyes-altamirano",
+          "nombre": "Bradley Yeray Reyes Altamirano",
+          "actividad": "act05-pensamiento-sistemico",
+          "titulo": "Sistemas, patrones y nuevas ideas"
+        },
+        {
+          "grupo": "32",
+          "alumno": "kevin-alonso",
+          "nombre": "Kevin Alonso",
+          "actividad": "act05-pensamiento-sistemico",
+          "titulo": "Pensamiento sistemico y creatividad"
+        }
+      ]
+    },
+    {
+      "id": "movimientos-sociales",
+      "nombre": "Movimientos sociales",
+      "resumen": "Mentes en acción: cómo se organizan las personas para cambiar su entorno.",
+      "alumnos": 5,
+      "actividades": 6,
+      "ejemplos": [
+        {
+          "grupo": "32",
+          "alumno": "alan-salvador-rojas-pina",
+          "nombre": "Alan Salvador Rojas Piña",
+          "actividad": "act12-movimientos-sociales",
+          "titulo": "Movimientos sociales (Mentes en acción)"
+        },
+        {
+          "grupo": "32",
+          "alumno": "miguel-belman",
+          "nombre": "Miguel Ángel Belman Mejía",
+          "actividad": "act09-movimientos-sociales",
+          "titulo": "Movimientos sociales"
+        },
+        {
+          "grupo": "32",
+          "alumno": "miguel-fuentes-fanjul",
+          "nombre": "Miguel Fuentes Fanjul",
+          "actividad": "act19-mentesenaccion",
+          "titulo": "Mentes en Accion"
+        }
+      ]
+    },
+    {
+      "id": "persuade-voz",
+      "nombre": "Persuade con tu voz",
+      "resumen": "Emma Rodero y el poder de la voz para comunicar y convencer.",
+      "alumnos": 5,
+      "actividades": 5,
+      "ejemplos": [
+        {
+          "grupo": "32",
+          "alumno": "alan-salvador-rojas-pina",
+          "nombre": "Alan Salvador Rojas Piña",
+          "actividad": "act09-resumen-video",
+          "titulo": "Persuade con tu voz"
+        },
+        {
+          "grupo": "32",
+          "alumno": "bradley-reyes-altamirano",
+          "nombre": "Bradley Yeray Reyes Altamirano",
+          "actividad": "act14-emma-rodero",
+          "titulo": "Resumen: la voz según Emma Rodero"
+        },
+        {
+          "grupo": "32",
+          "alumno": "kevin-alonso",
+          "nombre": "Kevin Alonso",
+          "actividad": "act14-emma-rodero-la-voz",
+          "titulo": "Resumen: Emma Rodero y el poder de la voz"
+        }
+      ]
+    },
+    {
+      "id": "superricos",
+      "nombre": "La influencia de los superricos",
+      "resumen": "Cómo la riqueza extrema moldea ciudades, política y sociedad.",
+      "alumnos": 5,
+      "actividades": 5,
+      "ejemplos": [
+        {
+          "grupo": "32",
+          "alumno": "alan-salvador-rojas-pina",
+          "nombre": "Alan Salvador Rojas Piña",
+          "actividad": "act10-superricos",
+          "titulo": "¿Cuánta influencia tienen los superricos?"
+        },
+        {
+          "grupo": "32",
+          "alumno": "kevin-alonso",
+          "nombre": "Kevin Alonso",
+          "actividad": "act15-documental-los-ricos",
+          "titulo": "Reflexion: la influencia de los ricos en las ciudades"
+        },
+        {
+          "grupo": "32",
+          "alumno": "miguel-fuentes-fanjul",
+          "nombre": "Miguel Fuentes Fanjul",
+          "actividad": "act15-influencia",
+          "titulo": "Influencia de los superricos"
+        }
+      ]
+    },
+    {
+      "id": "habilidades-directivas",
+      "nombre": "Habilidades directivas",
+      "resumen": "Tiempo, inteligencia emocional, liderazgo, equipos y negociación para dirigir.",
+      "alumnos": 4,
+      "actividades": 20,
+      "ejemplos": [
+        {
+          "grupo": "32",
+          "alumno": "alan-salvador-rojas-pina",
+          "nombre": "Alan Salvador Rojas Piña",
+          "actividad": "act07-resumenes-habilidades-directivas",
+          "titulo": "Resúmenes de habilidades directivas"
+        },
+        {
+          "grupo": "32",
+          "alumno": "miguel-belman",
+          "nombre": "Miguel Ángel Belman Mejía",
+          "actividad": "act03-habilidades-directivas",
+          "titulo": "Habilidades directivas y su clasificación"
+        },
+        {
+          "grupo": "32",
+          "alumno": "miguel-garcia",
+          "nombre": "Miguel Garcia",
+          "actividad": "act04-habilidades-del-pensamiento",
+          "titulo": "Habilidades del pensamiento"
+        }
+      ]
+    },
+    {
+      "id": "gigantes-tecnologicos",
+      "nombre": "Gigantes tecnológicos y poder",
+      "resumen": "El poder de las grandes empresas y lo que hay debajo de la nube.",
+      "alumnos": 4,
+      "actividades": 11,
+      "ejemplos": [
+        {
+          "grupo": "32",
+          "alumno": "alan-salvador-rojas-pina",
+          "nombre": "Alan Salvador Rojas Piña",
+          "actividad": "act13-poder-empresas",
+          "titulo": "El poder de las empresas"
+        },
+        {
+          "grupo": "32",
+          "alumno": "bradley-reyes-altamirano",
+          "nombre": "Bradley Yeray Reyes Altamirano",
+          "actividad": "act06-gigantes-tecnologicos",
+          "titulo": "Las capas de las grandes tecnológicas"
+        },
+        {
+          "grupo": "32",
+          "alumno": "kevin-alonso",
+          "nombre": "Kevin Alonso",
+          "actividad": "act06-iceberg-gigantes-tecnologicos",
+          "titulo": "El iceberg de los gigantes tecnologicos"
+        }
+      ]
+    },
+    {
+      "id": "codigo-limpio",
+      "nombre": "Código limpio",
+      "resumen": "Robert C. Martin: nombres claros, funciones pequeñas y código fácil de leer y mantener.",
+      "alumnos": 4,
+      "actividades": 6,
+      "ejemplos": [
+        {
+          "grupo": "32",
+          "alumno": "alan-salvador-rojas-pina",
+          "nombre": "Alan Salvador Rojas Piña",
+          "actividad": "act17-codigo-limpio",
+          "titulo": "Código limpio · operación rescate"
+        },
+        {
+          "grupo": "32",
+          "alumno": "miguel-fuentes-fanjul",
+          "nombre": "Miguel Fuentes Fanjul",
+          "actividad": "act02-codigolimpio",
+          "titulo": "Codigo Limpio"
+        },
+        {
+          "grupo": "32",
+          "alumno": "miguel-garcia",
+          "nombre": "Miguel Garcia",
+          "actividad": "act01-clean-code",
+          "titulo": "Clean Code"
+        }
+      ]
+    },
+    {
+      "id": "arquetipos",
+      "nombre": "Arquetipos sistémicos",
+      "resumen": "Patrones que se repiten en los sistemas y explican por qué los problemas regresan.",
+      "alumnos": 4,
+      "actividades": 4,
+      "ejemplos": [
+        {
+          "grupo": "32",
+          "alumno": "alan-salvador-rojas-pina",
+          "nombre": "Alan Salvador Rojas Piña",
+          "actividad": "act20-s17-arquetipos",
+          "titulo": "Arquetipos sistémicos y psicológicos"
+        },
+        {
+          "grupo": "32",
+          "alumno": "bradley-reyes-altamirano",
+          "nombre": "Bradley Yeray Reyes Altamirano",
+          "actividad": "act05-pensamiento-sistemico",
+          "titulo": "Sistemas, patrones y nuevas ideas"
+        },
+        {
+          "grupo": "32",
+          "alumno": "miguel-fuentes-fanjul",
+          "nombre": "Miguel Fuentes Fanjul",
+          "actividad": "act01-arquetipos",
+          "titulo": "Arquetipos"
+        }
+      ]
+    },
+    {
+      "id": "fracasan-paises",
+      "nombre": "¿Por qué fracasan los países?",
+      "resumen": "Acemoglu y Robinson: instituciones inclusivas frente a extractivas.",
+      "alumnos": 4,
+      "actividades": 4,
+      "ejemplos": [
+        {
+          "grupo": "32",
+          "alumno": "alan-salvador-rojas-pina",
+          "nombre": "Alan Salvador Rojas Piña",
+          "actividad": "act11-infografia-paises",
+          "titulo": "Infografía: ¿por qué fracasan los países?"
+        },
+        {
+          "grupo": "32",
+          "alumno": "miguel-fuentes-fanjul",
+          "nombre": "Miguel Fuentes Fanjul",
+          "actividad": "act17-porquefracasan",
+          "titulo": "Por que fracasan los paises"
+        },
+        {
+          "grupo": "32",
+          "alumno": "miguel-garcia",
+          "nombre": "Miguel Garcia",
+          "actividad": "act15-por-que-fracasan-los-paises",
+          "titulo": "Por que fracasan los paises"
+        }
+      ]
+    },
+    {
+      "id": "pensamiento-critico",
+      "nombre": "Pensamiento crítico",
+      "resumen": "Cuestionar la información y formar una opinión propia con argumentos.",
+      "alumnos": 3,
+      "actividades": 5,
+      "ejemplos": [
+        {
+          "grupo": "32",
+          "alumno": "alan-salvador-rojas-pina",
+          "nombre": "Alan Salvador Rojas Piña",
+          "actividad": "act08-pensamiento-critico",
+          "titulo": "Sin pensamiento crítico no eres nadie"
+        },
+        {
+          "grupo": "32",
+          "alumno": "miguel-fuentes-fanjul",
+          "nombre": "Miguel Fuentes Fanjul",
+          "actividad": "act11-comentario",
+          "titulo": "Comentario de video"
+        },
+        {
+          "grupo": "32",
+          "alumno": "miguel-garcia",
+          "nombre": "Miguel Garcia",
+          "actividad": "act05-pensagram",
+          "titulo": "Pensagram"
+        }
+      ]
+    },
+    {
+      "id": "filosofia",
+      "nombre": "Filosofía de vida",
+      "resumen": "Yokoi Kenji y la comparación entre la filosofía japonesa y la latinoamericana.",
+      "alumnos": 3,
+      "actividades": 3,
+      "ejemplos": [
+        {
+          "grupo": "32",
+          "alumno": "miguel-fuentes-fanjul",
+          "nombre": "Miguel Fuentes Fanjul",
+          "actividad": "act09-analisis",
+          "titulo": "Analisis Yokoi Kenji y Carlos Kasuaga"
+        },
+        {
+          "grupo": "32",
+          "alumno": "miguel-garcia",
+          "nombre": "Miguel Garcia",
+          "actividad": "act07-filosofia-japonesa-vs-latinoamericana",
+          "titulo": "Filosofia japonesa vs latinoamericana"
+        },
+        {
+          "grupo": "32",
+          "alumno": "ximena-martinez",
+          "nombre": "Ximena Martínez Gudiño",
+          "actividad": "act12-filosofia-yokoi-kenji",
+          "titulo": "Filosofía de Yokoi Kenji"
+        }
+      ]
+    },
+    {
+      "id": "dinero",
+      "nombre": "Dinero y éxito",
+      "resumen": "Efecto compuesto, lecciones de negocios y la psicología del dinero.",
+      "alumnos": 3,
+      "actividades": 3,
+      "ejemplos": [
+        {
+          "grupo": "32",
+          "alumno": "kevin-alonso",
+          "nombre": "Kevin Alonso",
+          "actividad": "act06-iceberg-gigantes-tecnologicos",
+          "titulo": "El iceberg de los gigantes tecnologicos"
+        },
+        {
+          "grupo": "32",
+          "alumno": "miguel-belman",
+          "nombre": "Miguel Ángel Belman Mejía",
+          "actividad": "act01-efecto-compuesto",
+          "titulo": "Efecto Compuesto"
+        },
+        {
+          "grupo": "32",
+          "alumno": "miguel-fuentes-fanjul",
+          "nombre": "Miguel Fuentes Fanjul",
+          "actividad": "act18-lecciones",
+          "titulo": "Lecciones de negocios, dinero y exito"
+        }
+      ]
+    },
+    {
+      "id": "colon",
+      "nombre": "Colón y la historia",
+      "resumen": "Infografías sobre Cristóbal Colón y su contexto.",
+      "alumnos": 2,
+      "actividades": 2,
+      "ejemplos": [
+        {
+          "grupo": "32",
+          "alumno": "miguel-garcia",
+          "nombre": "Miguel Garcia",
+          "actividad": "act14-actividad-colon",
+          "titulo": "Actividad Colon"
+        },
+        {
+          "grupo": "32",
+          "alumno": "ximena-martinez",
+          "nombre": "Ximena Martínez Gudiño",
+          "actividad": "act03-infografia-colon",
+          "titulo": "Infografía de Colón"
+        }
+      ]
+    }
   ],
   "grupos": [
     {

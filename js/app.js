@@ -59,8 +59,9 @@
 
   function vistaInicio() {
     const t = catalogo.topico;
+    const temas = Array.isArray(catalogo.temas) ? catalogo.temas : [];
     ponerMigas([]);
-    document.title = 'Topico 2 - 2026';
+    document.title = 'Tópico 2 · 2026';
 
     const alumnos = catalogo.grupos.reduce((n, g) => n + g.alumnos.length, 0);
     const actividades = catalogo.grupos.reduce((n, g) =>
@@ -69,30 +70,50 @@
     const grupos = catalogo.grupos.map(g => `
       <a class="tarjeta tarjeta-grupo" href="#/g/${encodeURIComponent(g.id)}">
         ${FLECHA}
+        <span class="tipo">Grupo</span>
         <div class="grande">${esc(g.id)}</div>
-        <p>Grupo &middot; ${g.alumnos.length} ${g.alumnos.length === 1 ? 'alumno' : 'alumnos'}</p>
+        <p>${g.alumnos.length} ${g.alumnos.length === 1 ? 'alumno' : 'alumnos'}</p>
       </a>`).join('');
 
-    const temas = (t.temas || []).map((x, i) =>
-      `<li><span>${String(i + 1).padStart(2, '0')}</span>${esc(x)}</li>`).join('');
+    const listaTemas = temas.map((x, i) => {
+      const ejemplos = (x.ejemplos || []).map(e =>
+        `<a href="#/g/${encodeURIComponent(e.grupo)}/${encodeURIComponent(e.alumno)}/${encodeURIComponent(e.actividad)}" title="${esc(e.titulo)}">${esc(e.nombre.split(/\s+/)[0])}</a>`).join('');
+      return `
+        <li class="tema">
+          <span class="tema-num">${String(i + 1).padStart(2, '0')}</span>
+          <h3>${esc(x.nombre)}</h3>
+          <div>
+            <p>${esc(x.resumen)}</p>
+            ${ejemplos ? `<div class="tema-ejemplos">${ejemplos}</div>` : ''}
+          </div>
+          <div class="tema-cuenta"><b>${x.alumnos}</b>${x.alumnos === 1 ? 'alumno' : 'alumnos'} · ${x.actividades} act.</div>
+        </li>`;
+    }).join('');
+
+    const nombresCinta = temas.map(x => `<span>${esc(x.nombre)}</span>`).join('');
+    const cinta = nombresCinta
+      ? `<div class="cinta" aria-hidden="true"><div class="cinta-pista">${nombresCinta}${nombresCinta}</div></div>` : '';
 
     app.innerHTML = `
-      <p class="sobre">${esc(t.periodo)}${t.profesor ? ' &middot; ' + esc(t.profesor) : ''}</p>
-      <h1>${esc(t.titulo)}</h1>
-      <p class="intro">${esc(t.resumen)}</p>
+      <section class="hero">
+        <p class="sobre">${esc(t.periodo)}${t.profesor ? ' &middot; ' + esc(t.profesor) : ''}</p>
+        <h1>${esc(t.titulo)}</h1>
+        ${t.resumen ? `<p class="intro">${esc(t.resumen)}</p>` : ''}
+        <div class="numeros">
+          <div class="numero"><b>${alumnos}</b><span>alumnos</span></div>
+          <div class="numero"><b>${actividades}</b><span>actividades</span></div>
+          <div class="numero"><b>${temas.length}</b><span>temas</span></div>
+          <div class="numero"><b>${catalogo.tecnologias.length}</b><span>tecnologías</span></div>
+        </div>
+        ${cinta}
+      </section>
 
-      <div class="numeros">
-        <div class="numero"><b>${alumnos}</b><span>alumnos</span></div>
-        <div class="numero"><b>${actividades}</b><span>actividades</span></div>
-        <div class="numero"><b>${catalogo.tecnologias.length}</b><span>tecnologias</span></div>
-      </div>
+      <h2>Grupos <small>${catalogo.grupos.length}</small></h2>
+      <div class="rejilla">${grupos || '<p class="vacio">Todavía no hay grupos.</p>'}</div>
 
-      <h2>Grupos</h2>
-      <div class="rejilla">${grupos || '<p class="vacio">Todavia no hay grupos.</p>'}</div>
+      ${listaTemas ? `<h2>Temas encontrados <small>según las actividades</small></h2><ol class="temas">${listaTemas}</ol>` : ''}
 
-      ${temas ? `<h2>Lo que se vio en el semestre</h2><ul class="temas">${temas}</ul>` : ''}
-
-      ${catalogo.tecnologias.length ? `<h2>Tecnologias</h2>${etiquetas(catalogo.tecnologias, 'sueltas')}` : ''}`;
+      ${catalogo.tecnologias.length ? `<h2>Tecnologías <small>${catalogo.tecnologias.length}</small></h2>${etiquetas(catalogo.tecnologias, 'sueltas')}` : ''}`;
   }
 
   function vistaGrupo(gid) {
@@ -100,12 +121,14 @@
     if (!g) return error('Ese grupo no existe.');
 
     ponerMigas([{ txt: 'Inicio', href: '#/' }, { txt: 'Grupo ' + g.id }]);
-    document.title = 'Grupo ' + g.id + ' - Topico 2';
+    document.title = 'Grupo ' + g.id + ' · Tópico 2';
 
     app.innerHTML = `
       <p class="sobre">${g.alumnos.length} ${g.alumnos.length === 1 ? 'alumno' : 'alumnos'}</p>
       <h1>Grupo ${esc(g.id)}</h1>
-      <input class="buscador" id="buscar" type="search" placeholder="Buscar por nombre o tecnologia" aria-label="Buscar alumno">
+      <div class="controles">
+        <input class="buscador" id="buscar" type="search" placeholder="Buscar por nombre o tecnología" aria-label="Buscar alumno">
+      </div>
       <div class="rejilla" id="lista"></div>`;
 
     const lista = document.getElementById('lista');
@@ -127,7 +150,7 @@
             </div>
           </div>
           ${etiquetas(a.tecnologias.slice(0, 4))}
-        </a>`).join('') || '<p class="vacio">Nadie coincide con la busqueda.</p>';
+        </a>`).join('') || '<p class="vacio">Nadie coincide con la búsqueda.</p>';
     };
 
     document.getElementById('buscar').addEventListener('input', e => pintar(e.target.value));
@@ -149,32 +172,51 @@
       { txt: 'Grupo ' + g.id, href: '#/g/' + encodeURIComponent(g.id) },
       { txt: a.nombre }
     ]);
-    document.title = a.nombre + ' - Topico 2';
+    document.title = a.nombre + ' · Tópico 2';
 
     const gh = a.github && urlSegura('https://github.com/' + encodeURIComponent(a.github));
 
-    const acts = a.actividades.map(act => {
+    const tarjeta = act => {
       const portada = act.tipo === 'imagen' && act.ruta
         ? `<div class="portada" style="background-image:url('${esc(encodeURI(act.ruta))}')"></div>` : '';
       return `
       <a class="tarjeta" href="#/g/${encodeURIComponent(g.id)}/${encodeURIComponent(a.id)}/${encodeURIComponent(act.id)}">
         ${portada}
         ${portada ? '' : FLECHA}
-        <span class="tipo">${NOMBRE_TIPO[act.tipo] || act.tipo}</span>
+        <span class="tipo">${NOMBRE_TIPO[act.tipo] || esc(act.tipo)}</span>
         <h3>${esc(act.titulo)}</h3>
-        <p>${esc(act.descripcion)}</p>
+        ${act.descripcion ? `<p>${esc(act.descripcion)}</p>` : ''}
         ${etiquetas(act.tecnologias)}
       </a>`;
-    }).join('');
+    };
+
+    const tipos = [...new Set(a.actividades.map(x => x.tipo))];
+    const filtros = tipos.length > 1
+      ? `<div class="filtros" role="group" aria-label="Filtrar por tipo">
+          <button type="button" data-tipo="" aria-pressed="true">Todo<span>${a.actividades.length}</span></button>
+          ${tipos.map(tp => `<button type="button" data-tipo="${esc(tp)}" aria-pressed="false">${NOMBRE_TIPO[tp] || esc(tp)}<span>${a.actividades.filter(x => x.tipo === tp).length}</span></button>`).join('')}
+        </div>` : '';
 
     app.innerHTML = `
       <div class="avatar grande">${esc(iniciales(a.nombre))}</div>
       <p class="sobre">Grupo ${esc(g.id)} &middot; ${a.actividades.length} ${a.actividades.length === 1 ? 'actividad' : 'actividades'}</p>
       <h1>${esc(a.nombre)}</h1>
       ${a.sobreMi ? `<p class="intro">${esc(a.sobreMi)}</p>` : ''}
-      ${gh ? `<div class="acciones"><a class="boton" href="${esc(gh)}" target="_blank" rel="noopener noreferrer">GitHub</a></div>` : ''}
-      <h2>Actividades</h2>
-      <div class="rejilla">${acts || '<p class="vacio">Aun no sube actividades.</p>'}</div>`;
+      ${gh ? `<div class="acciones"><a class="boton" href="${esc(gh)}" target="_blank" rel="noopener noreferrer">GitHub ↗</a></div>` : ''}
+      <h2>Actividades <small>${a.actividades.length}</small></h2>
+      ${filtros ? `<div class="controles">${filtros}</div>` : ''}
+      <div class="rejilla" id="acts"></div>`;
+
+    const cont = document.getElementById('acts');
+    const pintar = tp => {
+      const lista = a.actividades.filter(x => !tp || x.tipo === tp);
+      cont.innerHTML = lista.map(tarjeta).join('') || '<p class="vacio">Aún no sube actividades.</p>';
+    };
+    app.querySelectorAll('.filtros button').forEach(b => b.addEventListener('click', () => {
+      app.querySelectorAll('.filtros button').forEach(x => x.setAttribute('aria-pressed', String(x === b)));
+      pintar(b.dataset.tipo);
+    }));
+    pintar('');
   }
 
   function vistaActividad(gid, aid, actId) {
@@ -214,8 +256,8 @@
       ${act.descripcion ? `<p class="intro">${esc(act.descripcion)}</p>` : ''}
       ${etiquetas(act.tecnologias, 'sueltas')}
       <div class="acciones">
-        ${src ? `<a class="boton principal" href="${esc(src)}" target="_blank" rel="noopener noreferrer">Abrir en otra pestana</a>` : ''}
-        ${repo ? `<a class="boton" href="${esc(repo)}" target="_blank" rel="noopener noreferrer">Ver codigo</a>` : ''}
+        ${src ? `<a class="boton principal" href="${esc(src)}" target="_blank" rel="noopener noreferrer">Abrir en otra pestaña ↗</a>` : ''}
+        ${repo ? `<a class="boton" href="${esc(repo)}" target="_blank" rel="noopener noreferrer">Ver código</a>` : ''}
       </div>
       ${contenido}`;
   }
