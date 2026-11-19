@@ -1,163 +1,79 @@
 @import "tailwindcss";
 
 @theme {
-  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
-  --font-display: "Instrument Serif", Georgia, serif;
-  --font-mono: "JetBrains Mono", ui-monospace, monospace;
-  --color-fondo: var(--fondo);
-  --color-fondo-2: var(--fondo-2);
-  --color-texto: var(--texto);
-  --color-suave: var(--suave);
-  --color-tenue: var(--tenue);
-  --color-linea: var(--linea);
-  --color-fuerte: var(--fuerte);
-  --color-inverso: var(--inverso);
+  --font-sans: "Inter", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --color-fondo: #ffffff;
+  --color-superficie: #f5f6f7;
+  --color-linea: #e4e6eb;
+  --color-linea-fuerte: #ccd0d5;
+  --color-texto: #1c1e21;
+  --color-suave: #65676b;
+  --color-tenue: #8a8d91;
 }
 
-:root {
-  --fondo: #ffffff;
-  --fondo-2: #f3f3f3;
-  --texto: #0a0a0a;
-  --suave: #5a5a5a;
-  --tenue: #9a9a9a;
-  --linea: #e2e2e2;
-  --fuerte: #0a0a0a;
-  --inverso: #ffffff;
-  color-scheme: light dark;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --fondo: #0a0a0a;
-    --fondo-2: #141414;
-    --texto: #f4f4f4;
-    --suave: #a3a3a3;
-    --tenue: #666;
-    --linea: #242424;
-    --fuerte: #f4f4f4;
-    --inverso: #0a0a0a;
-  }
-}
+:root { color-scheme: light; }
 
 @layer base {
   html { -webkit-text-size-adjust: 100%; }
-  html.lenis, html.lenis body { height: auto; }
-  .lenis.lenis-smooth { scroll-behavior: auto !important; }
-  body {
-    @apply bg-fondo text-texto font-sans antialiased;
-    overflow-x: hidden;
-  }
-  ::selection { background: var(--fuerte); color: var(--inverso); }
-  :focus-visible { outline: 2px solid var(--fuerte); outline-offset: 3px; }
+  body { @apply bg-fondo font-sans text-texto antialiased; overflow-x: hidden; }
+  ::selection { background: #1c1e21; color: #fff; }
+  :focus-visible { outline: 2px solid #1c1e21; outline-offset: 2px; border-radius: 8px; }
 }
 
 @layer components {
-  .contenedor { @apply mx-auto w-full max-w-[1240px] px-4 sm:px-6 lg:px-8; }
-  .eyebrow { @apply font-mono text-[11px] font-medium uppercase tracking-[.14em] text-suave; }
-  .titulo-xl { @apply font-display font-normal leading-[.9] tracking-[-.035em]; }
-  .seccion-h {
-    @apply relative flex items-baseline justify-between gap-4 pt-5 font-display text-4xl tracking-[-.02em] md:text-6xl;
+  .contenedor { @apply mx-auto w-full max-w-6xl px-4 sm:px-6; }
+  .titulo { @apply font-semibold tracking-[-.02em] text-texto; }
+  .seccion { @apply text-2xl font-semibold tracking-[-.015em] md:text-[28px]; }
+
+  .tarjeta {
+    @apply relative flex min-w-0 flex-col gap-3 rounded-2xl border border-linea bg-fondo p-5;
+    transition: border-color .2s, box-shadow .2s, transform .2s;
   }
-  .seccion-h::before {
-    content: ""; position: absolute; inset: 0 0 auto 0; height: 1px; background: var(--fuerte);
-    transform-origin: left; transform: scaleX(var(--linea-x, 1));
+  a.tarjeta:hover {
+    @apply border-linea-fuerte;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px -12px rgba(0, 0, 0, .18);
   }
-  .chip { @apply border border-linea px-2 py-1 font-mono text-[11px] text-suave; }
+  .tarjeta > .flecha { @apply absolute right-5 top-5 text-tenue transition-transform duration-200; }
+  a.tarjeta:hover > .flecha { @apply text-texto; transform: translate(2px, -2px); }
+
   .boton {
-    @apply relative inline-flex items-center gap-2 overflow-hidden border border-fuerte px-5 py-3 text-sm font-medium;
-    isolation: isolate;
+    @apply inline-flex items-center justify-center gap-2 rounded-full bg-texto px-5 py-2.5 text-sm font-semibold text-white transition-colors;
   }
-  .boton::before {
-    content: ""; position: absolute; inset: 0; z-index: -1; background: var(--fuerte);
-    transform: translateY(101%); transition: transform .45s cubic-bezier(.7, 0, .2, 1);
+  .boton:hover { background: #000; }
+  .boton-sec {
+    @apply inline-flex items-center justify-center gap-2 rounded-full border border-linea-fuerte bg-fondo px-5 py-2.5 text-sm font-semibold text-texto transition-colors;
   }
-  .boton:hover { color: var(--inverso); }
-  .boton:hover::before { transform: none; }
-  .boton.lleno { background: var(--fuerte); color: var(--inverso); }
-  .boton.lleno::before { background: var(--fondo); }
-  .boton.lleno:hover { color: var(--texto); }
+  .boton-sec:hover { @apply bg-superficie; }
+
+  .chip { @apply inline-flex items-center rounded-full border border-linea px-2.5 py-1 text-xs text-suave; }
+  a.chip:hover { @apply border-texto text-texto; }
+
+  .etiqueta { @apply inline-flex items-center gap-1.5 rounded-full border border-linea bg-fondo px-3 py-1 text-xs font-medium text-suave; }
+
+  .avatar { @apply grid shrink-0 place-items-center rounded-full border border-linea bg-superficie font-semibold text-texto; }
+
+  .segmentado { @apply inline-flex flex-wrap gap-1 rounded-full border border-linea bg-superficie p-1; }
+  .segmentado button { @apply rounded-full px-4 py-1.5 text-sm font-medium text-suave transition-colors; }
+  .segmentado button:hover { @apply text-texto; }
+  .segmentado button[aria-pressed="true"] { @apply bg-fondo text-texto; box-shadow: 0 1px 2px rgba(0, 0, 0, .12); }
+  .segmentado button span { @apply ml-1 text-tenue; }
+
+  .campo {
+    @apply w-full rounded-full border border-linea bg-fondo py-2.5 pl-11 pr-4 text-sm outline-none transition-colors;
+  }
+  .campo:focus { @apply border-texto; }
+
+  .rejilla { @apply grid gap-4 sm:grid-cols-2 lg:grid-cols-3; }
 }
 
-/* ---------- tarjetas ---------- */
-.rejilla { display: grid; grid-template-columns: repeat(auto-fill, minmax(270px, 1fr)); border-top: 1px solid var(--linea); border-left: 1px solid var(--linea); perspective: 1400px; }
-.tarjeta {
-  position: relative; display: flex; flex-direction: column; gap: .65rem; min-width: 0; padding: 1.6rem;
-  border-right: 1px solid var(--linea); border-bottom: 1px solid var(--linea); background: var(--fondo);
-  transform-style: preserve-3d; overflow: hidden; isolation: isolate;
-  transition: background .35s, color .35s, box-shadow .35s;
-}
-.tarjeta::before {
-  content: ""; position: absolute; inset: 0; z-index: -1; opacity: 0; transition: opacity .3s;
-  background: radial-gradient(440px circle at var(--mx, 50%) var(--my, 50%), color-mix(in srgb, var(--inverso) 18%, transparent), transparent 45%);
-}
-.tarjeta:hover { background: var(--fuerte); color: var(--inverso); z-index: 2; box-shadow: 0 40px 80px -30px rgba(0,0,0,.5); }
-.tarjeta:hover::before { opacity: 1; }
-.tarjeta:hover .t-suave, .tarjeta:hover .chip { color: color-mix(in srgb, var(--inverso) 68%, transparent); border-color: color-mix(in srgb, var(--inverso) 28%, transparent); }
-.tarjeta .flecha { position: absolute; top: 1.4rem; right: 1.4rem; color: var(--tenue); transition: transform .3s, color .3s; }
-.tarjeta:hover .flecha { color: var(--inverso); transform: translate(4px, -4px) rotate(0deg); }
-.portada { aspect-ratio: 16/10; margin: -1.6rem -1.6rem .5rem; background: var(--fondo-2) center/cover; filter: grayscale(1) contrast(1.05); transition: filter .5s, transform .8s cubic-bezier(.2,.7,.2,1); }
-.tarjeta:hover .portada { filter: none; transform: scale(1.04); }
-.avatar { display: grid; place-items: center; flex-shrink: 0; background: var(--fuerte); color: var(--inverso); font: 600 14px/1 var(--font-mono); transition: background .3s, color .3s; }
-.tarjeta:hover .avatar { background: var(--inverso); color: var(--fuerte); }
-
-/* ---------- efectos globales ---------- */
-.grano {
-  position: fixed; inset: -50%; z-index: 100; pointer-events: none; opacity: .05;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-  animation: grano 1s steps(4) infinite;
-}
-@keyframes grano { 25% { transform: translate(-3%, 2%); } 50% { transform: translate(2%, -3%); } 75% { transform: translate(-2%, -1%); } }
-
-.progreso { position: fixed; inset: 0 0 auto 0; height: 2px; z-index: 60; background: var(--fuerte); transform-origin: left; transform: scaleX(0); }
-
-.palabra { display: inline-block; white-space: nowrap; }
-.letra { display: inline-block; overflow: hidden; vertical-align: top; padding-bottom: .1em; margin-bottom: -.1em; }
-.letra > span { display: inline-block; will-change: transform; }
-
-.contorno { color: transparent; -webkit-text-stroke: 1px var(--fuerte); font-style: italic; }
-
-.cinta { overflow: hidden; background: var(--fuerte); color: var(--inverso); -webkit-mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent); mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent); }
-.cinta-pista { display: flex; width: max-content; animation: cinta 55s linear infinite; }
-.cinta span { padding: 1rem 0; font: 400 clamp(22px, 3vw, 34px)/1 var(--font-display); white-space: nowrap; }
-.cinta span::after { content: "✦"; font-size: .45em; margin: 0 1.6rem; vertical-align: middle; opacity: .6; }
-@keyframes cinta { to { transform: translateX(-50%); } }
-
-.sello svg { animation: girar 18s linear infinite; }
-@keyframes girar { to { transform: rotate(360deg); } }
-
-/* cursor */
-.con-cursor, .con-cursor a, .con-cursor button, .con-cursor .tarjeta { cursor: none; }
-.con-cursor input { cursor: text; }
-.cursor-punto, .cursor-aro { position: fixed; top: 0; left: 0; z-index: 95; pointer-events: none; border-radius: 50%; mix-blend-mode: difference; }
-.cursor-punto { width: 6px; height: 6px; margin: -3px 0 0 -3px; background: #fff; }
-.cursor-aro { width: 36px; height: 36px; margin: -18px 0 0 -18px; border: 1px solid #fff; display: grid; place-items: center; transition: width .3s, height .3s, margin .3s, background .3s; }
-.cursor-aro.grande { width: 64px; height: 64px; margin: -32px 0 0 -32px; }
-.cursor-aro.ver { width: 88px; height: 88px; margin: -44px 0 0 -44px; background: #fff; }
-.cursor-aro.ver::after { content: "Ver"; font: 600 11px/1 var(--font-mono); letter-spacing: .12em; text-transform: uppercase; color: #000; }
-
-/* temas en horizontal (desktop) */
-.temas-pista { display: flex; gap: 0; width: max-content; }
-.tema-card { width: min(78vw, 420px); flex-shrink: 0; border-left: 1px solid var(--linea); padding: 2rem; display: flex; flex-direction: column; gap: 1rem; min-height: 420px; transition: background .35s, color .35s; }
-.tema-card:hover { background: var(--fuerte); color: var(--inverso); }
-.tema-card:hover .t-suave { color: color-mix(in srgb, var(--inverso) 68%, transparent); }
-.tema-card:hover .tema-link { border-color: color-mix(in srgb, var(--inverso) 35%, transparent); }
-.tema-link { border: 1px solid var(--linea); border-radius: 999px; padding: .2rem .7rem; font-size: 12px; transition: background .2s, color .2s; }
-.tema-link:hover { background: var(--inverso); color: var(--fuerte); }
-
-/* filtros */
-.filtros { display: inline-flex; flex-wrap: wrap; border: 1px solid var(--fuerte); }
-.filtros button { font: 500 11px/1 var(--font-mono); letter-spacing: .1em; text-transform: uppercase; padding: .75rem 1rem; border-left: 1px solid var(--fuerte); transition: background .2s, color .2s; }
-.filtros button:first-child { border-left: 0; }
-.filtros button[aria-pressed="true"] { background: var(--fuerte); color: var(--inverso); }
-.filtros button span { opacity: .55; margin-left: .3rem; }
-
-/* transiciones de pagina (View Transitions) */
-::view-transition-old(root) { animation: 400ms cubic-bezier(.7,0,.2,1) both salir; }
-::view-transition-new(root) { animation: 600ms cubic-bezier(.2,.7,.2,1) 120ms both entrar; }
-@keyframes salir { to { opacity: 0; transform: translateY(-24px) scale(.985); filter: blur(4px); } }
-@keyframes entrar { from { opacity: 0; transform: translateY(32px); filter: blur(6px); } }
+/* transicion entre paginas: fade corto */
+::view-transition-old(root) { animation: 180ms ease both salir; }
+::view-transition-new(root) { animation: 260ms ease 60ms both entrar; }
+@keyframes salir { to { opacity: 0; } }
+@keyframes entrar { from { opacity: 0; transform: translateY(6px); } }
 
 @media (prefers-reduced-motion: reduce) {
-  .grano, .cinta-pista, .sello svg { animation: none; }
   ::view-transition-old(root), ::view-transition-new(root) { animation: none; }
+  .tarjeta { transition: none; }
 }

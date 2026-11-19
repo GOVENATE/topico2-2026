@@ -12,52 +12,47 @@ const gh = /^[A-Za-z0-9-]+$/.test(a.github || '') ? `https://github.com/${a.gith
 ---
 <Base titulo={`${a.nombre} · Tópico 2`} descripcion={a.sobreMi}
   migas={[{ txt: 'Inicio', href: '/' }, { txt: 'Grupo ' + g.id, href: `/g/${g.id}` }, { txt: a.nombre }]}>
-  <section class="contenedor pb-28 pt-16 md:pt-24">
-    <div class="grid gap-10 md:grid-cols-[auto_1fr] md:items-end">
-      <span class="avatar size-28 text-3xl md:size-40 md:text-5xl" transition:name={`avatar-${a.id}`}>{iniciales(a.nombre)}</span>
-      <div class="min-w-0">
-        <p class="eyebrow" data-aparecer>Grupo {g.id} · {plural(a.actividades.length, 'actividad', 'actividades')}</p>
-        <h1 class="titulo-xl mt-4 text-[clamp(52px,8.5vw,128px)]" transition:name={`nombre-${a.id}`}><span data-partir>{a.nombre}</span></h1>
+  <section class="contenedor pb-20 pt-12 md:pt-16">
+    <div class="tarjeta flex-col gap-5 p-6 sm:flex-row sm:items-center md:p-8">
+      <span class="avatar size-20 text-2xl md:size-24" transition:name={`avatar-${a.id}`}>{iniciales(a.nombre)}</span>
+      <div class="min-w-0 flex-1">
+        <p class="text-sm text-suave">Grupo {g.id} · {plural(a.actividades.length, 'actividad', 'actividades')}</p>
+        <h1 class="titulo mt-1 text-3xl md:text-4xl" transition:name={`nombre-${a.id}`}>{a.nombre}</h1>
+        {a.sobreMi && <p class="mt-2 max-w-2xl text-suave">{a.sobreMi}</p>}
       </div>
+      {gh && <a class="boton-sec self-start sm:self-center" href={gh} target="_blank" rel="noopener noreferrer">GitHub <Flecha /></a>}
     </div>
 
-    <div class="mt-10 grid gap-8 border-t border-linea pt-8 md:grid-cols-[1fr_auto] md:items-start">
-      {a.sobreMi ? <p class="max-w-2xl text-lg text-suave md:text-xl" data-aparecer>{a.sobreMi}</p> : <span />}
-      <div class="flex flex-wrap gap-3" data-aparecer>
-        {gh && <a class="boton" href={gh} target="_blank" rel="noopener noreferrer">GitHub <Flecha /></a>}
-      </div>
+    <div class="mt-10 flex flex-wrap items-center justify-between gap-4">
+      <h2 class="seccion">Actividades</h2>
+      {tipos.length > 1 && (
+        <div class="segmentado" role="group" aria-label="Filtrar por tipo">
+          <button type="button" data-filtro="" aria-pressed="true">Todo<span>{a.actividades.length}</span></button>
+          {tipos.map(tp => (
+            <button type="button" data-filtro={tp} aria-pressed="false">{NOMBRE_TIPO[tp] || tp}<span>{a.actividades.filter(x => x.tipo === tp).length}</span></button>
+          ))}
+        </div>
+      )}
     </div>
 
-    <h2 class="seccion-h mt-24">Actividades <small class="eyebrow">{a.actividades.length}</small></h2>
-
-    {tipos.length > 1 && (
-      <div class="filtros mt-8" role="group" aria-label="Filtrar por tipo">
-        <button type="button" data-filtro="" aria-pressed="true">Todo<span>{a.actividades.length}</span></button>
-        {tipos.map(tp => (
-          <button type="button" data-filtro={tp} aria-pressed="false">{NOMBRE_TIPO[tp] || tp}<span>{a.actividades.filter(x => x.tipo === tp).length}</span></button>
-        ))}
-      </div>
-    )}
-
-    <div class="rejilla mt-6">
-      {a.actividades.map((act, i) => {
+    <div class="rejilla mt-5">
+      {a.actividades.map(act => {
         const img = act.tipo === 'imagen' ? rutaArchivo(act.ruta) : null;
         return (
-          <a class="tarjeta" href={`/g/${g.id}/${a.id}/${act.id}`} data-lote data-tipo={act.tipo}>
-            {img ? <div class="portada" style={`background-image:url('${img}')`} /> : <Flecha />}
-            <div class="flex items-center justify-between">
-              <span class="eyebrow t-suave">{NOMBRE_TIPO[act.tipo] || act.tipo}</span>
-              <span class="t-suave font-mono text-[11px] text-tenue">{String(i + 1).padStart(2, '0')}</span>
-            </div>
-            <h3 class="pr-6 text-[17px] font-semibold leading-snug tracking-tight">{act.titulo}</h3>
-            {act.descripcion && <p class="t-suave line-clamp-3 text-sm text-suave">{act.descripcion}</p>}
-            <div class="mt-auto flex flex-wrap gap-1.5 pt-2">
+          <a class="tarjeta overflow-hidden" href={`/g/${g.id}/${a.id}/${act.id}`} data-lote data-tipo={act.tipo}>
+            {img
+              ? <div class="-mx-5 -mt-5 mb-1 aspect-[16/10] border-b border-linea bg-superficie bg-cover bg-center" style={`background-image:url('${img}')`} />
+              : <Flecha />}
+            <span class="etiqueta self-start">{NOMBRE_TIPO[act.tipo] || act.tipo}</span>
+            <h3 class="pr-6 font-semibold leading-snug">{act.titulo}</h3>
+            {act.descripcion && <p class="line-clamp-3 text-sm text-suave">{act.descripcion}</p>}
+            <div class="mt-auto flex flex-wrap gap-1.5 pt-1">
               {act.tecnologias.map(x => <span class="chip">{x}</span>)}
             </div>
           </a>
         );
       })}
     </div>
-    {a.actividades.length === 0 && <p class="mt-8 text-suave">Aún no sube actividades.</p>}
+    {a.actividades.length === 0 && <p class="mt-6 text-sm text-suave">Aún no sube actividades.</p>}
   </section>
 </Base>

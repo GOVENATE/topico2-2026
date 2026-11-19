@@ -1,7 +1,7 @@
 ---
 import Base from '../../../../layouts/Base.astro';
 import Flecha from '../../../../components/Flecha.astro';
-import { catalogo, urlSegura, rutaArchivo, NOMBRE_TIPO, type Grupo, type Alumno, type Actividad } from '../../../../data/catalogo';
+import { catalogo, iniciales, urlSegura, rutaArchivo, NOMBRE_TIPO, type Grupo, type Alumno, type Actividad } from '../../../../data/catalogo';
 
 export function getStaticPaths() {
   return catalogo.grupos.flatMap(g => g.alumnos.flatMap(a => a.actividades.map((act, i) => ({
@@ -16,53 +16,60 @@ const base = `/g/${g.id}/${a.id}`;
 ---
 <Base titulo={`${act.titulo} · ${a.nombre}`} descripcion={act.descripcion}
   migas={[{ txt: 'Inicio', href: '/' }, { txt: 'Grupo ' + g.id, href: `/g/${g.id}` }, { txt: a.nombre, href: base }, { txt: act.titulo }]}>
-  <section class="contenedor pb-20 pt-14 md:pt-20">
-    <a href={base} class="eyebrow inline-flex items-center gap-2 hover:text-texto" data-aparecer>
-      <span class="avatar size-6 text-[9px]" transition:name={`avatar-${a.id}`}>{a.nombre.split(/\s+/).slice(0, 2).map(p => p[0]).join('')}</span>
-      {a.nombre} · {NOMBRE_TIPO[act.tipo] || act.tipo}{act.fecha ? ` · ${act.fecha}` : ''}
+  <section class="contenedor pb-20 pt-10 md:pt-14">
+    <a href={base} class="inline-flex items-center gap-2 text-sm text-suave hover:text-texto">
+      <span class="avatar size-7 text-[10px]" transition:name={`avatar-${a.id}`}>{iniciales(a.nombre)}</span>
+      {a.nombre}
     </a>
-    <h1 class="titulo-xl mt-5 max-w-5xl text-[clamp(44px,7vw,104px)]" data-partir>{act.titulo}</h1>
 
-    <div class="mt-8 grid gap-6 border-t border-linea pt-6 md:grid-cols-[1fr_auto] md:items-start">
-      <div data-aparecer>
-        {act.descripcion && <p class="max-w-2xl text-lg text-suave">{act.descripcion}</p>}
-        <div class="mt-4 flex flex-wrap gap-1.5">{act.tecnologias.map(x => <span class="chip">{x}</span>)}</div>
+    <div class="mt-4 flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
+      <div class="min-w-0">
+        <div class="flex flex-wrap gap-2">
+          <span class="etiqueta">{NOMBRE_TIPO[act.tipo] || act.tipo}</span>
+          {act.fecha && <span class="etiqueta">{act.fecha}</span>}
+        </div>
+        <h1 class="titulo mt-3 text-3xl md:text-4xl">{act.titulo}</h1>
+        {act.descripcion && <p class="mt-2 max-w-2xl text-suave">{act.descripcion}</p>}
       </div>
-      <div class="flex flex-wrap gap-3" data-aparecer>
-        {src && <a class="boton lleno" href={src} target="_blank" rel="noopener noreferrer">Abrir en otra pestaña <Flecha /></a>}
-        {repo && <a class="boton" href={repo} target="_blank" rel="noopener noreferrer">Ver código</a>}
+      <div class="flex shrink-0 flex-wrap gap-2">
+        {repo && <a class="boton-sec" href={repo} target="_blank" rel="noopener noreferrer">Ver código</a>}
+        {src && <a class="boton" href={src} target="_blank" rel="noopener noreferrer">Abrir en otra pestaña <Flecha /></a>}
       </div>
     </div>
 
-    <div class="mt-10" data-aparecer>
-      {!src && <div class="border border-linea p-5 text-suave">Esta actividad no tiene un archivo o enlace válido.</div>}
+    {act.tecnologias.length > 0 && (
+      <div class="mt-4 flex flex-wrap gap-1.5">{act.tecnologias.map(x => <span class="chip">{x}</span>)}</div>
+    )}
+
+    <div class="mt-8 overflow-hidden rounded-2xl border border-linea bg-superficie">
+      {!src && <p class="p-6 text-sm text-suave">Esta actividad no tiene un archivo o enlace válido.</p>}
       {/* sandbox sin allow-same-origin: el codigo del alumno corre aislado */}
       {src && act.tipo === 'web' && (
-        <iframe class="block h-[82vh] min-h-[420px] w-full border border-fuerte bg-white" src={src}
+        <iframe class="block h-[78vh] min-h-[420px] w-full bg-white" src={src}
           sandbox="allow-scripts allow-forms allow-popups" loading="lazy" title={act.titulo}></iframe>
       )}
       {src && act.tipo === 'pdf' && (
-        <iframe class="block h-[82vh] min-h-[420px] w-full border border-fuerte bg-white" src={src} title={act.titulo}></iframe>
+        <iframe class="block h-[78vh] min-h-[420px] w-full bg-white" src={src} title={act.titulo}></iframe>
       )}
       {src && act.tipo === 'imagen' && (
-        <img class="mx-auto block h-auto max-w-full border border-linea" src={src} alt={act.titulo} loading="lazy" />
+        <img class="mx-auto block h-auto max-w-full" src={src} alt={act.titulo} loading="lazy" />
       )}
       {src && act.tipo === 'enlace' && (
-        <div class="border border-linea p-5 text-suave">Esta actividad está publicada fuera del sitio. Ábrela con el botón de arriba.</div>
+        <p class="p-6 text-sm text-suave">Esta actividad está publicada fuera del sitio. Ábrela con el botón de arriba.</p>
       )}
     </div>
 
-    <nav class="mt-16 grid border-t border-linea sm:grid-cols-2" aria-label="Otras actividades">
+    <nav class="mt-8 grid gap-4 sm:grid-cols-2" aria-label="Otras actividades">
       {ant ? (
-        <a href={`${base}/${ant.id}`} class="group border-b border-linea py-8 pr-6 sm:border-b-0 sm:border-r">
-          <span class="eyebrow">← Anterior</span>
-          <p class="mt-2 font-display text-3xl leading-tight transition-transform duration-500 group-hover:translate-x-2">{ant.titulo}</p>
+        <a href={`${base}/${ant.id}`} class="tarjeta">
+          <span class="text-sm text-suave">← Anterior</span>
+          <span class="font-semibold">{ant.titulo}</span>
         </a>
-      ) : <span class="hidden sm:block sm:border-r sm:border-linea" />}
+      ) : <span class="hidden sm:block" />}
       {sig && (
-        <a href={`${base}/${sig.id}`} class="group py-8 sm:pl-6 sm:text-right">
-          <span class="eyebrow">Siguiente →</span>
-          <p class="mt-2 font-display text-3xl leading-tight transition-transform duration-500 group-hover:-translate-x-2">{sig.titulo}</p>
+        <a href={`${base}/${sig.id}`} class="tarjeta sm:text-right">
+          <span class="text-sm text-suave">Siguiente →</span>
+          <span class="font-semibold">{sig.titulo}</span>
         </a>
       )}
     </nav>
