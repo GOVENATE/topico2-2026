@@ -1,5 +1,5 @@
 {
-  "generado": "2026-11-19T06:10:03.623Z",
+  "generado": "2026-11-19T06:13:27.551Z",
   "topico": {
     "titulo": "Tópico 2",
     "periodo": "UAQ · Facultad de Informática · 2026",
@@ -9,15 +9,18 @@
   "tecnologias": [
     "Actividad",
     "Collage",
+    "Comentario",
     "Comunicacion",
     "Creatividad",
     "CSS",
+    "Cuadro comparativo",
     "Diseno",
     "Framer Motion",
     "HTML",
     "Ilustracion",
     "Imagen",
     "Infografia",
+    "Infografía",
     "Investigacion",
     "Investigación",
     "JavaScript",
@@ -26,12 +29,15 @@
     "Mapa conceptual",
     "Mapa mental",
     "PDF",
+    "Pensagrama",
     "Pensamiento",
     "Pensamiento critico",
     "Pensamiento sistemico",
+    "Perfil",
     "Programacion",
     "React",
     "Reflexion",
+    "Reflexión",
     "Reporte de lectura",
     "Resumen",
     "TypeScript",
@@ -42,8 +48,8 @@
       "id": "empresarios",
       "nombre": "Empresarios mexicanos",
       "resumen": "Servitje, Zambrano, Slim y el perfil del empresario mexicano ideal.",
-      "alumnos": 9,
-      "actividades": 27,
+      "alumnos": 10,
+      "actividades": 32,
       "ejemplos": [
         {
           "grupo": "32",
@@ -72,8 +78,8 @@
       "id": "7-habitos",
       "nombre": "Los 7 hábitos",
       "resumen": "Stephen Covey: proactividad, empezar con un fin en mente, primero lo primero y la mejora continua.",
-      "alumnos": 8,
-      "actividades": 12,
+      "alumnos": 9,
+      "actividades": 13,
       "ejemplos": [
         {
           "grupo": "32",
@@ -102,8 +108,8 @@
       "id": "creatividad",
       "nombre": "Creatividad e innovación",
       "resumen": "Elkhonon Goldberg y cómo el cerebro genera ideas nuevas.",
-      "alumnos": 8,
-      "actividades": 12,
+      "alumnos": 9,
+      "actividades": 13,
       "ejemplos": [
         {
           "grupo": "32",
@@ -132,8 +138,8 @@
       "id": "toma-decisiones",
       "nombre": "Toma de decisiones",
       "resumen": "Herramientas para analizar problemas y decidir: FODA, Ishikawa, Pareto y seis sombreros.",
-      "alumnos": 8,
-      "actividades": 12,
+      "alumnos": 9,
+      "actividades": 13,
       "ejemplos": [
         {
           "grupo": "32",
@@ -162,8 +168,8 @@
       "id": "quinta-disciplina",
       "nombre": "La quinta disciplina",
       "resumen": "Peter Senge y las organizaciones que aprenden a través del pensamiento sistémico.",
-      "alumnos": 8,
-      "actividades": 10,
+      "alumnos": 9,
+      "actividades": 11,
       "ejemplos": [
         {
           "grupo": "32",
@@ -192,8 +198,8 @@
       "id": "persuade-voz",
       "nombre": "Persuade con tu voz",
       "resumen": "Emma Rodero y el poder de la voz para comunicar y convencer.",
-      "alumnos": 8,
-      "actividades": 8,
+      "alumnos": 9,
+      "actividades": 9,
       "ejemplos": [
         {
           "grupo": "32",
@@ -222,8 +228,8 @@
       "id": "gigantes-tecnologicos",
       "nombre": "Gigantes tecnológicos y poder",
       "resumen": "El poder de las grandes empresas y lo que hay debajo de la nube.",
-      "alumnos": 7,
-      "actividades": 15,
+      "alumnos": 8,
+      "actividades": 17,
       "ejemplos": [
         {
           "grupo": "32",
@@ -252,8 +258,8 @@
       "id": "movimientos-sociales",
       "nombre": "Movimientos sociales",
       "resumen": "Mentes en acción: cómo se organizan las personas para cambiar su entorno.",
-      "alumnos": 7,
-      "actividades": 8,
+      "alumnos": 8,
+      "actividades": 9,
       "ejemplos": [
         {
           "grupo": "32",
@@ -282,8 +288,8 @@
       "id": "codigo-limpio",
       "nombre": "Código limpio",
       "resumen": "Robert C. Martin: nombres claros, funciones pequeñas y código fácil de leer y mantener.",
-      "alumnos": 6,
-      "actividades": 8,
+      "alumnos": 7,
+      "actividades": 9,
       "ejemplos": [
         {
           "grupo": "32",
@@ -312,8 +318,8 @@
       "id": "superricos",
       "nombre": "La influencia de los superricos",
       "resumen": "Cómo la riqueza extrema moldea ciudades, política y sociedad.",
-      "alumnos": 6,
-      "actividades": 6,
+      "alumnos": 7,
+      "actividades": 7,
       "ejemplos": [
         {
           "grupo": "32",
@@ -331,10 +337,10 @@
         },
         {
           "grupo": "32",
-          "alumno": "kevin-alonso",
-          "nombre": "Kevin Alonso",
-          "actividad": "act15-documental-los-ricos",
-          "titulo": "Reflexion: la influencia de los ricos en las ciudades"
+          "alumno": "juan-diego-olvera-medina",
+          "nombre": "Juan Diego Olvera Medina",
+          "actividad": "act13-super-ricos",
+          "titulo": "La influencia de los súper ricos"
         }
       ]
     },
@@ -342,8 +348,8 @@
       "id": "fracasan-paises",
       "nombre": "¿Por qué fracasan los países?",
       "resumen": "Acemoglu y Robinson: instituciones inclusivas frente a extractivas.",
-      "alumnos": 6,
-      "actividades": 6,
+      "alumnos": 7,
+      "actividades": 7,
       "ejemplos": [
         {
           "grupo": "32",
@@ -372,8 +378,8 @@
       "id": "arquetipos",
       "nombre": "Arquetipos sistémicos",
       "resumen": "Patrones que se repiten en los sistemas y explican por qué los problemas regresan.",
-      "alumnos": 5,
-      "actividades": 5,
+      "alumnos": 6,
+      "actividades": 6,
       "ejemplos": [
         {
           "grupo": "32",
@@ -402,8 +408,8 @@
       "id": "filosofia",
       "nombre": "Filosofía de vida",
       "resumen": "Yokoi Kenji y la comparación entre la filosofía japonesa y la latinoamericana.",
-      "alumnos": 5,
-      "actividades": 5,
+      "alumnos": 6,
+      "actividades": 6,
       "ejemplos": [
         {
           "grupo": "32",
@@ -421,10 +427,10 @@
         },
         {
           "grupo": "32",
-          "alumno": "miguel-fuentes-fanjul",
-          "nombre": "Miguel Fuentes Fanjul",
-          "actividad": "act09-analisis",
-          "titulo": "Analisis Yokoi Kenji y Carlos Kasuaga"
+          "alumno": "juan-diego-olvera-medina",
+          "nombre": "Juan Diego Olvera Medina",
+          "actividad": "act07-yokoi-kenji-kasuga",
+          "titulo": "Filosofía de Yokoi Kenji y Carlos Kasuga"
         }
       ]
     },
@@ -432,8 +438,8 @@
       "id": "habilidades-directivas",
       "nombre": "Habilidades directivas",
       "resumen": "Tiempo, inteligencia emocional, liderazgo, equipos y negociación para dirigir.",
-      "alumnos": 4,
-      "actividades": 20,
+      "alumnos": 5,
+      "actividades": 22,
       "ejemplos": [
         {
           "grupo": "32",
@@ -444,17 +450,17 @@
         },
         {
           "grupo": "32",
+          "alumno": "juan-diego-olvera-medina",
+          "nombre": "Juan Diego Olvera Medina",
+          "actividad": "act09-habilidades-pensamiento",
+          "titulo": "Habilidades del pensamiento y pensagram"
+        },
+        {
+          "grupo": "32",
           "alumno": "miguel-belman",
           "nombre": "Miguel Ángel Belman Mejía",
           "actividad": "act03-habilidades-directivas",
           "titulo": "Habilidades directivas y su clasificación"
-        },
-        {
-          "grupo": "32",
-          "alumno": "miguel-garcia",
-          "nombre": "Miguel Garcia",
-          "actividad": "act04-habilidades-del-pensamiento",
-          "titulo": "Habilidades del pensamiento"
         }
       ]
     },
@@ -462,8 +468,8 @@
       "id": "pensamiento-critico",
       "nombre": "Pensamiento crítico",
       "resumen": "Cuestionar la información y formar una opinión propia con argumentos.",
-      "alumnos": 4,
-      "actividades": 6,
+      "alumnos": 5,
+      "actividades": 8,
       "ejemplos": [
         {
           "grupo": "32",
@@ -481,10 +487,10 @@
         },
         {
           "grupo": "32",
-          "alumno": "miguel-fuentes-fanjul",
-          "nombre": "Miguel Fuentes Fanjul",
-          "actividad": "act11-comentario",
-          "titulo": "Comentario de video"
+          "alumno": "juan-diego-olvera-medina",
+          "nombre": "Juan Diego Olvera Medina",
+          "actividad": "act06-pensamiento-critico",
+          "titulo": "Sin pensamiento crítico no eres nadie"
         }
       ]
     },
@@ -492,9 +498,16 @@
       "id": "dinero",
       "nombre": "Dinero y éxito",
       "resumen": "Efecto compuesto, lecciones de negocios y la psicología del dinero.",
-      "alumnos": 3,
-      "actividades": 3,
+      "alumnos": 4,
+      "actividades": 4,
       "ejemplos": [
+        {
+          "grupo": "32",
+          "alumno": "juan-diego-olvera-medina",
+          "nombre": "Juan Diego Olvera Medina",
+          "actividad": "act03-efecto-compuesto",
+          "titulo": "Efecto compuesto"
+        },
         {
           "grupo": "32",
           "alumno": "kevin-alonso",
@@ -508,13 +521,6 @@
           "nombre": "Miguel Ángel Belman Mejía",
           "actividad": "act01-efecto-compuesto",
           "titulo": "Efecto Compuesto"
-        },
-        {
-          "grupo": "32",
-          "alumno": "miguel-fuentes-fanjul",
-          "nombre": "Miguel Fuentes Fanjul",
-          "actividad": "act18-lecciones",
-          "titulo": "Lecciones de negocios, dinero y exito"
         }
       ]
     },
@@ -522,9 +528,16 @@
       "id": "colon",
       "nombre": "Colón y la historia",
       "resumen": "Infografías sobre Cristóbal Colón y su contexto.",
-      "alumnos": 2,
-      "actividades": 2,
+      "alumnos": 3,
+      "actividades": 3,
       "ejemplos": [
+        {
+          "grupo": "32",
+          "alumno": "juan-diego-olvera-medina",
+          "nombre": "Juan Diego Olvera Medina",
+          "actividad": "act10-infografia-colon",
+          "titulo": "Infografía de Colón"
+        },
         {
           "grupo": "32",
           "alumno": "miguel-garcia",
@@ -1567,6 +1580,298 @@
                 "Investigacion"
               ],
               "ruta": "grupos/32/alumnos/jose-maria-pedraza-torres/actividades/act15-carlos-slim/imagen.jpg"
+            }
+          ]
+        },
+        {
+          "id": "juan-diego-olvera-medina",
+          "nombre": "Juan Diego Olvera Medina",
+          "github": "juandiegoolveramedina20-wq",
+          "sobreMi": "Estudiante de 9.º semestre de LATI (Lic. en Administración de las TI). Me gustan los deportes de equipo, sobre todo el volleyball, los RPG (Outer Wilds es religión) y los juegos de mesa.",
+          "tecnologias": [
+            "HTML",
+            "CSS",
+            "JavaScript",
+            "Resumen",
+            "Mapa conceptual",
+            "Comentario",
+            "Cuadro comparativo",
+            "Reflexión",
+            "Pensagrama",
+            "Infografía",
+            "Perfil"
+          ],
+          "actividades": [
+            {
+              "id": "act01-memorama-gustos",
+              "tipo": "web",
+              "titulo": "Memorama de mis gustos",
+              "descripcion": "Memorama de 8 pares con mis gustos: cada par revela algo de mí. Funciona con teclado y en el celular.",
+              "fecha": "",
+              "tecnologias": [
+                "HTML",
+                "CSS",
+                "JavaScript"
+              ],
+              "ruta": "grupos/32/alumnos/juan-diego-olvera-medina/actividades/act01-memorama-gustos/index.html"
+            },
+            {
+              "id": "act02-7-habitos",
+              "tipo": "web",
+              "titulo": "Los 7 hábitos de la gente altamente efectiva",
+              "descripcion": "Tarjetas con los siete hábitos de Covey, dinámica para unir cada frase con su hábito, lo que entendí y sección del autor.",
+              "fecha": "",
+              "tecnologias": [
+                "HTML",
+                "CSS",
+                "JavaScript"
+              ],
+              "ruta": "grupos/32/alumnos/juan-diego-olvera-medina/actividades/act02-7-habitos/index.html"
+            },
+            {
+              "id": "act03-efecto-compuesto",
+              "tipo": "web",
+              "titulo": "Efecto compuesto",
+              "descripcion": "Calculadora interactiva: qué pasa si mejoras o empeoras un pequeño porcentaje cada día.",
+              "fecha": "",
+              "tecnologias": [
+                "HTML",
+                "CSS",
+                "JavaScript"
+              ],
+              "ruta": "grupos/32/alumnos/juan-diego-olvera-medina/actividades/act03-efecto-compuesto/index.html"
+            },
+            {
+              "id": "act04-toma-de-decisiones",
+              "tipo": "web",
+              "titulo": "Herramientas para la toma de decisiones",
+              "descripcion": "Caso de una universidad que pierde alumnos: FODA para arrastrar con revisión, seis sombreros, Pareto, Ishikawa y CATWOE.",
+              "fecha": "",
+              "tecnologias": [
+                "HTML",
+                "CSS",
+                "JavaScript"
+              ],
+              "ruta": "grupos/32/alumnos/juan-diego-olvera-medina/actividades/act04-toma-de-decisiones/index.html"
+            },
+            {
+              "id": "act05-codigo-limpio",
+              "tipo": "pdf",
+              "titulo": "Código limpio",
+              "descripcion": "Resumen y mapa conceptual de Clean Code de Robert C. Martin: nombres, funciones, comentarios, errores y pruebas.",
+              "fecha": "",
+              "tecnologias": [
+                "Resumen",
+                "Mapa conceptual"
+              ],
+              "ruta": "grupos/32/alumnos/juan-diego-olvera-medina/actividades/act05-codigo-limpio/documento.pdf"
+            },
+            {
+              "id": "act06-pensamiento-critico",
+              "tipo": "pdf",
+              "titulo": "Sin pensamiento crítico no eres nadie",
+              "descripcion": "Comentario de video sobre pensamiento crítico, con un ejemplo propio y mi postura sobre el título.",
+              "fecha": "",
+              "tecnologias": [
+                "Comentario"
+              ],
+              "ruta": "grupos/32/alumnos/juan-diego-olvera-medina/actividades/act06-pensamiento-critico/documento.pdf"
+            },
+            {
+              "id": "act07-yokoi-kenji-kasuga",
+              "tipo": "pdf",
+              "titulo": "Filosofía de Yokoi Kenji y Carlos Kasuga",
+              "descripcion": "Cuadro comparativo de las dos visiones y mi reflexión sobre cuál aplica a México.",
+              "fecha": "",
+              "tecnologias": [
+                "Cuadro comparativo",
+                "Reflexión"
+              ],
+              "ruta": "grupos/32/alumnos/juan-diego-olvera-medina/actividades/act07-yokoi-kenji-kasuga/documento.pdf"
+            },
+            {
+              "id": "act08-persuade-con-tu-voz",
+              "tipo": "pdf",
+              "titulo": "Persuade con tu voz",
+              "descripcion": "Resumen de la conferencia de Emma Rodero: tono, entonación, velocidad y pausas.",
+              "fecha": "",
+              "tecnologias": [
+                "Resumen"
+              ],
+              "ruta": "grupos/32/alumnos/juan-diego-olvera-medina/actividades/act08-persuade-con-tu-voz/documento.pdf"
+            },
+            {
+              "id": "act09-habilidades-pensamiento",
+              "tipo": "pdf",
+              "titulo": "Habilidades del pensamiento y pensagram",
+              "descripcion": "Resumen de las habilidades básicas y superiores del pensamiento, con un pensagrama.",
+              "fecha": "",
+              "tecnologias": [
+                "Resumen",
+                "Pensagrama"
+              ],
+              "ruta": "grupos/32/alumnos/juan-diego-olvera-medina/actividades/act09-habilidades-pensamiento/documento.pdf"
+            },
+            {
+              "id": "act10-infografia-colon",
+              "tipo": "imagen",
+              "titulo": "Infografía de Colón",
+              "descripcion": "Quién era Cristóbal Colón, sus cuatro viajes, lo que cambió y un mito común.",
+              "fecha": "",
+              "tecnologias": [
+                "Infografía"
+              ],
+              "ruta": "grupos/32/alumnos/juan-diego-olvera-medina/actividades/act10-infografia-colon/infografia.png"
+            },
+            {
+              "id": "act11-por-que-fracasan-los-paises",
+              "tipo": "imagen",
+              "titulo": "¿Por qué fracasan los países?",
+              "descripcion": "Infografía del libro de Acemoglu y Robinson: instituciones inclusivas frente a extractivas.",
+              "fecha": "",
+              "tecnologias": [
+                "Infografía"
+              ],
+              "ruta": "grupos/32/alumnos/juan-diego-olvera-medina/actividades/act11-por-que-fracasan-los-paises/infografia.png"
+            },
+            {
+              "id": "act12-iceberg-gigantes-tecnologicos",
+              "tipo": "imagen",
+              "titulo": "El iceberg de los gigantes tecnológicos",
+              "descripcion": "Lo que no se ve de las grandes tecnológicas: datos, poder de mercado, poder político y los centros de datos en Querétaro.",
+              "fecha": "",
+              "tecnologias": [
+                "Infografía"
+              ],
+              "ruta": "grupos/32/alumnos/juan-diego-olvera-medina/actividades/act12-iceberg-gigantes-tecnologicos/infografia.png"
+            },
+            {
+              "id": "act13-super-ricos",
+              "tipo": "pdf",
+              "titulo": "La influencia de los súper ricos",
+              "descripcion": "Reflexión sobre el documental de DW: cómo los multimillonarios influyen en las ciudades.",
+              "fecha": "",
+              "tecnologias": [
+                "Reflexión"
+              ],
+              "ruta": "grupos/32/alumnos/juan-diego-olvera-medina/actividades/act13-super-ricos/documento.pdf"
+            },
+            {
+              "id": "act14-movimientos-sociales",
+              "tipo": "pdf",
+              "titulo": "Movimientos sociales (Mentes en acción)",
+              "descripcion": "Resumen: qué es un movimiento social, sus elementos, etapas y ejemplos.",
+              "fecha": "",
+              "tecnologias": [
+                "Resumen"
+              ],
+              "ruta": "grupos/32/alumnos/juan-diego-olvera-medina/actividades/act14-movimientos-sociales/documento.pdf"
+            },
+            {
+              "id": "act15-lider-visionario",
+              "tipo": "imagen",
+              "titulo": "Líder visionario: Patricia Armendáriz",
+              "descripcion": "Infografía del líder visionario: la fundadora de Financiera Sustentable y qué la hace visionaria.",
+              "fecha": "",
+              "tecnologias": [
+                "Infografía"
+              ],
+              "ruta": "grupos/32/alumnos/juan-diego-olvera-medina/actividades/act15-lider-visionario/infografia.png"
+            },
+            {
+              "id": "act16-empresario-mexicano-ideal",
+              "tipo": "pdf",
+              "titulo": "El empresario mexicano ideal",
+              "descripcion": "Resumen del texto de Ernesto Valdés Rangel y mi perfil de un empresario con conciencia social.",
+              "fecha": "",
+              "tecnologias": [
+                "Resumen",
+                "Perfil"
+              ],
+              "ruta": "grupos/32/alumnos/juan-diego-olvera-medina/actividades/act16-empresario-mexicano-ideal/documento.pdf"
+            },
+            {
+              "id": "act17-lorenzo-servitje-bimbo",
+              "tipo": "imagen",
+              "titulo": "Lorenzo Servitje: la visión detrás de Bimbo",
+              "descripcion": "Línea del tiempo del fundador de Bimbo y su forma de hacer empresa.",
+              "fecha": "",
+              "tecnologias": [
+                "Infografía"
+              ],
+              "ruta": "grupos/32/alumnos/juan-diego-olvera-medina/actividades/act17-lorenzo-servitje-bimbo/infografia.png"
+            },
+            {
+              "id": "act18-lorenzo-zambrano-cemex",
+              "tipo": "imagen",
+              "titulo": "Lorenzo Zambrano: la visión que hizo global a Cemex",
+              "descripcion": "Trayectoria del empresario que llevó a Cemex a más de 50 países.",
+              "fecha": "",
+              "tecnologias": [
+                "Infografía"
+              ],
+              "ruta": "grupos/32/alumnos/juan-diego-olvera-medina/actividades/act18-lorenzo-zambrano-cemex/infografia.png"
+            },
+            {
+              "id": "act19-comparativo-empresarios",
+              "tipo": "pdf",
+              "titulo": "Cuadro comparativo de empresarios mexicanos",
+              "descripcion": "Roberto González Barrera (Gruma, Banorte) frente a Alberto Baillères (Grupo BAL), con mi postura.",
+              "fecha": "",
+              "tecnologias": [
+                "Cuadro comparativo"
+              ],
+              "ruta": "grupos/32/alumnos/juan-diego-olvera-medina/actividades/act19-comparativo-empresarios/documento.pdf"
+            },
+            {
+              "id": "act20-quinta-disciplina",
+              "tipo": "web",
+              "titulo": "La quinta disciplina y arquetipos sistémicos",
+              "descripcion": "Las cinco disciplinas de Senge y el arquetipo adversarios accidentales: ciclos causales interactivos y simulador.",
+              "fecha": "",
+              "tecnologias": [
+                "HTML",
+                "CSS",
+                "JavaScript"
+              ],
+              "ruta": "grupos/32/alumnos/juan-diego-olvera-medina/actividades/act20-quinta-disciplina/index.html"
+            },
+            {
+              "id": "act21-creatividad-goldberg",
+              "tipo": "imagen",
+              "titulo": "Creatividad según Goldberg",
+              "descripcion": "Infografía sobre cómo el cerebro crea ideas nuevas según Elkhonon Goldberg.",
+              "fecha": "",
+              "tecnologias": [
+                "Infografía"
+              ],
+              "ruta": "grupos/32/alumnos/juan-diego-olvera-medina/actividades/act21-creatividad-goldberg/infografia.png"
+            },
+            {
+              "id": "act22-habilidades-directivas",
+              "tipo": "web",
+              "titulo": "Habilidades directivas: liderazgo y motivación",
+              "descripcion": "Capítulos 9 y 11: estilos de liderazgo y test de motivación de McClelland, vistos desde el volleyball.",
+              "fecha": "",
+              "tecnologias": [
+                "HTML",
+                "CSS",
+                "JavaScript"
+              ],
+              "ruta": "grupos/32/alumnos/juan-diego-olvera-medina/actividades/act22-habilidades-directivas/index.html"
+            },
+            {
+              "id": "act26-proyecto-kavak",
+              "tipo": "web",
+              "titulo": "Proyecto final: el caso Kavak",
+              "descripcion": "Análisis del primer unicornio mexicano con FODA, Ishikawa interactivo, recomendaciones y mi opinión.",
+              "fecha": "",
+              "tecnologias": [
+                "HTML",
+                "CSS",
+                "JavaScript"
+              ],
+              "ruta": "grupos/32/alumnos/juan-diego-olvera-medina/actividades/act26-proyecto-kavak/index.html"
             }
           ]
         },
