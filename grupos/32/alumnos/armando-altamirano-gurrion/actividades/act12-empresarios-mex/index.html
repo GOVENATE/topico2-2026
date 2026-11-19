@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Empresarios Mexicanos</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="hero">
+    <div>
+      <p class="eyebrow">ACTIVIDAD INTERACTIVA</p>
+      <h1>El cuerpo del empresario mexicano</h1>
+      <p>Selecciona una parte del cuerpo para descubrir a un empresario mexicano destacado y la cualidad que representa.</p>
+    </div>
+  </header>
+
+  <main class="app">
+    <section class="instruction">
+      <h2>Explora las partes del cuerpo</h2>
+      <p>Haz clic en la cabeza, brazos, torso o piernas.</p>
+    </section>
+
+    <section class="interactive-area">
+      <div class="person" aria-label="Persona interactiva">
+        <button class="body-part head" data-part="head" aria-label="Cabeza"></button>
+        <button class="body-part left-arm" data-part="left-arm" aria-label="Brazo izquierdo"></button>
+        <button class="body-part right-arm" data-part="right-arm" aria-label="Brazo derecho"></button>
+        <button class="body-part torso" data-part="torso" aria-label="Torso"></button>
+        <button class="body-part left-leg" data-part="left-leg" aria-label="Pierna izquierda"></button>
+        <button class="body-part right-leg" data-part="right-leg" aria-label="Pierna derecha"></button>
+
+        <div class="head-shape"></div>
+        <div class="neck"></div>
+        <div class="body-shape"></div>
+        <div class="arm-shape arm-left-shape"></div>
+        <div class="arm-shape arm-right-shape"></div>
+        <div class="leg-shape leg-left-shape"></div>
+        <div class="leg-shape leg-right-shape"></div>
+      </div>
+
+      <aside class="info-card" id="infoCard">
+        <div class="card-placeholder">
+          <div class="placeholder-icon">👤</div>
+          <h3>Selecciona una parte</h3>
+          <p>Haz clic sobre una zona de la figura para conocer al empresario relacionado.</p>
+        </div>
+      </aside>
+    </section>
+
+    <section class="quiz-section">
+      <h2>¿Qué aprendiste?</h2>
+      <p>Comprueba cuánto recuerdas de la actividad.</p>
+      <div id="quiz"></div>
+      <button class="quiz-button" id="checkQuiz">Comprobar respuestas</button>
+      <div class="result" id="quizResult"></div>
+    </section>
+  </main>
+
+  <footer>
+    <p>Actividad educativa · Empresarios mexicanos</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
