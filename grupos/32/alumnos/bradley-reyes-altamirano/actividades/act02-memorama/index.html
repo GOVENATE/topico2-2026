@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Memorama de mis gustos · Bradley Yeray Reyes Altamirano</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🦋</text></svg>">
+<style>
+:root{--crema:#fff6ea;--tinta:#2a1b3d;--rosa:#e8338b;--naranja:#ff8a00;--verde:#00a88f;--morado:#6c3ec1;--amarillo:#ffc93c;--linea:#f1dcc0}
+*{box-sizing:border-box}
+html,body{margin:0;min-height:100vh;background:var(--crema);color:var(--tinta);font-family:"Trebuchet MS","Segoe UI",system-ui,sans-serif}
+button{font:inherit;color:inherit;cursor:pointer}
+/* papel picado */
+.picado{display:flex;height:64px;overflow:hidden;position:relative}
+.picado::before{content:"";position:absolute;left:0;right:0;top:4px;height:2px;background:var(--tinta);opacity:.5}
+.flag{flex:1;margin:6px 3px 0;clip-path:polygon(0 0,100% 0,100% 70%,85% 82%,70% 70%,50% 100%,30% 70%,15% 82%,0 70%);
+ -webkit-mask:radial-gradient(circle at 30% 30%,transparent 4px,#000 5px) 0 0/16px 16px;mask:radial-gradient(circle at 30% 30%,transparent 4px,#000 5px) 0 0/16px 16px;animation:sway 3s ease-in-out infinite;transform-origin:top}
+.flag:nth-child(odd){animation-delay:-1.5s}
+@keyframes sway{50%{transform:rotate(2deg)}}
+.wrap{max-width:900px;margin:0 auto;padding:10px 18px 50px}
+header.top{display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;margin:8px 0 18px}
+h1{margin:0;font-size:clamp(1.9rem,5vw,3rem);line-height:1;font-weight:900;letter-spacing:-.02em}
+h1 span{color:var(--rosa)}
+.sub{margin:.3em 0 0;color:#6e5a7e}
+.tabs{display:flex;gap:6px;background:#fff;border:3px solid var(--tinta);border-radius:16px;padding:5px}
+.tabs button{border:0;background:transparent;border-radius:11px;padding:8px 14px;font-weight:800}
+.tabs button.on{background:var(--tinta);color:#fff}
+.levels{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px}
+.lv{border:3px solid var(--tinta);background:#fff;border-radius:999px;padding:7px 16px;font-weight:800;box-shadow:3px 3px 0 var(--tinta);transition:.1s}
+.lv:active{transform:translate(2px,2px);box-shadow:1px 1px 0 var(--tinta)}
+.lv.on{background:var(--amarillo)}
+.score{display:grid;grid-template-columns:repeat(3,1fr) auto;gap:10px;margin-bottom:16px}
+.box{background:#fff;border:3px solid var(--tinta);border-radius:14px;padding:8px 12px;text-align:center}
+.box small{display:block;font-size:.7rem;font-weight:800;letter-spacing:.1em;color:#8a7899;text-transform:uppercase}
+.box b{font-size:1.5rem}
+.again{border:3px solid var(--tinta);background:var(--verde);color:#fff;border-radius:14px;padding:0 16px;font-weight:900;box-shadow:3px 3px 0 var(--tinta)}
+.legend{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:14px}
+.legend span{font-size:.8rem;font-weight:700;border-radius:999px;padding:3px 10px;border:2px solid var(--tinta);background:#fff}
+.board{display:grid;gap:10px;max-width:620px;margin:0 auto}
+.card{aspect-ratio:3/4;border:0;padding:0;background:none;perspective:900px}
+.card:disabled{cursor:default}
+.in{position:relative;width:100%;height:100%;transition:transform .5s cubic-bezier(.3,1.4,.5,1);transform-style:preserve-3d}
+.card.up .in{transform:rotateY(180deg)}
+.face{position:absolute;inset:0;border-radius:14px;border:3px solid var(--tinta);display:grid;place-items:center;backface-visibility:hidden;-webkit-backface-visibility:hidden}
+.back{background:var(--morado);
+ background-image:radial-gradient(circle,var(--amarillo) 18%,transparent 19%),radial-gradient(circle,var(--rosa) 18%,transparent 19%),linear-gradient(45deg,transparent 46%,#ffffff33 46% 54%,transparent 54%),linear-gradient(-45deg,transparent 46%,#ffffff33 46% 54%,transparent 54%);
+ background-size:28px 28px,28px 28px,28px 28px,28px 28px;background-position:0 0,14px 14px,0 0,0 0;box-shadow:4px 4px 0 var(--tinta)}
+.back::after{content:"?";font-size:2rem;font-weight:900;color:#fff;background:var(--tinta);width:46px;height:46px;border-radius:50%;display:grid;place-items:center}
+.front{background:#fff;transform:rotateY(180deg);flex-direction:column;box-shadow:4px 4px 0 var(--tinta)}
+.front .em{font-size:clamp(1.8rem,7vw,3rem);line-height:1}
+.front .nm{font-size:.72rem;font-weight:800;margin-top:4px;text-transform:uppercase;letter-spacing:.06em;text-align:center;padding:0 4px}
+.front .cat{position:absolute;top:6px;left:6px;width:12px;height:12px;border-radius:50%;border:2px solid var(--tinta)}
+.card.ok .front{background:#e2fff5;animation:bump .45s}
+@keyframes bump{40%{transform:rotateY(180deg) scale(1.08)}}
+.card:not(:disabled):hover .back{filter:brightness(1.1)}
+.fact{margin-top:16px;background:#fff;border:3px dashed var(--rosa);border-radius:16px;padding:12px 16px;display:flex;gap:12px;align-items:center;min-height:64px}
+.fact .em{font-size:2rem}
+.fact b{color:var(--rosa)}
+.modal{position:fixed;inset:0;background:#2a1b3dcc;display:none;place-items:center;z-index:30;padding:16px}
+.modal.on{display:grid}
+.mbox{background:var(--crema);border:4px solid var(--tinta);border-radius:24px;padding:26px 30px;text-align:center;box-shadow:8px 8px 0 var(--rosa);max-width:420px;animation:pop .4s cubic-bezier(.3,1.5,.5,1)}
+@keyframes pop{from{transform:scale(.6);opacity:0}}
+.mbox h2{margin:.2em 0;font-size:2.2rem}
+.stars{font-size:2.4rem;color:var(--naranja);letter-spacing:.2em}
+.stars i{font-style:normal;color:#e6d6c2}
+.bigbtn{border:3px solid var(--tinta);background:var(--rosa);color:#fff;border-radius:14px;padding:10px 22px;font-weight:900;box-shadow:4px 4px 0 var(--tinta);margin-top:6px}
+.confetti{position:fixed;top:-20px;width:10px;height:16px;z-index:31;animation:fall linear forwards}
+@keyframes fall{to{transform:translateY(110vh) rotate(720deg)}}
+
+/* autor */
+#autor{display:none}
+.author{display:grid;grid-template-columns:1fr 1fr;gap:30px;align-items:center}
+.orbit{position:relative;aspect-ratio:1;max-width:420px;width:100%;margin:auto}
+.orbit .ring{position:absolute;inset:8%;border:3px dashed var(--tinta);border-radius:50%;opacity:.35;animation:spin 40s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.photo{position:absolute;inset:25%;border-radius:50%;overflow:hidden;border:6px solid var(--tinta);box-shadow:0 0 0 8px var(--amarillo),8px 8px 0 8px var(--rosa)}
+.photo img{width:100%;height:100%;object-fit:cover}
+.sticker{position:absolute;width:100px;background:#fff;border:3px solid var(--tinta);border-radius:12px;text-align:center;padding:6px 4px 4px;box-shadow:3px 3px 0 var(--tinta);transform:translate(-50%,-50%) rotate(var(--r));animation:bob 3s ease-in-out infinite;animation-delay:var(--d)}
+@keyframes bob{50%{margin-top:-8px}}
+.sticker .e{font-size:2rem;line-height:1.2}
+.sticker b{display:block;font-size:.66rem;text-transform:uppercase}
+.idcard{background:#fff;border:4px solid var(--tinta);border-radius:20px;padding:22px;box-shadow:6px 6px 0 var(--morado)}
+.idcard .k{font-size:.75rem;font-weight:900;letter-spacing:.14em;color:var(--rosa)}
+.idcard h2{margin:.2em 0;font-size:2rem;line-height:1.05}
+.idcard dl{display:grid;grid-template-columns:auto 1fr;gap:6px 12px;margin:14px 0}
+.idcard dt{font-weight:800}
+.likes{display:flex;flex-direction:column;gap:6px}
+.likes div{display:flex;gap:10px;align-items:center;background:var(--crema);border-radius:10px;padding:6px 10px;font-size:.92rem}
+.likes i{font-style:normal;font-size:1.3rem}
+footer{text-align:center;margin-top:30px;font-size:.85rem;color:#8a7899}
+@media (max-width:700px){.author{grid-template-columns:1fr}.score{grid-template-columns:repeat(3,1fr)}.again{grid-column:1/-1;padding:10px}.sticker{width:70px}.sticker .e{font-size:1.5rem}}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<div class="picado" id="picado"></div>
+<div class="wrap">
+  <header class="top">
+    <div><h1>Memorama de <span>mis gustos</span></h1><p class="sub">Encuentra las parejas y descubre un dato de cada una.</p></div>
+    <nav class="tabs"><button class="on" data-v="juego">🃏 Jugar</button><button data-v="autor">👤 Autor</button></nav>
+  </header>
+
+  <section id="juego">
+    <div class="levels" id="levels"></div>
+    <div class="score">
+      <div class="box"><small>Jugadas</small><b id="moves">0</b></div>
+      <div class="box"><small>Parejas</small><b id="pairs">0/0</b></div>
+      <div class="box"><small>Reloj</small><b id="clock">0:00</b></div>
+      <button class="again" id="again">↻ Barajar otra vez</button>
+    </div>
+    <div class="legend" id="legend"></div>
+    <div class="board" id="board"></div>
+    <div class="fact" id="fact"><span class="em">🎯</span><span>Voltea dos cartas. Cuando hagas pareja aparecerá aquí un dato curioso.</span></div>
+  </section>
+
+  <section id="autor">
+    <div class="author">
+      <div class="orbit" id="orbit">
+        <div class="ring"></div>
+        <div class="photo"><img src="foto.jpg" alt="Foto de Bradley Yeray Reyes Altamirano"></div>
+      </div>
+      <div class="idcard">
+        <div class="k">AUTOR DEL PROYECTO</div>
+        <h2>Bradley Yeray Reyes Altamirano</h2>
+        <dl><dt>Materia</dt><dd>Tópico 2</dd><dt>Proyecto</dt><dd>Memorama de mis gustos</dd></dl>
+        <div class="likes" id="likes"></div>
+      </div>
+    </div>
+  </section>
+  <footer>Hecho por Bradley Yeray Reyes Altamirano · Tópico 2</footer>
+</div>
+
+<div class="modal" id="modal"><div class="mbox">
+  <div style="font-size:3.4rem">🏆</div><h2>¡Lo lograste!</h2>
+  <div class="stars" id="stars"></div><p id="summary"></p>
+  <button class="bigbtn" id="replay">Jugar otra vez</button>
+</div></div>
+
+<script>
+/* ===== mis gustos ===== */
+const CATS={
+ vg:{n:'Videojuegos',c:'#6c3ec1',e:'🎮'},
+ car:{n:'Coches',c:'#e8338b',e:'🏎️'},
+ tec:{n:'Tecnología',c:'#00a88f',e:'💻'},
+ mich:{n:'Michoacán',c:'#ff8a00',e:'🦋'},
+ gym:{n:'Gym',c:'#ffc93c',e:'🏋️'}
+};
+const SYMBOLS=[
+ {id:'control',e:'🎮',n:'Control',cat:'vg',f:'Pong, lanzado por Atari en 1972, fue uno de los primeros videojuegos comerciales exitosos.'},
+ {id:'arcade',e:'🕹️',n:'Arcade',cat:'vg',f:'Los años 80 son conocidos como la época dorada de las maquinitas arcade.'},
+ {id:'invasor',e:'👾',n:'Invasor',cat:'vg',f:'Space Invaders salió en 1978 y fue uno de los primeros grandes éxitos mundiales del arcade.'},
+ {id:'formula',e:'🏎️',n:'Fórmula 1',cat:'car',f:'Los autos de F1 están diseñados para que el aire los "pegue" al piso y así tomar curvas a gran velocidad.'},
+ {id:'auto',e:'🚗',n:'Auto',cat:'car',f:'Karl Benz patentó en 1886 el primer automóvil con motor de combustión interna.'},
+ {id:'meta',e:'🏁',n:'Meta',cat:'car',f:'La bandera a cuadros se ondea para indicar que la carrera ha terminado.'},
+ {id:'compu',e:'💻',n:'Computadora',cat:'tec',f:'La palabra "bug" se hizo famosa en 1947, cuando encontraron una polilla atrapada dentro de la computadora Harvard Mark II.'},
+ {id:'cel',e:'📱',n:'Smartphone',cat:'tec',f:'El primer iPhone se presentó en 2007 y cambió para siempre la forma de usar el celular.'},
+ {id:'monarca',e:'🦋',n:'Monarca',cat:'mich',f:'La Reserva de la Biosfera Mariposa Monarca, entre Michoacán y el Estado de México, es Patrimonio Mundial de la UNESCO desde 2008. Cada invierno llegan mariposas desde Canadá y Estados Unidos.'},
+ {id:'aguacate',e:'🥑',n:'Aguacate',cat:'mich',f:'Michoacán produjo cerca del 74% del aguacate de todo México en 2025.'},
+ {id:'pesas',e:'🏋️',n:'Pesas',cat:'gym',f:'En el gym la constancia vale más que el peso: el progreso llega entrenando de forma regular.'},
+ {id:'musculo',e:'💪',n:'Músculo',cat:'gym',f:'Los músculos se reparan y crecen durante el descanso, por eso dormir bien también es parte del entrenamiento.'}
+];
+const LEVELS=[{n:'Fácil',p:6,c:4},{n:'Medio',p:8,c:4},{n:'Difícil',p:12,c:6}];
+
+/* ===== papel picado ===== */
+const cols=['#e8338b','#ff8a00','#00a88f','#6c3ec1','#ffc93c'];
+document.getElementById('picado').innerHTML=Array.from({length:14},(_,i)=>`<div class="flag" style="background:${cols[i%5]}"></div>`).join('');
+
+/* ===== leyenda ===== */
+document.getElementById('legend').innerHTML=Object.values(CATS).map(c=>`<span style="box-shadow:inset 14px 0 0 ${c.c};padding-left:22px">${c.e} ${c.n}</span>`).join('');
+
+/* ===== juego ===== */
+const $=id=>document.getElementById(id);
+let level=LEVELS[1],deck=[],open=[],found=new Set(),moves=0,secs=0,timer=null,lock=false;
+const mix=a=>{a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.random()*(i+1)|0;[a[i],a[j]]=[a[j],a[i]];}return a;};
+const fmt=s=>`${Math.floor(s/60)}:${String(s%60).padStart(2,'0')}`;
+
+function buildLevels(){$('levels').innerHTML='';LEVELS.forEach(l=>{const b=document.createElement('button');b.className='lv'+(l===level?' on':'');b.textContent=`${l.n} · ${l.p} parejas`;b.onclick=()=>{level=l;newGame();};$('levels').appendChild(b);});}
+function pickSymbols(n){
+  // reparte entre categorías para que siempre salgan los 5 gustos
+  const byCat={};SYMBOLS.forEach(s=>(byCat[s.cat]=byCat[s.cat]||[]).push(s));
+  Object.keys(byCat).forEach(k=>byCat[k]=mix(byCat[k]));
+  const out=[];let k=0;const keys=mix(Object.keys(byCat));
+  while(out.length<n){const c=keys[k%keys.length];if(byCat[c].length)out.push(byCat[c].shift());k++;}
+  return out;
+}
+function newGame(){
+  clearInterval(timer);timer=null;secs=0;moves=0;open=[];found=new Set();lock=false;
+  deck=mix(pickSymbols(level.p).flatMap(s=>[{...s,k:s.id+'a'},{...s,k:s.id+'b'}]));
+  buildLevels();
+  $('board').style.gridTemplateColumns=`repeat(${level.c},1fr)`;
+  $('board').innerHTML=deck.map((c,i)=>`<button class="card" data-i="${i}" aria-label="Carta oculta"><div class="in"><div class="face back"></div><div class="face front"><span class="cat" style="background:${CATS[c.cat].c}"></span><span class="em">${c.e}</span><span class="nm">${c.n}</span></div></div></button>`).join('');
+  $('board').querySelectorAll('.card').forEach(b=>b.onclick=()=>flip(+b.dataset.i));
+  $('fact').innerHTML='<span class="em">🎯</span><span>Voltea dos cartas. Cuando hagas pareja aparecerá aquí un dato curioso.</span>';
+  $('modal').classList.remove('on');update();
+}
+function update(){$('moves').textContent=moves;$('pairs').textContent=`${found.size}/${level.p}`;$('clock').textContent=fmt(secs);}
+function flip(i){
+  const card=deck[i],el=$('board').children[i];
+  if(lock||found.has(card.id)||open.includes(i))return;
+  if(!timer)timer=setInterval(()=>{secs++;update();},1000);
+  el.classList.add('up');el.setAttribute('aria-label',card.n);open.push(i);
+  if(open.length===2){
+    moves++;const [a,b]=open.map(x=>deck[x]);
+    if(a.id===b.id){
+      found.add(a.id);open.forEach(x=>{const c=$('board').children[x];c.classList.add('ok');c.disabled=true;});open=[];
+      $('fact').innerHTML=`<span class="em">${a.e}</span><span><b>${a.n} · ${CATS[a.cat].n}:</b> ${a.f}</span>`;
+      if(found.size===level.p)win();
+    }else{lock=true;setTimeout(()=>{open.forEach(x=>{const c=$('board').children[x];c.classList.remove('up');c.setAttribute('aria-label','Carta oculta');});open=[];lock=false;},850);}
+    update();
+  }
+}
+function win(){
+  clearInterval(timer);timer=null;
+  const s=moves<=level.p*1.4?3:moves<=level.p*2?2:1;
+  $('stars').innerHTML='★'.repeat(s)+`<i>${'★'.repeat(3-s)}</i>`;
+  $('summary').innerHTML=`Nivel <b>${level.n}</b> · ${moves} jugadas · ${fmt(secs)}`;
+  setTimeout(()=>{$('modal').classList.add('on');confetti();},500);
+}
+function confetti(){for(let i=0;i<60;i++){const d=document.createElement('div');d.className='confetti';d.style.left=Math.random()*100+'vw';d.style.background=cols[i%5];d.style.animationDuration=(1.8+Math.random()*1.8)+'s';d.style.animationDelay=Math.random()*.6+'s';document.body.appendChild(d);setTimeout(()=>d.remove(),4500);}}
+$('again').onclick=newGame;$('replay').onclick=newGame;
+
+/* ===== autor ===== */
+const orbit=$('orbit');
+Object.values(CATS).forEach((c,i)=>{const a=(i/5)*2*Math.PI-Math.PI/2,x=50+43*Math.cos(a),y=50+43*Math.sin(a);
+  const s=document.createElement('div');s.className='sticker';s.style.left=x+'%';s.style.top=y+'%';s.style.setProperty('--r',(i%2?6:-6)+'deg');s.style.setProperty('--d',(-i*.6)+'s');s.style.borderBottom=`6px solid ${c.c}`;
+  s.innerHTML=`<div class="e">${c.e}</div><b>${c.n}</b>`;orbit.appendChild(s);});
+$('likes').innerHTML='<b style="font-size:.85rem;letter-spacing:.1em">MIS GUSTOS</b>'+Object.values(CATS).map(c=>`<div><i>${c.e}</i>${c.n}<span style="margin-left:auto;width:14px;height:14px;border-radius:50%;background:${c.c};border:2px solid #2a1b3d"></span></div>`).join('');
+
+/* ===== pestañas ===== */
+document.querySelectorAll('.tabs button').forEach(b=>b.onclick=()=>{
+  document.querySelectorAll('.tabs button').forEach(x=>x.classList.toggle('on',x===b));
+  $('juego').style.display=b.dataset.v==='juego'?'block':'none';$('autor').style.display=b.dataset.v==='autor'?'block':'none';});
+
+newGame();
+</script>
+</body>
+</html>

@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Código Limpio - Robert C. Martin</title>
+
+   <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+
+    <header class="masthead">
+        <div class="masthead-inner">
+            <h1><span class="book-mark" aria-hidden="true">MFF</span> Código Limpio</h1>
+            <p>Robert C. Martin</p>
+        </div>
+    </header>
+
+    <main class="container">
+
+        <section class="hero" aria-labelledby="hero-title">
+            <div class="hero-copy">
+                <span class="eyebrow" aria-hidden="true">Fuentes Fanjul Miguel</span>
+                <h2 id="hero-title">Explora los conceptos</h2>
+                <p>Haz clic en los botones para descubrir los puntos más importantes del libro.</p>
+
+                <div class="progress-wrap">
+                    <div class="progress-label">
+                        <span>Tu recorrido</span>
+                        <span id="stepCount" aria-live="polite">0 / 8</span>
+                    </div>
+                    <div class="progress" role="progressbar" aria-label="Progreso de los temas" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+                        <div class="progress-bar" id="progress"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="hero-image">
+                <img src="https://images.unsplash.com/photo-1515879218367-8466d910aaa4?auto=format&fit=crop&w=1100&q=85" alt="" fetchpriority="high">
+                <span class="image-note" aria-hidden="true">{ escribir · leer · mejorar }</span>
+            </div>
+        </section>
+
+        <nav class="menu" aria-label="Temas del libro">
+            <button type="button" data-topic="idea" data-progress="10">Idea Central</button>
+            <button type="button" data-topic="boyscout" data-progress="20">Boy Scout</button>
+            <button type="button" data-topic="nombres" data-progress="35">Nombres</button>
+            <button type="button" data-topic="funciones" data-progress="50">Funciones</button>
+            <button type="button" data-topic="duplicacion" data-progress="65">Duplicación</button>
+            <button type="button" data-topic="comentarios" data-progress="80">Comentarios</button>
+            <button type="button" data-topic="tests" data-progress="90">Tests</button>
+            <button type="button" data-topic="conclusion" data-progress="100">Conclusión</button>
+        </nav>
+
+        <section class="card active" id="inicio" aria-live="polite">
+            <h2>Introducción</h2>
+            <p>
+                Esta página resume los conceptos más importantes del libro
+                "Código Limpio".
+            </p>
+        </section>
+
+        <section class="card" id="idea" aria-live="polite">
+            <h2>📌 Idea Central</h2>
+            <p>
+                El código limpio no es un lujo. Es la forma de mantener la
+                productividad y facilitar la evolución de un proyecto.
+            </p>
+
+            <div class="quote">
+                "La única manera de avanzar rápido es mantener el código limpio."
+            </div>
+        </section>
+
+        <section class="card" id="boyscout" aria-live="polite">
+            <h2>🏕 Regla del Boy Scout</h2>
+
+            <p>
+                Cada vez que modifiques código debes dejarlo mejor de como lo encontraste.
+            </p>
+
+            <ul>
+                <li>Mejorar nombres.</li>
+                <li>Eliminar duplicaciones.</li>
+                <li>Dividir funciones largas.</li>
+                <li>Reducir complejidad innecesaria.</li>
+            </ul>
+        </section>
+
+        <section class="card" id="nombres" aria-live="polite">
+            <h2>🏷 Importancia de los Nombres</h2>
+
+            <ul>
+                <li>Los nombres deben revelar la intención.</li>
+                <li>Deben poder pronunciarse fácilmente.</li>
+                <li>Deben ser fáciles de buscar.</li>
+                <li>Deben evitar ambigüedades.</li>
+            </ul>
+
+            <div class="quote">
+                Un buen nombre puede eliminar la necesidad de un comentario.
+            </div>
+        </section>
+
+        <section class="card" id="funciones" aria-live="polite">
+            <h2>⚙ Funciones Pequeñas</h2>
+
+            <p>
+                Las funciones deben hacer una sola cosa y hacerla bien.
+            </p>
+
+            <ul>
+                <li>Cortas y simples.</li>
+                <li>Pocos parámetros.</li>
+                <li>Responsabilidad única.</li>
+                <li>Fáciles de leer y probar.</li>
+            </ul>
+        </section>
+
+        <section class="card" id="duplicacion" aria-live="polite">
+            <h2>♻ Evitar la Duplicación</h2>
+
+            <p>
+                La duplicación genera más trabajo y más errores.
+            </p>
+
+            <ul>
+                <li>Mayor mantenimiento.</li>
+                <li>Cambios inconsistentes.</li>
+                <li>Más posibilidades de fallos.</li>
+            </ul>
+        </section>
+
+        <section class="card" id="comentarios" aria-live="polite">
+            <h2>💬 Comentarios</h2>
+
+            <p>
+                Los comentarios no sustituyen un código bien escrito.
+            </p>
+
+            <ul>
+                <li>Pueden quedar obsoletos.</li>
+                <li>Pueden mentir si el código cambia.</li>
+                <li>Es mejor mejorar el código que explicarlo demasiado.</li>
+            </ul>
+        </section>
+
+        <section class="card" id="tests" aria-live="polite">
+            <h2>✅ Pruebas</h2>
+
+            <p>
+                Las pruebas permiten modificar el sistema sin miedo.
+            </p>
+
+            <ul>
+                <li>Deben ser legibles.</li>
+                <li>Deben mantenerse limpias.</li>
+                <li>Son parte fundamental del proyecto.</li>
+            </ul>
+        </section>
+
+        <section class="card" id="conclusion" aria-live="polite">
+            <h2>🎯 Conclusión</h2>
+
+            <p>
+                La calidad del software no proviene de una única gran decisión,
+                sino de miles de pequeñas decisiones correctas.
+            </p>
+
+            <div class="quote">
+                "Deja siempre el código un poco mejor de como lo encontraste."
+            </div>
+        </section>
+
+        <div class="card-navigation" aria-label="Navegación entre temas">
+            <button type="button" id="previousTopic" aria-label="Tema anterior">← <span>Anterior</span></button>
+            <button type="button" id="nextTopic" aria-label="Tema siguiente"><span>Siguiente</span> →</button>
+        </div>
+
+    </main>
+
+    <footer class="footer">
+        
+    </footer>
+
+    <script src="script.js"></script>
+
+</body>
+</html>

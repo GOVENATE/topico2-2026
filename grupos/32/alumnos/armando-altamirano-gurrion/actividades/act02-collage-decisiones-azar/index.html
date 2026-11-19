@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Whiteboard | Dirección, decisiones y azar</title>
+<style>
+:root{--ink:#172d46;--muted:#5c6b7a;--line:#d9e1e8;--bg:#f4f7fa;--blue:#e8f2fc;--green:#e8f5ec;--amber:#fff3dc;--purple:#f3eaf9}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:#1c2935;font:16px/1.5 Inter,Segoe UI,Arial,sans-serif}
+header{background:var(--ink);color:white;padding:38px max(22px,calc((100% - 1120px)/2))}
+header .eyebrow{letter-spacing:.14em;text-transform:uppercase;color:#b8cce0;font-size:.75rem;font-weight:700}
+h1{font-size:clamp(2rem,5vw,3.6rem);line-height:1.04;margin:.5rem 0 1rem;max-width:850px}
+header p{max-width:760px;color:#d7e2ed;font-size:1.12rem}
+main{max-width:1120px;margin:26px auto;padding:0 18px 60px}
+section,.panel{background:white;border:1px solid var(--line);border-radius:18px;padding:22px;margin:18px 0;box-shadow:0 5px 18px #14283a0a}
+h2{font-size:1.45rem;margin:0 0 14px;color:var(--ink)}h3{margin:0 0 8px}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+.grid.three{grid-template-columns:repeat(3,minmax(0,1fr))}
+.card{border-radius:14px;padding:18px;border:1px solid #dce4eb}
+.blue{background:var(--blue)}.green{background:var(--green)}.amber{background:var(--amber)}.purple{background:var(--purple)}
+.hero{background:linear-gradient(135deg,#172d46,#294c6b);color:white;border-radius:16px;padding:24px}
+.hero h2{color:white;font-size:2rem}.hero p{color:#d8e5f0}
+.kicker{font-size:.76rem;letter-spacing:.1em;text-transform:uppercase;font-weight:800;color:#60758a}
+.icon{font-size:1.8rem;margin-bottom:8px}.question{font-size:.75rem;font-weight:800;letter-spacing:.08em;color:var(--muted);margin-top:14px}
+.flow{display:grid;grid-template-columns:repeat(6,1fr);gap:8px;counter-reset:step}
+.flow div{background:#f2f5f8;border-radius:12px;padding:13px;position:relative}
+.flow div:before{counter-increment:step;content:counter(step);display:grid;place-items:center;width:25px;height:25px;background:#244b6d;color:white;border-radius:50%;font-weight:700;margin-bottom:8px}
+table{width:100%;border-collapse:collapse;margin:12px 0;font-size:.94rem}th,td{padding:12px 10px;border-bottom:1px solid var(--line);text-align:right}th:first-child,td:first-child{text-align:left}th{background:#f2f5f8}
+.pos{color:#167347;font-weight:700}.neg{color:#b33b35;font-weight:700}
+.pill{display:inline-block;border-radius:999px;padding:4px 9px;font-size:.76rem;font-weight:700;background:#e9eef3}
+.control{margin:12px 0}label{display:block;font-weight:650;margin-bottom:7px}select,input{font:inherit;padding:10px 12px;border:1px solid #bdc9d4;border-radius:9px;background:white;max-width:100%}
+button{border:0;border-radius:10px;background:#1d527d;color:white;padding:12px 18px;font:inherit;font-weight:700;cursor:pointer}button:hover{background:#143c5c}
+.result{margin-top:16px;padding:16px;border-radius:12px;background:#eef3f7;display:none}.result.show{display:block}
+.big{font-size:2rem;font-weight:800}.quote{background:#202d3b;color:white;padding:24px;border-radius:16px}.quote h2{color:white}.quote strong{color:#8dd6b0;font-size:1.4rem}
+footer{text-align:center;color:var(--muted);padding:25px;font-size:.85rem}
+@media(max-width:760px){.grid,.grid.three{grid-template-columns:1fr}.flow{grid-template-columns:repeat(2,1fr)}main{padding:0 12px 40px}section,.panel{padding:17px}header{padding:30px 20px}table{font-size:.82rem}th,td{padding:9px 5px}}
+@media print{body{background:white}.no-print,button{display:none!important}section,.panel{box-shadow:none;break-inside:avoid}header{background:#172d46!important;print-color-adjust:exact}.card,.hero,.quote{print-color-adjust:exact}}
+</style>
+</head>
+<body>
+<header>
+ <div class="eyebrow">Tablero visual de pensamiento estratégico · Management · Teoría de decisiones</div>
+ <h1>Dirección de empresas × decisiones × azar</h1>
+ <p>Un whiteboard para entender cómo dirigir una empresa cuando no tenemos toda la información, debemos elegir entre alternativas y el azar puede cambiar los resultados.</p>
+</header>
+<main>
+<section class="hero">
+ <span class="pill">IDEA CENTRAL</span>
+ <h2>Dirigir es decidir en la incertidumbre</h2>
+ <p>No controlas todo lo que sucede. Sí puedes mejorar cómo respondes.</p>
+ <div class="grid three">
+  <div><div class="icon">🎯</div><b>Dirección</b><br><small>Definir hacia dónde ir.</small></div>
+  <div><div class="icon">⑂</div><b>Decisión</b><br><small>Elegir un camino.</small></div>
+  <div><div class="icon">🎲</div><b>Azar</b><br><small>Aceptar lo imprevisible.</small></div>
+ </div>
+</section>
+
+<section>
+ <h2>01–04 · Cuatro piezas del sistema</h2>
+ <div class="grid">
+  <article class="card blue"><div class="icon">🏢</div><span class="kicker">01 · Dirección empresarial</span><h3>Visión</h3><ul><li>Misión y objetivos</li><li>Recursos y liderazgo</li><li>Estrategia</li></ul><div class="question">PREGUNTA CLAVE</div>¿Hacia dónde queremos llevar la organización?</article>
+  <article class="card green"><div class="icon">🧠</div><span class="kicker">02 · Toma de decisiones</span><h3>Elección</h3><ul><li>Análisis y alternativas</li><li>Costos y beneficios</li><li>Consecuencias</li></ul><div class="question">PREGUNTA CLAVE</div>¿Qué alternativa tiene más sentido?</article>
+  <article class="card amber"><div class="icon">🎲</div><span class="kicker">03 · Azar e incertidumbre</span><h3>Imprevistos</h3><ul><li>Competencia y crisis</li><li>Cambios del mercado</li><li>Suerte y eventos inesperados</li></ul><div class="question">PREGUNTA CLAVE</div>¿Qué podría salir diferente a lo esperado?</article>
+  <article class="card purple"><div class="icon">📈</div><span class="kicker">04 · Aprendizaje</span><h3>Adaptación</h3><ul><li>Medir resultados</li><li>Detectar errores</li><li>Experimentar y corregir</li></ul><div class="question">PREGUNTA CLAVE</div>¿Qué aprendimos para decidir mejor?</article>
+ </div>
+</section>
+
+<section>
+ <h2>05 · El ciclo estratégico</h2>
+ <div class="flow">
+  <div><b>Observar</b><br><small>Recopilar información del entorno.</small></div>
+  <div><b>Interpretar</b><br><small>Identificar oportunidades y amenazas.</small></div>
+  <div><b>Decidir</b><br><small>Seleccionar una estrategia.</small></div>
+  <div><b>Actuar</b><br><small>Asignar recursos y ejecutar.</small></div>
+  <div><b>Evaluar</b><br><small>Comparar resultados con objetivos.</small></div>
+  <div><b>Aprender</b><br><small>Ajustar y volver a observar.</small></div>
+ </div>
+</section>
+
+<section>
+ <h2>06 · Tablero de decisiones: lanzar un producto</h2>
+ <p>Valores hipotéticos de beneficio neto. La empresa puede elegir una estrategia, pero no controla el escenario del mercado.</p>
+ <table>
+  <thead><tr><th>Estrategia</th><th>Favorable</th><th>Estable</th><th>Adverso</th></tr></thead>
+  <tbody>
+   <tr><td>🚀 Lanzamiento grande</td><td class="pos">+100</td><td>+20</td><td class="neg">−80</td></tr>
+   <tr><td>⚖️ Lanzamiento gradual</td><td class="pos">+60</td><td>+40</td><td>−10</td></tr>
+   <tr><td>🛡️ Esperar</td><td>+10</td><td>+15</td><td>+5</td></tr>
+  </tbody>
+ </table>
+ <div class="grid three">
+  <div class="card green"><span class="pill">Optimista</span><h3>100</h3><small>Elegir según el máximo beneficio posible.</small></div>
+  <div class="card amber"><span class="pill">Conservadora</span><h3>5</h3><small>Protegerse del peor escenario.</small></div>
+  <div class="card blue"><span class="pill">Equilibrada</span><h3>60</h3><small>Buscar oportunidades con exposición limitada.</small></div>
+ </div>
+ <small>Unidades monetarias ilustrativas. No son pronósticos ni probabilidades reales.</small>
+</section>
+
+<section>
+ <h2>07 · Laboratorio interactivo de pensamiento directivo</h2>
+ <p><b>Situación:</b> eres director de una empresa. Tienes recursos limitados y debes decidir cómo lanzar un producto.</p>
+ <div class="control"><label for="strategy">1. Elige tu estrategia</label>
+  <select id="strategy"><option value="large">🚀 Invertir fuertemente desde el inicio</option><option value="gradual" selected>⚖️ Lanzar gradualmente y probar el mercado</option><option value="wait">🛡️ Esperar y conservar recursos</option></select>
+ </div>
+ <div class="control"><label for="market">2. ¿Qué escenario ocurre?</label>
+  <select id="market"><option value="favorable">☀️ Mercado favorable: alta demanda</option><option value="stable">🌤️ Mercado estable: demanda moderada</option><option value="adverse" selected>⛈️ Mercado adverso: cae la demanda</option></select>
+ </div>
+ <div class="control"><label for="confidence">3. Confianza subjetiva: <output id="confidenceValue">50%</output></label><input id="confidence" type="range" min="0" max="100" step="5" value="50" style="width:100%"></div>
+ <button id="evaluate">Evaluar mi decisión</button>
+ <div id="result" class="result" aria-live="polite"></div>
+ <p class="no-print"><small>Prueba distintas combinaciones. El objetivo no es adivinar, sino entender cómo una misma estrategia cambia de resultado según el contexto.</small></p>
+</section>
+
+<section>
+ <h2>08 · Lo que controlas y lo que no</h2>
+ <div class="grid">
+  <div class="card green"><h3>✓ Controlable</h3><ul><li>Preparación</li><li>Presupuesto</li><li>Contratación</li><li>Estrategia</li><li>Información disponible</li><li>Capacidad de reacción</li></ul></div>
+  <div class="card amber"><h3>↝ No controlable</h3><ul><li>Crisis económicas</li><li>Cambios políticos</li><li>Competidores</li><li>Fenómenos naturales</li><li>Preferencias inesperadas</li><li>Suerte</li></ul></div>
+ </div>
+</section>
+
+<section class="quote">
+ <h2>09 · Una distinción fundamental</h2>
+ <strong>Buena decisión ≠ Buen resultado</strong>
+ <p>Una decisión puede estar bien fundamentada y terminar mal por el azar. También se puede tomar una mala decisión y obtener un buen resultado por suerte.</p>
+ <div class="grid">
+  <div>✓ Decisión sólida + éxito</div><div>! Decisión sólida + fracaso</div>
+  <div>! Decisión deficiente + suerte</div><div>× Decisión deficiente + fracaso</div>
+ </div>
+ <p><b>Evalúa la calidad del proceso, no solamente el desenlace.</b></p>
+</section>
+
+<section>
+ <h2>10 · Mapa mental: autores y conceptos</h2>
+ <div class="grid">
+  <div class="card"><b>Estrategia</b><br>Michael Porter · Ventaja competitiva</div>
+  <div class="card"><b>Decisiones</b><br>Herbert Simon · Racionalidad limitada</div>
+  <div class="card"><b>Probabilidad</b><br>Thomas Bayes · Actualización de creencias</div>
+  <div class="card"><b>Incertidumbre</b><br>Frank Knight · Riesgo e incertidumbre</div>
+  <div class="card"><b>Aprendizaje</b><br>W. Edwards Deming · Mejora continua</div>
+  <div class="card"><b>Comportamiento</b><br>Daniel Kahneman · Sesgos cognitivos</div>
+ </div>
+</section>
+
+<section>
+ <h2>11 · Pregunta final para el director</h2>
+ <div class="hero">
+  <h2>¿Qué significa dirigir bien?</h2>
+  <p>No significa adivinar el futuro. Significa construir una organización capaz de tomar buenas decisiones incluso cuando el futuro es incierto.</p>
+  <h2 style="color:#8dd6b0">La ventaja no está en tener suerte siempre, sino en estar preparado para cuando no la tienes.</h2>
+ </div>
+</section>
+<div class="no-print" style="text-align:center;margin:24px 0"><button onclick="window.print()">Imprimir / Guardar como PDF</button></div>
+</main>
+<footer>WHITEBOARD · DIRECCIÓN DE EMPRESAS, DECISIONES Y AZAR · Material didáctico interactivo · Sin imágenes generadas</footer>
+<script>
+const values={large:{favorable:100,stable:20,adverse:-80},gradual:{favorable:60,stable:40,adverse:-10},wait:{favorable:10,stable:15,adverse:5}};
+const labels={large:"Lanzamiento grande",gradual:"Lanzamiento gradual",wait:"Esperar"};
+const scenarios={favorable:"Mercado favorable",stable:"Mercado estable",adverse:"Mercado adverso"};
+const slider=document.getElementById("confidence");
+slider.addEventListener("input",()=>document.getElementById("confidenceValue").value=slider.value+"%");
+document.getElementById("evaluate").addEventListener("click",()=>{
+ const strategy=document.getElementById("strategy").value, market=document.getElementById("market").value;
+ const result=values[strategy][market], box=document.getElementById("result");
+ let interpretation;
+ if(result===-80) interpretation="La apuesta grande expone a la empresa a una pérdida considerable. El riesgo está concentrado.";
+ else if(result===-10) interpretation="El lanzamiento gradual reduce la exposición, aunque no elimina el riesgo.";
+ else if(result<=15) interpretation="Preservaste recursos, pero también limitaste la oportunidad de crecimiento.";
+ else if(result===100) interpretation="Una apuesta ambiciosa obtuvo un resultado extraordinario. Eso no demuestra por sí solo que fuera la mejor decisión.";
+ else interpretation="La estrategia logró un resultado favorable. Evalúa si el beneficio justifica los recursos utilizados.";
+ box.className="result show";
+ box.innerHTML=`<span class="pill">${result>=0?"Resultado positivo":"Resultado negativo"}</span><div class="big" style="color:${result>=0?"#167347":"#b33b35"}">${result>0?"+":""}${result} unidades</div><p><b>Estrategia:</b> ${labels[strategy]}<br><b>Escenario:</b> ${scenarios[market]}</p><p>${interpretation}</p><hr><b>Confianza declarada:</b> ${slider.value}%. La confianza no equivale a probabilidad de éxito.<p><b>Reflexiona:</b> ¿Tomarías la misma decisión si pudieras repetir el escenario diez veces?</p>`;
+});
+</script>
+</body></html>

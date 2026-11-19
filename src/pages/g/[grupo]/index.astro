@@ -1,0 +1,43 @@
+---
+import Base from '../../../layouts/Base.astro';
+import Flecha from '../../../components/Flecha.astro';
+import { catalogo, iniciales, plural, type Grupo } from '../../../data/catalogo';
+
+export function getStaticPaths() {
+  return catalogo.grupos.map(g => ({ params: { grupo: g.id }, props: { g } }));
+}
+const { g } = Astro.props as { g: Grupo };
+const norm = (s: string) => s.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '');
+---
+<Base titulo={`Grupo ${g.id} · Tópico 2`} migas={[{ txt: 'Inicio', href: '/' }, { txt: 'Grupo ' + g.id }]}>
+  <section class="contenedor pb-20 pt-12 md:pt-16">
+    <p class="text-sm text-suave">{plural(g.alumnos.length, 'alumno', 'alumnos')} · {g.alumnos.reduce((n, a) => n + a.actividades.length, 0)} actividades</p>
+    <h1 class="titulo mt-2 text-4xl md:text-5xl">Grupo <span transition:name={`grupo-${g.id}`}>{g.id}</span></h1>
+
+    <label class="relative mt-8 block max-w-md">
+      <span class="sr-only">Buscar alumno</span>
+      <svg class="absolute left-4 top-1/2 -translate-y-1/2 text-tenue" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+      <input data-buscar type="search" class="campo" placeholder="Buscar por nombre o tecnología" />
+    </label>
+
+    <div class="rejilla mt-6">
+      {g.alumnos.map(a => (
+        <a class="tarjeta" href={`/g/${g.id}/${a.id}`} data-lote data-busqueda={norm(a.nombre + ' ' + a.tecnologias.join(' '))}>
+          <Flecha />
+          <div class="flex items-center gap-3 pr-6">
+            <span class="avatar size-12 text-sm" transition:name={`avatar-${a.id}`}>{iniciales(a.nombre)}</span>
+            <div class="min-w-0">
+              <h3 class="font-semibold leading-tight" transition:name={`nombre-${a.id}`}>{a.nombre}</h3>
+              <p class="mt-0.5 text-sm text-suave">{plural(a.actividades.length, 'actividad', 'actividades')}</p>
+            </div>
+          </div>
+          {a.sobreMi && <p class="line-clamp-2 text-sm text-suave">{a.sobreMi}</p>}
+          <div class="mt-auto flex flex-wrap gap-1.5 pt-1">
+            {a.tecnologias.slice(0, 4).map(x => <span class="chip">{x}</span>)}
+          </div>
+        </a>
+      ))}
+    </div>
+    <p data-vacio hidden class="mt-6 text-sm text-suave">Nadie coincide con la búsqueda.</p>
+  </section>
+</Base>

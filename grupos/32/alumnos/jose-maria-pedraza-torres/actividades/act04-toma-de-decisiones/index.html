@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Herramientas para la Toma de Decisiones</title>
+  <style>
+    :root {
+      --bg-dark: #0f172a;
+      --card-bg: #1e293b;
+      --accent: #38bdf8;
+      --text: #f8fafc;
+      --text-muted: #94a3b8;
+      --border: #334155;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+    body { background-color: var(--bg-dark); color: var(--text); min-height: 100vh; padding: 20px; }
+
+    header { text-align: center; margin-bottom: 30px; }
+    header h1 { font-size: 2.2rem; color: var(--accent); margin-bottom: 8px; }
+    header p { color: var(--text-muted); font-size: 1.1rem; }
+
+    .main-container { max-width: 1000px; margin: 0 auto; display: flex; flex-direction: column; gap: 20px; }
+
+    /* NAVEGACIÓN POR PESTAÑAS */
+    .tabs { display: flex; gap: 10px; overflow-x: auto; padding-bottom: 5px; }
+    .tab-btn {
+      background-color: var(--card-bg); border: 1px solid var(--border); color: var(--text-muted);
+      padding: 12px 20px; border-radius: 8px; cursor: pointer; font-weight: bold; transition: all 0.2s;
+      white-space: nowrap;
+    }
+    .tab-btn.active, .tab-btn:hover { background-color: var(--accent); color: #0f172a; border-color: var(--accent); }
+
+    /* CONTENEDORES DE HERRAMIENTAS */
+    .tool-card {
+      background-color: var(--card-bg); border-radius: 12px; padding: 25px; border: 1px solid var(--border);
+      display: none; animation: fadeIn 0.3s ease-in-out;
+    }
+    .tool-card.active { display: block; }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
+
+    .tool-card h2 { color: var(--accent); margin-bottom: 10px; font-size: 1.5rem; }
+    .tool-card p.description { color: var(--text-muted); margin-bottom: 20px; font-size: 0.95rem; }
+
+    /* FORMULARIOS Y ENTRADAS */
+    label { display: block; margin-top: 15px; margin-bottom: 5px; font-size: 0.9rem; color: var(--accent); }
+    input, textarea, select {
+      width: 100%; padding: 10px; background-color: #0f172a; border: 1px solid var(--border);
+      border-radius: 6px; color: var(--text); font-size: 0.95rem; margin-bottom: 10px;
+    }
+    textarea { resize: vertical; height: 80px; }
+
+    button.btn-action {
+      background-color: var(--accent); color: #0f172a; border: none; padding: 10px 20px;
+      border-radius: 6px; font-weight: bold; cursor: pointer; margin-top: 10px; transition: transform 0.1s;
+    }
+    button.btn-action:hover { transform: scale(1.02); }
+
+    /* MATRIZ DE DECISIÓN (TABLA) */
+    table { width: 100%; border-collapse: collapse; margin-top: 15px; }
+    th, td { border: 1px solid var(--border); padding: 10px; text-align: center; }
+    th { background-color: #0f172a; color: var(--accent); }
+
+    /* SOMBREROS */
+    .hats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 15px; margin-top: 15px; }
+    .hat-box { border-radius: 8px; padding: 15px; border-left: 6px solid; background-color: #0f172a; }
+    .hat-white { border-color: #ffffff; }
+    .hat-red { border-color: #ef4444; }
+    .hat-black { border-color: #64748b; }
+    .hat-yellow { border-color: #eab308; }
+    .hat-green { border-color: #22c55e; }
+    .hat-blue { border-color: #3b82f6; }
+
+    /* FODA GRID */
+    .foda-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-top: 15px; }
+    .foda-box { background-color: #0f172a; border: 1px solid var(--border); padding: 15px; border-radius: 8px; }
+
+    /* EISENHOWER GRID */
+    .matrix-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-top: 15px; }
+    .matrix-box { background-color: #0f172a; border: 1px solid var(--border); padding: 15px; border-radius: 8px; }
+    .matrix-box h4 { margin-bottom: 8px; }
+
+    .result-box { background-color: rgba(56, 189, 248, 0.1); border: 1px solid var(--accent); padding: 15px; border-radius: 8px; margin-top: 20px; text-align: center; font-size: 1.1rem; }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>Toma de Decisiones Interactiva</h1>
+    <p>Selecciona una metodología, evalúa tus alternativas y toma la mejor elección</p>
+  </header>
+
+  <div class="main-container">
+    <!-- PESTAÑAS -->
+    <div class="tabs">
+      <button class="tab-btn active" onclick="switchTool(0)">📊 Matriz Ponderada</button>
+      <button class="tab-btn" onclick="switchTool(1)">🎩 6 Sombreros</button>
+      <button class="tab-btn" onclick="switchTool(2)">⚖️ Análisis FODA</button>
+      <button class="tab-btn" onclick="switchTool(3)">⏳ Matriz Urgente/Importante</button>
+    </div>
+
+    <!-- 1. MATRIZ PONDERADA -->
+    <div class="tool-card active">
+      <h2>Matriz de Selección Ponderada</h2>
+      <p class="description">Asigna un valor cuantitativo a distintas alternativas evaluando criterios específicos con su nivel de importancia (peso 1-5).</p>
+      
+      <div>
+        <label>Alternativa A:</label>
+        <input type="text" id="altA" value="Opción 1" />
+        <label>Alternativa B:</label>
+        <input type="text" id="altB" value="Opción 2" />
+      </div>
+
+      <table>
+        <thead>
+          <tr>
+            <th>Criterio de Evaluación</th>
+            <th>Peso (1 a 5)</th>
+            <th>Calif. Opción A (1-10)</th>
+            <th>Calif. Opción B (1-10)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><input type="text" value="Costo / Presupuesto" id="crit1"></td>
+            <td><input type="number" id="w1" min="1" max="5" value="4"></td>
+            <td><input type="number" id="scoreA1" min="1" max="10" value="7"></td>
+            <td><input type="number" id="scoreB1" min="1" max="10" value="5"></td>
+          </tr>
+          <tr>
+            <td><input type="text" value="Impacto a Largo Plazo" id="crit2"></td>
+            <td><input type="number" id="w2" min="1" max="5" value="5"></td>
+            <td><input type="number" id="scoreA2" min="1" max="10" value="8"></td>
+            <td><input type="number" id="scoreB2" min="1" max="10" value="9"></td>
+          </tr>
+          <tr>
+            <td><input type="text" value="Facilidad de Implementación" id="crit3"></td>
+            <td><input type="number" id="w3" min="1" max="5" value="3"></td>
+            <td><input type="number" id="scoreA3" min="1" max="10" value="6"></td>
+            <td><input type="number" id="scoreB3" min="1" max="10" value="8"></td>
+          </tr>
+        </tbody>
+      </table>
+
+      <button class="btn-action" onclick="calculateMatrix()">Calcular Ganador</button>
+      <div id="matrixResult" class="result-box" style="display:none;"></div>
+    </div>
+
+    <!-- 2. LOS 6 SOMBREROS -->
+    <div class="tool-card">
+      <h2>Técnica de los 6 Sombreros para Pensar</h2>
+      <p class="description">Analiza el dilema o decisión desde 6 enfoques cognitivos diferentes para evitar sesgos.</p>
+      
+      <div class="hats-grid">
+        <div class="hat-box hat-white">
+          <h4 style="color:#ffffff;">⚪ Sombrero Blanco (Hechos)</h4>
+          <textarea placeholder="¿Qué datos, hechos o cifras objetivas tenemos sobre el problema?"></textarea>
+        </div>
+        <div class="hat-box hat-red">
+          <h4 style="color:#ef4444;">🔴 Sombrero Rojo (Emociones)</h4>
+          <textarea placeholder="¿Qué te dice la intuición o las emociones sobre esta decisión?"></textarea>
+        </div>
+        <div class="hat-box hat-black">
+          <h4 style="color:#94a3b8;">⚫ Sombrero Negro (Riesgos)</h4>
+          <textarea placeholder="¿Qué puede salir mal? Riesgos, puntos débiles y cautela."></textarea>
+        </div>
+        <div class="hat-box hat-yellow">
+          <h4 style="color:#eab308;">🟡 Sombrero Amarillo (Optimismo)</h4>
+          <textarea placeholder="¿Cuáles son los mejores escenarios y beneficios potenciales?"></textarea>
+        </div>
+        <div class="hat-box hat-green">
+          <h4 style="color:#22c55e;">🟢 Sombrero Verde (Creatividad)</h4>
+          <textarea placeholder="¿Qué alternativas creativas o soluciones fuera de lo común existen?"></textarea>
+        </div>
+        <div class="hat-box hat-blue">
+          <h4 style="color:#3b82f6;">🔵 Sombrero Azul (Control)</h4>
+          <textarea placeholder="Conclusión y siguientes pasos del proceso de decisión."></textarea>
+        </div>
+      </div>
+    </div>
+
+    <!-- 3. FODA -->
+    <div class="tool-card">
+      <h2>Análisis FODA (Fortalezas, Oportunidades, Debilidades, Amenazas)</h2>
+      <p class="description">Evalúa factores internos y externos relacionados con el dilema a resolver.</p>
+
+      <div class="foda-grid">
+        <div class="foda-box">
+          <h4 style="color:#22c55e;">💪 Fortalezas (Internas)</h4>
+          <textarea placeholder="Recursos, ventajas competitivas o puntos fuertes..."></textarea>
+        </div>
+        <div class="foda-box">
+          <h4 style="color:#38bdf8;">🚀 Oportunidades (Externas)</h4>
+          <textarea placeholder="Factores del entorno que se pueden aprovechar..."></textarea>
+        </div>
+        <div class="foda-box">
+          <h4 style="color:#ef4444;">⚠️ Debilidades (Internas)</h4>
+          <textarea placeholder="Carencias, limitaciones o aspectos a mejorar..."></textarea>
+        </div>
+        <div class="foda-box">
+          <h4 style="color:#eab308;">🛡️ Amenazas (Externas)</h4>
+          <textarea placeholder="Riesgos externos, competencia o barreras..."></textarea>
+        </div>
+      </div>
+    </div>
+
+    <!-- 4. EISENHOWER -->
+    <div class="tool-card">
+      <h2>Matriz de Priorización (Eisenhower)</h2>
+      <p class="description">Clasifica las acciones asociadas a la decisión según su urgencia e importancia.</p>
+
+      <div class="matrix-grid">
+        <div class="matrix-box" style="border-color: #ef4444;">
+          <h4 style="color: #ef4444;">🔥 Urgente e Importante (Hacer Ya)</h4>
+          <textarea placeholder="Acciones críticas con impacto directo e inmediato..."></textarea>
+        </div>
+        <div class="matrix-box" style="border-color: #38bdf8;">
+          <h4 style="color: #38bdf8;">📅 No Urgente pero Importante (Planificar)</h4>
+          <textarea placeholder="Estrategias a largo plazo y planificación clave..."></textarea>
+        </div>
+        <div class="matrix-box" style="border-color: #eab308;">
+          <h4 style="color: #eab308;">👥 Urgente pero No Importante (Delegar)</h4>
+          <textarea placeholder="Tareas operativas que requieren atención rápida..."></textarea>
+        </div>
+        <div class="matrix-box" style="border-color: #64748b;">
+          <h4 style="color: #64748b;">🗑️ Ni Urgente Ni Importante (Eliminar)</h4>
+          <textarea placeholder="Distracciones o tareas con poco impacto..."></textarea>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <script>
+    function switchTool(index) {
+      const cards = document.querySelectorAll('.tool-card');
+      const btns = document.querySelectorAll('.tab-btn');
+
+      cards.forEach((card, i) => card.classList.toggle('active', i === index));
+      btns.forEach((btn, i) => btn.classList.toggle('active', i === index));
+    }
+
+    function calculateMatrix() {
+      const altA = document.getElementById('altA').value || "Opción 1";
+      const altB = document.getElementById('altB').value || "Opción 2";
+
+      const w1 = parseFloat(document.getElementById('w1').value) || 0;
+      const w2 = parseFloat(document.getElementById('w2').value) || 0;
+      const w3 = parseFloat(document.getElementById('w3').value) || 0;
+
+      const scoreA1 = parseFloat(document.getElementById('scoreA1').value) || 0;
+      const scoreA2 = parseFloat(document.getElementById('scoreA2').value) || 0;
+      const scoreA3 = parseFloat(document.getElementById('scoreA3').value) || 0;
+
+      const scoreB1 = parseFloat(document.getElementById('scoreB1').value) || 0;
+      const scoreB2 = parseFloat(document.getElementById('scoreB2').value) || 0;
+      const scoreB3 = parseFloat(document.getElementById('scoreB3').value) || 0;
+
+      const totalA = (scoreA1 * w1) + (scoreA2 * w2) + (scoreA3 * w3);
+      const totalB = (scoreB1 * w1) + (scoreB2 * w2) + (scoreB3 * w3);
+
+      const resultBox = document.getElementById('matrixResult');
+      resultBox.style.display = 'block';
+
+      if (totalA > totalB) {
+        resultBox.innerHTML = `<strong>Ganadora: ${altA}</strong> con un puntaje de <strong>${totalA} pts</strong> (frente a ${totalB} pts de ${altB}).`;
+      } else if (totalB > totalA) {
+        resultBox.innerHTML = `<strong>Ganadora: ${altB}</strong> con un puntaje de <strong>${totalB} pts</strong> (frente a ${totalA} pts de ${altA}).`;
+      } else {
+        resultBox.innerHTML = `<strong>Empate técnico:</strong> Ambas opciones alcanzaron <strong>${totalA} pts</strong>. Considera ajustar los pesos o los criterios.`;
+      }
+    }
+  </script>
+</body>
+</html>

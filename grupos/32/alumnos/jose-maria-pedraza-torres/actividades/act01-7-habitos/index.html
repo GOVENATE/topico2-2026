@@ -1,0 +1,1038 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Los 7 Hábitos de la Gente Altamente Efectiva</title>
+  <style>
+    :root {
+      --bg-dark: #0f172a;
+      --card-bg: #1e293b;
+      --accent: #38bdf8;
+      --text: #f8fafc;
+      --text-muted: #94a3b8;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    body {
+      background-color: var(--bg-dark);
+      color: var(--text);
+      height: 100vh;
+      overflow: hidden;
+    }
+
+    /* PORTADA INICIAL */
+    .cover-screen {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: radial-gradient(circle at center, #1e293b 0%, #0f172a 100%);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 20px;
+      z-index: 1000;
+      transition: opacity 0.5s ease, visibility 0.5s ease;
+    }
+
+    .cover-screen.hidden {
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+    }
+
+    .cover-logo-box {
+      background-color: rgba(56, 189, 248, 0.08);
+      border: 2px solid var(--accent);
+      border-radius: 24px;
+      padding: 20px;
+      margin-bottom: 25px;
+      box-shadow: 0 0 30px rgba(56, 189, 248, 0.25);
+    }
+
+    .cover-logo-box svg {
+      width: 90px;
+      height: 90px;
+      display: block;
+    }
+
+    .cover-screen h1 {
+      font-size: 2.8rem;
+      color: var(--text);
+      margin-bottom: 10px;
+      max-width: 800px;
+    }
+
+    .cover-screen h1 span {
+      color: var(--accent);
+    }
+
+    .cover-screen p {
+      font-size: 1.2rem;
+      color: var(--text-muted);
+      margin-bottom: 35px;
+      max-width: 600px;
+    }
+
+    .btn-enter {
+      background-color: var(--accent);
+      color: #0f172a;
+      font-size: 1.1rem;
+      font-weight: bold;
+      padding: 16px 36px;
+      border: none;
+      border-radius: 30px;
+      cursor: pointer;
+      box-shadow: 0 4px 15px rgba(56, 189, 248, 0.4);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .btn-enter:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(56, 189, 248, 0.6);
+    }
+
+    /* CONTENEDOR PRINCIPAL */
+    .app-container {
+      display: flex;
+      height: 100vh;
+      width: 100vw;
+    }
+
+    /* Menú Lateral */
+    .sidebar {
+      width: 320px;
+      background-color: #020617;
+      border-right: 1px solid #1e293b;
+      display: flex;
+      flex-direction: column;
+      padding: 20px 0;
+    }
+
+    .brand-logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 0 20px 20px 20px;
+      border-bottom: 1px solid #1e293b;
+    }
+
+    .brand-logo svg {
+      width: 36px;
+      height: 36px;
+    }
+
+    .brand-logo h2 {
+      font-size: 1rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--accent);
+    }
+
+    .menu {
+      list-style: none;
+      margin-top: 10px;
+      overflow-y: auto;
+    }
+
+    .menu li button {
+      width: 100%;
+      padding: 15px 20px;
+      background: none;
+      border: none;
+      color: var(--text-muted);
+      text-align: left;
+      font-size: 0.95rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .menu li button:hover,
+    .menu li button.active {
+      background-color: var(--card-bg);
+      color: var(--accent);
+      border-left: 4px solid var(--accent);
+    }
+
+    /* Área Principal */
+    .content-area {
+      flex: 1;
+      padding: 40px;
+      overflow-y: auto;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+    }
+
+    .card {
+      background-color: var(--card-bg);
+      border-radius: 16px;
+      max-width: 800px;
+      width: 100%;
+      padding: 30px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+      display: none;
+      animation: fadeIn 0.4s ease-in-out forwards;
+    }
+
+    .card.active {
+      display: block;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .card h1 {
+      font-size: 2rem;
+      color: var(--accent);
+      margin-bottom: 15px;
+    }
+
+    .card-img {
+      width: 100%;
+      height: 320px;
+      object-fit: cover;
+      border-radius: 12px;
+      margin-bottom: 20px;
+    }
+
+    .card p {
+      line-height: 1.6;
+      font-size: 1.05rem;
+      margin-bottom: 20px;
+      color: #cbd5e1;
+    }
+
+    /* Sección Interactiva */
+    .interactive-box {
+      background-color: #0f172a;
+      border: 1px dashed var(--accent);
+      border-radius: 8px;
+      padding: 20px;
+      margin-top: 20px;
+    }
+
+    .interactive-box h3 {
+      font-size: 1rem;
+      color: var(--accent);
+      margin-bottom: 10px;
+    }
+
+    textarea {
+      width: 100%;
+      height: 80px;
+      background-color: #1e293b;
+      border: 1px solid #334155;
+      border-radius: 6px;
+      color: var(--text);
+      padding: 10px;
+      resize: none;
+      margin-top: 10px;
+    }
+
+    textarea:focus {
+      outline: 1px solid var(--accent);
+    }
+
+    /* Autor y Galería */
+    .author-card {
+      text-align: center;
+    }
+
+    .author-img {
+      width: 220px;
+      height: 280px;
+      border-radius: 12px;
+      object-fit: cover;
+      margin: 0 auto 20px auto;
+      border: 4px solid var(--accent);
+    }
+
+    .author-email {
+      display: inline-block;
+      margin-top: 15px;
+      margin-bottom: 30px;
+      padding: 10px 20px;
+      background-color: var(--accent);
+      color: #0f172a;
+      font-weight: bold;
+      text-decoration: none;
+      border-radius: 6px;
+    }
+
+    .gallery-title {
+      font-size: 1.3rem;
+      color: var(--accent);
+      margin: 25px 0 15px 0;
+      border-top: 1px solid #334155;
+      padding-top: 25px;
+    }
+
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 15px;
+      margin-top: 15px;
+    }
+
+    .gallery-item {
+      position: relative;
+      border-radius: 8px;
+      overflow: hidden;
+      height: 150px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+    }
+
+    .gallery-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.3s ease;
+    }
+
+    .gallery-item:hover img {
+      transform: scale(1.08);
+    }
+
+    .gallery-caption {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: rgba(15, 23, 42, 0.85);
+      color: var(--text);
+      font-size: 0.85rem;
+      padding: 6px;
+      text-align: center;
+      font-weight: 500;
+    }
+
+    /* HERRAMIENTAS DE DECISIÓN */
+    .tool-nav {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-bottom: 22px;
+      border-bottom: 1px solid #334155;
+      padding-bottom: 18px;
+    }
+
+    .tool-nav button {
+      background-color: #0f172a;
+      border: 1px solid #334155;
+      color: var(--text-muted);
+      padding: 8px 16px;
+      border-radius: 20px;
+      cursor: pointer;
+      font-size: 0.9rem;
+      transition: all 0.2s ease;
+    }
+
+    .tool-nav button:hover,
+    .tool-nav button.active {
+      background-color: var(--accent);
+      color: #0f172a;
+      border-color: var(--accent);
+      font-weight: bold;
+    }
+
+    .tool-panel { display: none; }
+    .tool-panel.active { display: block; animation: fadeIn 0.3s ease-in-out; }
+
+    .category-title {
+      color: var(--accent);
+      font-size: 1.05rem;
+      margin: 22px 0 10px 0;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .category-title:first-child { margin-top: 0; }
+
+    .question-block {
+      background-color: #0f172a;
+      border: 1px solid #334155;
+      border-radius: 8px;
+      padding: 15px;
+      margin-bottom: 14px;
+    }
+
+    .question-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 10px;
+      margin-bottom: 8px;
+    }
+
+    .question-text {
+      font-size: 0.95rem;
+      color: var(--text);
+      flex: 1;
+    }
+
+    .question-actions { white-space: nowrap; }
+
+    .question-actions button {
+      background: none;
+      border: none;
+      color: var(--text-muted);
+      cursor: pointer;
+      font-size: 0.95rem;
+      margin-left: 6px;
+    }
+
+    .question-actions button:hover { color: var(--accent); }
+
+    .question-block textarea { margin-top: 0; height: 60px; }
+
+    .impact-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-top: 10px;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+    }
+
+    .impact-row input[type="range"] { flex: 1; accent-color: var(--accent); }
+    .impact-row .impact-value { color: var(--accent); font-weight: bold; width: 14px; }
+
+    .add-question-btn {
+      background: none;
+      border: 1px dashed var(--accent);
+      color: var(--accent);
+      padding: 6px 14px;
+      border-radius: 20px;
+      cursor: pointer;
+      font-size: 0.85rem;
+      margin-top: 4px;
+      margin-bottom: 6px;
+    }
+
+    .add-question-btn:hover { background-color: rgba(56, 189, 248, 0.1); }
+
+    .results-box {
+      margin-top: 30px;
+      padding-top: 22px;
+      border-top: 1px solid #334155;
+    }
+
+    .results-box h3 { color: var(--accent); margin-bottom: 14px; }
+
+    .foda-grid, .hats-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+
+    .foda-cell { border-radius: 8px; padding: 14px; min-height: 90px; }
+    .foda-cell h4 { margin-bottom: 8px; font-size: 0.95rem; }
+    .foda-cell ul { padding-left: 18px; font-size: 0.85rem; color: #e2e8f0; }
+
+    .foda-f { background: rgba(34, 197, 94, 0.12); border: 1px solid #22c55e; }
+    .foda-f h4 { color: #22c55e; }
+    .foda-d { background: rgba(239, 68, 68, 0.12); border: 1px solid #ef4444; }
+    .foda-d h4 { color: #ef4444; }
+    .foda-o { background: rgba(56, 189, 248, 0.12); border: 1px solid #38bdf8; }
+    .foda-o h4 { color: #38bdf8; }
+    .foda-a { background: rgba(251, 146, 60, 0.12); border: 1px solid #fb923c; }
+    .foda-a h4 { color: #fb923c; }
+
+    .hat-card { border-radius: 8px; padding: 14px; font-size: 0.85rem; }
+    .hat-card h4 { margin-bottom: 6px; font-size: 0.9rem; }
+    .hat-white { background: #e2e8f0; color: #0f172a; }
+    .hat-red { background: rgba(239, 68, 68, 0.18); border: 1px solid #ef4444; }
+    .hat-black { background: #1e293b; border: 1px solid #64748b; }
+    .hat-yellow { background: rgba(250, 204, 21, 0.15); border: 1px solid #facc15; }
+    .hat-green { background: rgba(34, 197, 94, 0.15); border: 1px solid #22c55e; }
+    .hat-blue { background: rgba(56, 189, 248, 0.15); border: 1px solid #38bdf8; }
+
+    .catwoe-table { width: 100%; border-collapse: collapse; font-size: 0.9rem; }
+    .catwoe-table th, .catwoe-table td {
+      border: 1px solid #334155;
+      padding: 10px;
+      text-align: left;
+      vertical-align: top;
+    }
+    .catwoe-table th { background-color: #0f172a; color: var(--accent); width: 190px; }
+
+    .pareto-empty { color: var(--text-muted); font-style: italic; font-size: 0.9rem; }
+    .pareto-svg-wrap { width: 100%; overflow-x: auto; }
+
+    .save-indicator {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background-color: #22c55e;
+      color: #0f172a;
+      padding: 8px 18px;
+      border-radius: 20px;
+      font-size: 0.85rem;
+      font-weight: bold;
+      opacity: 0;
+      transform: translateY(10px);
+      transition: all 0.3s ease;
+      z-index: 2000;
+      pointer-events: none;
+    }
+
+    .save-indicator.show { opacity: 1; transform: translateY(0); }
+
+    @media (max-width: 600px) {
+      .foda-grid, .hats-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- PORTADA INICIAL -->
+  <div class="cover-screen" id="coverScreen">
+    <div class="cover-logo-box">
+      <!-- Logo Personalizado (JP + Tech/Software) -->
+      <svg viewBox="0 0 100 100">
+        <path d="M25 20 L75 20 L75 35 L55 35 L55 80 L35 80 L35 35 L25 35 Z" fill="#38bdf8" />
+        <path d="M45 45 L65 45 C75 45 82 52 82 62 C82 72 75 80 65 80 L45 80" fill="none" stroke="#38bdf8" stroke-width="10" stroke-linecap="round" />
+        <path d="M15 30 L5 40 L15 50" fill="none" stroke="#f8fafc" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" />
+        <path d="M85 30 L95 40 L85 50" fill="none" stroke="#f8fafc" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" />
+      </svg>
+    </div>
+    <h1>José María Pedraza <span>Software Eng.</span></h1>
+    <p>Presentación Interactiva: Los 7 Hábitos de la Gente Altamente Efectiva</p>
+    <button class="btn-enter" onclick="enterApp()">Explorar el Sitio</button>
+  </div>
+
+  <!-- APLICACIÓN PRINCIPAL -->
+  <div class="app-container">
+
+    <!-- Menú Navegación -->
+    <nav class="sidebar">
+      <div class="brand-logo">
+        <svg viewBox="0 0 100 100">
+          <path d="M25 20 L75 20 L75 35 L55 35 L55 80 L35 80 L35 35 L25 35 Z" fill="#38bdf8" />
+          <path d="M45 45 L65 45 C75 45 82 52 82 62 C82 72 75 80 65 80 L45 80" fill="none" stroke="#38bdf8" stroke-width="10" stroke-linecap="round" />
+          <path d="M15 30 L5 40 L15 50" fill="none" stroke="#f8fafc" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" />
+          <path d="M85 30 L95 40 L85 50" fill="none" stroke="#f8fafc" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" />
+        </svg>
+        <h2>J. M. Pedraza | Dev</h2>
+      </div>
+      <ul class="menu">
+        <li><button class="active" onclick="showTab(0)">📌 Introducción</button></li>
+        <li><button onclick="showTab(1)">🐴 Hábito 1: Ser Proactivo</button></li>
+        <li><button onclick="showTab(2)">🚗 Hábito 2: Fin en Mente</button></li>
+        <li><button onclick="showTab(3)">⏳ Hábito 3: Primero lo Primero</button></li>
+        <li><button onclick="showTab(4)">⚽ Hábito 4: Ganar-Ganar</button></li>
+        <li><button onclick="showTab(5)">🎧 Hábito 5: Comprender Primero</button></li>
+        <li><button onclick="showTab(6)">🎸 Hábito 6: Sinergizar</button></li>
+        <li><button onclick="showTab(7)">🌲 Hábito 7: Afilar la Sierra</button></li>
+        <li><button onclick="showTab(8)">👤 Autor</button></li>
+        <li><button onclick="showTab(9)">🧩 Herramientas de Decisión</button></li>
+      </ul>
+    </nav>
+
+    <!-- Área de Contenido -->
+    <main class="content-area">
+
+      <!-- INTRODUCCIÓN -->
+      <section class="card active">
+        <h1>Los 7 Hábitos de la Gente Altamente Efectiva</h1>
+        <img class="card-img" src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1000&q=80" alt="Crecimiento y horizonte" />
+        <p>Bienvenido a esta experiencia interactiva basada en la obra emblemática de Stephen R. Covey. Explora cada hábito a través del menú lateral para transformar tu paradigma personal y profesional, pasando de la dependencia a la verdadera independencia e interdependencia.</p>
+      </section>
+
+      <!-- HÁBITO 1 -->
+      <section class="card">
+        <h1>Hábito 1: Ser Proactivo</h1>
+        <img class="card-img" src="https://images.unsplash.com/photo-1553284965-83fd3e82fa5a?auto=format&fit=crop&w=1000&q=80" alt="Caballo libre" />
+        <p>Tomar la iniciativa implica asumir la responsabilidad de tus decisiones. No eres víctima de las circunstancias, sino el piloto de tu propia vida.</p>
+        <div class="interactive-box">
+          <h3>💡 Reflexión Interactiva</h3>
+          <p>¿Qué decisión de hoy tomarás con total proactividad sin culpar a factores externos?</p>
+          <textarea placeholder="Escribe tu reflexión aquí..."></textarea>
+        </div>
+      </section>
+
+      <!-- HÁBITO 2 -->
+      <section class="card">
+        <h1>Hábito 2: Empezar con un Fin en Mente</h1>
+        <img class="card-img" src="https://images.unsplash.com/photo-1568605117036-5fe5e7bab0b7?auto=format&fit=crop&w=1000&q=80" alt="Carro en ruta" />
+        <p>Trazar la ruta antes de arrancar. Desarrolla una visión clara de lo que quieres lograr en la vida para que cada paso te acerque a tu destino final.</p>
+        <div class="interactive-box">
+          <h3>💡 Definición de Metas</h3>
+          <p>¿Cuál es tu destino principal para este año?</p>
+          <textarea placeholder="Define tu meta principal..."></textarea>
+        </div>
+      </section>
+
+      <!-- HÁBITO 3 -->
+      <section class="card">
+        <h1>Hábito 3: Establecer Primero lo Primero</h1>
+        <img class="card-img" src="https://images.unsplash.com/photo-1508962914676-134849a727f0?auto=format&fit=crop&w=1000&q=80" alt="Reloj y tiempo" />
+        <p>Organizar y ejecutar según prioridades. Administra tu tiempo enfocándote en lo que es verdaderamente importante y no solo en lo urgente.</p>
+        <div class="interactive-box">
+          <h3>💡 Gestión del Tiempo</h3>
+          <p>Menciona una tarea importante que has pospuesto por atender urgencias pequeñas:</p>
+          <textarea placeholder="Tu prioridad real..."></textarea>
+        </div>
+      </section>
+
+      <!-- HÁBITO 4 -->
+      <section class="card">
+        <h1>Hábito 4: Pensar en Ganar/Ganar</h1>
+        <img class="card-img" src="https://images.unsplash.com/photo-1579952318891-21b2203cfc40?auto=format&fit=crop&w=1000&q=80" alt="Fútbol en equipo" />
+        <p>Buscar el beneficio mutuo en todas las interacciones humanas. La victoria de un equipo no requiere la derrota del otro; el éxito es compartido.</p>
+        <div class="interactive-box">
+          <h3>💡 Mentalidad de Abundancia</h3>
+          <p>¿Cómo podrías convertir un conflicto actual en una solución Ganar/Ganar?</p>
+          <textarea placeholder="Tu estrategia colaborativa..."></textarea>
+        </div>
+      </section>
+
+      <!-- HÁBITO 5 -->
+      <section class="card">
+        <h1>Hábito 5: Buscar Primero Comprender, Luego Ser Comprendido</h1>
+        <img class="card-img" src="https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?auto=format&fit=crop&w=1000&q=80" alt="Música y escucha" />
+        <p>Escuchar con empatía antes de responder. Al igual que al afinar un instrumento o escuchar una melodía, se requiere atención total al detalle del otro.</p>
+        <div class="interactive-box">
+          <h3>💡 Escucha Empática</h3>
+          <p>¿A quién escucharás hoy con atención plena sin interrumpir?</p>
+          <textarea placeholder="Nombre o situación..."></textarea>
+        </div>
+      </section>
+
+      <!-- HÁBITO 6 -->
+      <section class="card">
+        <h1>Hábito 6: Sinergizar</h1>
+        <img class="card-img" src="https://images.unsplash.com/photo-1511379938547-c1f69419868d?auto=format&fit=crop&w=1000&q=80" alt="Guitarra y banda" />
+        <p>Trabajar en equipo para lograr resultados superiores. Como en una banda musical donde varios instrumentos crean algo más grande que la suma de sus partes.</p>
+        <div class="interactive-box">
+          <h3>💡 Trabajo en Equipo</h3>
+          <p>¿Qué fortaleza individual de un compañero puedes aprovechar para un proyecto común?</p>
+          <textarea placeholder="Reflexión de sinergia..."></textarea>
+        </div>
+      </section>
+
+      <!-- HÁBITO 7 -->
+      <section class="card">
+        <h1>Hábito 7: Afilar la Sierra</h1>
+        <img class="card-img" src="https://images.unsplash.com/photo-1448375240586-882707db888b?auto=format&fit=crop&w=1000&q=80" alt="Naturaleza y renovación" />
+        <p>Preservar y mejorar tu mayor activo: tú mismo. Mantén un equilibrio dinámico en las dimensiones física, mental, emocional y espiritual.</p>
+        <div class="interactive-box">
+          <h3>💡 Renovación Personal</h3>
+          <p>¿Qué actividad harás esta semana para renovar tu energía?</p>
+          <textarea placeholder="Tu actividad de renovación..."></textarea>
+        </div>
+      </section>
+
+      <!-- AUTOR CON GALERÍA -->
+      <section class="card author-card">
+        <h1>Autor</h1>
+        <img class="author-img" src="autor.jpg" alt="José María Pedraza Torres" />
+        <h2>José María Pedraza Torres</h2>
+        <p>Estudiante de Ingeniería de Software & Apasionado del Desarrollo Personal</p>
+        <a href="mailto:josepedrazatorres15@gmail.com" class="author-email">josepedrazatorres15@gmail.com</a>
+
+        <h3 class="gallery-title">Intereses & Pasiones</h3>
+        <div class="gallery-grid">
+          <div class="gallery-item">
+            <img src="https://images.unsplash.com/photo-1579952318891-21b2203cfc40?auto=format&fit=crop&w=500&q=80" alt="Fútbol" />
+            <div class="gallery-caption">⚽ Fútbol</div>
+          </div>
+          <div class="gallery-item">
+            <img src="https://images.unsplash.com/photo-1553284965-83fd3e82fa5a?auto=format&fit=crop&w=500&q=80" alt="Caballos" />
+            <div class="gallery-caption">🐴 Caballos</div>
+          </div>
+          <div class="gallery-item">
+            <img src="https://images.unsplash.com/photo-1543466835-00a7907e9de1?auto=format&fit=crop&w=500&q=80" alt="Perros" />
+            <div class="gallery-caption">🐶 Perros</div>
+          </div>
+          <div class="gallery-item">
+            <img src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=500&q=80" alt="Comida" />
+            <div class="gallery-caption">🍔 Comida</div>
+          </div>
+          <div class="gallery-item">
+            <img src="https://images.unsplash.com/photo-1511379938547-c1f69419868d?auto=format&fit=crop&w=500&q=80" alt="Guitarra" />
+            <div class="gallery-caption">🎸 Guitarra</div>
+          </div>
+          <div class="gallery-item">
+            <img src="https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?auto=format&fit=crop&w=500&q=80" alt="Música" />
+            <div class="gallery-caption">🎧 Música</div>
+          </div>
+          <div class="gallery-item">
+            <img src="https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?auto=format&fit=crop&w=500&q=80" alt="Películas" />
+            <div class="gallery-caption">🎬 Películas</div>
+          </div>
+          <div class="gallery-item">
+            <img src="https://images.unsplash.com/photo-1568605117036-5fe5e7bab0b7?auto=format&fit=crop&w=500&q=80" alt="Autos" />
+            <div class="gallery-caption">🏎️ Autos</div>
+          </div>
+          <div class="gallery-item">
+            <img src="https://images.unsplash.com/photo-1511512578047-dfb367046420?auto=format&fit=crop&w=500&q=80" alt="Gaming" />
+            <div class="gallery-caption">🎮 Gaming</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- HERRAMIENTAS DE DECISIÓN -->
+      <section class="card">
+        <h1>🧩 Herramientas de Toma de Decisiones</h1>
+        <p>Responde estos breves cuestionarios y observa cómo se completan automáticamente el <strong>FODA</strong>, los <strong>6 Sombreros para Pensar</strong> y el análisis <strong>CATWOE</strong>. Puedes editar o eliminar cualquier pregunta, agregar nuevas y modificar tus respuestas cuando quieras: todo se guarda automáticamente en este navegador y se refleja en los resultados, incluido el <strong>Diagrama de Pareto</strong> final.</p>
+
+        <div class="tool-nav">
+          <button class="active" data-tool="foda" onclick="showToolTab('foda')">📊 FODA</button>
+          <button data-tool="hats" onclick="showToolTab('hats')">🎩 6 Sombreros</button>
+          <button data-tool="catwoe" onclick="showToolTab('catwoe')">🔎 CATWOE</button>
+          <button data-tool="pareto" onclick="showToolTab('pareto')">📈 Pareto</button>
+        </div>
+
+        <div class="tool-panel active" id="tool-foda"></div>
+        <div class="tool-panel" id="tool-hats"></div>
+        <div class="tool-panel" id="tool-catwoe"></div>
+        <div class="tool-panel" id="tool-pareto"></div>
+      </section>
+
+    </main>
+  </div>
+
+  <div class="save-indicator" id="saveIndicator">Guardado ✓</div>
+
+  <script>
+    function enterApp() {
+      document.getElementById('coverScreen').classList.add('hidden');
+    }
+
+    function showTab(index) {
+      const cards = document.querySelectorAll('.card');
+      const buttons = document.querySelectorAll('.menu button');
+
+      cards.forEach((card, i) => {
+        card.classList.toggle('active', i === index);
+      });
+
+      buttons.forEach((button, i) => {
+        button.classList.toggle('active', i === index);
+      });
+    }
+  </script>
+
+  <!-- MÓDULO: HERRAMIENTAS DE DECISIÓN (FODA / 6 Sombreros / CATWOE / Pareto) -->
+  <script>
+    const STATE_KEY = 'decisionToolsState_v1';
+
+    const TOOL_DEFS = {
+      foda: {
+        categories: [
+          { key: 'F', label: 'Fortalezas', color: 'foda-f' },
+          { key: 'D', label: 'Debilidades', color: 'foda-d' },
+          { key: 'O', label: 'Oportunidades', color: 'foda-o' },
+          { key: 'A', label: 'Amenazas', color: 'foda-a' }
+        ],
+        defaultQuestions: [
+          { id: 'foda_f1', cat: 'F', text: '¿Cuál es tu principal fortaleza o ventaja frente a los demás?', impactable: false },
+          { id: 'foda_d1', cat: 'D', text: '¿Cuál es tu principal debilidad o área de mejora?', impactable: true },
+          { id: 'foda_o1', cat: 'O', text: '¿Qué oportunidad externa podrías aprovechar?', impactable: false },
+          { id: 'foda_a1', cat: 'A', text: '¿Qué amenaza externa podría afectarte?', impactable: true }
+        ]
+      },
+      hats: {
+        categories: [
+          { key: 'white', label: 'Sombrero Blanco · Hechos', color: 'hat-white' },
+          { key: 'red', label: 'Sombrero Rojo · Emociones', color: 'hat-red' },
+          { key: 'black', label: 'Sombrero Negro · Riesgos', color: 'hat-black' },
+          { key: 'yellow', label: 'Sombrero Amarillo · Beneficios', color: 'hat-yellow' },
+          { key: 'green', label: 'Sombrero Verde · Creatividad', color: 'hat-green' },
+          { key: 'blue', label: 'Sombrero Azul · Proceso', color: 'hat-blue' }
+        ],
+        defaultQuestions: [
+          { id: 'hat_white', cat: 'white', text: '¿Qué datos objetivos conoces sobre esta situación?', impactable: false },
+          { id: 'hat_red', cat: 'red', text: '¿Qué sientes respecto a esta decisión?', impactable: false },
+          { id: 'hat_black', cat: 'black', text: '¿Qué podría salir mal o qué riesgos identificas?', impactable: true },
+          { id: 'hat_yellow', cat: 'yellow', text: '¿Qué beneficios u oportunidades ves en esta decisión?', impactable: false },
+          { id: 'hat_green', cat: 'green', text: '¿Qué alternativa creativa propones?', impactable: false },
+          { id: 'hat_blue', cat: 'blue', text: '¿Cómo organizarías el proceso para decidir?', impactable: false }
+        ]
+      },
+      catwoe: {
+        categories: [
+          { key: 'C', label: 'Clientes (Customers)' },
+          { key: 'A', label: 'Actores (Actors)' },
+          { key: 'T', label: 'Transformación (Transformation)' },
+          { key: 'W', label: 'Cosmovisión (Worldview)' },
+          { key: 'O', label: 'Dueño (Owner)' },
+          { key: 'E', label: 'Entorno / Restricciones (Environment)' }
+        ],
+        defaultQuestions: [
+          { id: 'catwoe_c', cat: 'C', text: '¿Quién se beneficia o resulta afectado por esta decisión?', impactable: false },
+          { id: 'catwoe_a', cat: 'A', text: '¿Quién ejecutará las acciones necesarias?', impactable: false },
+          { id: 'catwoe_t', cat: 'T', text: '¿Qué transformación o cambio se busca lograr?', impactable: false },
+          { id: 'catwoe_w', cat: 'W', text: '¿Qué visión o principio justifica esta decisión?', impactable: false },
+          { id: 'catwoe_o', cat: 'O', text: '¿Quién tiene autoridad para aprobar o detener el proceso?', impactable: false },
+          { id: 'catwoe_e', cat: 'E', text: '¿Qué limitaciones o restricciones externas existen?', impactable: true }
+        ]
+      }
+    };
+
+    function defaultState() {
+      return { editedText: {}, deleted: [], custom: [], answers: {}, impacts: {} };
+    }
+
+    function loadState() {
+      try {
+        const raw = localStorage.getItem(STATE_KEY);
+        if (!raw) return defaultState();
+        const parsed = JSON.parse(raw);
+        return Object.assign(defaultState(), parsed);
+      } catch (e) {
+        return defaultState();
+      }
+    }
+
+    let dtState = loadState();
+    let saveTimer = null;
+
+    function scheduleSave() {
+      clearTimeout(saveTimer);
+      saveTimer = setTimeout(() => {
+        localStorage.setItem(STATE_KEY, JSON.stringify(dtState));
+        flashSaved();
+      }, 400);
+    }
+
+    function flashSaved() {
+      const el = document.getElementById('saveIndicator');
+      if (!el) return;
+      el.classList.add('show');
+      setTimeout(() => el.classList.remove('show'), 1200);
+    }
+
+    function escapeHtml(str) {
+      return String(str).replace(/[&<>"']/g, c => ({
+        '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
+      }[c]));
+    }
+
+    function getQuestions(tool) {
+      const defs = TOOL_DEFS[tool].defaultQuestions
+        .filter(q => !dtState.deleted.includes(q.id))
+        .map(q => ({ ...q, tool, custom: false, text: dtState.editedText[q.id] || q.text }));
+      const custom = dtState.custom.filter(q => q.tool === tool && !dtState.deleted.includes(q.id));
+      return [...defs, ...custom];
+    }
+
+    function showToolTab(name) {
+      document.querySelectorAll('.tool-panel').forEach(p => p.classList.remove('active'));
+      const panel = document.getElementById('tool-' + name);
+      if (panel) panel.classList.add('active');
+      document.querySelectorAll('.tool-nav button').forEach(b => b.classList.toggle('active', b.dataset.tool === name));
+    }
+
+    function renderToolPanel(tool) {
+      const container = document.getElementById('tool-' + tool);
+      if (!container) return;
+      const defs = TOOL_DEFS[tool];
+      const questions = getQuestions(tool);
+      let html = '<div class="questionnaire">';
+      defs.categories.forEach(cat => {
+        html += `<div class="category-title">${escapeHtml(cat.label)}</div>`;
+        questions.filter(q => q.cat === cat.key).forEach(q => {
+          const ans = dtState.answers[q.id] || '';
+          const impact = dtState.impacts[q.id] || 3;
+          html += `
+            <div class="question-block">
+              <div class="question-head">
+                <div class="question-text">${escapeHtml(q.text)}</div>
+                <div class="question-actions">
+                  <button title="Editar pregunta" onclick="editQuestion('${q.id}','${tool}')">✏️</button>
+                  ${q.custom ? `<button title="Eliminar pregunta" onclick="deleteQuestion('${q.id}','${tool}')">🗑️</button>` : ''}
+                </div>
+              </div>
+              <textarea placeholder="Tu respuesta..." oninput="onAnswer('${q.id}','${tool}',this.value)">${escapeHtml(ans)}</textarea>
+              ${q.impactable ? `
+              <div class="impact-row">
+                <span>Impacto en la decisión:</span>
+                <input type="range" min="1" max="5" value="${impact}" oninput="onImpact('${q.id}',this.value); this.nextElementSibling.textContent=this.value" />
+                <span class="impact-value">${impact}</span>
+              </div>` : ''}
+            </div>`;
+        });
+        html += `<button class="add-question-btn" onclick="addQuestion('${tool}','${cat.key}')">+ Agregar pregunta (${escapeHtml(cat.label)})</button>`;
+      });
+      html += '</div><div class="results-box" id="results-' + tool + '"></div>';
+      container.innerHTML = html;
+      renderResults(tool);
+    }
+
+    function onAnswer(id, tool, value) {
+      dtState.answers[id] = value;
+      scheduleSave();
+      renderResults(tool);
+      renderResults('pareto');
+    }
+
+    function onImpact(id, value) {
+      dtState.impacts[id] = Number(value);
+      scheduleSave();
+      renderResults('pareto');
+    }
+
+    function editQuestion(id, tool) {
+      const q = getQuestions(tool).find(item => item.id === id);
+      if (!q) return;
+      const newText = prompt('Editar pregunta:', q.text);
+      if (newText && newText.trim() && newText.trim() !== q.text) {
+        dtState.editedText[id] = newText.trim();
+        const custom = dtState.custom.find(c => c.id === id);
+        if (custom) custom.text = newText.trim();
+        scheduleSave();
+        renderToolPanel(tool);
+      }
+    }
+
+    function deleteQuestion(id, tool) {
+      if (confirm('¿Eliminar esta pregunta?')) {
+        dtState.deleted.push(id);
+        scheduleSave();
+        renderToolPanel(tool);
+        renderResults('pareto');
+      }
+    }
+
+    function addQuestion(tool, catKey) {
+      const text = prompt('Escribe la nueva pregunta:');
+      if (!text || !text.trim()) return;
+      const impactable = confirm('¿Esta pregunta describe un problema o riesgo que debe incluirse en el Diagrama de Pareto?');
+      const id = tool + '_custom_' + Date.now();
+      dtState.custom.push({ id, tool, cat: catKey, text: text.trim(), impactable, custom: true });
+      scheduleSave();
+      renderToolPanel(tool);
+    }
+
+    function renderResults(tool) {
+      const box = document.getElementById('results-' + tool);
+      if (!box) return;
+
+      if (tool === 'foda') {
+        const defs = TOOL_DEFS.foda;
+        let html = '<h3>📌 Matriz FODA (auto-generada)</h3><div class="foda-grid">';
+        defs.categories.forEach(cat => {
+          const qs = getQuestions('foda').filter(q => q.cat === cat.key);
+          const items = qs.map(q => dtState.answers[q.id]).filter(a => a && a.trim())
+            .map(a => `<li>${escapeHtml(a)}</li>`).join('') || '<li class="pareto-empty">Sin respuestas aún</li>';
+          html += `<div class="foda-cell ${cat.color}"><h4>${escapeHtml(cat.label)}</h4><ul>${items}</ul></div>`;
+        });
+        html += '</div>';
+        box.innerHTML = html;
+
+      } else if (tool === 'hats') {
+        const defs = TOOL_DEFS.hats;
+        let html = '<h3>🎩 Resumen de los 6 Sombreros</h3><div class="hats-grid">';
+        defs.categories.forEach(cat => {
+          const qs = getQuestions('hats').filter(q => q.cat === cat.key);
+          const txt = qs.map(q => dtState.answers[q.id]).filter(a => a && a.trim()).join(' · ') || 'Sin respuesta aún';
+          html += `<div class="hat-card ${cat.color}"><h4>${escapeHtml(cat.label)}</h4><p>${escapeHtml(txt)}</p></div>`;
+        });
+        html += '</div>';
+        box.innerHTML = html;
+
+      } else if (tool === 'catwoe') {
+        const defs = TOOL_DEFS.catwoe;
+        let html = '<h3>🔎 Análisis CATWOE</h3><table class="catwoe-table"><tbody>';
+        defs.categories.forEach(cat => {
+          const qs = getQuestions('catwoe').filter(q => q.cat === cat.key);
+          const txt = qs.map(q => dtState.answers[q.id]).filter(a => a && a.trim()).join(' · ') || '—';
+          html += `<tr><th>${escapeHtml(cat.label)}</th><td>${escapeHtml(txt)}</td></tr>`;
+        });
+        html += '</tbody></table>';
+        box.innerHTML = html;
+
+      } else if (tool === 'pareto') {
+        renderParetoChart(box);
+      }
+    }
+
+    function getParetoItems() {
+      const items = [];
+      ['foda', 'hats', 'catwoe'].forEach(tool => {
+        getQuestions(tool).filter(q => q.impactable).forEach(q => {
+          const ans = (dtState.answers[q.id] || '').trim();
+          if (ans) {
+            const impact = dtState.impacts[q.id] || 3;
+            items.push({ label: ans.length > 26 ? ans.slice(0, 26) + '…' : ans, value: Number(impact) });
+          }
+        });
+      });
+      return items.sort((a, b) => b.value - a.value);
+    }
+
+    function renderParetoChart(box) {
+      const items = getParetoItems();
+      if (items.length === 0) {
+        box.innerHTML = '<h3>📈 Diagrama de Pareto</h3><p class="pareto-empty">Responde las preguntas de Debilidades, Amenazas, Riesgos (Sombrero Negro) y Restricciones (Entorno) asignándoles un impacto para generar el diagrama automáticamente.</p>';
+        return;
+      }
+
+      const total = items.reduce((s, i) => s + i.value, 0);
+      let cum = 0;
+      const cumPercents = items.map(i => { cum += i.value; return (cum / total * 100); });
+
+      const W = 680, H = 380, padL = 45, padR = 45, padT = 30, padB = 100;
+      const chartW = W - padL - padR, chartH = H - padT - padB;
+      const gap = chartW / items.length;
+      const barW = gap * 0.6;
+      const maxVal = Math.max(...items.map(i => i.value));
+
+      let bars = '', labels = '', dots = '', linePoints = '';
+      items.forEach((it, i) => {
+        const x = padL + gap * i + (gap - barW) / 2;
+        const h = (it.value / maxVal) * chartH;
+        const y = padT + chartH - h;
+        bars += `<rect x="${x.toFixed(1)}" y="${y.toFixed(1)}" width="${barW.toFixed(1)}" height="${h.toFixed(1)}" fill="#38bdf8" rx="3"/>`;
+        bars += `<text x="${(x + barW / 2).toFixed(1)}" y="${(y - 6).toFixed(1)}" fill="#f8fafc" font-size="11" text-anchor="middle">${it.value}</text>`;
+
+        const cx = padL + gap * i + gap / 2;
+        const labelY = H - padB + 16;
+        labels += `<text x="${cx.toFixed(1)}" y="${labelY}" fill="#94a3b8" font-size="9.5" text-anchor="end" transform="rotate(-35 ${cx.toFixed(1)} ${labelY})">${escapeHtml(it.label)}</text>`;
+
+        const cy = padT + chartH - (cumPercents[i] / 100 * chartH);
+        dots += `<circle cx="${cx.toFixed(1)}" cy="${cy.toFixed(1)}" r="4" fill="#fb923c"/>`;
+        linePoints += `${cx.toFixed(1)},${cy.toFixed(1)} `;
+      });
+
+      const y80 = padT + chartH - (80 / 100 * chartH);
+
+      const svg = `
+        <svg viewBox="0 0 ${W} ${H}" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;">
+          <line x1="${padL}" y1="${padT}" x2="${padL}" y2="${padT + chartH}" stroke="#334155"/>
+          <line x1="${padL}" y1="${padT + chartH}" x2="${W - padR}" y2="${padT + chartH}" stroke="#334155"/>
+          <line x1="${padL}" y1="${y80.toFixed(1)}" x2="${W - padR}" y2="${y80.toFixed(1)}" stroke="#ef4444" stroke-dasharray="4,4"/>
+          <text x="${W - padR + 4}" y="${(y80 + 4).toFixed(1)}" fill="#ef4444" font-size="10">80%</text>
+          ${bars}
+          <polyline points="${linePoints}" fill="none" stroke="#fb923c" stroke-width="2"/>
+          ${dots}
+          ${labels}
+        </svg>`;
+
+      box.innerHTML = `<h3>📈 Diagrama de Pareto (regla 80/20)</h3>
+        <p style="font-size:0.85rem;color:var(--text-muted);margin-bottom:10px;">Barras = impacto asignado a cada debilidad, amenaza, riesgo o restricción detectada. Línea naranja = porcentaje acumulado.</p>
+        <div class="pareto-svg-wrap">${svg}</div>`;
+    }
+
+    // Inicializar los 4 paneles al cargar la página
+    renderToolPanel('foda');
+    renderToolPanel('hats');
+    renderToolPanel('catwoe');
+    renderToolPanel('pareto');
+  </script>
+</body>
+</html>

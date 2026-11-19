@@ -22,12 +22,62 @@ const EXT_POR_TIPO = {
 };
 const SLUG = /^[a-z0-9][a-z0-9-]{1,60}$/;
 
+// "Scrap" de temas: se buscan en titulo/descripcion/id de cada actividad.
+// Para agregar un tema nuevo basta con una linea aqui.
+const TEMAS = [
+  { id: '7-habitos', nombre: 'Los 7 hábitos', resumen: 'Stephen Covey: proactividad, empezar con un fin en mente, primero lo primero y la mejora continua.', patron: /7 ?habitos|siete habitos|covey/ },
+  { id: 'codigo-limpio', nombre: 'Código limpio', resumen: 'Robert C. Martin: nombres claros, funciones pequeñas y código fácil de leer y mantener.', patron: /codigo limpio|clean ?code/ },
+  { id: 'quinta-disciplina', nombre: 'La quinta disciplina', resumen: 'Peter Senge y las organizaciones que aprenden a través del pensamiento sistémico.', patron: /quinta disciplina|senge|pensamiento sistemico/ },
+  { id: 'arquetipos', nombre: 'Arquetipos sistémicos', resumen: 'Patrones que se repiten en los sistemas y explican por qué los problemas regresan.', patron: /arquetipo/ },
+  { id: 'creatividad', nombre: 'Creatividad e innovación', resumen: 'Elkhonon Goldberg y cómo el cerebro genera ideas nuevas.', patron: /creativ|goldberg|chispa|nuevas ideas/ },
+  { id: 'habilidades-directivas', nombre: 'Habilidades directivas', resumen: 'Tiempo, inteligencia emocional, liderazgo, equipos y negociación para dirigir.', patron: /habilidades directivas|inteligencia emocional|administracion del tiempo|capitulo \d|habilidad estrategica|habilidades del pensamiento/ },
+  { id: 'toma-decisiones', nombre: 'Toma de decisiones', resumen: 'Herramientas para analizar problemas y decidir: FODA, Ishikawa, Pareto y seis sombreros.', patron: /decision|diagnostico|expediente de analisis/ },
+  { id: 'pensamiento-critico', nombre: 'Pensamiento crítico', resumen: 'Cuestionar la información y formar una opinión propia con argumentos.', patron: /pensamiento critico|pensagram|comentario de video|video ted|ted/ },
+  { id: 'persuade-voz', nombre: 'Persuade con tu voz', resumen: 'Emma Rodero y el poder de la voz para comunicar y convencer.', patron: /persuade|voz|rodero/ },
+  { id: 'superricos', nombre: 'La influencia de los superricos', resumen: 'Cómo la riqueza extrema moldea ciudades, política y sociedad.', patron: /super ?ricos|ricos en las ciudades/ },
+  { id: 'fracasan-paises', nombre: '¿Por qué fracasan los países?', resumen: 'Acemoglu y Robinson: instituciones inclusivas frente a extractivas.', patron: /fracasan/ },
+  { id: 'movimientos-sociales', nombre: 'Movimientos sociales', resumen: 'Mentes en acción: cómo se organizan las personas para cambiar su entorno.', patron: /movimientos sociales|mentes en accion/ },
+  { id: 'empresarios', nombre: 'Empresarios mexicanos', resumen: 'Servitje, Zambrano, Slim y el perfil del empresario mexicano ideal.', patron: /empresari|servitje|zambrano|slim|visionari|lider emprendedor|lider visionario|cerveza/ },
+  { id: 'gigantes-tecnologicos', nombre: 'Gigantes tecnológicos y poder', resumen: 'El poder de las grandes empresas y lo que hay debajo de la nube.', patron: /gigantes|tecnologic|poder de las empresas|nube|documental|dw/ },
+  { id: 'filosofia', nombre: 'Filosofía de vida', resumen: 'Yokoi Kenji y la comparación entre la filosofía japonesa y la latinoamericana.', patron: /yokoi|filosofia/ },
+  { id: 'dinero', nombre: 'Dinero y éxito', resumen: 'Efecto compuesto, lecciones de negocios y la psicología del dinero.', patron: /efecto compuesto|dinero|negocios/ },
+  { id: 'colon', nombre: 'Colón y la historia', resumen: 'Infografías sobre Cristóbal Colón y su contexto.', patron: /colon(?!ia)/ }
+];
+
+function normalizar(t) {
+  return String(t || '').normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase();
+}
+
+function scrapTemas(grupos) {
+  const res = TEMAS.map(t => ({ id: t.id, nombre: t.nombre, resumen: t.resumen, alumnos: 0, actividades: 0, ejemplos: [] }));
+  for (const g of grupos) {
+    for (const a of g.alumnos) {
+      const vistos = new Set();
+      for (const act of a.actividades) {
+        const txt = normalizar(`${act.titulo} ${act.descripcion} ${act.id.replace(/-/g, ' ')}`);
+        TEMAS.forEach((t, i) => {
+          if (!t.patron.test(txt)) return;
+          res[i].actividades++;
+          if (!vistos.has(i)) {
+            vistos.add(i);
+            res[i].alumnos++;
+            if (res[i].ejemplos.length < 3) {
+              res[i].ejemplos.push({ grupo: g.id, alumno: a.id, nombre: a.nombre, actividad: act.id, titulo: act.titulo });
+            }
+          }
+        });
+      }
+    }
+  }
+  return res.filter(t => t.actividades).sort((x, y) => y.alumnos - x.alumnos || y.actividades - x.actividades);
+}
+
 const errores = [];
 const avisos = [];
 
 function leerJson(archivo) {
   try {
-    return JSON.parse(fs.readFileSync(archivo, 'utf8'));
+    return JSON.parse(fs.readFileSync(archivo, 'utf8').replace(/^\uFEFF/, ''));
   } catch (e) {
     errores.push(`${rel(archivo)}: no es JSON valido (${e.message})`);
     return null;
@@ -115,7 +165,10 @@ function revisarActividad(act, dirAlumno, donde) {
     return null;
   }
 
-  const abs = path.resolve(dirAlumno, ruta);
+  // permite anclas tipo "pagina.html#seccion": se valida el archivo y se conserva el ancla
+  const [rutaArchivo, ...resto] = ruta.split('#');
+  const ancla = resto.length ? '#' + resto.join('#').replace(/[^\w-]/g, '') : '';
+  const abs = path.resolve(dirAlumno, rutaArchivo);
   if (!abs.startsWith(dirAlumno + path.sep)) {
     errores.push(`${donde} (${id}): "ruta" no puede salirse de tu carpeta`);
     return null;
@@ -131,7 +184,7 @@ function revisarActividad(act, dirAlumno, donde) {
     return null;
   }
 
-  limpia.ruta = rel(abs);
+  limpia.ruta = rel(abs) + ancla;
   return limpia;
 }
 
@@ -216,6 +269,7 @@ function main() {
     generado: new Date().toISOString(),
     topico,
     tecnologias,
+    temas: scrapTemas(grupos),
     grupos
   };
 

@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Diagrama de Pareto</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <main class="detail-page">
+    <section class="detail-card">
+      <div class="detail-head">
+        <h1>Diagrama de Pareto</h1>
+        <a href="resultados.html" class="ghost-btn no-print">Volver</a>
+      </div>
+
+      <div class="chart-box">
+        <canvas id="paretoChart" height="220"></canvas>
+      </div>
+    </section>
+  </main>
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script>
+    const data = JSON.parse(localStorage.getItem('diagnosticoActual') || '{}');
+    const pareto = (data.pareto || []).slice().sort((a, b) => b.frecuencia - a.frecuencia);
+    const labels = pareto.map(item => item.causa);
+    const values = pareto.map(item => item.frecuencia);
+
+    const total = values.reduce((sum, value) => sum + value, 0) || 1;
+    const acumulado = [];
+    let running = 0;
+
+    values.forEach(value => {
+      running += value;
+      acumulado.push(Number(((running / total) * 100).toFixed(1)));
+    });
+
+    new Chart(document.getElementById('paretoChart'), {
+      type: 'bar',
+      data: {
+        labels,
+        datasets: [
+          {
+            label: 'Frecuencia',
+            data: values,
+            backgroundColor: 'rgba(106, 146, 255, 0.8)',
+            borderColor: '#7ea6ff',
+            borderWidth: 1
+          },
+          {
+            label: '% acumulado',
+            type: 'line',
+            data: acumulado,
+            borderColor: '#f0d36b',
+            backgroundColor: '#f0d36b',
+            tension: 0.2,
+            pointRadius: 4,
+            yAxisID: 'y1'
+          }
+        ]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        scales: {
+          y: {
+            beginAtZero: true,
+            title: { display: true, text: 'Frecuencia' }
+          },
+          y1: {
+            position: 'right',
+            min: 0,
+            max: 100,
+            title: { display: true, text: '% Acumulado' },
+            grid: { drawOnChartArea: false }
+          }
+        }
+      }
+    });
+  </script>
+</body>
+</html>

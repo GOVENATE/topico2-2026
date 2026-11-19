@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Diagrama Ishikawa</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <main class="detail-page">
+    <section class="detail-card">
+      <div class="detail-head">
+        <h1>Diagrama Ishikawa</h1>
+        <a href="resultados.html" class="ghost-btn no-print">Volver</a>
+      </div>
+
+      <div class="metric-card">
+        <h3>Efecto / Problema</h3>
+        <p id="efectoIshikawa"></p>
+      </div>
+
+      <div class="two-col" id="ishikawaContenedor" style="margin-top: 18px;"></div>
+    </section>
+  </main>
+
+  <script>
+    const data = JSON.parse(localStorage.getItem('diagnosticoActual') || '{}');
+    const contenedor = document.getElementById('ishikawaContenedor');
+    const ish = data.ishikawa || {};
+    const causas = ish.causas || {};
+
+    document.getElementById('efectoIshikawa').textContent = ish.efecto || 'Sin información disponible.';
+
+    const categorias = [
+      ['Materiales', causas.materiales],
+      ['Maquinaria', causas.maquinas],
+      ['Métodos', causas.metodos],
+      ['Medio Ambiente', causas.medioAmbiente],
+      ['Mano de Obra', causas.manoDeObra],
+      ['Medición', causas.medicion]
+    ];
+
+    contenedor.innerHTML = categorias.map(([nombre, items]) => `
+      <div class="metric-card">
+        <h3>${nombre}</h3>
+        <ul>${(items && items.length ? items : ['Sin información disponible.']).map(item => `<li>${item}</li>`).join('')}</ul>
+      </div>
+    `).join('');
+  </script>
+</body>
+</html>

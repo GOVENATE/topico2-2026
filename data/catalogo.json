@@ -1,30 +1,30 @@
 {
-  "generado": "2026-11-18T23:47:29.058Z",
+  "generado": "2026-11-19T06:10:03.623Z",
   "topico": {
-    "titulo": "Topico 2",
-    "periodo": "Agosto - Diciembre 2026",
+    "titulo": "Tópico 2",
+    "periodo": "UAQ · Facultad de Informática · 2026",
     "profesor": "",
-    "resumen": "Recopilacion de las tecnologias y actividades que trabajamos durante el semestre. Cada alumno sube sus practicas y proyectos en su propia carpeta y aqui se juntan todas.",
-    "temas": [
-      "Tema 1 - cambiar por los temas reales del semestre",
-      "Tema 2",
-      "Tema 3"
-    ]
+    "resumen": "Las actividades, lecturas y proyectos del grupo en un solo lugar. Cada alumno sube su trabajo y el sitio lo organiza por temas."
   },
   "tecnologias": [
     "Actividad",
+    "Collage",
     "Comunicacion",
     "Creatividad",
     "CSS",
+    "Diseno",
     "Framer Motion",
     "HTML",
     "Ilustracion",
     "Imagen",
     "Infografia",
+    "Investigacion",
+    "Investigación",
     "JavaScript",
     "Lectura",
     "Liderazgo",
     "Mapa conceptual",
+    "Mapa mental",
     "PDF",
     "Pensamiento",
     "Pensamiento critico",
@@ -32,13 +32,1544 @@
     "Programacion",
     "React",
     "Reflexion",
+    "Reporte de lectura",
+    "Resumen",
     "TypeScript",
     "Vite"
+  ],
+  "temas": [
+    {
+      "id": "empresarios",
+      "nombre": "Empresarios mexicanos",
+      "resumen": "Servitje, Zambrano, Slim y el perfil del empresario mexicano ideal.",
+      "alumnos": 9,
+      "actividades": 27,
+      "ejemplos": [
+        {
+          "grupo": "32",
+          "alumno": "alan-salvador-rojas-pina",
+          "nombre": "Alan Salvador Rojas Piña",
+          "actividad": "act15-comparativo-empresarios",
+          "titulo": "Cuadro comparativo de empresarios mexicanos"
+        },
+        {
+          "grupo": "32",
+          "alumno": "armando-altamirano-gurrion",
+          "nombre": "Armando Altamirano Gurrion",
+          "actividad": "act11-tabla-empresarios",
+          "titulo": "Tabla Empresarios Mex"
+        },
+        {
+          "grupo": "32",
+          "alumno": "bradley-reyes-altamirano",
+          "nombre": "Bradley Yeray Reyes Altamirano",
+          "actividad": "act09-lider-visionario",
+          "titulo": "Receta del empresario ideal"
+        }
+      ]
+    },
+    {
+      "id": "7-habitos",
+      "nombre": "Los 7 hábitos",
+      "resumen": "Stephen Covey: proactividad, empezar con un fin en mente, primero lo primero y la mejora continua.",
+      "alumnos": 8,
+      "actividades": 12,
+      "ejemplos": [
+        {
+          "grupo": "32",
+          "alumno": "alan-salvador-rojas-pina",
+          "nombre": "Alan Salvador Rojas Piña",
+          "actividad": "act02-infografia-habitos",
+          "titulo": "Infografía: los 7 hábitos"
+        },
+        {
+          "grupo": "32",
+          "alumno": "armando-altamirano-gurrion",
+          "nombre": "Armando Altamirano Gurrion",
+          "actividad": "act14-7habitos",
+          "titulo": "7 Hábitos"
+        },
+        {
+          "grupo": "32",
+          "alumno": "bradley-reyes-altamirano",
+          "nombre": "Bradley Yeray Reyes Altamirano",
+          "actividad": "act01-7-habitos",
+          "titulo": "Los 7 Hábitos"
+        }
+      ]
+    },
+    {
+      "id": "creatividad",
+      "nombre": "Creatividad e innovación",
+      "resumen": "Elkhonon Goldberg y cómo el cerebro genera ideas nuevas.",
+      "alumnos": 8,
+      "actividades": 12,
+      "ejemplos": [
+        {
+          "grupo": "32",
+          "alumno": "alan-salvador-rojas-pina",
+          "nombre": "Alan Salvador Rojas Piña",
+          "actividad": "act21-s18-creatividad",
+          "titulo": "Creatividad · Elkhonon Goldberg"
+        },
+        {
+          "grupo": "32",
+          "alumno": "armando-altamirano-gurrion",
+          "nombre": "Armando Altamirano Gurrion",
+          "actividad": "act15-creatividad",
+          "titulo": "Creatividad"
+        },
+        {
+          "grupo": "32",
+          "alumno": "bradley-reyes-altamirano",
+          "nombre": "Bradley Yeray Reyes Altamirano",
+          "actividad": "act05-pensamiento-sistemico",
+          "titulo": "Sistemas, patrones y nuevas ideas"
+        }
+      ]
+    },
+    {
+      "id": "toma-decisiones",
+      "nombre": "Toma de decisiones",
+      "resumen": "Herramientas para analizar problemas y decidir: FODA, Ishikawa, Pareto y seis sombreros.",
+      "alumnos": 8,
+      "actividades": 12,
+      "ejemplos": [
+        {
+          "grupo": "32",
+          "alumno": "alan-salvador-rojas-pina",
+          "nombre": "Alan Salvador Rojas Piña",
+          "actividad": "act07-resumenes-habilidades-directivas",
+          "titulo": "Resúmenes de habilidades directivas"
+        },
+        {
+          "grupo": "32",
+          "alumno": "armando-altamirano-gurrion",
+          "nombre": "Armando Altamirano Gurrion",
+          "actividad": "act02-collage-decisiones-azar",
+          "titulo": "Collage Decisiones al Azar"
+        },
+        {
+          "grupo": "32",
+          "alumno": "bradley-reyes-altamirano",
+          "nombre": "Bradley Yeray Reyes Altamirano",
+          "actividad": "act03-toma-decisiones",
+          "titulo": "Asistente de decisiones"
+        }
+      ]
+    },
+    {
+      "id": "quinta-disciplina",
+      "nombre": "La quinta disciplina",
+      "resumen": "Peter Senge y las organizaciones que aprenden a través del pensamiento sistémico.",
+      "alumnos": 8,
+      "actividades": 10,
+      "ejemplos": [
+        {
+          "grupo": "32",
+          "alumno": "alan-salvador-rojas-pina",
+          "nombre": "Alan Salvador Rojas Piña",
+          "actividad": "act19-s16-senge",
+          "titulo": "La quinta disciplina · Parte I"
+        },
+        {
+          "grupo": "32",
+          "alumno": "armando-altamirano-gurrion",
+          "nombre": "Armando Altamirano Gurrion",
+          "actividad": "act16-quintadisciplina",
+          "titulo": "Quinta Disciplina"
+        },
+        {
+          "grupo": "32",
+          "alumno": "bradley-reyes-altamirano",
+          "nombre": "Bradley Yeray Reyes Altamirano",
+          "actividad": "act05-pensamiento-sistemico",
+          "titulo": "Sistemas, patrones y nuevas ideas"
+        }
+      ]
+    },
+    {
+      "id": "persuade-voz",
+      "nombre": "Persuade con tu voz",
+      "resumen": "Emma Rodero y el poder de la voz para comunicar y convencer.",
+      "alumnos": 8,
+      "actividades": 8,
+      "ejemplos": [
+        {
+          "grupo": "32",
+          "alumno": "alan-salvador-rojas-pina",
+          "nombre": "Alan Salvador Rojas Piña",
+          "actividad": "act09-resumen-video",
+          "titulo": "Persuade con tu voz"
+        },
+        {
+          "grupo": "32",
+          "alumno": "armando-altamirano-gurrion",
+          "nombre": "Armando Altamirano Gurrion",
+          "actividad": "act06-la-voz",
+          "titulo": "La Voz"
+        },
+        {
+          "grupo": "32",
+          "alumno": "bradley-reyes-altamirano",
+          "nombre": "Bradley Yeray Reyes Altamirano",
+          "actividad": "act14-emma-rodero",
+          "titulo": "Resumen: la voz según Emma Rodero"
+        }
+      ]
+    },
+    {
+      "id": "gigantes-tecnologicos",
+      "nombre": "Gigantes tecnológicos y poder",
+      "resumen": "El poder de las grandes empresas y lo que hay debajo de la nube.",
+      "alumnos": 7,
+      "actividades": 15,
+      "ejemplos": [
+        {
+          "grupo": "32",
+          "alumno": "alan-salvador-rojas-pina",
+          "nombre": "Alan Salvador Rojas Piña",
+          "actividad": "act13-poder-empresas",
+          "titulo": "El poder de las empresas"
+        },
+        {
+          "grupo": "32",
+          "alumno": "armando-altamirano-gurrion",
+          "nombre": "Armando Altamirano Gurrion",
+          "actividad": "act10-super-ricos",
+          "titulo": "Super Ricos Video DW"
+        },
+        {
+          "grupo": "32",
+          "alumno": "bradley-reyes-altamirano",
+          "nombre": "Bradley Yeray Reyes Altamirano",
+          "actividad": "act06-gigantes-tecnologicos",
+          "titulo": "Las capas de las grandes tecnológicas"
+        }
+      ]
+    },
+    {
+      "id": "movimientos-sociales",
+      "nombre": "Movimientos sociales",
+      "resumen": "Mentes en acción: cómo se organizan las personas para cambiar su entorno.",
+      "alumnos": 7,
+      "actividades": 8,
+      "ejemplos": [
+        {
+          "grupo": "32",
+          "alumno": "alan-salvador-rojas-pina",
+          "nombre": "Alan Salvador Rojas Piña",
+          "actividad": "act12-movimientos-sociales",
+          "titulo": "Movimientos sociales (Mentes en acción)"
+        },
+        {
+          "grupo": "32",
+          "alumno": "armando-altamirano-gurrion",
+          "nombre": "Armando Altamirano Gurrion",
+          "actividad": "act08-movimientos-sociales",
+          "titulo": "Movimientos Sociales"
+        },
+        {
+          "grupo": "32",
+          "alumno": "carolina-mejia-aguilar",
+          "nombre": "Carolina Mejia Aguilar",
+          "actividad": "act08-movimientos-sociales",
+          "titulo": "Mentes en accion: movimientos sociales"
+        }
+      ]
+    },
+    {
+      "id": "codigo-limpio",
+      "nombre": "Código limpio",
+      "resumen": "Robert C. Martin: nombres claros, funciones pequeñas y código fácil de leer y mantener.",
+      "alumnos": 6,
+      "actividades": 8,
+      "ejemplos": [
+        {
+          "grupo": "32",
+          "alumno": "alan-salvador-rojas-pina",
+          "nombre": "Alan Salvador Rojas Piña",
+          "actividad": "act17-codigo-limpio",
+          "titulo": "Código limpio · operación rescate"
+        },
+        {
+          "grupo": "32",
+          "alumno": "armando-altamirano-gurrion",
+          "nombre": "Armando Altamirano Gurrion",
+          "actividad": "act01-codigo-limpio",
+          "titulo": "Código Limpio Laboratorio"
+        },
+        {
+          "grupo": "32",
+          "alumno": "carolina-mejia-aguilar",
+          "nombre": "Carolina Mejia Aguilar",
+          "actividad": "act02-codigo-limpio",
+          "titulo": "Codigo limpio: una experiencia interactiva"
+        }
+      ]
+    },
+    {
+      "id": "superricos",
+      "nombre": "La influencia de los superricos",
+      "resumen": "Cómo la riqueza extrema moldea ciudades, política y sociedad.",
+      "alumnos": 6,
+      "actividades": 6,
+      "ejemplos": [
+        {
+          "grupo": "32",
+          "alumno": "alan-salvador-rojas-pina",
+          "nombre": "Alan Salvador Rojas Piña",
+          "actividad": "act10-superricos",
+          "titulo": "¿Cuánta influencia tienen los superricos?"
+        },
+        {
+          "grupo": "32",
+          "alumno": "armando-altamirano-gurrion",
+          "nombre": "Armando Altamirano Gurrion",
+          "actividad": "act10-super-ricos",
+          "titulo": "Super Ricos Video DW"
+        },
+        {
+          "grupo": "32",
+          "alumno": "kevin-alonso",
+          "nombre": "Kevin Alonso",
+          "actividad": "act15-documental-los-ricos",
+          "titulo": "Reflexion: la influencia de los ricos en las ciudades"
+        }
+      ]
+    },
+    {
+      "id": "fracasan-paises",
+      "nombre": "¿Por qué fracasan los países?",
+      "resumen": "Acemoglu y Robinson: instituciones inclusivas frente a extractivas.",
+      "alumnos": 6,
+      "actividades": 6,
+      "ejemplos": [
+        {
+          "grupo": "32",
+          "alumno": "alan-salvador-rojas-pina",
+          "nombre": "Alan Salvador Rojas Piña",
+          "actividad": "act11-infografia-paises",
+          "titulo": "Infografía: ¿por qué fracasan los países?"
+        },
+        {
+          "grupo": "32",
+          "alumno": "armando-altamirano-gurrion",
+          "nombre": "Armando Altamirano Gurrion",
+          "actividad": "act09-porque-fracasan-paises",
+          "titulo": "Por qué fracasan los países"
+        },
+        {
+          "grupo": "32",
+          "alumno": "carolina-mejia-aguilar",
+          "nombre": "Carolina Mejia Aguilar",
+          "actividad": "act06-por-que-fracasan-los-paises",
+          "titulo": "Por que fracasan los paises: instituciones y prosperidad"
+        }
+      ]
+    },
+    {
+      "id": "arquetipos",
+      "nombre": "Arquetipos sistémicos",
+      "resumen": "Patrones que se repiten en los sistemas y explican por qué los problemas regresan.",
+      "alumnos": 5,
+      "actividades": 5,
+      "ejemplos": [
+        {
+          "grupo": "32",
+          "alumno": "alan-salvador-rojas-pina",
+          "nombre": "Alan Salvador Rojas Piña",
+          "actividad": "act20-s17-arquetipos",
+          "titulo": "Arquetipos sistémicos y psicológicos"
+        },
+        {
+          "grupo": "32",
+          "alumno": "bradley-reyes-altamirano",
+          "nombre": "Bradley Yeray Reyes Altamirano",
+          "actividad": "act05-pensamiento-sistemico",
+          "titulo": "Sistemas, patrones y nuevas ideas"
+        },
+        {
+          "grupo": "32",
+          "alumno": "carolina-mejia-aguilar",
+          "nombre": "Carolina Mejia Aguilar",
+          "actividad": "act01-arquetipos-sistemicos",
+          "titulo": "Arquetipos sistemicos en informatica"
+        }
+      ]
+    },
+    {
+      "id": "filosofia",
+      "nombre": "Filosofía de vida",
+      "resumen": "Yokoi Kenji y la comparación entre la filosofía japonesa y la latinoamericana.",
+      "alumnos": 5,
+      "actividades": 5,
+      "ejemplos": [
+        {
+          "grupo": "32",
+          "alumno": "carolina-mejia-aguilar",
+          "nombre": "Carolina Mejia Aguilar",
+          "actividad": "act13-sopa-de-letras-kasuga-yokoi",
+          "titulo": "Sopa de letras Kasuga y Yokoi Kenji"
+        },
+        {
+          "grupo": "32",
+          "alumno": "jose-maria-pedraza-torres",
+          "nombre": "Jose Maria Pedraza Torres",
+          "actividad": "act03-memorama-filosofia-japonesa",
+          "titulo": "Memorama de filosofia japonesa"
+        },
+        {
+          "grupo": "32",
+          "alumno": "miguel-fuentes-fanjul",
+          "nombre": "Miguel Fuentes Fanjul",
+          "actividad": "act09-analisis",
+          "titulo": "Analisis Yokoi Kenji y Carlos Kasuaga"
+        }
+      ]
+    },
+    {
+      "id": "habilidades-directivas",
+      "nombre": "Habilidades directivas",
+      "resumen": "Tiempo, inteligencia emocional, liderazgo, equipos y negociación para dirigir.",
+      "alumnos": 4,
+      "actividades": 20,
+      "ejemplos": [
+        {
+          "grupo": "32",
+          "alumno": "alan-salvador-rojas-pina",
+          "nombre": "Alan Salvador Rojas Piña",
+          "actividad": "act07-resumenes-habilidades-directivas",
+          "titulo": "Resúmenes de habilidades directivas"
+        },
+        {
+          "grupo": "32",
+          "alumno": "miguel-belman",
+          "nombre": "Miguel Ángel Belman Mejía",
+          "actividad": "act03-habilidades-directivas",
+          "titulo": "Habilidades directivas y su clasificación"
+        },
+        {
+          "grupo": "32",
+          "alumno": "miguel-garcia",
+          "nombre": "Miguel Garcia",
+          "actividad": "act04-habilidades-del-pensamiento",
+          "titulo": "Habilidades del pensamiento"
+        }
+      ]
+    },
+    {
+      "id": "pensamiento-critico",
+      "nombre": "Pensamiento crítico",
+      "resumen": "Cuestionar la información y formar una opinión propia con argumentos.",
+      "alumnos": 4,
+      "actividades": 6,
+      "ejemplos": [
+        {
+          "grupo": "32",
+          "alumno": "alan-salvador-rojas-pina",
+          "nombre": "Alan Salvador Rojas Piña",
+          "actividad": "act08-pensamiento-critico",
+          "titulo": "Sin pensamiento crítico no eres nadie"
+        },
+        {
+          "grupo": "32",
+          "alumno": "jose-maria-pedraza-torres",
+          "nombre": "Jose Maria Pedraza Torres",
+          "actividad": "act05-pensamiento-critico",
+          "titulo": "Pensamiento critico: centro de comando sistemico"
+        },
+        {
+          "grupo": "32",
+          "alumno": "miguel-fuentes-fanjul",
+          "nombre": "Miguel Fuentes Fanjul",
+          "actividad": "act11-comentario",
+          "titulo": "Comentario de video"
+        }
+      ]
+    },
+    {
+      "id": "dinero",
+      "nombre": "Dinero y éxito",
+      "resumen": "Efecto compuesto, lecciones de negocios y la psicología del dinero.",
+      "alumnos": 3,
+      "actividades": 3,
+      "ejemplos": [
+        {
+          "grupo": "32",
+          "alumno": "kevin-alonso",
+          "nombre": "Kevin Alonso",
+          "actividad": "act06-iceberg-gigantes-tecnologicos",
+          "titulo": "El iceberg de los gigantes tecnologicos"
+        },
+        {
+          "grupo": "32",
+          "alumno": "miguel-belman",
+          "nombre": "Miguel Ángel Belman Mejía",
+          "actividad": "act01-efecto-compuesto",
+          "titulo": "Efecto Compuesto"
+        },
+        {
+          "grupo": "32",
+          "alumno": "miguel-fuentes-fanjul",
+          "nombre": "Miguel Fuentes Fanjul",
+          "actividad": "act18-lecciones",
+          "titulo": "Lecciones de negocios, dinero y exito"
+        }
+      ]
+    },
+    {
+      "id": "colon",
+      "nombre": "Colón y la historia",
+      "resumen": "Infografías sobre Cristóbal Colón y su contexto.",
+      "alumnos": 2,
+      "actividades": 2,
+      "ejemplos": [
+        {
+          "grupo": "32",
+          "alumno": "miguel-garcia",
+          "nombre": "Miguel Garcia",
+          "actividad": "act14-actividad-colon",
+          "titulo": "Actividad Colon"
+        },
+        {
+          "grupo": "32",
+          "alumno": "ximena-martinez",
+          "nombre": "Ximena Martínez Gudiño",
+          "actividad": "act03-infografia-colon",
+          "titulo": "Infografía de Colón"
+        }
+      ]
+    }
   ],
   "grupos": [
     {
       "id": "32",
       "alumnos": [
+        {
+          "id": "alan-salvador-rojas-pina",
+          "nombre": "Alan Salvador Rojas Piña",
+          "github": "SalvaRMT",
+          "sobreMi": "Me gustan la música, los videojuegos y la lectura. Aquí reúno mis actividades y lo que me llevo de cada tema.",
+          "tecnologias": [
+            "HTML",
+            "CSS",
+            "JavaScript"
+          ],
+          "actividades": [
+            {
+              "id": "act01-video-presentacion",
+              "tipo": "web",
+              "titulo": "Presentación en video",
+              "descripcion": "Video donde me presento.",
+              "fecha": "",
+              "tecnologias": [
+                "HTML",
+                "CSS",
+                "JavaScript"
+              ],
+              "ruta": "grupos/32/alumnos/alan-salvador-rojas-pina/actividades/APP.html#video-presentacion"
+            },
+            {
+              "id": "act02-infografia-habitos",
+              "tipo": "web",
+              "titulo": "Infografía: los 7 hábitos",
+              "descripcion": "Infografía interactiva de Los 7 hábitos de la gente altamente efectiva.",
+              "fecha": "",
+              "tecnologias": [
+                "HTML",
+                "CSS",
+                "JavaScript"
+              ],
+              "ruta": "grupos/32/alumnos/alan-salvador-rojas-pina/actividades/APP.html#infografia-habitos"
+            },
+            {
+              "id": "act03-introduccion",
+              "tipo": "web",
+              "titulo": "7 hábitos: ¿qué entendí del tema?",
+              "descripcion": "Lo que entendí del libro de los 7 hábitos.",
+              "fecha": "",
+              "tecnologias": [
+                "HTML",
+                "CSS",
+                "JavaScript"
+              ],
+              "ruta": "grupos/32/alumnos/alan-salvador-rojas-pina/actividades/APP.html#introduccion"
+            },
+            {
+              "id": "act04-dinamica",
+              "tipo": "web",
+              "titulo": "7 hábitos: dinámica",
+              "descripcion": "Sopa de letras y reto de hábitos.",
+              "fecha": "",
+              "tecnologias": [
+                "HTML",
+                "CSS",
+                "JavaScript"
+              ],
+              "ruta": "grupos/32/alumnos/alan-salvador-rojas-pina/actividades/APP.html#dinamica"
+            },
+            {
+              "id": "act05-autor",
+              "tipo": "web",
+              "titulo": "7 hábitos: autor",
+              "descripcion": "Información sobre el autor.",
+              "fecha": "",
+              "tecnologias": [
+                "HTML",
+                "CSS",
+                "JavaScript"
+              ],
+              "ruta": "grupos/32/alumnos/alan-salvador-rojas-pina/actividades/APP.html#autor"
+            },
+            {
+              "id": "act06-collage",
+              "tipo": "web",
+              "titulo": "Collage del autor",
+              "descripcion": "Collage sobre el autor.",
+              "fecha": "",
+              "tecnologias": [
+                "HTML",
+                "CSS",
+                "JavaScript"
+              ],
+              "ruta": "grupos/32/alumnos/alan-salvador-rojas-pina/actividades/APP.html#collage"
+            },
+            {
+              "id": "act07-resumenes-habilidades-directivas",
+              "tipo": "web",
+              "titulo": "Resúmenes de habilidades directivas",
+              "descripcion": "Dos temas, una mirada visual: habilidades directivas, tiempo, inteligencia emocional, decisiones, alta dirección, equipos, negociación y pensamiento.",
+              "fecha": "",
+              "tecnologias": [
+                "HTML",
+                "CSS",
+                "JavaScript"
+              ],
+              "ruta": "grupos/32/alumnos/alan-salvador-rojas-pina/actividades/APP.html#resumenes-habilidades-directivas"
+            },
+            {
+              "id": "act08-pensamiento-critico",
+              "tipo": "web",
+              "titulo": "Sin pensamiento crítico no eres nadie",
+              "descripcion": "Lo que entendí, mi opinión y conclusión.",
+              "fecha": "",
+              "tecnologias": [
+                "HTML",
+                "CSS",
+                "JavaScript"
+              ],
+              "ruta": "grupos/32/alumnos/alan-salvador-rojas-pina/actividades/APP.html#pensamiento-critico"
+            },
+            {
+              "id": "act09-resumen-video",
+              "tipo": "web",
+              "titulo": "Persuade con tu voz",
+              "descripcion": "Resumen del video.",
+              "fecha": "",
+              "tecnologias": [
+                "HTML",
+                "CSS",
+                "JavaScript"
+              ],
+              "ruta": "grupos/32/alumnos/alan-salvador-rojas-pina/actividades/APP.html#resumen-video"
+            },
+            {
+              "id": "act10-superricos",
+              "tipo": "web",
+              "titulo": "¿Cuánta influencia tienen los superricos?",
+              "descripcion": "Análisis sobre la influencia de los superricos.",
+              "fecha": "",
+              "tecnologias": [
+                "HTML",
+                "CSS",
+                "JavaScript"
+              ],
+              "ruta": "grupos/32/alumnos/alan-salvador-rojas-pina/actividades/APP.html#superricos"
+            },
+            {
+              "id": "act11-infografia-paises",
+              "tipo": "web",
+              "titulo": "Infografía: ¿por qué fracasan los países?",
+              "descripcion": "Infografía del libro.",
+              "fecha": "",
+              "tecnologias": [
+                "HTML",
+                "CSS",
+                "JavaScript"
+              ],
+              "ruta": "grupos/32/alumnos/alan-salvador-rojas-pina/actividades/APP.html#infografia-paises"
+            },
+            {
+              "id": "act12-movimientos-sociales",
+              "tipo": "web",
+              "titulo": "Movimientos sociales (Mentes en acción)",
+              "descripcion": "Resumen de movimientos sociales.",
+              "fecha": "",
+              "tecnologias": [
+                "HTML",
+                "CSS",
+                "JavaScript"
+              ],
+              "ruta": "grupos/32/alumnos/alan-salvador-rojas-pina/actividades/APP.html#movimientos-sociales"
+            },
+            {
+              "id": "act13-poder-empresas",
+              "tipo": "web",
+              "titulo": "El poder de las empresas",
+              "descripcion": "Infografía sobre el poder de las empresas.",
+              "fecha": "",
+              "tecnologias": [
+                "HTML",
+                "CSS",
+                "JavaScript"
+              ],
+              "ruta": "grupos/32/alumnos/alan-salvador-rojas-pina/actividades/APP.html#poder-empresas"
+            },
+            {
+              "id": "act14-gigantes-mexico",
+              "tipo": "web",
+              "titulo": "Gigantes de México",
+              "descripcion": "Las grandes empresas mexicanas.",
+              "fecha": "",
+              "tecnologias": [
+                "HTML",
+                "CSS",
+                "JavaScript"
+              ],
+              "ruta": "grupos/32/alumnos/alan-salvador-rojas-pina/actividades/APP.html#gigantes-mexico"
+            },
+            {
+              "id": "act15-comparativo-empresarios",
+              "tipo": "web",
+              "titulo": "Cuadro comparativo de empresarios mexicanos",
+              "descripcion": "Comparativo de empresarios mexicanos.",
+              "fecha": "",
+              "tecnologias": [
+                "HTML",
+                "CSS",
+                "JavaScript"
+              ],
+              "ruta": "grupos/32/alumnos/alan-salvador-rojas-pina/actividades/APP.html#comparativo-empresarios"
+            },
+            {
+              "id": "act16-empresario-ideal",
+              "tipo": "web",
+              "titulo": "Empresario ideal",
+              "descripcion": "Mi perfil del empresario mexicano ideal.",
+              "fecha": "",
+              "tecnologias": [
+                "HTML",
+                "CSS",
+                "JavaScript"
+              ],
+              "ruta": "grupos/32/alumnos/alan-salvador-rojas-pina/actividades/APP.html#empresario-ideal"
+            },
+            {
+              "id": "act17-codigo-limpio",
+              "tipo": "web",
+              "titulo": "Código limpio · operación rescate",
+              "descripcion": "Actividad sobre Clean Code.",
+              "fecha": "",
+              "tecnologias": [
+                "HTML",
+                "CSS",
+                "JavaScript"
+              ],
+              "ruta": "grupos/32/alumnos/alan-salvador-rojas-pina/actividades/APP.html#codigo-limpio"
+            },
+            {
+              "id": "act18-rueda-competencias",
+              "tipo": "web",
+              "titulo": "11 características para el desarrollo",
+              "descripcion": "Rueda de competencias.",
+              "fecha": "",
+              "tecnologias": [
+                "HTML",
+                "CSS",
+                "JavaScript"
+              ],
+              "ruta": "grupos/32/alumnos/alan-salvador-rojas-pina/actividades/APP.html#rueda-competencias"
+            },
+            {
+              "id": "act19-s16-senge",
+              "tipo": "web",
+              "titulo": "La quinta disciplina · Parte I",
+              "descripcion": "Peter Senge y el pensamiento sistémico.",
+              "fecha": "",
+              "tecnologias": [
+                "HTML",
+                "CSS",
+                "JavaScript"
+              ],
+              "ruta": "grupos/32/alumnos/alan-salvador-rojas-pina/actividades/APP.html#s16-senge"
+            },
+            {
+              "id": "act20-s17-arquetipos",
+              "tipo": "web",
+              "titulo": "Arquetipos sistémicos y psicológicos",
+              "descripcion": "Arquetipos sistémicos y lectura psicológica.",
+              "fecha": "",
+              "tecnologias": [
+                "HTML",
+                "CSS",
+                "JavaScript"
+              ],
+              "ruta": "grupos/32/alumnos/alan-salvador-rojas-pina/actividades/APP.html#s17-arquetipos"
+            },
+            {
+              "id": "act21-s18-creatividad",
+              "tipo": "web",
+              "titulo": "Creatividad · Elkhonon Goldberg",
+              "descripcion": "El cerebro humano en la era de la innovación.",
+              "fecha": "",
+              "tecnologias": [
+                "HTML",
+                "CSS",
+                "JavaScript"
+              ],
+              "ruta": "grupos/32/alumnos/alan-salvador-rojas-pina/actividades/APP.html#s18-creatividad"
+            },
+            {
+              "id": "act22-s20-estrategia",
+              "tipo": "web",
+              "titulo": "La habilidad estratégica · capítulo 12",
+              "descripcion": "Laboratorio de decisiones estratégicas.",
+              "fecha": "",
+              "tecnologias": [
+                "HTML",
+                "CSS",
+                "JavaScript"
+              ],
+              "ruta": "grupos/32/alumnos/alan-salvador-rojas-pina/actividades/APP.html#s20-estrategia"
+            },
+            {
+              "id": "act23-proyecto1",
+              "tipo": "web",
+              "titulo": "Proyecto 1: herramientas para la toma de decisiones",
+              "descripcion": "Proyecto del primer parcial.",
+              "fecha": "",
+              "tecnologias": [
+                "HTML",
+                "CSS",
+                "JavaScript"
+              ],
+              "ruta": "grupos/32/alumnos/alan-salvador-rojas-pina/actividades/APP.html#proyecto1"
+            },
+            {
+              "id": "act24-proyecto",
+              "tipo": "web",
+              "titulo": "Proyecto: México en su mejor versión",
+              "descripcion": "Proyecto final.",
+              "fecha": "",
+              "tecnologias": [
+                "HTML",
+                "CSS",
+                "JavaScript"
+              ],
+              "ruta": "grupos/32/alumnos/alan-salvador-rojas-pina/actividades/APP.html#proyecto"
+            }
+          ]
+        },
+        {
+          "id": "armando-altamirano-gurrion",
+          "nombre": "Armando Altamirano Gurrion",
+          "github": "Armand9o",
+          "sobreMi": "Estudiante de 9no semestre.",
+          "tecnologias": [],
+          "actividades": [
+            {
+              "id": "act01-codigo-limpio",
+              "tipo": "web",
+              "titulo": "Código Limpio Laboratorio",
+              "descripcion": "",
+              "fecha": "",
+              "tecnologias": [],
+              "ruta": "grupos/32/alumnos/armando-altamirano-gurrion/actividades/act01-codigo-limpio/index.html"
+            },
+            {
+              "id": "act02-collage-decisiones-azar",
+              "tipo": "web",
+              "titulo": "Collage Decisiones al Azar",
+              "descripcion": "",
+              "fecha": "",
+              "tecnologias": [],
+              "ruta": "grupos/32/alumnos/armando-altamirano-gurrion/actividades/act02-collage-decisiones-azar/index.html"
+            },
+            {
+              "id": "act03-collage-liderazgo",
+              "tipo": "web",
+              "titulo": "Collage Liderazgo y Emociones",
+              "descripcion": "",
+              "fecha": "",
+              "tecnologias": [],
+              "ruta": "grupos/32/alumnos/armando-altamirano-gurrion/actividades/act03-collage-liderazgo/index.html"
+            },
+            {
+              "id": "act04-decalogo-mexico",
+              "tipo": "web",
+              "titulo": "Decálogo de México",
+              "descripcion": "",
+              "fecha": "",
+              "tecnologias": [],
+              "ruta": "grupos/32/alumnos/armando-altamirano-gurrion/actividades/act04-decalogo-mexico/index.html"
+            },
+            {
+              "id": "act05-el-negociador",
+              "tipo": "web",
+              "titulo": "El Negociador Elias Ayub",
+              "descripcion": "",
+              "fecha": "",
+              "tecnologias": [],
+              "ruta": "grupos/32/alumnos/armando-altamirano-gurrion/actividades/act05-el-negociador/index.html"
+            },
+            {
+              "id": "act06-la-voz",
+              "tipo": "pdf",
+              "titulo": "La Voz",
+              "descripcion": "",
+              "fecha": "",
+              "tecnologias": [],
+              "ruta": "grupos/32/alumnos/armando-altamirano-gurrion/actividades/act06-la-voz/documento.pdf"
+            },
+            {
+              "id": "act07-leyes-naturaleza",
+              "tipo": "web",
+              "titulo": "Leyes de la Naturaleza Humana",
+              "descripcion": "",
+              "fecha": "",
+              "tecnologias": [],
+              "ruta": "grupos/32/alumnos/armando-altamirano-gurrion/actividades/act07-leyes-naturaleza/index.html"
+            },
+            {
+              "id": "act08-movimientos-sociales",
+              "tipo": "pdf",
+              "titulo": "Movimientos Sociales",
+              "descripcion": "",
+              "fecha": "",
+              "tecnologias": [],
+              "ruta": "grupos/32/alumnos/armando-altamirano-gurrion/actividades/act08-movimientos-sociales/documento.pdf"
+            },
+            {
+              "id": "act09-porque-fracasan-paises",
+              "tipo": "pdf",
+              "titulo": "Por qué fracasan los países",
+              "descripcion": "",
+              "fecha": "",
+              "tecnologias": [],
+              "ruta": "grupos/32/alumnos/armando-altamirano-gurrion/actividades/act09-porque-fracasan-paises/documento.pdf"
+            },
+            {
+              "id": "act10-super-ricos",
+              "tipo": "pdf",
+              "titulo": "Super Ricos Video DW",
+              "descripcion": "",
+              "fecha": "",
+              "tecnologias": [],
+              "ruta": "grupos/32/alumnos/armando-altamirano-gurrion/actividades/act10-super-ricos/documento.pdf"
+            },
+            {
+              "id": "act11-tabla-empresarios",
+              "tipo": "pdf",
+              "titulo": "Tabla Empresarios Mex",
+              "descripcion": "",
+              "fecha": "",
+              "tecnologias": [],
+              "ruta": "grupos/32/alumnos/armando-altamirano-gurrion/actividades/act11-tabla-empresarios/documento.pdf"
+            },
+            {
+              "id": "act12-empresarios-mex",
+              "tipo": "web",
+              "titulo": "Empresarios Mexicanos",
+              "descripcion": "",
+              "fecha": "",
+              "tecnologias": [],
+              "ruta": "grupos/32/alumnos/armando-altamirano-gurrion/actividades/act12-empresarios-mex/index.html"
+            },
+            {
+              "id": "act13-mente-critica",
+              "tipo": "web",
+              "titulo": "Mente Crítica",
+              "descripcion": "",
+              "fecha": "",
+              "tecnologias": [],
+              "ruta": "grupos/32/alumnos/armando-altamirano-gurrion/actividades/act13-mente-critica/index.html"
+            },
+            {
+              "id": "act14-7habitos",
+              "tipo": "pdf",
+              "titulo": "7 Hábitos",
+              "descripcion": "",
+              "fecha": "",
+              "tecnologias": [],
+              "ruta": "grupos/32/alumnos/armando-altamirano-gurrion/actividades/act14-7habitos/documento.pdf"
+            },
+            {
+              "id": "act15-creatividad",
+              "tipo": "pdf",
+              "titulo": "Creatividad",
+              "descripcion": "",
+              "fecha": "",
+              "tecnologias": [],
+              "ruta": "grupos/32/alumnos/armando-altamirano-gurrion/actividades/act15-creatividad/documento.pdf"
+            },
+            {
+              "id": "act16-quintadisciplina",
+              "tipo": "pdf",
+              "titulo": "Quinta Disciplina",
+              "descripcion": "",
+              "fecha": "",
+              "tecnologias": [],
+              "ruta": "grupos/32/alumnos/armando-altamirano-gurrion/actividades/act16-quintadisciplina/documento.pdf"
+            },
+            {
+              "id": "act17-interactivaquinta",
+              "tipo": "web",
+              "titulo": "Interactiva Quinta",
+              "descripcion": "",
+              "fecha": "",
+              "tecnologias": [],
+              "ruta": "grupos/32/alumnos/armando-altamirano-gurrion/actividades/act17-interactivaquinta/index.html"
+            }
+          ]
+        },
+        {
+          "id": "bradley-reyes-altamirano",
+          "nombre": "Bradley Yeray Reyes Altamirano",
+          "github": "brad2442",
+          "sobreMi": "Me gustan los videojuegos, los coches, la tecnología, el gym y Michoacán.",
+          "tecnologias": [
+            "HTML",
+            "CSS",
+            "JavaScript"
+          ],
+          "actividades": [
+            {
+              "id": "act01-7-habitos",
+              "tipo": "web",
+              "titulo": "Los 7 Hábitos",
+              "descripcion": "Experiencia interactiva sobre los 7 hábitos de Stephen R. Covey: amanecer, montaña de hábitos y dinámica para unir cada hábito con su frase.",
+              "fecha": "",
+              "tecnologias": [
+                "HTML",
+                "CSS",
+                "JavaScript"
+              ],
+              "ruta": "grupos/32/alumnos/bradley-reyes-altamirano/actividades/act01-7-habitos/index.html"
+            },
+            {
+              "id": "act02-memorama",
+              "tipo": "web",
+              "titulo": "Memorama de mis gustos",
+              "descripcion": "Memorama con tres niveles sobre mis gustos (videojuegos, coches, tecnología, Michoacán y gym), con datos curiosos y sección de autor.",
+              "fecha": "",
+              "tecnologias": [
+                "HTML",
+                "CSS",
+                "JavaScript"
+              ],
+              "ruta": "grupos/32/alumnos/bradley-reyes-altamirano/actividades/act02-memorama/index.html"
+            },
+            {
+              "id": "act03-toma-decisiones",
+              "tipo": "web",
+              "titulo": "Asistente de decisiones",
+              "descripcion": "App estilo chat con 10 preguntas sobre el caso de una universidad que arma FODA, 6 Sombreros, Pareto, Ishikawa y CATWOE.",
+              "fecha": "",
+              "tecnologias": [
+                "HTML",
+                "CSS",
+                "JavaScript"
+              ],
+              "ruta": "grupos/32/alumnos/bradley-reyes-altamirano/actividades/act03-toma-decisiones/index.html"
+            },
+            {
+              "id": "act04-diagnostico-universidad",
+              "tipo": "web",
+              "titulo": "Diagnóstico de la universidad",
+              "descripcion": "Cuaderno de análisis con las cinco herramientas de decisión, diagramas en vivo e informe final con conclusión.",
+              "fecha": "",
+              "tecnologias": [
+                "HTML",
+                "CSS",
+                "JavaScript"
+              ],
+              "ruta": "grupos/32/alumnos/bradley-reyes-altamirano/actividades/act04-diagnostico-universidad/index.html"
+            },
+            {
+              "id": "act05-pensamiento-sistemico",
+              "tipo": "web",
+              "titulo": "Sistemas, patrones y nuevas ideas",
+              "descripcion": "Presentación interactiva: La Quinta Disciplina, arquetipos sistémicos, collage de NFC y creatividad según Goldberg.",
+              "fecha": "",
+              "tecnologias": [
+                "HTML",
+                "CSS",
+                "JavaScript"
+              ],
+              "ruta": "grupos/32/alumnos/bradley-reyes-altamirano/actividades/act05-pensamiento-sistemico/index.html"
+            },
+            {
+              "id": "act06-gigantes-tecnologicos",
+              "tipo": "imagen",
+              "titulo": "Las capas de las grandes tecnológicas",
+              "descripcion": "Infografía sobre el poder de las grandes empresas tecnológicas.",
+              "fecha": "",
+              "tecnologias": [],
+              "ruta": "grupos/32/alumnos/bradley-reyes-altamirano/actividades/act06-gigantes-tecnologicos/gigantes.png"
+            },
+            {
+              "id": "act07-iceberg-queretaro",
+              "tipo": "imagen",
+              "titulo": "Bajo la superficie de la nube",
+              "descripcion": "Infografía tipo iceberg sobre la llegada de las grandes tecnológicas a Querétaro.",
+              "fecha": "",
+              "tecnologias": [],
+              "ruta": "grupos/32/alumnos/bradley-reyes-altamirano/actividades/act07-iceberg-queretaro/iceberg.png"
+            },
+            {
+              "id": "act08-lideres-mundiales",
+              "tipo": "imagen",
+              "titulo": "Líderes mundiales de la tecnología",
+              "descripcion": "Imagen sobre la concentración de poder de las grandes tecnológicas.",
+              "fecha": "",
+              "tecnologias": [],
+              "ruta": "grupos/32/alumnos/bradley-reyes-altamirano/actividades/act08-lideres-mundiales/lideres.png"
+            },
+            {
+              "id": "act09-lider-visionario",
+              "tipo": "imagen",
+              "titulo": "Receta del empresario ideal",
+              "descripcion": "Infografía con las cualidades del empresario ideal en forma de receta.",
+              "fecha": "",
+              "tecnologias": [],
+              "ruta": "grupos/32/alumnos/bradley-reyes-altamirano/actividades/act09-lider-visionario/lider.png"
+            },
+            {
+              "id": "act10-emprendedor-ideal",
+              "tipo": "imagen",
+              "titulo": "Plano del empresario ideal",
+              "descripcion": "Infografía tipo plano con las cualidades del emprendedor ideal.",
+              "fecha": "",
+              "tecnologias": [],
+              "ruta": "grupos/32/alumnos/bradley-reyes-altamirano/actividades/act10-emprendedor-ideal/emprendedor.png"
+            },
+            {
+              "id": "act11-empresarios-mexicanos",
+              "tipo": "imagen",
+              "titulo": "Cerveza, visión y fortuna",
+              "descripcion": "Comparación entre Eugenio Garza Sada y María Asunción Aramburuzabala.",
+              "fecha": "",
+              "tecnologias": [],
+              "ruta": "grupos/32/alumnos/bradley-reyes-altamirano/actividades/act11-empresarios-mexicanos/empresarios.png"
+            },
+            {
+              "id": "act12-bimbo",
+              "tipo": "imagen",
+              "titulo": "Lorenzo Servitje",
+              "descripcion": "Infografía sobre el fundador de Bimbo.",
+              "fecha": "",
+              "tecnologias": [],
+              "ruta": "grupos/32/alumnos/bradley-reyes-altamirano/actividades/act12-bimbo/bimbo.png"
+            },
+            {
+              "id": "act13-cemex",
+              "tipo": "imagen",
+              "titulo": "Lorenzo Zambrano",
+              "descripcion": "Infografía sobre el empresario que llevó a Cemex al mundo.",
+              "fecha": "",
+              "tecnologias": [],
+              "ruta": "grupos/32/alumnos/bradley-reyes-altamirano/actividades/act13-cemex/cemex.png"
+            },
+            {
+              "id": "act14-emma-rodero",
+              "tipo": "pdf",
+              "titulo": "Resumen: la voz según Emma Rodero",
+              "descripcion": "Resumen del video de Emma Rodero sobre la importancia de la voz al comunicar.",
+              "fecha": "",
+              "tecnologias": [],
+              "ruta": "grupos/32/alumnos/bradley-reyes-altamirano/actividades/act14-emma-rodero/resumen.pdf"
+            },
+            {
+              "id": "act15-documental-ricos",
+              "tipo": "pdf",
+              "titulo": "Resumen del documental",
+              "descripcion": "Resumen y opinión sobre la influencia de los millonarios en las ciudades.",
+              "fecha": "",
+              "tecnologias": [],
+              "ruta": "grupos/32/alumnos/bradley-reyes-altamirano/actividades/act15-documental-ricos/resumen.pdf"
+            }
+          ]
+        },
+        {
+          "id": "carolina-mejia-aguilar",
+          "nombre": "Carolina Mejia Aguilar",
+          "github": "Carolmej",
+          "sobreMi": "",
+          "tecnologias": [
+            "HTML",
+            "CSS",
+            "JavaScript",
+            "Investigacion"
+          ],
+          "actividades": [
+            {
+              "id": "act01-arquetipos-sistemicos",
+              "tipo": "web",
+              "titulo": "Arquetipos sistemicos en informatica",
+              "descripcion": "Pagina interactiva sobre los arquetipos sistemicos aplicados a la informatica.",
+              "fecha": "",
+              "tecnologias": [
+                "HTML",
+                "CSS",
+                "JavaScript"
+              ],
+              "ruta": "grupos/32/alumnos/carolina-mejia-aguilar/actividades/act01-arquetipos-sistemicos/index.html"
+            },
+            {
+              "id": "act02-codigo-limpio",
+              "tipo": "web",
+              "titulo": "Codigo limpio: una experiencia interactiva",
+              "descripcion": "Experiencia interactiva sobre Codigo limpio.",
+              "fecha": "",
+              "tecnologias": [
+                "HTML",
+                "CSS",
+                "JavaScript"
+              ],
+              "ruta": "grupos/32/alumnos/carolina-mejia-aguilar/actividades/act02-codigo-limpio/index.html"
+            },
+            {
+              "id": "act03-empresario-mexicano-ideal",
+              "tipo": "web",
+              "titulo": "El empresario mexicano ideal",
+              "descripcion": "Pagina sobre el perfil del empresario mexicano ideal.",
+              "fecha": "",
+              "tecnologias": [
+                "HTML",
+                "CSS",
+                "JavaScript"
+              ],
+              "ruta": "grupos/32/alumnos/carolina-mejia-aguilar/actividades/act03-empresario-mexicano-ideal/index.html"
+            },
+            {
+              "id": "act04-resumen-exposiciones",
+              "tipo": "web",
+              "titulo": "Resumenes de exposiciones",
+              "descripcion": "Mapa mental con los resumenes de las exposiciones.",
+              "fecha": "",
+              "tecnologias": [
+                "HTML",
+                "CSS",
+                "JavaScript"
+              ],
+              "ruta": "grupos/32/alumnos/carolina-mejia-aguilar/actividades/act04-resumen-exposiciones/index.html"
+            },
+            {
+              "id": "act05-carlos-slim",
+              "tipo": "imagen",
+              "titulo": "Carlos Slim: gigante de Mexico",
+              "descripcion": "Infografia sobre el empresario Carlos Slim.",
+              "fecha": "",
+              "tecnologias": [
+                "Investigacion"
+              ],
+              "ruta": "grupos/32/alumnos/carolina-mejia-aguilar/actividades/act05-carlos-slim/imagen.png"
+            },
+            {
+              "id": "act06-por-que-fracasan-los-paises",
+              "tipo": "imagen",
+              "titulo": "Por que fracasan los paises: instituciones y prosperidad",
+              "descripcion": "Infografia sobre instituciones y prosperidad.",
+              "fecha": "",
+              "tecnologias": [
+                "Investigacion"
+              ],
+              "ruta": "grupos/32/alumnos/carolina-mejia-aguilar/actividades/act06-por-que-fracasan-los-paises/imagen.png"
+            },
+            {
+              "id": "act07-gigantes-digitales",
+              "tipo": "pdf",
+              "titulo": "Gigantes digitales",
+              "descripcion": "Infografia sobre los gigantes tecnologicos.",
+              "fecha": "",
+              "tecnologias": [
+                "Investigacion"
+              ],
+              "ruta": "grupos/32/alumnos/carolina-mejia-aguilar/actividades/act07-gigantes-digitales/documento.pdf"
+            },
+            {
+              "id": "act08-movimientos-sociales",
+              "tipo": "web",
+              "titulo": "Mentes en accion: movimientos sociales",
+              "descripcion": "Investigacion sobre movimientos sociales.",
+              "fecha": "",
+              "tecnologias": [
+                "Investigacion"
+              ],
+              "ruta": "grupos/32/alumnos/carolina-mejia-aguilar/actividades/act08-movimientos-sociales/index.html"
+            },
+            {
+              "id": "act09-persuade-con-tu-voz",
+              "tipo": "pdf",
+              "titulo": "La voz humana",
+              "descripcion": "Investigacion sobre la voz humana (Persuade con tu voz, Emma Rodero).",
+              "fecha": "",
+              "tecnologias": [
+                "Investigacion"
+              ],
+              "ruta": "grupos/32/alumnos/carolina-mejia-aguilar/actividades/act09-persuade-con-tu-voz/documento.pdf"
+            },
+            {
+              "id": "act10-resumen-creatividad",
+              "tipo": "pdf",
+              "titulo": "Resumen de Creatividad (hasta la pagina 30)",
+              "descripcion": "Resumen del libro de creatividad de Goldberg.",
+              "fecha": "",
+              "tecnologias": [
+                "Investigacion"
+              ],
+              "ruta": "grupos/32/alumnos/carolina-mejia-aguilar/actividades/act10-resumen-creatividad/documento.pdf"
+            },
+            {
+              "id": "act11-opinion-creatividad-goldberg",
+              "tipo": "pdf",
+              "titulo": "Opinion del libro Creatividad de Goldberg",
+              "descripcion": "Opinion personal sobre el libro de creatividad de Goldberg.",
+              "fecha": "",
+              "tecnologias": [
+                "Investigacion"
+              ],
+              "ruta": "grupos/32/alumnos/carolina-mejia-aguilar/actividades/act11-opinion-creatividad-goldberg/documento.pdf"
+            },
+            {
+              "id": "act12-comparativo-empresarios",
+              "tipo": "web",
+              "titulo": "Cuadro comparativo de empresarios mexicanos",
+              "descripcion": "Cuadro comparativo de empresarios mexicanos (Slim, Salinas Pliego y Azcarraga).",
+              "fecha": "",
+              "tecnologias": [
+                "Investigacion"
+              ],
+              "ruta": "grupos/32/alumnos/carolina-mejia-aguilar/actividades/act12-comparativo-empresarios/index.html"
+            },
+            {
+              "id": "act13-sopa-de-letras-kasuga-yokoi",
+              "tipo": "web",
+              "titulo": "Sopa de letras Kasuga y Yokoi Kenji",
+              "descripcion": "Sopa de letras con palabras clave de la filosofia de Carlos Kasuga y Yokoi Kenji.",
+              "fecha": "",
+              "tecnologias": [
+                "Investigacion"
+              ],
+              "ruta": "grupos/32/alumnos/carolina-mejia-aguilar/actividades/act13-sopa-de-letras-kasuga-yokoi/index.html"
+            }
+          ]
+        },
+        {
+          "id": "jose-maria-pedraza-torres",
+          "nombre": "Jose Maria Pedraza Torres",
+          "github": "josepedrazatorres15-cpu",
+          "sobreMi": "",
+          "tecnologias": [
+            "HTML",
+            "CSS",
+            "JavaScript",
+            "Investigacion"
+          ],
+          "actividades": [
+            {
+              "id": "act01-7-habitos",
+              "tipo": "web",
+              "titulo": "Los 7 Habitos de la Gente Altamente Efectiva",
+              "descripcion": "Pagina interactiva sobre Los 7 Habitos.",
+              "fecha": "",
+              "tecnologias": [
+                "HTML",
+                "CSS",
+                "JavaScript"
+              ],
+              "ruta": "grupos/32/alumnos/jose-maria-pedraza-torres/actividades/act01-7-habitos/index.html"
+            },
+            {
+              "id": "act02-7-habitos-caso-de-estudio",
+              "tipo": "web",
+              "titulo": "Los 7 Habitos y caso de estudio",
+              "descripcion": "Los 7 Habitos aplicados a un caso de estudio.",
+              "fecha": "",
+              "tecnologias": [
+                "HTML",
+                "CSS",
+                "JavaScript"
+              ],
+              "ruta": "grupos/32/alumnos/jose-maria-pedraza-torres/actividades/act02-7-habitos-caso-de-estudio/index.html"
+            },
+            {
+              "id": "act03-memorama-filosofia-japonesa",
+              "tipo": "web",
+              "titulo": "Memorama de filosofia japonesa",
+              "descripcion": "Juego de memoria sobre la filosofia japonesa (Yokoi Kenji).",
+              "fecha": "",
+              "tecnologias": [
+                "HTML",
+                "CSS",
+                "JavaScript"
+              ],
+              "ruta": "grupos/32/alumnos/jose-maria-pedraza-torres/actividades/act03-memorama-filosofia-japonesa/index.html"
+            },
+            {
+              "id": "act04-toma-de-decisiones",
+              "tipo": "web",
+              "titulo": "Herramientas para la toma de decisiones",
+              "descripcion": "Herramientas para analizar problemas y tomar decisiones.",
+              "fecha": "",
+              "tecnologias": [
+                "HTML",
+                "CSS",
+                "JavaScript"
+              ],
+              "ruta": "grupos/32/alumnos/jose-maria-pedraza-torres/actividades/act04-toma-de-decisiones/index.html"
+            },
+            {
+              "id": "act05-pensamiento-critico",
+              "tipo": "web",
+              "titulo": "Pensamiento critico: centro de comando sistemico",
+              "descripcion": "Pensamiento critico y pensamiento sistemico.",
+              "fecha": "",
+              "tecnologias": [
+                "HTML",
+                "CSS",
+                "JavaScript"
+              ],
+              "ruta": "grupos/32/alumnos/jose-maria-pedraza-torres/actividades/act05-pensamiento-critico/index.html"
+            },
+            {
+              "id": "act06-proyecto-integrador",
+              "tipo": "web",
+              "titulo": "Sistemas y creatividad: proyecto integrador",
+              "descripcion": "Proyecto integrador de pensamiento sistemico y creatividad.",
+              "fecha": "",
+              "tecnologias": [
+                "HTML",
+                "CSS",
+                "JavaScript"
+              ],
+              "ruta": "grupos/32/alumnos/jose-maria-pedraza-torres/actividades/act06-proyecto-integrador/index.html"
+            },
+            {
+              "id": "act07-sistemika",
+              "tipo": "web",
+              "titulo": "SistemiKa: hub de pensamiento sistemico y creatividad",
+              "descripcion": "Aplicacion final que reune pensamiento sistemico y creatividad.",
+              "fecha": "",
+              "tecnologias": [
+                "HTML",
+                "CSS",
+                "JavaScript"
+              ],
+              "ruta": "grupos/32/alumnos/jose-maria-pedraza-torres/actividades/act07-sistemika/index.html"
+            },
+            {
+              "id": "act08-resumen-exposiciones",
+              "tipo": "pdf",
+              "titulo": "Resumen de exposiciones",
+              "descripcion": "Resumen de las exposiciones de la clase.",
+              "fecha": "",
+              "tecnologias": [
+                "Investigacion"
+              ],
+              "ruta": "grupos/32/alumnos/jose-maria-pedraza-torres/actividades/act08-resumen-exposiciones/documento.pdf"
+            },
+            {
+              "id": "act08b-resumen-exposiciones",
+              "tipo": "pdf",
+              "titulo": "Resumen de exposiciones (segunda version)",
+              "descripcion": "Segunda version del resumen de exposiciones.",
+              "fecha": "",
+              "tecnologias": [
+                "Investigacion"
+              ],
+              "ruta": "grupos/32/alumnos/jose-maria-pedraza-torres/actividades/act08-resumen-exposiciones/documento-2.pdf"
+            },
+            {
+              "id": "act09-persuade-con-tu-voz",
+              "tipo": "pdf",
+              "titulo": "Resumen sobre la comunicacion oral (Emma Rodero)",
+              "descripcion": "Persuade con tu voz: resumen sobre la comunicacion oral de Emma Rodero.",
+              "fecha": "",
+              "tecnologias": [
+                "Investigacion"
+              ],
+              "ruta": "grupos/32/alumnos/jose-maria-pedraza-torres/actividades/act09-persuade-con-tu-voz/documento.pdf"
+            },
+            {
+              "id": "act10-empresario-ideal",
+              "tipo": "imagen",
+              "titulo": "Empresario mexicano ideal",
+              "descripcion": "Infografia del empresario ideal.",
+              "fecha": "",
+              "tecnologias": [
+                "Investigacion"
+              ],
+              "ruta": "grupos/32/alumnos/jose-maria-pedraza-torres/actividades/act10-empresario-ideal/imagen.jpg"
+            },
+            {
+              "id": "act11-comparativo-empresarios",
+              "tipo": "imagen",
+              "titulo": "Cuadro comparativo de empresarios",
+              "descripcion": "Cuadro comparativo de empresarios mexicanos.",
+              "fecha": "",
+              "tecnologias": [
+                "Investigacion"
+              ],
+              "ruta": "grupos/32/alumnos/jose-maria-pedraza-torres/actividades/act11-comparativo-empresarios/imagen.jpg"
+            },
+            {
+              "id": "act12-dos-empresarios-mexicanos",
+              "tipo": "imagen",
+              "titulo": "Dos empresarios mexicanos",
+              "descripcion": "Infografia de dos empresarios mexicanos.",
+              "fecha": "",
+              "tecnologias": [
+                "Investigacion"
+              ],
+              "ruta": "grupos/32/alumnos/jose-maria-pedraza-torres/actividades/act12-dos-empresarios-mexicanos/imagen.jpg"
+            },
+            {
+              "id": "act13-gigantes-tecnologicos-queretaro",
+              "tipo": "imagen",
+              "titulo": "Gigantes tecnologicos en Queretaro",
+              "descripcion": "Infografia de las grandes empresas de tecnologia en Queretaro.",
+              "fecha": "",
+              "tecnologias": [
+                "Investigacion"
+              ],
+              "ruta": "grupos/32/alumnos/jose-maria-pedraza-torres/actividades/act13-gigantes-tecnologicos-queretaro/imagen.jpg"
+            },
+            {
+              "id": "act14-los-4-grandes",
+              "tipo": "imagen",
+              "titulo": "Los 4 grandes",
+              "descripcion": "Infografia de los gigantes tecnologicos y su poder.",
+              "fecha": "",
+              "tecnologias": [
+                "Investigacion"
+              ],
+              "ruta": "grupos/32/alumnos/jose-maria-pedraza-torres/actividades/act14-los-4-grandes/imagen.jpg"
+            },
+            {
+              "id": "act15-carlos-slim",
+              "tipo": "imagen",
+              "titulo": "Carlos Slim",
+              "descripcion": "Infografia sobre el empresario Carlos Slim.",
+              "fecha": "",
+              "tecnologias": [
+                "Investigacion"
+              ],
+              "ruta": "grupos/32/alumnos/jose-maria-pedraza-torres/actividades/act15-carlos-slim/imagen.jpg"
+            }
+          ]
+        },
         {
           "id": "kevin-alonso",
           "nombre": "Kevin Alonso",
@@ -242,6 +1773,385 @@
                 "Reflexion"
               ],
               "ruta": "grupos/32/alumnos/kevin-alonso/actividades/act15-documental-los-ricos/documental-los-ricos.pdf"
+            }
+          ]
+        },
+        {
+          "id": "miguel-belman",
+          "nombre": "Miguel Ángel Belman Mejía",
+          "github": "MBelman29",
+          "sobreMi": "Estudiante de Ingeniería de Software en la Facultad de Informática.",
+          "tecnologias": [
+            "HTML",
+            "CSS",
+            "JavaScript",
+            "Collage",
+            "Mapa mental",
+            "Reporte de lectura",
+            "Resumen",
+            "Investigación"
+          ],
+          "actividades": [
+            {
+              "id": "act01-efecto-compuesto",
+              "tipo": "web",
+              "titulo": "Efecto Compuesto",
+              "descripcion": "Página interactiva sobre el efecto compuesto y cómo los pequeños hábitos se acumulan con el tiempo.",
+              "fecha": "2026-11-18",
+              "tecnologias": [
+                "HTML",
+                "CSS",
+                "JavaScript"
+              ],
+              "ruta": "grupos/32/alumnos/miguel-belman/actividades/act01-efecto-compuesto/index.html"
+            },
+            {
+              "id": "act02-portafolio",
+              "tipo": "web",
+              "titulo": "Portafolio personal",
+              "descripcion": "Portafolio web donde reúno mi información y los proyectos en los que he trabajado.",
+              "fecha": "2026-11-18",
+              "tecnologias": [
+                "HTML",
+                "CSS",
+                "JavaScript"
+              ],
+              "ruta": "grupos/32/alumnos/miguel-belman/actividades/act02-portafolio/index.html"
+            },
+            {
+              "id": "act03-habilidades-directivas",
+              "tipo": "imagen",
+              "titulo": "Habilidades directivas y su clasificación",
+              "descripcion": "Collage del capítulo 1, sobre los tipos de habilidades directivas y cómo se clasifican.",
+              "fecha": "2026-11-18",
+              "tecnologias": [
+                "Collage"
+              ],
+              "ruta": "grupos/32/alumnos/miguel-belman/actividades/act03-habilidades-directivas/collage.png"
+            },
+            {
+              "id": "act04-inteligencia-emocional",
+              "tipo": "imagen",
+              "titulo": "Inteligencia emocional",
+              "descripcion": "Mapa mental del capítulo 3, sobre los componentes de la inteligencia emocional.",
+              "fecha": "2026-11-18",
+              "tecnologias": [
+                "Mapa mental"
+              ],
+              "ruta": "grupos/32/alumnos/miguel-belman/actividades/act04-inteligencia-emocional/mapa-mental.png"
+            },
+            {
+              "id": "act05-administracion-tiempo",
+              "tipo": "imagen",
+              "titulo": "Administración del tiempo",
+              "descripcion": "Collage del capítulo 5, sobre cómo organizar y priorizar el tiempo.",
+              "fecha": "2026-11-18",
+              "tecnologias": [
+                "Collage"
+              ],
+              "ruta": "grupos/32/alumnos/miguel-belman/actividades/act05-administracion-tiempo/collage.png"
+            },
+            {
+              "id": "act06-toma-de-decisiones",
+              "tipo": "imagen",
+              "titulo": "Toma de decisiones",
+              "descripcion": "Mapa mental del capítulo 7, sobre el proceso de toma de decisiones.",
+              "fecha": "2026-11-18",
+              "tecnologias": [
+                "Mapa mental"
+              ],
+              "ruta": "grupos/32/alumnos/miguel-belman/actividades/act06-toma-de-decisiones/mapa-mental.png"
+            },
+            {
+              "id": "act07-siete-habitos",
+              "tipo": "pdf",
+              "titulo": "Los 7 hábitos de la gente altamente efectiva",
+              "descripcion": "Reporte de lectura sobre los siete hábitos y su aplicación en el trabajo en equipo.",
+              "fecha": "2026-11-18",
+              "tecnologias": [
+                "Reporte de lectura"
+              ],
+              "ruta": "grupos/32/alumnos/miguel-belman/actividades/act07-siete-habitos/reporte.pdf"
+            },
+            {
+              "id": "act08-persuade-con-tu-voz",
+              "tipo": "pdf",
+              "titulo": "Persuade con tu voz",
+              "descripcion": "Resumen del trabajo de Emma Rodero sobre el uso de la voz como herramienta de persuasión.",
+              "fecha": "2026-11-18",
+              "tecnologias": [
+                "Resumen"
+              ],
+              "ruta": "grupos/32/alumnos/miguel-belman/actividades/act08-persuade-con-tu-voz/resumen.pdf"
+            },
+            {
+              "id": "act09-movimientos-sociales",
+              "tipo": "pdf",
+              "titulo": "Movimientos sociales",
+              "descripcion": "Resumen de investigación sobre los movimientos sociales y su impacto.",
+              "fecha": "2026-11-18",
+              "tecnologias": [
+                "Investigación"
+              ],
+              "ruta": "grupos/32/alumnos/miguel-belman/actividades/act09-movimientos-sociales/resumen.pdf"
+            }
+          ]
+        },
+        {
+          "id": "miguel-fuentes-fanjul",
+          "nombre": "Miguel Fuentes Fanjul",
+          "github": "Fanjul00",
+          "sobreMi": "Estudiante de la UAQ, semestre 8.",
+          "tecnologias": [
+            "HTML",
+            "CSS",
+            "JavaScript",
+            "Investigacion",
+            "Diseno"
+          ],
+          "actividades": [
+            {
+              "id": "act01-arquetipos",
+              "tipo": "web",
+              "titulo": "Arquetipos",
+              "descripcion": "Pagina web sobre arquetipos.",
+              "fecha": "",
+              "tecnologias": [
+                "HTML",
+                "CSS",
+                "JavaScript"
+              ],
+              "ruta": "grupos/32/alumnos/miguel-fuentes-fanjul/actividades/act01-arquetipos/Arquetipos/index.html"
+            },
+            {
+              "id": "act02-codigolimpio",
+              "tipo": "web",
+              "titulo": "Codigo Limpio",
+              "descripcion": "Pagina web sobre codigo limpio.",
+              "fecha": "",
+              "tecnologias": [
+                "HTML",
+                "CSS",
+                "JavaScript"
+              ],
+              "ruta": "grupos/32/alumnos/miguel-fuentes-fanjul/actividades/act02-codigolimpio/CodigoLimpio/index.html"
+            },
+            {
+              "id": "act03-diagnostico",
+              "tipo": "web",
+              "titulo": "Diagnostico",
+              "descripcion": "Herramientas de diagnostico: FODA, Ishikawa, Pareto y sombreros.",
+              "fecha": "",
+              "tecnologias": [
+                "HTML",
+                "CSS"
+              ],
+              "ruta": "grupos/32/alumnos/miguel-fuentes-fanjul/actividades/act03-diagnostico/Diagnostico/index.html"
+            },
+            {
+              "id": "act04-empresarioideal",
+              "tipo": "web",
+              "titulo": "Empresario Mexicano Ideal",
+              "descripcion": "Pagina web sobre el empresario mexicano ideal.",
+              "fecha": "",
+              "tecnologias": [
+                "HTML",
+                "CSS",
+                "JavaScript"
+              ],
+              "ruta": "grupos/32/alumnos/miguel-fuentes-fanjul/actividades/act04-empresarioideal/Empresario_Mexicano_Ideal/index.html"
+            },
+            {
+              "id": "act05-expos",
+              "tipo": "web",
+              "titulo": "Exposiciones",
+              "descripcion": "Exposiciones de los capitulos del libro en formato web.",
+              "fecha": "",
+              "tecnologias": [
+                "HTML",
+                "CSS"
+              ],
+              "ruta": "grupos/32/alumnos/miguel-fuentes-fanjul/actividades/act05-expos/Expos/ExpoCap1.html"
+            },
+            {
+              "id": "act06-proyecto",
+              "tipo": "web",
+              "titulo": "Proyecto Duolingo",
+              "descripcion": "Proyecto sobre Duolingo.",
+              "fecha": "",
+              "tecnologias": [
+                "HTML",
+                "CSS"
+              ],
+              "ruta": "grupos/32/alumnos/miguel-fuentes-fanjul/actividades/act06-proyecto/Proyecto/Duolingo.html"
+            },
+            {
+              "id": "act07-quintadisciplina",
+              "tipo": "web",
+              "titulo": "La Quinta Disciplina",
+              "descripcion": "Pagina web sobre La Quinta Disciplina.",
+              "fecha": "",
+              "tecnologias": [
+                "HTML",
+                "CSS",
+                "JavaScript"
+              ],
+              "ruta": "grupos/32/alumnos/miguel-fuentes-fanjul/actividades/act07-quintadisciplina/Quinta Disciplina/quinta-disciplina.html"
+            },
+            {
+              "id": "act08-7habitos",
+              "tipo": "web",
+              "titulo": "Los 7 Habitos",
+              "descripcion": "Sitio web sobre Los 7 Habitos de la Gente Altamente Efectiva.",
+              "fecha": "",
+              "tecnologias": [
+                "HTML",
+                "CSS"
+              ],
+              "ruta": "grupos/32/alumnos/miguel-fuentes-fanjul/actividades/act08-7habitos/Web7Habitos/index.html"
+            },
+            {
+              "id": "act09-analisis",
+              "tipo": "pdf",
+              "titulo": "Analisis Yokoi Kenji y Carlos Kasuaga",
+              "descripcion": "Documento de analisis en PDF.",
+              "fecha": "",
+              "tecnologias": [
+                "Investigacion"
+              ],
+              "ruta": "grupos/32/alumnos/miguel-fuentes-fanjul/actividades/act09-analisis/Analisis Yokoi Kenji y Carlos Kasuaga.pdf"
+            },
+            {
+              "id": "act10-codigolimpio",
+              "tipo": "pdf",
+              "titulo": "Codigo Limpio - Robert C. Martin",
+              "descripcion": "Documento sobre el libro Codigo Limpio.",
+              "fecha": "",
+              "tecnologias": [
+                "Investigacion"
+              ],
+              "ruta": "grupos/32/alumnos/miguel-fuentes-fanjul/actividades/act10-codigolimpio/Codigo limpio - Robert Cecil Martin.pdf"
+            },
+            {
+              "id": "act11-comentario",
+              "tipo": "pdf",
+              "titulo": "Comentario de video",
+              "descripcion": "Comentario sobre el video Sin pensamiento critico no eres nadie.",
+              "fecha": "",
+              "tecnologias": [
+                "Investigacion"
+              ],
+              "ruta": "grupos/32/alumnos/miguel-fuentes-fanjul/actividades/act11-comentario/Comentario Video Sin pensamiento critico no eres nadie.pdf"
+            },
+            {
+              "id": "act12-cuadrocomparativo",
+              "tipo": "pdf",
+              "titulo": "Cuadro comparativo de empresarios",
+              "descripcion": "Cuadro comparativo entre empresarios.",
+              "fecha": "",
+              "tecnologias": [
+                "Investigacion"
+              ],
+              "ruta": "grupos/32/alumnos/miguel-fuentes-fanjul/actividades/act12-cuadrocomparativo/Cuadro comparativo empresarios.pdf"
+            },
+            {
+              "id": "act13-decalogo",
+              "tipo": "pdf",
+              "titulo": "Decalogo del desarrollo",
+              "descripcion": "Decalogo del desarrollo en PDF.",
+              "fecha": "",
+              "tecnologias": [
+                "Investigacion"
+              ],
+              "ruta": "grupos/32/alumnos/miguel-fuentes-fanjul/actividades/act13-decalogo/DECALOGO DEL DESARROLLO.pdf"
+            },
+            {
+              "id": "act14-empresariosmexicanos",
+              "tipo": "imagen",
+              "titulo": "Empresarios mexicanos",
+              "descripcion": "Imagen sobre empresarios mexicanos.",
+              "fecha": "",
+              "tecnologias": [
+                "Investigacion"
+              ],
+              "ruta": "grupos/32/alumnos/miguel-fuentes-fanjul/actividades/act14-empresariosmexicanos/Empresarios mexicanos.jpg"
+            },
+            {
+              "id": "act15-influencia",
+              "tipo": "pdf",
+              "titulo": "Influencia de los superricos",
+              "descripcion": "Documento sobre la influencia de los superricos.",
+              "fecha": "",
+              "tecnologias": [
+                "Investigacion"
+              ],
+              "ruta": "grupos/32/alumnos/miguel-fuentes-fanjul/actividades/act15-influencia/InfluenciaSuperricos.pdf"
+            },
+            {
+              "id": "act16-infografia",
+              "tipo": "imagen",
+              "titulo": "Infografia DW Documental",
+              "descripcion": "Infografia sobre un documental de DW.",
+              "fecha": "",
+              "tecnologias": [
+                "Diseno"
+              ],
+              "ruta": "grupos/32/alumnos/miguel-fuentes-fanjul/actividades/act16-infografia/InfografiaDWDocumental.png"
+            },
+            {
+              "id": "act17-porquefracasan",
+              "tipo": "imagen",
+              "titulo": "Por que fracasan los paises",
+              "descripcion": "Infografia sobre Por que fracasan los paises.",
+              "fecha": "",
+              "tecnologias": [
+                "Diseno"
+              ],
+              "ruta": "grupos/32/alumnos/miguel-fuentes-fanjul/actividades/act17-porquefracasan/Por que fracasan los paises.png"
+            },
+            {
+              "id": "act18-lecciones",
+              "tipo": "pdf",
+              "titulo": "Lecciones de negocios, dinero y exito",
+              "descripcion": "Resumen en PDF.",
+              "fecha": "",
+              "tecnologias": [
+                "Investigacion"
+              ],
+              "ruta": "grupos/32/alumnos/miguel-fuentes-fanjul/actividades/act18-lecciones/Resumen Lecciones de negocios, dinero y exito.pdf"
+            },
+            {
+              "id": "act19-mentesenaccion",
+              "tipo": "pdf",
+              "titulo": "Mentes en Accion",
+              "descripcion": "Resumen en PDF.",
+              "fecha": "",
+              "tecnologias": [
+                "Investigacion"
+              ],
+              "ruta": "grupos/32/alumnos/miguel-fuentes-fanjul/actividades/act19-mentesenaccion/Resumen Mentes en Accion.pdf"
+            },
+            {
+              "id": "act20-movimientossociales",
+              "tipo": "pdf",
+              "titulo": "Movimientos sociales",
+              "descripcion": "Resumen en PDF.",
+              "fecha": "",
+              "tecnologias": [
+                "Investigacion"
+              ],
+              "ruta": "grupos/32/alumnos/miguel-fuentes-fanjul/actividades/act20-movimientossociales/Resumen Movimientos sociales.pdf"
+            },
+            {
+              "id": "act21-videoted",
+              "tipo": "pdf",
+              "titulo": "Resumen Video TED",
+              "descripcion": "Resumen de un video TED.",
+              "fecha": "",
+              "tecnologias": [
+                "Investigacion"
+              ],
+              "ruta": "grupos/32/alumnos/miguel-fuentes-fanjul/actividades/act21-videoted/ResumenVideoTed.pdf"
             }
           ]
         },
