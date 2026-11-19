@@ -1,0 +1,199 @@
+{
+  "nombre": "Johan Juárez",
+  "github": "Johanhash",
+  "sobreMi": "Estudiante de la Facultad de Informática UAQ · Grupo 32 · Tópico 2.",
+  "actividades": [
+    {
+      "id": "act01-codigo-limpio",
+      "titulo": "Código Limpio: Explorador interactivo",
+      "descripcion": "Aplicación interactiva sobre el libro Clean Code de Robert C. Martin y principios para escribir código limpio.",
+      "tipo": "web",
+      "tecnologias": ["Next.js", "React", "TypeScript", "Tailwind CSS"],
+      "ruta": "actividades/act01-codigo-limpio/index.html"
+    },
+    {
+      "id": "act02-la-quinta-disciplina",
+      "titulo": "La Quinta Disciplina (Peter Senge)",
+      "descripcion": "Análisis interactivo sobre el pensamiento sistémico y las organizaciones que aprenden en La Quinta Disciplina de Peter Senge.",
+      "tipo": "web",
+      "tecnologias": ["Next.js", "React", "TypeScript", "Tailwind CSS"],
+      "ruta": "actividades/act02-sistemas-y-creatividad/quinta-disciplina.html"
+    },
+    {
+      "id": "act03-arquetipos-sistemicos",
+      "titulo": "Arquetipos Sistémicos",
+      "descripcion": "Explorador interactivo de arquetipos sistémicos y patrones recurrentes que explican por qué reaparecen los problemas en un sistema.",
+      "tipo": "web",
+      "tecnologias": ["Next.js", "React", "TypeScript", "Tailwind CSS"],
+      "ruta": "actividades/act02-sistemas-y-creatividad/arquetipos.html"
+    },
+    {
+      "id": "act04-creatividad-goldberg",
+      "titulo": "Creatividad e Innovación (Elkhonon Goldberg)",
+      "descripcion": "Vista interactiva sobre neurobiología de la creatividad y cómo el cerebro humano genera ideas nuevas según Elkhonon Goldberg.",
+      "tipo": "web",
+      "tecnologias": ["Next.js", "React", "TypeScript", "Tailwind CSS"],
+      "ruta": "actividades/act02-sistemas-y-creatividad/creatividad.html"
+    },
+    {
+      "id": "act05-exposiciones-habilidades-directivas",
+      "titulo": "Exposiciones: Habilidades Directivas (Capítulos 1 al 13)",
+      "descripcion": "Collages interactivos de las exposiciones de Habilidades Directivas: clasificación, alta dirección, inteligencia emocional, administración del tiempo, creatividad, toma de decisiones, trabajo en equipo, negociación, habilidad estratégica y habilidades del pensamiento.",
+      "tipo": "web",
+      "tecnologias": ["Next.js", "React", "TypeScript", "Tailwind CSS"],
+      "ruta": "actividades/act05-exposiciones/index.html"
+    },
+    {
+      "id": "act06-psicologia-del-dinero",
+      "titulo": "La Psicología del Dinero (Morgan Housel)",
+      "descripcion": "Collage interactivo sobre comportamiento financiero, paciencia, azar, riesgo, construcción de patrimonio y control del tiempo.",
+      "tipo": "web",
+      "tecnologias": ["Next.js", "React", "TypeScript", "Tailwind CSS"],
+      "ruta": "actividades/act05-exposiciones/psicologia-del-dinero.html"
+    },
+    {
+      "id": "act07-principios-ray-dalio",
+      "titulo": "Principios (Ray Dalio)",
+      "descripcion": "Collage interactivo sobre los principios vitales y laborales de Ray Dalio: proceso de 5 pasos, mente abierta radical y cultura de aprendizaje.",
+      "tipo": "web",
+      "tecnologias": ["Next.js", "React", "TypeScript", "Tailwind CSS"],
+      "ruta": "actividades/act05-exposiciones/principios.html"
+    },
+    {
+      "id": "act08-leyes-naturaleza-humana",
+      "titulo": "Las 18 Leyes de la Naturaleza Humana (Robert Greene)",
+      "descripcion": "Collage interactivo sobre irracionalidad, narcisismo, máscaras, carácter y las fuerzas que guían el comportamiento humano.",
+      "tipo": "web",
+      "tecnologias": ["Next.js", "React", "TypeScript", "Tailwind CSS"],
+      "ruta": "actividades/act05-exposiciones/leyes-naturaleza-humana.html"
+    },
+    {
+      "id": "act09-secretos-mente-millonaria",
+      "titulo": "Los Secretos de la Mente Millonaria (T. Harv Eker)",
+      "descripcion": "Collage interactivo sobre el termostato financiero, programación verbal, modelado de experiencias y hábitos de dinero y éxito.",
+      "tipo": "web",
+      "tecnologias": ["Next.js", "React", "TypeScript", "Tailwind CSS"],
+      "ruta": "actividades/act05-exposiciones/mente-millonaria.html"
+    },
+    {
+      "id": "act10-motivacion-directiva",
+      "titulo": "Habilidades Directivas Cap. 11: Motivación",
+      "descripcion": "Aplicación interactiva sobre el Capítulo 11: Motivación, habilidad elemental del directivo (Maslow, Herzberg, equidad y expectativas).",
+      "tipo": "web",
+      "tecnologias": ["Next.js", "React", "TypeScript", "Tailwind CSS"],
+      "ruta": "actividades/act10-motivacion-directiva/index.html"
+    },
+    {
+      "id": "act11-herramientas-toma-decisiones",
+      "titulo": "Herramientas para la Toma de Decisiones",
+      "descripcion": "Aplicación interactiva de diagnóstico y toma de decisiones con FODA, Seis Sombreros, Pareto, Ishikawa y CATWOE.",
+      "tipo": "web",
+      "tecnologias": ["Next.js", "React", "TypeScript", "Tailwind CSS"],
+      "ruta": "actividades/act11-herramientas-toma-decisiones/index.html"
+    },
+    {
+      "id": "act12-memorama-filosofia-japonesa",
+      "titulo": "Memorama de Filosofía Japonesa",
+      "descripcion": "Juego interactivo de memoria sobre los principios y filosofía de vida de Carlos Kasuga y Yokoi Kenji, con sección de autor.",
+      "tipo": "web",
+      "tecnologias": ["Next.js", "React", "TypeScript", "Tailwind CSS"],
+      "ruta": "actividades/act12-memorama-filosofia-japonesa/index.html"
+    },
+    {
+      "id": "act13-impulso-desarrollo-personal",
+      "titulo": "Impulso: 11 habilidades para el desarrollo personal",
+      "descripcion": "Propuesta interactiva sobre el decálogo y 11 características para el desarrollo personal con retos, misiones y plan propio.",
+      "tipo": "web",
+      "tecnologias": ["Next.js", "React", "TypeScript", "Tailwind CSS"],
+      "ruta": "actividades/act13-impulso-desarrollo-personal/index.html"
+    },
+    {
+      "id": "act14-persuade-con-tu-voz",
+      "titulo": "Persuade con tu voz: Estrategias para sonar creíble",
+      "descripcion": "Resumen de la charla TEDx de Emma Rodero sobre intensidad, tono, timbre y duración de la voz para proyectar credibilidad.",
+      "tipo": "pdf",
+      "tecnologias": ["Comunicación"],
+      "ruta": "actividades/act14-persuade-con-tu-voz/persuade-con-tu-voz.pdf"
+    },
+    {
+      "id": "act15-influencia-superricos",
+      "titulo": "¿Cuánta influencia tienen los superricos?",
+      "descripcion": "Resumen y punto de vista sobre el documental acerca de la influencia de los superricos, la filantropía privada y los impuestos.",
+      "tipo": "pdf",
+      "tecnologias": ["Reflexión"],
+      "ruta": "actividades/act15-influencia-superricos/influencia-superricos.pdf"
+    },
+    {
+      "id": "act16-movimientos-sociales",
+      "titulo": "Movimientos sociales (Mentes en acción)",
+      "descripcion": "Resumen del episodio sobre los movimientos sociales como motores de la transformación histórica y la ciudadanía activa.",
+      "tipo": "pdf",
+      "tecnologias": ["Análisis"],
+      "ruta": "actividades/act16-movimientos-sociales/movimientos-sociales.pdf"
+    },
+    {
+      "id": "act17-pensamiento-critico",
+      "titulo": "Opinión: Sin pensamiento crítico no eres nadie",
+      "descripcion": "Reflexión y opinión sobre el video acerca del pensamiento crítico frente a la enseñanza memorística tradicional.",
+      "tipo": "pdf",
+      "tecnologias": ["Pensamiento crítico"],
+      "ruta": "actividades/act17-pensamiento-critico/sin-pensamiento-critico.pdf"
+    },
+    {
+      "id": "act18-cuadro-comparativo-empresarios",
+      "titulo": "Cuadro comparativo: Liderazgo y modelos empresariales en México",
+      "descripcion": "Comparativo de 10 categorías entre Daniel Servitje Montull (Grupo Bimbo), Lorenzo Zambrano Treviño (CEMEX) y José Antonio Fernández Carbajal (FEMSA / Tec de Monterrey).",
+      "tipo": "pdf",
+      "tecnologias": ["Análisis", "Liderazgo"],
+      "ruta": "actividades/act18-cuadro-comparativo-empresarios/cuadro-comparativo-empresarios.pdf"
+    },
+    {
+      "id": "act19-empresario-mexicano-ideal",
+      "titulo": "El empresario mexicano ideal",
+      "descripcion": "Infografía sobre las cualidades y atributos de éxito del empresario mexicano ideal: visión estratégica, resiliencia, ética y liderazgo.",
+      "tipo": "imagen",
+      "tecnologias": ["Infografía", "Liderazgo"],
+      "ruta": "actividades/act19-empresario-mexicano-ideal/empresario-mexicano-ideal.jpg"
+    },
+    {
+      "id": "act20-gigantes-mexico-bimbo-cemex",
+      "titulo": "Gigantes de México: Lorenzo Servitje (Bimbo) y Lorenzo Zambrano (CEMEX)",
+      "descripcion": "Infografía comparativa sobre la trayectoria, visión, innovación y expansión multinacional de Grupo Bimbo y CEMEX.",
+      "tipo": "imagen",
+      "tecnologias": ["Infografía", "Liderazgo"],
+      "ruta": "actividades/act20-gigantes-mexico-bimbo-cemex/lorenzo-servitje-bimbo-lorenzo-zambrano-cemex.jpg"
+    },
+    {
+      "id": "act21-carlos-slim-gigante-mexico",
+      "titulo": "Carlos Slim: Trayectoria y filosofía",
+      "descripcion": "Infografía sobre la infancia, educación, primeras inversiones, estrategia en crisis, revolución telefónica y legado social de Carlos Slim.",
+      "tipo": "imagen",
+      "tecnologias": ["Infografía", "Liderazgo"],
+      "ruta": "actividades/act21-carlos-slim-gigante-mexico/carlos-slim.jpg"
+    },
+    {
+      "id": "act22-por-que-fracasan-los-paises",
+      "titulo": "¿Por qué fracasan los países? El poder de las instituciones",
+      "descripcion": "Infografía sobre instituciones inclusivas vs. instituciones extractivas, destrucción creativa, coyunturas críticas y círculos virtuosos y viciosos.",
+      "tipo": "imagen",
+      "tecnologias": ["Infografía", "Economía"],
+      "ruta": "actividades/act22-por-que-fracasan-los-paises/por-que-fracasan-los-paises.jpg"
+    },
+    {
+      "id": "act23-big-tech-queretaro-colon",
+      "titulo": "Impacto de Big Tech y Centros de Datos en Querétaro (Colón)",
+      "descripcion": "Infografía sobre el impacto de los gigantes tecnológicos y centros de datos en Colón, Querétaro: crecimiento digital, consumo de agua, demanda eléctrica y presión urbana.",
+      "tipo": "imagen",
+      "tecnologias": ["Infografía", "Tecnología"],
+      "ruta": "actividades/act23-big-tech-queretaro-colon/big-tech-centros-datos-queretaro.jpg"
+    },
+    {
+      "id": "act24-los-7-habitos",
+      "titulo": "Los 7 Hábitos para las Personas Altamente Efectivas",
+      "descripcion": "Infografía sobre los 7 hábitos de Stephen Covey (ser proactivo, empezar con un fin en mente, primero lo primero, ganar/ganar, comprender y ser comprendido, sinergia y afilar la sierra) aplicados en una agencia de comunicación.",
+      "tipo": "imagen",
+      "tecnologias": ["Infografía", "Desarrollo personal"],
+      "ruta": "actividades/act24-los-7-habitos/los-7-habitos.jpg"
+    }
+  ]
+}
