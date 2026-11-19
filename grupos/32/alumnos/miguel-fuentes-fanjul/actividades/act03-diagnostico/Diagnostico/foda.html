@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Matriz FODA</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <main class="detail-page">
+    <section class="detail-card">
+      <div class="detail-head">
+        <h1>Matriz FODA</h1>
+        <a href="resultados.html" class="ghost-btn no-print">Volver</a>
+      </div>
+
+      <div class="two-col" id="fodaContenedor"></div>
+    </section>
+  </main>
+
+  <script>
+    const data = JSON.parse(localStorage.getItem('diagnosticoActual') || '{}');
+    const contenedor = document.getElementById('fodaContenedor');
+    const foda = data.foda || {};
+
+    const sections = [
+      { title: 'Fortalezas', items: foda.fortalezas || [] },
+      { title: 'Oportunidades', items: foda.oportunidades || [] },
+      { title: 'Debilidades', items: foda.debilidades || [] },
+      { title: 'Amenazas', items: foda.amenazas || [] }
+    ];
+
+    contenedor.innerHTML = sections.map(section => `
+      <div class="metric-card">
+        <h3>${section.title}</h3>
+        <ul>${(section.items.length ? section.items : ['Sin información disponible']).map(item => `<li>${item}</li>`).join('')}</ul>
+      </div>
+    `).join('');
+  </script>
+</body>
+</html>

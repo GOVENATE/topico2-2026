@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Collage · Habilidades directivas, capítulos 3 y 7</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@600;800&family=Figtree:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#eceaf3;--ink:#1d1b2e;--nav:#fffffff2;--line:#1d1b2e22;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);color-scheme:light}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#14131c;--ink:#ecebf5;--nav:#14131cf2;--line:#ecebf533;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#14131c;--ink:#ecebf5;--nav:#14131cf2;--line:#ecebf533;color-scheme:dark}
+html{scroll-padding-top:calc(env(safe-area-inset-top,0px) + 56px);scroll-behavior:smooth}
+*,*:before,*:after{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 16px/1.5 Figtree,system-ui,sans-serif}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);background:var(--nav);z-index:10}
+nav{position:sticky;top:env(safe-area-inset-top,0px);z-index:9;display:flex;gap:10px;align-items:center;padding:10px 16px;background:var(--nav);border-bottom:1px solid var(--line);backdrop-filter:blur(6px)}
+nav b{font:800 15px Fraunces,Georgia,serif;margin-right:auto}
+nav a{font-weight:600;text-decoration:none;color:#1d1b2e;padding:6px 14px;border-radius:99px;font-size:14px}
+nav a.n3{background:#ffc2d6}nav a.n7{background:#ffe45e}
+nav a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible{outline:3px solid #7a5cff;outline-offset:2px}
+header{padding:36px 20px 8px;max-width:1100px;margin:auto}
+h1{font:800 clamp(30px,6vw,58px)/1.02 Fraunces,Georgia,serif;margin:0 0 10px;letter-spacing:-.02em}
+header p{margin:0;max-width:60ch;opacity:.8}
+.board{margin:28px auto;max-width:1160px;border-radius:22px;padding:22px clamp(12px,3vw,28px) 30px;background:var(--bd);color:#fff}
+.b3{--bd:#3a2a6e;--p1:#ffc2d6;--p2:#fff1a6;--p3:#c4f0df;--p4:#ffffff;--p5:#ffb995}
+.b7{--bd:#0e3a5c;--p1:#ffe45e;--p2:#ffa77a;--p3:#bfe3ff;--p4:#ffffff;--p5:#d4f59b}
+.bh{display:flex;flex-wrap:wrap;align-items:end;gap:10px 20px;margin-bottom:22px}
+.bh h2{font:800 clamp(24px,4vw,40px)/1.08 Fraunces,Georgia,serif;margin:0;flex:1 1 320px}
+.bh small{display:block;font:600 14px Figtree,sans-serif;opacity:.8;margin-bottom:4px}
+.bh button{font:600 14px Figtree,sans-serif;border:2px solid #fff;background:transparent;color:#fff;border-radius:99px;padding:7px 16px;cursor:pointer}
+.bh button:hover{background:#fff;color:var(--bd)}
+.grid{display:grid;grid-template-columns:repeat(6,1fr);grid-auto-rows:118px;grid-auto-flow:dense;gap:20px 16px}
+.tile{position:relative;text-align:left;font:inherit;color:#1d1b2e;border:0;padding:16px 16px 12px;background:var(--c);cursor:pointer;grid-column:span var(--w,2);grid-row:span var(--h,2);transform:rotate(var(--r,0deg));transition:transform .25s,box-shadow .25s;box-shadow:0 6px 0 #0003;overflow:hidden;display:flex;flex-direction:column;gap:6px;border-radius:3px}
+.tile::before{content:"";position:absolute;top:-4px;left:50%;width:56px;height:16px;margin-left:-28px;background:#ffffff88;transform:rotate(-3deg)}
+.tile:hover,.tile:focus-visible{transform:rotate(0) scale(1.04);z-index:2;box-shadow:0 14px 0 #0004}
+.tile b{font:800 18px/1.15 Fraunces,Georgia,serif}
+.tile span{font-size:14px;line-height:1.35;overflow:hidden;display:-webkit-box;-webkit-line-clamp:5;-webkit-box-orient:vertical}
+.tile em{font:800 clamp(38px,5vw,60px)/1 Fraunces,Georgia,serif;font-style:normal}
+.tile i{margin-top:auto;font:600 12px Figtree;font-style:normal;opacity:.6}
+dialog{border:0;padding:0;background:transparent;max-width:min(680px,94vw);width:100%;color:#1d1b2e}
+dialog::backdrop{background:#0009}
+.paper{background:var(--c);padding:26px 26px 24px;border-radius:4px;max-height:86vh;overflow:auto;box-shadow:0 12px 0 #0004}
+.paper h3{font:800 26px/1.15 Fraunces,Georgia,serif;margin:0 28px 12px 0}
+.paper p,.paper li{max-width:62ch}
+.paper ul,.paper ol{padding-left:20px;margin:8px 0}
+.x{position:absolute;top:10px;right:14px;font:800 22px Figtree;background:none;border:0;cursor:pointer;color:#1d1b2e;padding:4px 8px}
+.paper table{border-collapse:collapse;width:100%;font-size:14px;display:block;overflow-x:auto}
+.paper td,.paper th{border:1px solid #1d1b2e44;padding:6px 8px;text-align:left}
+.paper label{display:block;margin:6px 0}
+.paper input[type=number],.paper select{font:inherit;padding:5px 8px;border:2px solid #1d1b2e;background:#fff;color:#1d1b2e;border-radius:6px;width:110px}
+.res{margin-top:12px;padding:12px 14px;background:#1d1b2e;color:#fff;border-radius:6px;font-weight:600}
+.steps{display:flex;gap:6px;flex-wrap:wrap;margin:8px 0}
+.steps button{width:40px;height:40px;border-radius:50%;border:2px solid #1d1b2e;background:#fff;font:800 16px Figtree;cursor:pointer;color:#1d1b2e}
+.steps button[aria-pressed=true]{background:#1d1b2e;color:#fff}
+.chips{display:flex;flex-wrap:wrap;gap:6px;padding:0;list-style:none}
+.chips li{background:#fff8;border:1.5px solid #1d1b2e;border-radius:99px;padding:3px 12px;font-size:14px}
+footer{max-width:1100px;margin:0 auto;padding:10px 20px 40px;font-size:13px;opacity:.7}
+@media (max-width:820px){.grid{grid-template-columns:repeat(2,1fr);grid-auto-rows:150px}.tile{grid-column:span var(--wm,1);grid-row:span var(--hm,1)}}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
+</style>
+</head>
+<body>
+<nav><b>Habilidades directivas</b><a class="n3" href="#cap3">Capítulo 3</a><a class="n7" href="#cap7">Capítulo 7</a></nav>
+<header><h1>Dos capítulos, dos collages.</h1><p>Toca cualquier recorte para abrirlo. Algunos incluyen herramientas para probar: una lista de rasgos, una calculadora de resultados, un simulador de decisión. Resumen propio del libro de Madrigal Torres et al., 2.ª ed.</p></header>
+
+<section class="board b3" id="cap3" aria-labelledby="t3">
+<div class="bh"><h2 id="t3"><small>Capítulo 3 · Berta E. Madrigal Torres</small>Inteligencia emocional, habilidad imprescindible para dirigir</h2><button data-sh="g3">Barajar recortes</button></div>
+<div class="grid" id="g3"></div></section>
+
+<section class="board b7" id="cap7" aria-labelledby="t7">
+<div class="bh"><h2 id="t7"><small>Capítulo 7 · Madrigal Torres y Vázquez Ávila</small>Toma de decisiones, esencia de la dirección</h2><button data-sh="g7">Barajar recortes</button></div>
+<div class="grid" id="g7"></div></section>
+
+<footer>Contenido resumido y parafraseado de Habilidades directivas (McGraw-Hill, 2.ª ed.), cap. 3 y cap. 7.</footer>
+
+<dialog id="dlg"><article class="paper" id="pp"></article></dialog>
+
+<script>
+const $=s=>document.querySelector(s);
+const C3=[
+{t:"De qué trata",c:4,w:3,h:2,p:"Identificar y desarrollar las emociones propias y las del equipo, para orientarlas con empatía hacia un objetivo común.",d:"<p>El objetivo del capítulo es que el líder, directivo o estudiante identifique y desarrolle sus propias emociones y las de sus subordinados, y las oriente con empatía y armonía laboral hacia un objetivo común.</p><p>La autora recuerda a Aristóteles: enojarse es fácil; hacerlo con la persona, la intensidad, el momento, el motivo y la forma correctos, no. A eso lo llama <b>control de la inteligencia emocional</b>.</p>"},
+{t:"Detrás del trabajo en equipo",n:"90 %",c:2,w:1,h:2,p:"de la diferencia de desempeño entre gerentes se atribuyó a factores emocionales.",d:"<p>Goleman comparó empresas de éxito mundial (entre ellas Lucent Technologies, British Airways y Credit Suisse) en tres tipos de aptitudes: técnicas, cognoscitivas y de inteligencia emocional.</p><p>Resultado: cerca del <b>90 %</b> de la diferencia en el desempeño de los gerentes se explicaba por factores asociados con la inteligencia emocional.</p>"},
+{t:"15 % vs 85 %",c:3,w:2,h:2,p:"Según investigaciones de Harvard, solo 15 % del éxito viene de conocimientos técnicos.",d:"<p>Estudios de la Universidad de Harvard encontraron que solo el <b>15 %</b> de las razones del éxito personal y profesional se relaciona con habilidades técnicas y conocimientos.</p><p>El otro <b>85 %</b> depende de la actitud, el grado de motivación y la capacidad de construir relaciones positivas.</p>"},
+{t:"¿Cómo amaneció el jefe?",c:1,w:2,h:2,p:"Los subalternos preguntaban a la secretaria por la “temperatura” del jefe antes de entrar.",d:"<p>La autora cuenta que, en una institución pública, el jefe tenía un carácter explosivo y cambiante: antes de entrar a su oficina, todos preguntaban a la secretaria cómo había amanecido.</p><p>Las emociones, el estrés, la agresividad y también la tranquilidad se transmiten: un directivo autoritario tiende a generar subalternos autoritarios con el nivel siguiente.</p><h4>Personalidad tipo A (Torres, 2000)</h4><ul><li>Mando dominante y autoritario</li><li>Dificultad para expresar emociones</li><li>Actitud hostil y competitiva</li><li>Centrado en tareas</li><li>Descuida las relaciones</li></ul>"},
+{t:"Inteligencia personal",c:5,w:2,h:2,p:"Automotivación, autoconciencia y autocontrol: cómo te relacionas contigo.",d:"<p>Es lo que determina cómo nos relacionamos con nosotros mismos. En el trabajo tiene tres componentes:</p><ul><li><b>Automotivación:</b> persistir hacia las metas por encima de la simple recompensa económica, con iniciativa y optimismo.</li><li><b>Autoconciencia:</b> reconocer fortalezas, debilidades, ánimos e impulsos y su efecto en los demás; admitir errores.</li><li><b>Autocontrol:</b> manejar impulsos, pensar antes de actuar, controlar el estrés y ser flexible ante el cambio.</li></ul>"},
+{t:"Inteligencia interpersonal",c:3,w:2,h:2,p:"Empatía e inteligencia social: entender y manejar a los demás.",d:"<p>Es la habilidad de entender a los demás y se apoya en dos pilares:</p><ul><li><b>Empatía:</b> entender necesidades, sentimientos y problemas del otro, ponerse en su lugar. Requiere saber escuchar y leer la comunicación no verbal.</li><li><b>Inteligencia social:</b> persuadir, influir, negociar, liderar cambios y crear sinergia en el equipo.</li></ul><p>Goleman sostiene que la inteligencia emocional no se fija al nacer: se puede cultivar y fortalecer.</p>"},
+{t:"El directivo narcisista",c:1,w:2,h:3,p:"Nueve rasgos descritos por Irigoyen. Descubre cuántos reconoces (en ti o en otros).",f:"nar",d:"<p>Según Irigoyen (2001), un directivo narcisista presenta al menos cinco de estos rasgos. La autora invita a evaluarse a uno mismo, no solo al jefe.</p><div id=nl></div><div class=res id=nr></div>"},
+{t:"CI alto, CE bajo",c:2,w:2,h:2,p:"En un grupo piloto, los directivos con formación en ingeniería mostraron más CI que CE.",d:"<p>En un grupo piloto de directivos que cursaban una maestría (CUCEA, U. de Guadalajara, 2000), se aplicaron el test de Kosty (rasgos de personalidad) y el de Terman (cociente intelectual).</p><p>Los directivos con formación en ciencias puras, sobre todo ingeniería, tenían un CI alto frente a un CE relativamente más bajo. La autora aclara que el grupo es pequeño y no permite generalizar, pero ambos coeficientes son esenciales.</p>"},
+{t:"Estudiantes y género",c:5,w:2,h:2,p:"Negocios internacionales lidera la IE por carrera; las mujeres promedian algo más.",d:"<p>En un estudio con estudiantes de seis licenciaturas económico-administrativas, el nivel más alto de IE fue el de <b>Negocios internacionales</b>, seguido de <b>Mercadotecnia</b>, luego <b>Recursos humanos</b> y <b>Administración</b>.</p><table><tr><th></th><th>Edad prom.</th><th>IE prom.</th></tr><tr><td>Mujeres</td><td>21.83</td><td>32.39</td></tr><tr><td>Hombres</td><td>22.4</td><td>31.75</td></tr></table><p>Fuente del libro: investigación de campo con licenciatura, 2008.</p>"},
+{t:"Liderazgo afiliativo",c:4,w:2,h:2,p:"Se apoya en empatía, generación de relaciones y comunicación.",d:"<p>Un líder afiliativo se sostiene en tres competencias emocionales: <b>empatía</b>, <b>generación de relaciones</b> y <b>comunicación</b>.</p><p>Quien suele ser marcapasos y quiere usar más el estilo afiliativo debe mejorar esas tres; un líder autoritario que quiera sumar el estilo democrático necesita trabajar colaboración y comunicación.</p>"},
+{t:"3 casos para discutir",c:2,w:2,h:2,p:"Una hija con CI de 130, una cena en Buenos Aires y un discurso presidencial.",d:"<ol><li><b>Inteligencia emocional de mi hija.</b> Un colega presume el CI de 130 de su hija; otro bromea que tendrá un jefe con CI de 90. ¿Sucede en las empresas? ¿Cómo se desarrolla y cómo impacta?</li><li><b>Inteligencia social.</b> En un restaurante de Buenos Aires, dos señoras se adelantan en la fila y la autora, en vez de reclamar, propone compartir mesa. Resultado: una cena memorable.</li><li><b>Mensaje de Felipe Calderón a líderes empresariales.</b> Analizar el impacto emocional del discurso en su audiencia.</li></ol>"},
+{t:"Mide tu nivel",c:3,w:2,h:2,p:"Dos tests del capítulo, con su interpretación. Calcula tu puntaje.",f:"test",d:"<p>El capítulo incluye dos tests. Elige uno, escribe tu suma y mira la lectura del libro.</p><label>Test <select id=ts><option value=a>1 · 20 afirmaciones (0–80)</option><option value=b>2 · 12 preguntas (0–48)</option></select></label><label>Tu puntaje <input type=number id=tn min=0 max=80></label><div class=res id=tr>Escribe un puntaje.</div>"}
+];
+const C7=[
+{t:"De qué trata",c:4,w:3,h:2,p:"Conocer el impacto de las decisiones y el proceso para tomarlas con efectividad.",d:"<p>Que el directivo conozca el impacto de las decisiones, personales e institucionales, el proceso para tomarlas y cómo y cuándo hacerlo con efectividad.</p><p>Se abre con Winston Churchill, quien tomó decisiones difíciles e impopulares durante la Segunda Guerra Mundial y aun así es reconocido como uno de los grandes estadistas del siglo XX.</p>"},
+{t:"Decidir es cortar",c:1,w:1,h:2,p:"Del latín de-cidere: elegir una opción y dejar las demás.",d:"<p>Decisión viene del latín <i>de-cidere</i>, afín a incisión y preciso: “cortar o dejar”. Ante dos o más posibilidades se toma una y se renuncian las otras.</p><p>Decisión no es conclusión: la conclusión cierra un raciocinio (inteligencia); la decisión cierra una deliberación y exige voluntad.</p>"},
+{t:"Seis pasos para decidir",c:2,w:2,h:2,p:"Del problema a la acción. Recorre el proceso paso a paso.",f:"steps",d:"<p>Proceso racional de decisión:</p><div class=steps id=sb></div><div class=res id=sr></div>"},
+{t:"Decisiones programadas y no programadas",c:3,w:2,h:2,p:"Rutina y procesos establecidos frente a situaciones nuevas y mal estructuradas.",d:"<ul><li><b>Programadas:</b> repetitivas, de rutina, resueltas con procesos que la organización ya definió.</li><li><b>No programadas:</b> de momento, con estructuras deficientes o nuevas políticas; se tratan con procesos generales de solución de problemas.</li></ul><p>Además, las decisiones <b>tradicionales</b> responden a hábito, rutina, estructura, políticas y normas, y las <b>modernas</b> a juicio, intuición, creatividad, modelos, simulación y análisis matemático.</p>"},
+{t:"Ocho tipos de decisión",c:5,w:2,h:3,p:"Por sujeto, contenido, repercusión, certeza, autoridad, nivel, participación y eficacia.",d:"<p>Clasificación (adaptada de Rodríguez Estrada):</p><ul><li>Por sujeto: individuales o grupales</li><li>Por contenido: programadas o no programadas</li><li>Por repercusión: sobre uno mismo o sobre otros</li><li>Por conocimiento: certidumbre o incertidumbre</li><li>Por autoridad: técnicas o ejecutivas</li><li>Por nivel: operativas, tácticas o estratégicas</li><li>Por participación: autoritarias, por votación o por unanimidad</li><li>Por eficacia: buenas o malas</li></ul>"},
+{t:"Barreras",c:1,w:2,h:3,p:"Lo que impide decidir bien: ilusión de control, presión de tiempo, falta de objetividad…",d:"<p>Ocho obstáculos frecuentes:</p><ul class=chips><li>Desconocer el tema</li><li>Saltarse el proceso</li><li>Decidir irracionalmente</li><li>Ilusión de control</li><li>Centralismo</li><li>Evaluación subjetiva</li><li>Efectos de perspectiva</li><li>Falta de objetividad</li><li>Desestimar el futuro</li><li>Presión de tiempo</li></ul><p>Las empresas de microcomputadoras decidieron con información en tiempo real e involucrando a expertos de confianza; si las diferencias no se resuelven, manda la decisión final del jefe.</p>"},
+{t:"Calculadora de equilibrio",c:3,w:2,h:3,p:"Prueba el ejemplo de la Cámara de Comercio: ¿cuántos asistentes cubren los costos?",f:"pe",d:"<p>Ejemplo del libro: una cámara de comercio organiza un evento con cuota de $20, costos fijos de $525 y $5 variables por persona.</p><label>Cuota $ <input type=number id=cp value=20></label><label>Costos fijos $ <input type=number id=cf value=525></label><label>Costo variable $ <input type=number id=cv value=5></label><label>Asistentes <input type=number id=ca value=60></label><div class=res id=cr></div>"},
+{t:"Planta pequeña o grande",c:2,w:2,h:3,p:"Teoría de la decisión: acciones, eventos y resultados. Mueve la probabilidad.",f:"plant",d:"<p>Acciones <b>A1</b> (planta pequeña) y <b>A2</b> (grande); eventos <b>E1</b> demanda débil y <b>E2</b> fuerte. Utilidades anuales en millones de dólares (la planta grande con demanda débil, “menos de 2”, se toma como 2):</p><table><tr><th></th><th>E1 débil</th><th>E2 fuerte</th></tr><tr><td>A1 pequeña</td><td>8</td><td>5</td></tr><tr><td>A2 grande</td><td>2</td><td>12</td></tr></table><label>Prob. de demanda fuerte: <b id=pv>50</b> %<br><input type=range id=pr min=0 max=100 value=50></label><div class=res id=pw></div>"},
+{t:"Decidir en equipo",c:4,w:2,h:2,p:"Consultar no exime de responsabilidad: reúne alternativas sumando experiencias.",d:"<p>El directivo democrático decide en grupo, pero sigue siendo responsable último. Consultar sirve para reunir más alternativas, y vale la pena solo si se elige bien a quién consultar.</p>"},
+{t:"Cuatro cualidades",c:5,w:2,h:2,p:"Experiencia, buen juicio, creatividad y habilidades cuantitativas.",d:"<p>Primero, ser <b>apto</b>: tener los conocimientos mínimos sobre lo que se decide. Eso se resume en <b>experiencia, buen juicio, creatividad y habilidades cuantitativas</b>.</p><p>Las matemáticas son una herramienta de apoyo: ningún tecnicismo reemplaza la intuición ni la habilidad directiva, pero aportan precisión.</p>"},
+{t:"Caso: gasolina",c:1,w:2,h:2,p:"Calderón frena el aumento a combustibles tras la reforma fiscal.",d:"<p>Tras la reforma fiscal se esperaban aumentos a combustibles. En cadena nacional, Felipe Calderón anunció que detenía el aumento a la gasolina y cancelaba alzas a diésel, gas LP y tarifas eléctricas domésticas durante ese año, para proteger a las familias más pobres.</p><p>Preguntas: ¿cómo impacta la decisión? ¿Por qué retractarse? ¿Por qué prolongarla? ¿Qué efectos tendrá a corto y largo plazo?</p>"}
+];
+function build(id,arr){const g=$('#'+id);g.innerHTML='';arr.forEach((x,i)=>{const b=document.createElement('button');b.className='tile';b.type='button';
+b.style.cssText=`--c:var(--p${x.c});--w:${x.w};--h:${x.h};--wm:${x.w>2?2:1};--hm:${x.h>2?2:1};--r:${((i*37)%7-3)*.6}deg`;b.dataset.r=b.style.getPropertyValue('--r');
+b.innerHTML=(x.n?`<em>${x.n}</em>`:`<b>${x.t}</b>`)+`<span>${x.n?x.t+': ':''}${x.p}</span><i>Abrir</i>`;
+b.onclick=()=>open(x,b);g.append(b)})}
+function open(x,t){const p=$('#pp');p.style.background=getComputedStyle(t).backgroundColor;
+p.innerHTML=`<button class=x aria-label="Cerrar" onclick="dlg.close()">×</button><h3>${x.t}</h3>`+x.d;dlg.showModal();if(x.f)W[x.f]()}
+const dlg=$('#dlg');dlg.addEventListener('click',e=>{if(e.target===dlg)dlg.close()});
+const W={
+nar(){const L=["Tiene una idea grandiosa de su importancia","Lo absorben fantasías de éxito y poder","Se considera especial y único","Necesita ser admirado en exceso","Piensa que merece todo","Suele explotar a los demás","Carece de empatía","A menudo envidia a los demás","Actitudes arrogantes"];
+$('#nl').innerHTML=L.map((l,i)=>`<label><input type=checkbox> ${l}</label>`).join('');
+const f=()=>{const n=document.querySelectorAll('#nl input:checked').length;$('#nr').textContent=`${n} de 9 rasgos. `+(n>=5?"Alcanza el umbral de cinco que describe Irigoyen. Es una guía de reflexión, no un diagnóstico.":"Por debajo del umbral de cinco rasgos. Aun así, el libro sugiere autoevaluarse con honestidad.")};
+$('#nl').onchange=f;f()},
+test(){const f=()=>{const v=$('#tn').value,a=$('#ts').value=='a',n=+v;let m="Escribe un puntaje.";if(v!==''){m=a?(n<60?"Menos de 60: tienes mucho margen para mejorar desarrollando tu inteligencia emocional.":n>75?"Más de 75: nivel muy alto de inteligencia emocional.":"Entre 60 y 75: zona intermedia (el libro no da lectura específica)."):(n>=36?"36 o más: probablemente tienes inteligencia emocional superior.":n>=25?"25 a 35: nivel promedio.":"Menos de 24: conviene desarrollar más tus habilidades emocionales; busca ayuda.")}$('#tr').textContent=m};
+$('#tn').oninput=$('#ts').onchange=f},
+steps(){const S=["Percibir y definir el problema, distinguiendo causas, efectos y síntomas.","Fijar el resultado deseado y los criterios para juzgar soluciones; reunir información suficiente.","Plantear muchas alternativas y quedarse con las viables; evitar soluciones rutinarias que solo posponen el problema.","Elegir la alternativa que mejor elimine el problema, con pros, contras y datos cuantitativos; tener una segunda opción.","Elaborar el plan de acción: fijar la estrategia.","Ponerlo en práctica: traducir la decisión en acción."];
+const sb=$('#sb');S.forEach((s,i)=>{const b=document.createElement('button');b.textContent=i+1;b.setAttribute('aria-pressed',i==0);b.onclick=()=>{[...sb.children].forEach(c=>c.setAttribute('aria-pressed',c==b));$('#sr').textContent=S[i]};sb.append(b)});$('#sr').textContent=S[0]},
+pe(){const f=()=>{const p=+$('#cp').value,F=+$('#cf').value,v=+$('#cv').value,a=+$('#ca').value,m=p-v;const g=p*a-(F+v*a);$('#cr').innerHTML=(m>0?`Punto de equilibrio: <b>${Math.ceil(F/m*100)/100} personas</b>. `:"El precio debe superar el costo variable. ")+`Con ${a} asistentes: ${g>=0?'ganancia':'pérdida'} de <b>$${Math.abs(g)}</b>.`};
+['cp','cf','cv','ca'].forEach(i=>$('#'+i).oninput=f);f()},
+plant(){const f=()=>{const p=$('#pr').value/100;$('#pv').textContent=Math.round(p*100);const a=8*(1-p)+5*p,b=2*(1-p)+12*p;$('#pw').innerHTML=`Valor esperado: A1 = <b>${a.toFixed(1)}</b> M · A2 = <b>${b.toFixed(1)}</b> M.<br>Conviene ${Math.abs(a-b)<.05?'cualquiera':a>b?'A1, planta pequeña':'A2, planta grande'}.`};$('#pr').oninput=f;f()}};
+build('g3',C3);build('g7',C7);
+document.querySelectorAll('[data-sh]').forEach(b=>b.onclick=()=>{const g=$('#'+b.dataset.sh),on=b.dataset.on!='1';b.dataset.on=on?1:0;b.textContent=on?'Ordenar':'Barajar recortes';
+[...g.children].forEach(t=>{t.style.setProperty('--r',on?((Math.random()*8-4).toFixed(1)+'deg'):t.dataset.r);t.style.order=on?Math.floor(Math.random()*20):0})});
+</script>
+</body>
+</html>

@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="es"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Collages interactivos</title>
+<style>
+:root{--bg:#f6f1e7;--ink:#2b2622;--mute:#6f655b;--card:#fffdf8;--line:#2b262222;--a4:#e4572e;--a6:#7b5ea7;--a11:#2a9d8f;--a12:#2f6fba;--am:#c8961a;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#1d1a17;--ink:#f1ebe2;--mute:#a79d91;--card:#2a2622;--line:#f1ebe233}}
+:root[data-theme="dark"]{--bg:#1d1a17;--ink:#f1ebe2;--mute:#a79d91;--card:#2a2622;--line:#f1ebe233}
+html{scroll-behavior:smooth;scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:Georgia,"Times New Roman",serif;line-height:1.4}
+header{padding:40px 20px 10px;max-width:1100px;margin:auto}
+h1{font-size:clamp(30px,6vw,54px);margin:0;letter-spacing:-.02em}
+header p{color:var(--mute);margin:8px 0 0;font-family:system-ui,sans-serif;font-size:15px}
+nav{display:flex;flex-wrap:wrap;gap:8px;max-width:1100px;margin:16px auto 0;padding:0 20px;font-family:system-ui,sans-serif}
+nav a{padding:7px 14px;border-radius:99px;text-decoration:none;color:#fff;font-size:14px;font-weight:600}
+section{max-width:1100px;margin:34px auto;padding:0 20px}
+.head{display:flex;justify-content:space-between;align-items:end;gap:12px;flex-wrap:wrap;border-bottom:3px solid var(--c);padding-bottom:8px}
+.head small{font-family:system-ui,sans-serif;color:var(--c);font-weight:700;letter-spacing:.08em;text-transform:uppercase;font-size:12px}
+h2{margin:0;font-size:clamp(24px,4vw,36px)}
+button{font:600 13px system-ui,sans-serif;border:1.5px solid var(--c);background:transparent;color:var(--c);padding:7px 14px;border-radius:99px;cursor:pointer}
+button:hover{background:var(--c);color:#fff}
+.hint{font:13px system-ui,sans-serif;color:var(--mute);margin:8px 0 0}
+.board{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:22px 16px;padding:26px 6px 14px}
+.card{position:relative;background:var(--card);border:1px solid var(--line);border-top:6px solid var(--c);border-radius:4px;padding:14px 12px;min-height:130px;cursor:grab;touch-action:none;user-select:none;box-shadow:0 6px 14px #0002;transition:box-shadow .2s,min-height .2s}
+.card:hover{box-shadow:0 12px 24px #0003}
+.card.drag{cursor:grabbing;box-shadow:0 18px 34px #0004;transition:none}
+.card .e{font-size:28px}
+.card b{display:block;font-size:15px;margin-top:4px}
+.card p{display:none;margin:8px 0 0;font:13px/1.4 system-ui,sans-serif;color:var(--mute)}
+.card.open{min-height:190px}.card.open p{display:block}
+.card.big{grid-column:span 2;background:var(--c);color:#fff;border-color:var(--c)}
+.card.big p{display:block;color:#fffd}
+footer{text-align:center;color:var(--mute);font:13px system-ui,sans-serif;padding:30px 20px 50px}
+</style></head><body>
+<header><h1>Collages de ideas</h1><p>Toca una nota para abrirla. Arrástrala para reacomodar. Cada collage es independiente.</p></header>
+<nav id="nav"></nav>
+<main id="main"></main>
+<footer>Basado en «Habilidades directivas» (caps. 4, 6, 11 y 12) y «Los secretos de la mente millonaria».</footer>
+<script>
+const D=[
+{id:"c4",c:"--a4",k:"Habilidades directivas · Cap. 4",t:"Comunicación",i:[
+["🔁","La comunicación como proceso","Hay un propósito que se expresa como mensaje y viaja de una persona a otra."],
+["7️⃣","Siete pasos","Fuente, codificación, mensaje, canal, decodificación, receptor y retroalimentación."],
+["🧩","Cuatro niveles","Intrapersonal, interpersonal, grupal y organizacional."],
+["💻","Tecnología","La tecnología cambia cómo se comunica una organización y qué herramientas usa."],
+["💪","Persona asertiva","Expresa lo que piensa y siente con claridad, sin agredir ni someterse."],
+["🛠️","Técnicas asertivas","Disco rayado, banco de niebla, guión DEEC, compromiso viable, recepción activa y más."],
+["🧍","Comunicación no verbal","Gestos, postura y tono refuerzan o contradicen lo que dices."],
+["👂","El arte de escuchar","Escuchar con atención activa es tan importante como hablar."],
+["✉️","Comunicación escrita","Claridad y orden al redactar, sobre todo en el correo electrónico."],
+["🎤","Hablar en público","Habilidades para presentar ideas ante un grupo con seguridad."],
+["⚠️","Noticias desagradables","Sugerencias para comunicar malas noticias con tacto y honestidad."]]},
+{id:"c6",c:"--a6",k:"Habilidades directivas · Cap. 6",t:"Creatividad",i:[
+["💡","¿Cosa de genios?","La creatividad no es exclusiva de unos pocos: se puede desarrollar."],
+["↔️","Convergente y divergente","Convergente busca una sola respuesta; divergente abre muchas posibilidades."],
+["🔄","Fases del pensamiento","Orientación, preparación, incubación, iluminación y verificación."],
+["🎨","Persona creativa","Rasgos que suelen compartir quienes piensan de forma original."],
+["🛟","Rescate del espíritu creativo","Recuperar la curiosidad y el juego que a menudo se pierden con los años."],
+["🧱","Inhibidores individuales","Bloqueos propios: miedo al error, hábitos y autocensura."],
+["🏢","Inhibidores organizacionales","Rutinas, rigidez y críticas en la empresa que frenan las ideas nuevas."],
+["🧭","Dirección y aventura creativa","Dirigir puede ser una experiencia creativa y entusiasmante."],
+["🔎","Descubrir el espíritu creativo","Pasos para encontrar y activar la creatividad en el trabajo."],
+["🧠","Principios del cerebro","Ideas sobre cómo funciona el cerebro para pensar con más fluidez."]]},
+{id:"c11",c:"--a11",k:"Habilidades directivas · Cap. 11",t:"Motivación",i:[
+["🔥","Alcances de la motivación","Fuerza interna que impulsa a actuar y a perseverar hacia una meta."],
+["🏭","En el trabajo","Lo que lleva a las personas a rendir y comprometerse con su labor."],
+["⚙️","El proceso","Una necesidad genera un impulso, una conducta y, al final, satisfacción."],
+["🤝","Cómo motivar","Estrategias concretas del directivo para animar a su gente."],
+["🔧","Modelos","Mecanicista y conductista, dos formas tempranas de ver la motivación."],
+["🔺","Pirámide de Maslow","Las necesidades se jerarquizan; al cubrir una, aparece la siguiente."],
+["🎯","Teoría de expectativas","Se motiva quien cree que su esfuerzo dará resultados valiosos."],
+["⚖️","Teoría de equidad","Las personas comparan lo que aportan y reciben con lo de otros."],
+["❤️","Motivación intrínseca","Nace del interés propio; incluye recomendaciones para automotivarse."],
+["🏆","Motivación extrínseca","Viene de afuera: pagos, reconocimientos y condiciones del empleo."],
+["🧑‍💼","Motivación del directivo","Qué impulsa al directivo y qué factores influyen en su compromiso."]]},
+{id:"c12",c:"--a12",k:"Habilidades directivas · Cap. 12",t:"La habilidad estratégica",i:[
+["♟️","Habilidad vs. estrategia","Se distingue la habilidad de la estrategia, aunque se complementan."],
+["🧗","Liderazgo estratégico","Orienta a la organización hacia el futuro y logra resultados eficaces."],
+["📌","Estrategia en la dirección","Dar rumbo es parte esencial del trabajo directivo."],
+["🗺️","Mapas de estrategia","Muestran cómo se enlazan objetivos, incluyendo los activos intangibles."],
+["📐","Una disciplina","La estrategia se diseña con método, no por intuición suelta."],
+["🧑‍✈️","Papel del líder","El directivo participa activamente en diseñar la estrategia."],
+["🌊","Flexibilidad","Adaptar la estrategia cuando el entorno cambia."],
+["🥇","Ventaja competitiva","La planeación estratégica busca ventajas frente a los competidores."],
+["🏛️","Tres pilares","Pensamiento, actitud e intención estratégica."],
+["👥","Talento y conocimiento","Las personas y la gestión del conocimiento sostienen la estrategia."],
+["🌪️","Factores incontrolables","Variables externas que hay que anticipar y variables que sí se manejan."]]},
+{id:"cm",c:"--am",k:"Los secretos de la mente millonaria",t:"Mente millonaria",i:[
+["🧠","Tu modelo financiero","big","Pensamientos → sentimientos → acciones → resultados. Cambia el modelo interno y cambia tu resultado."],
+["1","Creo mi vida","Los ricos asumen el control; los pobres creen que la vida les sucede."],
+["2","Jugar para ganar","Los ricos juegan a ganar; los pobres, a no perder."],
+["3","Compromiso","Los ricos se comprometen a serlo; los pobres solo lo desean."],
+["4","Pensar en grande","Los ricos piensan en grande, los pobres en pequeño."],
+["5","Oportunidades","Los ricos ven oportunidades; los pobres, obstáculos."],
+["6","Admirar a los ricos","Los ricos admiran la prosperidad ajena y aprenden de ella."],
+["7","Buenas compañías","Los ricos se rodean de personas positivas y exitosas."],
+["8","Promocionarse","Los ricos aceptan promocionarse y vender."],
+["9","Más grande que el problema","Los ricos se crecen ante los problemas."],
+["10","Saber recibir","Los ricos son excelentes receptores."],
+["11","Pago por resultados","Los ricos cobran por resultados, no por tiempo empleado."],
+["12","Las dos cosas","Los ricos piensan en «ambas», con mentalidad de abundancia."],
+["13","Fortuna neta","Los ricos miran su patrimonio, no solo lo que ganan."],
+["14","Gestionar el dinero","Los ricos administran bien su dinero."],
+["15","Dinero que trabaja","Los ricos hacen que su dinero trabaje duro para ellos."],
+["16","Actuar con miedo","Los ricos actúan a pesar del miedo."],
+["17","Aprender siempre","Los ricos aprenden y crecen constantemente."]]}];
+const nav=document.getElementById("nav"),main=document.getElementById("main");
+D.forEach(d=>{
+ const a=document.createElement("a");a.href="#"+d.id;a.textContent=d.t;a.style.background=`var(${d.c})`;nav.append(a);
+ const s=document.createElement("section");s.id=d.id;s.style.setProperty("--c",`var(${d.c})`);
+ s.innerHTML=`<div class="head"><div><small>${d.k}</small><h2>${d.t}</h2></div><button>Revolver</button></div><p class="hint">Toca para abrir · arrastra para mover</p><div class="board"></div>`;
+ const b=s.querySelector(".board");
+ d.i.forEach(x=>{
+  const big=x[2]==="big",el=document.createElement("div");el.className="card"+(big?" big":"");
+  el.innerHTML=`<div class="e">${x[0]}</div><b>${x[1]}</b><p>${big?x[3]:x[2]}</p>`;
+  b.append(el);
+ });
+ const reset=()=>b.querySelectorAll(".card").forEach(c=>{c._x=0;c._y=0;c._r=(Math.random()*8-4);place(c)});
+ const place=c=>c.style.transform=`translate(${c._x}px,${c._y}px) rotate(${c.classList.contains("open")?0:c._r}deg)`;
+ let z=1;
+ b.querySelectorAll(".card").forEach(c=>{
+  let sx,sy,ox,oy,moved;
+  c.addEventListener("pointerdown",e=>{c.setPointerCapture(e.pointerId);sx=e.clientX;sy=e.clientY;ox=c._x;oy=c._y;moved=false;c.classList.add("drag");c.style.zIndex=++z});
+  c.addEventListener("pointermove",e=>{if(!c.classList.contains("drag"))return;const dx=e.clientX-sx,dy=e.clientY-sy;if(Math.abs(dx)+Math.abs(dy)>5)moved=true;c._x=ox+dx;c._y=oy+dy;place(c)});
+  c.addEventListener("pointerup",()=>{c.classList.remove("drag");if(!moved){c.classList.toggle("open");place(c)}});
+  c.addEventListener("pointercancel",()=>c.classList.remove("drag"));
+ });
+ s.querySelector("button").onclick=()=>{b.querySelectorAll(".card.open").forEach(c=>c.classList.remove("open"));reset()};
+ main.append(s);reset();
+});
+</script></body></html>
