@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<title>Lorenzo Zambrano y Cemex</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;700&family=Source+Serif+4:ital,wght@0,400;0,600;1,400&display=swap">
+<link rel="stylesheet" href="fuente.css">
+<style>
+  .retrato { display: grid; grid-template-columns: 300px 1fr; gap: 36px; align-items: center; }
+  .retrato img { width: 300px; height: 370px; object-fit: cover; border-radius: var(--radio); }
+  .linea { position: relative; padding-left: 56px; }
+  .linea::before { content: ""; position: absolute; left: 18px; top: 8px; bottom: 8px; width: 4px; background: var(--acento); border-radius: 2px; }
+  .hito { position: relative; margin-bottom: 24px; }
+  .hito::before { content: ""; position: absolute; left: -46px; top: 8px; width: 20px; height: 20px; border-radius: 50%; background: var(--superficie); border: 4px solid var(--acento); }
+  .hito b { font: 700 34px/1 var(--f-titulo); color: var(--acento); display: block; margin-bottom: 4px; }
+  .hito p { margin: 0; }
+  .leccion { border-left: 6px solid var(--acento-2); padding-left: 20px; margin-bottom: 16px; }
+</style>
+</head>
+<body class="info">
+<header class="banda">
+  <p class="rotulo">Actividad 18 · Empresarios mexicanos</p>
+  <h1>Lorenzo Zambrano: la visión que hizo global a Cemex</h1>
+  <p>Ingeniero regiomontano (1944-2014). En casi 30 años como director convirtió una cementera regional en una de las más grandes del mundo.</p>
+</header>
+
+<div class="bloques">
+  <section class="bloque retrato">
+    <img id="retrato" src="img/zambrano-cemex.jpg" alt="Lorenzo H. Zambrano">
+    <div>
+      <h2>Quién era</h2>
+      <p>Nieto de Lorenzo Zambrano, fundador de Cementos Portland Monterrey, que en 1931 se unió con Cementos Hidalgo para formar Cementos Mexicanos (Cemex). Estudió ingeniería mecánica en el Tec de Monterrey y una maestría en Stanford. Entró a Cemex en 1968 y llegó a director general en 1985.</p>
+      <p>Presidió el consejo del Tec de Monterrey por muchos años.</p>
+    </div>
+  </section>
+
+  <section class="bloque">
+    <h2>De regional a global</h2>
+    <div class="linea">
+      <div class="hito"><b>1906</b><p>Se funda Cementos Hidalgo en Nuevo León, origen de Cemex.</p></div>
+      <div class="hito"><b>1985</b><p>Zambrano asume la dirección. Vende negocios ajenos al cemento para concentrarse en lo que la empresa sabe hacer.</p></div>
+      <div class="hito"><b>1992</b><p>Compra las cementeras Valenciana y Sanson en España: primer gran salto fuera de América.</p></div>
+      <div class="hito"><b>2000</b><p>Adquiere Southdown en Estados Unidos.</p></div>
+      <div class="hito"><b>2005-2007</b><p>Compra RMC (Reino Unido) y Rinker (Australia). Cemex llega a más de 50 países.</p></div>
+      <div class="hito" style="margin-bottom:0"><b>2008-2014</b><p>La crisis financiera golpea por la deuda de las compras; Zambrano reestructura la empresa hasta su muerte en 2014.</p></div>
+    </div>
+  </section>
+
+  <section class="bloque">
+    <h2>Lecciones</h2>
+    <p class="leccion"><strong>Enfoque:</strong> antes de crecer, dejó todo lo que no era cemento.</p>
+    <p class="leccion"><strong>Tecnología:</strong> apostó por sistemas satelitales y de información para coordinar entregas cuando nadie en la industria lo hacía.</p>
+    <p class="leccion" style="margin-bottom:0"><strong>Riesgo:</strong> crecer con deuda lo llevó a la cima y casi lo derriba en 2008.</p>
+  </section>
+
+  <img class="foto" src="img/cemex-planta.jpg" alt="Planta de Cemex en South Ferriby, Inglaterra" style="height:300px">
+</div>
+
+<footer class="pie">
+  <strong>Juan Diego Olvera Medina</strong> · LATI, 9.º semestre · Tópicos II<br>
+  Imágenes: <em>Lorenzo H Zambrano</em>, CEMEX Photo Library, CC BY-SA 3.0; <em>Cemex Plant, South Ferriby</em>, David Wright, CC BY-SA 2.0; ambas vía Wikimedia Commons.<br>
+  Fuentes: Cemex, historia corporativa; Tecnológico de Monterrey, semblanza de Lorenzo H. Zambrano.
+</footer>
+<script src="fuente.js"></script>
+</body>
+</html>

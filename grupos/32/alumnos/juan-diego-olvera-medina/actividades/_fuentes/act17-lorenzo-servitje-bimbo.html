@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<title>Lorenzo Servitje y Bimbo</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;700&family=Source+Serif+4:ital,wght@0,400;0,600;1,400&display=swap">
+<link rel="stylesheet" href="fuente.css">
+<style>
+  .linea { position: relative; padding-left: 56px; }
+  .linea::before { content: ""; position: absolute; left: 18px; top: 8px; bottom: 8px; width: 4px; background: var(--acento); border-radius: 2px; }
+  .hito { position: relative; margin-bottom: 26px; }
+  .hito::before { content: ""; position: absolute; left: -46px; top: 8px; width: 20px; height: 20px; border-radius: 50%; background: var(--superficie); border: 4px solid var(--acento); }
+  .hito b { font: 700 34px/1 var(--f-titulo); color: var(--acento); display: block; margin-bottom: 4px; }
+  .hito p { margin: 0; }
+  .valores { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; text-align: center; }
+  .valores b { font: 700 26px var(--f-titulo); display: block; color: var(--acento-2); }
+</style>
+</head>
+<body class="info">
+<header class="banda">
+  <p class="rotulo">Actividad 17 · Empresarios mexicanos</p>
+  <h1>Lorenzo Servitje: de una panadería en la colonia Santa María a todo el mundo</h1>
+  <p>Fundador de Bimbo (1918-2017). Convirtió el pan de caja en una de las panificadoras más grandes del planeta sin perder de vista a su gente.</p>
+</header>
+
+<div class="bloques">
+  <img class="foto" src="img/bimbo-camion.jpg" alt="Camión de reparto de Bimbo" style="height:360px">
+
+  <section class="bloque">
+    <h2>Línea del tiempo</h2>
+    <div class="linea">
+      <div class="hito"><b>1918</b><p>Nace en la Ciudad de México, hijo de inmigrantes catalanes que tenían la pastelería El Molino.</p></div>
+      <div class="hito"><b>1945</b><p>Funda Panificación Bimbo con un pequeño grupo de socios. El primer producto: pan de caja envuelto en celofán, algo nuevo en México.</p></div>
+      <div class="hito"><b>1957</b><p>Nace Marinela y la empresa pasa del pan a los pastelitos.</p></div>
+      <div class="hito"><b>Décadas de 1980-1990</b><p>Llega a Estados Unidos y a Centroamérica; empieza la expansión internacional.</p></div>
+      <div class="hito"><b>Siglo XXI</b><p>Con su hijo Daniel Servitje al frente, Grupo Bimbo compra marcas en Estados Unidos, Canadá, Europa y Asia y se vuelve la panificadora más grande del mundo.</p></div>
+      <div class="hito" style="margin-bottom:0"><b>2017</b><p>Muere a los 98 años. Bimbo opera en más de 30 países.</p></div>
+    </div>
+  </section>
+
+  <section class="bloque">
+    <h2>Su forma de hacer empresa</h2>
+    <p>Servitje decía que la empresa tiene una función económica y una social, y que las dos pesan igual. Por eso Bimbo construyó escuelas y servicios para sus trabajadores y promovió la idea de una empresa "altamente productiva y plenamente humana".</p>
+    <div class="valores">
+      <div><b>Calidad</b>Pan fresco todos los días, con su propia red de reparto.</div>
+      <div><b>Persona</b>El trabajador como centro, no como costo.</div>
+      <div><b>Largo plazo</b>Crecer reinvirtiendo, sin perder el control familiar.</div>
+    </div>
+  </section>
+</div>
+
+<footer class="pie">
+  <strong>Juan Diego Olvera Medina</strong> · LATI, 9.º semestre · Tópicos II<br>
+  Imagen: <em>Bimbo Bread Vehicle</em>, Bull-Doser. Dominio público, vía Wikimedia Commons.<br>
+  Fuentes: Grupo Bimbo, historia corporativa; semblanzas públicas de Lorenzo Servitje.
+</footer>
+<script src="fuente.js"></script>
+</body>
+</html>

@@ -153,6 +153,91 @@
         "Resumen"
       ],
       "ruta": "actividades/act14-movimientos-sociales/documento.pdf"
+    },
+    {
+      "id": "act15-lider-visionario",
+      "titulo": "Líder visionario: Patricia Armendáriz",
+      "descripcion": "Infografía del líder visionario: la fundadora de Financiera Sustentable y qué la hace visionaria.",
+      "tipo": "imagen",
+      "tecnologias": [
+        "Infografía"
+      ],
+      "ruta": "actividades/act15-lider-visionario/infografia.png"
+    },
+    {
+      "id": "act16-empresario-mexicano-ideal",
+      "titulo": "El empresario mexicano ideal",
+      "descripcion": "Resumen del texto de Ernesto Valdés Rangel y mi perfil de un empresario con conciencia social.",
+      "tipo": "pdf",
+      "tecnologias": [
+        "Resumen",
+        "Perfil"
+      ],
+      "ruta": "actividades/act16-empresario-mexicano-ideal/documento.pdf"
+    },
+    {
+      "id": "act17-lorenzo-servitje-bimbo",
+      "titulo": "Lorenzo Servitje: la visión detrás de Bimbo",
+      "descripcion": "Línea del tiempo del fundador de Bimbo y su forma de hacer empresa.",
+      "tipo": "imagen",
+      "tecnologias": [
+        "Infografía"
+      ],
+      "ruta": "actividades/act17-lorenzo-servitje-bimbo/infografia.png"
+    },
+    {
+      "id": "act18-lorenzo-zambrano-cemex",
+      "titulo": "Lorenzo Zambrano: la visión que hizo global a Cemex",
+      "descripcion": "Trayectoria del empresario que llevó a Cemex a más de 50 países.",
+      "tipo": "imagen",
+      "tecnologias": [
+        "Infografía"
+      ],
+      "ruta": "actividades/act18-lorenzo-zambrano-cemex/infografia.png"
+    },
+    {
+      "id": "act19-comparativo-empresarios",
+      "titulo": "Cuadro comparativo de empresarios mexicanos",
+      "descripcion": "Roberto González Barrera (Gruma, Banorte) frente a Alberto Baillères (Grupo BAL), con mi postura.",
+      "tipo": "pdf",
+      "tecnologias": [
+        "Cuadro comparativo"
+      ],
+      "ruta": "actividades/act19-comparativo-empresarios/documento.pdf"
+    },
+    {
+      "id": "act20-quinta-disciplina",
+      "titulo": "La quinta disciplina y arquetipos sistémicos",
+      "descripcion": "Las cinco disciplinas de Senge y el arquetipo adversarios accidentales: ciclos causales interactivos y simulador.",
+      "tipo": "web",
+      "tecnologias": [
+        "HTML",
+        "CSS",
+        "JavaScript"
+      ],
+      "ruta": "actividades/act20-quinta-disciplina/index.html"
+    },
+    {
+      "id": "act21-creatividad-goldberg",
+      "titulo": "Creatividad según Goldberg",
+      "descripcion": "Infografía sobre cómo el cerebro crea ideas nuevas según Elkhonon Goldberg.",
+      "tipo": "imagen",
+      "tecnologias": [
+        "Infografía"
+      ],
+      "ruta": "actividades/act21-creatividad-goldberg/infografia.png"
+    },
+    {
+      "id": "act22-habilidades-directivas",
+      "titulo": "Habilidades directivas: liderazgo y motivación",
+      "descripcion": "Capítulos 9 y 11: estilos de liderazgo y test de motivación de McClelland, vistos desde el volleyball.",
+      "tipo": "web",
+      "tecnologias": [
+        "HTML",
+        "CSS",
+        "JavaScript"
+      ],
+      "ruta": "actividades/act22-habilidades-directivas/index.html"
     }
   ]
 }

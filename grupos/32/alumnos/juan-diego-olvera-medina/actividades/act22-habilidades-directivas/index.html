@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Habilidades directivas: liderazgo y motivación · Juan Diego Olvera</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;700&family=Source+Serif+4:wght@400;600&display=swap">
+<link rel="stylesheet" href="../_comun/estilos.css">
+<style>
+  .cancha { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: var(--e3); }
+  .rol h3 { margin: 0 0 var(--e1); font-size: 18px; }
+  .rol .etiqueta { margin-bottom: var(--e2); }
+  .rol p { font-size: 15px; margin: 0; }
+  .test fieldset { border: 1px solid var(--linea); border-radius: var(--radio); padding: var(--e3) var(--e4); margin: 0 0 var(--e3); background: var(--superficie); }
+  .test legend { font: 600 16px var(--f-titulo); padding: 0 var(--e1); }
+  .test label { display: flex; gap: var(--e2); align-items: flex-start; min-height: 44px; padding: var(--e1) 0; cursor: pointer; font-size: 16px; }
+  .test input { margin-top: 5px; accent-color: var(--acento); width: 18px; height: 18px; }
+  .barras div { margin-bottom: var(--e2); }
+  .barras span { display: block; font: 600 15px var(--f-titulo); }
+  .barras i { display: block; height: 14px; border-radius: var(--radio-chico); background: var(--acento); transition: width .4s; }
+</style>
+</head>
+<body>
+<main class="pagina">
+  <p class="rotulo">Actividad 22 · Habilidades directivas, capítulos 9 y 11</p>
+  <h1>Liderazgo y motivación, vistos desde una cancha de volleyball</h1>
+  <p class="caso">Un equipo de volleyball funciona igual que un equipo de trabajo: cada quien tiene un rol, alguien tiene que coordinar y nadie da su mejor esfuerzo si no sabe por qué juega. Aquí resumo los capítulos de liderazgo (9) y motivación (11).</p>
+
+  <section class="interaccion">
+    <h2>Capítulo 9 · Liderazgo</h2>
+    <p class="texto">Liderar es influir en las personas para que trabajen con gusto hacia una meta común. El libro distingue el poder de posición (el que da el puesto) del poder personal (el que reconoce el equipo) y propone cinco estilos. Ninguno es el mejor: depende de cómo esté el equipo.</p>
+    <div class="cancha">
+      <article class="panel rol"><span class="etiqueta">Estructurador</span><h3>El entrenador con pizarrón</h3><p>Define tareas, reglas y tiempos. Útil con un equipo nuevo que todavía no sabe qué hacer.</p></article>
+      <article class="panel rol"><span class="etiqueta">Entrenador</span><h3>El que corrige el saque</h3><p>Explica, acompaña y da retroalimentación. Para gente con ganas pero sin experiencia.</p></article>
+      <article class="panel rol"><span class="etiqueta">Alentador</span><h3>El capitán que anima</h3><p>Escucha y apoya. Para quien sabe hacerlo pero perdió confianza.</p></article>
+      <article class="panel rol"><span class="etiqueta">Delegador</span><h3>El que confía en su armador</h3><p>Da libertad y responsabilidad. Para un equipo que sabe y quiere.</p></article>
+      <article class="panel rol"><span class="etiqueta">Carismático</span><h3>El que contagia</h3><p>Inspira con su ejemplo y su visión. Útil en momentos de cambio o crisis.</p></article>
+    </div>
+  </section>
+
+  <section class="interaccion">
+    <h2>Capítulo 11 · Motivación</h2>
+    <p class="texto">El dinero motiva, pero por poco tiempo. Lo que más mueve a la gente es que reconozcan su trabajo. David McClelland propone que cada persona tiene una necesidad dominante: <strong>logro</strong>, <strong>poder</strong> o <strong>afiliación</strong>. Responde y descubre la tuya.</p>
+    <form class="test" id="test">
+      <fieldset><legend>1. Después de un partido ganado, lo que más disfrutas es…</legend>
+        <label><input type="radio" name="p1" value="logro"> Saber que jugué mejor que la semana pasada.</label>
+        <label><input type="radio" name="p1" value="poder"> Que el equipo haya seguido la estrategia que propuse.</label>
+        <label><input type="radio" name="p1" value="afiliacion"> Celebrar con el equipo después.</label>
+      </fieldset>
+      <fieldset><legend>2. En un proyecto en equipo prefieres…</legend>
+        <label><input type="radio" name="p2" value="logro"> Una meta difícil y clara, con forma de medir el avance.</label>
+        <label><input type="radio" name="p2" value="poder"> Coordinar y tomar las decisiones importantes.</label>
+        <label><input type="radio" name="p2" value="afiliacion"> Que todos se lleven bien y nadie quede fuera.</label>
+      </fieldset>
+      <fieldset><legend>3. Un buen jefe es el que…</legend>
+        <label><input type="radio" name="p3" value="logro"> Me pone retos y me dice cómo voy.</label>
+        <label><input type="radio" name="p3" value="poder"> Me da responsabilidad e influencia.</label>
+        <label><input type="radio" name="p3" value="afiliacion"> Me hace sentir parte del grupo.</label>
+      </fieldset>
+      <button class="boton" type="submit">Ver resultado</button>
+    </form>
+    <div class="panel" id="resultado" aria-live="polite" hidden>
+      <h3 style="margin-top:0" id="r-titulo"></h3>
+      <div class="barras" id="r-barras"></div>
+      <p id="r-texto" style="margin:0"></p>
+    </div>
+  </section>
+
+  <section class="aprendi">
+    <h2>Lo que aprendí</h2>
+    <p>El volleyball me enseñó lo que estos capítulos explican con teoría. Es fundamental que todos conozcan su rol y lo cumplan lo mejor posible: si el armador no arma o el central no bloquea, el sistema se cae. Pero conocer tu rol no basta. También hay que tener la disposición para cubrir la espalda de otros, o saber cuándo es mejor que alguien más te cubra a ti.</p>
+    <p>Eso es lo que distingue a un buen líder: no solo reparte tareas, también crea un equipo donde pedir ayuda y dar ayuda es normal. Y ahí se junta con la motivación: la gente se esfuerza cuando siente que su papel importa y que el equipo la respalda.</p>
+  </section>
+
+  <section class="creditos" id="creditos">
+    <strong>Fuente</strong>
+    <ul><li>Madrigal Torres, B. E. <em>Habilidades directivas</em>. McGraw-Hill. Capítulos 9 (Liderazgo) y 11 (Motivación).</li><li>McClelland, D. <em>Human Motivation</em>.</li></ul>
+  </section>
+</main>
+
+<script src="../_comun/tarjetas.js"></script>
+<script>
+  var DESC = {
+    logro: ['Te mueve el logro', 'Buscas metas retadoras y saber cómo vas. Te motiva superarte más que el premio. Cuidado: puedes querer hacerlo todo tú.'],
+    poder: ['Te mueve el poder', 'Te gusta influir, coordinar y que tus ideas cuenten. Bien usado, es la base del liderazgo; mal usado, se vuelve control.'],
+    afiliacion: ['Te mueve la afiliación', 'Valoras las relaciones y el buen ambiente. Eres el que mantiene unido al equipo; cuidado con evitar los conflictos necesarios.']
+  };
+  document.getElementById('test').addEventListener('submit', function (e) {
+    e.preventDefault();
+    var c = { logro: 0, poder: 0, afiliacion: 0 }, n = 0;
+    ['p1', 'p2', 'p3'].forEach(function (p) {
+      var x = document.querySelector('input[name=' + p + ']:checked');
+      if (x) { c[x.value]++; n++; }
+    });
+    var r = document.getElementById('resultado');
+    r.hidden = false;
+    if (n < 3) {
+      document.getElementById('r-titulo').textContent = 'Te faltan ' + (3 - n) + ' pregunta(s)';
+      document.getElementById('r-barras').innerHTML = '';
+      document.getElementById('r-texto').textContent = 'Responde las tres para ver tu necesidad dominante.';
+      return;
+    }
+    var gana = Object.keys(c).sort(function (a, b) { return c[b] - c[a]; })[0];
+    var empate = Object.keys(c).filter(function (k) { return c[k] === c[gana]; }).length > 1;
+    document.getElementById('r-titulo').textContent = empate ? 'Tienes una mezcla equilibrada' : DESC[gana][0];
+    var b = document.getElementById('r-barras');
+    b.innerHTML = '';
+    Object.keys(c).forEach(function (k) {
+      var d = document.createElement('div');
+      var s = document.createElement('span'); s.textContent = DESC[k][0].replace('Te mueve el ', '').replace('Te mueve la ', '') + ': ' + c[k] + ' de 3';
+      var i = document.createElement('i'); i.style.width = (c[k] / 3 * 100) + '%';
+      d.appendChild(s); d.appendChild(i); b.appendChild(d);
+    });
+    document.getElementById('r-texto').textContent = empate ? 'Ninguna necesidad domina: te mueven varias cosas según la situación.' : DESC[gana][1];
+  });
+</script>
+</body>
+</html>

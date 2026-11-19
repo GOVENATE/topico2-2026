@@ -298,21 +298,23 @@
   // Dos socios A y B. Cada paso, cada uno crece por su cuenta y por la ayuda del otro.
   // A partir del paso "desde", cada uno "arregla lo suyo" y eso le resta al otro (dano).
   function simular(ayudaA, ayudaB, dano, pasos, desde) {
-    var a = [10], b = [10];
+    // Cada paso: crecimiento propio (1) + la ayuda del socio.
+    // Desde "desde": cada quien hace arreglos locales que le restan al otro,
+    // y el que se siente danado ayuda menos (la ayuda se desgasta).
+    var a = [10], b = [10], hA = ayudaA / 100, hB = ayudaB / 100, d = dano / 100;
     for (var t = 1; t <= pasos; t++) {
-      var pa = a[t - 1], pb = b[t - 1];
-      var na = pa + 1 + (ayudaB / 100) * 2;
-      var nb = pb + 1 + (ayudaA / 100) * 2;
+      var na = a[t - 1] + 1 + hB * 3;
+      var nb = b[t - 1] + 1 + hA * 3;
       if (t >= desde) {
-        na -= (dano / 100) * (1 + ayudaA / 100) * 1.5; // los arreglos de B le pegan a A
-        nb -= (dano / 100) * (1 + ayudaB / 100) * 1.5;
-        na -= (dano / 100) * (pa - pb > 0 ? 0 : 0.5);
-        nb -= (dano / 100) * (pb - pa > 0 ? 0 : 0.5);
+        na -= d * 2.2;
+        nb -= d * 2.2;
+        hA *= 1 - d * 0.35;
+        hB *= 1 - d * 0.35;
       }
       a.push(Math.max(0, na));
       b.push(Math.max(0, nb));
     }
-    return { a: a, b: b };
+    return { a: a, b: b, ayudaFinal: (hA + hB) / 2 };
   }
 
   var simulador = seguro('simulador', function (raiz, op) {
@@ -345,15 +347,18 @@
       svg.innerHTML =
         '<line x1="30" y1="270" x2="570" y2="270" stroke="currentColor" opacity=".3"/>' +
         '<line x1="' + xd + '" y1="30" x2="' + xd + '" y2="270" stroke="currentColor" stroke-dasharray="4 4" opacity=".4"/>' +
-        '<text x="' + (xd + 6) + '" y="44" font-size="13" fill="currentColor" opacity=".7">cada quien arregla lo suyo</text>' +
+        '<text x="' + (xd + 6) + '" y="262" font-size="13" fill="currentColor" opacity=".7">cada quien arregla lo suyo</text>' +
         linea(r.a, max, cA) + linea(r.b, max, cB) +
         '<text x="34" y="20" font-size="14" fill="' + cA + '">A</text><text x="54" y="20" font-size="14" fill="' + cB + '">B</text>';
       var fa = r.a[r.a.length - 1], fb = r.b[r.b.length - 1];
-      var pico = Math.max.apply(null, r.a.slice(0, op.desde + 1)) + Math.max.apply(null, r.b.slice(0, op.desde + 1));
-      var total = fa + fb;
-      lectura.textContent = total < pico
-        ? 'Terminan con ' + total.toFixed(0) + ' puntos entre los dos, menos que los ' + pico.toFixed(0) + ' que tenían cooperando. Cada arreglo "propio" le quitó al socio.'
-        : 'Terminan con ' + total.toFixed(0) + ' puntos entre los dos: la cooperación sigue ganando a los arreglos por separado.';
+      var sin = simular(+ctl.ayudaA.value, +ctl.ayudaB.value, 0, op.pasos, op.desde);
+      var total = fa + fb, ideal = sin.a[sin.a.length - 1] + sin.b[sin.b.length - 1];
+      var perdida = ideal - total;
+      lectura.textContent = perdida < 0.5
+        ? 'Terminan con ' + total.toFixed(0) + ' puntos entre los dos. Sin arreglos locales, la cooperación se mantiene.'
+        : 'Terminan con ' + total.toFixed(0) + ' puntos entre los dos; sin los arreglos locales habrían tenido ' + ideal.toFixed(0) +
+          '. Los arreglos "propios" les costaron ' + perdida.toFixed(0) + ' puntos' +
+          (r.ayudaFinal < 0.15 ? ' y ya casi no se ayudan: ahora son rivales.' : '.');
     }
 
     dibujar();
