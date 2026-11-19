@@ -1,0 +1,20 @@
+{
+  "nombre": "Carolina Mejia Aguilar",
+  "github": "Carolmej",
+  "sobreMi": "",
+  "actividades": [
+    { "id": "act01-arquetipos-sistemicos", "titulo": "Arquetipos sistemicos en informatica", "descripcion": "Pagina interactiva sobre los arquetipos sistemicos aplicados a la informatica.", "tipo": "web", "tecnologias": ["HTML", "CSS", "JavaScript"], "ruta": "actividades/act01-arquetipos-sistemicos/index.html" },
+    { "id": "act02-codigo-limpio", "titulo": "Codigo limpio: una experiencia interactiva", "descripcion": "Experiencia interactiva sobre Codigo limpio.", "tipo": "web", "tecnologias": ["HTML", "CSS", "JavaScript"], "ruta": "actividades/act02-codigo-limpio/index.html" },
+    { "id": "act03-empresario-mexicano-ideal", "titulo": "El empresario mexicano ideal", "descripcion": "Pagina sobre el perfil del empresario mexicano ideal.", "tipo": "web", "tecnologias": ["HTML", "CSS", "JavaScript"], "ruta": "actividades/act03-empresario-mexicano-ideal/index.html" },
+    { "id": "act04-resumen-exposiciones", "titulo": "Resumenes de exposiciones", "descripcion": "Mapa mental con los resumenes de las exposiciones.", "tipo": "web", "tecnologias": ["HTML", "CSS", "JavaScript"], "ruta": "actividades/act04-resumen-exposiciones/index.html" },
+    { "id": "act05-carlos-slim", "titulo": "Carlos Slim: gigante de Mexico", "descripcion": "Infografia sobre el empresario Carlos Slim.", "tipo": "imagen", "tecnologias": ["Investigacion"], "ruta": "actividades/act05-carlos-slim/imagen.png" },
+    { "id": "act06-por-que-fracasan-los-paises", "titulo": "Por que fracasan los paises: instituciones y prosperidad", "descripcion": "Infografia sobre instituciones y prosperidad.", "tipo": "imagen", "tecnologias": ["Investigacion"], "ruta": "actividades/act06-por-que-fracasan-los-paises/imagen.png" },
+    { "id": "act07-gigantes-digitales", "titulo": "Gigantes digitales", "descripcion": "Infografia sobre los gigantes tecnologicos.", "tipo": "pdf", "tecnologias": ["Investigacion"], "ruta": "actividades/act07-gigantes-digitales/documento.pdf" },
+    { "id": "act08-movimientos-sociales", "titulo": "Mentes en accion: movimientos sociales", "descripcion": "Investigacion sobre movimientos sociales.", "tipo": "web", "tecnologias": ["Investigacion"], "ruta": "actividades/act08-movimientos-sociales/index.html" },
+    { "id": "act09-persuade-con-tu-voz", "titulo": "La voz humana", "descripcion": "Investigacion sobre la voz humana (Persuade con tu voz, Emma Rodero).", "tipo": "pdf", "tecnologias": ["Investigacion"], "ruta": "actividades/act09-persuade-con-tu-voz/documento.pdf" },
+    { "id": "act10-resumen-creatividad", "titulo": "Resumen de Creatividad (hasta la pagina 30)", "descripcion": "Resumen del libro de creatividad de Goldberg.", "tipo": "pdf", "tecnologias": ["Investigacion"], "ruta": "actividades/act10-resumen-creatividad/documento.pdf" },
+    { "id": "act11-opinion-creatividad-goldberg", "titulo": "Opinion del libro Creatividad de Goldberg", "descripcion": "Opinion personal sobre el libro de creatividad de Goldberg.", "tipo": "pdf", "tecnologias": ["Investigacion"], "ruta": "actividades/act11-opinion-creatividad-goldberg/documento.pdf" },
+    { "id": "act12-comparativo-empresarios", "titulo": "Cuadro comparativo de empresarios mexicanos", "descripcion": "Cuadro comparativo de empresarios mexicanos (Slim, Salinas Pliego y Azcarraga).", "tipo": "web", "tecnologias": ["Investigacion"], "ruta": "actividades/act12-comparativo-empresarios/index.html" },
+    { "id": "act13-sopa-de-letras-kasuga-yokoi", "titulo": "Sopa de letras Kasuga y Yokoi Kenji", "descripcion": "Sopa de letras con palabras clave de la filosofia de Carlos Kasuga y Yokoi Kenji.", "tipo": "web", "tecnologias": ["Investigacion"], "ruta": "actividades/act13-sopa-de-letras-kasuga-yokoi/index.html" }
+  ]
+}

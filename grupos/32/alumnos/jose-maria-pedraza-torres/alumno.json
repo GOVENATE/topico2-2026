@@ -1,0 +1,23 @@
+{
+  "nombre": "Jose Maria Pedraza Torres",
+  "github": "josepedrazatorres15-cpu",
+  "sobreMi": "",
+  "actividades": [
+    { "id": "act01-7-habitos", "titulo": "Los 7 Habitos de la Gente Altamente Efectiva", "descripcion": "Pagina interactiva sobre Los 7 Habitos.", "tipo": "web", "tecnologias": ["HTML", "CSS", "JavaScript"], "ruta": "actividades/act01-7-habitos/index.html" },
+    { "id": "act02-7-habitos-caso-de-estudio", "titulo": "Los 7 Habitos y caso de estudio", "descripcion": "Los 7 Habitos aplicados a un caso de estudio.", "tipo": "web", "tecnologias": ["HTML", "CSS", "JavaScript"], "ruta": "actividades/act02-7-habitos-caso-de-estudio/index.html" },
+    { "id": "act03-memorama-filosofia-japonesa", "titulo": "Memorama de filosofia japonesa", "descripcion": "Juego de memoria sobre la filosofia japonesa (Yokoi Kenji).", "tipo": "web", "tecnologias": ["HTML", "CSS", "JavaScript"], "ruta": "actividades/act03-memorama-filosofia-japonesa/index.html" },
+    { "id": "act04-toma-de-decisiones", "titulo": "Herramientas para la toma de decisiones", "descripcion": "Herramientas para analizar problemas y tomar decisiones.", "tipo": "web", "tecnologias": ["HTML", "CSS", "JavaScript"], "ruta": "actividades/act04-toma-de-decisiones/index.html" },
+    { "id": "act05-pensamiento-critico", "titulo": "Pensamiento critico: centro de comando sistemico", "descripcion": "Pensamiento critico y pensamiento sistemico.", "tipo": "web", "tecnologias": ["HTML", "CSS", "JavaScript"], "ruta": "actividades/act05-pensamiento-critico/index.html" },
+    { "id": "act06-proyecto-integrador", "titulo": "Sistemas y creatividad: proyecto integrador", "descripcion": "Proyecto integrador de pensamiento sistemico y creatividad.", "tipo": "web", "tecnologias": ["HTML", "CSS", "JavaScript"], "ruta": "actividades/act06-proyecto-integrador/index.html" },
+    { "id": "act07-sistemika", "titulo": "SistemiKa: hub de pensamiento sistemico y creatividad", "descripcion": "Aplicacion final que reune pensamiento sistemico y creatividad.", "tipo": "web", "tecnologias": ["HTML", "CSS", "JavaScript"], "ruta": "actividades/act07-sistemika/index.html" },
+    { "id": "act08-resumen-exposiciones", "titulo": "Resumen de exposiciones", "descripcion": "Resumen de las exposiciones de la clase.", "tipo": "pdf", "tecnologias": ["Investigacion"], "ruta": "actividades/act08-resumen-exposiciones/documento.pdf" },
+    { "id": "act08b-resumen-exposiciones", "titulo": "Resumen de exposiciones (segunda version)", "descripcion": "Segunda version del resumen de exposiciones.", "tipo": "pdf", "tecnologias": ["Investigacion"], "ruta": "actividades/act08-resumen-exposiciones/documento-2.pdf" },
+    { "id": "act09-persuade-con-tu-voz", "titulo": "Resumen sobre la comunicacion oral (Emma Rodero)", "descripcion": "Persuade con tu voz: resumen sobre la comunicacion oral de Emma Rodero.", "tipo": "pdf", "tecnologias": ["Investigacion"], "ruta": "actividades/act09-persuade-con-tu-voz/documento.pdf" },
+    { "id": "act10-empresario-ideal", "titulo": "Empresario mexicano ideal", "descripcion": "Infografia del empresario ideal.", "tipo": "imagen", "tecnologias": ["Investigacion"], "ruta": "actividades/act10-empresario-ideal/imagen.jpg" },
+    { "id": "act11-comparativo-empresarios", "titulo": "Cuadro comparativo de empresarios", "descripcion": "Cuadro comparativo de empresarios mexicanos.", "tipo": "imagen", "tecnologias": ["Investigacion"], "ruta": "actividades/act11-comparativo-empresarios/imagen.jpg" },
+    { "id": "act12-dos-empresarios-mexicanos", "titulo": "Dos empresarios mexicanos", "descripcion": "Infografia de dos empresarios mexicanos.", "tipo": "imagen", "tecnologias": ["Investigacion"], "ruta": "actividades/act12-dos-empresarios-mexicanos/imagen.jpg" },
+    { "id": "act13-gigantes-tecnologicos-queretaro", "titulo": "Gigantes tecnologicos en Queretaro", "descripcion": "Infografia de las grandes empresas de tecnologia en Queretaro.", "tipo": "imagen", "tecnologias": ["Investigacion"], "ruta": "actividades/act13-gigantes-tecnologicos-queretaro/imagen.jpg" },
+    { "id": "act14-los-4-grandes", "titulo": "Los 4 grandes", "descripcion": "Infografia de los gigantes tecnologicos y su poder.", "tipo": "imagen", "tecnologias": ["Investigacion"], "ruta": "actividades/act14-los-4-grandes/imagen.jpg" },
+    { "id": "act15-carlos-slim", "titulo": "Carlos Slim", "descripcion": "Infografia sobre el empresario Carlos Slim.", "tipo": "imagen", "tecnologias": ["Investigacion"], "ruta": "actividades/act15-carlos-slim/imagen.jpg" }
+  ]
+}
