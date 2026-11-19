@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Las leyes de la naturaleza humana | Laboratorio interactivo</title>
+<style>
+:root{--ink:#182326;--muted:#667477;--paper:#f5f3ed;--card:#fffefa;--teal:#176b67;--teal2:#dcece7;--gold:#d49b45;--line:#e4e1d8;--shadow:0 18px 50px rgba(25,42,40,.08)}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--paper);color:var(--ink);font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;line-height:1.6}
+header{position:sticky;top:0;z-index:10;background:rgba(245,243,237,.92);backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
+.nav{max-width:1180px;margin:auto;padding:14px 24px;display:flex;align-items:center;justify-content:space-between;gap:20px}.brand{font-weight:850;letter-spacing:-.04em;font-size:17px}.brand span{color:var(--teal)}
+nav{display:flex;gap:8px;flex-wrap:wrap}nav button{border:0;background:transparent;color:var(--muted);font:inherit;font-size:14px;padding:9px 14px;border-radius:999px;cursor:pointer}nav button.active,nav button:hover{background:var(--teal);color:white}
+main{max-width:1180px;margin:auto;padding:36px 24px 80px}.view{display:none}.view.active{display:block}
+.hero{min-height:390px;background:#173b3a;color:#f8f6ef;border-radius:28px;padding:clamp(28px,6vw,68px);position:relative;overflow:hidden;display:flex;align-items:center}
+.hero:after{content:"";position:absolute;width:430px;height:430px;border:1px solid rgba(255,255,255,.18);border-radius:50%;right:-100px;top:-100px;box-shadow:0 0 0 45px rgba(255,255,255,.035),0 0 0 95px rgba(255,255,255,.025)}
+.hero-content{max-width:690px;position:relative;z-index:1}.eyebrow{text-transform:uppercase;letter-spacing:.16em;font-size:11px;font-weight:800;color:#e7bd76}.hero h1{font-size:clamp(38px,6vw,68px);line-height:1.02;letter-spacing:-.055em;margin:14px 0 20px}.hero p{font-size:17px;color:#d8e4df;max-width:620px;margin:0 0 26px}.cta{border:0;background:#e9bd76;color:#1b302f;padding:13px 19px;border-radius:999px;font-weight:800;cursor:pointer}
+.section-head{margin:52px 0 22px;display:flex;justify-content:space-between;align-items:end;gap:20px}.section-head h2{font-size:clamp(27px,4vw,38px);letter-spacing:-.045em;margin:0}.section-head p{max-width:500px;color:var(--muted);margin:0}
+.intro-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}.point{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:24px;box-shadow:var(--shadow);min-height:200px}.point:last-child{grid-column:1/-1}.number{width:34px;height:34px;display:grid;place-items:center;background:var(--teal2);color:var(--teal);border-radius:11px;font-weight:900;font-size:13px}.point h3{margin:16px 0 8px;font-size:20px;letter-spacing:-.025em}.point p{margin:0;color:var(--muted)}.tagline{display:inline-block;margin-top:15px;color:var(--teal);font-size:12px;font-weight:800;letter-spacing:.04em}
+.callout{margin-top:18px;background:#e9e4d7;border-radius:18px;padding:22px 24px;color:#465352}.callout strong{color:var(--ink)}
+.subnav{display:flex;gap:8px;flex-wrap:wrap;margin:24px 0}.subnav button,.choice,.tool-btn{border:1px solid var(--line);background:var(--card);padding:10px 14px;border-radius:12px;cursor:pointer;font:inherit;color:var(--ink);transition:.2s}.subnav button.active,.choice.selected,.tool-btn:hover{border-color:var(--teal);background:var(--teal2);color:var(--teal)}
+.panel{background:var(--card);border:1px solid var(--line);border-radius:22px;padding:clamp(20px,4vw,34px);box-shadow:var(--shadow)}
+.activity-layout{display:grid;grid-template-columns:1fr 1fr;gap:18px}.scenario-list{display:grid;gap:10px}.scenario{width:100%;text-align:left;border:1px solid var(--line);background:#fff;border-radius:15px;padding:16px;cursor:pointer}.scenario.active{border-color:var(--teal);background:var(--teal2)}.scenario b{display:block;margin-bottom:4px}.scenario small{color:var(--muted)}
+.step-title{font-size:13px;text-transform:uppercase;letter-spacing:.12em;color:var(--teal);font-weight:850}.action-options{display:grid;gap:10px;margin:18px 0}.choice{text-align:left;display:flex;gap:12px;align-items:flex-start}.choice .symbol{font-size:20px}.choice strong{display:block}.choice small{display:block;color:var(--muted);margin-top:3px}.feedback{padding:16px;border-radius:14px;background:#f0eee7;margin-top:16px;display:none}.feedback.show{display:block}.feedback strong{color:var(--teal)}
+.progress{height:7px;background:#e9e6dd;border-radius:20px;overflow:hidden;margin:15px 0}.progress span{height:100%;display:block;width:0;background:var(--teal);transition:.3s}
+.plan{margin-top:20px}.plan-items{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}.plan-item{border:1px dashed #b9c8c1;border-radius:14px;padding:14px;min-height:100px;background:#f7faf7}.plan-item b{display:block;font-size:12px;color:var(--teal);text-transform:uppercase;letter-spacing:.08em}.plan-item span{display:block;margin-top:8px;font-size:14px;color:var(--muted)}
+.guide-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}.guide{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:20px}.guide h3{margin:0 0 8px}.guide p{margin:0;color:var(--muted);font-size:14px}
+footer{border-top:1px solid var(--line);padding:22px 24px;text-align:center;color:var(--muted);font-size:12px}
+@media(max-width:760px){.nav{align-items:flex-start;flex-direction:column}.intro-grid,.activity-layout,.guide-grid{grid-template-columns:1fr}.point:last-child{grid-column:auto}.plan-items{grid-template-columns:1fr}.hero{min-height:340px}}
+</style>
+</head>
+<body>
+<header><div class="nav"><div class="brand">NATURALEZA <span>HUMANA</span></div><nav aria-label="Menú principal">
+<button class="active" data-view="inicio">Presentación</button><button data-view="actividad">Actividad interactiva</button><button data-view="guia">Guía de aplicación</button>
+</nav></div></header>
+<main>
+<section id="inicio" class="view active">
+<div class="hero"><div class="hero-content"><div class="eyebrow">Una lectura de Robert Greene</div><h1>Comprender a las personas empieza por comprendernos.</h1><p>Las leyes de la naturaleza humana explora las fuerzas emocionales, los patrones de carácter y las dinámicas sociales que influyen en nuestras decisiones. Estos cinco ejes reúnen sus ideas centrales en una guía para observar, reflexionar y actuar con mayor conciencia.</p><button class="cta" onclick="showView('actividad')">Entrar al laboratorio →</button></div></div>
+<div class="section-head"><div><div class="eyebrow" style="color:var(--teal)">Cinco ideas esenciales</div><h2>Los 5 puntos principales</h2></div><p>No se trata de juzgar rápidamente a los demás, sino de reconocer patrones y responder de forma más consciente.</p></div>
+<div class="intro-grid">
+<article class="point"><div class="number">01</div><h3>Autodominio emocional y racionalidad</h3><p>Las emociones pueden distorsionar nuestra percepción y empujarnos a reaccionar impulsivamente. Reconocer lo que sentimos, hacer una pausa y analizar la situación ayuda a decidir con más claridad.</p><span class="tagline">PAUSA · OBSERVA · DECIDE</span></article>
+<article class="point"><div class="number">02</div><h3>Autoconocimiento e integración de la sombra</h3><p>Conocernos implica aceptar inseguridades, ego, contradicciones y tendencias que preferimos ocultar. Mirarlas de frente reduce el autoengaño y permite transformar hábitos destructivos.</p><span class="tagline">RECONOCE TUS PATRONES</span></article>
+<article class="point"><div class="number">03</div><h3>Observar y comprender el carácter ajeno</h3><p>Las palabras y las primeras impresiones no siempre muestran las motivaciones reales. Observar conductas repetidas, decisiones y reacciones ofrece una comprensión más profunda del carácter.</p><span class="tagline">MIRA LOS PATRONES, NO SOLO LAS APARIENCIAS</span></article>
+<article class="point"><div class="number">04</div><h3>Empatía e influencia consciente</h3><p>Escuchar, comprender necesidades y adoptar la perspectiva de otras personas fortalece la comunicación. La influencia más constructiva nace de entender al otro, no de imponer nuestra visión.</p><span class="tagline">ESCUCHA · COMPRENDE · CONECTA</span></article>
+<article class="point"><div class="number">05</div><h3>Independencia y propósito</h3><p>La presión del grupo puede debilitar el criterio propio. Mantener una dirección, ampliar la perspectiva y pensar a largo plazo ayuda a actuar con responsabilidad sin seguir automáticamente a los demás.</p><span class="tagline">CRITERIO PROPIO · VISIÓN A LARGO PLAZO</span></article>
+</div>
+<div class="callout"><strong>Idea integradora:</strong> comprender la naturaleza humana requiere observar tanto nuestro mundo interior como las conductas de quienes nos rodean. El objetivo práctico es sustituir la reacción automática por una respuesta consciente.</div>
+</section>
+
+<section id="actividad" class="view">
+<div class="section-head"><div><div class="eyebrow" style="color:var(--teal)">Aprender haciendo</div><h2>Laboratorio de decisiones</h2></div><p>Explora situaciones cotidianas, elige cómo actuar y observa qué principio estás poniendo en práctica. No hay preguntas de examen ni calificación.</p></div>
+<div class="panel">
+<div class="step-title">Paso 1 · Elige una situación</div>
+<div class="activity-layout" style="margin-top:14px">
+<div class="scenario-list">
+<button class="scenario active" data-scenario="conflicto"><b>⚡ Un comentario que te molesta</b><small>Alguien critica tu trabajo frente al equipo.</small></button>
+<button class="scenario" data-scenario="equipo"><b>👥 Presión del grupo</b><small>Todos aceptan una decisión con la que no estás de acuerdo.</small></button>
+<button class="scenario" data-scenario="confianza"><b>🎭 Una promesa incumplida</b><small>Una persona vuelve a decir que hará algo, pero no cumple.</small></button>
+<button class="scenario" data-scenario="escucha"><b>💬 Una conversación difícil</b><small>Alguien cercano se muestra distante y responde poco.</small></button>
+</div>
+<div>
+<div id="scenarioText" class="panel" style="background:#f7f6f0;box-shadow:none">
+<div class="step-title">Situación seleccionada</div><h3 id="scenarioTitle">Un comentario que te molesta</h3><p id="scenarioDesc">Durante una reunión, una persona señala un error de tu trabajo con un tono que percibes como injusto. Sientes ganas de responder de inmediato.</p>
+</div>
+</div>
+</div>
+<div class="progress"><span id="progressBar"></span></div>
+<div class="step-title">Paso 2 · Elige una estrategia de acción</div>
+<p style="color:var(--muted);margin-top:4px">Selecciona una ruta. Lee su consecuencia y relaciónala con los cinco principios.</p>
+<div id="actionOptions" class="action-options">
+<button class="choice" data-action="impulso"><span class="symbol">🔥</span><span><strong>Responder de inmediato</strong><small>Defenderte en el mismo tono para no dejar pasar el comentario.</small></span></button>
+<button class="choice" data-action="pausa"><span class="symbol">⏸️</span><span><strong>Hacer una pausa y separar hechos de emociones</strong><small>Identificar qué te molestó y qué parte de la crítica puede ser útil.</small></span></button>
+<button class="choice" data-action="curiosidad"><span class="symbol">🔎</span><span><strong>Buscar comprender la intención</strong><small>Pedir un ejemplo concreto y escuchar antes de concluir.</small></span></button>
+</div>
+<div id="feedback" class="feedback" aria-live="polite"></div>
+<div class="plan">
+<div class="step-title">Paso 3 · Tu mapa de aprendizaje</div>
+<p style="color:var(--muted);margin-top:4px">Cada elección deja una idea que puedes llevar a tu vida diaria. Cambia de situación y crea tu propio mapa.</p>
+<div class="plan-items">
+<div class="plan-item"><b>Lo que observo</b><span id="planObserve">Elige una estrategia para comenzar a construir tu mapa.</span></div>
+<div class="plan-item"><b>Lo que comprendo</b><span id="planUnderstand">Reconoce emociones, motivaciones y patrones.</span></div>
+<div class="plan-item"><b>Lo que puedo hacer</b><span id="planDo">Transforma la reflexión en una acción consciente.</span></div>
+</div>
+</div>
+</div>
+</section>
+
+<section id="guia" class="view">
+<div class="section-head"><div><div class="eyebrow" style="color:var(--teal)">Llevarlo a la práctica</div><h2>Una guía para usar las ideas</h2></div><p>Los conceptos del libro se vuelven útiles cuando se traducen en pequeñas acciones observables.</p></div>
+<div class="guide-grid">
+<article class="guide"><h3>🧭 Antes de reaccionar</h3><p>Identifica la emoción presente. Nómbrala y date un momento antes de responder. Pregúntate qué hechos conoces y qué estás suponiendo.</p></article>
+<article class="guide"><h3>🪞 Al mirar hacia dentro</h3><p>Reconoce una reacción que se repite. Observa qué inseguridad, expectativa o necesidad podría estar detrás, sin justificar conductas dañinas.</p></article>
+<article class="guide"><h3>👁️ Al observar a otros</h3><p>Compara lo que alguien dice con sus acciones a lo largo del tiempo. Evita sacar conclusiones por un solo gesto o episodio.</p></article>
+<article class="guide"><h3>🤝 Al conversar</h3><p>Escucha para comprender, resume lo que entendiste y considera qué necesita la otra persona. La empatía no exige estar de acuerdo con todo.</p></article>
+<article class="guide"><h3>🌱 Al decidir en grupo</h3><p>Escucha las opiniones, revisa la evidencia y conserva tu criterio. No confundas pertenecer con tener que estar de acuerdo.</p></article>
+<article class="guide"><h3>🎯 Al pensar en el futuro</h3><p>Elige acciones coherentes con tus objetivos a largo plazo, no solo con la emoción o recompensa del momento.</p></article>
+</div>
+<div class="callout"><strong>Para recordar:</strong> estas cinco ideas son una síntesis temática del libro, no una fórmula para etiquetar o diagnosticar a las personas. Úsalas como herramientas de observación y reflexión.</div>
+</section>
+</main>
+<footer>Material interactivo de aprendizaje · Basado en los temas generales de <em>Las leyes de la naturaleza humana</em>, de Robert Greene.</footer>
+<script>
+const views=[...document.querySelectorAll('.view')];
+function showView(id){views.forEach(v=>v.classList.toggle('active',v.id===id));document.querySelectorAll('nav button').forEach(b=>b.classList.toggle('active',b.dataset.view===id));window.scrollTo({top:0,behavior:'smooth'});}
+document.querySelectorAll('nav button').forEach(b=>b.addEventListener('click',()=>showView(b.dataset.view)));
+const scenarios={
+conflicto:{title:'Un comentario que te molesta',desc:'Durante una reunión, una persona señala un error de tu trabajo con un tono que percibes como injusto. Sientes ganas de responder de inmediato.'},
+equipo:{title:'Presión del grupo',desc:'Tu equipo está de acuerdo con una decisión rápida. Tú detectas un riesgo, pero temes que expresar tu desacuerdo te deje fuera del grupo.'},
+confianza:{title:'Una promesa incumplida',desc:'Una persona cercana vuelve a prometer que cumplirá un compromiso. Ya ha ocurrido antes y no sabes si confiar en sus palabras.'},
+escucha:{title:'Una conversación difícil',desc:'Alguien importante para ti se muestra distante. Te responde con frases cortas y no sabes si está molesto contigo o atraviesa otra situación.'}
+};
+const actions={
+conflicto:{
+impulso:{title:'La reacción inmediata puede escalar el conflicto.',body:'Responder desde el enojo puede hacer que la emoción tome el control y desvíe la conversación del problema real.',observe:'Sientes enojo y percibes una amenaza a tu imagen.',understand:'La emoción puede alterar la interpretación del comentario.',do:'Haz una pausa y vuelve a los hechos.',principle:'Autodominio emocional y racionalidad.'},
+pausa:{title:'Una pausa devuelve espacio para elegir.',body:'Separar el tono de la información permite reconocer la emoción sin dejar que decida por ti. Después puedes responder con claridad.',observe:'Identificas enojo, tono y contenido por separado.',understand:'No todo comentario incómodo es un ataque personal.',do:'Pide precisión y responde al contenido.',principle:'Autodominio emocional y autoconocimiento.'},
+curiosidad:{title:'La curiosidad abre una conversación más útil.',body:'Pedir un ejemplo concreto te permite observar hechos y comprender mejor la perspectiva de la otra persona, sin asumir su intención.',observe:'Distingues hechos de interpretaciones.',understand:'La intención no siempre coincide con cómo recibimos el mensaje.',do:'Pregunta con calma y escucha la respuesta.',principle:'Empatía y observación del carácter.'}},
+equipo:{
+impulso:{title:'Seguir al grupo evita tensión, pero puede ocultar riesgos.',body:'Aceptar automáticamente puede debilitar tu criterio y dejar sin revisar una consecuencia importante.',observe:'Notas presión por encajar.',understand:'La pertenencia puede influir en tus decisiones.',do:'Expón el riesgo con respeto y evidencia.',principle:'Independencia y propósito.'},
+pausa:{title:'Tomar distancia ayuda a evaluar la decisión.',body:'Una pausa permite revisar ventajas, riesgos y objetivos antes de sumarte a la opinión dominante.',observe:'Reconoces la presión y tu propia duda.',understand:'La mayoría no garantiza que una decisión sea adecuada.',do:'Propón revisar los datos antes de cerrar.',principle:'Autodominio e independencia.'},
+curiosidad:{title:'Escuchar al equipo y aportar otra perspectiva fortalece la decisión.',body:'Comprender por qué los demás apoyan la propuesta facilita expresar tu punto sin convertirlo en una confrontación.',observe:'Identificas los motivos de cada postura.',understand:'Las personas pueden priorizar necesidades distintas.',do:'Resume los argumentos y plantea el riesgo concreto.',principle:'Empatía e influencia consciente.'}},
+confianza:{
+impulso:{title:'Acusar sin revisar el patrón puede cerrar el diálogo.',body:'La frustración es comprensible, pero una respuesta impulsiva puede impedir hablar de los compromisos y sus consecuencias.',observe:'Hay frustración por una repetición.',understand:'Una promesa aislada y un patrón sostenido no son lo mismo.',do:'Habla de hechos y establece límites claros.',principle:'Autodominio y observación del carácter.'},
+pausa:{title:'Revisar el patrón ayuda a decidir con claridad.',body:'Observar acciones repetidas, no solo palabras, permite ajustar expectativas y decidir qué nivel de confianza es razonable.',observe:'Registras compromisos y resultados anteriores.',understand:'La conducta sostenida ofrece información más fiable que una promesa.',do:'Acuerda un compromiso concreto y un límite.',principle:'Observación del carácter y autoconocimiento.'},
+curiosidad:{title:'Una conversación directa puede aclarar la situación.',body:'Preguntar qué obstáculo impidió cumplir permite comprender el contexto sin ignorar el efecto que tuvo en ti.',observe:'Distingues explicación, responsabilidad y resultado.',understand:'Comprender no significa justificar el incumplimiento.',do:'Escucha y acuerda acciones verificables.',principle:'Empatía e influencia consciente.'}},
+escucha:{
+impulso:{title:'Suponer la causa puede crear un problema adicional.',body:'Interpretar la distancia como rechazo sin evidencia puede llevarte a reaccionar ante una historia que quizá no sea real.',observe:'Notas incertidumbre y temor al rechazo.',understand:'Tu emoción puede completar los silencios con suposiciones.',do:'Evita concluir; abre un espacio para hablar.',principle:'Autodominio y autoconocimiento.'},
+pausa:{title:'Observar sin precipitar conclusiones protege la relación.',body:'Reconocer tus propias inquietudes y dar tiempo ayuda a no convertir una señal ambigua en una certeza.',observe:'Separaste lo que viste de lo que imaginaste.',understand:'Una conducta puede tener varias explicaciones.',do:'Elige un momento tranquilo para acercarte.',principle:'Autodominio y observación.'},
+curiosidad:{title:'La escucha empática permite comprender mejor.',body:'Acercarte sin acusar y mostrar disposición a escuchar puede facilitar que la otra persona explique lo que ocurre.',observe:'Percibes distancia, pero no conoces su causa.',understand:'La perspectiva ajena puede ser distinta a tu primera interpretación.',do:'Di lo que observaste y pregunta cómo está.',principle:'Empatía e influencia consciente.'}}
+};
+let current='conflicto';
+function selectScenario(key){current=key;document.querySelectorAll('.scenario').forEach(b=>b.classList.toggle('active',b.dataset.scenario===key));document.getElementById('scenarioTitle').textContent=scenarios[key].title;document.getElementById('scenarioDesc').textContent=scenarios[key].desc;document.getElementById('feedback').classList.remove('show');document.querySelectorAll('.choice').forEach(b=>b.classList.remove('selected'));document.getElementById('progressBar').style.width='0';document.getElementById('planObserve').textContent='Elige una estrategia para comenzar a construir tu mapa.';document.getElementById('planUnderstand').textContent='Reconoce emociones, motivaciones y patrones.';document.getElementById('planDo').textContent='Transforma la reflexión en una acción consciente.'}
+document.querySelectorAll('.scenario').forEach(b=>b.addEventListener('click',()=>selectScenario(b.dataset.scenario)));
+document.querySelectorAll('.choice').forEach(b=>b.addEventListener('click',()=>{let a=actions[current][b.dataset.action];document.querySelectorAll('.choice').forEach(x=>x.classList.toggle('selected',x===b));let f=document.getElementById('feedback');f.innerHTML='<strong>'+a.title+'</strong><p>'+a.body+'</p><small><b>Principio relacionado:</b> '+a.principle+'</small>';f.classList.add('show');document.getElementById('progressBar').style.width='100%';document.getElementById('planObserve').textContent=a.observe;document.getElementById('planUnderstand').textContent=a.understand;document.getElementById('planDo').textContent=a.do;}));
+</script>
+</body></html>

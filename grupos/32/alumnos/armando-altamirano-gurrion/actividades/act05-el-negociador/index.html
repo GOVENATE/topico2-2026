@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>El negociador | Explorador interactivo</title>
+<style>
+:root{--ink:#172b35;--muted:#5c6d72;--paper:#f5f2ea;--card:#fffdf8;--teal:#126b68;--lime:#d8ed8a;--coral:#ef795f;--line:#d9ded7;--shadow:0 18px 45px #15323812}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--paper);color:var(--ink);font-family:ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;line-height:1.6}
+button,input{font:inherit}button{cursor:pointer}.shell{max-width:1180px;margin:auto;padding:0 24px}
+.topbar{padding:18px 0;display:flex;align-items:center;justify-content:space-between;gap:16px;border-bottom:1px solid var(--line)}.brand{font-weight:900;letter-spacing:.08em;font-size:.82rem;text-transform:uppercase}.brand span{color:var(--teal)}.topnote{font-size:.8rem;color:var(--muted)}
+.hero{padding:68px 0 52px;display:grid;grid-template-columns:1.2fr .8fr;gap:42px;align-items:center}.eyebrow{font-size:.78rem;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:var(--teal)}h1{font-size:clamp(3rem,7vw,6.4rem);line-height:.94;letter-spacing:-.07em;margin:16px 0 22px;max-width:760px}h1 em{font-family:Georgia,serif;font-weight:400;color:var(--teal)}.hero p{font-size:1.1rem;color:var(--muted);max-width:650px}.hero-art{min-height:330px;background:var(--teal);border-radius:28px;padding:30px;color:white;display:flex;flex-direction:column;justify-content:space-between;position:relative;overflow:hidden}.hero-art:before,.hero-art:after{content:"";position:absolute;border:1px solid #ffffff4a;border-radius:50%;width:290px;height:290px;right:-65px;top:-30px}.hero-art:after{width:190px;height:190px;right:-10px;top:20px}.bigquote{font:clamp(2rem,4vw,3.4rem)/1.1 Georgia,serif;position:relative;z-index:1;max-width:340px}.hero-art small{position:relative;z-index:1;color:#d8edda}.stamp{align-self:flex-end;position:relative;z-index:1;border:1px solid #ffffff80;border-radius:100%;width:94px;height:94px;display:grid;place-items:center;text-align:center;font-size:.72rem;line-height:1.2;transform:rotate(10deg)}
+.tabs-wrap{position:sticky;top:0;z-index:10;background:#f5f2eaeF;backdrop-filter:blur(12px);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}.tabs{display:flex;gap:6px;overflow:auto;padding:12px 0}.tab{white-space:nowrap;border:0;background:transparent;color:var(--muted);padding:10px 16px;border-radius:100px;font-weight:750}.tab[aria-selected=true]{background:var(--ink);color:white}
+main{padding:42px 0 70px}.panel{display:none;animation:rise .35s ease}.panel.active{display:block}@keyframes rise{from{opacity:0;transform:translateY(7px)}to{opacity:1;transform:none}}.section-head{display:flex;justify-content:space-between;align-items:end;gap:22px;margin-bottom:28px}.section-head h2{font-size:clamp(2rem,4vw,3.4rem);letter-spacing:-.05em;line-height:1.05;margin:8px 0}.section-head p{max-width:470px;color:var(--muted);margin:0}.kicker{font-weight:800;color:var(--coral);letter-spacing:.12em;text-transform:uppercase;font-size:.75rem}
+.grid{display:grid;gap:18px}.grid.three{grid-template-columns:repeat(3,1fr)}.grid.two{grid-template-columns:repeat(2,1fr)}.card{background:var(--card);border:1px solid var(--line);border-radius:22px;padding:25px;box-shadow:var(--shadow)}.card h3{margin:7px 0 9px;font-size:1.3rem;line-height:1.2}.card p{color:var(--muted);margin:0}.num{font-size:.8rem;font-weight:900;color:var(--teal);letter-spacing:.12em}.pill{display:inline-block;padding:5px 10px;border-radius:100px;background:#e7eee4;color:var(--teal);font-size:.76rem;font-weight:800}.quote-card{background:var(--lime);border-radius:22px;padding:28px;font:1.5rem/1.3 Georgia,serif}.quote-card small{display:block;font:700 .78rem/1.4 ui-sans-serif,system-ui;margin-top:18px;text-transform:uppercase;letter-spacing:.1em}
+.timeline{display:grid;grid-template-columns:120px 1fr;gap:18px;padding:20px 0;border-bottom:1px solid var(--line)}.timeline:last-child{border-bottom:0}.timeline strong{color:var(--teal)}.timeline p{margin:0;color:var(--muted)}
+.principle{display:flex;gap:16px;align-items:flex-start}.symbol{flex:0 0 46px;height:46px;border-radius:14px;background:#e8eee2;display:grid;place-items:center;font-size:1.3rem}.principle h3{margin:0 0 5px}.principle p{margin:0;color:var(--muted)}
+.callout{margin-top:20px;background:var(--ink);color:white;border-radius:22px;padding:28px;display:flex;justify-content:space-between;gap:25px;align-items:center}.callout p{color:#d0dddc;margin:5px 0 0}.callout .btn{background:var(--lime);color:var(--ink)}
+.btn{border:0;border-radius:100px;padding:12px 18px;background:var(--teal);color:white;font-weight:800;transition:transform .15s,opacity .15s}.btn:hover{transform:translateY(-2px)}.btn.secondary{background:#e8eee2;color:var(--ink)}.btn:focus-visible,.tab:focus-visible,input:focus-visible{outline:3px solid var(--coral);outline-offset:3px}
+.game-layout{display:grid;grid-template-columns:1fr .75fr;gap:20px;align-items:start}.scenario{background:var(--ink);color:white;border-radius:24px;padding:28px}.scenario p{color:#d0dddc}.scenario .pill{background:#2b4a4e;color:var(--lime)}.deal{font-size:2.6rem;font-weight:900;letter-spacing:-.05em;margin:8px 0}.range{width:100%;accent-color:var(--coral)}.range-labels{display:flex;justify-content:space-between;font-size:.8rem;color:#c6d6d4}.choice-row{display:flex;flex-wrap:wrap;gap:9px;margin-top:18px}.feedback{margin-top:20px;background:#f0f4e7;color:var(--ink);padding:18px;border-radius:16px;min-height:105px}.meter{height:9px;background:#e1e7df;border-radius:20px;overflow:hidden;margin:10px 0}.meter span{height:100%;display:block;background:var(--teal);width:0%;transition:width .4s}.scoreline{display:flex;justify-content:space-between;align-items:center;gap:10px}.score{font-size:2rem;font-weight:900}.steps{display:grid;gap:12px}.step{border:1px solid var(--line);border-radius:16px;padding:16px;background:var(--card)}.step strong{display:block;margin-bottom:4px}.step p{margin:0;color:var(--muted);font-size:.94rem}.footer{padding:28px 0;border-top:1px solid var(--line);color:var(--muted);font-size:.84rem}.footer-inner{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap}.note{font-size:.86rem;color:var(--muted)}.mini-list{padding-left:20px;color:var(--muted)}.mini-list li{margin:8px 0}
+@media(max-width:800px){.hero{grid-template-columns:1fr;padding-top:42px}.hero-art{min-height:260px}.grid.three{grid-template-columns:1fr}.grid.two,.game-layout{grid-template-columns:1fr}.section-head{align-items:flex-start;flex-direction:column}.callout{align-items:flex-start;flex-direction:column}.timeline{grid-template-columns:90px 1fr}}@media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important;animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<header class="shell topbar"><div class="brand">LECTURAS <span>EN ACCIÓN</span></div><div class="topnote">Guía interactiva · Lectura y práctica</div></header>
+<section class="shell hero">
+ <div><div class="eyebrow">Una experiencia sobre ideas, decisiones y acuerdos</div><h1>El <em>negociador</em></h1><p>Un recorrido por el libro de Arturo Elías Ayub: emprendimiento, negociación, valores y la capacidad de reinventarse. Explora sus ideas y llévalas a una situación práctica.</p><span class="pill">5 secciones · 1 simulador</span></div>
+ <div class="hero-art"><div class="bigquote">“Negociar también es aprender a mirar desde el otro lado.”</div><div class="stamp">IDEAS<br>QUE SE<br>PRACTICAN</div><small>ARTURO ELÍAS AYUB · CONSEJOS PARA TRIUNFAR EN LA VIDA Y EN LOS NEGOCIOS</small></div>
+</section>
+<div class="tabs-wrap"><nav class="shell tabs" role="tablist" aria-label="Secciones del sitio">
+<button class="tab" role="tab" aria-selected="true" aria-controls="intro" data-tab="intro">01 · El libro</button>
+<button class="tab" role="tab" aria-selected="false" aria-controls="ideas" data-tab="ideas">02 · Ideas clave</button>
+<button class="tab" role="tab" aria-selected="false" aria-controls="mapa" data-tab="mapa">03 · Recorrido</button>
+<button class="tab" role="tab" aria-selected="false" aria-controls="practica" data-tab="practica">04 · Llevarlo a la vida</button>
+<button class="tab" role="tab" aria-selected="false" aria-controls="juego" data-tab="juego">05 · Juego de negociación</button>
+</nav></div>
+<main class="shell">
+<section class="panel active" id="intro" role="tabpanel">
+ <div class="section-head"><div><div class="kicker">01 / Contexto</div><h2>¿De qué trata?</h2></div><p>El libro presenta la negociación como una habilidad cotidiana, no exclusiva de las salas de juntas. Sus experiencias conectan los negocios con la forma de vivir, trabajar y relacionarse.</p></div>
+ <div class="grid three">
+  <article class="card"><div class="num">01 — AUTOR</div><h3>Arturo Elías Ayub</h3><p>Empresario y negociador mexicano que comparte experiencias personales y profesionales para explicar cómo observa oportunidades, conversa y toma decisiones.</p></article>
+  <article class="card"><div class="num">02 — ENFOQUE</div><h3>Consejos para la vida y los negocios</h3><p>La negociación se entiende en sentido amplio: escuchar, entender intereses, preparar alternativas, cuidar relaciones y buscar acuerdos sostenibles.</p></article>
+  <article class="card"><div class="num">03 — TONO</div><h3>Experiencias y aprendizajes</h3><p>El autor utiliza anécdotas y situaciones concretas para acercar conceptos empresariales a decisiones que cualquiera puede encontrar en su día a día.</p></article>
+ </div>
+ <div class="grid two" style="margin-top:18px">
+  <div class="quote-card">El propósito no es solo cerrar un trato: es reconocer qué quieres conseguir y qué estás dispuesto a cuidar en el camino.<small>Una lectura posible de los temas del libro</small></div>
+  <article class="card"><span class="pill">Cómo usar este sitio</span><h3>Explora, conecta, practica</h3><p>Avanza por las pestañas en el orden que prefieras. En la última sección podrás ajustar una oferta dentro de un caso ficticio y observar cómo se combinan resultado, relación y margen de negociación.</p><p class="note" style="margin-top:14px">Esta guía es un recurso educativo independiente; no sustituye al libro ni reproduce sus capítulos.</p></article>
+ </div>
+</section>
+<section class="panel" id="ideas" role="tabpanel">
+ <div class="section-head"><div><div class="kicker">02 / Principios</div><h2>Ideas para tener presentes</h2></div><p>Estos ejes resumen temas destacados en el índice y en pasajes del libro. Úsalos como lentes para analizar decisiones reales.</p></div>
+ <div class="grid two">
+  <article class="card principle"><div class="symbol">↗</div><div><h3>Emprender con pasión y propósito</h3><p>El impulso emprendedor se fortalece cuando el trabajo despierta interés y se tiene claro qué se quiere construir. El propósito puede variar de una persona a otra.</p></div></article>
+  <article class="card principle"><div class="symbol">◎</div><div><h3>Ver oportunidades en los problemas</h3><p>Una dificultad también puede revelar una necesidad no atendida. Cambiar el ángulo desde el que se mira ayuda a imaginar soluciones nuevas.</p></div></article>
+  <article class="card principle"><div class="symbol">⇄</div><div><h3>Negociar de manera constante</h3><p>Negociar no ocurre solo al firmar contratos: aparece al coordinar expectativas, recursos, tiempos y compromisos con otras personas.</p></div></article>
+  <article class="card principle"><div class="symbol">◇</div><div><h3>Los valores no son negociables</h3><p>La estrategia puede cambiar; los principios que sostienen la confianza y el respeto deben servir como límites claros para decidir.</p></div></article>
+  <article class="card principle"><div class="symbol">⌂</div><div><h3>Cuidar la vida fuera del trabajo</h3><p>El prólogo subraya la importancia de la familia, la convivencia y el bienestar personal como soporte para la vida profesional.</p></div></article>
+  <article class="card principle"><div class="symbol">⟳</div><div><h3>Reinventarse ante el cambio</h3><p>La sección final conecta la incertidumbre con la adaptación: revisar hábitos, aprender y encontrar formas nuevas de avanzar sin perder perspectiva.</p></div></article>
+ </div>
+ <div class="callout"><div><strong>Una idea para recordar</strong><p>Una negociación inteligente no debería medirse únicamente por lo que obtienes hoy, sino también por lo que permite construir después.</p></div><button class="btn" onclick="goTab('juego')">Probar el simulador →</button></div>
+</section>
+<section class="panel" id="mapa" role="tabpanel">
+ <div class="section-head"><div><div class="kicker">03 / Estructura</div><h2>El recorrido del libro</h2></div><p>El índice organiza el contenido en una introducción, cuatro partes y unas conclusiones centradas en la reinvención.</p></div>
+ <div class="card">
+  <div class="timeline"><strong>Introducción</strong><p><b>“Esto no es un juego, pero me encanta jugarlo”.</b> Presenta la negociación como una práctica que exige curiosidad, atención y ganas de aprender.</p></div>
+  <div class="timeline"><strong>Parte 1</strong><p><b>Un emprendedor, ¿nace o se hace?</b> Explora la pasión, el propósito, los hábitos y la disposición para desarrollar una iniciativa.</p></div>
+  <div class="timeline"><strong>Parte 2</strong><p><b>¡Goooya! La Pumanía.</b> Reúne experiencias ligadas a la identidad, el entusiasmo colectivo y las oportunidades que surgen al conectar con las personas.</p></div>
+  <div class="timeline"><strong>Parte 3</strong><p><b>Siempre estás negociando.</b> Lleva el foco a la negociación como habilidad recurrente, tanto en situaciones comerciales como en las relaciones cotidianas.</p></div>
+  <div class="timeline"><strong>Parte 4</strong><p><b>Tus valores, los estándares de tu vida.</b> Invita a considerar los valores como criterios para actuar y establecer límites.</p></div>
+  <div class="timeline"><strong>Conclusiones</strong><p><b>Reinventarse. El enemigo que nadie esperaba.</b> Cierra con una reflexión sobre adaptación, cambios inesperados y la importancia de mantener perspectiva.</p></div>
+ </div>
+ <p class="note" style="margin-top:14px">Los textos explicativos de cada etapa son síntesis temáticas, no citas textuales.</p>
+</section>
+<section class="panel" id="practica" role="tabpanel">
+ <div class="section-head"><div><div class="kicker">04 / Aplicación</div><h2>De la idea a la acción</h2></div><p>Una pequeña rutina para preparar una conversación importante antes de entrar en ella: laboral, escolar, comercial o familiar.</p></div>
+ <div class="grid two">
+  <article class="card"><span class="num">PASO 1</span><h3>Define tu objetivo</h3><p>Escribe qué resultado sería útil para ti. Distingue lo imprescindible de lo deseable y evita confundir una posición inicial con tu necesidad real.</p></article>
+  <article class="card"><span class="num">PASO 2</span><h3>Imagina la otra perspectiva</h3><p>Piensa qué podría valorar la otra persona: tiempo, presupuesto, seguridad, reconocimiento, flexibilidad o continuidad. Llega dispuesto a escuchar.</p></article>
+  <article class="card"><span class="num">PASO 3</span><h3>Prepara alternativas</h3><p>Diseña más de una forma de llegar a un acuerdo. Cambiar condiciones —plazo, alcance, entregas o servicios— puede ser más útil que discutir una sola cifra.</p></article>
+  <article class="card"><span class="num">PASO 4</span><h3>Cuida tus límites</h3><p>Decide de antemano qué no aceptarás por razones éticas, de viabilidad o de respeto. Un buen resultado no exige abandonar tus valores.</p></article>
+ </div>
+ <div class="card" style="margin-top:18px"><h3>Tu plan de conversación</h3><p class="note">Completa los campos; la información se queda en esta página y puedes copiar tu plan.</p>
+  <label for="goal"><b>Mi objetivo principal</b></label><input id="goal" placeholder="Ej. acordar una fecha de entrega realista" style="display:block;width:100%;padding:12px;border:1px solid var(--line);border-radius:12px;margin:6px 0 14px;background:white">
+  <label for="other"><b>Qué podría necesitar la otra persona</b></label><input id="other" placeholder="Ej. certeza, tiempo o un presupuesto claro" style="display:block;width:100%;padding:12px;border:1px solid var(--line);border-radius:12px;margin:6px 0 14px;background:white">
+  <label for="limit"><b>Mi límite o valor que debo cuidar</b></label><input id="limit" placeholder="Ej. no prometer algo que no puedo cumplir" style="display:block;width:100%;padding:12px;border:1px solid var(--line);border-radius:12px;margin:6px 0 14px;background:white">
+  <button class="btn" onclick="copyPlan()">Copiar mi plan</button> <span id="copyStatus" class="note" aria-live="polite"></span>
+ </div>
+</section>
+<section class="panel" id="juego" role="tabpanel">
+ <div class="section-head"><div><div class="kicker">05 / Actividad interactiva</div><h2>El punto de acuerdo</h2></div><p>Un simulador, no un cuestionario. Mueve tu oferta y elige cómo conversar para explorar el equilibrio entre precio, confianza y margen.</p></div>
+ <div class="game-layout">
+  <div class="scenario">
+   <span class="pill">CASO FICTICIO · COMPRA DE EQUIPO</span>
+   <h3 style="font-size:1.7rem;margin:14px 0 4px">Tú eres quien compra</h3>
+   <p>Necesitas un equipo para un proyecto. El vendedor pide <b>$12,000</b>. Tu presupuesto máximo es <b>$10,000</b>, pero el vendedor tiene cierto margen para negociar. El objetivo es buscar un acuerdo razonable sin deteriorar la relación.</p>
+   <div class="deal" id="offerDisplay">$8,000</div><label for="offer">Ajusta tu oferta inicial</label>
+   <input class="range" type="range" id="offer" min="6000" max="10000" step="250" value="8000" oninput="updateOffer()">
+   <div class="range-labels"><span>$6,000</span><span>$10,000</span></div>
+   <div class="choice-row"><button class="btn" onclick="negotiate('respect')">Proponer con respeto</button><button class="btn secondary" onclick="negotiate('pressure')">Presionar por precio</button><button class="btn secondary" onclick="negotiate('value')">Negociar condiciones</button></div>
+   <div class="feedback" id="feedback" aria-live="polite"><b>Tu turno.</b><br>Elige una estrategia para ver una posible respuesta del vendedor y cómo cambia el resultado.</div>
+  </div>
+  <aside class="steps">
+   <div class="card"><div class="scoreline"><div><div class="num">RESULTADO DEL ACUERDO</div><h3 style="margin:4px 0">Marcador de la ronda</h3></div><div class="score" id="score">—</div></div><div class="meter"><span id="meterBar"></span></div><p class="note" id="scoreNote">Realiza una negociación para ver tu evaluación.</p></div>
+   <div class="step"><strong>🎯 Meta</strong><p>Conseguir un precio viable sin olvidar que el acuerdo también depende de la comunicación y las condiciones.</p></div>
+   <div class="step"><strong>🤝 Relación</strong><p>Un tono respetuoso puede mantener abierta la conversación; presionar demasiado puede cerrarla.</p></div>
+   <div class="step"><strong>🧩 Flexibilidad</strong><p>Plazos, entrega, soporte o servicios adicionales pueden crear valor sin limitar todo a una cifra.</p></div>
+   <button class="btn secondary" onclick="resetGame()">Reiniciar ronda ↻</button>
+  </aside>
+ </div>
+ <p class="note" style="margin-top:18px">El simulador es una dinámica didáctica inventada para este sitio; sus respuestas no son predicciones reales ni citas del libro.</p>
+</section>
+</main>
+<footer class="shell footer"><div class="footer-inner"><span><b>LECTURAS EN ACCIÓN</b> · El negociador</span><span>Recurso educativo independiente · Sin imágenes externas</span></div><p>Basado en los temas y la estructura visibles de <i>El negociador: consejos para triunfar en la vida y en los negocios</i>, de Arturo Elías Ayub. Las síntesis y el juego son originales.</p></footer>
+<script>
+const tabs=[...document.querySelectorAll('.tab')],panels=[...document.querySelectorAll('.panel')];
+function goTab(id){tabs.forEach(t=>{const yes=t.dataset.tab===id;t.setAttribute('aria-selected',yes?'true':'false')});panels.forEach(p=>p.classList.toggle('active',p.id===id));document.querySelector(`[data-tab="${id}"]`).focus({preventScroll:true});window.scrollTo({top:document.querySelector('.tabs-wrap').offsetTop,behavior:'smooth'})}
+tabs.forEach(t=>t.addEventListener('click',()=>goTab(t.dataset.tab)));
+document.querySelector('.tabs').addEventListener('keydown',e=>{if(!['ArrowRight','ArrowLeft'].includes(e.key))return;e.preventDefault();let i=tabs.indexOf(document.activeElement);i=(i+(e.key==='ArrowRight'?1:-1)+tabs.length)%tabs.length;goTab(tabs[i].dataset.tab)});
+function money(n){return '$'+n.toLocaleString('en-US')}
+function updateOffer(){document.getElementById('offerDisplay').textContent=money(+document.getElementById('offer').value)}
+function negotiate(style){
+ const offer=+document.getElementById('offer').value;let score=0,title='',body='',price=offer;
+ if(style==='respect'){price=Math.min(10000,Math.max(offer,8500));score=Math.round(62+(offer-6000)/4000*25);title='Propuesta respetuosa';body=`El vendedor percibe una oferta seria y responde con una contraoferta de ${money(price)}. Explicar tus razones y escuchar las suyas mantiene el diálogo abierto.`}
+ if(style==='pressure'){price=Math.min(10000,Math.max(offer,9000));score=Math.round(35+(offer-6000)/4000*20);title='La presión tiene un costo';body=`El vendedor se muestra menos flexible y responde con ${money(price)}. Aunque seas firme, un tono agresivo puede reducir la confianza y las opciones de acuerdo.`}
+ if(style==='value'){price=Math.min(10000,Math.max(offer,8250));score=Math.round(70+(offer-6000)/4000*25);title='Crear valor con condiciones';body=`En vez de discutir solo el precio, propones ajustar entrega o soporte. El vendedor plantea ${money(price)} con una condición adicional por acordar. Explorar variables puede acercar intereses.`}
+ if(price>10000){score-=15}
+ document.getElementById('feedback').innerHTML='<b>'+title+'.</b><br>'+body;
+ document.getElementById('score').textContent=score+'/100';
+ document.getElementById('meterBar').style.width=score+'%';
+ document.getElementById('scoreNote').textContent=score>=80?'Buen equilibrio: cuidaste el trato y abriste espacio para un acuerdo.':score>=60?'Resultado intermedio: revisa qué condición podría mejorar el acuerdo.':'Hay margen para mejorar: prueba otra estrategia y observa el efecto en la relación.';
+}
+function resetGame(){document.getElementById('offer').value=8000;updateOffer();document.getElementById('feedback').innerHTML='<b>Ronda reiniciada.</b><br>Elige una estrategia para probar un enfoque distinto.';document.getElementById('score').textContent='—';document.getElementById('meterBar').style.width='0%';document.getElementById('scoreNote').textContent='Realiza una negociación para ver tu evaluación.'}
+async function copyPlan(){const s=`Mi plan de conversación\nObjetivo: ${document.getElementById('goal').value||'(por definir)'}\nNecesidad de la otra persona: ${document.getElementById('other').value||'(por explorar)'}\nLímite o valor: ${document.getElementById('limit').value||'(por definir)'}`;const status=document.getElementById('copyStatus');try{await navigator.clipboard.writeText(s);status.textContent='Plan copiado.'}catch(e){const ta=document.createElement('textarea');ta.value=s;document.body.appendChild(ta);ta.select();document.execCommand('copy');ta.remove();status.textContent='Plan listo para pegar.'}}
+</script>
+</body></html>

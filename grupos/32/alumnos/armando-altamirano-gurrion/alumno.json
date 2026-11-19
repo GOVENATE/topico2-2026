@@ -1,0 +1,24 @@
+﻿{
+  "nombre": "Armando Altamirano Gurrion",
+  "github": "Armand9o",
+  "sobreMi": "Estudiante de 9no semestre.",
+  "actividades": [
+    { "id": "act01-codigo-limpio", "titulo": "Código Limpio Laboratorio", "tipo": "web", "ruta": "actividades/act01-codigo-limpio/index.html" },
+    { "id": "act02-collage-decisiones-azar", "titulo": "Collage Decisiones al Azar", "tipo": "web", "ruta": "actividades/act02-collage-decisiones-azar/index.html" },
+    { "id": "act03-collage-liderazgo", "titulo": "Collage Liderazgo y Emociones", "tipo": "web", "ruta": "actividades/act03-collage-liderazgo/index.html" },
+    { "id": "act04-decalogo-mexico", "titulo": "Decálogo de México", "tipo": "web", "ruta": "actividades/act04-decalogo-mexico/index.html" },
+    { "id": "act05-el-negociador", "titulo": "El Negociador Elias Ayub", "tipo": "web", "ruta": "actividades/act05-el-negociador/index.html" },
+    { "id": "act06-la-voz", "titulo": "La Voz", "tipo": "pdf", "ruta": "actividades/act06-la-voz/documento.pdf" },
+    { "id": "act07-leyes-naturaleza", "titulo": "Leyes de la Naturaleza Humana", "tipo": "web", "ruta": "actividades/act07-leyes-naturaleza/index.html" },
+    { "id": "act08-movimientos-sociales", "titulo": "Movimientos Sociales", "tipo": "pdf", "ruta": "actividades/act08-movimientos-sociales/documento.pdf" },
+    { "id": "act09-porque-fracasan-paises", "titulo": "Por qué fracasan los países", "tipo": "pdf", "ruta": "actividades/act09-porque-fracasan-paises/documento.pdf" },
+    { "id": "act10-super-ricos", "titulo": "Super Ricos Video DW", "tipo": "pdf", "ruta": "actividades/act10-super-ricos/documento.pdf" },
+    { "id": "act11-tabla-empresarios", "titulo": "Tabla Empresarios Mex", "tipo": "pdf", "ruta": "actividades/act11-tabla-empresarios/documento.pdf" },
+    { "id": "act12-empresarios-mex", "titulo": "Empresarios Mexicanos", "tipo": "web", "ruta": "actividades/act12-empresarios-mex/index.html" },
+    { "id": "act13-mente-critica", "titulo": "Mente Crítica", "tipo": "web", "ruta": "actividades/act13-mente-critica/index.html" },
+       { "id": "act14-7habitos", "titulo": "7 Hábitos", "tipo": "pdf", "ruta": "actividades/act14-7habitos/documento.pdf" },
+    { "id": "act15-creatividad", "titulo": "Creatividad", "tipo": "pdf", "ruta": "actividades/act15-creatividad/documento.pdf" },
+    { "id": "act16-quintadisciplina", "titulo": "Quinta Disciplina", "tipo": "pdf", "ruta": "actividades/act16-quintadisciplina/documento.pdf" },
+    { "id": "act17-interactivaquinta", "titulo": "Interactiva Quinta", "tipo": "web", "ruta": "actividades/act17-interactivaquinta/index.html" }
+  ]
+}
