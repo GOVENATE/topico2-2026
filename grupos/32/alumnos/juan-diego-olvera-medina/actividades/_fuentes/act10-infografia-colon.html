@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<title>Colón</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;700&family=Source+Serif+4:ital,wght@0,400;0,600;1,400&display=swap">
+<link rel="stylesheet" href="fuente.css">
+<style>
+  .retrato { display: grid; grid-template-columns: 360px 1fr; gap: 36px; align-items: center; }
+  .retrato img { width: 360px; height: 436px; object-fit: cover; border-radius: var(--radio); }
+  .viajes { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
+  .viaje { border-top: 6px solid var(--acento); padding-top: 14px; }
+  .viaje b { font: 700 40px/1 var(--f-titulo); color: var(--acento); display: block; margin-bottom: 8px; }
+  .viaje span { font-size: 19px; line-height: 1.4; display: block; }
+  .mito { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+  .mito h3 { font-size: 22px; margin: 0 0 6px; }
+  .mito .falso h3 { color: var(--acento-2); }
+  .mito .real h3 { color: var(--exito); }
+</style>
+</head>
+<body class="info">
+<header class="banda">
+  <p class="rotulo">Actividad 10 · Colón y la historia</p>
+  <h1>Cristóbal Colón: el viaje que juntó dos mundos sin saberlo</h1>
+  <p>Buscaba una ruta a Asia por el oeste. Encontró un continente que no estaba en sus mapas y cambió la historia de los dos lados del océano.</p>
+</header>
+
+<div class="bloques">
+  <section class="bloque retrato">
+    <img src="img/colon-sebastiano-del-piombo.jpg" alt="Retrato de un hombre, que se dice es Cristóbal Colón, por Sebastiano del Piombo">
+    <div>
+      <h2>Quién era</h2>
+      <p>Navegante nacido en Génova hacia 1451. Pasó años pidiendo apoyo para su proyecto hasta que los Reyes Católicos, Isabel y Fernando, lo financiaron en 1492 con las Capitulaciones de Santa Fe.</p>
+      <p>Murió en Valladolid en 1506, convencido de que había llegado a las Indias.</p>
+    </div>
+  </section>
+
+  <section class="bloque">
+    <h2>Sus cuatro viajes</h2>
+    <div class="viajes">
+      <div class="viaje"><b>1492</b><span>Tres naves: la Santa María, la Pinta y la Niña. Llega a Guanahaní (Bahamas) el 12 de octubre.</span></div>
+      <div class="viaje"><b>1493</b><span>Diecisiete barcos y unos 1,500 hombres para poblar La Española.</span></div>
+      <div class="viaje"><b>1498</b><span>Llega a tierra firme en la costa de Venezuela, en la desembocadura del Orinoco.</span></div>
+      <div class="viaje"><b>1502</b><span>Recorre la costa de Centroamérica, de Honduras a Panamá.</span></div>
+    </div>
+  </section>
+
+  <section class="bloque">
+    <h2>Lo que cambió</h2>
+    <ul>
+      <li><strong>Intercambio colombino:</strong> el maíz, la papa, el jitomate y el cacao viajaron a Europa; el trigo, el caballo y la vaca llegaron a América.</li>
+      <li><strong>Conquista y colonización:</strong> el contacto abrió paso a la conquista europea del continente.</li>
+      <li><strong>Catástrofe demográfica:</strong> enfermedades como la viruela, para las que los pueblos originarios no tenían defensas, causaron millones de muertes.</li>
+      <li><strong>Un mundo conectado:</strong> por primera vez hubo rutas regulares entre Europa, África y América.</li>
+    </ul>
+  </section>
+
+  <section class="bloque">
+    <h2>Mito y realidad</h2>
+    <div class="mito">
+      <div class="falso"><h3>Mito</h3><p>Colón quería demostrar que la Tierra era redonda, contra quienes creían que era plana.</p></div>
+      <div class="real"><h3>Realidad</h3><p>Los sabios de su época ya sabían que era redonda. La discusión era sobre su tamaño: Colón la calculó mucho más pequeña de lo que es, y por eso creyó que Asia estaba cerca.</p></div>
+    </div>
+  </section>
+</div>
+
+<footer class="pie">
+  <strong>Juan Diego Olvera Medina</strong> · LATI, 9.º semestre · Tópicos II<br>
+  Imagen: <em>Retrato de un hombre, que se dice es Cristóbal Colón</em>, Sebastiano del Piombo (1519), Metropolitan Museum of Art. Dominio público, vía Wikimedia Commons.<br>
+  Fuentes: Fernández-Armesto, F. <em>Colón</em>. Crosby, A. W. <em>El intercambio transoceánico</em>.
+</footer>
+<script src="fuente.js"></script>
+</body>
+</html>

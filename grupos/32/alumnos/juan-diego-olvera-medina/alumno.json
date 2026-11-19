@@ -50,6 +50,109 @@
         "JavaScript"
       ],
       "ruta": "actividades/act04-toma-de-decisiones/index.html"
+    },
+    {
+      "id": "act05-codigo-limpio",
+      "titulo": "Código limpio",
+      "descripcion": "Resumen y mapa conceptual de Clean Code de Robert C. Martin: nombres, funciones, comentarios, errores y pruebas.",
+      "tipo": "pdf",
+      "tecnologias": [
+        "Resumen",
+        "Mapa conceptual"
+      ],
+      "ruta": "actividades/act05-codigo-limpio/documento.pdf"
+    },
+    {
+      "id": "act06-pensamiento-critico",
+      "titulo": "Sin pensamiento crítico no eres nadie",
+      "descripcion": "Comentario de video sobre pensamiento crítico, con un ejemplo propio y mi postura sobre el título.",
+      "tipo": "pdf",
+      "tecnologias": [
+        "Comentario"
+      ],
+      "ruta": "actividades/act06-pensamiento-critico/documento.pdf"
+    },
+    {
+      "id": "act07-yokoi-kenji-kasuga",
+      "titulo": "Filosofía de Yokoi Kenji y Carlos Kasuga",
+      "descripcion": "Cuadro comparativo de las dos visiones y mi reflexión sobre cuál aplica a México.",
+      "tipo": "pdf",
+      "tecnologias": [
+        "Cuadro comparativo",
+        "Reflexión"
+      ],
+      "ruta": "actividades/act07-yokoi-kenji-kasuga/documento.pdf"
+    },
+    {
+      "id": "act08-persuade-con-tu-voz",
+      "titulo": "Persuade con tu voz",
+      "descripcion": "Resumen de la conferencia de Emma Rodero: tono, entonación, velocidad y pausas.",
+      "tipo": "pdf",
+      "tecnologias": [
+        "Resumen"
+      ],
+      "ruta": "actividades/act08-persuade-con-tu-voz/documento.pdf"
+    },
+    {
+      "id": "act09-habilidades-pensamiento",
+      "titulo": "Habilidades del pensamiento y pensagram",
+      "descripcion": "Resumen de las habilidades básicas y superiores del pensamiento, con un pensagrama.",
+      "tipo": "pdf",
+      "tecnologias": [
+        "Resumen",
+        "Pensagrama"
+      ],
+      "ruta": "actividades/act09-habilidades-pensamiento/documento.pdf"
+    },
+    {
+      "id": "act10-infografia-colon",
+      "titulo": "Infografía de Colón",
+      "descripcion": "Quién era Cristóbal Colón, sus cuatro viajes, lo que cambió y un mito común.",
+      "tipo": "imagen",
+      "tecnologias": [
+        "Infografía"
+      ],
+      "ruta": "actividades/act10-infografia-colon/infografia.png"
+    },
+    {
+      "id": "act11-por-que-fracasan-los-paises",
+      "titulo": "¿Por qué fracasan los países?",
+      "descripcion": "Infografía del libro de Acemoglu y Robinson: instituciones inclusivas frente a extractivas.",
+      "tipo": "imagen",
+      "tecnologias": [
+        "Infografía"
+      ],
+      "ruta": "actividades/act11-por-que-fracasan-los-paises/infografia.png"
+    },
+    {
+      "id": "act12-iceberg-gigantes-tecnologicos",
+      "titulo": "El iceberg de los gigantes tecnológicos",
+      "descripcion": "Lo que no se ve de las grandes tecnológicas: datos, poder de mercado, poder político y los centros de datos en Querétaro.",
+      "tipo": "imagen",
+      "tecnologias": [
+        "Infografía"
+      ],
+      "ruta": "actividades/act12-iceberg-gigantes-tecnologicos/infografia.png"
+    },
+    {
+      "id": "act13-super-ricos",
+      "titulo": "La influencia de los súper ricos",
+      "descripcion": "Reflexión sobre el documental de DW: cómo los multimillonarios influyen en las ciudades.",
+      "tipo": "pdf",
+      "tecnologias": [
+        "Reflexión"
+      ],
+      "ruta": "actividades/act13-super-ricos/documento.pdf"
+    },
+    {
+      "id": "act14-movimientos-sociales",
+      "titulo": "Movimientos sociales (Mentes en acción)",
+      "descripcion": "Resumen: qué es un movimiento social, sus elementos, etapas y ejemplos.",
+      "tipo": "pdf",
+      "tecnologias": [
+        "Resumen"
+      ],
+      "ruta": "actividades/act14-movimientos-sociales/documento.pdf"
     }
   ]
 }
