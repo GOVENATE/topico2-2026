@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="es"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Collage: Habilidades directivas</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@500;800&display=swap" rel="stylesheet">
+<style>
+:root{--board:#2a3a9a;--board2:#1a2468;--paper:#fffdf7;--ink:#1c1830;--blank:#ece9f5;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--board:#1a2468;--board2:#0d0b1a}}
+:root[data-theme="dark"]{--board:#1a2468;--board2:#0d0b1a}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;min-height:100vh;background:var(--board);background-image:radial-gradient(var(--board2) 1.2px,transparent 1.3px);background-size:22px 22px;color:#fffc;font-family:'Bricolage Grotesque','Trebuchet MS',sans-serif}
+header{padding:26px 18px 6px;max-width:1100px;margin:0 auto;display:flex;flex-wrap:wrap;gap:16px 26px;align-items:flex-end;justify-content:space-between}
+.title{background:var(--paper);color:var(--ink);padding:16px 22px 14px;rotate:-1.6deg;box-shadow:5px 6px 0 var(--board2);position:relative;max-width:100%}
+.title small{display:block;font-size:.95rem;margin-bottom:4px;opacity:.75}
+.title h1{margin:0;font-weight:800;font-size:clamp(1.8rem,6vw,3.2rem);line-height:1;letter-spacing:-.02em}
+.title::before{content:"";position:absolute;top:-11px;left:30px;width:84px;height:22px;background:#ffd23fcc;rotate:-4deg}
+.tools{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.btn{font:inherit;font-size:.95rem;border:2px solid #fff;background:transparent;color:#fff;padding:6px 14px;border-radius:99px;cursor:pointer}
+.btn:hover{background:#fff;color:var(--ink)}
+.btn:focus-visible,.part:focus-visible{outline:3px solid #fff;outline-offset:3px}
+.count{font-size:1rem;padding:6px 4px}
+.stage{max-width:1100px;margin:10px auto 0;padding:14px 18px 60px;display:grid;grid-template-columns:minmax(260px,400px) 1fr;gap:30px;align-items:start}
+figure{margin:0}
+svg{width:100%;height:auto;display:block;overflow:visible}
+.b{fill:var(--paper);stroke:var(--ink);stroke-width:3;stroke-linejoin:round}
+.f{fill:var(--blank);stroke:var(--ink);stroke-width:3;stroke-linejoin:round;stroke-dasharray:7 5;transition:fill .35s}
+.part{cursor:pointer;filter:drop-shadow(4px 5px 0 rgba(0,0,0,.3))}
+.part:hover .f{stroke-width:5}
+.part.seen .f{fill:var(--pc);stroke-dasharray:none}
+.part.cur .f{stroke-width:6}
+.hit{fill:transparent;stroke:none}
+.part.seen #panel{position:sticky;top:16px;background:var(--paper);color:var(--ink);padding:22px 26px 24px;border-left:14px solid var(--pc,#fff);box-shadow:7px 8px 0 rgba(0,0,0,.35);rotate:.5deg;min-height:230px}
+#panel h2{margin:0 0 2px;font-size:.95rem;font-weight:500;opacity:.7}
+#panel h3{margin:0 0 10px;font-weight:800;font-size:clamp(1.5rem,4vw,2.2rem);line-height:1.05}
+#panel p{margin:0 0 12px;font-size:1.08rem;line-height:1.5;max-width:60ch}
+.kw span{display:inline-block;background:var(--pc);color:var(--ink);padding:.3em .75em;margin:6px 8px 0 0;font-weight:800;box-shadow:2px 3px 0 rgba(0,0,0,.25)}
+#x{display:none;position:absolute;top:6px;right:10px;border:0;background:none;font-size:1.8rem;cursor:pointer;color:var(--ink)}
+@media (max-width:760px){.stage{grid-template-columns:1fr;padding-bottom:300px}svg{max-width:300px;margin:0 auto}
+#panel{position:fixed;left:12px;right:12px;bottom:calc(12px + env(safe-area-inset-bottom,0px));top:auto;z-index:99;max-height:55vh;overflow:auto;translate:0 130%;transition:translate .28s}
+#panel.on{translate:0 0}#x{display:block}}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style></head><body>
+<header><div class="title"><small>Capítulo 1</small><h1>Habilidades directivas y su clasificación</h1></div>
+<div class="tools"><span class="count" id="cnt"></span><button class="btn" id="b1"></button><button class="btn" id="b2"></button><button class="btn" id="rs">Reiniciar</button></div></header>
+<main class="stage">
+<figure><svg viewBox="0 0 360 620" role="group" aria-label="Figura de papel recortado con partes que se pueden tocar">
+<g class="body"><rect class="b" x="164" y="150" width="32" height="24"/>
+<polygon class="b" points="120,160 240,160 256,382 104,382"/>
+<polygon class="b" points="122,165 84,176 62,336 96,342 116,226"/>
+<polygon class="b" points="238,165 276,176 298,336 264,342 244,226"/>
+<polygon class="b" points="108,380 180,380 172,566 126,566"/>
+<polygon class="b" points="180,380 252,380 234,566 188,566"/></g>
+<g class="part" data-k="legs"><polygon class="f" points="112,382 178,382 170,562 128,562"/><polygon class="f" points="182,382 248,382 232,562 190,562"/></g>
+<g class="part" data-k="feet"><ellipse class="f" cx="146" cy="586" rx="38" ry="17"/><ellipse class="f" cx="216" cy="586" rx="38" ry="17"/></g>
+<g class="part" data-k="ears"><circle class="f" cx="116" cy="102" r="15"/><circle class="f" cx="244" cy="102" r="15"/></g>
+<g class="part" data-k="head"><ellipse class="f" cx="180" cy="96" rx="58" ry="62"/></g>
+<g class="part" data-k="eyes"><ellipse class="f" cx="158" cy="92" rx="11" ry="8"/><ellipse class="f" cx="202" cy="92" rx="11" ry="8"/><rect class="hit" x="138" y="76" width="84" height="32"/></g>
+<g class="part" data-k="mouth"><path class="f" d="M156 126 Q180 150 204 126 Q180 134 156 126Z"/><rect class="hit" x="150" y="120" width="60" height="34"/></g>
+<g class="part" data-k="heart"><path class="f" d="M180 244 C134 208 156 176 180 200 C204 176 226 208 180 244Z"/></g>
+<g class="part" data-k="belly"><circle class="f" cx="180" cy="312" r="46"/><path d="M160 312 h40 M180 292 v40" stroke="#1c1830" stroke-width="3" fill="none"/></g>
+<g class="part" data-k="handA"><circle class="f" cx="290" cy="358" r="29"/></g>
+<g class="part" data-k="handB"><circle class="f" cx="70" cy="358" r="29"/></g>
+
+</svg></figure>
+<aside id="panel" role="status" aria-live="polite"><button id="x" aria-label="Cerrar">×</button><h2 id="ph"></h2><h3 id="pt"></h3><p id="pp"></p><div class="kw" id="pk"></div></aside>
+</main>
+<script>
+const P=[["Piernas", "Movilidad del profesional", "En el siglo XX un directivo cambiaba de trabajo de 3 a 4 veces; en el XXI lo hará de 8 a 10. Por eso las habilidades se acumulan y se refuerzan.", ["8 a 10 empleos", "Habilidades que viajan", "Reforzar el pensamiento"], "", "#9ec5ff"], ["Pies", "Internacionalización", "La globalización cruza fronteras con tecnología, ideas y valores. El directivo responde aprendiendo a vivir con otras culturas.", ["Globalización", "Aprender a vivir juntos", "Interacción bicultural", "Aldea global"], "", "#7be0c3"], ["Oídos", "Escuchar", "Es la primera habilidad social del listado: escuchar, iniciar y mantener una conversación. Las habilidades sociales no son un rasgo de personalidad; se aprenden desde la niñez.", ["Escuchar", "Preguntar", "Conversar", "Se aprenden"], "", "#ff9f5a"], ["Cabeza", "Habilidades conceptuales y saber", "Ver la organización como un todo: analizar, predecir y planificar, entendiendo el contexto interno y externo. Es el “saber” del directivo, sus conocimientos.", ["Visión de conjunto", "Planeación estratégica", "Analizar", "Saber"], "", "#ffd23f"], ["Ojos", "Visión de futuro", "Primera megahabilidad del liderazgo: mantener la vista en el horizonte lejano y caminar hacia él. Va junto al dominio de los cambios y el aprendizaje anticipado.", ["Horizonte", "Dominio de los cambios", "Aprendizaje anticipado"], "", "#ffffff"], ["Boca", "Comunicar y convencer", "Dentro de las habilidades sociales avanzadas está pedir ayuda, dar instrucciones, disculparse y convencer. Las interpersonales suman motivar, persuadir e influir.", ["Convencer", "Dar instrucciones", "Disculparse", "Persuadir"], "", "#ff7aa2"], ["Corazón", "Saber ser", "Son las cualidades del directivo. Entre las megahabilidades destaca la integridad: serio, honesto, tolerante, confiable y leal. También cuenta la inteligencia emocional.", ["Cualidades", "Integridad", "Inteligencia emocional", "Empatía"], "", "#ff7aa2"], ["Estómago", "Resultados a través de otros", "Peter Drucker lo resume así: dirigir es obtener resultados a través de otros. Dar un puesto solo por tener carrera genera improvisación y desmotivación.", ["Resultados", "Improvisación", "Desmotivación", "Saber + saber hacer + saber ser"], "", "#ffd23f"], ["Mano derecha", "Saber hacer", "Son las capacidades y habilidades: dominio técnico de la profesión e iniciativa para hacer que las cosas sucedan. “Hago y aprendo”: recordamos 90% de lo que hacemos.", ["Habilidades técnicas", "Iniciativa", "Práctica", "90% de lo que hacemos"], "", "#7be0c3"], ["Mano izquierda", "Trabajar con los demás", "Habilidades interpersonales: colaborar con cortesía y cooperación, delegar, motivar y conducir al grupo para lograr propósitos comunes.", ["Colaboración", "Delegar", "Motivar", "Liderazgo = relación"], "", "#9ec5ff"]],EX=[["Quién inspira el capítulo", "Margaret Thatcher", "Estadista inglesa nacida en 1925. En su primer periodo como jefa de gobierno demostró sus habilidades de gestión. Fue la primera jefa de gobierno británica del siglo XX en gobernar tres periodos consecutivos.", ["Gestión", "Fortaleza", "Tres periodos", "Reelecta en 1987"], "#ffd23f"], ["Cuatro tipos de habilidad", "Conceptuales, técnicas, interpersonales y sociales", "El líder necesita principalmente estas cuatro. Todas se pueden desarrollar y cultivar, igual que las físicas: se aprende a pensar y a dirigir.", ["Conceptuales", "Técnicas", "Interpersonales", "Sociales"], "#ff9f5a"]];
+const $=id=>document.getElementById(id),panel=$('panel');let seen=new Set(),curEl=null;
+const parts=[...document.querySelectorAll('.part')];
+function show(h,t,p,k,c,el){panel.style.setProperty('--pc',c);$('ph').textContent=h;$('pt').textContent=t;$('pp').textContent=p;
+ $('pk').innerHTML='';k.forEach((w,i)=>{const s=document.createElement('span');s.textContent=w;s.style.rotate=((i*37%9)-4)+'deg';$('pk').appendChild(s)});
+ panel.classList.add('on');if(curEl)curEl.classList.remove('cur');curEl=el;if(el)el.classList.add('cur')}
+function cnt(){$('cnt').textContent=seen.size===P.length?'Collage completo':'Ideas descubiertas: '+seen.size+' de '+P.length}
+parts.forEach((g,i)=>{const d=P[i];g.style.setProperty('--pc',d[5]);g.setAttribute('tabindex','0');g.setAttribute('role','button');g.setAttribute('aria-label',d[0]+': '+d[1]);
+ const go=()=>{seen.add(i);g.classList.add('seen');show(d[0],d[1],d[2],d[3],d[5]||d[4],g);cnt()};
+ g.onclick=go;g.onkeydown=e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();go()}}});
+[['b1',0],['b2',1]].forEach(([id,j])=>{const e=EX[j];$(id).textContent=e[0];$(id).onclick=()=>show(e[0],e[1],e[2],e[3],e[4],null)});
+$('rs').onclick=()=>{seen.clear();parts.forEach(g=>g.classList.remove('seen','cur'));panel.classList.remove('on');intro();cnt()};
+$('x').onclick=()=>panel.classList.remove('on');
+function intro(){panel.style.setProperty('--pc','#fff');$('ph').textContent='Un directivo en papel';$('pt').textContent='Descubre sus habilidades';$('pp').textContent='Cada parte del cuerpo guarda una idea del capítulo. Toca las partes del cuerpo para armarlo.';$('pk').innerHTML='';if(innerWidth>760)panel.classList.add('on');}
+intro();cnt();
+</script></body></html>

@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Inicio</title>
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial, Helvetica, sans-serif;
+}
+
+body{
+    background:linear-gradient(135deg,#050505,#120021,#000);
+    min-height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    overflow:hidden;
+}
+
+/* Fondo con brillo */
+body::before{
+    content:"";
+    position:absolute;
+    width:800px;
+    height:800px;
+    background:#8f00ff;
+    filter:blur(220px);
+    opacity:.18;
+    animation:flotar 8s ease-in-out infinite alternate;
+}
+
+@keyframes flotar{
+    from{
+        transform:translate(-80px,-60px);
+    }
+    to{
+        transform:translate(80px,60px);
+    }
+}
+
+.contenedor{
+    width:650px;
+    max-width:90%;
+    padding:45px;
+    border-radius:30px;
+    background:rgba(10,10,10,.75);
+    border:2px solid #9d4dff;
+    backdrop-filter:blur(15px);
+    text-align:center;
+    box-shadow:0 0 35px #8f00ff;
+    z-index:1;
+}
+
+.logo{
+    width:270px;
+    max-width:100%;
+    margin-bottom:30px;
+    filter:drop-shadow(0 0 25px #a200ff);
+}
+
+h1{
+    color:white;
+    font-size:34px;
+    line-height:1.3;
+    margin-bottom:10px;
+    text-shadow:0 0 18px #b300ff;
+}
+
+.autor{
+    color:#c98cff;
+    font-size:22px;
+    font-weight:bold;
+    margin-bottom:40px;
+    letter-spacing:2px;
+    text-shadow:0 0 15px #a200ff;
+}
+
+button{
+    width:100%;
+    padding:18px;
+    border:none;
+    border-radius:15px;
+    cursor:pointer;
+    font-size:22px;
+    font-weight:bold;
+    color:white;
+    background:linear-gradient(90deg,#5a00ff,#b100ff);
+    box-shadow:0 0 25px #8f00ff;
+    transition:.3s;
+}
+
+button:hover{
+    transform:translateY(-3px);
+    box-shadow:0 0 40px #c000ff;
+}
+
+/* Responsive */
+
+@media(max-width:768px){
+
+    .contenedor{
+        width:95%;
+        padding:35px 25px;
+    }
+
+    .logo{
+        width:220px;
+    }
+
+    h1{
+        font-size:26px;
+    }
+
+    .autor{
+        font-size:18px;
+    }
+
+    button{
+        font-size:18px;
+    }
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="contenedor">
+
+    <img src="logo.png" class="logo" alt="Logo">
+
+    <h1>
+        Los 7 hábitos de la gente altamente efectiva
+    </h1>
+
+    <div class="autor">
+        Stephen R. Covey
+    </div>
+
+    <button onclick="location.href='menu.html'">
+        Siguiente
+    </button>
+
+</div>
+
+</body>
+</html>

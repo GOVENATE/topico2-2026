@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Introduccion</title>
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial, Helvetica, sans-serif;
+}
+
+body{
+    background:linear-gradient(135deg,#050505,#170025,#000);
+    color:white;
+}
+
+body::before{
+    content:"";
+    position:fixed;
+    width:900px;
+    height:900px;
+    background:#8f00ff;
+    filter:blur(220px);
+    opacity:.12;
+    top:-200px;
+    left:-150px;
+    z-index:-1;
+}
+
+.contenedor{
+
+    width:90%;
+    max-width:1200px;
+    margin:40px auto;
+    padding:40px;
+
+    background:rgba(10,10,10,.75);
+
+    border:2px solid #9d4dff;
+
+    border-radius:25px;
+
+    box-shadow:0 0 30px #8f00ff;
+
+}
+
+h1{
+
+    text-align:center;
+
+    font-size:42px;
+
+    margin-bottom:10px;
+
+    color:white;
+
+    text-shadow:0 0 15px #b300ff;
+
+}
+
+.subtitulo{
+
+    text-align:center;
+
+    color:#c58cff;
+
+    font-size:20px;
+
+    margin-bottom:35px;
+
+}
+
+.imagen{
+
+    display:flex;
+
+    justify-content:center;
+
+    margin-bottom:40px;
+
+}
+
+.imagen img{
+
+    width:100%;
+
+    max-width:950px;
+
+    border-radius:15px;
+
+    border:2px solid #9d4dff;
+
+    box-shadow:0 0 25px #8f00ff;
+
+}
+
+.card{
+
+    background:#111;
+
+    border-left:5px solid #9d4dff;
+
+    border-radius:15px;
+
+    padding:30px;
+
+    box-shadow:0 0 20px rgba(162,0,255,.3);
+
+}
+
+.card h2{
+
+    color:#d39dff;
+
+    margin-bottom:20px;
+
+}
+
+.card p{
+
+    font-size:18px;
+
+    line-height:1.8;
+
+    text-align:justify;
+
+    margin-bottom:18px;
+
+}
+
+.boton{
+
+    text-align:center;
+
+    margin-top:40px;
+
+}
+
+button{
+
+    padding:18px 50px;
+
+    font-size:20px;
+
+    font-weight:bold;
+
+    border:none;
+
+    border-radius:12px;
+
+    cursor:pointer;
+
+    color:white;
+
+    background:linear-gradient(90deg,#5a00ff,#b100ff);
+
+    box-shadow:0 0 20px #8f00ff;
+
+    transition:.3s;
+
+}
+
+button:hover{
+
+    transform:scale(1.05);
+
+    box-shadow:0 0 35px #c000ff;
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="contenedor">
+
+<h1>Introduccion</h1>
+
+<div class="imagen">
+
+<img src="infografia.jpeg" alt="Infografía">
+
+</div>
+
+<div class="card">
+
+<h2>Mi op</h2>
+
+<p>
+Los 7 hábitos de Stephen Covey no solamente hablan de ser una persona organizada, sino de cambiar la manera en la que pensamos y actuamos todos los días. Los hábitos están acomodados como un proceso donde primero aprendemos a controlar nuestras propias acciones y después a trabajar mejor con los demás.
+</p>
+
+<p>
+Los primeros tres hábitos se enfocan en el crecimiento personal. Ser proactivo significa asumir la responsabilidad de nuestras decisiones en lugar de buscar excusas. Tener un fin en mente ayuda a definir metas claras y saber hacia dónde queremos llegar. Finalmente, poner primero lo primero consiste en organizar nuestro tiempo y darle prioridad a las actividades realmente importantes.
+</p>
+
+<p>
+Los hábitos del cuatro al seis hablan sobre la convivencia con otras personas. La idea de ganar-ganar busca que todos obtengan un beneficio, comprender antes de ser comprendido nos enseña a escuchar antes de responder, y la sinergia demuestra que cuando se trabaja en equipo se pueden conseguir mejores resultados que trabajando de forma individual.
+</p>
+
+<p>
+El séptimo hábito consiste en renovar constantemente nuestras capacidades. Esto significa dedicar tiempo a cuidar nuestra salud física, mental y emocional para poder seguir mejorando tanto en la escuela como en la vida personal.
+</p>
+
+</div>
+
+<div class="boton">
+
+<button onclick="location.href='menu.html'">
+Volver al menú
+</button>
+
+</div>
+
+</div>
+
+</body>
+</html>

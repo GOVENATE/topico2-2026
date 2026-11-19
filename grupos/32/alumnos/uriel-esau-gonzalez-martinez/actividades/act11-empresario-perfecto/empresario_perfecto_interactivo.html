@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>El Empresario Perfecto</title>
+<style>
+*{box-sizing:border-box}
+body{
+    margin:0;
+    min-height:100vh;
+    font-family:"Segoe UI",Tahoma,Geneva,Verdana,sans-serif;
+    color:#fff;
+    background:
+      radial-gradient(circle at 50% 42%,#32125f 0%,#16082c 30%,#07030e 72%);
+    overflow-x:hidden;
+}
+body:before{
+    content:"";
+    position:fixed;
+    inset:0;
+    pointer-events:none;
+    background-image:
+      radial-gradient(circle,#ffffff22 1px,transparent 1px);
+    background-size:55px 55px;
+    opacity:.25;
+}
+header{
+    text-align:center;
+    padding:30px 20px 10px;
+    position:relative;
+    z-index:2;
+}
+h1{
+    margin:0;
+    font-size:clamp(30px,5vw,52px);
+    font-weight:800;
+    letter-spacing:1px;
+    background:linear-gradient(90deg,#a855f7,#e9d5ff,#9333ea);
+    -webkit-background-clip:text;
+    color:transparent;
+}
+.subtitle{
+    margin:8px auto 0;
+    max-width:720px;
+    color:#cfc1df;
+    font-size:16px;
+}
+.container{
+    width:min(1250px,94%);
+    margin:auto;
+    position:relative;
+    z-index:1;
+}
+.intro{
+    text-align:center;
+    margin:18px auto 5px;
+    color:#a997ba;
+}
+.diagram{
+    position:relative;
+    width:min(1100px,100%);
+    height:680px;
+    margin:0 auto;
+}
+.center{
+    position:absolute;
+    left:50%;
+    top:50%;
+    transform:translate(-50%,-50%);
+    width:300px;
+    height:300px;
+    border-radius:50%;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    padding:30px;
+    background:
+      radial-gradient(circle at 35% 25%,#8b3fd8,#3b1469 55%,#1a082e);
+    border:2px solid #c084fc;
+    box-shadow:
+      0 0 25px #9333ea99,
+      0 0 80px #7e22ce55,
+      inset 0 0 35px #0007;
+    z-index:3;
+}
+.icon-main{font-size:58px;margin-bottom:5px}
+.center h2{
+    margin:0;
+    font-size:27px;
+    color:#fff;
+}
+.center p{
+    margin:8px 0 0;
+    color:#dcc9ec;
+    line-height:1.4;
+    font-size:13px;
+}
+.line{
+    position:absolute;
+    left:50%;
+    top:50%;
+    width:2px;
+    height:275px;
+    transform-origin:50% 0;
+    background:linear-gradient(#a855f7aa,transparent);
+    z-index:0;
+}
+.trait{
+    position:absolute;
+    width:190px;
+    min-height:105px;
+    padding:15px;
+    border-radius:18px;
+    border:1px solid #69419a;
+    background:linear-gradient(145deg,#24113b,#10091c);
+    box-shadow:0 8px 25px #0008;
+    cursor:pointer;
+    transition:.25s;
+    z-index:4;
+    text-align:center;
+}
+.trait:hover{
+    transform:scale(1.06);
+    border-color:#c084fc;
+    box-shadow:0 0 25px #9333ea66;
+}
+.trait.active{
+    border-color:#d8b4fe;
+    background:linear-gradient(145deg,#48206f,#1b0d2c);
+    box-shadow:0 0 30px #a855f766;
+}
+.trait .num{
+    display:inline-flex;
+    width:27px;height:27px;
+    align-items:center;justify-content:center;
+    border-radius:50%;
+    background:#6d28a9;
+    color:#fff;
+    font-weight:bold;
+    font-size:12px;
+}
+.trait .emoji{font-size:24px;display:block;margin:4px}
+.trait strong{font-size:15px;color:#eadbfa}
+.t1{left:0;top:40px}.t2{left:calc(25% - 95px);top:0}
+.t3{right:calc(25% - 95px);top:0}.t4{right:0;top:40px}
+.t5{right:0;bottom:45px}.t6{right:calc(25% - 95px);bottom:0}
+.t7{left:calc(25% - 95px);bottom:0}.t8{left:0;bottom:45px}
+.t9{left:50%;top:8px;transform:translateX(-50%);margin-top:0}
+.t10{left:50%;bottom:8px;transform:translateX(-50%)}
+.t9:hover,.t10:hover{transform:translateX(-50%) scale(1.06)}
+
+.info{
+    width:min(900px,94%);
+    margin:0 auto 35px;
+    min-height:130px;
+    border:1px solid #69419a;
+    border-radius:22px;
+    padding:25px 30px;
+    background:rgba(16,8,28,.94);
+    box-shadow:0 12px 40px #0009;
+    text-align:center;
+}
+.info h3{
+    margin:0 0 8px;
+    color:#d8b4fe;
+    font-size:24px;
+}
+.info p{
+    margin:0;
+    color:#ddd2e6;
+    line-height:1.65;
+    font-size:16px;
+}
+.hint{
+    text-align:center;
+    color:#8e7c9f;
+    font-size:13px;
+    margin-bottom:22px;
+}
+@media(max-width:900px){
+    .diagram{height:auto;display:grid;grid-template-columns:repeat(2,1fr);gap:12px;padding:10px 0 25px}
+    .center{position:relative;left:auto;top:auto;transform:none;grid-column:1/-1;width:260px;height:260px;margin:10px auto 20px}
+    .trait,.t1,.t2,.t3,.t4,.t5,.t6,.t7,.t8,.t9,.t10{
+        position:relative;left:auto;right:auto;top:auto;bottom:auto;
+        transform:none;width:auto;min-height:95px;margin:0;
+    }
+    .t9:hover,.t10:hover{transform:scale(1.06)}
+    .line{display:none}
+}
+@media(max-width:520px){
+    .diagram{grid-template-columns:1fr}
+    .center{grid-column:auto}
+}
+</style>
+</head>
+<body>
+
+<header>
+    <h1>EL EMPRESARIO PERFECTO</h1>
+    <div class="subtitle">
+        Un perfil ideal construido a partir de las principales cualidades
+        de Carlos Slim, Daniel Servitje y María Asunción Aramburuzabala.
+    </div>
+</header>
+
+<div class="container">
+    <div class="diagram">
+
+        <div class="center">
+            <div class="icon-main">👔</div>
+            <h2>EMPRESARIO<br>PERFECTO</h2>
+        </div>
+
+        <div class="line" style="transform:rotate(-82deg)"></div>
+        <div class="line" style="transform:rotate(-64deg)"></div>
+        <div class="line" style="transform:rotate(-46deg)"></div>
+        <div class="line" style="transform:rotate(-28deg)"></div>
+        <div class="line" style="transform:rotate(28deg)"></div>
+        <div class="line" style="transform:rotate(46deg)"></div>
+        <div class="line" style="transform:rotate(64deg)"></div>
+        <div class="line" style="transform:rotate(82deg)"></div>
+
+        <div class="trait t1" data-title="Liderazgo estratégico" data-text="Dirige con estrategia, disciplina y orientación a resultados, tomando decisiones que permitan alcanzar los objetivos de la empresa.">
+            <span class="num">01</span><span class="emoji">🎯</span><strong>Liderazgo estratégico</strong>
+        </div>
+
+        <div class="trait t2" data-title="Visión a largo plazo" data-text="Piensa más allá de los resultados inmediatos y busca crecimiento sostenible, inversión y diversificación para fortalecer la empresa.">
+            <span class="num">02</span><span class="emoji">🔭</span><strong>Visión a largo plazo</strong>
+        </div>
+
+        <div class="trait t3" data-title="Innovación" data-text="Busca nuevas soluciones, utiliza la tecnología y encuentra formas diferentes de mejorar productos, servicios y modelos de negocio.">
+            <span class="num">03</span><span class="emoji">💡</span><strong>Innovación</strong>
+        </div>
+
+        <div class="trait t4" data-title="Emprendimiento" data-text="Identifica oportunidades, tiene iniciativa y se atreve a crear nuevos negocios o proyectos para generar crecimiento.">
+            <span class="num">04</span><span class="emoji">🚀</span><strong>Emprendimiento</strong>
+        </div>
+
+        <div class="trait t5" data-title="Disciplina y trabajo" data-text="Mantiene constancia, esfuerzo y compromiso con sus objetivos, entendiendo que el crecimiento requiere trabajo continuo y responsabilidad.">
+            <span class="num">05</span><span class="emoji">⚡</span><strong>Disciplina y trabajo</strong>
+        </div>
+
+        <div class="trait t6" data-title="Desarrollo humano" data-text="Impulsa la educación, capacitación y crecimiento personal y profesional de sus colaboradores y de otros emprendedores.">
+            <span class="num">06</span><span class="emoji">🎓</span><strong>Desarrollo humano</strong>
+        </div>
+
+        <div class="trait t7" data-title="Trabajo en equipo" data-text="Promueve el respeto, la participación y la colaboración entre las personas para alcanzar mejores resultados.">
+            <span class="num">07</span><span class="emoji">🤝</span><strong>Trabajo en equipo</strong>
+        </div>
+
+        <div class="trait t8" data-title="Responsabilidad social" data-text="Busca que la actividad empresarial contribuya a la sociedad mediante acciones relacionadas con educación, salud, inclusión y apoyo social.">
+            <span class="num">08</span><span class="emoji">🌎</span><strong>Responsabilidad social</strong>
+        </div>
+
+        <div class="trait t9" data-title="Sustentabilidad" data-text="Equilibra la productividad empresarial con el bienestar humano y una visión responsable del impacto que genera la empresa.">
+            <span class="num">09</span><span class="emoji">♻️</span><strong>Sustentabilidad</strong>
+        </div>
+
+        <div class="trait t10" data-title="Impacto económico e internacional" data-text="Busca generar empleo, hacer crecer sus empresas y alcanzar una presencia amplia en distintos sectores y mercados.">
+            <span class="num">10</span><span class="emoji">🌐</span><strong>Impacto económico e internacional</strong>
+        </div>
+    </div>
+
+    <div class="info" id="info">
+        <h3>Selecciona una cualidad</h3>
+        <p>Aquí aparecerá una breve descripción de la habilidad seleccionada.</p>
+    </div>
+
+</div>
+
+<script>
+const traits=document.querySelectorAll(".trait");
+const info=document.getElementById("info");
+
+traits.forEach(trait=>{
+    trait.addEventListener("click",()=>{
+        traits.forEach(t=>t.classList.remove("active"));
+        trait.classList.add("active");
+
+        info.innerHTML=`
+            <h3>${trait.dataset.title}</h3>
+            <p>${trait.dataset.text}</p>
+        `;
+
+        info.scrollIntoView({behavior:"smooth",block:"nearest"});
+    });
+});
+</script>
+
+</body>
+</html>
