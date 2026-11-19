@@ -149,7 +149,19 @@ h2 {
   line-height: 1.05;
   margin: 88px 0 24px;
   padding-top: 20px;
-  border-top: 1px solid var(--fuerte);
+  position: relative;
+}
+
+h2::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: var(--fuerte);
+  transform-origin: left;
+  transform: scaleX(var(--linea, 1));
 }
 
 h2 small {
@@ -507,6 +519,147 @@ h2 small {
 }
 .pie p { margin: 0; }
 
+/* ---------- efectos ---------- */
+
+/* grano de pelicula sobre todo el sitio */
+body::after {
+  content: "";
+  position: fixed;
+  inset: -50%;
+  z-index: 100;
+  pointer-events: none;
+  opacity: .05;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  animation: grano 1s steps(4) infinite;
+}
+@keyframes grano {
+  0% { transform: translate(0, 0); }
+  25% { transform: translate(-3%, 2%); }
+  50% { transform: translate(2%, -3%); }
+  75% { transform: translate(-2%, -1%); }
+}
+
+/* barra de progreso */
+.progreso {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  z-index: 60;
+  background: var(--fuerte);
+  transform-origin: left;
+  transform: scaleX(0);
+}
+
+/* cortina entre paginas */
+.cortina {
+  position: fixed;
+  inset: 0;
+  z-index: 80;
+  display: grid;
+  place-items: center;
+  background: var(--fuerte);
+  color: var(--inverso);
+  transform: translateY(100%);
+  pointer-events: none;
+}
+.cortina-marca { font: 400 clamp(80px, 18vw, 220px)/1 var(--display); letter-spacing: -.04em; }
+
+/* letras del titulo */
+.palabra { display: inline-block; white-space: nowrap; }
+.letra { display: inline-block; overflow: hidden; vertical-align: top; padding-bottom: .08em; margin-bottom: -.08em; }
+.letra > span { display: inline-block; will-change: transform; }
+
+/* hero con reticula animada */
+.hero { position: relative; isolation: isolate; }
+.hero::before {
+  content: "";
+  position: absolute;
+  inset: -56px -24px 0;
+  z-index: -1;
+  background-image:
+    linear-gradient(var(--linea) 1px, transparent 1px),
+    linear-gradient(90deg, var(--linea) 1px, transparent 1px);
+  background-size: 64px 64px;
+  -webkit-mask-image: radial-gradient(ellipse 70% 60% at 70% 30%, #000 20%, transparent 75%);
+  mask-image: radial-gradient(ellipse 70% 60% at 70% 30%, #000 20%, transparent 75%);
+  animation: reticula 20s linear infinite;
+}
+@keyframes reticula { to { background-position: 64px 64px; } }
+
+.sello {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 128px;
+  height: 128px;
+  display: grid;
+  place-items: center;
+}
+.sello svg { position: absolute; inset: 0; animation: girar 18s linear infinite; }
+.sello text { font: 500 10.5px var(--mono); letter-spacing: .32em; text-transform: uppercase; fill: var(--texto); }
+.sello b { font: 400 34px/1 var(--display); }
+@keyframes girar { to { transform: rotate(360deg); } }
+
+.hero h1 em, .hero .contorno {
+  font-style: italic;
+  color: transparent;
+  -webkit-text-stroke: 1px var(--fuerte);
+}
+
+/* tarjetas: luz que sigue al cursor y 3D */
+.rejilla { perspective: 1200px; }
+.tarjeta { transform-style: preserve-3d; overflow: hidden; isolation: isolate; }
+.tarjeta::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  opacity: 0;
+  background: radial-gradient(420px circle at var(--mx, 50%) var(--my, 50%), color-mix(in srgb, var(--inverso) 16%, transparent), transparent 45%);
+  transition: opacity .3s;
+}
+.tarjeta:hover::before { opacity: 1; }
+.tarjeta:hover { z-index: 2; box-shadow: 0 30px 60px -20px rgba(0, 0, 0, .45); }
+
+/* subrayado animado en ligas */
+#migas a, .pie a { background: linear-gradient(currentColor, currentColor) 0 100% / 0 1px no-repeat; transition: background-size .3s; }
+#migas a:hover { background-size: 100% 1px; }
+
+.boton, .filtros button { will-change: transform; }
+.boton .flecha-btn { transition: transform .25s; }
+.boton:hover .flecha-btn { transform: translate(3px, -3px); }
+
+/* cursor propio */
+.con-cursor, .con-cursor a, .con-cursor button, .con-cursor .tarjeta { cursor: none; }
+.con-cursor input { cursor: text; }
+.cursor-punto, .cursor-aro {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 90;
+  pointer-events: none;
+  border-radius: 50%;
+  mix-blend-mode: difference;
+}
+.cursor-punto { width: 6px; height: 6px; margin: -3px 0 0 -3px; background: #fff; }
+.cursor-aro {
+  width: 36px;
+  height: 36px;
+  margin: -18px 0 0 -18px;
+  border: 1px solid #fff;
+  display: grid;
+  place-items: center;
+  transition: width .3s, height .3s, margin .3s, background .3s;
+}
+.cursor-aro.grande { width: 64px; height: 64px; margin: -32px 0 0 -32px; }
+.cursor-aro.ver { width: 84px; height: 84px; margin: -42px 0 0 -42px; background: #fff; }
+.cursor-aro.ver::after { content: "Ver"; font: 600 11px/1 var(--mono); letter-spacing: .1em; text-transform: uppercase; color: #000; }
+
+/* con GSAP la entrada la hace JS */
+.con-anim main { animation: none; }
+
 /* ---------- responsivo ---------- */
 
 @media (max-width: 820px) {
@@ -529,9 +682,10 @@ h2 small {
   .tema h3 { font-size: 22px; }
   .buscador { max-width: none; }
   .visor { height: 70vh; min-height: 360px; }
+  .sello { display: none; }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  main, .cinta-pista { animation: none; }
+  main, .cinta-pista, body::after, .hero::before, .sello svg { animation: none; }
   .tarjeta, .tema, .portada { transition: none; }
 }

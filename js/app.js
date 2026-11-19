@@ -97,6 +97,11 @@
     app.innerHTML = `
       <section class="hero">
         <p class="sobre">${esc(t.periodo)}${t.profesor ? ' &middot; ' + esc(t.profesor) : ''}</p>
+        <div class="sello" aria-hidden="true">
+          <svg viewBox="0 0 128 128"><defs><path id="circulo" d="M64,64 m-50,0 a50,50 0 1,1 100,0 a50,50 0 1,1 -100,0"/></defs>
+            <text><textPath href="#circulo">Actividades · Temas · Alumnos · </textPath></text></svg>
+          <b>${new Date(catalogo.generado || Date.now()).getFullYear()}</b>
+        </div>
         <h1>${esc(t.titulo)}</h1>
         ${t.resumen ? `<p class="intro">${esc(t.resumen)}</p>` : ''}
         <div class="numeros">
@@ -263,8 +268,14 @@
   }
 
   function rutear() {
+    const T2 = window.T2;
+    if (T2) T2.transicion(() => { pintarRuta(); T2.entrar(app); });
+    else pintarRuta();
+  }
+
+  function pintarRuta() {
     const partes = location.hash.replace(/^#\/?/, '').split('/').filter(Boolean).map(decodeURIComponent);
-    window.scrollTo(0, 0);
+    if (!(window.T2 && window.T2.activo)) window.scrollTo(0, 0);
     // reinicia la animacion de entrada en cada cambio de pagina
     app.style.animation = 'none';
     void app.offsetHeight;
