@@ -1,0 +1,43 @@
+name: Publicar sitio
+
+# Cada push a main compila el sitio (Astro) y deja el resultado en la rama "sitio".
+# Hostinger (hPanel > Git) se conecta a la rama "sitio", directorio topico2.
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: publicar
+  cancel-in-progress: true
+
+jobs:
+  publicar:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - run: npm ci
+      - run: npm run build
+
+      - name: Subir dist/ a la rama sitio
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_branch: sitio
+          publish_dir: ./dist
+          force_orphan: true
+          enable_jekyll: true
+          user_name: GOVENATE
+          user_email: GOVENATE@users.noreply.github.com
+          commit_message: Publicar sitio

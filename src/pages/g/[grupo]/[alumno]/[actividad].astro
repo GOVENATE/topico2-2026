@@ -1,0 +1,70 @@
+---
+import Base from '../../../../layouts/Base.astro';
+import Flecha from '../../../../components/Flecha.astro';
+import { catalogo, urlSegura, rutaArchivo, NOMBRE_TIPO, type Grupo, type Alumno, type Actividad } from '../../../../data/catalogo';
+
+export function getStaticPaths() {
+  return catalogo.grupos.flatMap(g => g.alumnos.flatMap(a => a.actividades.map((act, i) => ({
+    params: { grupo: g.id, alumno: a.id, actividad: act.id },
+    props: { g, a, act, ant: a.actividades[i - 1] || null, sig: a.actividades[i + 1] || null }
+  }))));
+}
+const { g, a, act, ant, sig } = Astro.props as { g: Grupo; a: Alumno; act: Actividad; ant: Actividad | null; sig: Actividad | null };
+const src = rutaArchivo(act.ruta) || urlSegura(act.url);
+const repo = urlSegura(act.repo);
+const base = `/g/${g.id}/${a.id}`;
+---
+<Base titulo={`${act.titulo} · ${a.nombre}`} descripcion={act.descripcion}
+  migas={[{ txt: 'Inicio', href: '/' }, { txt: 'Grupo ' + g.id, href: `/g/${g.id}` }, { txt: a.nombre, href: base }, { txt: act.titulo }]}>
+  <section class="contenedor pb-20 pt-14 md:pt-20">
+    <a href={base} class="eyebrow inline-flex items-center gap-2 hover:text-texto" data-aparecer>
+      <span class="avatar size-6 text-[9px]" transition:name={`avatar-${a.id}`}>{a.nombre.split(/\s+/).slice(0, 2).map(p => p[0]).join('')}</span>
+      {a.nombre} · {NOMBRE_TIPO[act.tipo] || act.tipo}{act.fecha ? ` · ${act.fecha}` : ''}
+    </a>
+    <h1 class="titulo-xl mt-5 max-w-5xl text-[clamp(44px,7vw,104px)]" data-partir>{act.titulo}</h1>
+
+    <div class="mt-8 grid gap-6 border-t border-linea pt-6 md:grid-cols-[1fr_auto] md:items-start">
+      <div data-aparecer>
+        {act.descripcion && <p class="max-w-2xl text-lg text-suave">{act.descripcion}</p>}
+        <div class="mt-4 flex flex-wrap gap-1.5">{act.tecnologias.map(x => <span class="chip">{x}</span>)}</div>
+      </div>
+      <div class="flex flex-wrap gap-3" data-aparecer>
+        {src && <a class="boton lleno" href={src} target="_blank" rel="noopener noreferrer">Abrir en otra pestaña <Flecha /></a>}
+        {repo && <a class="boton" href={repo} target="_blank" rel="noopener noreferrer">Ver código</a>}
+      </div>
+    </div>
+
+    <div class="mt-10" data-aparecer>
+      {!src && <div class="border border-linea p-5 text-suave">Esta actividad no tiene un archivo o enlace válido.</div>}
+      {/* sandbox sin allow-same-origin: el codigo del alumno corre aislado */}
+      {src && act.tipo === 'web' && (
+        <iframe class="block h-[82vh] min-h-[420px] w-full border border-fuerte bg-white" src={src}
+          sandbox="allow-scripts allow-forms allow-popups" loading="lazy" title={act.titulo}></iframe>
+      )}
+      {src && act.tipo === 'pdf' && (
+        <iframe class="block h-[82vh] min-h-[420px] w-full border border-fuerte bg-white" src={src} title={act.titulo}></iframe>
+      )}
+      {src && act.tipo === 'imagen' && (
+        <img class="mx-auto block h-auto max-w-full border border-linea" src={src} alt={act.titulo} loading="lazy" />
+      )}
+      {src && act.tipo === 'enlace' && (
+        <div class="border border-linea p-5 text-suave">Esta actividad está publicada fuera del sitio. Ábrela con el botón de arriba.</div>
+      )}
+    </div>
+
+    <nav class="mt-16 grid border-t border-linea sm:grid-cols-2" aria-label="Otras actividades">
+      {ant ? (
+        <a href={`${base}/${ant.id}`} class="group border-b border-linea py-8 pr-6 sm:border-b-0 sm:border-r">
+          <span class="eyebrow">← Anterior</span>
+          <p class="mt-2 font-display text-3xl leading-tight transition-transform duration-500 group-hover:translate-x-2">{ant.titulo}</p>
+        </a>
+      ) : <span class="hidden sm:block sm:border-r sm:border-linea" />}
+      {sig && (
+        <a href={`${base}/${sig.id}`} class="group py-8 sm:pl-6 sm:text-right">
+          <span class="eyebrow">Siguiente →</span>
+          <p class="mt-2 font-display text-3xl leading-tight transition-transform duration-500 group-hover:-translate-x-2">{sig.titulo}</p>
+        </a>
+      )}
+    </nav>
+  </section>
+</Base>

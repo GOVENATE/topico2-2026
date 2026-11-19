@@ -1,0 +1,127 @@
+---
+import Base from '../layouts/Base.astro';
+import Flecha from '../components/Flecha.astro';
+import { catalogo, totalActividades, totalAlumnos, plural } from '../data/catalogo';
+
+const t = catalogo.topico;
+const temas = catalogo.temas || [];
+const anio = new Date(catalogo.generado || Date.now()).getFullYear();
+const [primera, ...resto] = t.titulo.split(' ');
+---
+<Base titulo={`${t.titulo} · ${anio}`} descripcion={t.resumen}>
+  <!-- HERO -->
+  <section class="relative isolate flex min-h-[calc(100svh-61px)] flex-col justify-end overflow-hidden pb-10">
+    <canvas data-puntos class="absolute inset-0 -z-10 size-full [mask-image:radial-gradient(ellipse_80%_70%_at_70%_35%,#000_25%,transparent_80%)]" aria-hidden="true"></canvas>
+
+    <div class="contenedor">
+      <div class="sello absolute right-6 top-10 hidden size-36 place-items-center md:grid lg:right-10" aria-hidden="true" data-aparecer>
+        <svg viewBox="0 0 140 140" class="absolute inset-0">
+          <defs><path id="circ" d="M70,70 m-56,0 a56,56 0 1,1 112,0 a56,56 0 1,1 -112,0" /></defs>
+          <text class="fill-texto font-mono text-[10.5px] uppercase tracking-[.3em]"><textPath href="#circ">Actividades · Temas · Alumnos ·</textPath></text>
+        </svg>
+        <b class="font-display text-4xl font-normal">{anio}</b>
+      </div>
+
+      <p class="eyebrow" data-aparecer>{t.periodo}</p>
+      <h1 class="titulo-xl mt-6 text-[clamp(84px,19vw,300px)]" data-partir>
+        {primera} <span class="contorno">{resto.join(' ')}</span>
+      </h1>
+
+      <div class="mt-10 grid gap-10 md:grid-cols-[1.1fr_1fr] md:items-end">
+        <p class="max-w-xl text-lg leading-relaxed text-suave md:text-xl" data-aparecer>{t.resumen}</p>
+        <div class="flex flex-wrap gap-3 md:justify-end" data-aparecer>
+          {catalogo.grupos[0] && <a class="boton lleno" href={`/g/${catalogo.grupos[0].id}`}>Ver alumnos <Flecha /></a>}
+          <a class="boton" href="#temas">Explorar temas</a>
+        </div>
+      </div>
+
+      <div class="mt-14 grid grid-cols-2 border-y border-linea md:grid-cols-4">
+        {[
+          [totalAlumnos, 'alumnos'],
+          [totalActividades, 'actividades'],
+          [temas.length, 'temas'],
+          [catalogo.tecnologias.length, 'tecnologías']
+        ].map(([n, txt], i) => (
+          <div class={`py-6 ${i % 2 ? 'border-l border-linea pl-5' : ''} ${i >= 2 ? 'border-t border-linea md:border-t-0' : ''} ${i === 2 ? 'md:border-l md:pl-5' : ''}`} data-aparecer>
+            <b class="block font-display text-[clamp(48px,7vw,84px)] font-normal leading-none tracking-tight" data-contar={n}>{n}</b>
+            <span class="eyebrow mt-2 block">{txt}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  {temas.length > 0 && (
+    <div class="cinta border-y border-fuerte" aria-hidden="true">
+      <div class="cinta-pista">
+        {[...temas, ...temas].map(x => <span>{x.nombre}</span>)}
+      </div>
+    </div>
+  )}
+
+  <!-- GRUPOS -->
+  <section class="contenedor pt-28">
+    <h2 class="seccion-h">Grupos <small class="eyebrow">{catalogo.grupos.length}</small></h2>
+    <div class="rejilla mt-8">
+      {catalogo.grupos.map(g => (
+        <a class="tarjeta min-h-64 justify-end" href={`/g/${g.id}`} data-lote>
+          <Flecha />
+          <span class="eyebrow t-suave">Grupo</span>
+          <div class="font-display text-[120px] leading-[.85] tracking-tight" transition:name={`grupo-${g.id}`}>{g.id}</div>
+          <p class="t-suave text-sm text-suave">{plural(g.alumnos.length, 'alumno', 'alumnos')} · {g.alumnos.reduce((n, a) => n + a.actividades.length, 0)} actividades</p>
+          <div class="mt-2 flex -space-x-2">
+            {g.alumnos.slice(0, 8).map(a => (
+              <span class="avatar size-8 border-2 border-fondo text-[10px]">{a.nombre.split(/\s+/).slice(0, 2).map(p => p[0]).join('')}</span>
+            ))}
+          </div>
+        </a>
+      ))}
+    </div>
+  </section>
+
+  <!-- TEMAS -->
+  {temas.length > 0 && (
+    <section id="temas" class="pt-28" data-horizontal>
+      <div class="contenedor">
+        <h2 class="seccion-h">Temas encontrados <small class="eyebrow">según las actividades</small></h2>
+        <p class="mt-4 max-w-xl text-suave" data-aparecer>El sistema revisa los títulos y descripciones de todo lo que sube el grupo y agrupa lo que se vio.</p>
+      </div>
+      <div class="mt-10 overflow-x-auto border-y border-linea md:overflow-visible [scrollbar-width:none]">
+        <div class="temas-pista">
+          {temas.map((x, i) => (
+            <article class="tema-card">
+              <div class="flex items-start justify-between">
+                <span class="font-mono text-xs text-tenue">{String(i + 1).padStart(2, '0')}</span>
+                <span class="text-right font-mono text-[11px] uppercase tracking-wider t-suave text-suave">
+                  <b class="block font-display text-5xl font-normal normal-case tracking-tight text-current">{x.alumnos}</b>
+                  {x.alumnos === 1 ? 'alumno' : 'alumnos'} · {x.actividades} act.
+                </span>
+              </div>
+              <h3 class="mt-auto font-display text-4xl leading-none tracking-tight">{x.nombre}</h3>
+              <p class="t-suave text-sm text-suave">{x.resumen}</p>
+              <div class="flex flex-wrap gap-1.5">
+                {x.ejemplos.map(e => (
+                  <a class="tema-link" href={`/g/${e.grupo}/${e.alumno}/${e.actividad}`} title={e.titulo}>{e.nombre.split(/\s+/)[0]}</a>
+                ))}
+              </div>
+            </article>
+          ))}
+          <div class="tema-card justify-end">
+            <p class="font-display text-4xl leading-none">¿Falta un tema?</p>
+            <p class="t-suave text-sm text-suave">Sube tu actividad y aparece aquí automáticamente.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  )}
+
+  <!-- TECNOLOGIAS -->
+  {catalogo.tecnologias.length > 0 && (
+    <section class="contenedor py-28">
+      <h2 class="seccion-h">Tecnologías <small class="eyebrow">{catalogo.tecnologias.length}</small></h2>
+      <div class="mt-8 flex flex-wrap gap-2">
+        {catalogo.tecnologias.map(x => <span class="chip px-3 py-2 text-xs" data-lote>{x}</span>)}
+      </div>
+    </section>
+  )}
+</Base>

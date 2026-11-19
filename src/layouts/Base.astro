@@ -1,0 +1,58 @@
+---
+import { ClientRouter } from 'astro:transitions';
+import '../styles/global.css';
+
+interface Props { titulo: string; descripcion?: string; migas?: { txt: string; href?: string }[] }
+const { titulo, descripcion = 'Actividades, lecturas y proyectos de Tópico 2.', migas = [] } = Astro.props;
+---
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content={descripcion} />
+    <title>{titulo}</title>
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%230a0a0a'/%3E%3Ctext x='16' y='21' font-family='monospace' font-size='13' font-weight='700' fill='white' text-anchor='middle'%3ET2%3C/text%3E%3C/svg%3E" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet" />
+    <ClientRouter />
+  </head>
+  <body class="flex min-h-screen flex-col">
+    <div class="grano" aria-hidden="true" transition:persist="grano"></div>
+    <div class="progreso" aria-hidden="true" transition:persist="progreso"></div>
+
+    <header class="sticky top-0 z-40 border-b border-linea bg-fondo/80 backdrop-blur-xl" transition:persist="barra">
+      <div class="contenedor flex items-center gap-6 py-3.5">
+        <a href="/" class="flex shrink-0 items-center gap-2.5 font-semibold tracking-tight">
+          <span class="grid size-8 place-items-center bg-fuerte font-mono text-xs text-inverso">T2</span>
+          Tópico 2
+        </a>
+        <nav id="migas" class="flex min-w-0 items-center gap-2 overflow-x-auto whitespace-nowrap text-[13px] text-suave [scrollbar-width:none]"></nav>
+        <span class="ml-auto hidden font-mono text-[11px] uppercase tracking-[.14em] text-suave md:inline">UAQ · 2026</span>
+      </div>
+    </header>
+
+    <template id="datos-migas" set:html={JSON.stringify(migas)}></template>
+
+    <main class="flex-1" data-pagina>
+      <slot />
+    </main>
+
+    <footer class="border-t border-linea">
+      <div class="contenedor flex flex-col gap-10 py-14 md:flex-row md:items-end md:justify-between">
+        <a href="/" class="titulo-xl text-[clamp(64px,12vw,160px)]">Tópico <span class="contorno">2</span></a>
+        <div class="flex flex-col gap-1 font-mono text-[11px] uppercase tracking-[.14em] text-suave md:text-right">
+          <span>UAQ · Facultad de Informática</span>
+          <span>Hecho por el grupo · 2026</span>
+        </div>
+      </div>
+    </footer>
+
+    <script>
+      import { iniciarPagina, iniciarGlobal } from '../scripts/anim';
+      iniciarGlobal();
+      document.addEventListener('astro:page-load', iniciarPagina);
+    </script>
+  </body>
+</html>

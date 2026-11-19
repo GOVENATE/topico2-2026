@@ -246,20 +246,20 @@ Para agregar otro grupo se crea `grupos/<numero>/alumnos/` y aparece solo en la 
 
 ## Probarlo en tu compu
 
-Necesitas Node 18 o mas nuevo.
+Necesitas Node 22 o mas nuevo. El sitio esta hecho con Astro, Tailwind y GSAP.
 
 ```
-node scripts/armar-catalogo.mjs
-python3 -m http.server 8080
+npm install
+npm run dev
 ```
 
-Abre http://localhost:8080. Abrir el `index.html` con doble clic no funciona porque el navegador bloquea la carga del catalogo.
+Abre la direccion que aparece en la terminal (normalmente http://localhost:4321). Tus actividades se ven igual que en el sitio publicado.
 
 ---
 
 ## Para el administrador
 
-**Desplegar:** correr `node scripts/armar-catalogo.mjs`, hacer commit de `data/catalogo.json` y servir la carpeta en GitHub Pages, Netlify, Vercel o cualquier hosting estatico. En Netlify o Vercel se puede poner `node scripts/armar-catalogo.mjs` como comando de build.
+**Desplegar:** es automatico. Cada push a `main` corre el workflow `publicar.yml`: arma el catalogo, compila con `npm run build` y deja el resultado en la rama `sitio`. Hostinger (hPanel > Git) esta conectado a la rama `sitio`. Para compilar a mano: `npm run build` y la carpeta lista queda en `dist/`.
 
 **Como funciona el repo:**
 

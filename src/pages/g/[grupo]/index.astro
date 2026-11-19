@@ -1,0 +1,51 @@
+---
+import Base from '../../../layouts/Base.astro';
+import Flecha from '../../../components/Flecha.astro';
+import { catalogo, iniciales, plural, type Grupo } from '../../../data/catalogo';
+
+export function getStaticPaths() {
+  return catalogo.grupos.map(g => ({ params: { grupo: g.id }, props: { g } }));
+}
+const { g } = Astro.props as { g: Grupo };
+const norm = (s: string) => s.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '');
+---
+<Base titulo={`Grupo ${g.id} · Tópico 2`} migas={[{ txt: 'Inicio', href: '/' }, { txt: 'Grupo ' + g.id }]}>
+  <section class="contenedor pb-28 pt-16 md:pt-24">
+    <p class="eyebrow" data-aparecer>{plural(g.alumnos.length, 'alumno', 'alumnos')}</p>
+    <h1 class="titulo-xl mt-4 flex items-end gap-6 text-[clamp(72px,14vw,200px)]">
+      <span data-partir>Grupo</span>
+      <span class="contorno inline-block" transition:name={`grupo-${g.id}`}>{g.id}</span>
+    </h1>
+
+    <div class="mt-12 flex flex-wrap items-center justify-between gap-4" data-aparecer>
+      <label class="relative w-full max-w-md">
+        <span class="sr-only">Buscar alumno</span>
+        <svg class="absolute left-4 top-1/2 -translate-y-1/2 text-tenue" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+        <input data-buscar type="search" placeholder="Buscar por nombre o tecnología"
+          class="w-full border border-linea bg-fondo py-3.5 pl-11 pr-4 outline-none transition-colors focus:border-fuerte" />
+      </label>
+      <span class="eyebrow">{g.alumnos.reduce((n, a) => n + a.actividades.length, 0)} actividades en total</span>
+    </div>
+
+    <div class="rejilla mt-8">
+      {g.alumnos.map(a => (
+        <a class="tarjeta min-h-56" href={`/g/${g.id}/${a.id}`} data-lote
+           data-busqueda={norm(a.nombre + ' ' + a.tecnologias.join(' '))}>
+          <Flecha />
+          <div class="flex items-center gap-4">
+            <span class="avatar size-14 text-base" transition:name={`avatar-${a.id}`}>{iniciales(a.nombre)}</span>
+            <div class="min-w-0 pr-6">
+              <h3 class="text-lg font-semibold leading-tight tracking-tight" transition:name={`nombre-${a.id}`}>{a.nombre}</h3>
+              <p class="t-suave mt-1 text-sm text-suave">{plural(a.actividades.length, 'actividad', 'actividades')}</p>
+            </div>
+          </div>
+          {a.sobreMi && <p class="t-suave line-clamp-2 text-sm text-suave">{a.sobreMi}</p>}
+          <div class="mt-auto flex flex-wrap gap-1.5 pt-2">
+            {a.tecnologias.slice(0, 4).map(x => <span class="chip">{x}</span>)}
+          </div>
+        </a>
+      ))}
+    </div>
+    <p data-vacio hidden class="mt-8 text-suave">Nadie coincide con la búsqueda.</p>
+  </section>
+</Base>
