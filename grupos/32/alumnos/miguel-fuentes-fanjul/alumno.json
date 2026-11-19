@@ -17,7 +17,7 @@
       "descripcion": "Pagina web sobre codigo limpio.",
       "tipo": "web",
       "tecnologias": ["HTML", "CSS", "JavaScript"],
-      "ruta": "actividades/act02-codigolimpio/CódigoLimpio/index.html"
+      "ruta": "actividades/act02-codigolimpio/CodigoLimpio/index.html"
     },
     {
       "id": "act03-diagnostico",
@@ -65,7 +65,7 @@
       "descripcion": "Sitio web sobre Los 7 Habitos de la Gente Altamente Efectiva.",
       "tipo": "web",
       "tecnologias": ["HTML", "CSS"],
-      "ruta": "actividades/act08-7habitos/Web7Hábitos/index.html"
+      "ruta": "actividades/act08-7habitos/Web7Habitos/index.html"
     },
     {
       "id": "act09-analisis",
@@ -73,7 +73,7 @@
       "descripcion": "Documento de analisis en PDF.",
       "tipo": "pdf",
       "tecnologias": ["Investigacion"],
-      "ruta": "actividades/act09-analisis/Análisis Yokoi Kenji y Carlos Kasuaga.pdf"
+      "ruta": "actividades/act09-analisis/Analisis Yokoi Kenji y Carlos Kasuaga.pdf"
     },
     {
       "id": "act10-codigolimpio",
@@ -89,7 +89,7 @@
       "descripcion": "Comentario sobre el video Sin pensamiento critico no eres nadie.",
       "tipo": "pdf",
       "tecnologias": ["Investigacion"],
-      "ruta": "actividades/act11-comentario/Comentario Video Sin pensamiento crítico no eres nadie.pdf"
+      "ruta": "actividades/act11-comentario/Comentario Video Sin pensamiento critico no eres nadie.pdf"
     },
     {
       "id": "act12-cuadrocomparativo",
@@ -137,7 +137,7 @@
       "descripcion": "Infografia sobre Por que fracasan los paises.",
       "tipo": "imagen",
       "tecnologias": ["Diseno"],
-      "ruta": "actividades/act17-porquefracasan/Por qué fracasan los países.png"
+      "ruta": "actividades/act17-porquefracasan/Por que fracasan los paises.png"
     },
     {
       "id": "act18-lecciones",
@@ -145,7 +145,7 @@
       "descripcion": "Resumen en PDF.",
       "tipo": "pdf",
       "tecnologias": ["Investigacion"],
-      "ruta": "actividades/act18-lecciones/Resumen Lecciones de negocios, dinero y éxito.pdf"
+      "ruta": "actividades/act18-lecciones/Resumen Lecciones de negocios, dinero y exito.pdf"
     },
     {
       "id": "act19-mentesenaccion",
@@ -153,7 +153,7 @@
       "descripcion": "Resumen en PDF.",
       "tipo": "pdf",
       "tecnologias": ["Investigacion"],
-      "ruta": "actividades/act19-mentesenaccion/Resumen Mentes en Acción.pdf"
+      "ruta": "actividades/act19-mentesenaccion/Resumen Mentes en Accion.pdf"
     },
     {
       "id": "act20-movimientossociales",
