@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sin pensamiento crítico</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;700;800&family=Instrument+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600&display=swap">
+<link rel="stylesheet" href="../comun/base.css">
+<style>
+  .frase{font:700 1.2rem/1.4 var(--display);margin:0}
+  .clasif{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+  @media (max-width:520px){.clasif{grid-template-columns:1fr}}
+</style>
+</head>
+<body style="--acc:#6b2fb3;--acc-dark:#c9a2ff">
+<script src="../comun/base.js"></script>
+<main class="wrap">
+  <header class="hero">
+    <p class="eyebrow">Tópico 2 · Resumen y opinión</p>
+    <h1>Sin pensamiento crítico no eres nadie</h1>
+    <p class="lede">Charla de Pablo Pérez-Paetow en TEDxYouth@Valladolid. Aquí está lo que entendí, lo que opino y un ejercicio para practicar.</p>
+    <div class="meta"><span class="chip acc">TEDx</span><span class="chip">Erick Arriola Aguillón</span></div>
+  </header>
+
+  <section>
+    <span class="num">01 · LO QUE ENTENDÍ</span>
+    <div class="grid">
+      <div class="card"><h3>Vemos lo que ya pensamos</h3><p>Una misma imagen puede leerse de varias formas. Lo que interpretamos depende mucho de nuestras ideas previas, y casi nunca nos damos cuenta.</p></div>
+      <div class="card"><h3>Repetir no es entender</h3><p>La charla critica la escuela que premia memorizar para el examen. Se puede sacar buena calificación sin haber comprendido nada.</p></div>
+      <div class="card"><h3>Decidir con criterio propio</h3><p>Pensar críticamente es analizar antes de aceptar o juzgar, y hacerse cargo de las decisiones en lugar de seguir a la mayoría.</p></div>
+    </div>
+  </section>
+
+  <section>
+    <span class="num">02 · MI OPINIÓN</span>
+    <div class="callout">
+      <p>Me hizo pensar en cuántas veces acepto algo solo porque lo vi en redes o porque lo dijo alguien que admiro. Creo que el título es exagerado a propósito, para provocar, y funciona. Estoy de acuerdo en que memorizar sin entender no sirve de mucho, pero no creo que memorizar sea malo: en programación hay cosas que necesito saber de memoria para luego poder razonar sobre ellas.</p>
+      <p>Lo que más me quedó es que ser crítico no es llevarle la contraria a todo. Es pedir razones, revisar evidencias y estar dispuesto a cambiar de opinión cuando el otro tiene mejores argumentos.</p>
+    </div>
+  </section>
+
+  <section>
+    <span class="num">03 · PRÁCTICA</span>
+    <h2>¿Hecho, opinión o suposición?</h2>
+    <p class="muted">Un primer paso del pensamiento crítico es separar lo que se puede comprobar de lo que es una creencia. Clasifica cada frase.</p>
+    <div class="card" style="gap:12px">
+      <span class="small muted" id="n"></span>
+      <p class="frase" id="frase"></p>
+      <div class="clasif">
+        <button class="btn ghost" data-c="hecho">Hecho</button>
+        <button class="btn ghost" data-c="opinion">Opinión</button>
+        <button class="btn ghost" data-c="suposicion">Suposición</button>
+      </div>
+      <p class="small" id="fb" aria-live="polite"></p>
+      <div class="barra" aria-hidden="true"><i id="avance" style="width:0"></i></div>
+    </div>
+  </section>
+
+  <section>
+    <span class="num">04 · CONCLUSIÓN</span>
+    <p>Aprender debería servir para entender y actuar, no solo para pasar. Me propongo detenerme antes de compartir o creer algo, buscar de dónde viene y preguntarme si de verdad tengo razones o solo lo estoy repitiendo.</p>
+  </section>
+
+  <footer class="pie-pag"><span>Fuente: charla de Pablo Pérez-Paetow, TEDxYouth@Valladolid.</span><span>Erick Arriola Aguillón</span></footer>
+</main>
+<script>
+const FRASES = [
+  ['El agua hierve a 100 °C al nivel del mar.','hecho','Se puede medir y comprobar.'],
+  ['Python es el mejor lenguaje para empezar.','opinion','Depende de gustos y objetivos; no hay forma de probarlo.'],
+  ['Si no contesta el mensaje es porque está enojado conmigo.','suposicion','Saco una conclusión sin evidencia.'],
+  ['México tiene 32 entidades federativas.','hecho','Es un dato verificable.'],
+  ['Los que se sientan adelante son los más inteligentes.','suposicion','Generaliza sin datos.'],
+  ['Esa película estuvo aburrida.','opinion','Es una valoración personal.'],
+  ['Todos en internet dicen que funciona, entonces funciona.','suposicion','Que mucha gente lo diga no lo vuelve cierto (falacia de popularidad).'],
+  ['La UAQ está en Querétaro.','hecho','Se puede comprobar fácilmente.']
+];
+const NOM = {hecho:'hecho', opinion:'opinión', suposicion:'suposición'};
+let i = 0, ok = 0;
+const pintar = () => {
+  const fin = i >= FRASES.length;
+  document.getElementById('frase').textContent = fin ? `Terminaste: ${ok} de ${FRASES.length} correctas.` : `“${FRASES[i][0]}”`;
+  document.getElementById('n').textContent = fin ? '' : `Frase ${i+1} de ${FRASES.length}`;
+  document.getElementById('avance').style.width = (i/FRASES.length*100)+'%';
+  document.querySelectorAll('[data-c]').forEach(b => { b.disabled = fin; });
+};
+document.querySelectorAll('[data-c]').forEach(b => b.addEventListener('click', () => {
+  const f = FRASES[i], bien = b.dataset.c === f[1];
+  if (bien) ok++;
+  document.getElementById('fb').textContent = (bien ? 'Correcto: ' : `Era ${NOM[f[1]]}: `) + f[2];
+  i++; pintar();
+}));
+pintar();
+</script>
+<a href="../index.html" class="volver-menu" style="position:fixed;left:12px;bottom:12px;z-index:9999;background:#1d1b16;color:#fff;padding:9px 15px;border-radius:999px;font:600 14px/1 system-ui,sans-serif;text-decoration:none;box-shadow:0 4px 14px rgba(0,0,0,.25);border:1px solid rgba(255,255,255,.25)">← Mis actividades</a>
+</body>
+</html>

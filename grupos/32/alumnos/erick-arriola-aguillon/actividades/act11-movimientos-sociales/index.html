@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Movimientos sociales</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;700;800&family=Instrument+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600&display=swap">
+<link rel="stylesheet" href="../comun/base.css">
+<style>
+  .pasos{display:grid;gap:10px;counter-reset:p}
+  .paso{display:grid;grid-template-columns:44px 1fr;gap:12px;align-items:start;background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:14px}
+  .paso::before{counter-increment:p;content:counter(p);display:grid;place-items:center;width:44px;height:44px;border-radius:50%;background:var(--acc);color:var(--on-acc);font:800 1.2rem/1 var(--display)}
+  .paso p{margin:0}
+  .medidor{display:flex;flex-direction:column;gap:8px}
+</style>
+</head>
+<body style="--acc:#c0263d;--acc-dark:#ff8396">
+<script src="../comun/base.js"></script>
+<main class="wrap">
+  <header class="hero">
+    <p class="eyebrow">Tópico 2 · Mentes en acción</p>
+    <h1>Movimientos sociales</h1>
+    <p class="lede">El video del profe plantea que un movimiento social no es “hacer desorden” ni perder el tiempo: es una de las formas en que la sociedad empuja cambios cuando las instituciones no escuchan.</p>
+    <div class="meta"><span class="chip acc">Video de clase</span><span class="chip">Erick Arriola Aguillón</span></div>
+  </header>
+
+  <section>
+    <span class="num">01 · CÓMO NACE Y QUÉ LOGRA</span>
+    <div class="pasos">
+      <div class="paso"><div><h3>Una necesidad que nadie atiende</h3><p>Aparecen cuando hay vacíos de representación o el gobierno no responde a un problema.</p></div></div>
+      <div class="paso"><div><h3>La gente se organiza</h3><p>Personas con el mismo problema se juntan, comparten información y hacen visible lo que estaba escondido.</p></div></div>
+      <div class="paso"><div><h3>Presión al statu quo</h3><p>Obligan a que el tema entre a la agenda pública; rompen la inercia del sistema.</p></div></div>
+      <div class="paso"><div><h3>Cambio legal y cultural</h3><p>Muchos derechos que hoy damos por normales se ganaron así: reformas, garantías y cambios en cómo pensamos.</p></div></div>
+    </div>
+  </section>
+
+  <section>
+    <span class="num">02 · ARMA UN MOVIMIENTO</span>
+    <h2>¿Qué tan fuerte sería?</h2>
+    <p class="muted">Elige qué tiene tu movimiento y observa cómo cambia su capacidad de lograr algo. Es un modelo sencillo para clase, no una medición real.</p>
+    <div class="card medidor">
+      <label class="small"><input type="checkbox" data-v="25"> Una demanda clara y concreta</label>
+      <label class="small"><input type="checkbox" data-v="20"> Organización y personas que coordinan</label>
+      <label class="small"><input type="checkbox" data-v="15"> Información y datos que respaldan la causa</label>
+      <label class="small"><input type="checkbox" data-v="20"> Acción pacífica y constante en el tiempo</label>
+      <label class="small"><input type="checkbox" data-v="20"> Alianzas con otros grupos y medios</label>
+      <div class="barra"><i id="fuerza" style="width:0"></i></div>
+      <p class="small" id="lectura" aria-live="polite"></p>
+    </div>
+  </section>
+
+  <section>
+    <span class="num">03 · CONCLUSIÓN</span>
+    <div class="callout"><p>Me quedo con que los movimientos sociales son una herramienta democrática, no una anomalía. Antes los veía solo como marchas que estorban el tráfico; ahora entiendo que muchas veces son la única forma de que se escuche a quien no tiene poder. Lo importante es que tengan causas claras y formas pacíficas.</p></div>
+  </section>
+
+  <footer class="pie-pag"><span>Fuente: video “Mentes en acción” visto en clase.</span><span>Erick Arriola Aguillón</span></footer>
+</main>
+<script>
+const cajas = [...document.querySelectorAll('[data-v]')];
+const leer = () => {
+  const v = cajas.reduce((s,c) => s + (c.checked ? +c.dataset.v : 0), 0);
+  document.getElementById('fuerza').style.width = v + '%';
+  document.getElementById('lectura').textContent =
+    v === 0 ? 'Sin nada de esto, el problema sigue invisible.' :
+    v < 50 ? `${v}%: se nota, pero es fácil ignorarlo.` :
+    v < 85 ? `${v}%: ya genera presión y entra a la conversación pública.` :
+             `${v}%: tiene lo necesario para provocar un cambio real.`;
+};
+cajas.forEach(c => c.addEventListener('change', leer)); leer();
+</script>
+<a href="../index.html" class="volver-menu" style="position:fixed;left:12px;bottom:12px;z-index:9999;background:#1d1b16;color:#fff;padding:9px 15px;border-radius:999px;font:600 14px/1 system-ui,sans-serif;text-decoration:none;box-shadow:0 4px 14px rgba(0,0,0,.25);border:1px solid rgba(255,255,255,.25)">← Mis actividades</a>
+</body>
+</html>

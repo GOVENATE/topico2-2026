@@ -1,0 +1,303 @@
+<!doctype html>
+<html lang="es">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Siete lecciones de Elías Ayub</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,500..900;1,6..96,500..900&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap">
+<style>
+/* Layout: hoja de libro contable. Arriba la línea de tiempo del episodio; abajo una ficha por momento, con la idea a la izquierda y un ejercicio a la derecha. */
+:root{
+  --paper:#eaf3e2; --sheet:#fbfdf7; --ink:#11271b; --muted:#476051; --rule:#b5ceb0;
+  --green:#0d6a3d; --on-green:#fbfdf7; --red:#bf3327; --soft:#d6e8cf;
+  --display:"Bodoni Moda","Didot","Times New Roman",serif;
+  --body:"IBM Plex Sans","Segoe UI",system-ui,sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,Menlo,Consolas,monospace;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --paper:#0b1811; --sheet:#12241a; --ink:#e5f2e3; --muted:#9bb6a3; --rule:#274434;
+    --green:#5fd39a; --on-green:#0b1811; --red:#ff8576; --soft:#1b3526;
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --paper:#0b1811; --sheet:#12241a; --ink:#e5f2e3; --muted:#9bb6a3; --rule:#274434;
+  --green:#5fd39a; --on-green:#0b1811; --red:#ff8576; --soft:#1b3526;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+body{margin:0;color:var(--ink);font:400 16px/1.5 var(--body);
+  background:repeating-linear-gradient(var(--paper) 0 31px,color-mix(in oklab,var(--rule) 40%,var(--paper)) 31px 32px)}
+button,input{font:inherit;color:inherit}
+button{cursor:pointer}
+:focus-visible{outline:3px solid var(--red);outline-offset:2px}
+.wrap{max-width:1080px;margin-inline:auto;padding-inline:16px;padding-block:28px 44px;display:flex;flex-direction:column;gap:26px}
+.label{margin:0;font:600 .76rem/1.3 var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+
+header{display:flex;flex-direction:column;gap:8px;border-left:3px double var(--red);padding-left:16px}
+h1{margin:0;font:800 clamp(2.1rem,7vw,4rem)/.98 var(--display);letter-spacing:-.01em;text-wrap:balance}
+h1 em{font-style:italic;color:var(--green)}
+.lede{margin:0;max-width:54ch;color:var(--muted);font-size:1.05rem}
+
+/* Línea de tiempo */
+.timeline{display:flex;flex-direction:column;gap:14px}
+.track{position:relative;height:62px}
+.track::before{content:"";position:absolute;left:0;right:0;top:21px;height:2px;background:var(--ink)}
+.tick{position:absolute;top:14px;width:2px;height:16px;background:var(--ink)}
+.tick span{position:absolute;top:22px;left:0;translate:-50% 0;font:500 .74rem var(--mono);color:var(--muted);white-space:nowrap}
+.tick:first-of-type span{translate:0 0}
+.tick.last span{translate:-100% 0}
+.seg{position:absolute;top:10px;height:24px;min-width:12px;padding:0;border:2px solid var(--ink);border-radius:3px;background:color-mix(in oklab,var(--green) 35%,var(--sheet));transition:translate .15s}
+.seg:hover{translate:0 -3px}
+.seg[aria-pressed="true"]{background:var(--red);translate:0 -3px}
+.chips{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:8px}
+.chip{background:var(--sheet);border:2px solid var(--rule);border-radius:6px;padding:8px 12px;text-align:left;display:flex;flex-direction:column;gap:1px;min-width:0}
+.chip small{font:500 .76rem var(--mono);color:var(--muted)}
+.chip strong{font-weight:600;line-height:1.2;overflow-wrap:anywhere}
+.chip:hover{border-color:var(--ink)}
+.chip[aria-pressed="true"]{background:var(--ink);border-color:var(--ink);color:var(--paper)}
+.chip[aria-pressed="true"] small{color:var(--paper)}
+
+/* Ficha */
+.card{background:var(--sheet);border:2px solid var(--ink);border-radius:4px;padding:clamp(18px,4vw,32px);display:grid;grid-template-columns:minmax(0,1fr);gap:28px}
+.card.two{grid-template-columns:minmax(0,1.1fr) minmax(0,1fr)}
+@media (max-width:820px){.card.two{grid-template-columns:minmax(0,1fr)}}
+.idea{display:flex;flex-direction:column;gap:18px;min-width:0}
+.frase{margin:0;font:700 clamp(1.7rem,4.6vw,2.9rem)/1.08 var(--display);text-wrap:balance;max-width:20ch}
+.puntos{list-style:none;margin:0;padding:0;border-top:2px solid var(--ink);max-width:34ch}
+.puntos li{display:flex;gap:14px;align-items:baseline;padding:9px 0;border-bottom:1px solid var(--rule);font-size:1.2rem;font-weight:600}
+.puntos li b{font:500 .8rem var(--mono);color:var(--red)}
+.nav{display:flex;gap:10px;flex-wrap:wrap;margin-top:auto}
+.btn{border:2px solid var(--ink);background:transparent;border-radius:4px;padding:8px 16px;font-weight:600}
+.btn:hover:not(:disabled){background:var(--soft)}
+.btn:disabled{opacity:.4;cursor:default}
+.btn.go{background:var(--green);border-color:var(--green);color:var(--on-green)}
+.btn.go:hover:not(:disabled){background:var(--green);filter:brightness(1.1)}
+
+/* Ejercicios */
+.lab{background:var(--soft);border-radius:4px;padding:20px;display:flex;flex-direction:column;gap:14px;min-width:0}
+.lab h2{margin:0;font:700 1.35rem/1.2 var(--display);text-wrap:balance}
+.lab p{margin:0}
+.opts{display:flex;flex-direction:column;gap:8px}
+.opt{background:var(--sheet);border:2px solid var(--rule);border-radius:4px;padding:11px 14px;text-align:left;line-height:1.35}
+.opt:hover:not(:disabled){border-color:var(--ink)}
+.opt:disabled{cursor:default}
+.opt.ok{border-color:var(--green);box-shadow:inset 5px 0 0 var(--green)}
+.opt.no{border-color:var(--red);box-shadow:inset 5px 0 0 var(--red)}
+.two-btn{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+.two-btn .opt{text-align:center;font-weight:600}
+.item{font:700 1.6rem/1.15 var(--display);padding:8px 0}
+.fb{font-weight:600;min-height:1.5em}
+.fb.ok{color:var(--green)}
+.fb.no{color:var(--red)}
+.note{color:var(--muted);font-size:.9rem}
+.field{display:flex;flex-direction:column;gap:4px}
+.field label{display:flex;justify-content:space-between;gap:10px;font-weight:600}
+.field label output{font:600 1rem var(--mono);font-variant-numeric:tabular-nums}
+.field input[type=number]{background:var(--sheet);border:2px solid var(--rule);border-radius:4px;padding:8px 10px;width:100%;font:600 1.05rem var(--mono)}
+.field input[type=range]{width:100%;accent-color:var(--green)}
+.total{font:800 clamp(2rem,6vw,2.8rem)/1 var(--display);color:var(--green);font-variant-numeric:tabular-nums lining-nums;overflow-wrap:anywhere}
+.bars{display:flex;align-items:flex-end;gap:4px;height:72px;border-bottom:2px solid var(--ink)}
+.bars i{flex:1;background:var(--green);min-width:0;border-radius:2px 2px 0 0}
+.badge{align-self:flex-start;font:600 .76rem var(--mono);letter-spacing:.06em;text-transform:uppercase;padding:3px 8px;border-radius:3px;border:2px solid var(--green);color:var(--green)}
+.badge.off{border-color:var(--muted);color:var(--muted)}
+footer{color:var(--muted);font-size:.85rem}
+footer p{margin:0;max-width:75ch;background:var(--paper)}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+
+<div class="wrap">
+  <header>
+    <p class="label">Dimes y Billetes · Moris Dieck entrevista a Arturo Elías Ayub</p>
+    <h1>Siete lecciones de <em>negocios y vida</em></h1>
+    <p class="lede">Recorre el episodio por minuto. Cada momento trae una idea y, en cuatro de ellos, un ejercicio para probarla.</p>
+  </header>
+
+  <section class="timeline" aria-label="Momentos del episodio">
+    <div class="track" id="track"></div>
+    <div class="chips" id="chips"></div>
+  </section>
+
+  <article class="card" id="card" aria-live="polite"></article>
+
+  <footer><p>Apuntes de estudio a partir de un resumen del episodio. Las frases son paráfrasis, no citas textuales. El cálculo de ahorro no incluye rendimientos.</p></footer>
+</div>
+
+<script>
+(() => {
+const $ = (s, r = document) => r.querySelector(s);
+const esc = s => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+const peso = new Intl.NumberFormat('es-MX', { style: 'currency', currency: 'MXN', maximumFractionDigits: 0 });
+const AXIS = 60;
+
+const M = [
+  { t: 'Negociación', a: '5:30', b: '7:30', s: 5.5, e: 7.5, lab: 'nego',
+    frase: 'Se negocia igual en chico que en grande.',
+    puntos: ['Información', 'Preparación', 'Amabilidad'] },
+  { t: 'Emprendimiento', a: '13:30', b: '15:45', s: 13.5, e: 15.75, lab: 'conta',
+    frase: 'El talón de Aquiles del emprendedor mexicano: las finanzas.',
+    puntos: ['Leer un estado de resultados', 'Leer un balance general', 'Antes de abrir el negocio'] },
+  { t: 'Inteligencia artificial', a: '17:20', b: '19:00', s: 17.33, e: 19, lab: 'ia',
+    frase: 'La IA le sirve a cualquier negocio.',
+    puntos: ['Herramienta para todos los giros', 'La clave: preguntar bien'] },
+  { t: 'Familia', a: '34:00', b: '39:00', s: 34, e: 39,
+    frase: 'Su mayor éxito es su familia.',
+    puntos: ['Valores', 'Respeto', 'Unidad entre generaciones'] },
+  { t: 'Carlos Slim', a: '40:00', b: '42:00', s: 40, e: 42,
+    frase: 'Un genio que convierte problemas en oportunidades.',
+    puntos: ['Crecer a largo plazo', 'Crear empleo'] },
+  { t: 'Fundación Telmex', a: '42:30', b: '47:50', s: 42.5, e: 47.83,
+    frase: 'Su proyecto de hoy: que a nadie le falte comida.',
+    puntos: ['Inseguridad alimentaria en México', 'Bancos de alimentos', 'Alto impacto social'] },
+  { t: 'Finanzas personales', a: '53:15', b: '55:00', s: 53.25, e: 55, lab: 'ahorro',
+    frase: 'Orden en lo que entra y en lo que sale.',
+    puntos: ['Registra ingresos y egresos', 'Ahorra del 10% al 15%', 'Desde el primer ingreso'] }
+];
+
+const NEGO = [
+  ['Con cara dura, para que vean que no cedo.', false, 'Sin ganarte a la otra parte, la plática se cierra pronto.'],
+  ['Con los precios de la zona investigados y buena actitud.', true, 'Información, preparación y amabilidad. Aplica igual en un local que en un trato millonario.'],
+  ['Sobre la marcha, a ver qué sale.', false, 'Sin información negocias a ciegas.']
+];
+const CONTA = [
+  ['Ventas del mes', 'er'], ['Dinero en el banco', 'bg'], ['Renta del local', 'er'],
+  ['Deuda con proveedores', 'bg'], ['Utilidad', 'er'], ['Inventario', 'bg']
+];
+const NOMBRE = { er: 'estado de resultados', bg: 'balance general' };
+const IA = [
+  [['Dame ideas de negocio.', false],
+   ['Tengo una taquería con ventas bajas entre semana y $20,000 para invertir. Dame 5 ideas para subirlas, con costo estimado.', true]],
+  [['Vendo postres por Instagram a oficinas. Escribe 3 mensajes cortos para ofrecer pedidos semanales.', true],
+   ['¿Cómo vendo más?', false]]
+];
+
+let sel = 0, w = {};
+
+function renderNav() {
+  const ticks = [0, 10, 20, 30, 40, 50, 60].map(m =>
+    `<div class="tick${m === AXIS ? ' last' : ''}" style="left:${m === AXIS ? 'calc(100% - 2px)' : m / AXIS * 100 + '%'}"><span>${m === 0 ? 'min 0' : m}</span></div>`).join('');
+  const segs = M.map((m, i) =>
+    `<button class="seg" data-i="${i}" aria-pressed="${i === sel}" aria-label="${esc(m.t)}, minuto ${m.a}" title="${esc(m.t)} · ${m.a}"
+      style="left:${(m.s / AXIS * 100).toFixed(2)}%;width:${((m.e - m.s) / AXIS * 100).toFixed(2)}%"></button>`).join('');
+  $('#track').innerHTML = ticks + segs;
+  $('#chips').innerHTML = M.map((m, i) =>
+    `<button class="chip" data-i="${i}" aria-pressed="${i === sel}"><small>${m.a}</small><strong>${esc(m.t)}</strong></button>`).join('');
+}
+
+const LABS = {
+  nego() {
+    const opts = NEGO.map((o, k) => {
+      const cls = w.pick === undefined ? '' : o[1] ? ' ok' : k === w.pick ? ' no' : '';
+      return `<button class="opt${cls}" data-nego="${k}" ${w.pick !== undefined ? 'disabled' : ''}>${esc(o[0])}</button>`;
+    }).join('');
+    const fb = w.pick === undefined ? '' :
+      `<p class="fb ${NEGO[w.pick][1] ? 'ok' : 'no'}">${esc(NEGO[w.pick][2])}</p><div><button class="btn" data-reset>Intentar de nuevo</button></div>`;
+    return `<p class="label">Ejercicio</p><h2>Vas a negociar la renta de un local. ¿Cómo llegas?</h2><div class="opts">${opts}</div>${fb}`;
+  },
+  conta() {
+    w.i ??= 0; w.score ??= 0;
+    const fb = w.fb ? `<p class="fb ${w.fb[0] ? 'ok' : 'no'}">${esc(w.fb[1])}</p>` : '<p class="fb"></p>';
+    if (w.i >= CONTA.length) {
+      return `<p class="label">Ejercicio</p><h2>¿En cuál estado financiero va?</h2>${fb}
+        <div class="total">${w.score} de ${CONTA.length}</div>
+        <p>El estado de resultados dice cuánto ganaste o perdiste en un periodo. El balance general dice qué tienes y qué debes en una fecha.</p>
+        <div><button class="btn" data-reset>Otra vez</button></div>`;
+    }
+    return `<p class="label">Ejercicio · ${w.i + 1} de ${CONTA.length}</p><h2>¿En cuál estado financiero va?</h2>
+      <div class="item">${esc(CONTA[w.i][0])}</div>
+      <div class="two-btn"><button class="opt" data-conta="er">Estado de resultados</button><button class="opt" data-conta="bg">Balance general</button></div>${fb}`;
+  },
+  ia() {
+    w.r ??= 0; w.score ??= 0;
+    if (w.r >= IA.length) {
+      return `<p class="label">Ejercicio</p><h2>¿Cuál pregunta le saca más provecho a la IA?</h2>
+        <div class="total">${w.score} de ${IA.length}</div>
+        <p>Entre más contexto das y más concreto es el encargo, más útil es la respuesta.</p>
+        <div><button class="btn" data-reset>Otra vez</button></div>`;
+    }
+    const opts = IA[w.r].map((o, k) => {
+      const cls = w.pick === undefined ? '' : o[1] ? ' ok' : k === w.pick ? ' no' : '';
+      return `<button class="opt${cls}" data-ia="${k}" ${w.pick !== undefined ? 'disabled' : ''}>${esc(o[0])}</button>`;
+    }).join('');
+    const fb = w.pick === undefined ? '' :
+      `<p class="fb ${IA[w.r][w.pick][1] ? 'ok' : 'no'}">${IA[w.r][w.pick][1] ? 'Esa. Da contexto y pide algo concreto.' : 'Muy abierta. La otra da contexto y pide algo concreto.'}</p>
+       <div><button class="btn go" data-ia-next>${w.r === IA.length - 1 ? 'Ver resultado' : 'Siguiente'}</button></div>`;
+    return `<p class="label">Ejercicio · ${w.r + 1} de ${IA.length}</p><h2>¿Cuál pregunta le saca más provecho a la IA?</h2><div class="opts">${opts}</div>${fb}`;
+  },
+  ahorro() {
+    return `<p class="label">Calculadora</p><h2>¿Cuánto juntas si ahorras desde hoy?</h2>
+      <div class="field"><label for="ingreso">Ingreso mensual (MXN)</label><input type="number" id="ingreso" min="0" step="500" value="12000" inputmode="numeric"></div>
+      <div class="field"><label for="pct">Porcentaje que ahorras <output id="pctOut"></output></label><input type="range" id="pct" min="1" max="30" value="10"></div>
+      <div class="field"><label for="anios">Años <output id="aniosOut"></output></label><input type="range" id="anios" min="1" max="10" value="5"></div>
+      <span class="badge" id="rango"></span>
+      <div class="total" id="total"></div>
+      <p id="mensual"></p>
+      <div class="bars" id="bars" aria-hidden="true"></div>
+      <p class="note">Ahorro acumulado año por año, sin contar rendimientos.</p>`;
+  }
+};
+
+function updateAhorro() {
+  if (!$('#ingreso')) return;
+  const ingreso = Math.max(0, +$('#ingreso').value || 0), pct = +$('#pct').value, anios = +$('#anios').value;
+  const mensual = ingreso * pct / 100, total = mensual * 12 * anios;
+  $('#pctOut').textContent = pct + '%';
+  $('#aniosOut').textContent = anios;
+  $('#total').textContent = peso.format(total);
+  $('#mensual').textContent = `Apartas ${peso.format(mensual)} cada mes durante ${anios} ${anios === 1 ? 'año' : 'años'}.`;
+  const r = $('#rango'), dentro = pct >= 10 && pct <= 15;
+  r.textContent = dentro ? 'Dentro del 10% al 15% recomendado' : pct < 10 ? 'Debajo del 10% recomendado' : 'Arriba del 15% recomendado';
+  r.classList.toggle('off', pct < 10);
+  $('#bars').innerHTML = Array.from({ length: anios }, (_, k) => `<i style="height:${((k + 1) / anios * 100).toFixed(1)}%"></i>`).join('');
+}
+
+function renderCard() {
+  const m = M[sel], card = $('#card');
+  card.className = 'card' + (m.lab ? ' two' : '');
+  card.innerHTML = `<div class="idea">
+      <p class="label">${sel + 1} de ${M.length} · ${esc(m.t)} · min ${m.a} a ${m.b}</p>
+      <p class="frase">${esc(m.frase)}</p>
+      <ul class="puntos">${m.puntos.map((p, k) => `<li><b>${String(k + 1).padStart(2, '0')}</b>${esc(p)}</li>`).join('')}</ul>
+      <div class="nav"><button class="btn" data-step="-1" ${sel === 0 ? 'disabled' : ''}>Anterior</button>
+        <button class="btn go" data-step="1" ${sel === M.length - 1 ? 'disabled' : ''}>Siguiente</button></div>
+    </div>${m.lab ? `<div class="lab" id="lab">${LABS[m.lab]()}</div>` : ''}`;
+  updateAhorro();
+}
+function renderLab() { const m = M[sel]; if (m.lab) { $('#lab').innerHTML = LABS[m.lab](); updateAhorro(); } }
+function go(i) { sel = Math.max(0, Math.min(M.length - 1, i)); w = {}; renderNav(); renderCard(); }
+
+document.querySelector('.timeline').addEventListener('click', e => {
+  const b = e.target.closest('[data-i]');
+  if (b) go(+b.dataset.i);
+});
+$('#card').addEventListener('click', e => {
+  const b = e.target.closest('button');
+  if (!b) return;
+  const d = b.dataset;
+  if (d.step) return go(sel + +d.step);
+  if ('reset' in d) w = {};
+  else if (d.nego) w.pick = +d.nego;
+  else if (d.conta) {
+    const [nombre, donde] = CONTA[w.i], ok = d.conta === donde;
+    if (ok) w.score++;
+    w.fb = [ok, `${nombre} va en el ${NOMBRE[donde]}.`];
+    w.i++;
+  }
+  else if (d.ia) { w.pick = +d.ia; if (IA[w.r][w.pick][1]) w.score++; }
+  else if ('iaNext' in d) { w.r++; delete w.pick; }
+  else return;
+  renderLab();
+});
+$('#card').addEventListener('input', updateAhorro);
+document.addEventListener('keydown', e => {
+  if (e.target.closest('input')) return;
+  if (e.key === 'ArrowRight') go(sel + 1);
+  if (e.key === 'ArrowLeft') go(sel - 1);
+});
+
+renderNav();
+renderCard();
+})();
+</script>
+<a href="../index.html" class="volver-menu" style="position:fixed;left:12px;bottom:12px;z-index:9999;background:#1d1b16;color:#fff;padding:9px 15px;border-radius:999px;font:600 14px/1 system-ui,sans-serif;text-decoration:none;box-shadow:0 4px 14px rgba(0,0,0,.25);border:1px solid rgba(255,255,255,.25)">← Mis actividades</a>

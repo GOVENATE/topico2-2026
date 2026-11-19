@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Empresario mexicano ideal</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;700;800&family=Instrument+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600&display=swap">
+<link rel="stylesheet" href="../comun/base.css">
+<style>
+  .armado{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,1fr);gap:16px;align-items:start}
+  @media (max-width:760px){.armado{grid-template-columns:1fr}}
+  .rasgos{display:grid;gap:8px}
+  .rasgo{display:flex;gap:10px;align-items:flex-start;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:12px;cursor:pointer}
+  .rasgo:has(input:checked){border-color:var(--acc);background:color-mix(in srgb,var(--acc) 10%,var(--surface))}
+  .rasgo input{margin-top:4px;accent-color:var(--acc)}
+  .rasgo b{display:block}
+  .perfil{position:sticky;top:16px}
+  .ficha{display:flex;flex-direction:column;gap:10px}
+  .ficha .tags{display:flex;flex-wrap:wrap;gap:6px}
+</style>
+</head>
+<body style="--acc:#2c6e2f;--acc-dark:#8be08e">
+<script src="../comun/base.js"></script>
+<main class="wrap">
+  <header class="hero">
+    <p class="eyebrow">Tópico 2 · Empresarios mexicanos</p>
+    <h1>El empresario mexicano ideal</h1>
+    <p class="lede">Para mí, un buen empresario en México no se mide solo por cuánto gana, sino por cómo trata a su gente, cómo compite y qué deja al país. Armé mi perfil con diez rasgos.</p>
+    <div class="meta"><span class="chip acc">Perfil propio</span><span class="chip">Erick Arriola Aguillón</span></div>
+  </header>
+
+  <section>
+    <span class="num">01 · ARMA EL PERFIL</span>
+    <p class="muted">Marca los rasgos que debería tener. Del lado derecho se arma la ficha y se ve qué tan completo queda.</p>
+    <div class="armado">
+      <div class="rasgos" id="rasgos"></div>
+      <div class="perfil card ficha" id="ficha"></div>
+    </div>
+  </section>
+
+  <section>
+    <span class="num">02 · DE QUIÉN TOMO CADA COSA</span>
+    <div class="grid">
+      <div class="card"><h3>De Carlos Slim</h3><p>La disciplina con el dinero: reinvertir, no gastar de más y leer el momento económico.</p></div>
+      <div class="card"><h3>De Lorenzo Zambrano</h3><p>Usar la tecnología para ser más eficiente y competir fuera de México.</p></div>
+      <div class="card"><h3>De Lorenzo Servitje</h3><p>Poner a las personas y los valores en el centro, aunque la empresa sea enorme.</p></div>
+    </div>
+  </section>
+
+  <section>
+    <span class="num">03 · MI PERFIL FINAL</span>
+    <div class="callout"><p>Mi empresario ideal sería alguien que crece con calidad y no con trampas, que paga lo justo y sus impuestos completos, que invierte en tecnología y en capacitar a su gente, y que compite sin cerrarle el paso a los demás. Que pueda equivocarse, pero que escuche los datos y cambie de rumbo a tiempo.</p></div>
+  </section>
+
+  <footer class="pie-pag"><span>Basado en lo visto en clase sobre Slim, Zambrano y Servitje.</span><span>Erick Arriola Aguillón</span></footer>
+</main>
+<script>
+const RASGOS = [
+  ['Visión de largo plazo','Construir algo útil que dure, no solo la ganancia del trimestre.','visión'],
+  ['Ética antes que ventaja','Nada de corrupción, sobornos ni privilegios a costa de otros.','ética'],
+  ['Liderazgo humano','Metas claras y exigencia, pero tratando a las personas con respeto.','liderazgo'],
+  ['Innovación con propósito','Tecnología para resolver problemas reales y reducir desperdicio.','innovación'],
+  ['Desarrollo de su gente','Capacitar, reconocer el talento y dejar que el trabajador crezca.','personas'],
+  ['Finanzas responsables','Reinvertir y tomar riesgos calculados, sin endeudarse de más.','finanzas'],
+  ['Compromiso con México','Empleo formal, proveedores nacionales y pagar impuestos.','país'],
+  ['Competir sin destruir','Ganar por calidad, no bloqueando a la competencia.','mercado'],
+  ['Responsabilidad social real','Prevenir el daño ambiental y social, no solo donar después.','impacto'],
+  ['Aprender siempre','Escuchar datos, aceptar errores y corregir el rumbo.','aprendizaje']
+];
+document.getElementById('rasgos').innerHTML = RASGOS.map((r,i)=>`<label class="rasgo"><input type="checkbox" data-i="${i}"><span><b>${r[0]}</b><span class="small muted">${r[1]}</span></span></label>`).join('');
+const ficha = () => {
+  const sel = [...document.querySelectorAll('#rasgos input:checked')].map(c => RASGOS[+c.dataset.i]);
+  const n = sel.length;
+  const nivel = n === 0 ? 'Todavía no hay perfil.' : n < 4 ? 'Un empresario que gana dinero, pero le falta mucho.' : n < 8 ? 'Va por buen camino: combina resultados con responsabilidad.' : n < 10 ? 'Casi completo: un modelo a seguir.' : 'Perfil completo: así lo imagino.';
+  document.getElementById('ficha').innerHTML = `
+    <span class="num">FICHA DEL EMPRESARIO</span>
+    <h3>${n} de 10 rasgos</h3>
+    <div class="barra"><i style="width:${n*10}%"></i></div>
+    <p class="small">${nivel}</p>
+    <div class="tags">${sel.map(r=>`<span class="chip acc">${r[2]}</span>`).join('') || '<span class="small muted">Marca rasgos a la izquierda.</span>'}</div>`;
+};
+document.getElementById('rasgos').addEventListener('change', ficha); ficha();
+</script>
+<a href="../index.html" class="volver-menu" style="position:fixed;left:12px;bottom:12px;z-index:9999;background:#1d1b16;color:#fff;padding:9px 15px;border-radius:999px;font:600 14px/1 system-ui,sans-serif;text-decoration:none;box-shadow:0 4px 14px rgba(0,0,0,.25);border:1px solid rgba(255,255,255,.25)">← Mis actividades</a>
+</body>
+</html>

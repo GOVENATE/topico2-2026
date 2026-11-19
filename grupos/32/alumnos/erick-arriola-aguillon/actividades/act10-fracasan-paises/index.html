@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Por qué fracasan los países</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;700;800&family=Instrument+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600&display=swap">
+<link rel="stylesheet" href="../comun/base.css">
+<style>
+  .nogales{display:grid;grid-template-columns:1fr auto 1fr;gap:0;border-radius:14px;overflow:hidden;border:1px solid var(--line)}
+  .nogales > div{padding:18px;background:var(--surface)}
+  .nogales .muro{width:10px;padding:0;background:repeating-linear-gradient(180deg,var(--ink) 0 8px,transparent 8px 14px)}
+  @media (max-width:600px){.nogales{grid-template-columns:1fr}.nogales .muro{width:auto;height:10px;background:repeating-linear-gradient(90deg,var(--ink) 0 8px,transparent 8px 14px)}}
+  .circulos{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+  @media (max-width:600px){.circulos{grid-template-columns:1fr}}
+  .ciclo{display:flex;flex-wrap:wrap;align-items:center;gap:6px}
+  .ciclo span{background:var(--surface-2);border-radius:999px;padding:4px 10px;font-size:.86rem}
+  .ciclo b{color:var(--acc)}
+  .cajas{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+</style>
+</head>
+<body style="--acc:#1f6f5c;--acc-dark:#6fe0bf">
+<script src="../comun/base.js"></script>
+<main class="wrap">
+  <header class="hero">
+    <p class="eyebrow">Tópico 2 · Infografía</p>
+    <h1>¿Por qué fracasan los países?</h1>
+    <p class="lede">Daron Acemoglu y James A. Robinson sostienen que un país no es pobre por su clima, su geografía o su cultura, sino por las <strong>instituciones</strong> que construye: las reglas que deciden quién tiene oportunidades y quién se queda con el poder.</p>
+    <div class="meta"><span class="chip acc">Acemoglu y Robinson</span><span class="chip">Erick Arriola Aguillón</span></div>
+  </header>
+
+  <section>
+    <span class="num">01 · DOS TIPOS DE INSTITUCIONES</span>
+    <div class="grid dos">
+      <div class="card acc"><h3>Inclusivas</h3><p>Protegen la propiedad, dejan competir, emprender y estudiar. El poder está repartido y tiene límites.</p></div>
+      <div class="card"><h3>Extractivas</h3><p>Están hechas para que una élite saque riqueza de la mayoría. La gente trabaja, pero no tiene oportunidades reales.</p></div>
+    </div>
+  </section>
+
+  <section>
+    <span class="num">02 · EL EJEMPLO DE NOGALES</span>
+    <div class="nogales">
+      <div><h3>Nogales, Arizona</h3><p class="small">Mismo clima, misma historia y gente parecida. Hay reglas claras, servicios, crédito y gobiernos que rinden cuentas.</p></div>
+      <div class="muro" aria-hidden="true"></div>
+      <div><h3>Nogales, Sonora</h3><p class="small">A unos metros, otras reglas: más corrupción, menos servicios y menos seguridad para invertir. La diferencia la hacen las instituciones.</p></div>
+    </div>
+  </section>
+
+  <section>
+    <span class="num">03 · LOS CÍRCULOS</span>
+    <div class="circulos">
+      <div class="card"><h3>Círculo virtuoso</h3><div class="ciclo"><span>Reglas justas</span><b>→</b><span>confianza</span><b>→</b><span>innovación</span><b>→</b><span>crecimiento</span><b>→</b><span>más participación</span></div></div>
+      <div class="card"><h3>Círculo vicioso</h3><div class="ciclo"><span>Poder concentrado</span><b>→</b><span>reglas a modo</span><b>→</b><span>corrupción</span><b>→</b><span>pobreza</span><b>→</b><span>más poder concentrado</span></div></div>
+    </div>
+    <div class="callout"><p><strong>Raíz histórica en México:</strong> la colonia dejó instituciones de explotación como la encomienda, la mita y el repartimiento. Esa forma de concentrar riqueza no desapareció del todo.</p></div>
+  </section>
+
+  <section>
+    <span class="num">04 · CLASIFICA</span>
+    <h2>¿Inclusiva o extractiva?</h2>
+    <div class="card" style="gap:12px">
+      <span class="small muted" id="n"></span>
+      <h3 id="caso"></h3>
+      <div class="cajas"><button class="btn ghost" data-r="i">Inclusiva</button><button class="btn ghost" data-r="e">Extractiva</button></div>
+      <p class="small" id="fb" aria-live="polite"></p>
+    </div>
+  </section>
+
+  <section>
+    <span class="num">05 · LO QUE ME LLEVO</span>
+    <p>Me gustó que el libro no culpa a la gente ni al lugar, sino a las reglas, porque las reglas se pueden cambiar. También me hizo ver que la innovación necesita que nadie tenga miedo de perder privilegios: la <em>destrucción creativa</em> solo pasa cuando las élites no la pueden frenar.</p>
+  </section>
+
+  <footer class="pie-pag"><span>Fuente: Acemoglu y Robinson, <em>Por qué fracasan los países</em>.</span><span>Erick Arriola Aguillón</span></footer>
+</main>
+<script>
+const CASOS = [
+  ['Cualquiera puede registrar una empresa en línea en un día.','i','Abre la competencia y el emprendimiento.'],
+  ['Una sola empresa recibe la concesión de todo el país sin licitación.','e','Concentra el mercado en pocos.'],
+  ['Los jueces son independientes del gobierno.','i','El poder tiene límites.'],
+  ['Para abrir un negocio hay que pagarle a un funcionario.','e','La corrupción extrae riqueza.'],
+  ['Las escuelas públicas son buenas y gratuitas.','i','Reparte oportunidades.'],
+  ['El gobernante cambia la ley para reelegirse indefinidamente.','e','El poder se concentra y no rinde cuentas.']
+];
+let i = 0, ok = 0;
+const pintar = () => {
+  const fin = i >= CASOS.length;
+  document.getElementById('caso').textContent = fin ? `Acertaste ${ok} de ${CASOS.length}.` : CASOS[i][0];
+  document.getElementById('n').textContent = fin ? '' : `Caso ${i+1} de ${CASOS.length}`;
+  document.querySelectorAll('[data-r]').forEach(b => b.disabled = fin);
+};
+document.querySelectorAll('[data-r]').forEach(b => b.addEventListener('click', () => {
+  const c = CASOS[i], bien = b.dataset.r === c[1]; if (bien) ok++;
+  document.getElementById('fb').textContent = (bien ? 'Bien: ' : 'Al revés: ') + c[2];
+  i++; pintar();
+}));
+pintar();
+</script>
+<a href="../index.html" class="volver-menu" style="position:fixed;left:12px;bottom:12px;z-index:9999;background:#1d1b16;color:#fff;padding:9px 15px;border-radius:999px;font:600 14px/1 system-ui,sans-serif;text-decoration:none;box-shadow:0 4px 14px rgba(0,0,0,.25);border:1px solid rgba(255,255,255,.25)">← Mis actividades</a>
+</body>
+</html>

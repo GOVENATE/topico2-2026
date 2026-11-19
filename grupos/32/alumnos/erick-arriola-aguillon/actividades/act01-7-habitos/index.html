@@ -1,0 +1,907 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Los 7 Hábitos de los Adolescentes Altamente Efectivos</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html, body {
+    height: 100%;
+    overflow: hidden;
+  }
+
+  body {
+    background: #0a0a0f;
+    background-image:
+      radial-gradient(circle at 15% 20%, rgba(255,107,53,0.14), transparent 45%),
+      radial-gradient(circle at 85% 80%, rgba(79,195,247,0.14), transparent 45%);
+    font-family: 'Segoe UI', sans-serif;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .screen {
+    display: none;
+    width: 100vw;
+    height: 100vh;
+    padding: 2vh 2vw;
+    flex-direction: column;
+    animation: fade 0.4s ease;
+  }
+  .screen.active { display: flex; }
+
+  @keyframes fade {
+    from { opacity: 0; transform: translateY(12px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  .gradient-text {
+    background: linear-gradient(90deg, #ff6b35, #fff, #4fc3f7);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  /* ══ PORTADA ══ */
+  #portada {
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    gap: 3vh;
+  }
+  #portada .sub {
+    color: #888;
+    letter-spacing: 4px;
+    font-size: clamp(0.7rem, 1.3vh, 1rem);
+    text-transform: uppercase;
+  }
+  #portada h1 {
+    font-size: clamp(1.8rem, 6.5vh, 4.5rem);
+    line-height: 1.1;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    max-width: 16ch;
+  }
+  #portada .autor {
+    font-size: clamp(0.9rem, 2.4vh, 1.6rem);
+    color: #ddd;
+    letter-spacing: 2px;
+  }
+  #portada .autor small {
+    display: block;
+    color: #777;
+    font-size: 0.65em;
+    letter-spacing: 3px;
+    margin-top: 6px;
+    text-transform: uppercase;
+  }
+
+  .btn {
+    background: linear-gradient(135deg, #ff6b35, #ff3d7f);
+    color: #fff;
+    border: none;
+    padding: 14px 48px;
+    font-size: clamp(0.85rem, 1.9vh, 1.15rem);
+    font-weight: 700;
+    letter-spacing: 3px;
+    border-radius: 40px;
+    cursor: pointer;
+    font-family: inherit;
+    text-transform: uppercase;
+    transition: transform 0.2s, box-shadow 0.2s;
+    box-shadow: 0 6px 24px rgba(255,107,53,0.35);
+  }
+  .btn:hover { transform: translateY(-3px); box-shadow: 0 10px 32px rgba(255,107,53,0.55); }
+  .btn.ghost {
+    background: transparent;
+    border: 2px solid #4fc3f7;
+    color: #4fc3f7;
+    box-shadow: none;
+    padding: 10px 32px;
+  }
+  .btn.ghost:hover { background: rgba(79,195,247,0.14); box-shadow: none; }
+
+  /* ══ MENU ══ */
+  #menu { align-items: center; justify-content: center; gap: 2.5vh; text-align: center; }
+  #menu h2 {
+    font-size: clamp(1.2rem, 3.4vh, 2.2rem);
+    letter-spacing: 4px;
+    text-transform: uppercase;
+  }
+  .logo {
+    width: clamp(70px, 15vh, 130px);
+    height: auto;
+    filter: drop-shadow(0 6px 20px rgba(255,107,53,0.35));
+  }
+  .logo .orbita {
+    transform-origin: 60px 60px;
+    animation: girar 22s linear infinite;
+  }
+  .logo .puntos circle {
+    fill: #ff6b35;
+    transform-origin: 60px 60px;
+    animation: latir 3.2s ease-in-out infinite;
+  }
+  .logo .puntos circle:nth-child(2) { fill: #ffd166; animation-delay: 0.18s; }
+  .logo .puntos circle:nth-child(3) { fill: #4fc3f7; animation-delay: 0.36s; }
+  .logo .puntos circle:nth-child(4) { fill: #ff3d7f; animation-delay: 0.54s; }
+  .logo .puntos circle:nth-child(5) { fill: #4fc3f7; animation-delay: 0.72s; }
+  .logo .puntos circle:nth-child(6) { fill: #ffd166; animation-delay: 0.90s; }
+  .logo .puntos circle:nth-child(7) { fill: #ff6b35; animation-delay: 1.08s; }
+
+  @keyframes girar { to { transform: rotate(360deg); } }
+  @keyframes latir {
+    0%, 100% { opacity: 0.35; }
+    50%      { opacity: 1; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .logo .orbita, .logo .puntos circle { animation: none; }
+    .logo .puntos circle { opacity: 1; }
+  }
+
+  .menu-btns { display: flex; flex-direction: column; gap: 2.2vh; width: min(340px, 80vw); }
+  .menu-btns .btn { width: 100%; }
+
+  /* ══ CABECERA INTERNA ══ */
+  .head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    padding-bottom: 1.2vh;
+    border-bottom: 1px solid #23232e;
+    flex-shrink: 0;
+  }
+  .head h2 {
+    font-size: clamp(0.95rem, 2.6vh, 1.7rem);
+    letter-spacing: 3px;
+    text-transform: uppercase;
+  }
+
+  /* ══ INTRODUCCION ══ */
+  #intro .body {
+    flex: 1;
+    display: grid;
+    grid-template-columns: 1fr 32%;
+    gap: 2vw;
+    min-height: 0;
+    padding-top: 1.5vh;
+  }
+  .habitos {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-auto-rows: 1fr;
+    gap: 1vh 1vw;
+    min-height: 0;
+  }
+  .habito {
+    background: rgba(255,255,255,0.04);
+    border-left: 3px solid #ff6b35;
+    border-radius: 8px;
+    padding: 1vh 1vw;
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+    overflow: hidden;
+  }
+  .habito:nth-child(even) { border-left-color: #4fc3f7; }
+  .habito .n {
+    font-size: clamp(1rem, 2.6vh, 1.6rem);
+    font-weight: 800;
+    color: #ff6b35;
+    line-height: 1;
+    flex-shrink: 0;
+  }
+  .habito:nth-child(even) .n { color: #4fc3f7; }
+  .habito h3 {
+    font-size: clamp(0.7rem, 1.65vh, 1rem);
+    letter-spacing: 0.5px;
+    margin-bottom: 2px;
+  }
+  .habito p {
+    font-size: clamp(0.6rem, 1.4vh, 0.85rem);
+    color: #9a9aa8;
+    line-height: 1.35;
+  }
+  .resumen {
+    grid-column: span 2;
+    border-left-color: #ffd166;
+  }
+  .resumen .n { color: #ffd166; }
+
+  .foto-slot {
+    border: 2px dashed #3a3a4a;
+    border-radius: 12px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: #55556a;
+    font-size: clamp(0.65rem, 1.4vh, 0.9rem);
+    letter-spacing: 1px;
+    text-align: center;
+    padding: 10px;
+    overflow: hidden;
+    background: rgba(255,255,255,0.02);
+  }
+  .foto-slot img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    border-radius: 8px;
+  }
+  .foto-slot .icon { font-size: 2.2em; margin-bottom: 6px; opacity: 0.5; }
+
+  /* Infografía vertical: scroll interno + clic para ampliar */
+  .foto-slot.infografia {
+    border-style: solid;
+    border-color: #2c2c3a;
+    padding: 0;
+    display: block;
+    overflow-y: auto;
+    overflow-x: hidden;
+    cursor: zoom-in;
+    position: relative;
+    background: #fff;
+  }
+  .foto-slot.infografia img {
+    width: 100%;
+    height: auto;
+    object-fit: unset;
+    border-radius: 0;
+    display: block;
+  }
+  .foto-slot.infografia::-webkit-scrollbar { width: 6px; }
+  .foto-slot.infografia::-webkit-scrollbar-thumb { background: #ff6b35; border-radius: 3px; }
+  .zoom-hint {
+    position: sticky;
+    bottom: 6px;
+    left: 0;
+    display: block;
+    margin: -30px auto 6px;
+    width: fit-content;
+    background: rgba(10,10,15,0.82);
+    color: #fff;
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: clamp(0.55rem, 1.2vh, 0.75rem);
+    letter-spacing: 1px;
+    pointer-events: none;
+  }
+
+  /* Lightbox */
+  #lightbox {
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: 50;
+    background: rgba(5,5,10,0.94);
+    padding: 3vh 3vw;
+    overflow-y: auto;
+    cursor: zoom-out;
+  }
+  #lightbox.open { display: block; }
+  #lightbox img {
+    display: block;
+    margin: 0 auto;
+    max-width: min(720px, 92vw);
+    width: 100%;
+    border-radius: 10px;
+  }
+  #lightbox .cerrar {
+    position: fixed;
+    top: 2vh;
+    right: 3vw;
+    background: #ff6b35;
+    color: #fff;
+    border: none;
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    font-size: 1.3rem;
+    cursor: pointer;
+    font-family: inherit;
+    z-index: 51;
+  }
+
+  /* ══ DINAMICA / SOPA DE LETRAS ══ */
+  #dinamica .body {
+    flex: 1;
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 2vw;
+    min-height: 0;
+    padding-top: 1.5vh;
+    align-items: center;
+    justify-items: center;
+  }
+  #grid {
+    display: grid;
+    gap: 2px;
+    user-select: none;
+    touch-action: none;
+  }
+  .cell {
+    width: clamp(16px, 3.4vh, 34px);
+    height: clamp(16px, 3.4vh, 34px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255,255,255,0.05);
+    border-radius: 4px;
+    font-size: clamp(0.55rem, 1.7vh, 1rem);
+    font-weight: 700;
+    cursor: pointer;
+    transition: background 0.12s, color 0.12s;
+  }
+  .cell.sel   { background: #ff6b35; color: #fff; }
+  .cell.found { background: #4fc3f7; color: #06121a; }
+
+  .panel-words {
+    width: 100%;
+    max-width: 420px;
+    display: flex;
+    flex-direction: column;
+    gap: 1.2vh;
+    min-height: 0;
+  }
+  .panel-words .hint {
+    font-size: clamp(0.6rem, 1.4vh, 0.85rem);
+    color: #777;
+    letter-spacing: 1px;
+  }
+  #words {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.7vh 10px;
+    overflow: auto;
+  }
+  .word {
+    font-size: clamp(0.6rem, 1.5vh, 0.9rem);
+    letter-spacing: 1.5px;
+    color: #ccc;
+    padding: 4px 8px;
+    background: rgba(255,255,255,0.04);
+    border-radius: 6px;
+  }
+  .word.ok {
+    color: #4fc3f7;
+    text-decoration: line-through;
+    opacity: 0.55;
+  }
+  #contador {
+    font-size: clamp(0.75rem, 1.9vh, 1.1rem);
+    font-weight: 700;
+    letter-spacing: 2px;
+  }
+  #felicidades {
+    color: #ffd166;
+    font-size: clamp(0.7rem, 1.6vh, 1rem);
+    letter-spacing: 1px;
+    min-height: 1.2em;
+  }
+
+  /* ══ PERSUADE TU VOZ ══ */
+  #voz .body {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 1.2vh;
+    min-height: 0;
+    padding-top: 1.2vh;
+  }
+  .voz-intro {
+    font-size: clamp(0.65rem, 1.5vh, 0.95rem);
+    color: #a8a8b8;
+    line-height: 1.45;
+    flex-shrink: 0;
+  }
+  .voz-intro b { color: #fff; }
+
+  .cualidades {
+    flex: 1;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1vw;
+    min-height: 0;
+  }
+  .cualidad {
+    background: rgba(255,255,255,0.04);
+    border-top: 3px solid #ff6b35;
+    border-radius: 10px;
+    padding: 1.4vh 1vw;
+    display: flex;
+    flex-direction: column;
+    gap: 0.9vh;
+    overflow: hidden;
+  }
+  .cualidad:nth-child(2) { border-top-color: #ffd166; }
+  .cualidad:nth-child(3) { border-top-color: #4fc3f7; }
+  .cualidad:nth-child(4) { border-top-color: #ff3d7f; }
+
+  .c-head { display: flex; align-items: center; gap: 10px; }
+  .c-icon { font-size: clamp(1.2rem, 3vh, 2rem); line-height: 1; }
+  .c-head h3 {
+    font-size: clamp(0.75rem, 1.9vh, 1.15rem);
+    letter-spacing: 0.5px;
+  }
+  .c-time {
+    font-size: clamp(0.5rem, 1.1vh, 0.7rem);
+    color: #6d6d80;
+    letter-spacing: 1px;
+    font-variant-numeric: tabular-nums;
+  }
+  .c-def {
+    font-size: clamp(0.6rem, 1.4vh, 0.85rem);
+    color: #9a9aa8;
+    line-height: 1.4;
+  }
+  .c-def b { color: #ddd; }
+  .c-tip {
+    font-size: clamp(0.6rem, 1.4vh, 0.85rem);
+    color: #c8c8d4;
+    line-height: 1.4;
+    background: rgba(255,255,255,0.04);
+    border-radius: 6px;
+    padding: 0.8vh 0.7vw;
+    margin-top: auto;
+  }
+  .c-tip b { color: #4fc3f7; }
+
+  .voz-cierre {
+    flex-shrink: 0;
+    font-size: clamp(0.62rem, 1.45vh, 0.9rem);
+    color: #a8a8b8;
+    line-height: 1.45;
+    background: rgba(255,209,102,0.08);
+    border-left: 3px solid #ffd166;
+    border-radius: 8px;
+    padding: 1.1vh 1vw;
+  }
+  .voz-cierre b { color: #ffd166; }
+  .voz-cierre b:last-of-type { color: #fff; }
+
+  /* ══ AUTOR ══ */
+  #autor .body {
+    flex: 1;
+    display: grid;
+    grid-template-rows: 38% 1fr;
+    gap: 1.5vh;
+    min-height: 0;
+    padding-top: 1.5vh;
+  }
+  .ficha {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 2vw;
+    min-height: 0;
+    align-items: center;
+  }
+  .ficha .foto-slot { width: auto; aspect-ratio: 3/4; height: 100%; }
+  .datos { display: flex; flex-direction: column; gap: 0.8vh; }
+  .datos h3 {
+    font-size: clamp(1.1rem, 3.6vh, 2.4rem);
+    letter-spacing: 1px;
+  }
+  .datos .row {
+    font-size: clamp(0.7rem, 1.7vh, 1.05rem);
+    color: #b9b9c8;
+  }
+  .datos .row b {
+    color: #ff6b35;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    font-size: 0.8em;
+    margin-right: 8px;
+  }
+  .collage {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+    gap: 0.8vh;
+    min-height: 0;
+  }
+  .collage .foto-slot { font-size: clamp(0.5rem, 1.1vh, 0.75rem); }
+  .collage .foto-slot .icon { font-size: 1.6em; margin-bottom: 2px; }
+
+  /* Slot con imagen ya cargada: recorta para llenar la celda */
+  .foto-slot.llena {
+    border: 1px solid #2c2c3a;
+    padding: 0;
+    overflow: hidden;
+  }
+  .foto-slot.llena img { object-fit: cover; }
+
+  /* Logos: se ven completos, sin recorte, sobre su fondo blanco */
+  .foto-slot.llena.logo { background: #fff; padding: 6%; }
+  .foto-slot.llena.logo img { object-fit: contain; }
+</style>
+</head>
+<body>
+
+<!-- ════════ PORTADA ════════ -->
+<section class="screen active" id="portada">
+  <p class="sub">Tópicos Selectos · Sean Covey</p>
+  <h1 class="gradient-text">Los 7 Hábitos de los Adolescentes Altamente Efectivos</h1>
+  <p class="autor">Erick Arriola Aguillón<small>Ing. en Software</small></p>
+  <button class="btn" onclick="go('menu')">OK</button>
+</section>
+
+<!-- ════════ MENU ════════ -->
+<section class="screen" id="menu">
+  <svg class="logo" viewBox="0 0 120 120" role="img" aria-label="Logo 7 Hábitos">
+    <defs>
+      <linearGradient id="gNaranja" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0%"  stop-color="#ff6b35"/>
+        <stop offset="100%" stop-color="#ff3d7f"/>
+      </linearGradient>
+      <linearGradient id="gAzul" x1="0" y1="1" x2="1" y2="0">
+        <stop offset="0%"  stop-color="#4fc3f7"/>
+        <stop offset="100%" stop-color="#ffd166"/>
+      </linearGradient>
+    </defs>
+
+    <!-- anillo exterior punteado: los 7 hábitos en órbita -->
+    <circle class="orbita" cx="60" cy="60" r="52"
+            fill="none" stroke="url(#gAzul)" stroke-width="2"
+            stroke-dasharray="4 10" stroke-linecap="round" opacity="0.75"/>
+
+    <!-- arco de progreso -->
+    <circle cx="60" cy="60" r="44" fill="none" stroke="url(#gNaranja)"
+            stroke-width="3" stroke-linecap="round"
+            stroke-dasharray="207 277" transform="rotate(-90 60 60)"/>
+
+    <!-- 7 puntos = 7 hábitos -->
+    <g class="puntos">
+      <circle cx="60"  cy="8"   r="4.5"/>
+      <circle cx="100" cy="30"  r="4.5"/>
+      <circle cx="110" cy="74"  r="4.5"/>
+      <circle cx="79"  cy="107" r="4.5"/>
+      <circle cx="41"  cy="107" r="4.5"/>
+      <circle cx="10"  cy="74"  r="4.5"/>
+      <circle cx="20"  cy="30"  r="4.5"/>
+    </g>
+
+    <!-- el 7 -->
+    <path d="M42 42 H78 L57 88" fill="none" stroke="#fff"
+          stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
+  </svg>
+
+  <h2 class="gradient-text">Menú Principal</h2>
+  <div class="menu-btns">
+    <button class="btn" onclick="go('intro')">Introducción</button>
+    <button class="btn" onclick="go('dinamica'); iniciarSopa()">Dinámica</button>
+    <button class="btn" onclick="go('voz')">Persuade tu Voz</button>
+    <button class="btn" onclick="go('autor')">Autor</button>
+  </div>
+</section>
+
+<!-- ════════ INTRODUCCION ════════ -->
+<section class="screen" id="intro">
+  <div class="head">
+    <h2 class="gradient-text">Introducción</h2>
+    <button class="btn ghost" onclick="go('menu')">← Menú</button>
+  </div>
+  <div class="body">
+    <div class="habitos">
+      <div class="habito"><span class="n">1</span><div><h3>Ser Proactivo</h3><p>Yo soy la fuerza. Tomo responsabilidad de mi vida y de mis decisiones, en lugar de culpar a otros o a las circunstancias.</p></div></div>
+      <div class="habito"><span class="n">2</span><div><h3>Comenzar con el Fin en Mente</h3><p>Controla tu propio destino. Define quién quieres ser y hacia dónde vas antes de empezar a caminar.</p></div></div>
+      <div class="habito"><span class="n">3</span><div><h3>Poner Primero lo Primero</h3><p>Organiza tus prioridades. Haz primero lo importante, no solo lo urgente ni lo más fácil.</p></div></div>
+      <div class="habito"><span class="n">4</span><div><h3>Pensar Ganar-Ganar</h3><p>Actitud de que todos podemos ganar. Buscar el beneficio mutuo en vez de competir o rendirse.</p></div></div>
+      <div class="habito"><span class="n">5</span><div><h3>Buscar Primero Entender, Luego Ser Entendido</h3><p>Escucha con sinceridad antes de hablar. Escuchar de verdad es la clave de toda buena relación.</p></div></div>
+      <div class="habito"><span class="n">6</span><div><h3>Sinergizar</h3><p>Juntos es mejor. Valorar las diferencias y trabajar en equipo produce resultados superiores.</p></div></div>
+      <div class="habito"><span class="n">7</span><div><h3>Afilar la Sierra</h3><p>Renuévate en las cuatro áreas: cuerpo, mente, corazón y alma. Cuidarte te mantiene efectivo.</p></div></div>
+      <div class="habito resumen"><span class="n">★</span><div><h3>La Idea Central</h3><p>Sean Covey adapta los principios de su padre a la vida real de los jóvenes: autoestima, amistades, presión de grupo, familia, metas y futuro. Los hábitos 1-3 construyen la <b>victoria privada</b> (independencia); los 4-6, la <b>victoria pública</b> (interdependencia); y el 7 renueva todo el ciclo.</p></div></div>
+    </div>
+    <div class="foto-slot infografia" onclick="abrirLightbox()" title="Clic para ampliar">
+      <img src="infografia_7_habitos.jpg" alt="Infografía: Los 7 hábitos de los adolescentes altamente efectivos">
+      <span class="zoom-hint">🔍 Clic para ampliar</span>
+    </div>
+  </div>
+</section>
+
+<!-- ════════ DINAMICA ════════ -->
+<section class="screen" id="dinamica">
+  <div class="head">
+    <h2 class="gradient-text">Dinámica · Sopa de Letras</h2>
+    <button class="btn ghost" onclick="go('menu')">← Menú</button>
+  </div>
+  <div class="body">
+    <div id="grid"></div>
+    <div class="panel-words">
+      <p id="contador" class="gradient-text">0 / 12 encontradas</p>
+      <p class="hint">Arrastra sobre las letras para marcar una palabra. Van en todas direcciones.</p>
+      <div id="words"></div>
+      <p id="felicidades"></p>
+      <button class="btn ghost" onclick="iniciarSopa()">Reiniciar</button>
+    </div>
+  </div>
+</section>
+
+<!-- ════════ AUTOR ════════ -->
+<section class="screen" id="autor">
+  <div class="head">
+    <h2 class="gradient-text">Autor</h2>
+    <button class="btn ghost" onclick="go('menu')">← Menú</button>
+  </div>
+  <div class="body">
+    <div class="ficha">
+      <div class="foto-slot">
+        <!-- Reemplaza por: <img src="MI_FOTO.jpg" alt=""> -->
+        <span class="icon">👤</span>
+        MI FOTO
+      </div>
+      <div class="datos">
+        <h3 class="gradient-text">Erick Arriola Aguillón</h3>
+        <p class="row"><b>Carrera</b>Ing. en Software</p>
+        <p class="row"><b>Correo</b>earriola18@alumnos.uaq.mx</p>
+      </div>
+    </div>
+    <div class="collage">
+      <div class="foto-slot llena"><img src="collage_1.jpg" alt=""></div>
+      <div class="foto-slot llena"><img src="collage_2.png" alt=""></div>
+      <div class="foto-slot llena"><img src="collage_3.jpg" alt=""></div>
+      <div class="foto-slot llena"><img src="collage_4.jpg" alt=""></div>
+      <div class="foto-slot llena"><img src="collage_5.webp" alt=""></div>
+      <div class="foto-slot llena"><img src="collage_6.png" alt=""></div>
+      <div class="foto-slot llena logo"><img src="collage_7.png" alt=""></div>
+      <div class="foto-slot llena logo"><img src="collage_8.jpg" alt=""></div>
+      <div class="foto-slot llena logo"><img src="collage_9.jpg" alt=""></div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════ PERSUADE TU VOZ ════════ -->
+<section class="screen" id="voz">
+  <div class="head">
+    <h2 class="gradient-text">Persuade tu Voz · Emma Rodero</h2>
+    <button class="btn ghost" onclick="go('menu')">← Menú</button>
+  </div>
+  <div class="body">
+    <p class="voz-intro">
+      En su charla <b>TEDxMalagueta</b>, la investigadora <b>Emma Rodero</b> explica que la voz es un
+      instrumento fundamental para persuadir y transmitir credibilidad. Detalla
+      <b>cuatro cualidades técnicas</b> que debemos dominar:
+    </p>
+
+    <div class="cualidades">
+      <div class="cualidad">
+        <div class="c-head">
+          <span class="c-icon">🔊</span>
+          <div>
+            <h3>1. Intensidad</h3>
+            <span class="c-time">1:34 – 4:55</span>
+          </div>
+        </div>
+        <p class="c-def">El <b>volumen</b>, impulsado por el diafragma.</p>
+        <p class="c-tip">✔ Usa una intensidad <b>enérgica</b>. Evita hablar demasiado bajo o de forma monótona.</p>
+      </div>
+
+      <div class="cualidad">
+        <div class="c-head">
+          <span class="c-icon">🎚️</span>
+          <div>
+            <h3>2. Tono</h3>
+            <span class="c-time">4:57 – 9:43</span>
+          </div>
+        </div>
+        <p class="c-def">Determinado por la <b>longitud y grosor</b> de las cuerdas vocales.</p>
+        <p class="c-tip">✔ Tono <b>grave</b> y entonación modulada: empieza en agudo y termina en grave para proyectar seguridad y autoridad.</p>
+      </div>
+
+      <div class="cualidad">
+        <div class="c-head">
+          <span class="c-icon">👄</span>
+          <div>
+            <h3>3. Timbre</h3>
+            <span class="c-time">9:45 – 13:02</span>
+          </div>
+        </div>
+        <p class="c-def">La <b>huella dactilar</b> de tu voz: la moldea tu caja de resonancia (cara, boca, lengua).</p>
+        <p class="c-tip">✔ <b>Abre bien la boca</b> al hablar para que la voz resuene con claridad. Calienta los músculos faciales antes.</p>
+      </div>
+
+      <div class="cualidad">
+        <div class="c-head">
+          <span class="c-icon">⏱️</span>
+          <div>
+            <h3>4. Duración</h3>
+            <span class="c-time">13:03 – 14:32</span>
+          </div>
+        </div>
+        <p class="c-def">La <b>velocidad</b> del habla.</p>
+        <p class="c-tip">✔ Una velocidad <b>ligeramente rápida</b> se asocia con más inteligencia y dinamismo. <b>Varía el ritmo:</b> lento en lo importante, rápido en lo secundario.</p>
+      </div>
+    </div>
+
+    <p class="voz-cierre">
+      <b>Conclusión</b> <span class="c-time">14:33 – 16:43</span> · La persuasión efectiva nace de la
+      <b>combinación correcta de las cuatro cualidades</b>, ajustando la voz según el objetivo que
+      queramos alcanzar.
+    </p>
+  </div>
+</section>
+
+<!-- ════════ LIGHTBOX ════════ -->
+<div id="lightbox" onclick="cerrarLightbox()">
+  <button class="cerrar" onclick="cerrarLightbox()">✕</button>
+  <img src="infografia_7_habitos.jpg" alt="Infografía ampliada">
+</div>
+
+<script>
+/* ══════ LIGHTBOX ══════ */
+function abrirLightbox() { document.getElementById('lightbox').classList.add('open'); }
+function cerrarLightbox() { document.getElementById('lightbox').classList.remove('open'); }
+document.addEventListener('keydown', e => { if (e.key === 'Escape') cerrarLightbox(); });
+
+/* ══════ NAVEGACION ══════ */
+function go(id) {
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+}
+// Abrir directo una seccion si la URL trae #intro, #dinamica, #autor o #voz
+(function () {
+  const h = location.hash.slice(1);
+  if (h && document.getElementById(h) && document.getElementById(h).classList.contains('screen')) go(h);
+})();
+
+/* ══════ SOPA DE LETRAS ══════ */
+const PALABRAS = ['PROACTIVO','SINERGIA','HABITOS','METAS','COVEY','ESCUCHAR','EQUILIBRIO','RENOVAR','PRIORIDAD','CARACTER','ACTITUD','GANAR'];
+const N = 14;
+const DIRS = [[0,1],[1,0],[1,1],[-1,1],[0,-1],[-1,0],[-1,-1],[1,-1]];
+const LETRAS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+
+let tablero = [], ubicadas = [], encontradas = new Set();
+let arrastrando = false, inicio = null, seleccion = [];
+
+function iniciarSopa() {
+  encontradas = new Set();
+  ubicadas = [];
+  tablero = Array.from({length: N}, () => Array(N).fill(''));
+
+  for (const p of PALABRAS) colocar(p);
+
+  for (let r = 0; r < N; r++)
+    for (let c = 0; c < N; c++)
+      if (!tablero[r][c]) tablero[r][c] = LETRAS[Math.floor(Math.random() * 26)];
+
+  pintarGrid();
+  pintarPalabras();
+  actualizarContador();
+  document.getElementById('felicidades').textContent = '';
+}
+
+function colocar(palabra) {
+  for (let intento = 0; intento < 600; intento++) {
+    const [dr, dc] = DIRS[Math.floor(Math.random() * DIRS.length)];
+    const r0 = Math.floor(Math.random() * N), c0 = Math.floor(Math.random() * N);
+    const rf = r0 + dr * (palabra.length - 1), cf = c0 + dc * (palabra.length - 1);
+    if (rf < 0 || rf >= N || cf < 0 || cf >= N) continue;
+
+    let ok = true, celdas = [];
+    for (let i = 0; i < palabra.length; i++) {
+      const r = r0 + dr * i, c = c0 + dc * i;
+      if (tablero[r][c] && tablero[r][c] !== palabra[i]) { ok = false; break; }
+      celdas.push([r, c]);
+    }
+    if (!ok) continue;
+
+    celdas.forEach(([r, c], i) => tablero[r][c] = palabra[i]);
+    ubicadas.push({ palabra, celdas });
+    return true;
+  }
+  return false;
+}
+
+function pintarGrid() {
+  const g = document.getElementById('grid');
+  g.style.gridTemplateColumns = `repeat(${N}, auto)`;
+  g.innerHTML = '';
+  for (let r = 0; r < N; r++) {
+    for (let c = 0; c < N; c++) {
+      const d = document.createElement('div');
+      d.className = 'cell';
+      d.textContent = tablero[r][c];
+      d.dataset.r = r; d.dataset.c = c;
+      g.appendChild(d);
+    }
+  }
+}
+
+function pintarPalabras() {
+  document.getElementById('words').innerHTML = PALABRAS
+    .map(p => `<span class="word${encontradas.has(p) ? ' ok' : ''}" data-p="${p}">${p}</span>`)
+    .join('');
+}
+
+function actualizarContador() {
+  document.getElementById('contador').textContent = `${encontradas.size} / ${PALABRAS.length} encontradas`;
+}
+
+function celdaDesdeEvento(e) {
+  const punto = e.touches ? e.touches[0] : e;
+  const el = document.elementFromPoint(punto.clientX, punto.clientY);
+  return el && el.classList.contains('cell') ? el : null;
+}
+
+function limpiarSeleccion() {
+  document.querySelectorAll('.cell.sel').forEach(c => c.classList.remove('sel'));
+  seleccion = [];
+}
+
+function marcarLinea(a, b) {
+  limpiarSeleccion();
+  const r1 = +a.dataset.r, c1 = +a.dataset.c, r2 = +b.dataset.r, c2 = +b.dataset.c;
+  const dr = Math.sign(r2 - r1), dc = Math.sign(c2 - c1);
+  const largoR = Math.abs(r2 - r1), largoC = Math.abs(c2 - c1);
+  // Solo líneas rectas: horizontal, vertical o diagonal perfecta
+  if (largoR !== 0 && largoC !== 0 && largoR !== largoC) return;
+
+  const largo = Math.max(largoR, largoC);
+  for (let i = 0; i <= largo; i++) {
+    const r = r1 + dr * i, c = c1 + dc * i;
+    const cell = document.querySelector(`.cell[data-r="${r}"][data-c="${c}"]`);
+    if (cell) { cell.classList.add('sel'); seleccion.push(cell); }
+  }
+}
+
+function validarSeleccion() {
+  if (seleccion.length < 2) { limpiarSeleccion(); return; }
+  const texto = seleccion.map(c => c.textContent).join('');
+  const reves = [...texto].reverse().join('');
+
+  const hit = ubicadas.find(u =>
+    !encontradas.has(u.palabra) && (u.palabra === texto || u.palabra === reves)
+  );
+
+  if (hit) {
+    encontradas.add(hit.palabra);
+    seleccion.forEach(c => { c.classList.remove('sel'); c.classList.add('found'); });
+    seleccion = [];
+    pintarPalabras();
+    actualizarContador();
+    if (encontradas.size === PALABRAS.length)
+      document.getElementById('felicidades').textContent = '¡Felicidades! Encontraste todas las palabras 🎉';
+  } else {
+    limpiarSeleccion();
+  }
+}
+
+const grid = document.getElementById('grid');
+
+function empezar(e) {
+  const c = celdaDesdeEvento(e);
+  if (!c) return;
+  e.preventDefault();
+  arrastrando = true;
+  inicio = c;
+  limpiarSeleccion();
+  c.classList.add('sel');
+  seleccion = [c];
+}
+function mover(e) {
+  if (!arrastrando) return;
+  const c = celdaDesdeEvento(e);
+  if (c && c !== seleccion[seleccion.length - 1]) { e.preventDefault(); marcarLinea(inicio, c); }
+}
+function terminar() {
+  if (!arrastrando) return;
+  arrastrando = false;
+  validarSeleccion();
+}
+
+grid.addEventListener('mousedown', empezar);
+grid.addEventListener('touchstart', empezar, { passive: false });
+document.addEventListener('mousemove', mover);
+document.addEventListener('touchmove', mover, { passive: false });
+document.addEventListener('mouseup', terminar);
+document.addEventListener('touchend', terminar);
+</script>
+<a href="../index.html" class="volver-menu" style="position:fixed;left:12px;bottom:12px;z-index:9999;background:#1d1b16;color:#fff;padding:9px 15px;border-radius:999px;font:600 14px/1 system-ui,sans-serif;text-decoration:none;box-shadow:0 4px 14px rgba(0,0,0,.25);border:1px solid rgba(255,255,255,.25)">← Mis actividades</a>
+</body>
+</html>

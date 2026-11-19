@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Creatividad según Goldberg</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;700;800&family=Instrument+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600&display=swap">
+<link rel="stylesheet" href="../comun/base.css">
+<style>
+  .redes{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+  @media (max-width:700px){.redes{grid-template-columns:1fr}}
+  .red{cursor:pointer;text-align:left}
+  .red[aria-pressed="true"]{border-color:var(--acc);background:color-mix(in srgb,var(--acc) 12%,var(--surface))}
+  .combo{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+  @media (max-width:560px){.combo{grid-template-columns:1fr}}
+  .idea{font:700 1.15rem/1.4 var(--display);margin:0}
+  .eval{display:grid;gap:8px}
+</style>
+</head>
+<body style="--acc:#d0480f;--acc-dark:#ff9c6b">
+<script src="../comun/base.js"></script>
+<main class="wrap">
+  <header class="hero">
+    <p class="eyebrow">Tópico 2 · Elkhonon Goldberg</p>
+    <h1>Creatividad: el cerebro en la era de la innovación</h1>
+    <p class="lede">Goldberg explica que la creatividad no es una chispa mágica ni algo “del hemisferio derecho”. Sale de varias redes del cerebro trabajando juntas, del conocimiento que ya tenemos y del contexto en el que vivimos.</p>
+    <div class="meta"><span class="chip acc">Neurociencia</span><span class="chip">Erick Arriola Aguillón</span></div>
+  </header>
+
+  <section>
+    <span class="num">01 · LAS TRES REDES</span>
+    <p class="muted">Toca cada red para ver qué aporta. Una idea creativa necesita las tres.</p>
+    <div class="redes" id="redes"></div>
+    <div class="detalle" id="red-detalle"></div>
+  </section>
+
+  <section>
+    <span class="num">02 · IDEAS CLAVE DEL LIBRO</span>
+    <div class="grid">
+      <button class="flip" type="button"><h3>Novedad con sentido</h3><span class="back">Algo creativo no solo es nuevo: también tiene que ser útil o relevante. Lo demasiado raro puede no servir.</span><span class="hint">Toca para ver</span></button>
+      <button class="flip" type="button"><h3>Saber mucho ayuda</h3><span class="back">Las ideas nuevas salen de combinar cosas que ya sabemos. Sin conocimiento previo no hay con qué crear.</span><span class="hint">Toca para ver</span></button>
+      <button class="flip" type="button"><h3>No es solo un hemisferio</h3><span class="back">Goldberg desmiente la idea simple de “cerebro derecho creativo”; intervienen redes en todo el cerebro.</span><span class="hint">Toca para ver</span></button>
+      <button class="flip" type="button"><h3>Importa el contexto</h3><span class="back">Una idea solo se vuelve innovación si la sociedad la acepta. La cultura y el momento histórico cuentan.</span><span class="hint">Toca para ver</span></button>
+    </div>
+  </section>
+
+  <section>
+    <span class="num">03 · TALLER DE COMBINACIONES</span>
+    <h2>Junta dos cosas que no tienen que ver</h2>
+    <div class="card" style="gap:12px">
+      <div class="combo">
+        <label class="campo">Un problema
+          <select id="prob"><option>Estudiantes que olvidan sus entregas</option><option>Filas largas en la cafetería</option><option>Código que nadie entiende</option><option>Poca gente recicla en la facultad</option></select></label>
+        <label class="campo">Algo de otro mundo
+          <select id="rec"><option>Mecánicas de videojuegos</option><option>Música y ritmo</option><option>Cómo funcionan las hormigas</option><option>Un asistente de IA</option></select></label>
+      </div>
+      <div class="acciones"><button class="btn" id="combinar">Combinar</button></div>
+      <p class="idea" id="idea" aria-live="polite"></p>
+      <div class="eval" id="eval" hidden>
+        <span class="small muted">¿Es solo novedosa o también útil? Califícala:</span>
+        <label class="small">Novedad <input type="range" min="1" max="5" value="3" id="nov"></label>
+        <label class="small">Utilidad <input type="range" min="1" max="5" value="3" id="uti"></label>
+        <p class="small" id="veredicto"></p>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <span class="num">04 · REFLEXIÓN</span>
+    <div class="callout"><p>Me gustó que Goldberg quite la idea de que la creatividad es un don de unos cuantos. Si viene de combinar lo que sé, entonces mientras más aprendo, más posibilidades tengo. En programación lo veo al resolver un problema: a veces la solución sale de algo que vi en otra materia o hasta en un videojuego. Pero también hay que probar que la idea sirve; una idea original que no ayuda a nadie no es innovación.</p></div>
+  </section>
+
+  <footer class="pie-pag"><span>Fuente: Elkhonon Goldberg, <em>Creatividad: el cerebro humano en la era de la innovación</em>.</span><span>Erick Arriola Aguillón</span></footer>
+</main>
+<script>
+const REDES = [
+  ['Red por defecto','Imaginar','Se activa cuando “divagamos”: imaginar escenarios, recordar y hacer conexiones libres. Es de donde salen muchas ocurrencias.','Cuando se me ocurre la solución de un bug bañándome.'],
+  ['Red ejecutiva','Trabajar la idea','Concentra la atención, planea y desarrolla. Convierte la ocurrencia en algo real.','Sentarme a programar el prototipo paso a paso.'],
+  ['Red de relevancia','Elegir','Decide qué merece atención entre todo lo que pasa por la mente. Hace el cambio entre imaginar y ejecutar.','Darme cuenta de que una de mis diez ideas sí vale la pena.']
+];
+const redes = document.getElementById('redes'), det = document.getElementById('red-detalle');
+redes.innerHTML = REDES.map((r,i)=>`<button class="card red" type="button" data-i="${i}" aria-pressed="false"><span class="num">${r[1].toUpperCase()}</span><h3>${r[0]}</h3></button>`).join('');
+const verRed = i => { redes.querySelectorAll('.red').forEach((b,j)=>b.setAttribute('aria-pressed', String(i===j))); det.innerHTML = `<h3>${REDES[i][0]}</h3><p>${REDES[i][2]}</p><p class="k">Ejemplo</p><p>${REDES[i][3]}</p>`; };
+redes.addEventListener('click', e => { const b = e.target.closest('.red'); if (b) verRed(+b.dataset.i); });
+verRed(0);
+
+const IDEAS = {
+  'Estudiantes que olvidan sus entregas': ['Una app de tareas con rachas y niveles, como un juego: si entregas a tiempo subes de nivel.','Recordatorios con una canción corta distinta para cada materia.','Un tablero donde cada equipo deja “rastros” de lo que falta, como las hormigas.','Un asistente que lee el calendario de la materia y te avisa con tiempo.'],
+  'Filas largas en la cafetería': ['Pedidos con turnos y “misiones” para que el pedido esté listo al llegar.','Un sistema que marca el ritmo de entregas como un metrónomo para repartir el trabajo.','Varias filas pequeñas que se autoorganizan según el tipo de pedido.','Un chat que toma tu pedido y te dice a qué hora recogerlo.'],
+  'Código que nadie entiende': ['Puntos por cada función bien nombrada en las revisiones de código.','Reglas de formato que dan un “ritmo” uniforme al código.','Cada quien deja notas cortas en el código, como señales para el siguiente.','Una IA que explica la función y sugiere cómo dividirla, revisada por una persona.'],
+  'Poca gente recicla en la facultad': ['Botes con marcador por salón: el que más recicla gana.','Botes que tocan una nota al usarse; juntas una melodía entre todos.','Rutas visibles de reciclaje marcadas en el piso.','Un bot que reconoce el residuo en una foto y te dice en qué bote va.']
+};
+const RECS = ['Mecánicas de videojuegos','Música y ritmo','Cómo funcionan las hormigas','Un asistente de IA'];
+const veredicto = () => {
+  const n = +document.getElementById('nov').value, u = +document.getElementById('uti').value;
+  document.getElementById('veredicto').textContent = u >= 4 && n >= 3 ? 'Novedosa y útil: eso es lo que Goldberg llama una idea creativa.' : u < 3 ? 'Es interesante, pero si no ayuda a nadie no llega a ser innovación.' : 'Útil pero poco nueva: es una mejora, no tanto una idea creativa.';
+};
+document.getElementById('combinar').onclick = () => {
+  const p = document.getElementById('prob').value, r = document.getElementById('rec').value;
+  document.getElementById('idea').textContent = IDEAS[p][RECS.indexOf(r)];
+  document.getElementById('eval').hidden = false; veredicto();
+};
+document.getElementById('nov').oninput = veredicto; document.getElementById('uti').oninput = veredicto;
+</script>
+<a href="../index.html" class="volver-menu" style="position:fixed;left:12px;bottom:12px;z-index:9999;background:#1d1b16;color:#fff;padding:9px 15px;border-radius:999px;font:600 14px/1 system-ui,sans-serif;text-decoration:none;box-shadow:0 4px 14px rgba(0,0,0,.25);border:1px solid rgba(255,255,255,.25)">← Mis actividades</a>
+</body>
+</html>

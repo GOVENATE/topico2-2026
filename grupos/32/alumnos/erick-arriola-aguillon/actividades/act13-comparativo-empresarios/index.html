@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Comparativo de empresarios</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;700;800&family=Instrument+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600&display=swap">
+<link rel="stylesheet" href="../comun/base.css">
+<style>
+  .filtro{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+  td.oculto, th.oculto{display:none}
+  .votos{display:grid;gap:10px}
+  .voto{display:grid;grid-template-columns:120px 1fr 32px;align-items:center;gap:10px;font-size:.9rem}
+</style>
+</head>
+<body style="--acc:#7a3e00;--acc-dark:#ffb56b">
+<script src="../comun/base.js"></script>
+<main class="wrap">
+  <header class="hero">
+    <p class="eyebrow">Tópico 2 · Empresarios mexicanos</p>
+    <h1>Cuadro comparativo de empresarios mexicanos</h1>
+    <p class="lede">Carlos Slim, Lorenzo Zambrano y Lorenzo Servitje comparados en diez categorías. Al final elijo, categoría por categoría, cuál me parece el mejor ejemplo.</p>
+    <div class="meta"><span class="chip acc">Slim · Zambrano · Servitje</span><span class="chip">Erick Arriola Aguillón</span></div>
+  </header>
+
+  <section>
+    <div class="filtro">
+      <span class="small muted">Mostrar:</span>
+      <label class="chip"><input type="checkbox" data-col="1" checked> Slim</label>
+      <label class="chip"><input type="checkbox" data-col="2" checked> Zambrano</label>
+      <label class="chip"><input type="checkbox" data-col="3" checked> Servitje</label>
+    </div>
+    <div class="tabla-wrap">
+      <table id="tabla">
+        <thead><tr><th>Categoría</th><th>Carlos Slim (Grupo Carso)</th><th>Lorenzo Zambrano (CEMEX)</th><th>Lorenzo Servitje (Bimbo)</th></tr></thead>
+        <tbody></tbody>
+      </table>
+    </div>
+  </section>
+
+  <section>
+    <span class="num">MI ELECCIÓN</span>
+    <h2>¿Quién es mejor ejemplo en cada categoría?</h2>
+    <p class="muted">Haz clic en una celda de la tabla para marcar a quién eliges en esa fila. El conteo se actualiza abajo.</p>
+    <div class="card votos" id="votos"></div>
+  </section>
+
+  <section>
+    <span class="num">CONCLUSIÓN</span>
+    <div class="callout"><p>Los tres muestran caminos distintos para crecer: Slim con capital y disciplina, Zambrano con tecnología y eficiencia, y Servitje con valores y cuidado de las personas. Si tuviera que quedarme con uno como modelo, sería Servitje: Bimbo llegó a ser global sin separar las ganancias del trato digno a sus trabajadores.</p></div>
+  </section>
+
+  <footer class="pie-pag"><span>Fuente: documentales y materiales de clase sobre empresarios mexicanos.</span><span>Erick Arriola Aguillón</span></footer>
+</main>
+<script>
+const FILAS = [
+  ['Liderazgo','Pragmático y financiero, piensa a largo plazo.','Ejecutivo y tecnológico, obsesionado con la eficiencia.','Humanista, guiado por valores.'],
+  ['Estrategia','Comprar barato, diversificar y reinvertir.','Adquirir empresas y estandarizar procesos.','Marca confiable, calidad constante y crecimiento gradual.'],
+  ['Innovación','Modernizó las telecomunicaciones del país.','Sistemas de información y logística satelital.','Mejoras en producción, distribución y empaque.'],
+  ['Compromiso con México','Infraestructura y empresas nacionales.','Llevó una empresa regiomontana a competir en el mundo.','Empleo, valores empresariales y una marca mexicana global.'],
+  ['Desarrollo humano','Sobre todo vía fundación y programas sociales.','Formación profesional dentro de CEMEX.','La persona y el trabajo digno al centro de la empresa.'],
+  ['Cultura','Austeridad y estructuras simples.','Métricas, disciplina y rapidez.','Respeto, colaboración y responsabilidad social.'],
+  ['Riesgo','Inversión anticíclica: compra cuando otros venden.','Riesgo alto; Rinker mostró el peligro de la deuda.','Prudente, cuida reputación y permanencia.'],
+  ['Expansión','América Móvil en toda Latinoamérica.','Adquisiciones en América, Europa y Asia.','Crecimiento y compras hasta ser la panificadora más grande.'],
+  ['Filantropía','Fundación Carlos Slim: salud, educación y cultura.','Educación y cultura en Monterrey; Tec de Monterrey.','Responsabilidad social empresarial y apoyo comunitario.'],
+  ['Enseñanza','El poder de la disciplina financiera y la reinversión.','La tecnología te hace global, la deuda te puede tumbar.','Se puede crecer sin dejar de lado los valores.']
+];
+const NOMBRES = ['Slim','Zambrano','Servitje'];
+const eleccion = Array(FILAS.length).fill(null);
+const tbody = document.querySelector('#tabla tbody');
+tbody.innerHTML = FILAS.map((f,i) => `<tr><th scope="row">${i+1}. ${f[0]}</th>${[1,2,3].map(c=>`<td data-col="${c}" data-f="${i}" tabindex="0" role="button" aria-pressed="false">${f[c]}</td>`).join('')}</tr>`).join('');
+const votos = () => {
+  const n = [0,0,0]; eleccion.forEach(e => { if (e !== null) n[e]++; });
+  const total = eleccion.filter(e => e !== null).length;
+  document.getElementById('votos').innerHTML = NOMBRES.map((nm,i)=>`<div class="voto"><span>${nm}</span><div class="barra"><i style="width:${n[i]*10}%"></i></div><b>${n[i]}</b></div>`).join('') + `<p class="small muted" style="margin:0">${total} de 10 categorías elegidas.</p>`;
+};
+tbody.addEventListener('click', e => elegir(e.target.closest('td')));
+tbody.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); elegir(e.target.closest('td')); } });
+function elegir(td){
+  if (!td) return;
+  const f = +td.dataset.f, c = +td.dataset.col - 1;
+  eleccion[f] = c;
+  tbody.querySelectorAll(`td[data-f="${f}"]`).forEach(x => {
+    const on = +x.dataset.col - 1 === c;
+    x.setAttribute('aria-pressed', String(on));
+    x.style.background = on ? 'color-mix(in srgb, var(--acc) 16%, var(--surface))' : '';
+    x.style.boxShadow = on ? 'inset 3px 0 0 var(--acc)' : '';
+  });
+  votos();
+}
+document.querySelectorAll('[data-col]').forEach(cb => { if (cb.tagName !== 'INPUT') return;
+  cb.addEventListener('change', () => document.querySelectorAll(`#tabla [data-col="${cb.dataset.col}"]`).forEach(td => td.classList.toggle('oculto', !cb.checked)));
+});
+// La cabecera también se oculta
+document.querySelectorAll('#tabla thead th').forEach((th,i) => { if (i) th.dataset.col = i; });
+votos();
+</script>
+<a href="../index.html" class="volver-menu" style="position:fixed;left:12px;bottom:12px;z-index:9999;background:#1d1b16;color:#fff;padding:9px 15px;border-radius:999px;font:600 14px/1 system-ui,sans-serif;text-decoration:none;box-shadow:0 4px 14px rgba(0,0,0,.25);border:1px solid rgba(255,255,255,.25)">← Mis actividades</a>
+</body>
+</html>

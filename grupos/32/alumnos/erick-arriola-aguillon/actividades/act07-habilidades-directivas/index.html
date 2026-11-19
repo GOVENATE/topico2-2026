@@ -1,0 +1,169 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Habilidades directivas</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;700;800&family=Instrument+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600&display=swap">
+<link rel="stylesheet" href="../comun/base.css">
+<style>
+  .matriz{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+  .cuad{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:14px;min-height:150px;display:flex;flex-direction:column;gap:8px}
+  .cuad h3{font-size:.98rem}
+  .cuad .tag{font:600 .72rem/1 var(--mono);color:var(--acc);text-transform:uppercase;letter-spacing:.08em}
+  .cuad .items{display:flex;flex-wrap:wrap;gap:6px}
+  .tarea{font-size:.85rem;padding:4px 10px;border-radius:999px;background:var(--surface-2)}
+  .tarea.mal{outline:2px solid var(--bad)}
+  .tarea.bien{outline:2px solid var(--ok)}
+  .pendiente{background:var(--surface-2);border-radius:14px;padding:16px;display:flex;flex-direction:column;gap:10px}
+  .pendiente .actual{font:700 1.1rem/1.3 var(--display)}
+  .botones-m{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+  @media (max-width:520px){.matriz,.botones-m{grid-template-columns:1fr}}
+</style>
+</head>
+<body style="--acc:#9a3b12;--acc-dark:#ffab7a">
+<main class="wrap">
+  <header class="hero">
+    <p class="eyebrow">Tópico 2 · Habilidades directivas</p>
+    <h1>Resúmenes de habilidades directivas</h1>
+    <p class="lede">Mis apuntes de los capítulos que se expusieron en clase. Cada pestaña resume un capítulo en cuatro ideas y una frase para recordar.</p>
+    <div class="meta"><span class="chip acc">Caps. 1, 2, 3, 5, 7, 8, 10 y 13</span><span class="chip">Erick Arriola Aguillón</span></div>
+  </header>
+
+  <section>
+    <div class="tabs" data-tabs="caps">
+      <button class="tab" data-tab="c1">Cap. 1</button>
+      <button class="tab" data-tab="c2">Cap. 2</button>
+      <button class="tab" data-tab="c3">Cap. 3</button>
+      <button class="tab" data-tab="c5">Cap. 5</button>
+      <button class="tab" data-tab="c7">Cap. 7</button>
+      <button class="tab" data-tab="c8">Cap. 8</button>
+      <button class="tab" data-tab="c10">Cap. 10</button>
+      <button class="tab" data-tab="c13">Cap. 13</button>
+    </div>
+    <div id="paneles"></div>
+  </section>
+
+  <section>
+    <span class="num">PRÁCTICA · CAPÍTULO 5</span>
+    <h2>Acomoda mis pendientes de la semana</h2>
+    <p class="muted">La matriz de urgente contra importante se entiende mejor usándola. Decide en qué cuadrante va cada pendiente.</p>
+    <div class="pendiente">
+      <span class="small muted" id="cuenta"></span>
+      <span class="actual" id="actual"></span>
+      <div class="botones-m">
+        <button class="btn ghost" data-q="0">Hacer ya</button>
+        <button class="btn ghost" data-q="1">Planear</button>
+        <button class="btn ghost" data-q="2">Delegar o acotar</button>
+        <button class="btn ghost" data-q="3">Eliminar</button>
+      </div>
+      <p class="small muted" id="fbm" aria-live="polite"></p>
+    </div>
+    <div class="matriz" id="matriz"></div>
+  </section>
+
+  <section>
+    <span class="num">REPASO</span>
+    <h2>¿Qué tanto me quedó?</h2>
+    <div id="quiz"></div>
+  </section>
+
+  <footer class="pie-pag"><span>Fuente: libro de Habilidades directivas visto en clase y exposiciones del grupo 32.</span><span>Erick Arriola Aguillón</span></footer>
+</main>
+<script src="../comun/base.js"></script>
+<script>
+const CAPS = {
+  c1:{t:'Habilidades directivas y su clasificación',ideas:[
+    ['Personales','Empiezan por conocerme: qué hago bien, qué me cuesta y cómo reacciono bajo presión.'],
+    ['Interpersonales','Comunicar, escuchar y motivar. Dirigir siempre pasa por otras personas.'],
+    ['Grupales','Coordinar, repartir tareas y lograr que un equipo avance hacia lo mismo.'],
+    ['Técnicas','El conocimiento del área sigue contando, pero solo no alcanza para dirigir.']],
+    frase:'Un buen directivo combina lo que sabe hacer con cómo trata a la gente.'},
+  c2:{t:'La alta dirección y sus habilidades',ideas:[
+    ['Rumbo','Definir hacia dónde va la organización y explicarlo para que todos lo entiendan.'],
+    ['Decidir','Analizar el panorama completo y hacerse responsable de lo que se elige.'],
+    ['Comunicar','Bajar las prioridades a quien ejecuta y escuchar lo que reportan.'],
+    ['Delegar','Confiar en el equipo, dar seguimiento y desarrollar sus capacidades.']],
+    frase:'La alta dirección conecta la visión con las decisiones y con las personas.'},
+  c3:{t:'Inteligencia emocional',ideas:[
+    ['Reconocer','Ponerle nombre a lo que siento y saber qué lo provocó.'],
+    ['Regular','Hacer una pausa antes de reaccionar y elegir la respuesta.'],
+    ['Empatía','Tomar en cuenta lo que sienten y necesitan los demás.'],
+    ['Relación','Usar todo lo anterior para llegar a acuerdos y trabajar mejor.']],
+    frase:'Entender mis emociones cambia la forma en que colaboro.'},
+  c5:{t:'Administración del tiempo',ideas:[
+    ['Recurso fijo','Todos tenemos 24 horas; el tiempo no se guarda ni se recupera.'],
+    ['Urgente vs. importante','Lo urgente grita, lo importante construye. No siempre coinciden.'],
+    ['Planear','El cuadrante de lo importante y no urgente es donde se previenen las crisis.'],
+    ['Ladrones de tiempo','Interrupciones, reuniones sin objetivo y redes sociales sin límite.']],
+    frase:'Organizarme no es llenar la agenda, es apartar tiempo para lo que importa.'},
+  c7:{t:'Toma de decisiones',ideas:[
+    ['Definir','Aclarar cuál es el problema real antes de buscar soluciones.'],
+    ['Informarse','Separar hechos de suposiciones y encontrar las causas.'],
+    ['Comparar','Generar más de una alternativa y revisar costos, beneficios y riesgos.'],
+    ['Actuar y revisar','Aplicar la decisión, medir el resultado y corregir si hace falta.']],
+    frase:'Decidir bien es unir el problema, la información, las opciones y sus consecuencias.'},
+  c8:{t:'Trabajo en equipo y manejo de conflictos',ideas:[
+    ['Meta común','Un equipo funciona cuando todos saben qué resultado se busca.'],
+    ['Diversidad','Las diferencias de experiencia y de opinión aportan si se escuchan.'],
+    ['Conflicto','No es malo por sí mismo; hay que entender su causa y el estilo de cada quien.'],
+    ['Acuerdo','Hablar del problema, no de la persona, y construir una solución juntos.']],
+    frase:'El conflicto bien manejado hace crecer al equipo.'},
+  c10:{t:'La negociación como habilidad',ideas:[
+    ['Prepararse','Saber qué quiero, hasta dónde puedo ceder y qué información tengo.'],
+    ['Intereses','Detrás de cada postura hay una necesidad; descubrirla abre opciones.'],
+    ['Crear valor','Buscar propuestas en las que las dos partes salgan ganando.'],
+    ['Cerrar','Dejar claros los compromisos y cómo se les dará seguimiento.']],
+    frase:'Negociar bien es llegar a acuerdos que se sostienen con el tiempo.'},
+  c13:{t:'Habilidades del pensamiento',ideas:[
+    ['Analizar','Distinguir hechos, opiniones y supuestos.'],
+    ['Cuestionar','Pedir razones y evidencias antes de aceptar una conclusión.'],
+    ['Crear','Buscar alternativas y conexiones que no son obvias.'],
+    ['Resolver','Definir el problema, comparar opciones y revisar el resultado.']],
+    frase:'Pensar mejor junta lo crítico, lo creativo y lo práctico.'}
+};
+document.getElementById('paneles').innerHTML = Object.entries(CAPS).map(([id,c]) => `
+  <div class="panel" data-panel="${id}" data-grupo="caps">
+    <h2>${c.t}</h2>
+    <div class="grid">${c.ideas.map(([a,b],i)=>`<div class="card"><span class="num">0${i+1}</span><h3>${a}</h3><p>${b}</p></div>`).join('')}</div>
+    <div class="callout" style="margin-top:14px"><p><strong>Para recordar:</strong> ${c.frase}</p></div>
+  </div>`).join('');
+
+// Matriz de Eisenhower
+const CUADS = [['Hacer ya','Urgente e importante'],['Planear','Importante, no urgente'],['Delegar o acotar','Urgente, poco importante'],['Eliminar','Ni urgente ni importante']];
+const TAREAS = [
+  ['Entregar el proyecto que vence hoy a las 11:59',0,'Tiene fecha hoy y cuenta para la calificación.'],
+  ['Estudiar poco a poco para el examen de dentro de tres semanas',1,'Es importante y todavía hay tiempo: se planea.'],
+  ['Contestar el grupo de WhatsApp que no deja de sonar',2,'Parece urgente, pero se puede responder más tarde y en bloque.'],
+  ['Ver videos aleatorios antes de dormir',3,'No me acerca a ninguna meta.'],
+  ['Arreglar el bug que tumbó la app en producción',0,'Afecta a usuarios ahora mismo.'],
+  ['Hacer ejercicio tres veces por semana',1,'Es salud a largo plazo; si no lo agendo no pasa.'],
+  ['Una reunión sin agenda que me pidieron a última hora',2,'Puedo pedir la agenda o mandar a alguien con los datos.'],
+  ['Aprender un framework nuevo para mi portafolio',1,'Importante para mi futuro, sin presión inmediata.']
+];
+let k = 0; const colocadas = [[],[],[],[]];
+const pintarMatriz = () => {
+  document.getElementById('matriz').innerHTML = CUADS.map((c,i)=>`<div class="cuad"><span class="tag">${c[1]}</span><h3>${c[0]}</h3><div class="items">${colocadas[i].map(t=>`<span class="tarea ${t.ok?'bien':'mal'}">${esc(t.txt)}</span>`).join('')}</div></div>`).join('');
+  const fin = k >= TAREAS.length;
+  document.getElementById('actual').textContent = fin ? 'Listo. Las marcadas en rojo son las que acomodé distinto.' : TAREAS[k][0];
+  document.getElementById('cuenta').textContent = fin ? '' : `Pendiente ${k+1} de ${TAREAS.length}`;
+  document.querySelectorAll('[data-q]').forEach(b => b.disabled = fin);
+};
+document.querySelectorAll('[data-q]').forEach(b => b.addEventListener('click', () => {
+  const q = +b.dataset.q, t = TAREAS[k];
+  colocadas[q].push({txt:t[0], ok:q===t[1]});
+  document.getElementById('fbm').textContent = (q===t[1] ? 'Bien. ' : `Iba en “${CUADS[t[1]][0]}”. `) + t[2];
+  k++; pintarMatriz();
+}));
+pintarMatriz();
+
+quiz(document.getElementById('quiz'), [
+  {q:'Según el capítulo 1, ¿por qué no basta con ser bueno técnicamente para dirigir?', ops:['Porque la técnica pasa de moda','Porque dirigir implica trabajar con y a través de otras personas','Porque los directivos no programan'], ok:1, por:'Las habilidades directivas se ejercen en relación con otros.'},
+  {q:'¿Qué cuadrante de la matriz ayuda más a prevenir crisis?', ops:['Urgente e importante','Importante y no urgente','Urgente y poco importante'], ok:1, por:'Ahí está la planeación y la prevención.'},
+  {q:'En una negociación, ¿qué conviene descubrir detrás de cada postura?', ops:['El interés o la necesidad real','Quién tiene más poder','La forma de ganar rápido'], ok:0, por:'Los intereses abren opciones donde las posturas se atoran.'},
+  {q:'¿Cuál es el primer paso para tomar una decisión de calidad?', ops:['Elegir la opción más barata','Definir bien el problema','Preguntar al jefe'], ok:1, por:'Sin un problema claro, cualquier solución es un disparo al aire.'}
+]);
+</script>
+<a href="../index.html" class="volver-menu" style="position:fixed;left:12px;bottom:12px;z-index:9999;background:#1d1b16;color:#fff;padding:9px 15px;border-radius:999px;font:600 14px/1 system-ui,sans-serif;text-decoration:none;box-shadow:0 4px 14px rgba(0,0,0,.25);border:1px solid rgba(255,255,255,.25)">← Mis actividades</a>
+</body>
+</html>

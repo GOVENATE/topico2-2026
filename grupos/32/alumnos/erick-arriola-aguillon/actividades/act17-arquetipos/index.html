@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Arquetipos sistémicos</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;700;800&family=Instrument+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600&display=swap">
+<link rel="stylesheet" href="../comun/base.css">
+<style>
+  .ciclo{display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin:6px 0 4px}
+  .ciclo span{background:var(--surface-2);border-radius:999px;padding:4px 10px;font-size:.84rem}
+  .ciclo b{color:var(--acc)}
+</style>
+</head>
+<body style="--acc:#8a2b7c;--acc-dark:#f59ae6">
+<script src="../comun/base.js"></script>
+<main class="wrap">
+  <header class="hero">
+    <p class="eyebrow">Tópico 2 · Pensamiento sistémico</p>
+    <h1>Arquetipos sistémicos</h1>
+    <p class="lede">Los arquetipos son patrones que se repiten en cualquier sistema: una empresa, un equipo o mi propia vida. Reconocerlos sirve para entender por qué algunos problemas regresan aunque “ya los arreglamos”.</p>
+    <div class="meta"><span class="chip acc">Senge · arquetipos</span><span class="chip">Erick Arriola Aguillón</span></div>
+  </header>
+
+  <section>
+    <span class="num">01 · LOS PATRONES</span>
+    <div class="picker" id="picker"></div>
+    <div class="detalle" id="detalle"></div>
+  </section>
+
+  <section>
+    <span class="num">02 · ¿QUÉ ARQUETIPO ES?</span>
+    <p class="muted">Lee la situación y elige el patrón que mejor la describe.</p>
+    <div id="quiz"></div>
+  </section>
+
+  <section>
+    <span class="num">03 · REFLEXIÓN</span>
+    <div class="callout"><p>Me di cuenta de que muchos de estos patrones los vivo en los proyectos de la carrera. El de “soluciones rápidas que fallan” es el más común: un parche hoy que mañana causa otro error. Lo útil de los arquetipos es que dejan de lado buscar culpables y te hacen ver la estructura completa: los retrasos, los recursos que se comparten y las reacciones que repetimos sin pensar.</p></div>
+  </section>
+
+  <footer class="pie-pag"><span>Fuente: arquetipos sistémicos de <em>La quinta disciplina</em>, vistos en clase.</span><span>Erick Arriola Aguillón</span></footer>
+</main>
+<script>
+const ARQ = [
+  {titulo:'Compensación entre proceso y demora', ciclo:['Actúo','espero','el efecto tarda','actúo de más'], d:'Cuando la respuesta a una acción tarda en verse, se tiende a corregir de más y el sistema oscila.', ej:'Agregar servidores porque la app va lenta, sin esperar a ver si ya mejoró. Terminas pagando el doble.', s:'Tener paciencia, medir y entender cuánto tarda el efecto.'},
+  {titulo:'Límites del crecimiento', ciclo:['Crece','choca con un límite','se frena'], d:'Algo crece rápido hasta que topa con un límite que no se ve al principio.', ej:'Un equipo que crece mucho y de pronto se atora porque nadie documentó nada.', s:'Buscar y atender el límite, no empujar más fuerte.'},
+  {titulo:'Desplazamiento de la carga', ciclo:['Síntoma','solución rápida','alivio','se olvida la causa'], d:'Se usa una solución que alivia el síntoma y se deja de atender la causa de fondo.', ej:'Reiniciar el servidor cada vez que falla en lugar de encontrar la fuga de memoria.', s:'Usar el alivio solo mientras se ataca la causa real.'},
+  {titulo:'Erosión de metas', ciclo:['Meta alta','no se logra','se baja la meta'], d:'Cuando cuesta alcanzar la meta, en vez de mejorar se baja el estándar.', ej:'“Con que compile, ya está” en lugar de cumplir con las pruebas.', s:'Mantener la meta y revisar qué impide llegar.'},
+  {titulo:'Escalada', ciclo:['Yo reacciono','tú reaccionas más','yo más'], d:'Dos partes reaccionan una contra otra y cada respuesta es más fuerte.', ej:'Dos empresas bajando precios hasta que ninguna gana.', s:'Que alguna parte rompa el ciclo y busque un acuerdo.'},
+  {titulo:'Éxito para los exitosos', ciclo:['Gana A','recibe más recursos','gana más'], d:'Al que le va bien recibe más, y al otro cada vez menos, aunque tengan el mismo potencial.', ej:'El programador “estrella” recibe los mejores proyectos y los nuevos nunca aprenden.', s:'Repartir oportunidades con criterios justos.'},
+  {titulo:'Tragedia del terreno común', ciclo:['Cada quien usa','el recurso se agota','todos pierden'], d:'Un recurso compartido se agota porque cada uno solo piensa en su beneficio.', ej:'Todos usan el mismo servidor de pruebas sin límite y se cae para todos.', s:'Reglas claras sobre el recurso común.'},
+  {titulo:'Soluciones rápidas que fallan', ciclo:['Problema','parche','efecto secundario','problema peor'], d:'Una solución funciona a corto plazo pero trae consecuencias que empeoran todo.', ej:'Copiar código de internet que funciona hoy y rompe tres cosas la siguiente semana.', s:'Pensar en las consecuencias antes de aplicar el parche.'},
+  {titulo:'Crecimiento y subinversión', ciclo:['Crece la demanda','no se invierte','baja la calidad','baja la demanda'], d:'No invertir a tiempo en capacidad hace que el crecimiento se caiga solo.', ej:'Una tienda en línea que no mejora su servidor y pierde clientes en el Buen Fin.', s:'Invertir con anticipación y mantener el estándar.'},
+  {titulo:'Adversarios accidentales', ciclo:['Ayudo a mi parte','perjudico al otro','el otro responde'], d:'Dos aliados terminan estorbándose sin querer por cuidar cada uno lo suyo.', ej:'Desarrollo y QA que se culpan entre sí en vez de trabajar juntos.', s:'Hablar de la meta común y de cómo afecta cada acción al otro.'}
+];
+selector(document.getElementById('picker'), document.getElementById('detalle'), ARQ, a =>
+  `<h3>${a.titulo}</h3><div class="ciclo"><span>${a.ciclo.map(esc).join('</span><b>→</b><span>')}</span></div>
+   <p class="k">Cómo funciona</p><p>${a.d}</p><p class="k">Ejemplo en un proyecto</p><p>${a.ej}</p><p class="k">Qué haría</p><p>${a.s}</p>`);
+quiz(document.getElementById('quiz'), [
+  {q:'Cada vez que la página tarda, el equipo compra más servidores sin esperar a ver el efecto del cambio anterior.', ops:['Escalada','Compensación entre proceso y demora','Erosión de metas'], ok:1, por:'El efecto llega tarde y se corrige de más.'},
+  {q:'Como no llegamos a 80% de cobertura de pruebas, decidimos que con 40% está bien.', ops:['Erosión de metas','Límites del crecimiento','Tragedia del terreno común'], ok:0, por:'Se baja la meta en vez de mejorar.'},
+  {q:'Todos los equipos usan la misma base de datos de pruebas sin control y deja de funcionar.', ops:['Éxito para los exitosos','Tragedia del terreno común','Desplazamiento de la carga'], ok:1, por:'Un recurso común se agota por el uso individual.'},
+  {q:'Reiniciamos el servicio cada noche para que no se caiga, pero nadie busca la causa.', ops:['Desplazamiento de la carga','Escalada','Adversarios accidentales'], ok:0, por:'La solución rápida oculta la causa de fondo.'}
+]);
+</script>
+<a href="../index.html" class="volver-menu" style="position:fixed;left:12px;bottom:12px;z-index:9999;background:#1d1b16;color:#fff;padding:9px 15px;border-radius:999px;font:600 14px/1 system-ui,sans-serif;text-decoration:none;box-shadow:0 4px 14px rgba(0,0,0,.25);border:1px solid rgba(255,255,255,.25)">← Mis actividades</a>
+</body>
+</html>

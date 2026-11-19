@@ -1,0 +1,689 @@
+<!doctype html>
+<html lang="es">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lavandería de Código</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:ital,wdth,wght@0,62..125,100..900;1,62..125,100..900&family=Figtree:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap">
+<style>
+/* Layout: etiqueta de detergente. Marca grande arriba, tres pestañas, y una prenda (el código) que se limpia a la izquierda con el medidor a la derecha. */
+:root{
+  --bg:#eaf2fc; --surface:#ffffff; --ink:#0b1f4b; --muted:#465a85; --line:#c5d4ec;
+  --blue:#0a3fd6; --on-blue:#ffffff; --pop:#d81557; --sun:#ffd23f; --on-sun:#0b1f4b;
+  --ok:#0b7d56; --bad:#b93a0b;
+  --code-clean:#ffffff; --code-dirty:#d8cda2; --grime:#6f5f22;
+  --kw:#0a3fd6; --str:#a1124a; --com:#4d5a45; --num:#8a4300;
+  --display:"Archivo","Arial Narrow",Arial,sans-serif;
+  --body:"Figtree","Segoe UI",system-ui,sans-serif;
+  --mono:"JetBrains Mono",ui-monospace,Menlo,Consolas,monospace;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#061029; --surface:#0d1b45; --ink:#eaf1ff; --muted:#a3b5de; --line:#26397a;
+    --blue:#86a8ff; --on-blue:#061029; --pop:#ff6b9a; --sun:#ffd23f; --on-sun:#0b1f4b;
+    --ok:#4ade9f; --bad:#ff9a62;
+    --code-clean:#0a1840; --code-dirty:#3b3417; --grime:#9a8a3a;
+    --kw:#8fb0ff; --str:#ff9dbd; --com:#a3b094; --num:#ffc27a;
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#061029; --surface:#0d1b45; --ink:#eaf1ff; --muted:#a3b5de; --line:#26397a;
+  --blue:#86a8ff; --on-blue:#061029; --pop:#ff6b9a; --sun:#ffd23f; --on-sun:#0b1f4b;
+  --ok:#4ade9f; --bad:#ff9a62;
+  --code-clean:#0a1840; --code-dirty:#3b3417; --grime:#9a8a3a;
+  --kw:#8fb0ff; --str:#ff9dbd; --com:#a3b094; --num:#ffc27a;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 16px/1.55 var(--body)}
+button{font:inherit;color:inherit;cursor:pointer}
+:focus-visible{outline:3px solid var(--pop);outline-offset:2px}
+.wrap{max-width:1120px;margin-inline:auto;padding-inline:16px;padding-block:28px 48px;display:flex;flex-direction:column;gap:28px}
+
+/* Marca */
+.brand{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:20px}
+.brand-text{display:flex;flex-direction:column;gap:10px;min-width:0;flex:1 1 320px}
+.eyebrow{font:700 .78rem/1.2 var(--display);font-stretch:110%;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin:0}
+h1{margin:0;font:italic 900 clamp(2.3rem,8vw,4.6rem)/.88 var(--display);font-stretch:125%;text-transform:uppercase;letter-spacing:-.02em;color:var(--blue);text-shadow:.05em .05em 0 var(--sun);text-wrap:balance}
+.lede{margin:0;max-width:56ch;color:var(--muted);font-size:1.05rem}
+.badge{flex:none;width:132px;aspect-ratio:1;background:var(--sun);color:var(--on-sun);display:grid;place-content:center;text-align:center;rotate:-8deg;transition:background .5s}
+.badge b{display:block;font:italic 900 2.6rem/.9 var(--display);font-stretch:110%;font-variant-numeric:tabular-nums}
+.badge span{font:800 .72rem/1.1 var(--display);letter-spacing:.1em;text-transform:uppercase}
+.badge.clean{background:var(--ok);color:var(--code-clean)}
+
+/* Pestañas */
+.tabs{display:flex;flex-wrap:wrap;gap:6px 26px;border-bottom:2px solid var(--line)}
+.tab{background:none;border:0;padding:10px 0 12px;margin-bottom:-2px;border-bottom:5px solid transparent;font:italic 800 1.15rem/1 var(--display);font-stretch:112%;text-transform:uppercase;color:var(--muted)}
+.tab:hover{color:var(--ink)}
+.tab[aria-current="page"]{color:var(--blue);border-bottom-color:var(--pop)}
+
+h2{margin:0;font:800 1.35rem/1.15 var(--display);font-stretch:108%;text-wrap:balance}
+.sub{margin:0;color:var(--muted);max-width:65ch}
+.btn{border:2px solid var(--blue);background:var(--blue);color:var(--on-blue);border-radius:999px;padding:9px 20px;font:700 .95rem/1.2 var(--display);font-stretch:105%}
+.btn:hover{filter:brightness(1.1)}
+.btn.ghost{background:transparent;color:var(--blue)}
+.row{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+.stack{display:flex;flex-direction:column;gap:16px;min-width:0}
+
+/* Lavar */
+.wash{display:grid;grid-template-columns:minmax(0,1.65fr) minmax(270px,1fr);gap:24px;align-items:start}
+@media (max-width:860px){.wash{grid-template-columns:minmax(0,1fr)}}
+.levels{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+.lv{background:var(--surface);border:2px solid var(--line);border-radius:10px;padding:9px 12px;text-align:left;display:flex;flex-direction:column;gap:2px;min-width:0}
+.lv strong{font:800 .98rem/1.15 var(--display);overflow-wrap:anywhere}
+.lv small{color:var(--muted);font-size:.8rem;font-variant-numeric:tabular-nums}
+.lv[aria-pressed="true"]{border-color:var(--blue);box-shadow:inset 0 -5px 0 var(--blue)}
+.lv.done small{color:var(--ok);font-weight:700}
+
+.code{position:relative;border:2px solid var(--ink);border-radius:14px;overflow:hidden;box-shadow:6px 6px 0 var(--blue);
+  background:color-mix(in oklab,var(--code-dirty) calc(var(--mugre,1)*100%),var(--code-clean));transition:background .7s}
+.code::before{content:"";position:absolute;inset:0;pointer-events:none;opacity:var(--mugre,1);transition:opacity .7s;
+  background:
+   radial-gradient(60px 40px at 82% 18%,color-mix(in oklab,var(--grime) 55%,transparent),transparent 70%),
+   radial-gradient(90px 60px at 12% 78%,color-mix(in oklab,var(--grime) 45%,transparent),transparent 70%),
+   radial-gradient(40px 50px at 55% 55%,color-mix(in oklab,var(--grime) 35%,transparent),transparent 70%),
+   radial-gradient(120px 50px at 70% 92%,color-mix(in oklab,var(--grime) 40%,transparent),transparent 70%)}
+.code-bar{position:relative;display:flex;justify-content:space-between;gap:10px;padding:8px 16px;border-bottom:2px solid var(--ink);font:500 .78rem/1.3 var(--mono);color:var(--ink)}
+.code pre{position:relative;margin:0;padding:18px 18px 22px;overflow-x:auto;font:500 .9rem/1.8 var(--mono);white-space:pre;tab-size:2;cursor:pointer;user-select:none;-webkit-user-select:none;color:var(--ink)}
+.code pre i{font-style:normal}
+.code .k,.duel-code .k{color:var(--kw);font-weight:700}
+.code .s,.duel-code .s{color:var(--str)}
+.code .c,.duel-code .c{color:var(--com);font-style:italic}
+.code .n,.duel-code .n{color:var(--num)}
+.spot{border-radius:3px}
+.spot.tiny{position:relative}
+.spot.tiny::after{content:"";position:absolute;inset:-5px -4px}
+.spot.fixed{background:color-mix(in oklab,var(--sun) 38%,transparent);cursor:default}
+.spot.flash{animation:flash 1s ease-out}
+.spot.hint{outline:2px dashed var(--pop);outline-offset:2px;animation:pulse .6s ease-in-out 3}
+pre.miss{animation:shake .28s}
+@keyframes flash{from{background:var(--sun);box-shadow:0 0 0 6px var(--sun)}}
+@keyframes pulse{50%{outline-offset:6px}}
+@keyframes shake{25%{translate:-4px 0}75%{translate:4px 0}}
+.status{margin:0;min-height:1.5em;font-weight:600;color:var(--muted)}
+.status.bad{color:var(--bad)}
+.status.good{color:var(--ok)}
+
+.finding{background:var(--surface);border:2px solid var(--line);border-radius:12px;padding:18px 20px;display:flex;flex-direction:column;gap:8px}
+.tag{font:700 .74rem/1.2 var(--display);letter-spacing:.12em;text-transform:uppercase;color:var(--pop);margin:0}
+.finding h3{margin:0;font:800 1.2rem/1.2 var(--display);font-stretch:106%}
+.finding p{margin:0;max-width:65ch}
+code{font:500 .9em var(--mono);background:color-mix(in oklab,var(--blue) 12%,transparent);padding:1px 5px;border-radius:4px}
+.done{border:2px solid var(--ok);border-radius:12px;padding:16px 20px;display:flex;flex-direction:column;gap:12px;background:color-mix(in oklab,var(--ok) 10%,var(--surface))}
+.done p{margin:0;font-weight:600}
+
+.meter{background:var(--surface);border:2px solid var(--line);border-radius:12px;padding:18px 20px 20px;display:flex;flex-direction:column;align-items:center;gap:4px;text-align:center}
+.meter svg{width:100%;max-width:240px;height:auto;display:block}
+.needle{transform-box:view-box;transform-origin:100px 100px;transform:rotate(var(--deg,90deg));transition:transform .8s cubic-bezier(.3,1.4,.5,1)}
+.meter-num{font:italic 900 3.2rem/1 var(--display);font-stretch:112%;font-variant-numeric:tabular-nums}
+.meter-unit{font:800 .8rem/1.2 var(--display);letter-spacing:.12em;text-transform:uppercase}
+.meter-word{font-weight:700;color:var(--blue)}
+.meter small{color:var(--muted);max-width:30ch;margin-top:6px}
+.how{margin:0;padding-left:1.1em;color:var(--muted);display:flex;flex-direction:column;gap:6px;font-size:.95rem}
+
+/* Duelo */
+.duel-head{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:baseline;gap:8px 20px}
+.score{font:800 1rem var(--display);font-variant-numeric:tabular-nums;color:var(--muted)}
+.duel-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;align-items:stretch}
+@media (max-width:720px){.duel-grid{grid-template-columns:minmax(0,1fr)}}
+.pick{background:var(--surface);border:2px solid var(--ink);border-radius:14px;padding:0;text-align:left;display:flex;flex-direction:column;min-width:0;overflow:hidden;transition:translate .15s,box-shadow .15s}
+.pick:not(:disabled):hover{translate:-2px -2px;box-shadow:5px 5px 0 var(--blue)}
+.pick:disabled{cursor:default;color:inherit}
+.pick-label{padding:8px 16px;border-bottom:2px solid var(--ink);font:800 .85rem/1.3 var(--display);letter-spacing:.1em;text-transform:uppercase;display:flex;justify-content:space-between;gap:10px}
+.duel-code{display:block;padding:16px;overflow-x:auto;font:500 .86rem/1.7 var(--mono);white-space:pre;background:none;border-radius:0;color:var(--ink)}
+.duel-code i{font-style:normal}
+.pick.win{border-color:var(--ok);box-shadow:5px 5px 0 var(--ok)}
+.pick.win .pick-label{background:var(--ok);color:var(--code-clean);border-bottom-color:var(--ok)}
+.pick.lose{border-color:var(--bad);opacity:.8}
+.pick.lose .pick-label{color:var(--bad)}
+.result-big{font:italic 900 clamp(3rem,12vw,5rem)/1 var(--display);font-stretch:115%;color:var(--blue);font-variant-numeric:tabular-nums}
+
+/* Libro */
+.book{display:grid;grid-template-columns:minmax(0,300px) minmax(0,1fr);gap:24px;align-items:start}
+@media (max-width:780px){.book{grid-template-columns:minmax(0,1fr)}}
+.chapters{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:4px}
+.ch{width:100%;background:none;border:0;border-radius:8px;padding:7px 10px;text-align:left;display:flex;gap:10px;align-items:baseline}
+.ch b{flex:none;width:1.7em;font:italic 900 1rem var(--display);color:var(--muted);font-variant-numeric:tabular-nums}
+.ch span{min-width:0;overflow-wrap:anywhere;font-weight:500}
+.ch:hover{background:color-mix(in oklab,var(--blue) 10%,transparent)}
+.ch[aria-pressed="true"]{background:var(--blue);color:var(--on-blue)}
+.ch[aria-pressed="true"] b{color:var(--sun)}
+.detail{background:var(--surface);border:2px solid var(--ink);border-radius:14px;padding:24px;display:flex;flex-direction:column;gap:14px;min-width:0}
+.detail h2{font-size:clamp(1.5rem,4vw,2.1rem);font-style:italic;font-weight:900;font-stretch:115%;color:var(--blue)}
+.detail p{margin:0;max-width:40ch;font-size:1.3rem;line-height:1.4}
+.detail ul{margin:0;padding-left:1.2em;display:flex;flex-direction:column;gap:8px;max-width:44ch;font-size:1.15rem;font-weight:600}
+.rule{border-left:6px solid var(--sun);padding:6px 0 6px 14px;font:700 1.1rem/1.35 var(--display);max-width:50ch}
+.rule small{display:block;font:700 .72rem var(--display);letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-bottom:2px}
+footer{color:var(--muted);font-size:.85rem;border-top:2px solid var(--line);padding-top:16px}
+footer p{margin:0;max-width:75ch}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+
+<div class="wrap">
+  <header class="brand">
+    <div class="brand-text">
+      <p class="eyebrow">Guía interactiva del libro de Robert C. Martin</p>
+      <h1>Código limpio</h1>
+      <p class="lede">El código se lee diez veces más de lo que se escribe. Encuentra las manchas, quítalas y déjalo mejor de como lo encontraste.</p>
+    </div>
+    <div class="badge" id="badge" aria-live="polite"><div><b id="badgeNum">16</b><span id="badgeTxt">manchas</span></div></div>
+  </header>
+
+  <nav class="tabs" aria-label="Secciones">
+    <button class="tab" data-tab="lavar" id="tab-lavar">Lava el código</button>
+    <button class="tab" data-tab="duelo" id="tab-duelo">Duelo</button>
+    <button class="tab" data-tab="libro" id="tab-libro">El libro</button>
+  </nav>
+
+  <section id="sec-lavar" class="stack">
+    <div class="wash">
+      <div class="stack">
+        <div class="levels" id="levels"></div>
+        <div class="code" id="codeBox">
+          <div class="code-bar"><span id="fileName"></span><span id="fileCount"></span></div>
+          <pre id="code" aria-label="Código para limpiar"></pre>
+        </div>
+        <p class="status" id="status" aria-live="polite"></p>
+        <div class="finding" id="finding" aria-live="polite"></div>
+        <div class="done" id="done" hidden></div>
+      </div>
+      <aside class="stack">
+        <div class="meter">
+          <svg viewBox="0 0 200 112" role="img" aria-label="Medidor de WTFs por minuto">
+            <path d="M20 100 A80 80 0 0 1 60 30.72" fill="none" stroke="var(--ok)" stroke-width="14"/>
+            <path d="M60 30.72 A80 80 0 0 1 140 30.72" fill="none" stroke="var(--sun)" stroke-width="14"/>
+            <path d="M140 30.72 A80 80 0 0 1 180 100" fill="none" stroke="var(--pop)" stroke-width="14"/>
+            <g class="needle" id="needle">
+              <path d="M96 100 L100 30 L104 100 Z" fill="var(--ink)"/>
+            </g>
+            <circle cx="100" cy="100" r="9" fill="var(--ink)"/>
+          </svg>
+          <div class="meter-num" id="wtfNum">48</div>
+          <div class="meter-unit">WTFs por minuto</div>
+          <div class="meter-word" id="wtfWord"></div>
+          <small>Según el libro, la única medida válida de la calidad del código en una revisión.</small>
+        </div>
+        <ol class="how">
+          <li>Toca en el código lo que huela mal.</li>
+          <li>Si aciertas, se limpia y ves la regla del libro.</li>
+          <li>Si tocas código sano, sube un WTF.</li>
+        </ol>
+        <div class="row">
+          <button class="btn ghost" id="hintBtn">Dame una pista</button>
+          <button class="btn ghost" id="resetBtn">Volver a ensuciar</button>
+        </div>
+      </aside>
+    </div>
+  </section>
+
+  <section id="sec-duelo" class="stack" hidden>
+    <div id="duel" class="stack"></div>
+  </section>
+
+  <section id="sec-libro" class="stack" hidden>
+    <p class="sub">Los 17 capítulos en una idea, tres puntos y una regla de bolsillo.</p>
+    <div class="book">
+      <ul class="chapters" id="chapters"></ul>
+      <article class="detail" id="detail" aria-live="polite"></article>
+    </div>
+  </section>
+
+  <footer><p>Material de estudio basado en «Código limpio» (Clean Code, 2008) de Robert C. Martin. Los ejemplos están escritos en JavaScript y adaptados para esta guía; el libro usa Java.</p></footer>
+</div>
+
+<script>
+(() => {
+const $ = (s, r = document) => r.querySelector(s);
+const esc = s => s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+const TOKENS = /(\/\/[^\n]*)|('(?:[^'\\\n]|\\.)*')|\b(function|const|let|return|if|for|of|class|constructor|this|throw|new|true|false|null)\b|\b(\d+)\b/g;
+const hl = s => esc(s).replace(TOKENS, (m, c, str, k) =>
+  `<i class="${c ? 'c' : str ? 's' : k ? 'k' : 'n'}">${m}</i>`);
+const fmt = s => esc(s).replace(/`([^`]+)`/g, '<code>$1</code>');
+
+/* Cada mancha se escribe «id¦sucio¦limpio» dentro del código. */
+const parse = tpl => {
+  const out = [], re = /«(\w+)¦([\s\S]*?)¦([\s\S]*?)»/g;
+  let last = 0, m;
+  while ((m = re.exec(tpl))) {
+    if (m.index > last) out.push({ t: tpl.slice(last, m.index) });
+    out.push({ id: m[1], dirty: m[2], clean: m[3] });
+    last = re.lastIndex;
+  }
+  if (last < tpl.length) out.push({ t: tpl.slice(last) });
+  return out;
+};
+
+const LEVELS = [
+  {
+    id: 'nombres', nombre: 'Nombres', archivo: 'alumnos.js', cap: 'Cap. 2 · Nombres con sentido',
+    intro: "Esta función regresa los alumnos aprobados. Funciona, pero nadie lo sabría al leerla. Toca cada nombre o valor que te obligue a adivinar.",
+    moraleja: "Hace exactamente lo mismo que antes y ahora se entiende de una leída, sin un solo comentario.",
+    tpl: String.raw`«magico¦¦const CALIFICACION_MINIMA = 6;
+
+»function «fn¦get¦obtenerAprobados»(«lista¦l¦alumnos») {
+  const «serie¦l2¦aprobados» = [];
+  for (const «x¦x¦alumno» of «lista¦l¦alumnos») {
+    if («x¦x¦alumno».«campo¦c¦calificacion» >= «magico¦6¦CALIFICACION_MINIMA») {
+      «serie¦l2¦aprobados».push(«x¦x¦alumno»);
+    }
+  }
+  return «serie¦l2¦aprobados»;
+}`,
+    smells: {
+      fn: ["Nombre que no dice qué hace", "`get` no dice qué obtiene. Un buen nombre responde por qué existe la función, qué hace y cómo se usa."],
+      lista: ["Nombre de una letra", "`l` se confunde con el número 1 y es imposible de buscar en el proyecto. El nombre debe decir qué contiene."],
+      serie: ["Nombres en serie", "`l2` solo se distingue de `l` por un número. Los nombres numerados no informan nada: di qué hay dentro."],
+      x: ["Variable sin significado", "`x` obliga a quien lee a traducirla en su cabeza cada vez que aparece. Un nombre claro le ahorra ese trabajo."],
+      campo: ["Abreviatura que hay que adivinar", "`c` puede ser calificación, clave o correo. Usa nombres completos que se puedan pronunciar en voz alta."],
+      magico: ["Número mágico", "¿Por qué 6? Una constante con nombre explica la regla y se puede buscar. El número suelto no hace ninguna de las dos cosas."]
+    }
+  },
+  {
+    id: 'funciones', nombre: 'Funciones', archivo: 'pedidos.js', cap: 'Cap. 3 · Funciones',
+    intro: "Una sola función valida, calcula, guarda y manda correos. Busca las señales de que está haciendo demasiado.",
+    moraleja: "La función principal ahora se lee como una lista de pasos, y cada paso tiene nombre propio.",
+    tpl: String.raw`function «vago¦procesar¦registrarPedido»(pedido«bandera¦, enviarCorreo¦») {
+«seccion¦  // valida el pedido
+¦»  if (!pedido.cliente) «codigos¦return -1¦throw new Error('El pedido no tiene cliente')»;
+  if (pedido.productos.length === 0) «codigos¦return -2¦throw new Error('El pedido está vacío')»;
+
+«seccion¦  // calcula el total
+¦»«extraer¦  let total = 0;
+  for (const producto of pedido.productos) {
+    total += producto.precio * producto.cantidad;
+  }¦  const total = calcularTotal(pedido);»
+
+  baseDeDatos.guardar(pedido, total);
+«bandera¦
+  if (enviarCorreo) {
+    correo.enviar(pedido.cliente, total);
+  }¦»
+  return total;
+}«extraer¦¦
+
+function calcularTotal(pedido) {
+  let total = 0;
+  for (const producto of pedido.productos) {
+    total += producto.precio * producto.cantidad;
+  }
+  return total;
+}»«bandera¦¦
+
+function avisarAlCliente(pedido, total) {
+  correo.enviar(pedido.cliente, total);
+}»`,
+    smells: {
+      vago: ["Verbo vago", "`procesar` puede significar cualquier cosa. El nombre de una función lleva un verbo que cuenta lo que hace de verdad."],
+      bandera: ["Argumento bandera", "Un booleano como argumento anuncia que la función hace dos cosas: una si es verdadero y otra si es falso. Mejor dos funciones, y que decida quien llama."],
+      seccion: ["Comentarios que separan secciones", "Si necesitas letreros para dividir una función, es que hace más de una cosa. Cada sección quiere ser una función con su propio nombre."],
+      codigos: ["Códigos de error", "Devolver -1 o -2 obliga a quien llama a revisar el resultado y a recordar qué significa cada número. Una excepción separa el camino normal del manejo de errores (cap. 7)."],
+      extraer: ["Niveles de abstracción mezclados", "El ciclo que multiplica precios es un detalle fino junto a pasos generales como guardar. Extraerlo deja un solo nivel de abstracción por función."]
+    }
+  },
+  {
+    id: 'comentarios', nombre: 'Comentarios', archivo: 'usuario.js', cap: 'Cap. 4 · Comentarios',
+    intro: "Esta clase tiene más comentarios que código, y casi ninguno ayuda. Encuentra los que sobran.",
+    moraleja: "Quedó menos texto y más información. Lo que los comentarios intentaban decir ahora lo dice el código.",
+    tpl: String.raw`«ruido¦// Clase Usuario
+¦»«bitacora¦// Autor: Juan Pérez, 12/03/2019
+// Cambios: 15/04/2019 se agregó la edad
+¦»«magico¦¦const EDAD_ADULTA = 18;
+
+»class Usuario {
+«ruido¦  // constructor
+¦»  constructor(nombre, edad) {
+    this.nombre = nombre;
+    this.edad = edad;
+  }
+
+«explica¦  // regresa true si el usuario es mayor de edad
+  verificar¦  esMayorDeEdad»() {
+«muerto¦    // if (this.edad > 21) return true;
+    // console.log('edad', this.edad);
+¦»    return this.edad >= «magico¦18¦EDAD_ADULTA»;
+  }
+}`,
+    smells: {
+      ruido: ["Comentario ruido", "Repite lo que el código ya dice. Con el tiempo aprendemos a ignorar estos comentarios, y de paso ignoramos los que sí importan."],
+      bitacora: ["Firma y bitácora de cambios", "Quién cambió qué y cuándo ya lo guarda el control de versiones, y lo guarda bien. En el archivo solo estorba y se desactualiza."],
+      explica: ["Comentario que disculpa un mal nombre", "El comentario existe porque `verificar` no explica nada. Ponle a la función el nombre que el comentario intentaba darle."],
+      muerto: ["Código comentado", "Nadie se atreve a borrarlo porque quizá sea importante, así que se queda para siempre. Bórralo: el control de versiones lo recuerda."],
+      magico: ["Número mágico", "El 18 aparece sin explicación. Con una constante, la regla tiene nombre y cambia en un solo lugar (cap. 17)."]
+    }
+  }
+];
+LEVELS.forEach(l => { l.chunks = parse(l.tpl); l.ids = Object.keys(l.smells); });
+const TOTAL = LEVELS.reduce((n, l) => n + l.ids.length, 0);
+const MAX_MISS = 12, PER_SMELL = 3;
+
+const KEY = 'codigo-limpio-v1';
+let st = { fixed: {}, misses: 0, level: 0, best: 0 };
+try { Object.assign(st, JSON.parse(localStorage.getItem(KEY) || '{}')); } catch (e) {}
+if (!LEVELS[st.level]) st.level = 0;
+const save = () => { try { localStorage.setItem(KEY, JSON.stringify(st)); } catch (e) {} };
+const fixedOf = l => (st.fixed[l.id] || []).filter(id => l.ids.includes(id));
+const fixedTotal = () => LEVELS.reduce((n, l) => n + fixedOf(l).length, 0);
+
+const pre = $('#code'), statusEl = $('#status');
+let lastFound = null;
+
+function setStatus(text, kind) {
+  statusEl.textContent = text;
+  statusEl.className = 'status' + (kind ? ' ' + kind : '');
+}
+
+function renderWash(flash) {
+  const lv = LEVELS[st.level], done = new Set(fixedOf(lv));
+  const left = lv.ids.length - done.size, leftAll = TOTAL - fixedTotal();
+
+  pre.innerHTML = lv.chunks.map(c => {
+    if (c.t !== undefined) return hl(c.t);
+    const isFixed = done.has(c.id), txt = isFixed ? c.clean : c.dirty;
+    if (!txt) return '';
+    if (isFixed) return `<span class="spot fixed${c.id === flash ? ' flash' : ''}">${hl(txt)}</span>`;
+    const tiny = txt.length <= 3 && !txt.includes('\n');
+    return `<span class="spot${tiny ? ' tiny' : ''}" data-id="${c.id}" tabindex="0" role="button">${hl(txt)}</span>`;
+  }).join('');
+  $('#codeBox').style.setProperty('--mugre', (left / lv.ids.length).toFixed(2));
+  $('#fileName').textContent = lv.archivo;
+  $('#fileCount').textContent = left ? `${left} de ${lv.ids.length} manchas` : 'sin manchas';
+
+  $('#levels').innerHTML = LEVELS.map((l, i) => {
+    const n = fixedOf(l).length, full = n === l.ids.length;
+    return `<button class="lv${full ? ' done' : ''}" data-lv="${i}" aria-pressed="${i === st.level}">
+      <strong>${i + 1}. ${l.nombre}</strong><small>${full ? 'Limpio' : n + ' de ' + l.ids.length}</small></button>`;
+  }).join('');
+
+  const f = $('#finding');
+  if (lastFound && lastFound.lv === lv.id) {
+    const [titulo, texto] = lv.smells[lastFound.id];
+    f.innerHTML = `<p class="tag">${esc(lv.cap)}</p><h3>${esc(titulo)}</h3><p>${fmt(texto)}</p>`;
+  } else {
+    f.innerHTML = `<p class="tag">${esc(lv.cap)}</p><h3>${left ? 'Nivel ' + (st.level + 1) + ': ' + esc(lv.nombre) : 'Este nivel ya está limpio'}</h3><p>${fmt(left ? lv.intro : lv.moraleja)}</p>`;
+  }
+
+  const d = $('#done');
+  d.hidden = left > 0;
+  if (!left) {
+    if (leftAll === 0) {
+      const rango = st.misses <= 2 ? 'Artesano del software' : st.misses <= 6 ? 'Boy scout del código' : 'Aprendiz con buena escoba';
+      d.innerHTML = `<p>Las ${TOTAL} manchas quedaron fuera, con ${st.misses} ${st.misses === 1 ? 'toque' : 'toques'} en falso. Tu rango: ${rango}.</p>
+        <div class="row"><button class="btn" data-go="duelo">Ir al duelo</button></div>`;
+    } else {
+      const next = LEVELS.findIndex(l => fixedOf(l).length < l.ids.length);
+      d.innerHTML = `<p>${esc(lv.moraleja)}</p><div class="row"><button class="btn" data-next="${next}">Siguiente: ${esc(LEVELS[next].nombre)}</button></div>`;
+    }
+  }
+
+  const wtf = leftAll * PER_SMELL + st.misses, max = TOTAL * PER_SMELL + MAX_MISS;
+  $('#wtfNum').textContent = wtf;
+  $('#needle').style.setProperty('--deg', (-90 + 180 * wtf / max).toFixed(1) + 'deg');
+  $('#wtfWord').textContent = wtf > 40 ? 'Nadie quiere tocar esto' : wtf > 20 ? 'Se puede leer, con esfuerzo' : wtf > 6 ? 'Ya casi huele a limpio' : 'Reluciente';
+  $('#badgeNum').textContent = leftAll;
+  $('#badgeTxt').textContent = leftAll === 0 ? 'todo limpio' : leftAll === 1 ? 'mancha' : 'manchas';
+  $('#badge').classList.toggle('clean', leftAll === 0);
+}
+
+function fix(id) {
+  const lv = LEVELS[st.level];
+  if (fixedOf(lv).includes(id)) return;
+  st.fixed[lv.id] = [...fixedOf(lv), id];
+  lastFound = { lv: lv.id, id };
+  save();
+  setStatus('Mancha fuera: ' + lv.smells[id][0].toLowerCase() + '.', 'good');
+  renderWash(id);
+}
+function miss() {
+  const lv = LEVELS[st.level];
+  if (fixedOf(lv).length === lv.ids.length) return;
+  st.misses = Math.min(st.misses + 1, MAX_MISS);
+  save();
+  setStatus('Esa parte está limpia. Sube un WTF.', 'bad');
+  pre.classList.remove('miss'); void pre.offsetWidth; pre.classList.add('miss');
+  const keep = lastFound; renderWash(); lastFound = keep;
+}
+pre.addEventListener('click', e => {
+  const s = e.target.closest('.spot');
+  if (!s) miss(); else if (s.dataset.id) fix(s.dataset.id);
+});
+pre.addEventListener('keydown', e => {
+  const s = e.target.closest('.spot[data-id]');
+  if (s && (e.key === 'Enter' || e.key === ' ')) { e.preventDefault(); fix(s.dataset.id); }
+});
+$('#levels').addEventListener('click', e => {
+  const b = e.target.closest('[data-lv]');
+  if (b) goLevel(+b.dataset.lv);
+});
+function goLevel(i) { st.level = i; lastFound = null; save(); setStatus(''); renderWash(); }
+$('#done').addEventListener('click', e => {
+  const b = e.target.closest('button');
+  if (!b) return;
+  if (b.dataset.next) goLevel(+b.dataset.next);
+  if (b.dataset.go) show(b.dataset.go);
+});
+$('#hintBtn').addEventListener('click', () => {
+  const s = $('.spot[data-id]', pre);
+  if (!s) { setStatus('En este nivel ya no queda nada por limpiar.'); return; }
+  s.classList.add('hint');
+  s.scrollIntoView({ block: 'nearest', inline: 'nearest' });
+  setStatus('Mira la zona marcada.');
+  setTimeout(() => s.classList.remove('hint'), 2000);
+});
+$('#resetBtn').addEventListener('click', () => {
+  st.fixed = {}; st.misses = 0; st.level = 0; lastFound = null; save();
+  setStatus('Todo sucio otra vez. A lavar.');
+  renderWash();
+});
+
+/* Duelo */
+const DUELS = [
+  { tema: 'Nombres', cap: 'Cap. 2',
+    sucio: String.raw`const d = 86400000;
+
+if (ahora - inicio > d * 30) {
+  cancelarCuenta();
+}`,
+    limpio: String.raw`const MS_POR_DIA = 86400000;
+const DIAS_DE_PRUEBA = 30;
+
+if (ahora - inicio > DIAS_DE_PRUEBA * MS_POR_DIA) {
+  cancelarCuenta();
+}`,
+    por: "Una letra y dos números sueltos obligan a adivinar. Las constantes con nombre explican la regla del negocio y se pueden buscar." },
+  { tema: 'Argumentos', cap: 'Cap. 3',
+    sucio: String.raw`function crearCirculo(x, y, radio) {
+  // ...
+}
+
+crearCirculo(10, 20, 5);`,
+    limpio: String.raw`function crearCirculo(centro, radio) {
+  // ...
+}
+
+crearCirculo(new Punto(10, 20), 5);`,
+    por: "Cuando varios argumentos viajan siempre juntos, forman un concepto que merece nombre. Menos argumentos, menos que recordar en cada llamada." },
+  { tema: 'Banderas', cap: 'Cap. 3',
+    sucio: String.raw`imprimirReporte(ventas, true);`,
+    limpio: String.raw`imprimirReporteDetallado(ventas);`,
+    por: "Al leer la llamada, `true` no dice nada. Un argumento bandera indica que la función hace dos cosas; sepáralas en dos funciones con nombre." },
+  { tema: 'Comentarios', cap: 'Cap. 4',
+    sucio: String.raw`// ¿tiene derecho a todos los beneficios?
+if (empleado.porHora && empleado.edad > 65) {
+  darBeneficios(empleado);
+}`,
+    limpio: String.raw`if (empleado.tieneBeneficiosCompletos()) {
+  darBeneficios(empleado);
+}`,
+    por: "El comentario intenta explicar una condición confusa. Si la condición vive en un método con ese nombre, el código se explica solo y no se desactualiza." },
+  { tema: 'Errores', cap: 'Cap. 7',
+    sucio: String.raw`const empleados = obtenerEmpleados();
+if (empleados !== null) {
+  for (const e of empleados) {
+    total += e.sueldo;
+  }
+}`,
+    limpio: String.raw`for (const empleado of obtenerEmpleados()) {
+  total += empleado.sueldo;
+}`,
+    por: "Si `obtenerEmpleados` devuelve una lista vacía en lugar de null, quien llama no tiene que revisar nada. Cada null devuelto es una verificación que alguien va a olvidar." },
+  { tema: 'Ley de Deméter', cap: 'Cap. 6',
+    sucio: String.raw`const ruta = contexto
+  .getOpciones()
+  .getDirTemporal()
+  .getRutaAbsoluta();
+const archivo = abrir(ruta + '/' + nombre);`,
+    limpio: String.raw`const archivo = contexto.crearArchivoTemporal(nombre);`,
+    por: "La cadena de llamadas es un choque de trenes: este código conoce por dentro a tres objetos. Pídele al objeto que haga el trabajo en lugar de hurgar en su estructura." },
+  { tema: 'Efectos secundarios', cap: 'Cap. 3',
+    sucio: String.raw`function validarClave(usuario, clave) {
+  if (cifrar(clave) === usuario.clave) {
+    Sesion.iniciar();
+    return true;
+  }
+  return false;
+}`,
+    limpio: String.raw`function claveEsCorrecta(usuario, clave) {
+  return cifrar(clave) === usuario.clave;
+}`,
+    por: "El nombre promete validar, pero además inicia una sesión. Ese efecto oculto sorprende a quien solo quería comprobar la contraseña." },
+  { tema: 'Pruebas', cap: 'Cap. 9',
+    sucio: String.raw`test('prueba 1', () => {
+  expect(sumar(2, 2)).toBe(4);
+  expect(dividir(8, 2)).toBe(4);
+  expect(esPar(3)).toBe(false);
+});`,
+    limpio: String.raw`test('sumar regresa el total de dos números', () => {
+  expect(sumar(2, 2)).toBe(4);
+});`,
+    por: "Una prueba, un concepto. Si `prueba 1` falla no sabes qué se rompió; con un nombre que describe el comportamiento, el reporte te lo dice." }
+];
+let duel;
+function startDuel() {
+  duel = { i: 0, score: 0, picked: null, cleanFirst: DUELS.map(() => Math.random() < .5) };
+  renderDuel();
+}
+function renderDuel() {
+  const el = $('#duel');
+  if (duel.i >= DUELS.length) {
+    if (duel.score > st.best) { st.best = duel.score; save(); }
+    const s = duel.score;
+    const rango = s === 8 ? 'Artesano del software' : s >= 6 ? 'Boy scout del código' : s >= 4 ? 'Aprendiz de limpieza' : 'Todavía hay ropa sucia en casa';
+    el.innerHTML = `<h2>Resultado del duelo</h2>
+      <div class="result-big">${s} de ${DUELS.length}</div>
+      <p class="sub">${rango}. Tu mejor marca en este navegador: ${st.best} de ${DUELS.length}.</p>
+      <div class="row"><button class="btn" id="duelAgain">Jugar otra vez</button><button class="btn ghost" id="duelBook">Repasar el libro</button></div>`;
+    return;
+  }
+  const d = DUELS[duel.i], first = duel.cleanFirst[duel.i], sides = first ? ['limpio', 'sucio'] : ['sucio', 'limpio'];
+  const cards = sides.map((side, k) => {
+    let cls = '', note = '';
+    if (duel.picked !== null) {
+      if (side === 'limpio') { cls = ' win'; note = 'Más limpio'; }
+      else if (duel.picked === k) { cls = ' lose'; note = 'Tu elección'; }
+    }
+    return `<button class="pick${cls}" data-k="${k}" ${duel.picked !== null ? 'disabled' : ''}>
+      <span class="pick-label"><span>Opción ${'AB'[k]}</span><span>${note}</span></span>
+      <code class="duel-code">${hl(d[side])}</code></button>`;
+  }).join('');
+  let after = '';
+  if (duel.picked !== null) {
+    const ok = sides[duel.picked] === 'limpio';
+    after = `<div class="finding"><p class="tag">${d.cap} · ${esc(d.tema)}</p><h3>${ok ? 'Correcto' : 'Era la otra'}</h3><p>${fmt(d.por)}</p></div>
+      <div class="row"><button class="btn" id="duelNext">${duel.i === DUELS.length - 1 ? 'Ver resultado' : 'Siguiente ronda'}</button></div>`;
+  }
+  el.innerHTML = `<div class="duel-head"><h2>¿Cuál de los dos es más limpio?</h2>
+      <span class="score">Ronda ${duel.i + 1} de ${DUELS.length} · ${esc(d.tema)} · ${duel.score} ${duel.score === 1 ? 'acierto' : 'aciertos'}</span></div>
+    <div class="duel-grid">${cards}</div>${after}`;
+}
+$('#duel').addEventListener('click', e => {
+  const p = e.target.closest('.pick');
+  if (p && duel.picked === null) {
+    duel.picked = +p.dataset.k;
+    const cleanIdx = duel.cleanFirst[duel.i] ? 0 : 1;
+    if (duel.picked === cleanIdx) duel.score++;
+    renderDuel();
+    const n = $('#duelNext'); if (n) n.focus({ preventScroll: true });
+    return;
+  }
+  const b = e.target.closest('button');
+  if (!b) return;
+  if (b.id === 'duelNext') { duel.i++; duel.picked = null; renderDuel(); }
+  if (b.id === 'duelAgain') startDuel();
+  if (b.id === 'duelBook') show('libro');
+});
+
+/* Libro */
+const CAPS = [
+  ["Código limpio", "El código sucio frena a todo el equipo. Para ir rápido hay que mantenerlo limpio.", ["Se lee 10 veces más de lo que se escribe", "«Después» significa «nunca»", "Regla del Boy Scout"], "Déjalo más limpio de como lo encontraste."],
+  ["Nombres con sentido", "Un nombre dice por qué existe, qué hace y cómo se usa.", ["Sin abreviaturas ni adivinanzas", "Que se pueda pronunciar y buscar", "Una palabra por concepto"], "Si necesita un comentario, cámbialo."],
+  ["Funciones", "Pequeñas, y cada una hace una sola cosa.", ["Un solo nivel de abstracción", "Pocos argumentos, cero banderas", "Sin efectos secundarios"], "Haz una cosa, hazla bien y haz solo eso."],
+  ["Comentarios", "Un comentario suele tapar código que no se explica solo.", ["Envejecen y terminan mintiendo", "Fuera bitácoras y código comentado", "Mejor renombrar o extraer"], "No comentes el código malo: reescríbelo."],
+  ["Formato", "El formato también comunica.", ["De lo general al detalle", "Lo relacionado va junto", "Un estilo para todo el equipo"], "Que se lea como un buen artículo."],
+  ["Objetos y estructuras de datos", "Los objetos esconden sus datos; las estructuras los exponen.", ["Ley de Deméter", "Sin choques de trenes: a.b().c().d()", "Nada de híbridos"], "Habla con tus amigos, no con desconocidos."],
+  ["Procesar errores", "Manejar errores no debe tapar la lógica principal.", ["Excepciones, no códigos de error", "Cada excepción con su contexto", "No devuelvas ni pases null"], "El camino normal se lee aparte del error."],
+  ["Límites", "Aísla el código de terceros.", ["Envuelve las API externas", "Pruebas de aprendizaje", "Define la interfaz que quieres"], "Depende de lo que controlas."],
+  ["Pruebas de unidad", "Sin pruebas, cada cambio es un riesgo.", ["Tres leyes de TDD", "Un concepto por prueba", "F.I.R.S.T.: rápidas, independientes, repetibles, autovalidables, oportunas"], "Pruebas sucias es igual a no tener pruebas."],
+  ["Clases", "Pequeñas: se miden en responsabilidades, no en líneas.", ["Una sola razón para cambiar", "Alta cohesión", "Abiertas a extensión, cerradas a modificación"], "Si la describes con «y», hace demasiado."],
+  ["Sistemas", "Construir el sistema y usarlo son cosas separadas.", ["El arranque va aparte de la lógica", "Inyección de dependencias", "La arquitectura crece por partes"], "Usa lo más simple que funcione."],
+  ["Emergencia", "Cuatro reglas de Kent Beck para un diseño simple.", ["Pasa todas las pruebas", "Sin duplicación", "Expresa la intención", "Mínimo de clases y métodos"], "Se aplican en ese orden."],
+  ["Concurrencia", "Separa qué se hace de cuándo se hace, y es difícil.", ["Código concurrente aparte", "Pocos datos compartidos", "Los fallos raros no son casualidad"], "Primero sin hilos, luego con ellos."],
+  ["Refinamiento sucesivo", "Caso de estudio: el código limpio no sale a la primera.", ["Primero que funcione", "Luego límpialo de inmediato", "Pasos pequeños, con pruebas"], "Que funcione es el punto de partida."],
+  ["Aspectos internos de JUnit", "Hasta el código bien escrito se puede mejorar.", ["Nombres más claros", "Condiciones con nombre", "Condiciones en positivo"], "Ningún módulo es inmune a la mejora."],
+  ["Refactorización de SerialDate", "Una clase real, criticada y limpiada paso a paso.", ["Primero que funcione", "Luego corrígela", "Criticar con respeto"], "Revisar código ajeno nos mejora a todos."],
+  ["Síntomas y heurística", "Catálogo de malos olores para usar como lista de revisión.", ["Duplicación", "Código muerto y números mágicos", "Envidia de características"], "Las listas entrenan el criterio, no lo sustituyen."]
+];
+let capSel = 0;
+function renderBook() {
+  $('#chapters').innerHTML = CAPS.map((c, i) =>
+    `<li><button class="ch" data-cap="${i}" aria-pressed="${i === capSel}"><b>${i + 1}</b><span>${esc(c[0])}</span></button></li>`).join('');
+  const [t, idea, puntos, regla] = CAPS[capSel];
+  $('#detail').innerHTML = `<p class="tag">Capítulo ${capSel + 1} de ${CAPS.length}</p><h2>${esc(t)}</h2><p>${esc(idea)}</p>
+    <ul>${puntos.map(p => `<li>${esc(p)}</li>`).join('')}</ul>
+    <div class="rule"><small>Regla de bolsillo</small>${esc(regla)}</div>
+    <div class="row">
+      <button class="btn ghost" data-step="-1" ${capSel === 0 ? 'disabled' : ''}>Anterior</button>
+      <button class="btn ghost" data-step="1" ${capSel === CAPS.length - 1 ? 'disabled' : ''}>Siguiente</button>
+    </div>`;
+}
+$('#chapters').addEventListener('click', e => {
+  const b = e.target.closest('[data-cap]');
+  if (b) { capSel = +b.dataset.cap; renderBook(); }
+});
+$('#detail').addEventListener('click', e => {
+  const b = e.target.closest('[data-step]');
+  if (b) { capSel = Math.max(0, Math.min(CAPS.length - 1, capSel + +b.dataset.step)); renderBook(); }
+});
+
+/* Pestañas */
+const TABS = ['lavar', 'duelo', 'libro'];
+function show(tab, push = true) {
+  if (!TABS.includes(tab)) tab = 'lavar';
+  TABS.forEach(t => {
+    $('#sec-' + t).hidden = t !== tab;
+    const b = $('#tab-' + t);
+    if (t === tab) b.setAttribute('aria-current', 'page'); else b.removeAttribute('aria-current');
+  });
+  if (push) { try { history.replaceState(null, '', '#' + tab); } catch (e) {} }
+}
+document.querySelector('.tabs').addEventListener('click', e => {
+  const b = e.target.closest('[data-tab]');
+  if (b) show(b.dataset.tab);
+});
+window.addEventListener('hashchange', () => show(location.hash.slice(1), false));
+
+/* Sello en forma de estallido */
+const pts = [];
+for (let i = 0; i < 32; i++) {
+  const r = i % 2 ? 43 : 50, a = i * Math.PI / 16;
+  pts.push((50 + r * Math.cos(a)).toFixed(1) + '% ' + (50 + r * Math.sin(a)).toFixed(1) + '%');
+}
+$('#badge').style.clipPath = 'polygon(' + pts.join(',') + ')';
+
+renderWash();
+startDuel();
+renderBook();
+show(location.hash.slice(1), false);
+})();
+</script>
+<a href="../index.html" class="volver-menu" style="position:fixed;left:12px;bottom:12px;z-index:9999;background:#1d1b16;color:#fff;padding:9px 15px;border-radius:999px;font:600 14px/1 system-ui,sans-serif;text-decoration:none;box-shadow:0 4px 14px rgba(0,0,0,.25);border:1px solid rgba(255,255,255,.25)">← Mis actividades</a>
