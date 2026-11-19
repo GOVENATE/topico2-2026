@@ -1,0 +1,295 @@
+{
+  "nombre": "Alan Salvador Rojas Piña",
+  "github": "SalvaRMT",
+  "sobreMi": "Me gustan la música, los videojuegos y la lectura. Aquí reúno mis actividades y lo que me llevo de cada tema.",
+  "actividades": [
+    {
+      "id": "act01-video-presentacion",
+      "titulo": "Presentación en video",
+      "descripcion": "Video donde me presento.",
+      "tipo": "web",
+      "tecnologias": [
+        "HTML",
+        "CSS",
+        "JavaScript"
+      ],
+      "ruta": "actividades/APP.html#video-presentacion"
+    },
+    {
+      "id": "act02-infografia-habitos",
+      "titulo": "Infografía: los 7 hábitos",
+      "descripcion": "Infografía interactiva de Los 7 hábitos de la gente altamente efectiva.",
+      "tipo": "web",
+      "tecnologias": [
+        "HTML",
+        "CSS",
+        "JavaScript"
+      ],
+      "ruta": "actividades/APP.html#infografia-habitos"
+    },
+    {
+      "id": "act03-introduccion",
+      "titulo": "7 hábitos: ¿qué entendí del tema?",
+      "descripcion": "Lo que entendí del libro de los 7 hábitos.",
+      "tipo": "web",
+      "tecnologias": [
+        "HTML",
+        "CSS",
+        "JavaScript"
+      ],
+      "ruta": "actividades/APP.html#introduccion"
+    },
+    {
+      "id": "act04-dinamica",
+      "titulo": "7 hábitos: dinámica",
+      "descripcion": "Sopa de letras y reto de hábitos.",
+      "tipo": "web",
+      "tecnologias": [
+        "HTML",
+        "CSS",
+        "JavaScript"
+      ],
+      "ruta": "actividades/APP.html#dinamica"
+    },
+    {
+      "id": "act05-autor",
+      "titulo": "7 hábitos: autor",
+      "descripcion": "Información sobre el autor.",
+      "tipo": "web",
+      "tecnologias": [
+        "HTML",
+        "CSS",
+        "JavaScript"
+      ],
+      "ruta": "actividades/APP.html#autor"
+    },
+    {
+      "id": "act06-collage",
+      "titulo": "Collage del autor",
+      "descripcion": "Collage sobre el autor.",
+      "tipo": "web",
+      "tecnologias": [
+        "HTML",
+        "CSS",
+        "JavaScript"
+      ],
+      "ruta": "actividades/APP.html#collage"
+    },
+    {
+      "id": "act07-resumenes-habilidades-directivas",
+      "titulo": "Resúmenes de habilidades directivas",
+      "descripcion": "Dos temas, una mirada visual: habilidades directivas, tiempo, inteligencia emocional, decisiones, alta dirección, equipos, negociación y pensamiento.",
+      "tipo": "web",
+      "tecnologias": [
+        "HTML",
+        "CSS",
+        "JavaScript"
+      ],
+      "ruta": "actividades/APP.html#resumenes-habilidades-directivas"
+    },
+    {
+      "id": "act08-pensamiento-critico",
+      "titulo": "Sin pensamiento crítico no eres nadie",
+      "descripcion": "Lo que entendí, mi opinión y conclusión.",
+      "tipo": "web",
+      "tecnologias": [
+        "HTML",
+        "CSS",
+        "JavaScript"
+      ],
+      "ruta": "actividades/APP.html#pensamiento-critico"
+    },
+    {
+      "id": "act09-resumen-video",
+      "titulo": "Persuade con tu voz",
+      "descripcion": "Resumen del video.",
+      "tipo": "web",
+      "tecnologias": [
+        "HTML",
+        "CSS",
+        "JavaScript"
+      ],
+      "ruta": "actividades/APP.html#resumen-video"
+    },
+    {
+      "id": "act10-superricos",
+      "titulo": "¿Cuánta influencia tienen los superricos?",
+      "descripcion": "Análisis sobre la influencia de los superricos.",
+      "tipo": "web",
+      "tecnologias": [
+        "HTML",
+        "CSS",
+        "JavaScript"
+      ],
+      "ruta": "actividades/APP.html#superricos"
+    },
+    {
+      "id": "act11-infografia-paises",
+      "titulo": "Infografía: ¿por qué fracasan los países?",
+      "descripcion": "Infografía del libro.",
+      "tipo": "web",
+      "tecnologias": [
+        "HTML",
+        "CSS",
+        "JavaScript"
+      ],
+      "ruta": "actividades/APP.html#infografia-paises"
+    },
+    {
+      "id": "act12-movimientos-sociales",
+      "titulo": "Movimientos sociales (Mentes en acción)",
+      "descripcion": "Resumen de movimientos sociales.",
+      "tipo": "web",
+      "tecnologias": [
+        "HTML",
+        "CSS",
+        "JavaScript"
+      ],
+      "ruta": "actividades/APP.html#movimientos-sociales"
+    },
+    {
+      "id": "act13-poder-empresas",
+      "titulo": "El poder de las empresas",
+      "descripcion": "Infografía sobre el poder de las empresas.",
+      "tipo": "web",
+      "tecnologias": [
+        "HTML",
+        "CSS",
+        "JavaScript"
+      ],
+      "ruta": "actividades/APP.html#poder-empresas"
+    },
+    {
+      "id": "act14-gigantes-mexico",
+      "titulo": "Gigantes de México",
+      "descripcion": "Las grandes empresas mexicanas.",
+      "tipo": "web",
+      "tecnologias": [
+        "HTML",
+        "CSS",
+        "JavaScript"
+      ],
+      "ruta": "actividades/APP.html#gigantes-mexico"
+    },
+    {
+      "id": "act15-comparativo-empresarios",
+      "titulo": "Cuadro comparativo de empresarios mexicanos",
+      "descripcion": "Comparativo de empresarios mexicanos.",
+      "tipo": "web",
+      "tecnologias": [
+        "HTML",
+        "CSS",
+        "JavaScript"
+      ],
+      "ruta": "actividades/APP.html#comparativo-empresarios"
+    },
+    {
+      "id": "act16-empresario-ideal",
+      "titulo": "Empresario ideal",
+      "descripcion": "Mi perfil del empresario mexicano ideal.",
+      "tipo": "web",
+      "tecnologias": [
+        "HTML",
+        "CSS",
+        "JavaScript"
+      ],
+      "ruta": "actividades/APP.html#empresario-ideal"
+    },
+    {
+      "id": "act17-codigo-limpio",
+      "titulo": "Código limpio · operación rescate",
+      "descripcion": "Actividad sobre Clean Code.",
+      "tipo": "web",
+      "tecnologias": [
+        "HTML",
+        "CSS",
+        "JavaScript"
+      ],
+      "ruta": "actividades/APP.html#codigo-limpio"
+    },
+    {
+      "id": "act18-rueda-competencias",
+      "titulo": "11 características para el desarrollo",
+      "descripcion": "Rueda de competencias.",
+      "tipo": "web",
+      "tecnologias": [
+        "HTML",
+        "CSS",
+        "JavaScript"
+      ],
+      "ruta": "actividades/APP.html#rueda-competencias"
+    },
+    {
+      "id": "act19-s16-senge",
+      "titulo": "La quinta disciplina · Parte I",
+      "descripcion": "Peter Senge y el pensamiento sistémico.",
+      "tipo": "web",
+      "tecnologias": [
+        "HTML",
+        "CSS",
+        "JavaScript"
+      ],
+      "ruta": "actividades/APP.html#s16-senge"
+    },
+    {
+      "id": "act20-s17-arquetipos",
+      "titulo": "Arquetipos sistémicos y psicológicos",
+      "descripcion": "Arquetipos sistémicos y lectura psicológica.",
+      "tipo": "web",
+      "tecnologias": [
+        "HTML",
+        "CSS",
+        "JavaScript"
+      ],
+      "ruta": "actividades/APP.html#s17-arquetipos"
+    },
+    {
+      "id": "act21-s18-creatividad",
+      "titulo": "Creatividad · Elkhonon Goldberg",
+      "descripcion": "El cerebro humano en la era de la innovación.",
+      "tipo": "web",
+      "tecnologias": [
+        "HTML",
+        "CSS",
+        "JavaScript"
+      ],
+      "ruta": "actividades/APP.html#s18-creatividad"
+    },
+    {
+      "id": "act22-s20-estrategia",
+      "titulo": "La habilidad estratégica · capítulo 12",
+      "descripcion": "Laboratorio de decisiones estratégicas.",
+      "tipo": "web",
+      "tecnologias": [
+        "HTML",
+        "CSS",
+        "JavaScript"
+      ],
+      "ruta": "actividades/APP.html#s20-estrategia"
+    },
+    {
+      "id": "act23-proyecto1",
+      "titulo": "Proyecto 1: herramientas para la toma de decisiones",
+      "descripcion": "Proyecto del primer parcial.",
+      "tipo": "web",
+      "tecnologias": [
+        "HTML",
+        "CSS",
+        "JavaScript"
+      ],
+      "ruta": "actividades/APP.html#proyecto1"
+    },
+    {
+      "id": "act24-proyecto",
+      "titulo": "Proyecto: México en su mejor versión",
+      "descripcion": "Proyecto final.",
+      "tipo": "web",
+      "tecnologias": [
+        "HTML",
+        "CSS",
+        "JavaScript"
+      ],
+      "ruta": "actividades/APP.html#proyecto"
+    }
+  ]
+}

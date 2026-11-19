@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#101820">
+<title>Código limpio | Laboratorio de buenas prácticas</title>
+<style>
+:root{
+  --bg:#f2f4f1;--paper:#fff;--ink:#17231f;--muted:#66736c;--line:#dce3dd;
+  --green:#b9f36b;--green-dark:#315b24;--dark:#101a18;--dark2:#182522;
+  --orange:#ff8b5e;--red:#ef6969;--blue:#7fc4ed;--mono:ui-monospace,SFMono-Regular,Consolas,monospace;
+  --sans:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.6 var(--sans)}
+button{font:inherit}
+a{color:inherit}
+.wrap{width:min(1180px,calc(100% - 36px));margin:auto}
+.topbar{background:var(--dark);color:#f5f7f1;border-bottom:1px solid #2d3a35;position:sticky;top:0;z-index:20}
+.topinner{height:68px;display:flex;align-items:center;justify-content:space-between;gap:20px}
+.brand{display:flex;align-items:center;gap:11px;font-weight:850;letter-spacing:-.04em}
+.brandmark{width:34px;height:34px;background:var(--green);color:var(--dark);border-radius:10px;display:grid;place-items:center;font:900 17px var(--mono)}
+.brand small{display:block;color:#9ba9a0;font-size:10px;letter-spacing:.15em;text-transform:uppercase;font-weight:700}
+nav{display:flex;gap:22px;align-items:center}
+nav a{text-decoration:none;color:#c5d0c8;font-size:13px;font-weight:700}
+nav a:hover{color:var(--green)}
+.menu{display:none;background:none;border:1px solid #44534b;color:white;border-radius:8px;padding:7px 10px}
+.hero{background:var(--dark);color:#f5f7f1;padding:76px 0 68px;overflow:hidden;position:relative}
+.hero:after{content:"{}";position:absolute;right:5%;top:15px;color:#24342d;font:900 clamp(180px,30vw,360px)/1 var(--mono);letter-spacing:-.12em;pointer-events:none}
+.hero-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:50px;align-items:center;position:relative;z-index:1}
+.eyebrow{color:var(--green);font:700 11px var(--mono);letter-spacing:.17em;text-transform:uppercase}
+h1{font-size:clamp(48px,7vw,88px);line-height:.94;letter-spacing:-.075em;margin:18px 0 22px;max-width:700px}
+h1 em{font-style:normal;color:var(--green)}
+.hero p{color:#bdc9c1;max-width:590px;font-size:18px;margin:0 0 28px}
+.actions{display:flex;gap:12px;flex-wrap:wrap}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:9px;padding:12px 17px;border-radius:9px;border:1px solid transparent;text-decoration:none;font-weight:800;font-size:14px;cursor:pointer;transition:.2s}
+.btn.primary{background:var(--green);color:var(--dark)}
+.btn.primary:hover{transform:translateY(-2px);box-shadow:0 8px 24px #b9f36b30}
+.btn.ghost{border-color:#526159;color:#eef3ed;background:#ffffff08}
+.btn.ghost:hover{background:#ffffff16}
+.terminal{background:#0b1210;border:1px solid #34433b;border-radius:15px;box-shadow:0 24px 60px #0005;transform:rotate(1.5deg);overflow:hidden}
+.termhead{height:42px;border-bottom:1px solid #28352f;display:flex;align-items:center;padding:0 14px;gap:7px;color:#92a097;font:11px var(--mono)}
+.light{width:8px;height:8px;border-radius:50%;background:#ef6969}.light:nth-child(2){background:#f4c45f}.light:nth-child(3){background:#8bd66c}
+.termname{margin-left:8px}
+.termcode{padding:23px 22px 25px;font:13px/1.9 var(--mono);color:#dce8df;overflow:auto}
+.termcode .dim{color:#708078}.termcode .kw{color:#b9f36b}.termcode .fn{color:#7fc4ed}.termcode .str{color:#ffae83}.termcode .comment{color:#708078;font-style:italic}
+.hero-note{display:flex;align-items:center;gap:10px;color:#9eada3;font-size:12px;margin-top:14px}
+.hero-note b{color:var(--green);font:700 11px var(--mono)}
+.section{padding:76px 0}
+.section-head{display:flex;align-items:end;justify-content:space-between;gap:25px;margin-bottom:30px}
+.kicker{color:#648044;font:800 11px var(--mono);letter-spacing:.15em;text-transform:uppercase}
+h2{font-size:clamp(32px,4.5vw,48px);line-height:1;letter-spacing:-.06em;margin:9px 0 0}
+.section-head p{max-width:430px;color:var(--muted);margin:0}
+.intro-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.info-card{padding:25px;background:var(--paper);border:1px solid var(--line);border-radius:14px}
+.info-card .num{font:800 12px var(--mono);color:#71934b}
+.info-card h3{font-size:21px;letter-spacing:-.04em;margin:12px 0 8px}
+.info-card p{margin:0;color:var(--muted)}
+.quote{background:var(--green);border-radius:14px;padding:25px 28px;margin-top:16px;display:flex;gap:20px;align-items:center}
+.quote strong{font-size:clamp(19px,2.5vw,27px);line-height:1.25;letter-spacing:-.04em}
+.quote span{font:700 11px var(--mono);white-space:nowrap;color:#48652f}
+.topics{background:#e8ede7}
+.topic-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.topic{background:var(--paper);border:1px solid var(--line);border-radius:13px;padding:20px;min-height:185px;transition:.2s}
+.topic:hover{transform:translateY(-4px);border-color:#9fbd7d;box-shadow:0 12px 24px #17231f0c}
+.topic .symbol{width:38px;height:38px;border-radius:10px;background:#edf5e5;color:#527b2e;display:grid;place-items:center;font:800 17px var(--mono)}
+.topic h3{margin:16px 0 6px;font-size:18px;letter-spacing:-.04em}
+.topic p{margin:0;color:var(--muted);font-size:14px}
+.playground{display:grid;grid-template-columns:.8fr 1.2fr;gap:18px;align-items:stretch}
+.play-intro{background:var(--dark);color:white;padding:27px;border-radius:14px}
+.play-intro h3{font-size:26px;line-height:1.1;letter-spacing:-.05em;margin:12px 0}
+.play-intro p{color:#aebbb2;font-size:14px}
+.play-intro .tip{border-top:1px solid #34443b;padding-top:14px;margin-top:22px;color:#c7d3ca;font-size:12px}
+.editor{background:#0e1714;border-radius:14px;overflow:hidden;color:#e8f0e9;min-width:0}
+.editor-head{padding:12px 16px;border-bottom:1px solid #2b3831;display:flex;justify-content:space-between;align-items:center;font:11px var(--mono);color:#a4b1a8}
+.editor-body{display:grid;grid-template-columns:1fr 1fr;min-height:230px}
+.codepane{padding:18px;min-width:0}
+.codepane+ .codepane{border-left:1px solid #2b3831;background:#111e19}
+.pane-label{font:700 10px var(--mono);letter-spacing:.13em;text-transform:uppercase;margin-bottom:13px;color:#8c9d91}
+.badlabel{color:#ff8989}.goodlabel{color:var(--green)}
+.codepane pre{white-space:pre-wrap;overflow-wrap:anywhere;margin:0;font:12px/1.85 var(--mono);color:#d7e3da}
+.codepane .red{color:#ff8989}.codepane .green{color:var(--green)}.codepane .blue{color:#7fc4ed}
+.editor-foot{padding:12px 16px;border-top:1px solid #2b3831;display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.editor-foot span{font-size:12px;color:#a4b1a8}
+.switcher{display:flex;gap:6px}
+.switcher button{border:1px solid #405047;background:transparent;color:#dce8df;border-radius:7px;padding:7px 10px;font-size:12px;cursor:pointer}
+.switcher button.active{background:var(--green);color:var(--dark);border-color:var(--green);font-weight:800}
+.rule-list{display:grid;gap:10px}
+.rule{display:grid;grid-template-columns:46px 1fr auto;gap:14px;align-items:center;padding:15px 17px;border:1px solid var(--line);border-radius:11px;background:white}
+.rule b{font:800 13px var(--mono);color:#73934e}
+.rule strong{font-size:15px}
+.rule small{color:var(--muted);font-size:12px}
+.rule button{background:#eff5e9;border:0;color:#486c2b;border-radius:7px;padding:7px 10px;font-size:12px;font-weight:800;cursor:pointer}
+.quiz{background:var(--dark);color:#f3f6f1;border-radius:16px;padding:30px;display:grid;grid-template-columns:.75fr 1.25fr;gap:30px}
+.quiz h2{font-size:36px}
+.quiz .kicker{color:var(--green)}
+.quiz-intro p{color:#aebbb2;font-size:14px}
+.quizbox{background:#1b2923;border:1px solid #35463c;border-radius:12px;padding:22px}
+.qcount{color:var(--green);font:700 11px var(--mono);letter-spacing:.12em}
+.question{font-size:20px;line-height:1.3;font-weight:800;margin:12px 0 17px}
+.answers{display:grid;gap:8px}
+.answer{border:1px solid #45564c;background:#22332b;color:#e9f0e9;text-align:left;padding:11px 13px;border-radius:8px;cursor:pointer;font-size:13px}
+.answer:hover{border-color:var(--green)}
+.answer.correct{background:#284b2e;border-color:#8bd66c}
+.answer.wrong{background:#4a2b2b;border-color:#ef6969}
+.feedback{min-height:25px;color:#c6d4c9;font-size:12px;margin-top:12px}
+.quiz-actions{display:flex;justify-content:space-between;align-items:center;margin-top:10px}
+.quiz-actions button{background:var(--green);color:#122016;border:0;border-radius:7px;padding:8px 12px;font-weight:800;cursor:pointer}
+.quiz-actions button:disabled{opacity:.4;cursor:not-allowed}
+.score{font:700 11px var(--mono);color:#aebbb2}
+.takeaways{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.take{padding:19px;border-top:3px solid var(--green);background:white;border-radius:0 0 10px 10px}
+.take b{font:800 11px var(--mono);color:#6d8e49}
+.take p{margin:9px 0 0;font-weight:750;line-height:1.35}
+footer{background:var(--dark);color:#aebbb2;padding:28px 0;font-size:12px}
+.foot{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap}
+footer strong{color:#f4f7f2}
+@media(max-width:850px){.hero-grid,.playground,.quiz{grid-template-columns:1fr}.hero:after{right:-40px;top:220px}.terminal{max-width:620px}.topic-grid{grid-template-columns:repeat(2,1fr)}.takeaways{grid-template-columns:repeat(2,1fr)}.section-head{display:block}.section-head p{margin-top:14px}}
+@media(max-width:600px){.wrap{width:min(100% - 26px,1180px)}.topinner{height:60px}nav{display:none;position:absolute;top:60px;left:0;right:0;background:var(--dark);padding:18px;flex-direction:column;align-items:flex-start;border-top:1px solid #34443b}nav.open{display:flex}.menu{display:block}.hero{padding:58px 0}.hero p{font-size:16px}.section{padding:55px 0}.intro-grid,.topic-grid{grid-template-columns:1fr}.quote{display:block}.quote span{display:block;margin-top:12px}.editor-body{grid-template-columns:1fr}.codepane+ .codepane{border-left:0;border-top:1px solid #2b3831}.rule{grid-template-columns:35px 1fr}.rule button{grid-column:2;justify-self:start}.quiz{padding:22px}.takeaways{grid-template-columns:1fr 1fr}}
+@media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important;transition:none!important}}
+</style>
+</head>
+<body>
+<header class="topbar">
+ <div class="wrap topinner">
+  <a class="brand" href="#inicio" style="text-decoration:none"><span class="brandmark">{} </span><span>CÓDIGO LIMPIO<small>Guía interactiva de lectura</small></span></a>
+  <button class="menu" id="menu" aria-label="Abrir menú">☰</button>
+  <nav id="nav"><a href="#libro">EL LIBRO</a><a href="#principios">PRINCIPIOS</a><a href="#practica">EN PRÁCTICA</a><a href="#repaso">REPASO</a></nav>
+ </div>
+</header>
+<main id="inicio">
+<section class="hero">
+ <div class="wrap hero-grid">
+  <div>
+   <div class="eyebrow">Ingeniería de software · Lectura esencial</div>
+   <h1>Que tu código<br>hable <em>claro.</em></h1>
+   <p>Una experiencia para explorar las ideas de <strong>Código limpio</strong>, de Robert C. Martin: escribir software que otras personas puedan entender, mantener y mejorar.</p>
+   <div class="actions"><a class="btn primary" href="#principios">Explorar principios <span>↘</span></a><a class="btn ghost" href="#practica">Ver ejemplos de código</a></div>
+   <div class="hero-note"><b>01 / 04</b> LEE · COMPRENDE · APLICA · REPITE</div>
+  </div>
+  <div>
+   <div class="terminal">
+    <div class="termhead"><i class="light"></i><i class="light"></i><i class="light"></i><span class="termname">clean_code.java</span></div>
+    <div class="termcode">
+     <div><span class="dim">// La intención debe ser evidente</span></div>
+     <div><span class="kw">public</span> <span class="kw">class</span> <span class="fn">Invoice</span> {</div>
+     <div>&nbsp;&nbsp;<span class="kw">public</span> <span class="kw">double</span> <span class="fn">calculateTotal</span>() {</div>
+     <div>&nbsp;&nbsp;&nbsp;&nbsp;<span class="kw">return</span> subtotal + tax;</div>
+     <div>&nbsp;&nbsp;}</div>
+     <div>}</div>
+     <br>
+     <div><span class="comment">// Un buen nombre explica el propósito.</span></div>
+     <div><span class="comment">// Una función pequeña cuenta una sola historia.</span></div>
+     <div><span class="comment">// Una prueba protege el comportamiento.</span></div>
+    </div>
+   </div>
+   <div class="hero-note"><b>TIP</b> El código se escribe una vez, pero se lee muchas.</div>
+  </div>
+ </div>
+</section>
+
+<section class="section" id="libro">
+ <div class="wrap">
+  <div class="section-head"><div><div class="kicker">01 — Contexto</div><h2>¿De qué trata el libro?</h2></div><p>Martin plantea que la calidad del software no depende únicamente de que funcione: también importa qué tan fácil resulta comprenderlo y cambiarlo.</p></div>
+  <div class="intro-grid">
+   <article class="info-card"><div class="num">EL AUTOR</div><h3>Robert C. Martin</h3><p>Conocido como “Uncle Bob”, es un ingeniero de software y autor que promueve principios de diseño, desarrollo ágil y buenas prácticas de programación.</p></article>
+   <article class="info-card"><div class="num">LA PROPUESTA</div><h3>Calidad que se puede mantener</h3><p>El libro reúne criterios y ejemplos para reconocer código confuso, reducir complejidad y construir programas más legibles y resistentes al cambio.</p></article>
+  </div>
+  <div class="quote"><strong>“La diferencia entre un programador profesional y uno aficionado está en el cuidado que pone en su trabajo.”</strong><span>IDEA CENTRAL DEL LIBRO</span></div>
+ </div>
+</section>
+
+<section class="section topics" id="principios">
+ <div class="wrap">
+  <div class="section-head"><div><div class="kicker">02 — Ideas fundamentales</div><h2>Seis hábitos de código limpio</h2></div><p>Selecciona cada idea como una lista de comprobación mental al diseñar, escribir o revisar un programa.</p></div>
+  <div class="topic-grid">
+   <article class="topic"><div class="symbol">Aa</div><h3>Nombres significativos</h3><p>Usa nombres que revelen intención. Evita abreviaturas misteriosas y datos cuyo propósito no se entiende.</p></article>
+   <article class="topic"><div class="symbol">ƒ</div><h3>Funciones pequeñas</h3><p>Cada función debe concentrarse en una tarea. Su nombre y su contenido deben expresar el mismo propósito.</p></article>
+   <article class="topic"><div class="symbol">//</div><h3>Comentarios útiles</h3><p>Prefiere código que se explique por sí mismo. Comenta el contexto o las decisiones que no son evidentes.</p></article>
+   <article class="topic"><div class="symbol">▤</div><h3>Formato consistente</h3><p>La organización visual ayuda a encontrar relaciones, leer de arriba abajo y reconocer la estructura del programa.</p></article>
+   <article class="topic"><div class="symbol">✓</div><h3>Pruebas confiables</h3><p>Las pruebas deben ser claras, rápidas, independientes y repetibles. También necesitan diseño y mantenimiento.</p></article>
+   <article class="topic"><div class="symbol">↻</div><h3>Mejora continua</h3><p>Refactoriza en pasos pequeños. El código debe evolucionar sin acumular duplicaciones ni complejidad innecesaria.</p></article>
+  </div>
+ </div>
+</section>
+
+<section class="section" id="practica">
+ <div class="wrap">
+  <div class="section-head"><div><div class="kicker">03 — Taller de lectura</div><h2>Del código confuso al claro</h2></div><p>Compara dos formas de resolver una misma tarea. La segunda versión comunica mejor la intención.</p></div>
+  <div class="playground">
+   <div class="play-intro"><div class="eyebrow">Ejemplo interactivo</div><h3>Un nombre también es documentación.</h3><p>Imagina que encuentras una variable llamada <code>x</code>. Para comprenderla necesitas buscar dónde se declara y qué representa.</p><p>Un nombre descriptivo reduce esa carga mental y hace que el código sea más fácil de revisar.</p><div class="tip">RECUERDA<br>Elige nombres pronunciables, buscables y específicos del dominio.</div></div>
+   <div class="editor">
+    <div class="editor-head"><span>COMPARADOR DE CÓDIGO</span><span>JAVA · EJEMPLO</span></div>
+    <div class="editor-body">
+     <div class="codepane"><div class="pane-label badlabel">✕ Antes · poco expresivo</div><pre><span class="red">int d;</span>
+<span class="red">d = 5;</span>
+<span class="red">double p = 100;</span>
+<span class="red">double r = p * d;</span></pre></div>
+     <div class="codepane"><div class="pane-label goodlabel">✓ Después · intención clara</div><pre><span class="green">int rentalDays = 5;</span>
+<span class="green">double dailyPrice = 100;</span>
+<span class="green">double totalCost =</span>
+  <span class="blue">dailyPrice * rentalDays;</span></pre></div>
+    </div>
+    <div class="editor-foot"><span>La lógica no cambió: mejoró la lectura.</span><div class="switcher"><button class="active" data-example="names">Nombres</button><button data-example="functions">Funciones</button></div></div>
+   </div>
+  </div>
+ </div>
+</section>
+
+<section class="section" style="padding-top:0">
+ <div class="wrap">
+  <div class="section-head"><div><div class="kicker">04 — Lista de revisión</div><h2>Antes de entregar tu código</h2></div><p>Una revisión rápida para detectar oportunidades de mejora. Marca los puntos que ya aplicaste.</p></div>
+  <div class="rule-list" id="checklist">
+   <div class="rule"><b>01</b><div><strong>¿Los nombres explican su propósito?</strong><br><small>Variables, métodos y clases son fáciles de identificar.</small></div><button>Marcar ✓</button></div>
+   <div class="rule"><b>02</b><div><strong>¿Cada función hace una sola cosa?</strong><br><small>Evita mezclar responsabilidades distintas.</small></div><button>Marcar ✓</button></div>
+   <div class="rule"><b>03</b><div><strong>¿Eliminé duplicaciones?</strong><br><small>Una regla de negocio no debería repetirse sin necesidad.</small></div><button>Marcar ✓</button></div>
+   <div class="rule"><b>04</b><div><strong>¿Las pruebas verifican el comportamiento?</strong><br><small>Comprueba casos normales y situaciones límite.</small></div><button>Marcar ✓</button></div>
+   <div class="rule"><b>05</b><div><strong>¿Dejé el código mejor de como lo encontré?</strong><br><small>Aplica la regla del Boy Scout en cambios pequeños.</small></div><button>Marcar ✓</button></div>
+  </div>
+ </div>
+</section>
+
+<section class="section" id="repaso" style="padding-top:0">
+ <div class="wrap">
+  <div class="quiz">
+   <div class="quiz-intro"><div class="kicker">05 — Comprueba lo aprendido</div><h2>¿Qué tan limpio programas?</h2><p>Responde estas preguntas rápidas para repasar algunos principios del libro. Al final verás tu puntuación.</p><div class="hero-note"><b>QUIZ</b> 4 PREGUNTAS · UNA RESPUESTA</div></div>
+   <div class="quizbox">
+    <div class="qcount" id="qcount">PREGUNTA 01 / 04</div><div class="question" id="question">¿Qué característica debe tener un buen nombre de variable?</div>
+    <div class="answers" id="answers"></div><div class="feedback" id="feedback" aria-live="polite"></div>
+    <div class="quiz-actions"><span class="score" id="score">ACIERTOS: 0</span><button id="next" disabled>Siguiente →</button></div>
+   </div>
+  </div>
+ </div>
+</section>
+<section class="section" style="padding-top:0">
+ <div class="wrap">
+  <div class="section-head"><div><div class="kicker">06 — Para llevar</div><h2>Ideas que permanecen</h2></div></div>
+  <div class="takeaways">
+   <div class="take"><b>01 / LEGIBILIDAD</b><p>Escribe pensando en quien leerá el código después.</p></div>
+   <div class="take"><b>02 / SIMPLICIDAD</b><p>Resuelve el problema sin agregar complejidad innecesaria.</p></div>
+   <div class="take"><b>03 / DISCIPLINA</b><p>Prueba, revisa y refactoriza de manera constante.</p></div>
+   <div class="take"><b>04 / PROFESIONALISMO</b><p>La calidad es responsabilidad de todo el equipo.</p></div>
+  </div>
+ </div>
+</section>
+</main>
+<footer><div class="wrap foot"><span><strong>CÓDIGO LIMPIO</strong> · Guía interactiva de aprendizaje</span><span>Basado en Robert C. Martin, <em>Clean Code: A Handbook of Agile Software Craftsmanship</em> (2008).</span></div></footer>
+<script>
+const menu=document.getElementById('menu'),nav=document.getElementById('nav');
+menu.addEventListener('click',()=>nav.classList.toggle('open'));
+nav.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>nav.classList.remove('open')));
+
+const examples={
+ names:{
+  bad:'int d;\\nd = 5;\\ndouble p = 100;\\ndouble r = p * d;',
+  good:'int rentalDays = 5;\\ndouble dailyPrice = 100;\\ndouble totalCost =\\n  dailyPrice * rentalDays;',
+  note:'La lógica no cambió: mejoró la lectura.'
+ },
+ functions:{
+  bad:'void process(boolean isAdmin) {\\n  // valida, calcula, guarda\\n  // y envía una notificación\\n}',
+  good:'validateOrder(order);\\ncalculateTotal(order);\\nsaveOrder(order);\\nnotifyCustomer(order);',
+  note:'Separar tareas hace que cada función sea más fácil de entender y probar.'
+ }
+};
+document.querySelectorAll('[data-example]').forEach(btn=>btn.addEventListener('click',()=>{
+ document.querySelectorAll('[data-example]').forEach(b=>b.classList.remove('active'));btn.classList.add('active');
+ const e=examples[btn.dataset.example],panes=document.querySelectorAll('.codepane pre');
+ panes[0].textContent=e.bad;panes[1].textContent=e.good;document.querySelector('.editor-foot span').textContent=e.note;
+}));
+
+document.querySelectorAll('#checklist .rule button').forEach(btn=>btn.addEventListener('click',()=>{
+ const done=btn.classList.toggle('done');btn.textContent=done?'✓ Listo':'Marcar ✓';
+ btn.style.background=done?'#d9f3c4':'#eff5e9';btn.closest('.rule').style.opacity=done?'.62':'1';
+}));
+
+const questions=[
+ {q:'¿Qué característica debe tener un buen nombre de variable?',a:['Ser lo más corto posible','Revelar la intención y el significado','Usar una sola letra'],correct:1,why:'Un nombre claro permite comprender el propósito sin investigar demasiado.'},
+ {q:'Según el enfoque del libro, una función bien diseñada debería…',a:['Hacer una sola cosa y hacerla bien','Resolver todas las tareas relacionadas','Tener muchos parámetros'],correct:0,why:'Las funciones pequeñas y enfocadas son más fáciles de leer, probar y mantener.'},
+ {q:'¿Qué propone la regla del Boy Scout?',a:['No modificar código antiguo','Dejar el código un poco mejor de como lo encontraste','Reescribir todo desde cero'],correct:1,why:'Cada cambio puede ser una oportunidad para mejorar gradualmente el código.'},
+ {q:'¿Cuál es una cualidad de buenas pruebas unitarias?',a:['Depender unas de otras','Ser difíciles de ejecutar','Ser rápidas e independientes'],correct:2,why:'Las pruebas deben poder ejecutarse de forma confiable y repetible.'}
+];
+let qi=0,points=0,answered=false;
+const qel=document.getElementById('question'),ael=document.getElementById('answers'),feedback=document.getElementById('feedback'),next=document.getElementById('next');
+function renderQuestion(){
+ const q=questions[qi];answered=false;document.getElementById('qcount').textContent=`PREGUNTA 0${qi+1} / 04`;
+ qel.textContent=q.q;feedback.textContent='';ael.innerHTML='';next.disabled=true;next.textContent=qi===questions.length-1?'Ver resultado':'Siguiente →';
+ q.a.forEach((answer,i)=>{const b=document.createElement('button');b.className='answer';b.textContent=answer;b.addEventListener('click',()=>choose(i));ael.appendChild(b)});
+}
+function choose(i){
+ if(answered)return;answered=true;const q=questions[qi],buttons=[...ael.children];
+ buttons.forEach((b,j)=>{b.disabled=true;if(j===q.correct)b.classList.add('correct');else if(j===i)b.classList.add('wrong')});
+ if(i===q.correct)points++;feedback.textContent=(i===q.correct?'¡Correcto! ':'No exactamente. ')+q.why;
+ document.getElementById('score').textContent=`ACIERTOS: ${points}`;next.disabled=false;
+}
+next.addEventListener('click',()=>{
+ if(!answered)return;
+ if(qi<questions.length-1){qi++;renderQuestion()}
+ else{document.getElementById('qcount').textContent='RESULTADO FINAL';qel.textContent=`Obtuviste ${points} de ${questions.length} respuestas correctas.`;ael.innerHTML='';feedback.textContent=points===4?'¡Excelente! Dominas estas ideas fundamentales.':'¡Buen intento! Repasa los principios y vuelve a intentarlo.';next.textContent='Volver a empezar';next.disabled=false;next.onclick=()=>{qi=0;points=0;document.getElementById('score').textContent='ACIERTOS: 0';next.onclick=null;renderQuestion()}}
+});
+renderQuestion();
+</script>
+</body>
+</html>

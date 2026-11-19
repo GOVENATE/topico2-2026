@@ -1,0 +1,808 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Actividades Tópico 2</title>
+<style>
+:root{
+  --bg:#f6f3ec; --surface:#ffffff; --ink:#1f2430; --muted:#5d6472; --line:#ddd6c8;
+  --accent:#2f5d50; --accent2:#c2543a; --accent3:#3b6ea5; --note:#fff3a8; --tape:#e9c46a80;
+  --ok:#2e7d4f; --bad:#b3402a;
+  --shadow:0 6px 18px rgba(30,30,30,.12);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#15181d; --surface:#1f242c; --ink:#e8e6e1; --muted:#a3a9b5; --line:#343b46;
+    --accent:#7fc8b0; --accent2:#f08a6c; --accent3:#8fb8e8; --note:#4d4720; --tape:#c2a14a60;
+    --ok:#6fd39a; --bad:#f08a6c; --shadow:0 6px 18px rgba(0,0,0,.5);
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#15181d; --surface:#1f242c; --ink:#e8e6e1; --muted:#a3a9b5; --line:#343b46;
+  --accent:#7fc8b0; --accent2:#f08a6c; --accent3:#8fb8e8; --note:#4d4720; --tape:#c2a14a60;
+  --ok:#6fd39a; --bad:#f08a6c; --shadow:0 6px 18px rgba(0,0,0,.5);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font:17px/1.65 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+.wrap{max-width:1000px;margin:0 auto;padding:0 16px}
+h1{font-size:clamp(2rem,6vw,3.1rem);line-height:1.1;margin:.2em 0}
+h2{font-size:clamp(1.5rem,4vw,2rem);margin:0 0 .3em}
+h3{font-size:1.1rem;margin:1.3em 0 .3em;color:var(--accent)}
+p{margin:.5em 0}
+button{font:inherit;color:inherit}
+header.hero{padding:56px 0 20px}
+.kicker{font-weight:700;font-size:.78rem;letter-spacing:.14em;text-transform:uppercase;color:var(--accent2)}
+.sub{color:var(--muted);max-width:60ch}
+.theme{position:fixed;top:12px;right:12px;z-index:50;border:1px solid var(--line);background:var(--surface);border-radius:999px;padding:6px 12px;font-weight:600;font-size:.8rem;cursor:pointer}
+.hint{font-size:.85rem;color:var(--muted)}
+
+/* ---------- menú ---------- */
+.progress{display:flex;align-items:center;gap:10px;margin:18px 0 6px;font-size:.85rem;color:var(--muted)}
+.bar{flex:1;height:8px;background:var(--line);border-radius:99px;overflow:hidden}
+.bar i{display:block;height:100%;width:0;background:var(--accent);transition:width .5s}
+.menu{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:14px;margin:12px 0 40px}
+.card{position:relative;display:block;text-decoration:none;color:inherit;background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:18px;box-shadow:var(--shadow);transition:transform .2s,box-shadow .2s}
+.card:hover,.card:focus-visible{transform:translateY(-6px) rotate(-.6deg);outline:2px solid var(--accent)}
+.card .ico{font-size:2.2rem;display:inline-block;transition:transform .3s}
+.card:hover .ico{transform:scale(1.25) rotate(-8deg)}
+.card .n{position:absolute;top:14px;right:16px;font-weight:800;font-size:1.6rem;color:var(--line)}
+.card b{display:block;font-size:1.05rem;line-height:1.3;margin:.4em 0 .2em}
+.card span{color:var(--muted);font-size:.9rem;line-height:1.4;display:block}
+.card .seen{display:none;position:absolute;bottom:12px;right:14px;font-size:.75rem;font-weight:700;color:var(--ok)}
+.card.is-seen .seen{display:block}
+
+/* ---------- secciones ---------- */
+section.act{background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:28px clamp(16px,4vw,40px);margin:0 0 28px;scroll-margin-top:16px}
+.back{float:right;font-weight:600;font-size:.8rem;text-decoration:none;border:1px solid var(--line);border-radius:999px;padding:5px 12px;color:var(--ink)}
+.simple p,.simple li{font-size:1.02rem}
+.chap{background:var(--bg);border:1px solid var(--line);border-radius:14px;padding:14px 18px;margin:12px 0}
+.chap h3{margin:0 0 .3em}
+.chap ul{margin:.3em 0;padding-left:1.2em}
+.chap li{margin:.25em 0}
+.big-idea{background:var(--accent);color:#fff;border-radius:14px;padding:16px 20px;font-weight:600;margin-top:16px}
+:root[data-theme="dark"] .big-idea{color:#0f1a16}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .big-idea{color:#0f1a16}}
+
+/* ---------- actividad 2: flip cards ---------- */
+.seg{display:inline-flex;border:1px solid var(--line);border-radius:999px;overflow:hidden;margin:6px 0 14px}
+.seg button{border:0;background:transparent;padding:6px 14px;cursor:pointer;font-size:.85rem;font-weight:600}
+.seg button[aria-pressed="true"]{background:var(--accent);color:var(--surface)}
+.flips{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:14px}
+.flip{perspective:1000px;border:0;padding:0;background:none;cursor:pointer;text-align:left}
+.flip .inner{display:grid;transition:transform .6s;transform-style:preserve-3d}
+.flip.on .inner{transform:rotateY(180deg)}
+.face{grid-area:1/1;backface-visibility:hidden;-webkit-backface-visibility:hidden;border:1px solid var(--line);border-radius:14px;padding:16px;background:var(--surface);box-shadow:var(--shadow);min-height:250px}
+.face.front{display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;background:var(--bg)}
+.face.front .emo{font-size:2.6rem}
+.face.front .num{font-weight:800;color:var(--accent2)}
+.face.front strong{font-size:1.05rem;line-height:1.3;margin:.3em 0}
+.face.back{transform:rotateY(180deg);font-size:.88rem;line-height:1.45}
+.face.back h4{margin:0 0 6px;font-size:.95rem;color:var(--accent)}
+.loop{display:flex;flex-wrap:wrap;gap:4px;align-items:center;font-size:.72rem;font-weight:700;margin:6px 0}
+.loop span{background:var(--bg);border:1px solid var(--line);border-radius:6px;padding:2px 6px}
+.loop em{font-style:normal;color:var(--accent2)}
+.ex{border-radius:8px;padding:6px 8px;margin-top:6px;transition:opacity .3s,background .3s}
+.ex b{display:block;font-size:.68rem;letter-spacing:.08em;text-transform:uppercase}
+.ex.sys b{color:var(--accent3)} .ex.psy b{color:var(--accent2)}
+[data-filter="sys"] .ex.sys,[data-filter="psy"] .ex.psy{background:var(--bg);outline:2px solid var(--accent)}
+[data-filter="sys"] .ex.psy,[data-filter="psy"] .ex.sys{opacity:.25}
+
+/* quiz */
+.quiz{margin-top:28px;background:var(--bg);border:1px solid var(--line);border-radius:16px;padding:20px}
+.quiz .top{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
+.score{font-weight:800;color:var(--accent)}
+.qtext{font-size:1.08rem;font-weight:600;margin:12px 0}
+.opts{display:grid;gap:8px}
+.opt{border:1px solid var(--line);background:var(--surface);border-radius:10px;padding:10px 14px;text-align:left;cursor:pointer;transition:transform .15s}
+.opt:hover:not(:disabled){transform:translateX(4px);border-color:var(--accent)}
+.opt.ok{border-color:var(--ok);background:color-mix(in srgb,var(--ok) 15%,var(--surface))}
+.opt.bad{border-color:var(--bad);background:color-mix(in srgb,var(--bad) 15%,var(--surface))}
+.fb{min-height:1.5em;margin:10px 0;font-weight:600}
+.btn{border:0;background:var(--accent);color:var(--surface);font-weight:700;border-radius:10px;padding:9px 16px;cursor:pointer}
+.btn.alt{background:var(--accent2)}
+.btn.ghost{background:transparent;color:var(--ink);border:1px solid var(--line)}
+.btn:disabled{opacity:.4;cursor:default}
+
+/* ---------- actividad 3: collage ---------- */
+.toolbar{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin:8px 0 14px}
+.collage{position:relative;background:
+  repeating-linear-gradient(0deg,transparent 0 31px,var(--line) 31px 32px),
+  repeating-linear-gradient(90deg,transparent 0 31px,var(--line) 31px 32px),var(--bg);
+  border:2px dashed var(--line);border-radius:14px;padding:28px 18px;display:grid;
+  grid-template-columns:repeat(12,1fr);gap:24px 14px;overflow:hidden}
+.piece{position:relative;background:var(--surface);border:1px solid var(--line);box-shadow:var(--shadow);padding:16px;font-size:.92rem;line-height:1.5;
+  transform:translate(var(--x,0px),var(--y,0px)) rotate(var(--r,0deg));touch-action:none;user-select:none;transition:box-shadow .2s}
+.piece.dragging{box-shadow:0 16px 36px rgba(0,0,0,.28);z-index:10;transition:none;cursor:grabbing}
+.piece.drag{cursor:grab}
+.piece h4{margin:0 0 6px;font-size:1rem}
+.piece::before{content:"";position:absolute;top:-10px;left:50%;width:70px;height:20px;margin-left:-35px;background:var(--tape);transform:rotate(-3deg)}
+.piece.note{background:var(--note)}
+.p-title{grid-column:1/-1;text-align:center;background:var(--accent);color:var(--surface);border-color:var(--accent)}
+.p-title h3{color:inherit;margin:0;font-size:1.3rem}
+.p-what{grid-column:span 5;--r:-1.4deg}
+.p-apply{grid-column:span 7;--r:1deg}
+.p-full{grid-column:1/-1}
+.p-mega{grid-column:span 4;padding:0;background:transparent;border:0;box-shadow:none}
+.p-mega::before{z-index:2}
+.p-mega .flip{width:100%}
+.p-mega .face{min-height:210px;border-radius:4px}
+.p-mega .face.front{background:var(--surface)}
+.badge{display:inline-block;font-weight:700;font-size:.72rem;background:var(--accent2);color:#fff;border-radius:6px;padding:2px 8px;margin-bottom:6px}
+svg.cyc{width:100%;max-width:360px;display:block;margin:8px auto 0}
+svg text{font:600 11px system-ui;fill:var(--ink)}
+svg .nd{fill:var(--bg);stroke:var(--accent);stroke-width:1.5}
+svg .ar{stroke:var(--accent2);fill:none;stroke-width:2.2;stroke-dasharray:6 6;animation:flow 1s linear infinite}
+@keyframes flow{to{stroke-dashoffset:-12}}
+
+/* simulador */
+.sim{margin-top:24px;border:1px solid var(--line);border-radius:16px;padding:20px;background:var(--bg)}
+.meters{display:grid;gap:10px;margin:14px 0}
+.meter{display:grid;grid-template-columns:150px 1fr 44px;gap:10px;align-items:center;font-weight:600;font-size:.9rem}
+.meter .track{height:14px;background:var(--line);border-radius:99px;overflow:hidden}
+.meter .fill{height:100%;width:0;border-radius:99px;transition:width .6s cubic-bezier(.3,1.4,.5,1)}
+.f-bugs{background:var(--bad)} .f-debt{background:#d99a2b} .f-speed{background:var(--ok)}
+.log{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:10px 14px;min-height:3em;font-size:.92rem}
+.turn{font-size:.85rem;color:var(--muted)}
+
+/* ---------- actividad 4 ---------- */
+.brain{background:var(--bg);border:1px solid var(--line);border-radius:18px;padding:16px;margin:18px 0}
+.brain-top{display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:space-between}
+.brain-seg{margin:0}
+.brain-body{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(0,1fr);gap:18px;align-items:start;margin-top:12px}
+.brain-fig svg{width:100%;display:block}
+.brain{--c-rec:var(--accent3);--c-rnd:var(--accent2);--c-rr:var(--accent)}
+.brain .lobe{opacity:.55;transition:opacity .5s}
+.brain .l-front{fill:color-mix(in srgb,var(--accent3) 18%,var(--surface))}
+.brain .l-par{fill:color-mix(in srgb,var(--accent) 16%,var(--surface))}
+.brain .l-occ{fill:color-mix(in srgb,#9b6fc3 18%,var(--surface))}
+.brain .l-temp{fill:color-mix(in srgb,var(--accent2) 16%,var(--surface))}
+.brain .outline{fill:none;stroke:var(--muted);stroke-width:2.5}
+.brain .fissure{fill:none;stroke:var(--muted);stroke-width:2;opacity:.7}
+.brain .sulcus{fill:none;stroke:var(--muted);stroke-width:1.2;opacity:.35}
+.brain .cereb{fill:color-mix(in srgb,var(--muted) 18%,var(--surface));stroke:var(--muted);stroke-width:2}
+.brain .cereb-line{fill:none;stroke:var(--muted);stroke-width:1;opacity:.5}
+.brain .stem{fill:color-mix(in srgb,var(--muted) 25%,var(--surface));stroke:var(--muted);stroke-width:1.5}
+.brain .lobe-name{font:600 10px system-ui;fill:var(--muted);letter-spacing:.04em}
+.brain .dir{font:700 11px system-ui;fill:var(--muted)}
+.brain .net .wire{fill:none;stroke:var(--line);stroke-width:3;stroke-linecap:round;transition:stroke .4s,opacity .4s}
+.brain .net .nd{fill:var(--line);stroke:var(--surface);stroke-width:2;transition:fill .4s;cursor:help;transform-box:fill-box;transform-origin:center}
+.brain .net .nd.inner{stroke-dasharray:3 2;stroke:var(--muted)}
+.brain .net{opacity:.45;transition:opacity .4s}
+.brain .net-rec{--c:var(--c-rec)} .brain .net-rnd{--c:var(--c-rnd)} .brain .net-rr{--c:var(--c-rr)}
+.brain[data-mode~="rec"] .net-rec,.brain[data-mode~="rnd"] .net-rnd,.brain[data-mode~="rr"] .net-rr{opacity:1}
+.brain[data-mode~="rec"] .net-rec .wire,.brain[data-mode~="rnd"] .net-rnd .wire,.brain[data-mode~="rr"] .net-rr .wire{stroke:var(--c);stroke-dasharray:7 7;animation:flow .7s linear infinite}
+.brain[data-mode~="rec"] .net-rec .nd,.brain[data-mode~="rnd"] .net-rnd .nd,.brain[data-mode~="rr"] .net-rr .nd{fill:var(--c);animation:pulse 1.4s ease-in-out infinite}
+@keyframes pulse{50%{transform:scale(1.25)}}
+.brain .spark{opacity:0;transition:opacity .4s}
+.brain .spark .rays{stroke:#e9b949;stroke-width:3;stroke-linecap:round}
+.brain .spark circle{fill:url(#glow)}
+.brain[data-mode~="spark"] .spark{opacity:1;animation:blink 1.2s ease-in-out infinite}
+@keyframes blink{50%{opacity:.4}}
+.legend{display:flex;flex-wrap:wrap;gap:6px 14px;font-size:.8rem;font-weight:600;margin-top:6px}
+.legend .hint{flex-basis:100%;font-weight:400}
+.dot{display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:5px;vertical-align:-1px}
+.d-rec{background:var(--accent3)} .d-rnd{background:var(--accent2)} .d-rr{background:var(--accent)}
+.brain-info{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:14px 16px;font-size:.92rem;line-height:1.5}
+.bi-title{font-weight:800;font-size:1.05rem;margin-bottom:8px;display:flex;align-items:center;gap:8px}
+.bi-title .chip{font-size:.7rem;font-weight:700;color:var(--surface);background:var(--ink);border-radius:999px;padding:2px 8px}
+.bi-row{margin:6px 0}
+.bi-row b{display:block;font-size:.7rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.levels{display:grid;gap:6px;margin-top:10px}
+.lv{display:grid;grid-template-columns:100px 1fr;gap:8px;align-items:center;font-size:.8rem;font-weight:600}
+.lv .track{height:10px;background:var(--line);border-radius:99px;overflow:hidden}
+.lv .fill{height:100%;border-radius:99px;transition:width .6s cubic-bezier(.3,1.4,.5,1)}
+#lvRec{background:var(--accent3)} #lvRnd{background:var(--accent2)}
+
+@media (max-width:720px){
+  .collage{grid-template-columns:1fr}
+  .collage>.piece{grid-column:1/-1 !important}
+  .day-arrow{display:none}
+  .back{float:none;display:inline-block;margin-bottom:10px}
+  .meter{grid-template-columns:110px 1fr 38px}
+  .brain-body{grid-template-columns:1fr}
+}
+@media (prefers-reduced-motion:reduce){
+  *{transition:none !important;animation:none !important}
+  html{scroll-behavior:auto}
+}
+svg.lucide{width:1em;height:1em;vertical-align:-.14em;stroke-width:2.2;flex:none}
+.card .ico,.face.front .emo{color:var(--accent)}
+.meter>span:first-child{display:flex;align-items:center;gap:6px}
+.btn,.seg button{display:inline-flex;align-items:center;gap:6px}
+/* NFC */
+.facts{display:flex;flex-wrap:wrap;gap:8px}
+.facts span{display:inline-flex;align-items:center;gap:6px;background:var(--bg);border:1px solid var(--line);border-radius:999px;padding:4px 12px;font-weight:600;font-size:.85rem}
+.modes3{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px}
+.modes3 div{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:10px 12px}
+.modes3 b{display:flex;align-items:center;gap:6px;margin-bottom:4px;color:var(--accent)}
+.piece.wide-half{grid-column:span 6}
+.piece h4{display:flex;align-items:center;gap:6px}
+.p-title h3,.p-full h4[style*="center"]{justify-content:center}
+.day{display:flex;align-items:stretch;gap:8px;flex-wrap:wrap}
+.day-step{flex:1 1 170px;position:relative;background:var(--bg);border:1px solid var(--line);border-radius:12px;padding:12px;text-align:center}
+.day-step>svg{width:28px;height:28px;color:var(--accent3);display:block;margin:4px auto}
+.day-step b{display:block}
+.day-step p{font-size:.85rem;margin:.3em 0 0}
+.day-n{position:absolute;top:8px;left:10px;font-weight:800;color:var(--accent2)}
+.day-arrow{align-self:center;color:var(--muted)}
+.nfc-svg .wave{fill:none;stroke:var(--accent3);stroke-width:3;stroke-linecap:round;animation:wave 1.6s ease-in-out infinite}
+.nfc-svg .w2{animation-delay:.2s}.nfc-svg .w3{animation-delay:.4s}
+@keyframes wave{0%,100%{opacity:.15}50%{opacity:1}}
+.nfc-stage{position:relative;height:190px;border:1px solid var(--line);border-radius:14px;margin:12px 0;overflow:hidden;
+  background:radial-gradient(circle at 80px 50%,color-mix(in srgb,var(--accent3) 10%,transparent),transparent 60%),var(--surface)}
+.nfc-reader{position:absolute;left:16px;top:50%;transform:translateY(-50%);width:110px;height:130px;border-radius:14px;background:var(--bg);border:2px solid var(--line);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;text-align:center;font-size:.8rem;z-index:1;transition:border-color .3s}
+.nfc-reader>svg{width:34px;height:34px;color:var(--accent3)}
+.rings{position:absolute;inset:-2px;border-radius:14px;pointer-events:none}
+.nfc-stage[data-state="near"] .rings,.nfc-stage[data-state="on"] .rings{animation:ring 1.2s ease-out infinite}
+.nfc-stage[data-state="on"] .nfc-reader{border-color:var(--ok)}
+@keyframes ring{from{box-shadow:0 0 0 0 color-mix(in srgb,var(--accent3) 55%,transparent)}to{box-shadow:0 0 0 36px transparent}}
+.nfc-phone{position:absolute;top:50%;transform:translateY(-50%);width:84px;height:150px;border-radius:18px;background:var(--ink);color:var(--surface);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;text-align:center;font-size:.75rem;font-weight:700;padding:8px;
+  cursor:grab;touch-action:none;user-select:none;z-index:2;transition:left .15s,background .3s;box-shadow:var(--shadow)}
+.nfc-phone.grab{cursor:grabbing;transition:background .3s}
+.nfc-phone>svg{width:30px;height:30px}
+.nfc-stage[data-state="on"] .nfc-phone{background:var(--ok)}
+.nfc-dist{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+.nfc-dist input{flex:1;min-width:160px;accent-color:var(--accent3)}
+.nfc-state{font-weight:700;font-size:.85rem;border-radius:999px;padding:3px 10px;background:var(--line)}
+.nfc-stage[data-state="on"]~.nfc-dist .nfc-state{background:var(--ok);color:var(--surface)}
+.nfc-steps{margin:12px 0 0;padding-left:1.3em;font-size:.92rem}
+.nfc-steps li{opacity:.4;transition:opacity .3s;margin:.2em 0}
+.nfc-steps li.done{opacity:1;font-weight:600}
+.nfc-steps li.done::marker{color:var(--ok)}
+footer{padding:20px 0 60px;color:var(--muted);font-size:.85rem}
+</style>
+<script src="https://unpkg.com/lucide@0.344.0/dist/umd/lucide.min.js"></script>
+</head>
+<body>
+<button class="theme" id="themeBtn" aria-label="Cambiar tema">◐ Tema</button>
+
+<div class="wrap">
+<header class="hero" id="menu">
+  <div class="kicker">Tópico 2 · Semestre 8</div>
+  <h1>Pensamiento sistémico y creatividad</h1>
+  <p class="sub">Cuatro actividades sobre <i>La Quinta Disciplina</i> (Peter Senge), los arquetipos sistémicos y <i>Creatividad</i> (Elkhonon Goldberg). Elige una.</p>
+  <div class="progress"><span id="progTxt">0 de 4 vistas</span><div class="bar"><i id="progBar"></i></div></div>
+  <nav class="menu" aria-label="Menú de actividades">
+    <a class="card" href="#act1" data-sec="act1"><span class="n">1</span><span class="ico"><i data-lucide="book-open"></i></span><b>Resumen de La Quinta Disciplina</b><span>Parte 1, explicada fácil.</span><em class="seen"><i data-lucide="check"></i> visto</em></a>
+    <a class="card" href="#act2" data-sec="act2"><span class="n">2</span><span class="ico"><i data-lucide="refresh-cw"></i></span><b>Arquetipos: tarjetas y juego</b><span>Voltea las 10 tarjetas y ponte a prueba.</span><em class="seen"><i data-lucide="check"></i> visto</em></a>
+    <a class="card" href="#act3" data-sec="act3"><span class="n">3</span><span class="ico"><i data-lucide="nfc"></i></span><b>Collage: ¿Qué es NFC?</b><span>Qué es, aplicaciones y simulador.</span><em class="seen"><i data-lucide="check"></i> visto</em></a>
+    <a class="card" href="#act4" data-sec="act4"><span class="n">4</span><span class="ico"><i data-lucide="brain"></i></span><b>Creatividad y cerebro</b><span>Mi comentario sobre Goldberg.</span><em class="seen"><i data-lucide="check"></i> visto</em></a>
+  </nav>
+</header>
+
+<!-- ============ ACTIVIDAD 1 ============ -->
+<section class="act simple" id="act1">
+  <a class="back" href="#menu">↑ Menú</a>
+  <div class="kicker">Actividad 1</div>
+  <h2><i data-lucide="book-open"></i> La Quinta Disciplina: Parte 1</h2>
+  <h3>Resumen general</h3>
+  <p>El libro <i>La Quinta Disciplina</i>, de Peter Senge, habla sobre cómo las personas y las empresas pueden aprender y trabajar mejor en equipo. Explica que muchas veces estamos acostumbrados a ver los problemas por partes y no nos damos cuenta de cómo se relacionan entre sí. Por eso, es importante aprender a ver las cosas de una manera más completa.</p>
+  <p>El autor explica qué es una organización inteligente, que es un lugar donde las personas aprenden juntas y buscan mejorar constantemente. Para lograrlo, existen cinco disciplinas. La primera es el dominio personal, que consiste en querer mejorar uno mismo. La segunda son los modelos mentales, que son las ideas que tenemos y que a veces necesitamos cambiar. La tercera es la visión compartida, que significa tener una misma meta. La cuarta es el aprendizaje en equipo, donde todos aportan ideas y aprenden juntos. La quinta es el pensamiento sistémico, que consiste en entender cómo se relacionan las cosas y cómo una decisión puede afectar a las demás.</p>
+  <p>También se mencionan siete problemas que dificultan el aprendizaje. Algunos ejemplos son pensar solamente en nuestro trabajo, culpar a otras personas cuando algo sale mal y fijarnos únicamente en lo que pasa en el momento, sin pensar en lo que puede pasar después. Otro problema es que muchas veces no notamos los cambios pequeños hasta que ya es demasiado tarde.</p>
+  <p>Por último, el libro explica el juego de la cerveza, donde participan un vendedor, un distribuidor y una fábrica. Cuando aumenta un poco la demanda, cada uno empieza a pedir más productos por miedo a quedarse sin ellos.</p>
+</section>
+
+<!-- ============ ACTIVIDAD 2 ============ -->
+<section class="act" id="act2">
+  <a class="back" href="#menu">↑ Menú</a>
+  <div class="kicker">Actividad 2</div>
+  <h2><i data-lucide="refresh-cw"></i> Los 10 arquetipos sistémicos</h2>
+  <p>Un <b>arquetipo</b> es un patrón que se repite una y otra vez. Cada tarjeta trae un ejemplo <b>sistémico</b> (empresas) y uno <b>psicológico</b> (la persona).</p>
+  <p class="hint"><i data-lucide="pointer"></i> Toca una tarjeta para voltearla. Usa los botones para resaltar un tipo de ejemplo.</p>
+  <div class="seg" role="group" aria-label="Filtrar ejemplos">
+    <button data-f="all" aria-pressed="true">Todos</button>
+    <button data-f="sys" aria-pressed="false"><i data-lucide="building-2"></i> Sistémico</button>
+    <button data-f="psy" aria-pressed="false"><i data-lucide="user"></i> Psicológico</button>
+  </div>
+  <div class="flips" id="flips" data-filter="all"></div>
+
+  <div class="quiz" id="quiz">
+    <div class="top"><h3 style="margin:0"><i data-lucide="gamepad-2"></i> ¿Qué arquetipo es?</h3><span class="score" id="qScore">0 / 0</span></div>
+    <div class="turn" id="qNum"></div>
+    <div class="qtext" id="qText"></div>
+    <div class="opts" id="qOpts"></div>
+    <div class="fb" id="qFb" aria-live="polite"></div>
+    <button class="btn" id="qNext" disabled>Siguiente →</button>
+  </div>
+</section>
+
+<!-- ============ ACTIVIDAD 3 ============ -->
+<section class="act" id="act3">
+  <a class="back" href="#menu">↑ Menú</a>
+  <div class="kicker">Actividad 3</div>
+  <h2><i data-lucide="nfc"></i> Collage: ¿Qué es NFC?</h2>
+  <p>Qué es, cómo funciona, para qué sirve y un mega ejemplo: <b>la credencial universitaria con NFC</b>.</p>
+  <div class="toolbar">
+    <button class="btn ghost" id="shuffle"><i data-lucide="dices"></i> Revolver</button>
+    <button class="btn ghost" id="tidy"><i data-lucide="layout-grid"></i> Ordenar</button>
+    <span class="hint" id="dragHint">Arrastra los recortes · toca las tarjetas para voltearlas</span>
+  </div>
+
+  <div class="collage" id="collage">
+    <div class="piece p-title drag"><h3>NFC · COMUNICACIÓN DE CAMPO CERCANO</h3></div>
+
+    <div class="piece p-what note drag"><h4>1 · ¿Qué es?</h4>
+      <b>NFC</b> significa <i>Near Field Communication</i>, o «comunicación de campo cercano».
+      Es una tecnología que permite que dos aparatos se pasen información <b>sin cables</b>, solo con <b>acercarlos</b>.
+      Por ejemplo, cuando pagas acercando tu celular a la terminal.
+    </div>
+
+    <div class="piece p-apply drag"><h4>2 · ¿Cómo funciona?</h4>
+      ① Un aparato (el <b>lector</b>) crea un pequeño campo de radio.
+      ② El otro (una <b>etiqueta</b> o un celular) lo detecta.
+      ③ Se mandan los datos. Todo pasa en menos de un segundo.
+      <svg class="cyc nfc-svg" viewBox="0 0 360 120" role="img" aria-label="Un lector manda ondas a una etiqueta NFC">
+        <rect class="nd" x="10" y="25" width="80" height="70" rx="10"/><text x="30" y="64">Lector</text>
+        <path class="wave w1" d="M110 40 Q125 60 110 80"/>
+        <path class="wave w2" d="M135 30 Q155 60 135 90"/>
+        <path class="wave w3" d="M160 20 Q185 60 160 100"/>
+        <rect class="nd" x="230" y="35" width="110" height="50" rx="10"/><text x="246" y="64">Etiqueta NFC</text>
+        <text x="96" y="116">distancia: unos 4 cm</text>
+      </svg>
+    </div>
+
+    <div class="piece p-full drag" style="--r:-.4deg"><h4>Datos rápidos</h4>
+      <div class="facts">
+        <span><i data-lucide="radio"></i> Frecuencia: 13.56 MHz</span>
+        <span><i data-lucide="ruler"></i> Alcance: unos 4 cm</span>
+        <span><i data-lucide="battery-warning"></i> Las etiquetas no necesitan batería</span>
+        <span><i data-lucide="git-branch"></i> Viene de la tecnología RFID</span>
+        <span><i data-lucide="zap"></i> Conecta en menos de 1 segundo</span>
+      </div>
+    </div>
+
+    <div class="piece p-full note drag" style="--r:.4deg"><h4>3 · Sus 3 formas de trabajar</h4>
+      <div class="modes3">
+        <div><b><i data-lucide="scan-line"></i> Lectura / escritura</b>El celular lee o graba una etiqueta. Ej.: una etiqueta en un póster que abre una página web.</div>
+        <div><b><i data-lucide="arrow-left-right"></i> Punto a punto</b>Dos aparatos se pasan datos. Ej.: emparejar unos audífonos con tu celular.</div>
+        <div><b><i data-lucide="credit-card"></i> Emulación de tarjeta</b>El celular se comporta como una tarjeta. Ej.: pagar con el celular o el reloj.</div>
+      </div>
+    </div>
+
+    <div class="piece p-full drag" style="--r:0deg"><h4 style="text-align:center;margin:0">4 · Aplicaciones (toca cada tarjeta)</h4></div>
+    <!-- tarjetas de aplicaciones y mega ejemplo se insertan por JS -->
+  </div>
+
+  <div class="sim" id="nfcSim">
+    <h3 style="margin-top:0"><i data-lucide="smartphone-nfc"></i> Simulador: acerca el celular</h3>
+    <p class="hint">Elige qué quieres hacer y arrastra el celular hacia el lector (o usa la barra). NFC solo funciona muy de cerca.</p>
+    <div class="seg" id="nfcModes" role="group" aria-label="Qué hacer">
+      <button data-n="pay" aria-pressed="true"><i data-lucide="credit-card"></i> Pagar</button>
+      <button data-n="read" aria-pressed="false"><i data-lucide="tag"></i> Leer etiqueta</button>
+      <button data-n="share" aria-pressed="false"><i data-lucide="arrow-left-right"></i> Compartir</button>
+    </div>
+    <div class="nfc-stage" id="nfcStage">
+      <div class="nfc-reader" id="nfcReader"><span class="rings"></span><i data-lucide="credit-card"></i><b id="nfcReaderName">Terminal de pago</b></div>
+      <div class="nfc-phone" id="nfcPhone" tabindex="0" aria-label="Celular, arrástralo">
+        <i data-lucide="smartphone"></i><span id="nfcScreen">Acércame</span>
+      </div>
+    </div>
+    <div class="nfc-dist">
+      <label for="nfcRange">Distancia: <b id="nfcCm">20 cm</b></label>
+      <input type="range" id="nfcRange" min="0" max="20" step="0.5" value="20">
+      <span class="nfc-state" id="nfcState">Fuera de alcance</span>
+    </div>
+    <ol class="nfc-steps" id="nfcSteps"></ol>
+  </div>
+</section>
+
+<!-- ============ ACTIVIDAD 4 ============ -->
+<section class="act simple" id="act4">
+  <a class="back" href="#menu">↑ Menú</a>
+  <div class="kicker">Actividad 4</div>
+  <h2><i data-lucide="brain"></i> Creatividad: el cerebro humano en la era de la innovación</h2>
+
+  <p>El libro de Elkhonon Goldberg habla sobre la creatividad y cómo funciona el cerebro cuando tenemos nuevas ideas. Explica que la creatividad no es un don con el que algunas personas nacen, sino que todos podemos desarrollarla con el aprendizaje y la práctica.</p>
+
+  <p>Una de las ideas que más me llamó la atención es la comparación del cerebro con los Lego. Así como podemos juntar piezas para crear algo nuevo, el cerebro utiliza los conocimientos que ya tenemos para formar nuevas ideas. Por eso, para ser creativos primero necesitamos aprender y conocer diferentes cosas.</p>
+
+  <p>También explica que el cerebro tiene diferentes formas de trabajar. Una es cuando nos concentramos en una actividad, como resolver un problema o hacer una tarea. La otra es cuando dejamos que nuestra mente piense libremente, sin estar tan concentrados en algo específico.</p>
+
+  <div class="brain" id="brain" data-mode="rec">
+    <div class="brain-top">
+      <div class="seg brain-seg" role="group" aria-label="Modo del cerebro">
+        <button data-m="rec" aria-pressed="true"><i data-lucide="target"></i> Concentración</button>
+        <button data-m="rnd" aria-pressed="false"><i data-lucide="cloud"></i> Divagar</button>
+        <button data-m="sw" aria-pressed="false"><i data-lucide="toggle-right"></i> Cambio</button>
+        <button data-m="idea" aria-pressed="false"><i data-lucide="lightbulb"></i> Idea nueva</button>
+      </div>
+      <button class="btn ghost" id="brainAuto" type="button"><i data-lucide="play"></i> <span>Ver en automático</span></button>
+    </div>
+
+    <div class="brain-body">
+      <div class="brain-fig">
+        <svg viewBox="0 0 400 290" role="img" aria-label="Esquema del cerebro visto de lado, con sus lóbulos y tres redes">
+          <defs>
+            <clipPath id="cortex"><path d="M58 172 C30 118 58 50 132 36 C196 20 276 28 326 64 C364 92 368 152 342 182 C322 204 290 208 266 202 C246 218 210 222 186 207 C160 214 120 212 104 197 C80 197 64 188 58 172Z"/></clipPath>
+            <radialGradient id="glow"><stop offset="0" stop-color="#fff" stop-opacity=".9"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></radialGradient>
+          </defs>
+          <!-- tronco y cerebelo -->
+          <path class="stem" d="M238 200 C244 228 242 252 236 282 L258 282 C262 252 266 226 262 200Z"/>
+          <ellipse class="cereb" cx="300" cy="214" rx="48" ry="27"/>
+          <path class="cereb-line" d="M262 208 Q300 196 340 210 M258 218 Q300 206 344 220 M266 228 Q300 218 336 230"/>
+          <!-- lóbulos -->
+          <g clip-path="url(#cortex)">
+            <polygon class="lobe l-front" points="0,0 188,0 166,132 112,176 0,290"/>
+            <polygon class="lobe l-par" points="188,0 330,0 304,118 166,132"/>
+            <polygon class="lobe l-occ" points="330,0 400,0 400,290 304,200 304,118"/>
+            <polygon class="lobe l-temp" points="112,176 166,132 304,118 304,290 60,290"/>
+            <path class="sulcus" d="M104 92 Q130 80 150 96 M90 130 Q112 118 132 128 M210 60 Q228 74 250 64 M222 96 Q246 104 270 90 M150 160 Q190 150 228 160 M120 60 Q140 50 160 62"/>
+          </g>
+          <path class="outline" d="M58 172 C30 118 58 50 132 36 C196 20 276 28 326 64 C364 92 368 152 342 182 C322 204 290 208 266 202 C246 218 210 222 186 207 C160 214 120 212 104 197 C80 197 64 188 58 172Z"/>
+          <path class="fissure" d="M188 32 C182 70 174 104 166 132"/>
+          <path class="fissure" d="M108 174 C150 150 200 138 250 132"/>
+          <!-- nombres de lóbulos -->
+          <text class="lobe-name" x="92" y="70">Frontal</text>
+          <text class="lobe-name" x="226" y="50">Parietal</text>
+          <text class="lobe-name" x="300" y="132">Occipital</text>
+          <text class="lobe-name" x="180" y="190">Temporal</text>
+          <text class="lobe-name" x="282" y="246">Cerebelo</text>
+
+          <!-- RED EJECUTIVA CENTRAL -->
+          <g class="net net-rec">
+            <path class="wire" d="M104 98 Q180 60 262 82"/>
+            <path class="wire" d="M90 138 Q170 110 262 82"/>
+            <path class="wire" d="M104 98 L90 138"/>
+            <circle class="nd" cx="104" cy="98" r="10"><title>Corteza prefrontal dorsolateral</title></circle>
+            <circle class="nd" cx="90" cy="138" r="8"><title>Corteza prefrontal ventrolateral</title></circle>
+            <circle class="nd" cx="262" cy="82" r="10"><title>Corteza parietal posterior</title></circle>
+          </g>
+          <!-- RED POR DEFECTO -->
+          <g class="net net-rnd">
+            <path class="wire" d="M74 158 Q150 140 222 112"/>
+            <path class="wire" d="M222 112 L250 104"/>
+            <path class="wire" d="M74 158 Q120 120 132 112"/>
+            <circle class="nd inner" cx="74" cy="158" r="10"><title>Corteza orbitofrontal / ventromedial</title></circle>
+            <circle class="nd inner" cx="222" cy="112" r="9"><title>Corteza cingulada posterior</title></circle>
+            <circle class="nd inner" cx="250" cy="104" r="7"><title>Precúneo</title></circle>
+          </g>
+          <!-- RED DE RELEVANCIA -->
+          <g class="net net-rr">
+            <path class="wire" d="M150 146 L132 112"/>
+            <circle class="nd" cx="150" cy="146" r="9"><title>Ínsula anterior</title></circle>
+            <circle class="nd inner" cx="132" cy="112" r="7"><title>Cingulada anterior</title></circle>
+          </g>
+          <!-- foco de idea -->
+          <g class="spark">
+            <circle cx="150" cy="30" r="26" fill="url(#glow)"/>
+            <path d="M150 12 v-8 M168 18 l6 -6 M132 18 l-6 -6 M174 34 h8 M126 34 h-8" class="rays"/>
+          </g>
+          <text class="dir" x="14" y="30">← frente</text><text class="dir" x="330" y="30">atrás →</text>
+        </svg>
+        <div class="legend">
+          <span><i class="dot d-rec"></i>Red ejecutiva central</span>
+          <span><i class="dot d-rnd"></i>Red por defecto</span>
+          <span><i class="dot d-rr"></i>Red de relevancia</span>
+          <span class="hint">Pasa el cursor por los puntos para ver su nombre. Los puntos con borde punteado están en la cara interna del cerebro.</span>
+        </div>
+      </div>
+
+      <div class="brain-info" aria-live="polite">
+        <div class="bi-title" id="biTitle"></div>
+        <div class="bi-row"><b>¿Cuándo pasa?</b><span id="biWhen"></span></div>
+        <div class="bi-row"><b>Ejemplo</b><span id="biEx"></span></div>
+        <div class="bi-row"><b>Zonas</b><span id="biZones"></span></div>
+        <div class="levels">
+          <div class="lv"><span>Concentración</span><div class="track"><div class="fill" id="lvRec"></div></div></div>
+          <div class="lv"><span>Mente libre</span><div class="track"><div class="fill" id="lvRnd"></div></div></div>
+        </div>
+        <p class="hint" style="margin:6px 0 0">Cuando una red sube, la otra baja: casi nunca trabajan al máximo al mismo tiempo.</p>
+      </div>
+    </div>
+  </div>
+
+  <p>El autor menciona que a veces las mejores ideas aparecen cuando estamos descansando, caminando o bañándonos. Esto pasa porque nuestra mente sigue trabajando y relacionando información, aunque no estemos pensando directamente en el problema.</p>
+
+  <p>En mi opinión, esto también se relaciona con la informática, porque cuando un programa falla, muchas veces intentamos resolverlo de la misma manera. Pero si aprendemos cosas nuevas y buscamos otras opciones, podemos encontrar mejores soluciones. También es importante descansar y no estar concentrados todo el tiempo, porque así podemos pensar de otra manera y tener nuevas ideas.</p>
+</section>
+
+<footer>Fuentes: Senge, P. <i>La Quinta Disciplina</i> (Parte 1, caps. 1–3) · «Arquetipos sistémicos» (documento de clase) · Goldberg, E. <i>Creatividad. El cerebro humano en la era de la innovación</i>.</footer>
+</div>
+
+<script>
+/* ---------- tema ---------- */
+document.getElementById('themeBtn').addEventListener('click',()=>{
+  const r=document.documentElement;
+  const cur=r.dataset.theme||(matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light');
+  r.dataset.theme=cur==='dark'?'light':'dark';
+});
+
+/* ---------- progreso del menú ---------- */
+const seen=new Set();
+const io=new IntersectionObserver(es=>es.forEach(e=>{
+  if(e.isIntersecting&&!seen.has(e.target.id)){
+    seen.add(e.target.id);
+    document.querySelector(`.card[data-sec="${e.target.id}"]`).classList.add('is-seen');
+    document.getElementById('progTxt').textContent=`${seen.size} de 4 vistas`;
+    document.getElementById('progBar').style.width=seen.size*25+'%';
+  }
+}),{threshold:.25});
+document.querySelectorAll('section.act').forEach(s=>io.observe(s));
+
+/* ---------- utilidades ---------- */
+function makeFlip(front,back){
+  const b=document.createElement('button');
+  b.className='flip';b.type='button';b.setAttribute('aria-pressed','false');
+  b.innerHTML=`<div class="inner"><div class="face front">${front}</div><div class="face back">${back}</div></div>`;
+  b.addEventListener('click',e=>{
+    if(b.dataset.dragged==='1'){b.dataset.dragged='';return;}
+    b.classList.toggle('on');b.setAttribute('aria-pressed',b.classList.contains('on'));
+  });
+  return b;
+}
+function segGroup(root,attr,onPick){
+  root.querySelectorAll('button').forEach(btn=>btn.addEventListener('click',()=>{
+    root.querySelectorAll('button').forEach(x=>x.setAttribute('aria-pressed',x===btn));
+    onPick(btn.dataset[attr]);
+  }));
+}
+
+/* ---------- actividad 2: tarjetas ---------- */
+const ARQ=[
+ {n:"Compensación entre proceso y demora",e:"shower-head",loop:["Acción","Demora","Resultado","Corrijo de más"],
+  d:"Actúo, pero el resultado tarda en verse; como no lo veo, corrijo de más.",
+  sys:"Se construyen casas hasta saturar el mercado.",psy:"Una dieta extrema: como no veo cambios rápido, me castigo más y la dejo."},
+ {n:"Límites del crecimiento",e:"trending-up",loop:["Crecer","Más éxito","Límite","Se frena"],
+  d:"Algo crece rápido hasta que choca con un límite y se frena.",
+  sys:"Una empresa crece tanto que necesita mejor organización.",psy:"Aprender guitarra: avanzo rápido y luego me estanco hasta aprender técnicas nuevas."},
+ {n:"Desplazamiento de la carga",e:"wrench",loop:["Problema","Solución rápida","Alivio","Olvido la solución real"],
+  d:"Uso un parche rápido y dejo de lado la solución de fondo.",
+  sys:"Pagar deudas con préstamos en vez de hacer presupuesto.",psy:"Calmar el estrés con el celular en vez de organizar mis tareas."},
+ {n:"Desplazamiento hacia la intervención",e:"fish",loop:["Problema","Ayuda externa","No aprendo","Más dependencia"],
+  d:"Alguien de fuera resuelve todo y el grupo nunca aprende.",
+  sys:"Oficinas que siempre llaman a los jefes centrales para todo.",psy:"Que mis papás me hagan la tarea: nunca aprendo a hacerla solo."},
+ {n:"Erosión de metas",e:"trending-down",loop:["Meta","No la alcanzo","Bajo la meta","Me esfuerzo menos"],
+  d:"Cuando no llego a la meta, en vez de esforzarme, la bajo.",
+  sys:"Una fábrica alarga cada vez más el tiempo de entrega prometido.",psy:"«Con un 6 paso», luego «con un 5 basta», y cada vez rindo menos."},
+ {n:"Escalada",e:"swords",loop:["A ataca","B se siente amenazado","B ataca","A se siente amenazado"],
+  d:"Dos partes compiten y cada respuesta hace que el otro responda más fuerte.",
+  sys:"Dos empresas bajan precios hasta casi quebrar.",psy:"Una discusión con un amigo donde cada uno sube el tono."},
+ {n:"Éxito para quien tiene éxito",e:"trophy",loop:["A gana","A recibe más","B recibe menos","B pierde"],
+  d:"Dos cosas compiten por lo mismo; la que gana recibe más y la otra se queda sin nada.",
+  sys:"Un jefe favorece a un empleado y el otro termina renunciando.",psy:"Trabajo tantas horas que descuido a mi familia, y cada vez me cuesta más volver."},
+ {n:"Tragedia del terreno común",e:"wheat",loop:["Cada uno usa","Uso total","Recurso se agota","Todos pierden"],
+  d:"Todos usan algo compartido pensando solo en sí mismos, hasta acabarlo.",
+  sys:"Varias empresas explotan un recurso natural hasta agotarlo.",psy:"En la casa nadie lava los trastes «solo por hoy» y la cocina se vuelve un desastre."},
+ {n:"Soluciones rápidas que fallan",e:"flame",loop:["Problema","Solución rápida","Efecto secundario","Más problema"],
+  d:"Algo funciona hoy, pero después trae problemas que piden más de lo mismo.",
+  sys:"Recortar mantenimiento: después hay más fallas y más gastos.",psy:"Estudiar solo la noche anterior: paso, pero cada examen me cuesta más."},
+ {n:"Crecimiento y subinversión",e:"construction",loop:["Demanda","Falta capacidad","No invierto","Baja la calidad"],
+  d:"Crece la demanda, pero no invierto para atenderla y la calidad cae.",
+  sys:"People Express no capacitó personal y perdió a sus clientes.",psy:"Sueño con un gran proyecto pero no le dedico el tiempo que necesita."}
+];
+const flips=document.getElementById('flips');
+ARQ.forEach((a,i)=>{
+  const loop=a.loop.map((t,j)=>`<span>${t}</span><em>${j<a.loop.length-1?'→':'↺'}</em>`).join('');
+  flips.appendChild(makeFlip(
+    `<div class="emo"><i data-lucide="${a.e}"></i></div><div class="num">${i+1}</div><strong>${a.n}</strong><span class="hint">toca para ver</span>`,
+    `<h4><i data-lucide="${a.e}"></i> ${a.n}</h4>${a.d}<div class="loop">${loop}</div>
+     <div class="ex sys"><b><i data-lucide="building-2"></i> Sistémico</b>${a.sys}</div><div class="ex psy"><b><i data-lucide="user"></i> Psicológico</b>${a.psy}</div>`));
+});
+segGroup(document.querySelector('#act2 .seg'),'f',f=>flips.dataset.filter=f);
+
+/* ---------- actividad 2: quiz ---------- */
+const QUIZ=[
+ {q:"Para pasar el examen estudio toda la noche anterior. Funciona, pero cada vez llego con más huecos y tengo que desvelarme otra vez.",o:[8,4,1],why:"La solución rápida (desvelarse) trae un efecto secundario que pide repetirla."},
+ {q:"Mi hermano y yo discutimos. Él levanta la voz, yo la levanto más, él grita… y terminamos peleados.",o:[5,6,0],why:"Cada respuesta provoca una respuesta más fuerte del otro."},
+ {q:"En el salón compartimos una impresora. Todos imprimen de más «por si acaso» y a mitad de semestre ya no sirve.",o:[7,2,9],why:"Un recurso común se agota porque cada uno piensa solo en sí."},
+ {q:"Quería sacar 10 en promedio. Como no llegué, dije «con 8 está bien», luego «con 7», y cada vez me esfuerzo menos.",o:[4,1,6],why:"En lugar de mejorar, se baja la meta poco a poco."},
+ {q:"Abro la regadera, sale fría, giro todo a caliente… y a los segundos me quemo.",o:[0,8,3],why:"Hay una demora entre la acción y el resultado, y se corrige de más."},
+ {q:"Mi canal de videos crecía muy rápido, pero llegó un punto en que dejó de crecer aunque subía más videos.",o:[1,9,5],why:"El crecimiento choca con un límite; hay que atacar el límite, no empujar más."},
+ {q:"Cada vez que tengo un problema con mi computadora, le marco a mi primo para que lo arregle. Llevo años y sigo sin saber hacer nada.",o:[3,2,7],why:"Una ayuda externa resuelve tanto que nunca desarrollo mi propia capacidad."},
+ {q:"Dos amigos entran al equipo. El entrenador pone más a uno; ese mejora, el otro se desanima y al final deja el equipo.",o:[6,5,4],why:"El que tiene éxito recibe más recursos y el otro se queda sin ellos."}
+];
+let qi=0,qs=0,qa=0;
+const $=id=>document.getElementById(id);
+function shuffle(a){a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;}
+function showQ(){
+  const q=QUIZ[qi];
+  $('qNum').textContent=`Situación ${qi+1} de ${QUIZ.length}`;
+  $('qText').textContent=q.q;$('qFb').textContent='';$('qNext').disabled=true;
+  $('qNext').textContent=qi===QUIZ.length-1?'Ver resultado →':'Siguiente →';
+  const box=$('qOpts');box.innerHTML='';
+  shuffle(q.o).forEach(k=>{
+    const b=document.createElement('button');b.className='opt';b.type='button';
+    b.innerHTML=`<i data-lucide="${ARQ[k].e}"></i> ${ARQ[k].n}`;
+    b.onclick=()=>{
+      qa++;const right=k===q.o[0];if(right)qs++;
+      box.querySelectorAll('.opt').forEach(x=>x.disabled=true);
+      b.classList.add(right?'ok':'bad');
+      if(!right)[...box.children].find(x=>x.textContent.includes(ARQ[q.o[0]].n)).classList.add('ok');
+      $('qFb').innerHTML=(right?'<span style="color:var(--ok)"><i data-lucide="check"></i> ¡Correcto!</span> ':'<span style="color:var(--bad)"><i data-lucide="x"></i> Casi.</span> ')+q.why;
+      $('qScore').textContent=`${qs} / ${qa}`;$('qNext').disabled=false;
+    };
+    box.appendChild(b);
+  });
+}
+$('qNext').onclick=()=>{
+  if(qi<QUIZ.length-1){qi++;showQ();return;}
+  const msg=qs===QUIZ.length?'¡Perfecto! Dominas los arquetipos.':qs>=5?'¡Muy bien! Ya los reconoces.':'Repasa las tarjetas y vuelve a intentar.';
+  $('qNum').textContent='Resultado final';$('qText').textContent=`Obtuviste ${qs} de ${QUIZ.length}. ${msg}`;
+  $('qOpts').innerHTML='';$('qFb').textContent='';
+  $('qNext').textContent='↺ Reintentar';$('qNext').onclick=()=>{qi=qs=qa=0;$('qScore').textContent='0 / 0';$('qNext').onclick=nextHandler;showQ();};
+};
+const nextHandler=$('qNext').onclick;
+showQ();
+
+/* ---------- actividad 3: NFC ---------- */
+const APPS=[
+ {a:"Pagos sin contacto",e:"credit-card",r:-1.2,c:"Acercas tu tarjeta, celular o reloj a la terminal y pagas sin meter la tarjeta ni firmar.",x:"Pagar en la tienda con Google Pay o Apple Pay."},
+ {a:"Transporte",e:"bus",r:1.1,c:"Las tarjetas del camión o del metro tienen un chip NFC con tu saldo.",x:"Pasar la tarjeta de transporte por el torniquete."},
+ {a:"Control de acceso",e:"door-open",r:-.8,c:"Una credencial o llave con NFC abre puertas sin usar llaves de metal.",x:"Entrar a una oficina o a un hotel con una tarjeta."},
+ {a:"Etiquetas inteligentes",e:"tag",r:1.3,c:"Pequeñas etiquetas que guardan un dato: un enlace, una contraseña de wifi o una acción.",x:"Pegar una etiqueta en tu escritorio que activa el modo «no molestar»."},
+ {a:"Emparejar aparatos",e:"headphones",r:-1,c:"Acercar dos aparatos para que se conecten solos, sin buscar en el menú.",x:"Conectar unas bocinas Bluetooth tocándolas con el celular."},
+ {a:"Documentos de identidad",e:"contact",r:.9,c:"Muchos pasaportes modernos tienen un chip que se lee con NFC.",x:"Verificar tu pasaporte en el aeropuerto."}
+];
+const MEGA=[
+ {a:"Entrada al salón",e:"door-open",c:"El alumno acerca su credencial al lector de la puerta. El sistema revisa si está inscrito en esa clase y abre."},
+ {a:"Asistencia automática",e:"clipboard-check",c:"Al entrar, se registra su asistencia sola. El profesor ya no pasa lista."},
+ {a:"Biblioteca",e:"book-open",c:"Cada libro tiene una etiqueta NFC. Para pedir un libro, se acercan la credencial y el libro al lector."},
+ {a:"Cafetería",e:"coffee",c:"La credencial guarda un saldo o se conecta a una cuenta. Se paga acercándola a la terminal."}
+];
+const RISKS=[
+ {a:"Ventajas",e:"thumbs-up",c:"Es rápido, no necesita batería en la credencial, es barato y el alcance corto hace difícil que alguien lo lea sin que te des cuenta."},
+ {a:"Riesgos",e:"shield-alert",c:"Si pierdes la credencial, otro puede usarla. Por eso se debe poder bloquear desde una app y los datos deben ir cifrados."}
+];
+const collage=$('collage');
+function addPiece(cls,r,html,flip){
+  const p=document.createElement('div');p.className='piece drag '+cls;p.style.setProperty('--r',r+'deg');
+  if(flip)p.appendChild(flip);else p.innerHTML=html;
+  collage.appendChild(p);return p;
+}
+APPS.forEach(m=>addPiece('p-mega',m.r,null,makeFlip(
+  `<div class="emo"><i data-lucide="${m.e}"></i></div><span class="badge">${m.a}</span><span class="hint">toca para ver</span>`,
+  `<span class="badge"><i data-lucide="${m.e}"></i> ${m.a}</span><br>${m.c}<br><br><b><i data-lucide="check-circle"></i> Ejemplo:</b> ${m.x}`)));
+addPiece('p-full note',.3,'<h4 style="text-align:center;margin:0">5 · Mega ejemplo: la credencial universitaria con NFC</h4><p class="hint" style="text-align:center;margin:.3em 0 0">Una sola credencial sirve para todo el campus. Así funciona un día normal de un alumno:</p>');
+const day=document.createElement('div');day.className='piece p-full drag';day.style.setProperty('--r','-.2deg');
+day.innerHTML='<div class="day">'+MEGA.map((m,i)=>`<div class="day-step"><span class="day-n">${i+1}</span><i data-lucide="${m.e}"></i><b>${m.a}</b><p>${m.c}</p></div>`).join('<i data-lucide="chevron-right" class="day-arrow"></i>')+'</div>';
+collage.appendChild(day);
+RISKS.forEach((m,i)=>addPiece('wide-half '+(i?'':'note'),i?1:-1,`<h4><i data-lucide="${m.e}"></i> ${m.a}</h4>${m.c}`));
+
+/* arrastre */
+const canDrag=()=>!matchMedia('(max-width:720px)').matches;
+collage.querySelectorAll('.piece.drag').forEach(p=>{
+  let sx,sy,ox,oy,moved=false,active=false;
+  p.addEventListener('pointerdown',e=>{
+    if(!canDrag()||e.button!==0)return;
+    active=true;moved=false;sx=e.clientX;sy=e.clientY;
+    ox=parseFloat(p.style.getPropertyValue('--x'))||0;oy=parseFloat(p.style.getPropertyValue('--y'))||0;
+  });
+  p.addEventListener('pointermove',e=>{
+    if(!active)return;
+    const dx=e.clientX-sx,dy=e.clientY-sy;
+    if(!moved&&Math.hypot(dx,dy)>6){moved=true;p.setPointerCapture(e.pointerId);p.classList.add('dragging');}
+    if(moved){p.style.setProperty('--x',ox+dx+'px');p.style.setProperty('--y',oy+dy+'px');}
+  });
+  const end=()=>{
+    if(!active)return;active=false;p.classList.remove('dragging');
+    const f=p.querySelector('.flip');if(f&&moved)f.dataset.dragged='1';
+  };
+  p.addEventListener('pointerup',end);p.addEventListener('pointercancel',end);
+});
+$('tidy').onclick=()=>collage.querySelectorAll('.piece').forEach(p=>{p.style.removeProperty('--x');p.style.removeProperty('--y');});
+$('shuffle').onclick=()=>{
+  if(!canDrag())return;
+  collage.querySelectorAll('.piece').forEach(p=>{
+    p.style.setProperty('--x',(Math.random()*60-30)+'px');p.style.setProperty('--y',(Math.random()*40-20)+'px');
+  });
+};
+if(!canDrag())$('dragHint').textContent='Toca las tarjetas para voltearlas';
+
+/* simulador NFC */
+const NFC={
+  pay:{name:'Terminal de pago',ic:'credit-card',done:'¡Pago aprobado!',steps:[
+    'La terminal crea un campo de radio de 13.56 MHz.',
+    'El celular se comporta como una tarjeta (emulación de tarjeta).',
+    'Manda un código temporal, no el número real de tu tarjeta.',
+    'El banco revisa el código y aprueba el pago.']},
+  read:{name:'Etiqueta NFC',ic:'tag',done:'Enlace abierto',steps:[
+    'El celular crea el campo de radio.',
+    'La etiqueta no tiene batería: se enciende con la energía de ese campo.',
+    'La etiqueta manda el dato que tiene guardado (por ejemplo, un enlace).',
+    'El celular abre el enlace.']},
+  share:{name:'Bocina Bluetooth',ic:'speaker',done:'¡Conectados!',steps:[
+    'Acercas el celular a la bocina.',
+    'Uno crea el campo y el otro responde (punto a punto).',
+    'Se pasan los datos para conectarse.',
+    'La música sigue por Bluetooth, que tiene más alcance.']}
+};
+let nfcMode='pay',nfcDist=20,nfcTimer=[],nfcLinked=false;
+const stage=$('nfcStage'),phone=$('nfcPhone'),reader=$('nfcReader'),range=$('nfcRange');
+const MAXCM=20;
+function geom(){const W=stage.clientWidth,rr=reader.offsetLeft+reader.offsetWidth,pw=phone.offsetWidth;return{rr,px:(W-16-pw-rr)/MAXCM};}
+function placePhone(){const g=geom();phone.style.left=(g.rr+nfcDist*g.px)+'px';}
+function clearSteps(){nfcTimer.forEach(clearTimeout);nfcTimer=[];}
+function renderSteps(active){
+  const d=NFC[nfcMode];
+  $('nfcSteps').innerHTML=d.steps.map((t,i)=>`<li class="${i<active?'done':''}">${t}</li>`).join('');
+}
+function updateNfc(){
+  $('nfcCm').textContent=nfcDist+' cm';range.value=nfcDist;placePhone();
+  const st=$('nfcState');
+  if(nfcDist<=4){
+    stage.dataset.state='on';st.textContent='Conectado';
+    if(!nfcLinked){
+      nfcLinked=true;clearSteps();renderSteps(0);$('nfcScreen').textContent='Conectando…';
+      NFC[nfcMode].steps.forEach((_,i)=>nfcTimer.push(setTimeout(()=>{
+        renderSteps(i+1);
+        if(i===NFC[nfcMode].steps.length-1)$('nfcScreen').textContent=NFC[nfcMode].done;
+      },550*(i+1))));
+    }
+  }else{
+    nfcLinked=false;clearSteps();renderSteps(0);
+    if(nfcDist<=10){stage.dataset.state='near';st.textContent='Casi: acércalo más';$('nfcScreen').textContent='Más cerca…';}
+    else{stage.dataset.state='off';st.textContent='Fuera de alcance';$('nfcScreen').textContent='Acércame';}
+  }
+}
+function setNfcMode(m){
+  nfcMode=m;const d=NFC[m];
+  $('nfcReaderName').textContent=d.name;
+  const ic=reader.querySelector('svg,i');if(ic)ic.outerHTML=`<i data-lucide="${d.ic}"></i>`;
+  nfcLinked=false;nfcDist=20;updateNfc();
+}
+segGroup($('nfcModes'),'n',setNfcMode);
+range.addEventListener('input',()=>{nfcDist=parseFloat(range.value);updateNfc();});
+let dragging=false;
+phone.addEventListener('pointerdown',e=>{dragging=true;phone.setPointerCapture(e.pointerId);phone.classList.add('grab');});
+phone.addEventListener('pointermove',e=>{
+  if(!dragging)return;const g=geom(),x=e.clientX-stage.getBoundingClientRect().left-phone.offsetWidth/2;
+  nfcDist=Math.max(0,Math.min(MAXCM,Math.round((x-g.rr)/g.px*2)/2));updateNfc();
+});
+['pointerup','pointercancel'].forEach(ev=>phone.addEventListener(ev,()=>{dragging=false;phone.classList.remove('grab');}));
+phone.addEventListener('keydown',e=>{
+  if(e.key==='ArrowLeft'){nfcDist=Math.max(0,nfcDist-1);updateNfc();}
+  if(e.key==='ArrowRight'){nfcDist=Math.min(MAXCM,nfcDist+1);updateNfc();}
+});
+addEventListener('resize',placePhone);
+updateNfc();
+
+
+/* ---------- actividad 4: cerebro ---------- */
+const MODES={
+  rec:{cls:'rec',t:'Concentración',chip:'Red ejecutiva central',ic:'target',lv:[90,15],
+    w:'Cuando ponemos atención a algo de afuera: una tarea, un problema o una clase.',
+    e:'Resolver un ejercicio de matemáticas o buscar un error en el código.',
+    z:'Partes laterales del lóbulo frontal y la corteza parietal posterior.'},
+  rnd:{cls:'rnd',t:'Mente libre',chip:'Red por defecto',ic:'cloud',lv:[15,90],
+    w:'Cuando no tenemos una tarea de afuera y la mente piensa en sus propias cosas.',
+    e:'Soñar despierto, recordar algo o imaginar el futuro mientras caminas.',
+    z:'Parte de abajo y de en medio del lóbulo frontal, cingulada posterior y precúneo (cara interna).'},
+  sw:{cls:'rr rec',t:'El cambio',chip:'Red de relevancia',ic:'toggle-right',lv:[70,30],
+    w:'Cuando aparece algo nuevo o inesperado. Funciona como un interruptor entre las otras dos redes.',
+    e:'Estás distraído y escuchas tu nombre: de golpe vuelves a poner atención.',
+    z:'Ínsula anterior y corteza cingulada anterior.'},
+  idea:{cls:'rnd rr spark',t:'Idea nueva',chip:'Divagación dirigida',ic:'lightbulb',lv:[40,70],
+    w:'La mente divaga, pero sin soltar del todo el problema. Así se juntan ideas de formas nuevas.',
+    e:'Te bañas o sales a caminar después de batallar con un programa y de repente se te ocurre la solución.',
+    z:'Trabajan la red por defecto y la red de relevancia; los lóbulos frontales arman las piezas, como Lego.'}
+};
+const brain=$('brain'),order=['rec','rnd','sw','idea'];
+let curMode='rec',autoT=null;
+function setMode(m){
+  curMode=m;const d=MODES[m];brain.dataset.mode=d.cls;
+  brain.querySelectorAll('.brain-seg button').forEach(b=>b.setAttribute('aria-pressed',b.dataset.m===m));
+  $('biTitle').innerHTML=`<i data-lucide="${d.ic}"></i> ${d.t} <span class="chip">${d.chip}</span>`;
+  $('biWhen').textContent=d.w;$('biEx').textContent=d.e;$('biZones').textContent=d.z;
+  $('lvRec').style.width=d.lv[0]+'%';$('lvRnd').style.width=d.lv[1]+'%';
+}
+function stopAuto(){clearInterval(autoT);autoT=null;$('brainAuto').innerHTML='<i data-lucide="play"></i> <span>Ver en automático</span>';}
+brain.querySelectorAll('.brain-seg button').forEach(b=>b.addEventListener('click',()=>{stopAuto();setMode(b.dataset.m);}));
+$('brainAuto').onclick=()=>{
+  if(autoT){stopAuto();return;}
+  $('brainAuto').innerHTML='<i data-lucide="pause"></i> <span>Pausar</span>';
+  setMode(order[(order.indexOf(curMode)+1)%4]);
+  autoT=setInterval(()=>setMode(order[(order.indexOf(curMode)+1)%4]),3500);
+};
+setMode('rec');
+/* ---------- íconos (Lucide) ---------- */
+let iconQueued=false;
+function renderIcons(){if(iconQueued||!window.lucide)return;iconQueued=true;requestAnimationFrame(()=>{iconQueued=false;lucide.createIcons();});}
+new MutationObserver(renderIcons).observe(document.body,{childList:true,subtree:true});
+renderIcons();
+</script>
+</body>
+</html>

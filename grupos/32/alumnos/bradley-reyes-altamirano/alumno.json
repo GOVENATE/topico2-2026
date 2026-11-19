@@ -1,0 +1,137 @@
+{
+  "nombre": "Bradley Yeray Reyes Altamirano",
+  "github": "brad2442",
+  "sobreMi": "Me gustan los videojuegos, los coches, la tecnología, el gym y Michoacán.",
+  "actividades": [
+    {
+      "id": "act01-7-habitos",
+      "titulo": "Los 7 Hábitos",
+      "descripcion": "Experiencia interactiva sobre los 7 hábitos de Stephen R. Covey: amanecer, montaña de hábitos y dinámica para unir cada hábito con su frase.",
+      "tipo": "web",
+      "tecnologias": [
+        "HTML",
+        "CSS",
+        "JavaScript"
+      ],
+      "ruta": "actividades/act01-7-habitos/index.html"
+    },
+    {
+      "id": "act02-memorama",
+      "titulo": "Memorama de mis gustos",
+      "descripcion": "Memorama con tres niveles sobre mis gustos (videojuegos, coches, tecnología, Michoacán y gym), con datos curiosos y sección de autor.",
+      "tipo": "web",
+      "tecnologias": [
+        "HTML",
+        "CSS",
+        "JavaScript"
+      ],
+      "ruta": "actividades/act02-memorama/index.html"
+    },
+    {
+      "id": "act03-toma-decisiones",
+      "titulo": "Asistente de decisiones",
+      "descripcion": "App estilo chat con 10 preguntas sobre el caso de una universidad que arma FODA, 6 Sombreros, Pareto, Ishikawa y CATWOE.",
+      "tipo": "web",
+      "tecnologias": [
+        "HTML",
+        "CSS",
+        "JavaScript"
+      ],
+      "ruta": "actividades/act03-toma-decisiones/index.html"
+    },
+    {
+      "id": "act04-diagnostico-universidad",
+      "titulo": "Diagnóstico de la universidad",
+      "descripcion": "Cuaderno de análisis con las cinco herramientas de decisión, diagramas en vivo e informe final con conclusión.",
+      "tipo": "web",
+      "tecnologias": [
+        "HTML",
+        "CSS",
+        "JavaScript"
+      ],
+      "ruta": "actividades/act04-diagnostico-universidad/index.html"
+    },
+    {
+      "id": "act05-pensamiento-sistemico",
+      "titulo": "Sistemas, patrones y nuevas ideas",
+      "descripcion": "Presentación interactiva: La Quinta Disciplina, arquetipos sistémicos, collage de NFC y creatividad según Goldberg.",
+      "tipo": "web",
+      "tecnologias": [
+        "HTML",
+        "CSS",
+        "JavaScript"
+      ],
+      "ruta": "actividades/act05-pensamiento-sistemico/index.html"
+    },
+    {
+      "id": "act06-gigantes-tecnologicos",
+      "titulo": "Las capas de las grandes tecnológicas",
+      "descripcion": "Infografía sobre el poder de las grandes empresas tecnológicas.",
+      "tipo": "imagen",
+      "ruta": "actividades/act06-gigantes-tecnologicos/gigantes.png"
+    },
+    {
+      "id": "act07-iceberg-queretaro",
+      "titulo": "Bajo la superficie de la nube",
+      "descripcion": "Infografía tipo iceberg sobre la llegada de las grandes tecnológicas a Querétaro.",
+      "tipo": "imagen",
+      "ruta": "actividades/act07-iceberg-queretaro/iceberg.png"
+    },
+    {
+      "id": "act08-lideres-mundiales",
+      "titulo": "Líderes mundiales de la tecnología",
+      "descripcion": "Imagen sobre la concentración de poder de las grandes tecnológicas.",
+      "tipo": "imagen",
+      "ruta": "actividades/act08-lideres-mundiales/lideres.png"
+    },
+    {
+      "id": "act09-lider-visionario",
+      "titulo": "Receta del empresario ideal",
+      "descripcion": "Infografía con las cualidades del empresario ideal en forma de receta.",
+      "tipo": "imagen",
+      "ruta": "actividades/act09-lider-visionario/lider.png"
+    },
+    {
+      "id": "act10-emprendedor-ideal",
+      "titulo": "Plano del empresario ideal",
+      "descripcion": "Infografía tipo plano con las cualidades del emprendedor ideal.",
+      "tipo": "imagen",
+      "ruta": "actividades/act10-emprendedor-ideal/emprendedor.png"
+    },
+    {
+      "id": "act11-empresarios-mexicanos",
+      "titulo": "Cerveza, visión y fortuna",
+      "descripcion": "Comparación entre Eugenio Garza Sada y María Asunción Aramburuzabala.",
+      "tipo": "imagen",
+      "ruta": "actividades/act11-empresarios-mexicanos/empresarios.png"
+    },
+    {
+      "id": "act12-bimbo",
+      "titulo": "Lorenzo Servitje",
+      "descripcion": "Infografía sobre el fundador de Bimbo.",
+      "tipo": "imagen",
+      "ruta": "actividades/act12-bimbo/bimbo.png"
+    },
+    {
+      "id": "act13-cemex",
+      "titulo": "Lorenzo Zambrano",
+      "descripcion": "Infografía sobre el empresario que llevó a Cemex al mundo.",
+      "tipo": "imagen",
+      "ruta": "actividades/act13-cemex/cemex.png"
+    },
+    {
+      "id": "act14-emma-rodero",
+      "titulo": "Resumen: la voz según Emma Rodero",
+      "descripcion": "Resumen del video de Emma Rodero sobre la importancia de la voz al comunicar.",
+      "tipo": "pdf",
+      "ruta": "actividades/act14-emma-rodero/resumen.pdf"
+    },
+    {
+      "id": "act15-documental-ricos",
+      "titulo": "Resumen del documental",
+      "descripcion": "Resumen y opinión sobre la influencia de los millonarios en las ciudades.",
+      "tipo": "pdf",
+      "ruta": "actividades/act15-documental-ricos/resumen.pdf"
+    }
+  ]
+}

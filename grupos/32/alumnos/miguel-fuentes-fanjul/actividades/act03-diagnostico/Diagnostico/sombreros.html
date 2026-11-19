@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Los 6 Sombreros</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <main class="detail-page">
+    <section class="detail-card">
+      <div class="detail-head">
+        <h1>Los 6 Sombreros para Pensar</h1>
+        <a href="resultados.html" class="ghost-btn no-print">Volver</a>
+      </div>
+
+      <div class="two-col" id="sombrerosContenedor"></div>
+    </section>
+  </main>
+
+  <script>
+    const data = JSON.parse(localStorage.getItem('diagnosticoActual') || '{}');
+    const contenedor = document.getElementById('sombrerosContenedor');
+    const sombreros = data.sombreros || {};
+
+    const cards = [
+      ['Blanco', sombreros.blanco],
+      ['Rojo', sombreros.rojo],
+      ['Negro', sombreros.negro],
+      ['Amarillo', sombreros.amarillo],
+      ['Verde', sombreros.verde],
+      ['Azul', sombreros.azul]
+    ];
+
+    contenedor.innerHTML = cards.map(([nombre, texto]) => `
+      <div class="metric-card">
+        <h3>${nombre}</h3>
+        <p>${texto || 'Sin información disponible.'}</p>
+      </div>
+    `).join('');
+  </script>
+</body>
+</html>

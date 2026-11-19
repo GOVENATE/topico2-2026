@@ -1,0 +1,1525 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Efecto Compuesto</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@75..125,400..900&family=Newsreader:opsz,wght@6..72,400..600&family=Schibsted+Grotesk:wght@400..800&display=swap">
+
+<style>
+/* Layout: cuadricula de streaming — billboard a sangre, carruseles con scroll-snap,
+   ficha en overlay y lector a pantalla completa. Tema oscuro unico y deliberado. */
+:root{
+  color-scheme: dark;
+  --bg:#070908;
+  --bg-2:#0d100f;
+  --surface:#141917;
+  --surface-2:#1c2220;
+  --line:rgba(255,255,255,.11);
+  --fg:#eaefea;
+  --muted:#96a19a;
+  --accent:#1f9d55;
+  --accent-2:#4ae08b;
+  --ink:#06110a;
+  --gold:#e4b23c;
+  --red:#d24b3f;
+
+  --f-display:"Archivo","Arial Narrow",Helvetica,sans-serif;
+  --f-ui:"Schibsted Grotesk",-apple-system,"Segoe UI",Roboto,sans-serif;
+  --f-read:"Newsreader",Georgia,"Times New Roman",serif;
+
+  --gl:max(16px, env(safe-area-inset-left, 0px));
+  --gr:max(16px, env(safe-area-inset-right, 0px));
+  --nav-h:58px;
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html{max-width:100%}
+body{
+  background:var(--bg);
+  color:var(--fg);
+  font-family:var(--f-ui);
+  font-size:15px;
+  line-height:1.5;
+  -webkit-font-smoothing:antialiased;
+  max-width:100%;
+  transition:background-color 1.6s ease;
+}
+/* Capa de color que tiñe toda la interfaz según la categoría activa */
+#tint{position:fixed;inset:0;z-index:0;pointer-events:none;opacity:0;
+  transition:opacity 1.6s ease,background 1.6s ease}
+#tint.on{opacity:1}
+#tint.amb{opacity:.72}
+#home{position:relative;z-index:1}
+h1,h2,h3{margin:0;text-wrap:balance;font-family:var(--f-display)}
+button{font:inherit;color:inherit;background:none;border:0;cursor:pointer;
+  -webkit-user-select:none;user-select:none;-webkit-touch-callout:none;
+  -webkit-tap-highlight-color:transparent;outline:none}
+a{color:inherit;-webkit-tap-highlight-color:transparent}
+button::-moz-focus-inner{border:0;padding:0}
+/* El contorno solo aparece al navegar con teclado, y en el color de la app */
+:focus{outline:none}
+:focus-visible{outline:2px solid var(--accent-2);outline-offset:3px;border-radius:4px}
+/* El texto se puede seleccionar donde tiene sentido: el lector */
+.read,.read *{-webkit-user-select:text;user-select:text}
+::selection{background:var(--accent);color:#fff}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.pad{padding-left:var(--gl);padding-right:var(--gr)}
+.tnum{font-variant-numeric:tabular-nums}
+
+/* ---------- Wordmark ---------- */
+.mark{display:flex;align-items:center;gap:.36em;font-family:var(--f-display);line-height:1;white-space:nowrap}
+.mark b{font-weight:900;font-stretch:112%;letter-spacing:-.015em;color:var(--accent-2);font-size:1.12em}
+.mark i{font-style:normal;font-weight:500;font-stretch:88%;letter-spacing:.3em;text-transform:uppercase;font-size:.56em;color:var(--fg);opacity:.85}
+.logo{width:1.62em;height:1.62em;flex:0 0 auto;display:block;margin-right:.1em}
+.logo svg{width:100%;height:100%;display:block}
+.logo .tile{fill:var(--accent);transition:fill .6s ease}
+.logo .arc{stroke:var(--ink);transition:stroke .6s ease}
+.logo .seed{fill:var(--accent-2);transition:fill .6s ease}
+
+/* ---------- Perfiles ---------- */
+#gate{position:fixed;inset:0;z-index:90;background:var(--bg);display:grid;place-items:center;padding:32px var(--gr) 32px var(--gl)}
+#gate .inner{text-align:center;max-width:720px;width:100%}
+#gate .mark{justify-content:center;flex-wrap:wrap;font-size:clamp(19px,6.2vw,30px);margin-bottom:28px}
+#gate h1{font-size:clamp(20px,4.6vw,28px);font-weight:500;font-stretch:92%;margin-bottom:26px;opacity:.9}
+.profiles{display:flex;flex-wrap:wrap;gap:18px;justify-content:center}
+.profile{width:104px;display:grid;gap:9px;justify-items:center;border-radius:6px;padding:6px}
+.profile .av{width:min(88px,22vw);height:min(88px,22vw);border-radius:7px;display:grid;place-items:center;font-family:var(--f-display);font-weight:900;font-size:clamp(24px,8vw,34px);color:#07100b;border:2px solid transparent;transition:border-color .18s}
+.profile:focus-visible .av{border-color:var(--fg)}
+.profile span{font-size:13px;color:var(--muted)}
+@media(hover:hover){
+  .profile:hover .av{border-color:var(--fg)}
+  .profile:hover span{color:var(--fg)}
+}
+#gate .note{margin-top:28px;font-size:12px;color:var(--muted);line-height:1.6}
+
+/* ---------- Nav ---------- */
+#nav{position:fixed;top:0;left:0;right:0;z-index:40;padding-top:env(safe-area-inset-top,0px);
+  background:linear-gradient(180deg,rgba(4,6,5,.92),rgba(4,6,5,.45) 55%,transparent);
+  transition:background .25s}
+#nav.solid{background:rgba(7,9,8,.97);border-bottom:1px solid var(--line)}
+#nav .bar{height:var(--nav-h);display:flex;align-items:center;gap:18px}
+#nav .mark{font-size:clamp(14px,4.3vw,19px);flex:0 1 auto;min-width:0;overflow:hidden}
+.menu{display:flex;gap:17px;font-size:13.5px;color:#cdd6d0;flex:1 1 auto;min-width:0;overflow:hidden}
+.menu button{white-space:nowrap;opacity:.82}
+.menu button:hover,.menu button.on{opacity:1;color:#fff;font-weight:600}
+.navright{display:flex;align-items:center;gap:12px;flex:0 0 auto}
+.iconbtn{width:34px;height:34px;display:grid;place-items:center;border-radius:4px}
+.iconbtn:hover{background:rgba(255,255,255,.1)}
+.iconbtn svg{width:19px;height:19px;stroke:currentColor;fill:none;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+#navav{width:30px;height:30px;border-radius:4px;display:grid;place-items:center;font-family:var(--f-display);font-weight:900;font-size:13px;color:#07100b;transition:background .6s ease}
+@media(max-width:720px){ .menu{display:none} }
+
+/* Chips de categoría */
+.cats{overflow-x:auto;overscroll-behavior-x:contain;scrollbar-width:none;padding-bottom:9px}
+.cats::-webkit-scrollbar{display:none}
+.chips{display:flex;gap:8px;padding-left:var(--gl);padding-right:var(--gr);width:max-content}
+.chip{border:1px solid var(--line);border-radius:999px;padding:5px 14px;font-size:12.5px;color:#c6cfc9;
+  white-space:nowrap;background:rgba(14,18,16,.55);transition:background .3s,color .3s,border-color .3s,transform .18s}
+.chip:active{transform:scale(.95)}
+.chip.on{background:var(--accent);border-color:var(--accent-2);color:#06120b;font-weight:700}
+@media(hover:hover){ .chip:not(.on):hover{border-color:var(--accent-2);color:#fff} }
+
+/* ---------- Hero ---------- */
+#hero{position:relative;min-height:min(78vh,600px);display:flex;align-items:flex-end;
+  padding-top:calc(var(--nav-h) + 92px);padding-bottom:30px;overflow:hidden}
+#heroart{position:absolute;inset:0;z-index:0}
+#hero .scrim{position:absolute;inset:0;z-index:1;
+  background:linear-gradient(90deg,rgba(5,7,6,.94) 0%,rgba(5,7,6,.72) 45%,rgba(5,7,6,.15) 80%),
+             linear-gradient(0deg,var(--bg) 2%,rgba(7,9,8,.1) 45%)}
+#hero .content{position:relative;z-index:2;max-width:min(620px,100%);min-width:0;display:grid;gap:14px}
+.eyebrow{display:flex;align-items:center;gap:9px;font-size:11.5px;letter-spacing:.17em;text-transform:uppercase;color:var(--accent-2);font-weight:700}
+.eyebrow .sq{width:5px;height:16px;background:var(--accent-2);border-radius:1px}
+#hero h1{font-size:clamp(34px,8.4vw,66px);font-weight:900;font-stretch:108%;letter-spacing:-.025em;line-height:.94}
+.meta{display:flex;flex-wrap:wrap;align-items:center;gap:10px;font-size:13px;color:#c2ccc5}
+.match{color:var(--accent-2);font-weight:700}
+.pill{border:1px solid var(--line);border-radius:3px;padding:1px 6px;font-size:11px;color:var(--muted)}
+#hero p{margin:0;max-width:52ch;color:#d3dbd5;font-size:clamp(14px,3.4vw,16px);
+  text-shadow:0 1px 14px rgba(0,0,0,.75);
+  display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;overflow:hidden}
+@media(min-width:760px){ #hero p{-webkit-line-clamp:3} }
+.actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:4px}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:10px 19px;border-radius:4px;font-weight:700;font-size:14.5px;transition:transform .14s,background .14s,opacity .14s}
+.btn svg{width:17px;height:17px}
+.btn:active{transform:scale(.97)}
+.btn-pri{background:var(--fg);color:#0a0f0c}
+.btn-pri:hover{background:#fff}
+.btn-sec{background:rgba(120,138,129,.38);color:#fff}
+.btn-sec:hover{background:rgba(120,138,129,.52)}
+
+/* ---------- Filas ---------- */
+#rows{position:relative;z-index:3;margin-top:-28px;display:flex;flex-direction:column;gap:30px;
+  padding-bottom:50px;min-width:0;max-width:100%}
+.row{width:100%;min-width:0;max-width:100%}
+.row>h2{font-size:clamp(15px,3.6vw,20px);font-weight:700;font-stretch:96%;letter-spacing:-.01em;margin-bottom:11px}
+.row>h2 em{font-style:normal;color:var(--accent-2)}
+.railwrap{position:relative;min-width:0;max-width:100%}
+.rail{display:flex;gap:9px;overflow-x:auto;overscroll-behavior-x:contain;scroll-snap-type:x proximity;
+  -webkit-overflow-scrolling:touch;touch-action:auto;cursor:grab;min-width:0;max-width:100%;
+  padding:8px var(--gr) 10px var(--gl);scrollbar-width:none}
+.rail.dragging{cursor:grabbing;scroll-snap-type:none;scroll-behavior:auto}
+.rail::-webkit-scrollbar{display:none}
+.rail>*{scroll-snap-align:start;flex:0 0 auto;-webkit-user-select:none;user-select:none;-webkit-touch-callout:none}
+.arrow{position:absolute;top:0;bottom:0;width:46px;z-index:5;display:none;place-items:center;
+  background:rgba(5,7,6,.62);color:#fff;font-size:22px;opacity:0;transition:opacity .18s}
+.railwrap:hover .arrow{opacity:1}
+.arrow.l{left:0}.arrow.r{right:0}
+@media(hover:hover) and (min-width:760px){ .arrow{display:grid} }
+
+.card{width:clamp(152px,44vw,252px);max-width:100%;min-width:0;border-radius:5px;overflow:hidden;position:relative;
+  background:var(--surface);transition:transform .2s;text-align:left;display:block}
+.card .art{aspect-ratio:16/10;position:relative}
+.card:focus-visible{z-index:4}
+@media(hover:hover) and (min-width:760px){
+  .card:hover,.card:focus-visible{transform:scale(1.045);z-index:4}
+}
+.card .cap{position:absolute;left:0;right:0;bottom:0;padding:8px 10px 9px;
+  background:linear-gradient(0deg,rgba(4,6,5,.92),transparent);display:grid;gap:3px}
+.card .ct{font-family:var(--f-display);font-weight:800;font-stretch:92%;font-size:14px;line-height:1.12;letter-spacing:-.01em}
+.card .cs{font-size:10.5px;color:#a9b3ac;letter-spacing:.04em;text-transform:uppercase}
+.card .bar{position:absolute;left:10px;right:10px;bottom:6px;height:3px;background:rgba(255,255,255,.26);border-radius:2px}
+.card .bar i{display:block;height:100%;background:var(--accent-2);border-radius:2px}
+.card.prog .cap{bottom:12px}
+.badge{position:absolute;top:7px;left:7px;z-index:2;background:var(--red);color:#fff;font-size:9.5px;
+  font-weight:800;letter-spacing:.1em;padding:2px 5px;border-radius:2px;text-transform:uppercase}
+.badge.g{background:var(--accent)}
+.listflag{position:absolute;top:7px;right:7px;z-index:2;width:18px;height:18px;border-radius:50%;
+  background:rgba(4,6,5,.7);display:grid;place-items:center;font-size:11px;color:var(--accent-2)}
+
+/* Top 10 */
+.t10{display:flex;align-items:flex-end;gap:0;width:clamp(186px,52vw,270px);max-width:100%}
+.t10 .rank{font-family:var(--f-display);font-weight:900;font-stretch:75%;font-size:clamp(72px,19vw,124px);
+  line-height:.72;color:#0c0f0d;-webkit-text-stroke:2px #39433d;margin-right:-6px;flex:0 0 auto}
+.t10 .post{width:clamp(104px,28vw,150px);aspect-ratio:2/3;border-radius:4px;overflow:hidden;position:relative;transition:transform .2s;flex:0 0 auto}
+@media(hover:hover) and (min-width:760px){ .t10:hover .post{transform:scale(1.05)} }
+
+/* Poster art */
+.art,.post{background:var(--bg-2)}
+.art .num,.post .num{position:absolute;font-family:var(--f-display);font-weight:900;font-stretch:78%;
+  color:rgba(255,255,255,.14);line-height:.8;letter-spacing:-.04em}
+.art .num{right:8px;top:4px;font-size:52px}
+.post .num{left:9px;top:6px;font-size:34px}
+.post .pt{position:absolute;left:9px;right:9px;bottom:10px;font-family:var(--f-display);font-weight:800;
+  font-stretch:88%;font-size:12.5px;line-height:1.1;text-shadow:0 2px 10px rgba(0,0,0,.6)}
+.tex{position:absolute;inset:0;opacity:.3;mix-blend-mode:overlay;
+  background:repeating-linear-gradient(115deg,rgba(255,255,255,.08) 0 1px,transparent 1px 7px)}
+.glyph{position:absolute;inset:0;opacity:.5}
+.glyph svg{width:100%;height:100%}
+
+/* ---------- Catalogo ---------- */
+#catalog{padding-bottom:60px}
+#catalog h2{font-size:clamp(16px,4vw,21px);font-weight:800;font-stretch:96%;margin-bottom:4px}
+#catalog .sub{color:var(--muted);font-size:13px;margin-bottom:16px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:10px}
+.grid .card,.rel .card{width:auto;max-width:100%}
+
+/* ---------- Buscar ---------- */
+#search{position:fixed;inset:0;z-index:60;background:rgba(5,7,6,.97);display:none;flex-direction:column;
+  padding-top:calc(env(safe-area-inset-top,0px) + 16px)}
+#search.on{display:flex}
+#search .top{display:flex;gap:10px;align-items:center;padding-bottom:14px}
+#search input{flex:1 1 auto;min-width:0;background:var(--surface);border:1px solid var(--line);color:var(--fg);
+  border-radius:4px;padding:12px 14px;font:inherit;outline:none;
+  -webkit-user-select:text;user-select:text;transition:border-color .25s}
+#search input:focus{border-color:var(--accent-2)}
+#search input::placeholder{color:var(--muted)}
+#sres{flex:1 1 auto;overflow-y:auto;padding-bottom:40px}
+#sres .empty{color:var(--muted);padding:30px 0}
+
+/* ---------- Ficha ---------- */
+.overlay{position:fixed;inset:0;z-index:70;background:rgba(3,5,4,.82);overflow-y:auto;display:none;
+  padding:calc(env(safe-area-inset-top,0px) + 24px) var(--gr) 40px var(--gl)}
+.overlay.on{display:block}
+.sheet{max-width:min(860px,100%);margin:0 auto;background:var(--surface);border-radius:8px;overflow:hidden;
+  border:1px solid var(--line);box-shadow:0 24px 60px rgba(0,0,0,.6)}
+.sheet .banner{position:relative;aspect-ratio:16/8}
+.sheet .banner .bs{position:absolute;inset:0;background:linear-gradient(0deg,var(--surface) 2%,transparent 60%)}
+.closer{position:absolute;top:12px;right:12px;z-index:5;width:32px;height:32px;border-radius:50%;
+  background:rgba(5,7,6,.8);display:grid;place-items:center;font-size:17px}
+.sheet .btop{position:absolute;left:0;right:0;bottom:0;z-index:3;padding:0 clamp(13px,4vw,20px) 14px;display:grid;gap:11px}
+.sheet h2{font-size:clamp(23px,6vw,40px);font-weight:900;font-stretch:104%;letter-spacing:-.025em;line-height:.98}
+.sheet .body{padding:16px clamp(13px,4vw,20px) 24px;display:grid;gap:18px;min-width:0}
+.two{display:grid;grid-template-columns:1.5fr 1fr;gap:22px;min-width:0}
+.two>*{min-width:0}
+@media(max-width:620px){ .two{grid-template-columns:1fr;gap:16px} }
+.two p{margin:0;color:#d6ded8;font-size:14.5px}
+.facts{display:grid;gap:7px;font-size:12.5px;color:var(--muted)}
+.facts b{color:#cfd8d2;font-weight:600}
+.keys{display:grid;gap:8px;padding:14px 16px;background:var(--surface-2);border-radius:6px;border-left:3px solid var(--accent)}
+.keys h3{font-size:11.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--accent-2);font-weight:700;font-family:var(--f-ui)}
+.keys ul{margin:0;padding-left:17px;display:grid;gap:6px;font-size:13.5px;color:#d6ded8}
+.related h3{font-size:14px;font-weight:700;font-stretch:96%;margin-bottom:10px}
+.rel{display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:10px}
+
+/* ---------- Lector ---------- */
+#player{position:fixed;inset:0;z-index:80;background:#050706;display:none;flex-direction:column}
+#player.on{display:flex}
+#ptop{position:absolute;top:0;left:0;right:0;z-index:6;padding-top:env(safe-area-inset-top,0px);
+  background:linear-gradient(180deg,rgba(3,5,4,.95),transparent);transition:opacity .3s}
+#ptop .r{display:flex;align-items:center;gap:12px;height:54px;min-width:0}
+#ptop .t{font-family:var(--f-display);font-weight:800;font-stretch:92%;font-size:15px;overflow:hidden;
+  text-overflow:ellipsis;white-space:nowrap;flex:1 1 auto;min-width:0}
+#preader{flex:1 1 auto;overflow-y:auto;padding:calc(env(safe-area-inset-top,0px) + 74px) var(--gr) 180px var(--gl);
+  scroll-behavior:auto}
+.read{max-width:64ch;margin:0 auto;font-family:var(--f-read);font-size:clamp(17px,4.2vw,19.5px);line-height:1.72;color:#dfe6e0}
+.read .kicker{font-family:var(--f-ui);font-size:11.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--accent-2);font-weight:700;margin-bottom:10px}
+.read h1{font-family:var(--f-display);font-weight:900;font-stretch:106%;font-size:clamp(28px,7.5vw,46px);
+  letter-spacing:-.025em;line-height:1;margin-bottom:18px}
+.read p{margin:0 0 1.15em}
+.read .end{font-family:var(--f-ui);font-size:13px;color:var(--muted);border-top:1px solid var(--line);padding-top:16px;margin-top:26px}
+#subs{position:absolute;left:0;right:0;bottom:92px;z-index:5;display:none;padding:0 var(--gr) 0 var(--gl)}
+#subs.on{display:block}
+#subs .in{max-width:620px;margin:0 auto;background:rgba(3,5,4,.88);border:1px solid var(--line);
+  border-radius:6px;padding:12px 15px;display:grid;gap:7px;font-size:13.5px;color:#e6ece7}
+#subs b{font-family:var(--f-ui);font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--accent-2)}
+#pctl{position:absolute;left:0;right:0;bottom:0;z-index:6;padding:14px var(--gr) calc(env(safe-area-inset-bottom,0px) + 12px) var(--gl);
+  background:linear-gradient(0deg,rgba(3,5,4,.97) 40%,transparent);transition:opacity .3s}
+#pbar{height:4px;background:rgba(255,255,255,.2);border-radius:3px;cursor:pointer;position:relative;margin-bottom:11px}
+#pbar i{display:block;height:100%;background:var(--accent-2);border-radius:3px;width:0}
+#pbar .dot{position:absolute;top:50%;width:12px;height:12px;border-radius:50%;background:var(--accent-2);
+  transform:translate(-50%,-50%);left:0}
+#pctl .r{display:flex;align-items:center;gap:clamp(2px,2.2vw,14px);font-size:12.5px;color:#c2ccc5;min-width:0}
+#pctl .iconbtn{flex:0 0 auto}
+#pctl .iconbtn svg{width:21px;height:21px}
+#pctl .spacer{flex:1 1 auto;min-width:0}
+#ptime{flex:0 1 auto;min-width:0;white-space:nowrap;overflow:hidden;font-size:clamp(10.5px,3vw,12.5px)}
+#pctl .lbl{display:none}
+@media(min-width:620px){ #pctl .lbl{display:inline} }
+#pnext{position:absolute;right:var(--gr);bottom:96px;z-index:7;width:min(320px,74vw);background:rgba(10,14,12,.96);
+  border:1px solid var(--line);border-radius:7px;padding:13px 15px;display:none;gap:9px}
+#pnext.on{display:grid}
+#pnext .k{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+#pnext .n{font-family:var(--f-display);font-weight:800;font-stretch:94%;font-size:16px}
+#pnext .row{display:flex;gap:8px;margin-top:4px}
+#pnext .btn{padding:7px 14px;font-size:13px}
+
+/* ---------- Panel proyecto ---------- */
+#proj .sheet{max-width:760px}
+#proj .body{padding:22px 20px 26px;gap:20px}
+#proj h2{font-size:clamp(21px,5vw,30px)}
+#proj h3{font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--accent-2);font-family:var(--f-ui);font-weight:700;margin-bottom:9px}
+#proj p{margin:0;color:#d2dbd5;font-size:14px}
+#proj ul{margin:0;padding-left:18px;display:grid;gap:6px;font-size:13.5px;color:#d2dbd5}
+.map{display:grid;gap:1px;background:var(--line);border:1px solid var(--line);border-radius:6px;overflow:hidden}
+.map div{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--line)}
+.map span{background:var(--surface-2);padding:9px 12px;font-size:13px;min-width:0}
+@media(max-width:430px){
+  .map div{grid-template-columns:1fr}
+  .map .h span:last-child{display:none}
+  .map span:first-child{padding-bottom:2px}
+  .map span:last-child{padding-top:2px}
+}
+.map span:first-child{color:var(--muted)}
+.map span:last-child{color:#e4ebe6;font-weight:600}
+.map .h span{background:#0f1413;font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);font-weight:700}
+
+footer{border-top:1px solid var(--line);padding-block:26px 40px;color:var(--muted);font-size:12px;line-height:1.7}
+footer .mark{font-size:15px;margin-bottom:12px;opacity:.75}
+footer p{margin:0 0 8px;max-width:76ch}
+
+/* ---------- Animaciones ---------- */
+@keyframes rise{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
+@keyframes fade{from{opacity:0}to{opacity:1}}
+@keyframes slideL{from{opacity:0;transform:translateX(26px)}to{opacity:1;transform:none}}
+@keyframes popIn{from{opacity:0;transform:translateY(22px) scale(.97)}to{opacity:1;transform:none}}
+@keyframes glow{from{opacity:0;transform:scale(1.06)}to{opacity:1;transform:none}}
+@keyframes nextIn{from{opacity:0;transform:translateX(30px)}to{opacity:1;transform:none}}
+@keyframes sweep{from{background-position:-160% 0}to{background-position:260% 0}}
+
+#hero .content>*{animation:rise .62s cubic-bezier(.22,.8,.3,1) both}
+#hero .content>*:nth-child(1){animation-delay:.04s}
+#hero .content>*:nth-child(2){animation-delay:.1s}
+#hero .content>*:nth-child(3){animation-delay:.16s}
+#hero .content>*:nth-child(4){animation-delay:.22s}
+#hero .content>*:nth-child(5){animation-delay:.28s}
+#heroart{animation:glow .9s cubic-bezier(.22,.8,.3,1) both}
+.row{animation:rise .5s cubic-bezier(.22,.8,.3,1) both}
+.row:nth-child(1){animation-delay:.02s}
+.row:nth-child(2){animation-delay:.08s}
+.row:nth-child(3){animation-delay:.14s}
+.row:nth-child(4){animation-delay:.2s}
+.row:nth-child(n+5){animation-delay:.26s}
+.chip{animation:slideL .45s cubic-bezier(.22,.8,.3,1) both}
+.chip:nth-child(2){animation-delay:.04s}.chip:nth-child(3){animation-delay:.08s}
+.chip:nth-child(4){animation-delay:.12s}.chip:nth-child(5){animation-delay:.16s}
+.chip:nth-child(6){animation-delay:.2s}.chip:nth-child(7){animation-delay:.24s}
+.overlay.on .sheet{animation:popIn .4s cubic-bezier(.22,.9,.3,1) both}
+.overlay.on{animation:fade .28s ease both}
+#player.on{animation:fade .34s ease both}
+#player.on .read{animation:rise .55s cubic-bezier(.22,.8,.3,1) both}
+#pnext.on{animation:nextIn .45s cubic-bezier(.22,.9,.3,1) both}
+#gate{transition:opacity .45s ease,transform .45s ease}
+#gate.out{opacity:0;transform:scale(1.04);pointer-events:none}
+.profiles .profile{animation:popIn .5s cubic-bezier(.22,.9,.3,1) both}
+.profiles .profile:nth-child(2){animation-delay:.07s}
+.profiles .profile:nth-child(3){animation-delay:.14s}
+.profiles .profile:nth-child(4){animation-delay:.21s}
+
+/* cambio de categoría: el contenido se recompone */
+.swap{animation:fade .45s ease both}
+
+/* la marca y los acentos siguen el color activo */
+.mark b,.eyebrow,.match,.read .kicker,.keys h3,#subs b,.row>h2 em{transition:color .6s ease}
+.eyebrow .sq,.card .bar i,#pbar i,#pbar .dot{transition:background-color .6s ease}
+.keys{transition:border-color .6s ease}
+.btn,.card .art,.post,.t10 .rank{transition:transform .2s cubic-bezier(.22,.9,.3,1),background .6s ease,box-shadow .25s}
+.card{box-shadow:0 0 0 rgba(0,0,0,0)}
+@media(hover:hover) and (min-width:760px){
+  .card:hover{box-shadow:0 14px 34px rgba(0,0,0,.55)}
+}
+.btn-pri:active,.btn-sec:active{transform:scale(.96)}
+.iconbtn{transition:background .2s,transform .15s}
+.iconbtn:active{transform:scale(.9)}
+
+/* barra de progreso con brillo mientras se lee */
+#pbar i{background:linear-gradient(90deg,var(--accent) 0%,var(--accent-2) 60%,#fff 100%);
+  background-size:200% 100%}
+
+@media (prefers-reduced-motion:reduce){
+  *{transition:none!important;animation:none!important;scroll-behavior:auto!important}
+}
+</style>
+
+<!-- ======================= PERFILES ======================= -->
+<section id="gate">
+  <div class="inner">
+    <div class="mark"><span class="logo" aria-hidden="true"><svg viewBox="0 0 40 40" fill="none"><rect class="tile" width="40" height="40" rx="11"/><path class="arc" d="M29.19 12.29A12 12 0 1 0 29.19 27.71" stroke-width="5.4" stroke-linecap="round"/><circle class="seed" cx="30.6" cy="10.8" r="4.2"/></svg></span><i>Efecto</i><b>COMPUESTO</b></div>
+    <h1>¿Quién está leyendo?</h1>
+    <div class="profiles" id="plist"></div>
+  </div>
+</section>
+
+<!-- ======================= NAV ======================= -->
+<header id="nav" hidden>
+  <div class="bar pad">
+    <div class="mark"><span class="logo" aria-hidden="true"><svg viewBox="0 0 40 40" fill="none"><rect class="tile" width="40" height="40" rx="11"/><path class="arc" d="M29.19 12.29A12 12 0 1 0 29.19 27.71" stroke-width="5.4" stroke-linecap="round"/><circle class="seed" cx="30.6" cy="10.8" r="4.2"/></svg></span><i>Efecto</i><b>COMPUESTO</b></div>
+    <nav class="menu">
+      <button data-go="top" class="on">Inicio</button>
+      <button data-go="catalog">Capítulos</button>
+      <button data-go="mylist">Mi lista</button>
+      <button data-go="proj">El proyecto</button>
+    </nav>
+    <div class="navright">
+      <button class="iconbtn" id="btnSearch" aria-label="Buscar">
+        <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"></circle><path d="m20 20-3.5-3.5"></path></svg>
+      </button>
+      <button id="navav" aria-label="Cambiar de perfil"></button>
+    </div>
+  </div>
+  <div class="cats"><div class="chips" id="chips"></div></div>
+</header>
+<div id="tint"></div>
+
+<!-- ======================= HOME ======================= -->
+<main id="home" hidden>
+  <section id="hero" class="pad">
+    <div id="heroart"></div>
+    <div class="scrim"></div>
+    <div class="content">
+      <div class="eyebrow"><span class="sq"></span><span id="heroKick">Destacado de hoy</span></div>
+      <h1 id="heroTitle"></h1>
+      <div class="meta" id="heroMeta"></div>
+      <p id="heroSyn"></p>
+      <div class="actions">
+        <button class="btn btn-pri" id="heroPlay">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M7 4.5v15l13-7.5z"></path></svg> Leer
+        </button>
+        <button class="btn btn-sec" id="heroInfo">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9"></circle><path d="M12 11v5m0-8.2v.2"></path></svg> Más información
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <div id="rows"></div>
+
+  <section id="catalog" class="pad">
+    <h2>Todos los capítulos</h2>
+    <p class="sub">23 entradas · introducción, 20 capítulos, posdata y capítulo adicional de la edición en español.</p>
+    <div class="grid" id="catgrid"></div>
+  </section>
+
+  <footer class="pad">
+    <div class="mark"><span class="logo" aria-hidden="true"><svg viewBox="0 0 40 40" fill="none"><rect class="tile" width="40" height="40" rx="11"/><path class="arc" d="M29.19 12.29A12 12 0 1 0 29.19 27.71" stroke-width="5.4" stroke-linecap="round"/><circle class="seed" cx="30.6" cy="10.8" r="4.2"/></svg></span><i>Efecto</i><b>COMPUESTO</b></div>
+    <p>Proyecto académico sin fines de lucro. Esta aplicación no reproduce el texto del libro: las sinopsis, ideas clave y resúmenes fueron redactados para este proyecto a partir de la lectura de la obra.</p>
+    <p>Housel, M. (2025). <em>La psicología del dinero: cómo piensan los ricos. 18 lecciones sobre riqueza y felicidad</em> (A. Figueras Deulofeu, trad.). Booket / Editorial Planeta. (Obra original publicada en 2020).</p>
+    <p id="credit"></p>
+  </footer>
+</main>
+
+<!-- ======================= BUSCAR ======================= -->
+<section id="search">
+  <div class="top pad">
+    <input id="sinput" type="search" placeholder="Buscar por título, idea o tema…" autocomplete="off">
+    <button class="btn btn-sec" id="sclose">Cerrar</button>
+  </div>
+  <div id="sres" class="pad"></div>
+</section>
+
+<!-- ======================= FICHA ======================= -->
+<section class="overlay" id="detail"></section>
+
+<!-- ======================= PROYECTO ======================= -->
+<section class="overlay" id="proj">
+  <div class="sheet">
+    <div class="body">
+      <button class="closer" data-close style="position:static;justify-self:end">✕</button>
+      <h2>Sobre el proyecto</h2>
+      <p>Aplicación de catálogo construida sobre <em>La psicología del dinero</em>, de Morgan Housel. Cada capítulo del libro se trata como un título del catálogo: tiene ficha, duración estimada de lectura, categorías y progreso guardado.</p>
+
+      <div>
+        <h3>Equivalencias con una plataforma de streaming</h3>
+        <div class="map">
+          <div class="h"><span>Patrón de la plataforma</span><span>Cómo se resolvió aquí</span></div>
+          <div><span>Selector de perfiles</span><span>Perfil de lectura</span></div>
+          <div><span>Billboard / destacado</span><span>Capítulo destacado del día</span></div>
+          <div><span>Seguir viendo</span><span>Continuar leyendo con % real</span></div>
+          <div><span>Top 10 del país</span><span>Top 10 de capítulos</span></div>
+          <div><span>Mi lista</span><span>Mi lista, persistente</span></div>
+          <div><span>Reproductor</span><span>Lector con avance automático</span></div>
+          <div><span>Subtítulos</span><span>Ideas clave sobre el texto</span></div>
+          <div><span>Siguiente episodio</span><span>Siguiente capítulo con cuenta regresiva</span></div>
+          <div><span>Coincidencia %</span><span>Afinidad calculada por perfil</span></div>
+        </div>
+      </div>
+
+      <div>
+        <h3>Funciones implementadas</h3>
+        <ul>
+          <li>Perfiles de lectura que cambian las recomendaciones y el porcentaje de coincidencia.</li>
+          <li>Carruseles horizontales con desplazamiento por secciones y controles de flecha.</li>
+          <li>Ficha en overlay con sinopsis, ideas clave, páginas del libro y capítulos relacionados.</li>
+          <li>Lector a pantalla completa con barra de progreso navegable, avance automático y control de velocidad.</li>
+          <li>Progreso de lectura, lista personal y valoraciones guardados en el navegador.</li>
+          <li>Buscador con filtrado en vivo por título, sinopsis y temas.</li>
+          <li>Atajos de teclado: <b>/</b> buscar, <b>Esc</b> cerrar, <b>espacio</b> reproducir o pausar en el lector.</li>
+        </ul>
+      </div>
+
+      <div>
+        <h3>Tecnología</h3>
+        <p>HTML, CSS y JavaScript sin dependencias ni framework. Interfaz en una sola página, con <em>scroll-snap</em> para los carruseles, <em>localStorage</em> para el estado de cada perfil y tipografías Archivo, Schibsted Grotesk y Newsreader.</p>
+      </div>
+
+      <div>
+        <h3>Derechos de autor</h3>
+        <p>El libro está protegido y su edición en español prohíbe expresamente la reproducción de sus partes. Por eso la aplicación no incluye ningún fragmento del texto original ni la portada: todo el contenido que se lee dentro del lector es un resumen y comentario redactado para este proyecto, con la referencia completa de la obra en el pie de página.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ======================= LECTOR ======================= -->
+<section id="player">
+  <div id="ptop">
+    <div class="r pad">
+      <button class="iconbtn" id="pback" aria-label="Volver">
+        <svg viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7"></path></svg>
+      </button>
+      <span class="t" id="ptitle"></span>
+    </div>
+  </div>
+  <div id="preader"><div class="read" id="pread"></div></div>
+  <div id="subs"><div class="in" id="subsin"></div></div>
+  <div id="pnext">
+    <span class="k">A continuación</span>
+    <span class="n" id="nextTitle"></span>
+    <div class="row">
+      <button class="btn btn-pri" id="nextGo">Leer <span id="nextCount" class="tnum"></span></button>
+      <button class="btn btn-sec" id="nextCancel">Cancelar</button>
+    </div>
+  </div>
+  <div id="pctl">
+    <div id="pbar"><i></i><span class="dot"></span></div>
+    <div class="r">
+      <button class="iconbtn" id="pplay" aria-label="Reproducir">
+        <svg viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M7 4.5v15l13-7.5z"></path></svg>
+      </button>
+      <button class="iconbtn" id="pprev" aria-label="Capítulo anterior">
+        <svg viewBox="0 0 24 24"><path d="M18 5v14L8 12zM6 5v14"></path></svg>
+      </button>
+      <button class="iconbtn" id="pnextbtn" aria-label="Capítulo siguiente">
+        <svg viewBox="0 0 24 24"><path d="M6 5v14l10-7zM18 5v14"></path></svg>
+      </button>
+      <span class="tnum" id="ptime">0 / 0 min</span>
+      <span class="spacer"></span>
+      <button class="iconbtn" id="pspeed" aria-label="Velocidad"><span style="font-size:12px;font-weight:700">1x</span></button>
+      <button class="iconbtn" id="psubs" aria-label="Ideas clave">
+        <svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"></rect><path d="M7 14h4m3 0h3"></path></svg>
+      </button>
+      <button class="iconbtn" id="plist" aria-label="Agregar a mi lista">
+        <svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"></path></svg>
+      </button>
+    </div>
+  </div>
+</section>
+
+<script>
+/* ============================================================
+   DATOS — resúmenes de elaboración propia (no texto del libro)
+   ============================================================ */
+const PAL = {
+  verde:[152,46,26], jade:[164,40,24], pino:[142,38,22], oliva:[86,42,24],
+  ambar:[38,62,30], oxido:[18,58,28], vino:[348,44,26], ciruela:[310,34,26],
+  indigo:[232,42,28], acero:[205,34,24], petroleo:[188,44,22], arena:[32,34,26]
+};
+const H = Object.values(PAL);
+
+const DATA = [
+  {
+    id:"intro", n:"INTRO", title:"El mayor espectáculo de la Tierra", pages:"pp. 13–23", min:15,
+    cats:["fundamentos"], tags:["conducta","tesis","casos reales"], hue:H[0], glyph:1,
+    syn:"Un conserje que nunca ganó mucho muere con una fortuna. Un ejecutivo con posgrado y despacho en Wall Street termina en quiebra. Housel abre con ese contraste para plantear su tesis: con el dinero, la conducta pesa más que la inteligencia.",
+    keys:[
+      "Las finanzas se enseñan como si fueran física y se viven como si fueran psicología.",
+      "Es de las pocas áreas donde alguien sin formación técnica puede superar a un experto.",
+      "El tema del libro no es qué hacer con el dinero, sino por qué hacemos lo que hacemos."
+    ],
+    body:[
+      "La apertura es casi una provocación. Housel pone lado a lado dos biografías imposibles de confundir: una persona de ingresos modestos que ahorró e invirtió durante décadas sin que nadie lo notara, y un profesional brillante, con formación de élite y acceso a la mejor información del mercado, que terminó perdiéndolo todo. Ninguno de los dos resultados se explica por el coeficiente intelectual.",
+      "De ahí sale la pregunta que sostiene el libro completo: si saber de finanzas fuera suficiente, los resultados deberían ordenarse por conocimiento. No se ordenan así. Se ordenan por paciencia, por temperamento, por la capacidad de no hacer nada cuando todo invita a hacer algo, y por no arruinarse en el intento de ganar más rápido.",
+      "Housel es explícito sobre su método: en lugar de fórmulas, dieciocho lecciones construidas sobre historias. No porque las historias sean más entretenidas, sino porque el dinero se decide en la mesa de la cena y no en una hoja de cálculo. Esta introducción funciona como el contrato con el lector: lo que sigue no son instrucciones, son formas de pensar."
+    ]
+  },
+  {
+    id:"c1", n:"1", title:"Nadie está loco", pages:"pp. 23–39", min:24,
+    cats:["fundamentos","sesgos"], tags:["experiencia personal","generaciones","lotería"], hue:H[1], glyph:2,
+    syn:"Tus experiencias con el dinero son una fracción diminuta de lo que ha pasado en el mundo, pero explican casi todo lo que crees sobre cómo funciona. Por eso lo que a ti te parece una locura, para otro tiene sentido perfecto.",
+    keys:[
+      "Lo vivido convence más que lo aprendido: nadie decide solo con datos.",
+      "La generación en la que naciste condiciona cuánto riesgo estás dispuesto a asumir.",
+      "El sistema financiero moderno es tan reciente que todos somos principiantes en él."
+    ],
+    body:[
+      "El capítulo arranca con una idea incómoda: quien creció con inflación alta y quien creció con precios estables no están discutiendo sobre el mismo mundo, aunque usen las mismas palabras. Housel apoya el argumento en investigación económica que rastreó décadas de decisiones de inversión y encontró que el factor determinante no era la formación ni la inteligencia, sino cómo se comportaron los mercados durante la juventud de cada persona.",
+      "El ejemplo que más incomoda es el de la lotería. Los hogares de menores ingresos gastan varias veces más en billetes que los de ingresos altos, y buena parte de ellos no podría reunir una cantidad modesta ante una emergencia. Visto desde fuera es un disparate. Visto desde dentro, es el único momento en que alguien puede sostener en la mano un sueño tangible de tener lo que otros dan por sentado.",
+      "La segunda mitad agrega un argumento que suele pasarse por alto: casi todo lo que hoy llamamos finanzas personales es nuevo. La idea de jubilarse, los planes de retiro, el crédito al consumo masivo, los fondos indexados. No llevamos siglos practicando esto, llevamos un par de generaciones. No estamos locos, estamos estrenando el juego."
+    ]
+  },
+  {
+    id:"c2", n:"2", title:"Suerte y riesgo", pages:"pp. 39–55", min:24,
+    cats:["fundamentos","riesgo"], tags:["azar","éxito","casos reales"], hue:H[2], glyph:3,
+    syn:"La suerte y el riesgo son hermanos: las dos son la prueba de que todo resultado está influido por fuerzas ajenas al esfuerzo individual. Por eso copiar al triunfador es más peligroso de lo que parece.",
+    keys:[
+      "Nada es tan bueno ni tan malo como parece: el azar está en los dos extremos.",
+      "Admira patrones amplios, no personas concretas.",
+      "Sé menos severo contigo cuando falles y menos crédulo cuando otros acierten."
+    ],
+    body:[
+      "Housel usa el caso de Bill Gates para desarmar la narrativa del genio solitario. Gates era brillante y trabajador, sí, pero también estudiaba en una de las poquísimas escuelas del mundo que por entonces tenía una computadora. Y en el mismo grupo había otro estudiante igual de capaz cuya vida terminó antes por un accidente de montaña. Mismo talento, mismo salón, desenlaces incomparables.",
+      "El punto no es minimizar el mérito, es reconocer que el resultado de cualquier decisión se forma con tres ingredientes: lo que hiciste, lo que no controlabas y lo que todavía no ha ocurrido. Cuando analizamos a los demás, atribuimos su éxito al primero y su fracaso al segundo. Cuando nos analizamos a nosotros, invertimos el orden.",
+      "La recomendación práctica es sobria: en lugar de estudiar casos individuales extremos, busca los patrones que se repiten en muchos casos. Es menos emocionante y mucho más fiable. Y al evaluar tu propio desempeño, deja espacio para la idea de que parte del resultado nunca fue tuyo."
+    ]
+  },
+  {
+    id:"c3", n:"3", title:"No tener nunca suficiente", pages:"pp. 55–67", min:18,
+    cats:["fundamentos","libertad"], tags:["ambición","ética","límites"], hue:H[6], glyph:4,
+    syn:"Gente que ya lo tenía todo arriesgó su reputación, su libertad y su familia por conseguir más. La habilidad financiera más difícil es lograr que la meta deje de moverse.",
+    keys:[
+      "Lo más difícil no es ganar: es saber cuándo ya fue suficiente.",
+      "Compararse hacia arriba es una carrera que nadie gana.",
+      "Hay cosas que no vale la pena arriesgar, por grande que sea la ganancia."
+    ],
+    body:[
+      "El capítulo se construye sobre figuras que llegaron a la cima del mundo financiero y lo perdieron todo por querer un poco más. No les faltaba dinero: les faltaba un punto de llegada. Mientras el referente sea la persona que está un escalón arriba, siempre existirá un escalón arriba.",
+      "Housel lo formula como un problema de diseño personal. Si no defines qué cantidad es suficiente, tu meta se recalibra sola cada vez que la alcanzas, y el resultado es la sensación permanente de ir por detrás. La riqueza deja de ser un medio y se convierte en una vara de medir contra desconocidos.",
+      "El cierre es una lista corta de lo que no debería ponerse en juego: la reputación, la libertad, la familia, la amistad, la felicidad. Nada de eso se recupera con una buena racha. Aceptar que ya es suficiente no es conformismo; es el único modo de que el dinero cumpla la función para la que sirve."
+    ]
+  },
+  {
+    id:"c4", n:"4", title:"La confusión del interés compuesto", pages:"pp. 67–77", min:15,
+    cats:["fundamentos"], tags:["tiempo","paciencia","interés compuesto"], hue:H[3], glyph:5,
+    syn:"La mayor parte de la fortuna de los grandes inversionistas no viene de rendimientos extraordinarios, sino de rendimientos decentes sostenidos durante un tiempo absurdamente largo. Nuestra cabeza no está hecha para ver eso.",
+    keys:[
+      "La variable más subestimada no es el rendimiento: es la duración.",
+      "El crecimiento compuesto no es intuitivo, por eso casi nadie lo aprovecha.",
+      "Buena parte del resultado llega al final, cuando ya casi nadie está mirando."
+    ],
+    body:[
+      "Housel compara el fenómeno con las glaciaciones: no hacen falta inviernos terribles, basta con veranos lo bastante templados para que la nieve del año anterior no se derrita del todo. Repite eso durante miles de años y tienes continentes bajo el hielo. Lo contraintuitivo es que el ingrediente clave no es la intensidad, es la acumulación sin interrupciones.",
+      "Con las inversiones ocurre igual. Cuando se analiza la fortuna de los inversionistas más famosos del mundo, la explicación no suele ser una decisión genial, sino que llevan invirtiendo desde la adolescencia y nunca se bajaron del proceso. La inmensa mayoría de su patrimonio se generó en la última etapa de su vida.",
+      "De ahí sale una conclusión práctica que choca con el instinto: en lugar de perseguir el rendimiento más alto posible, conviene perseguir el rendimiento razonable que puedas sostener durante el mayor número de años. Un retorno moderado que dura décadas vence a uno espectacular que se interrumpe."
+    ]
+  },
+  {
+    id:"c5", n:"5", title:"Hacerse rico frente a conservar la riqueza", pages:"pp. 77–93", min:24,
+    cats:["riesgo","fundamentos"], tags:["supervivencia","paranoia","optimismo"], hue:H[9], glyph:6,
+    syn:"Conseguir dinero y conservarlo exigen habilidades opuestas. Lo primero pide tomar riesgos y ser optimista; lo segundo pide humildad y algo de paranoia.",
+    keys:[
+      "La única estrategia indispensable es sobrevivir lo suficiente.",
+      "Planifica contando con que tu plan no saldrá según lo planeado.",
+      "Optimista a largo plazo, paranoico a corto plazo."
+    ],
+    body:[
+      "El capítulo recuerda historias de personas que amasaron fortunas enormes y las perdieron por completo, muchas veces por aplicar a la conservación la misma audacia que les había servido para acumular. Lo que te hizo ganar rara vez es lo que te hace conservar.",
+      "Housel define la supervivencia financiera como la pieza central: ninguna estrategia, por brillante que sea, sirve si te saca del juego antes de que pueda dar frutos. Y como el crecimiento compuesto necesita tiempo, cualquier cosa que interrumpa ese tiempo es un riesgo mayor que un rendimiento mediocre.",
+      "La actitud que propone parece contradictoria y no lo es: ser lo bastante optimista para seguir invirtiendo durante décadas y lo bastante paranoico para no quebrar en el camino. Un plan que solo funciona si todo sale bien no es un plan, es una apuesta."
+    ]
+  },
+  {
+    id:"c6", n:"6", title:"Cruz, tú ganas", pages:"pp. 93–109", min:24,
+    cats:["riesgo","fundamentos"], tags:["colas","fracaso","arte"], hue:H[7], glyph:7,
+    syn:"Un número diminuto de aciertos explica la mayor parte de los resultados. Puedes equivocarte la mitad de las veces y aun así terminar muy bien.",
+    keys:[
+      "Casi todo el resultado viene de unos pocos eventos extremos.",
+      "El fracaso frecuente es parte del diseño, no una señal de incompetencia.",
+      "Lo importante no es acertar seguido, sino cuánto ganas cuando aciertas."
+    ],
+    body:[
+      "Housel recorre ejemplos de coleccionistas de arte, de grandes empresas y de carteras de inversión para mostrar el mismo patrón: la mayoría de las apuestas resultan mediocres y un puñado minúsculo paga por todo lo demás. Quien compra cientos de obras no necesita acertar con todas; necesita que unas pocas sean extraordinarias.",
+      "Lo mismo ocurre dentro de las compañías más grandes del mundo, donde un par de productos sostienen catálogos enteros de intentos olvidados. Y también en los índices bursátiles: una fracción pequeña de las empresas genera casi todo el rendimiento del conjunto.",
+      "La consecuencia emocional es la parte útil del capítulo. Si sabes que la mayoría de tus decisiones no va a destacar, dejas de interpretar cada error como un fallo personal. El trabajo no consiste en evitar equivocarse, sino en permanecer en el juego el tiempo suficiente para que los pocos aciertos grandes aparezcan."
+    ]
+  },
+  {
+    id:"c7", n:"7", title:"Libertad", pages:"pp. 109–121", min:18,
+    cats:["libertad"], tags:["tiempo","felicidad","control"], hue:H[10], glyph:8,
+    syn:"El mayor dividendo que paga el dinero es poder decidir qué haces con tu día, con quién lo haces y durante cuánto tiempo. Ese control, y no el consumo, es lo que mejor se correlaciona con sentirse bien.",
+    keys:[
+      "Controlar tu tiempo es el rendimiento más alto que puede dar el dinero.",
+      "Un ingreso mayor sin autonomía suele empeorar la vida, no mejorarla.",
+      "La riqueza se nota en las opciones que puedes rechazar."
+    ],
+    body:[
+      "Housel apoya el capítulo en investigación sobre bienestar que apunta a un factor por encima del ingreso, la casa o el puesto: la sensación de controlar la propia vida. Poder levantarte y decidir qué vas a hacer pesa más que cualquier aumento de sueldo.",
+      "Desde ahí reinterpreta el ahorro. Cada cantidad guardada no es solo dinero futuro: es la posibilidad de esperar una mejor oferta, de rechazar un trabajo que te destruye, de tomarte una pausa sin pedir permiso. Es independencia comprada por adelantado.",
+      "También señala una ironía del trabajo moderno: ganamos más que generaciones anteriores pero el trabajo nos sigue a casa, al teléfono y al fin de semana. Si la jornada nunca termina, parte de esa mejora material se paga con autonomía. El capítulo invita a medir las decisiones de dinero por cuánto tiempo te devuelven."
+    ]
+  },
+  {
+    id:"c8", n:"8", title:"La paradoja del hombre y el coche", pages:"pp. 121–127", min:9,
+    cats:["sesgos","libertad"], tags:["estatus","ego","admiración"], hue:H[11], glyph:9,
+    syn:"Nadie está tan impresionado con tus posesiones como tú. Cuando alguien ve un coche espectacular, no admira al conductor: se imagina a sí mismo al volante.",
+    keys:[
+      "Compramos cosas para que nos admiren y la gente mira la cosa, no a nosotros.",
+      "El respeto no se compra con objetos; se gana con humildad y amabilidad.",
+      "Es el capítulo más corto del libro y el que más incomoda."
+    ],
+    body:[
+      "Housel cuenta su etapa trabajando como aparcacoches en un hotel de lujo, rodeado de automóviles impresionantes. Su conclusión después de ver pasar cientos de ellos es demoledora: nunca se fijaba en el conductor. Miraba el coche y se imaginaba a sí mismo conduciéndolo.",
+      "El mecanismo es universal. Compramos símbolos de estatus buscando una señal de admiración que, en realidad, nunca llega a nosotros, porque quien mira está ocupado en su propia fantasía. El objeto funciona como espejo del observador, no como pedestal del dueño.",
+      "La lección no es renunciar a todo gusto, sino entender para qué se compra. Si lo que se busca es respeto y aprecio, hay rutas más baratas y más eficaces: ser generoso, ser humilde, tener tiempo para los demás. El resto es pagar mucho por una admiración que no se produce."
+    ]
+  },
+  {
+    id:"c9", n:"9", title:"La riqueza es lo que no se ve", pages:"pp. 127–135", min:12,
+    cats:["fundamentos","libertad"], tags:["ahorro","apariencias","patrimonio"], hue:H[4], glyph:10,
+    syn:"Lo que vemos es gasto, no riqueza. La riqueza es exactamente lo que no se compró: el dinero que sigue ahí, convertido en opciones futuras.",
+    keys:[
+      "Ser rico es el ingreso de este mes; tener riqueza es lo que no gastaste.",
+      "Como la riqueza es invisible, aprendemos a imitar el gasto de los demás.",
+      "Nadie te ve tomando la decisión que más te enriquece: la de no comprar."
+    ],
+    body:[
+      "Housel separa dos conceptos que solemos confundir. Ser rico describe un nivel de ingreso actual y se nota: se traduce en coches, casas y viajes. Tener riqueza describe lo que no se convirtió en consumo y, por definición, es invisible: son los activos que permanecen, la flexibilidad que dan y las decisiones que permiten tomar más adelante.",
+      "El problema de esa invisibilidad es pedagógico. Como solo vemos la parte gastada, construimos nuestro modelo de éxito a partir de ella e imitamos lo que creemos que hizo rica a la gente: comprar. Nadie publica el extracto de su cuenta de inversión ni el coche que decidió no comprar.",
+      "Por eso el capítulo insiste en que la riqueza se construye con una acumulación de renuncias pequeñas e invisibles. No hay aplauso ni reconocimiento social por ellas, y aun así son el único mecanismo real. Hay que aprender a sentirse bien con un logro que nadie va a ver."
+    ]
+  },
+  {
+    id:"c10", n:"10", title:"Ahorrar", pages:"pp. 135–147", min:18,
+    cats:["fundamentos","libertad"], tags:["tasa de ahorro","ego","flexibilidad"], hue:H[0], glyph:11,
+    syn:"Construir patrimonio depende menos del ingreso y del rendimiento que de la tasa de ahorro. Y ahorrar depende, sobre todo, de gastar menos: de mantener el ego por debajo de los ingresos.",
+    keys:[
+      "Puedes crear riqueza sin un gran ingreso, pero no sin ahorrar.",
+      "El ahorro es la diferencia entre tu ego y tus ingresos.",
+      "Ahorrar sin un objetivo específico también vale: compra flexibilidad."
+    ],
+    body:[
+      "El capítulo desarma una creencia muy extendida: que el patrimonio se explica por cuánto ganas o por cuánto rinde tu inversión. Ninguna de esas dos variables está realmente bajo tu control. La tasa de ahorro sí, y además es la que más mueve el resultado.",
+      "Housel lo reduce a una cuenta sencilla. Ahorrar es la distancia entre lo que ganas y lo que crees que necesitas para sostener la imagen que quieres proyectar. Reducir deseos funciona igual que aumentar ingresos, solo que depende de ti y no del mercado.",
+      "La parte más original es su defensa del ahorro sin propósito definido. No todo tiene que ser para el enganche de una casa o para el retiro. Guardar sin meta concreta compra algo que no aparece en ninguna hoja de cálculo: la capacidad de esperar, de cambiar de rumbo y de aprovechar oportunidades que nadie puede anticipar."
+    ]
+  },
+  {
+    id:"c11", n:"11", title:"Mejor razonable que racional", pages:"pp. 147–159", min:18,
+    cats:["sesgos","fundamentos"], tags:["decisiones","constancia","matemáticas"], hue:H[5], glyph:12,
+    syn:"La decisión matemáticamente óptima no sirve de nada si la abandonas a la primera turbulencia. Es preferible un plan razonable que puedas sostener que uno perfecto en el papel.",
+    keys:[
+      "Somos personas, no hojas de cálculo: el plan tiene que ser soportable.",
+      "Si tu estrategia te quita el sueño, el problema es la estrategia.",
+      "Encariñarte con tu plan aumenta las probabilidades de mantenerlo."
+    ],
+    body:[
+      "Housel admite decisiones propias que un analista calificaría de subóptimas, como liquidar por completo una hipoteca aun sabiendo que el dinero habría rendido más invertido. Su argumento es que la tranquilidad que gana con eso le permite mantener el resto de su estrategia durante décadas.",
+      "El punto general es que los planes financieros no fallan por mal diseño, sino por abandono. Cualquier cartera brillante que el inversionista vende en pánico vale menos que una cartera mediocre que se mantiene veinte años. La constancia es un rendimiento en sí misma.",
+      "De ahí la recomendación: busca ser razonable antes que racional. Acepta un poco de ineficiencia a cambio de poder dormir, y elige inversiones con las que tengas cierto vínculo emocional, porque eso aumenta la probabilidad de no abandonarlas cuando todo se ponga feo."
+    ]
+  },
+  {
+    id:"c12", n:"12", title:"¡Sorpresa!", pages:"pp. 159–175", min:24,
+    cats:["riesgo","historia"], tags:["historia","previsión","cambio estructural"], hue:H[8], glyph:13,
+    syn:"La historia ayuda a entender el pasado, pero los acontecimientos que más mueven la economía son justamente los que nadie había visto antes. Estudiar historia como mapa del futuro tiene un límite.",
+    keys:[
+      "Lo que más impacto tiene es, por definición, lo que no estaba en los datos.",
+      "Cuanto más atrás mires, más generales deben ser tus conclusiones.",
+      "El sistema financiero cambia de estructura, no solo de ciclo."
+    ],
+    body:[
+      "El capítulo señala una trampa del análisis financiero: depender de la historia como si fuera un manual. Los grandes cambios económicos —las crisis que redefinen una década— suelen ser eventos sin precedente, y por eso los modelos construidos sobre el pasado no los contienen.",
+      "Housel agrega una advertencia estructural. Las reglas del juego se han reescrito varias veces en muy poco tiempo: el capital de riesgo, los fondos indexados, los planes de retiro, el crédito al consumo. Comparar el mercado de hoy con el de hace un siglo supone que son el mismo organismo, y no lo son.",
+      "Su conclusión no es que la historia sea inútil, sino que hay que usarla al nivel correcto. De la historia conviene extraer lecciones amplias sobre la conducta humana —avaricia, miedo, euforia, pánico— y no pronósticos precisos sobre qué pasará el próximo trimestre."
+    ]
+  },
+  {
+    id:"c13", n:"13", title:"El margen de error", pages:"pp. 175–189", min:21,
+    cats:["riesgo"], tags:["colchón","ruina","prudencia"], hue:H[2], glyph:14,
+    syn:"La parte más importante de cualquier plan es prever que el plan no se cumpla. El margen de error permite seguir en el juego el tiempo suficiente para que la estrategia funcione.",
+    keys:[
+      "Deja espacio para equivocarte: no todo tiene que salir bien.",
+      "Nunca arriesgues lo que necesitas por conseguir lo que no te hace falta.",
+      "Las probabilidades favorables no importan si la pérdida posible es la ruina."
+    ],
+    body:[
+      "Housel distingue entre aceptar riesgo y exponerse a la ruina. Hay apuestas con probabilidades excelentes que siguen siendo inaceptables porque el escenario perdedor te elimina. Si una sola jugada puede sacarte del juego, el promedio deja de importar.",
+      "El margen de error aparece entonces como un dispositivo de permanencia: ahorro de más, apalancamiento de menos, expectativas conservadoras. No busca maximizar el resultado, busca garantizar que llegues al siguiente turno, que es donde el interés compuesto hace su trabajo.",
+      "También propone aplicarlo a las previsiones. Si tu plan solo funciona asumiendo rendimientos históricos altos, estás planeando sobre la hipótesis más favorable. Calcular con un supuesto más bajo que el esperado convierte las sorpresas negativas en incomodidades en lugar de catástrofes."
+    ]
+  },
+  {
+    id:"c14", n:"14", title:"Vas a cambiar", pages:"pp. 189–199", min:15,
+    cats:["sesgos","libertad"], tags:["identidad","planes largos","flexibilidad"], hue:H[10], glyph:15,
+    syn:"Somos pésimos prediciendo en quién nos vamos a convertir. Los planes de muy largo plazo los diseña una persona que dejará de existir mucho antes de que el plan termine.",
+    keys:[
+      "Subestimamos cuánto van a cambiar nuestros gustos y prioridades.",
+      "Evita los extremos: hipotecan a tu yo futuro.",
+      "Cambiar de opinión no es fracasar, es información nueva."
+    ],
+    body:[
+      "Housel recoge el fenómeno psicológico según el cual la gente reconoce cuánto cambió en el pasado pero cree que ya terminó de cambiar. Nos vemos como una versión final de nosotros mismos, y desde ahí firmamos compromisos de treinta años.",
+      "Eso explica decisiones que envejecen mal: carreras elegidas por un yo de veinte años, sacrificios extremos sostenidos por una meta que a los cuarenta ya no significa lo mismo, o estilos de vida tan austeros o tan caros que no admiten ajuste.",
+      "La recomendación es evitar las posiciones extremas en ambos sentidos y aceptar el abandono de planes que ya no encajan. Cuanto más equilibrado sea el punto de partida, menos doloroso resulta corregir el rumbo cuando la persona que lo diseñó ya no existe."
+    ]
+  },
+  {
+    id:"c15", n:"15", title:"Nada es gratis", pages:"pp. 199–211", min:18,
+    cats:["riesgo","sesgos"], tags:["volatilidad","precio","paciencia"], hue:H[6], glyph:16,
+    syn:"Todo rendimiento tiene un precio, y casi nunca aparece en la etiqueta. El precio del mercado es la incertidumbre, la caída y la duda: hay que decidir si estás dispuesto a pagarlo.",
+    keys:[
+      "La volatilidad es la cuota de entrada, no una multa.",
+      "Quien no acepta el precio termina pagando mucho más caro.",
+      "Identificar la cuota como precio y no como castigo cambia la conducta."
+    ],
+    body:[
+      "El capítulo plantea una analogía sencilla: si quieres el producto, pagas el precio. En los mercados, el precio no es una comisión visible sino una sucesión de caídas, pánicos y periodos en los que parece que todo fue un error. Esa es la cuota de admisión del rendimiento de largo plazo.",
+      "El problema es que ese precio no tiene etiqueta, así que mucha gente intenta no pagarlo: entra y sale del mercado, busca momentos perfectos, se mueve a lo que acaba de subir. Housel sostiene que esa evasión acaba costando mucho más que la volatilidad que se quiso esquivar.",
+      "El cambio de marco es la lección central. Si interpretas una caída como una multa por haberte equivocado, vendes. Si la interpretas como el precio convenido de algo que vale la pena, te quedas. La misma situación, dos conductas opuestas, dos resultados distintos."
+    ]
+  },
+  {
+    id:"c16", n:"16", title:"Tú eres tú y yo soy yo", pages:"pp. 211–223", min:18,
+    cats:["sesgos","riesgo"], tags:["horizontes","burbujas","imitación"], hue:H[8], glyph:17,
+    syn:"Las burbujas no nacen solo de la irracionalidad: nacen cuando se mezclan jugadores con horizontes temporales distintos. Copiar a alguien que juega otro partido es la forma más común de perder.",
+    keys:[
+      "Un precio absurdo para ti puede ser razonable para quien vende hoy mismo.",
+      "Define tu horizonte y no tomes señales de quien tiene otro.",
+      "Gran parte del daño financiero viene de imitar a desconocidos."
+    ],
+    body:[
+      "Housel explica que en un mismo mercado conviven personas que compran para vender en minutos y personas que compran para los próximos treinta años. Ambas miran el mismo precio y toman decisiones correctas para objetivos incompatibles. Cuando los de corto plazo dominan, los precios dejan de tener sentido para los de largo plazo.",
+      "El peligro no es que existan esos jugadores, sino que sus señales se contagien. El inversionista de largo plazo observa el entusiasmo de quienes operan a días, concluye que se está perdiendo algo y ajusta su conducta a un juego que no es el suyo.",
+      "La defensa que propone es casi de identidad: saber con precisión a qué estás jugando y a cuántos años. Con eso definido, el ruido ajeno deja de ser una orden y se convierte en información sobre partidos que no estás disputando."
+    ]
+  },
+  {
+    id:"c17", n:"17", title:"La seducción del pesimismo", pages:"pp. 223–239", min:24,
+    cats:["sesgos","historia"], tags:["narrativas","medios","optimismo"], hue:H[5], glyph:18,
+    syn:"El pesimismo suena más inteligente y capta más atención que el optimismo. Pero el progreso es lento y silencioso, mientras que los desastres son rápidos y ruidosos.",
+    keys:[
+      "El optimismo parece ingenuo aunque históricamente haya sido lo más acertado.",
+      "El crecimiento se acumula despacio; la destrucción ocurre de golpe.",
+      "Extrapolar una mala noticia al infinito es el error más común."
+    ],
+    body:[
+      "El capítulo analiza por qué las advertencias catastróficas reciben mucha más atención que las buenas noticias. Perder duele más que ganar, los desastres encajan mejor en una narrativa breve y, además, quien anuncia una tragedia parece estar prestando un servicio mientras que quien anuncia prosperidad parece estar vendiendo algo.",
+      "A eso se suma una asimetría de ritmos. El avance económico se construye con mejoras pequeñas durante años, así que no genera titulares; una caída puede concentrarse en semanas y ocupar todas las pantallas. El resultado es que nuestra percepción del mundo está sesgada hacia lo que se rompe.",
+      "Housel no propone un optimismo ciego sino uno que él llama realista: aceptar que habrá crisis, retrocesos y periodos largos de malas noticias, y sostener a la vez que la tendencia de fondo, medida en décadas, ha sido de mejora. Las dos ideas caben juntas."
+    ]
+  },
+  {
+    id:"c18", n:"18", title:"Cuando vas a creerte cualquier cosa", pages:"pp. 239–255", min:24,
+    cats:["sesgos"], tags:["relatos","incertidumbre","ilusión de control"], hue:H[7], glyph:19,
+    syn:"Cuanto más quieres que algo sea verdad, más fácil es que creas la historia que lo promete. Y cuando no entendemos el mundo, llenamos los huecos con relatos convincentes.",
+    keys:[
+      "Los relatos atractivos son más persuasivos que las estadísticas.",
+      "Casi siempre operamos con una visión incompleta del mundo sin notarlo.",
+      "La ilusión de control nos hace confundir suerte con habilidad."
+    ],
+    body:[
+      "Housel argumenta que el deseo funciona como un filtro: cuando una historia nos conviene, bajamos el nivel de evidencia que le exigimos. En finanzas eso explica desde las promesas de rendimiento imposible hasta la confianza en pronósticos que nadie ha acertado nunca de forma consistente.",
+      "El segundo mecanismo es más sutil. Operamos con una visión incompleta del mundo y, sin darnos cuenta, la completamos con explicaciones que suenan coherentes. La coherencia nos resulta tan satisfactoria que la confundimos con verdad.",
+      "La defensa que propone es modesta pero útil: ampliar el margen de error, reconocer qué parte del resultado no controlamos y desconfiar especialmente de las historias que nos encantaría que fueran ciertas. Son esas, y no las absurdas, las que nos hacen daño."
+    ]
+  },
+  {
+    id:"c19", n:"19", title:"Recapitulemos", pages:"pp. 255–265", min:15,
+    cats:["cierre","fundamentos"], tags:["resumen","práctica","recomendaciones"], hue:H[1], glyph:20,
+    syn:"Housel condensa el libro en una lista de recomendaciones breves y deliberadamente poco espectaculares. Es el capítulo que conviene tener a mano.",
+    keys:[
+      "Administra tu dinero de forma que puedas dormir tranquilo.",
+      "Alarga tu horizonte temporal: el tiempo es la palanca más poderosa.",
+      "Define el juego que estás jugando y no copies a quien juega otro."
+    ],
+    body:[
+      "El capítulo funciona como manual de bolsillo. Recoge las ideas desarrolladas antes y las convierte en indicaciones concretas: aceptar que mucho saldrá mal, usar el dinero para comprar control sobre el propio tiempo, ahorrar sin necesitar una razón, ser menos ostentoso y más amable.",
+      "Insiste en dos criterios que atraviesan todo el libro. El primero es dormir bien: si una estrategia produce ansiedad constante, no es la adecuada por más eficiente que parezca. El segundo es el horizonte: alargar el plazo transforma la volatilidad en un trámite y permite que la acumulación haga su trabajo.",
+      "La última parte es un recordatorio de humildad. Pedir margen de error, evitar decisiones extremas, aceptar que vas a cambiar y respetar que otros vean el dinero de otra manera. Nada de esto es espectacular, y justamente por eso funciona."
+    ]
+  },
+  {
+    id:"c20", n:"20", title:"Confesiones", pages:"pp. 265–277", min:18,
+    cats:["cierre","libertad"], tags:["autor","transparencia","independencia"], hue:H[3], glyph:21,
+    syn:"Housel cuenta qué hace con su propio dinero. El resultado es sorprendentemente aburrido, y ese es exactamente el argumento.",
+    keys:[
+      "La independencia es su objetivo explícito, por encima del rendimiento.",
+      "Prefiere una estrategia simple que pueda mantener que una sofisticada que no.",
+      "Predicar y practicar coinciden: ese es el verdadero examen del libro."
+    ],
+    body:[
+      "Después de dieciocho lecciones, el autor abre sus propias cuentas. Describe una vida financiera deliberadamente conservadora: una casa modesta respecto a lo que podría permitirse, una tasa de ahorro alta, inversiones simples y poco movimiento. Nada de lo que cuenta es espectacular.",
+      "Explica que su meta no es maximizar el rendimiento sino maximizar la independencia: tomar decisiones de dinero que amplíen el control que él y su familia tienen sobre su tiempo, aunque eso signifique renunciar a ganancias teóricas.",
+      "El valor del capítulo está en la coherencia. Es fácil escribir sobre humildad y paciencia; es más difícil demostrar que se vive así. Al enseñar sus decisiones reales, Housel convierte el libro en algo más parecido a un testimonio que a un manual."
+    ]
+  },
+  {
+    id:"post", n:"POSDATA", title:"Por qué el consumidor estadounidense piensa como piensa", pages:"pp. 277–301", min:36,
+    cats:["historia"], tags:["posguerra","deuda","expectativas"], hue:H[9], glyph:22,
+    syn:"Una historia breve de la economía estadounidense desde 1945 para explicar cómo se formaron las expectativas de consumo actuales y por qué la deuda terminó sosteniéndolas.",
+    keys:[
+      "Las expectativas de una generación se heredan aunque la economía cambie.",
+      "Cuando el ingreso dejó de crecer parejo, la deuda cubrió la diferencia.",
+      "Buena parte del malestar económico es una brecha entre expectativa y realidad."
+    ],
+    body:[
+      "La posdata cambia de escala: en lugar de conducta individual, analiza el contexto que la produjo. Reconstruye cómo quedó la economía estadounidense tras la Segunda Guerra Mundial y cómo las décadas siguientes generaron una expectativa compartida de progreso continuo y acceso masivo al consumo.",
+      "Luego muestra el quiebre. Cuando el crecimiento dejó de repartirse de forma pareja, el estilo de vida esperado siguió siendo el mismo, y la diferencia se financió con crédito. El consumo no bajó al ritmo de los ingresos porque las expectativas no se ajustan tan rápido como los números.",
+      "El cierre conecta economía con política y con ánimo social: cuando mucha gente siente que hizo lo que debía y el resultado no llegó, aparece la frustración. Es el argumento del libro aplicado a una sociedad entera, no a una persona."
+    ]
+  },
+  {
+    id:"extra", n:"EXTRA", title:"La historia interminable", pages:"pp. 301–313", min:18,
+    cats:["cierre","historia"], tags:["edición en español","cierre","relatos"], hue:H[11], glyph:23,
+    syn:"Capítulo adicional incluido en esta edición en español, situado después de la posdata y antes de las notas. Cierra el recorrido retomando el hilo central del libro: las lecciones sobre dinero se repiten porque la conducta humana se repite.",
+    keys:[
+      "Es material propio de esta edición, no del libro original de 2020.",
+      "Vuelve sobre la idea de que el dinero se explica por relatos, no por fórmulas.",
+      "Conviene leerlo directamente en el libro: aquí solo se ubica dentro de la obra."
+    ],
+    body:[
+      "Esta ficha es distinta a las demás a propósito. El capítulo adicional aparece en el índice de la edición en español entre la posdata y las notas finales, ocupando una docena de páginas, y funciona como texto de cierre añadido a la obra original publicada en 2020.",
+      "Para no atribuirle contenidos que no me consta que contenga, aquí solo queda ubicado dentro de la estructura del libro. Si vas a comentarlo en la exposición, conviene leerlo en el ejemplar y escribir después tu propio resumen con el mismo formato que el resto del catálogo: sinopsis breve, tres ideas clave y tres párrafos.",
+      "La estructura de datos de la aplicación ya está preparada para eso: basta con sustituir el texto de esta entrada y la ficha se actualiza sola en el catálogo, en el buscador y en el lector."
+    ]
+  }
+];
+
+const PROFILES = [
+  {id:"miguel", name:"Miguel", color:"#4ae08b", taste:"libertad", label:"la libertad y el control del tiempo"},
+  {id:"estudiante", name:"Estudiante", color:"#e4b23c", taste:"fundamentos", label:"los fundamentos"},
+  {id:"escéptico", name:"Escéptico", color:"#7fb3e8", taste:"sesgos", label:"los sesgos y la conducta"},
+  {id:"invitado", name:"Invitado", color:"#d98a7a", taste:"riesgo", label:"el riesgo y la incertidumbre"}
+];
+
+const CATLABEL = {fundamentos:"Fundamentos", sesgos:"Conducta y sesgos", riesgo:"Riesgo e incertidumbre",
+  libertad:"Dinero, tiempo y libertad", historia:"Contexto histórico", cierre:"Cierre del libro"};
+
+/* Cada categoría trae su propio color: tiñe acentos, carátulas y fondo */
+const CATS = [
+  {id:"todos",       chip:"Todo",        hue:[152,46,26], a:"#1f9d55", a2:"#4ae08b"},
+  {id:"fundamentos", chip:"Fundamentos", hue:[168,44,24], a:"#13907f", a2:"#3fd9c2"},
+  {id:"sesgos",      chip:"Conducta",    hue:[282,34,26], a:"#7a46a6", a2:"#c293ec"},
+  {id:"riesgo",      chip:"Riesgo",      hue:[12,56,26],  a:"#b84a32", a2:"#f49170"},
+  {id:"libertad",    chip:"Libertad",    hue:[38,58,27],  a:"#b8862a", a2:"#f2c766"},
+  {id:"historia",    chip:"Historia",    hue:[214,44,26], a:"#2f62ab", a2:"#82b6ea"},
+  {id:"cierre",      chip:"Cierre",      hue:[336,42,26], a:"#a83a68", a2:"#ee8cb2"}
+];
+const catOf = id => CATS.find(c=>c.id===id) || CATS[0];
+
+const TOP10 = ["c1","c3","c9","c7","c4","c13","c2","c17","c10","c6"];
+
+/* ============================================================
+   ESTADO
+   ============================================================ */
+const byId = Object.fromEntries(DATA.map(d=>[d.id,d]));
+let S = {profile:"miguel", list:[], progress:{}, liked:{}, cat:"todos"};
+
+function load(){
+  try{
+    const raw = localStorage.getItem("compuesto.v1");
+    if(raw) S = Object.assign(S, JSON.parse(raw));
+  }catch(e){}
+  if(!S.progress || !Object.keys(S.progress).length){
+    S.progress = {c4:0.38, c1:0.72};           // estado de ejemplo para la primera visita
+  }
+  if(!Array.isArray(S.list)) S.list = [];
+}
+function save(){
+  try{ localStorage.setItem("compuesto.v1", JSON.stringify(S)); }catch(e){}
+}
+const prof = ()=> PROFILES.find(p=>p.id===S.profile) || PROFILES[0];
+
+function match(d){
+  const t = prof().taste;
+  let m = 79 + (d.cats.includes(t) ? 12 : 0) + (d.id.length*3 + d.min) % 7;
+  return Math.min(99, m);
+}
+const inList = id => S.list.indexOf(id) >= 0;
+function toggleList(id){
+  const i = S.list.indexOf(id);
+  if(i>=0) S.list.splice(i,1); else S.list.push(id);
+  save(); renderRows(); renderCatalog();
+}
+
+/* ============================================================
+   ARTE GENERADO (sin imágenes externas)
+   ============================================================ */
+const GLYPHS = {
+  circles:'<circle cx="74" cy="46" r="30"/><circle cx="74" cy="46" r="20"/><circle cx="74" cy="46" r="10"/>',
+  stack:'<rect x="46" y="62" width="58" height="8"/><rect x="52" y="48" width="46" height="8"/><rect x="58" y="34" width="34" height="8"/><rect x="64" y="20" width="22" height="8"/>',
+  rise:'<path d="M30 74 L58 50 L76 62 L118 22"/><path d="M104 22 h14 v14"/>',
+  split:'<path d="M74 14 v24"/><path d="M74 38 L44 78"/><path d="M74 38 L104 78"/><circle cx="44" cy="78" r="5"/><circle cx="104" cy="78" r="5"/>',
+  clock:'<circle cx="74" cy="46" r="28"/><path d="M74 28 v18 l13 9"/>',
+  wave:'<path d="M20 58 q18 -30 36 0 t36 0 t36 0"/><path d="M20 74 q18 -30 36 0 t36 0 t36 0"/>',
+  grid:'<path d="M38 18v60M58 18v60M78 18v60M98 18v60"/><path d="M30 30h76M30 50h76M30 70h76"/>',
+  door:'<rect x="52" y="16" width="44" height="64" rx="3"/><circle cx="86" cy="50" r="3.5"/>',
+  eye:'<path d="M26 48 q48 -34 96 0 q-48 34 -96 0z"/><circle cx="74" cy="48" r="11"/>',
+  shield:'<path d="M74 14 l30 12 v24 q0 24 -30 36 q-30 -12 -30 -36 v-24z"/>',
+  scale:'<path d="M74 16v62M44 32h60"/><path d="M44 32 l-12 22 h24z"/><path d="M104 32 l-12 22 h24z"/>',
+  arrows:'<path d="M28 36h70"/><path d="M84 24l14 12-14 12"/><path d="M120 62H50"/><path d="M64 50L50 62l14 12"/>'
+};
+const GSET = Object.keys(GLYPHS);
+
+/* Con una categoría activa, las carátulas se mueven a esa familia de color */
+function effHue(d){
+  if(S.cat === "todos") return d.hue;
+  const c = catOf(S.cat).hue;
+  const n = DATA.filter(x=>x.cats.includes(S.cat)).findIndex(x=>x.id===d.id);
+  const k = n < 0 ? 0 : n;
+  return [(c[0] + (k%3)*14 - 14 + 360) % 360, c[1] + (k%2)*8, c[2] + ((k%4)-1)*3];
+}
+
+function artHTML(d, big){
+  const [h,s,l] = effHue(d);
+  const bg = `radial-gradient(118% 96% at 18% 12%, hsl(${h} ${s}% ${l+16}%) 0%, transparent 62%),
+              radial-gradient(90% 80% at 92% 95%, hsl(${(h+28)%360} ${Math.max(18,s-12)}% ${l}%) 0%, transparent 55%),
+              linear-gradient(158deg, hsl(${h} ${s}% ${Math.max(9,l-6)}%), #080b0a 78%)`;
+  const g = GLYPHS[GSET[d.glyph % GSET.length]];
+  return `<div style="position:absolute;inset:0;background:${bg}"></div>
+    <div class="glyph"><svg viewBox="0 0 148 94" preserveAspectRatio="xMidYMid meet" fill="none"
+      stroke="hsl(${h} ${Math.min(70,s+18)}% ${Math.min(76,l+44)}%)" stroke-width="1.6" stroke-linecap="round"
+      stroke-linejoin="round" opacity=".55">${g}</svg></div>
+    <div class="tex"></div>
+    <span class="num" ${big?'style="font-size:clamp(90px,22vw,210px);right:3%;top:2%"':''}>${d.n}</span>`;
+}
+
+/* ============================================================
+   TARJETAS
+   ============================================================ */
+function cardHTML(d, opts){
+  opts = opts||{};
+  const p = S.progress[d.id] || 0;
+  const showProg = opts.progress && p>0;
+  return `<button class="card${showProg?" prog":""}" data-open="${d.id}">
+    <div class="art">
+      ${artHTML(d)}
+      ${d.n==="EXTRA"?'<span class="badge">Extra</span>':(d.n==="INTRO"?'<span class="badge g">Inicio</span>':"")}
+      ${inList(d.id)?'<span class="listflag">✓</span>':""}
+      <span class="cap">
+        <span class="ct">${d.title}</span>
+        <span class="cs">${d.n==="INTRO"||d.n==="POSDATA"||d.n==="EXTRA"?d.n:"Cap. "+d.n} · ${d.min} min</span>
+      </span>
+      ${showProg?`<span class="bar"><i style="width:${Math.round(p*100)}%"></i></span>`:""}
+    </div>
+  </button>`;
+}
+function t10HTML(d, i){
+  return `<button class="t10" data-open="${d.id}">
+    <span class="rank">${i+1}</span>
+    <span class="post">${artHTML(d)}<span class="pt">${d.title}</span></span>
+  </button>`;
+}
+
+/* ============================================================
+   FILAS
+   ============================================================ */
+function rowHTML(title, inner){
+  return `<section class="row">
+    <h2 class="pad">${title}</h2>
+    <div class="railwrap">
+      <button class="arrow l" aria-label="Anterior">‹</button>
+      <div class="rail">${inner}</div>
+      <button class="arrow r" aria-label="Siguiente">›</button>
+    </div>
+  </section>`;
+}
+const pool = ()=> S.cat==="todos" ? DATA : DATA.filter(d=>d.cats.includes(S.cat));
+
+function renderRows(){
+  const t = prof().taste;
+  const P = pool();
+  let out = "";
+
+  const cont = P.filter(d => (S.progress[d.id]||0) > 0 && (S.progress[d.id]||0) < .98)
+                .sort((a,b)=>(S.progress[b.id]||0)-(S.progress[a.id]||0));
+  if(cont.length) out += rowHTML(`Continuar leyendo, <em>${prof().name}</em>`,
+      cont.map(d=>cardHTML(d,{progress:true})).join(""));
+
+  if(S.cat === "todos"){
+    out += rowHTML("Top 10 de capítulos hoy", TOP10.map((id,i)=>t10HTML(byId[id],i)).join(""));
+    out += rowHTML(`Porque te interesa ${prof().label}`,
+        DATA.filter(d=>d.cats.includes(t)).map(d=>cardHTML(d)).join(""));
+    ["fundamentos","sesgos","riesgo","libertad","historia","cierre"].forEach(c=>{
+      if(c===t) return;
+      const items = DATA.filter(d=>d.cats.includes(c));
+      if(items.length>1) out += rowHTML(CATLABEL[c], items.map(d=>cardHTML(d)).join(""));
+    });
+  }else{
+    const top = TOP10.map(id=>byId[id]).filter(d=>d.cats.includes(S.cat));
+    if(top.length) out += rowHTML(`Lo más leído de <em>${CATLABEL[S.cat]}</em>`,
+        top.map((d,i)=>t10HTML(d,i)).join(""));
+    out += rowHTML(`${CATLABEL[S.cat]} · ${P.length} capítulos`, P.map(d=>cardHTML(d,{progress:true})).join(""));
+    const otros = DATA.filter(d=>!d.cats.includes(S.cat));
+    out += rowHTML("Fuera de esta categoría", otros.map(d=>cardHTML(d)).join(""));
+  }
+
+  const mine = S.list.map(id=>byId[id]).filter(Boolean).filter(d=>S.cat==="todos"||d.cats.includes(S.cat));
+  if(mine.length) out += rowHTML("Mi lista", mine.map(d=>cardHTML(d)).join(""));
+
+  const el = document.getElementById("rows");
+  el.innerHTML = out;
+  el.querySelectorAll(".railwrap").forEach(w=>{
+    const rail = w.querySelector(".rail");
+    w.querySelector(".arrow.l").onclick = ()=> rail.scrollBy({left:-rail.clientWidth*.86, behavior:"smooth"});
+    w.querySelector(".arrow.r").onclick = ()=> rail.scrollBy({left: rail.clientWidth*.86, behavior:"smooth"});
+    enableDrag(rail);
+  });
+}
+function renderCatalog(){
+  const P = pool();
+  document.getElementById("catgrid").innerHTML = P.map(d=>cardHTML(d,{progress:true})).join("");
+  document.querySelector("#catalog h2").textContent =
+    S.cat==="todos" ? "Todos los capítulos" : CATLABEL[S.cat];
+  document.querySelector("#catalog .sub").textContent = S.cat==="todos"
+    ? "23 entradas · introducción, 20 capítulos, posdata y capítulo adicional de la edición en español."
+    : `${P.length} de 23 entradas del libro corresponden a esta categoría.`;
+}
+
+/* Arrastrar con el mouse para recorrer una fila, igual que con el dedo */
+function enableDrag(rail){
+  let down=false, x0=0, s0=0, moved=0;
+  rail.addEventListener("pointerdown", e=>{
+    if(e.pointerType !== "mouse") return;
+    down=true; moved=0; x0=e.clientX; s0=rail.scrollLeft;
+    rail.classList.add("dragging");
+  });
+  rail.addEventListener("pointermove", e=>{
+    if(!down) return;
+    const dx = e.clientX - x0;
+    if(Math.abs(dx) > 3) moved = Math.abs(dx);
+    rail.scrollLeft = s0 - dx;
+  });
+  const up = ()=>{ if(down){ down=false; rail.classList.remove("dragging"); } };
+  rail.addEventListener("pointerup", up);
+  rail.addEventListener("pointerleave", up);
+  rail.addEventListener("pointercancel", up);
+  rail.addEventListener("click", e=>{ if(moved>6){ e.preventDefault(); e.stopPropagation(); moved=0; } }, true);
+}
+
+/* ============================================================
+   HERO
+   ============================================================ */
+let heroId = "c1";
+function renderHero(){
+  const P = pool();
+  if(!P.some(d=>d.id===heroId)) heroId = (P[0]||DATA[0]).id;
+  const d = byId[heroId];
+  document.getElementById("heroart").innerHTML = artHTML(d,true);
+  document.getElementById("heroKick").textContent =
+    S.cat==="todos" ? "Destacado de hoy" : CATLABEL[S.cat];
+  document.getElementById("heroTitle").textContent = d.title;
+  document.getElementById("heroSyn").textContent = d.syn;
+  document.getElementById("heroMeta").innerHTML =
+    `<span class="match">${match(d)}% para ti</span>
+     <span>${d.n==="INTRO"||d.n==="POSDATA"||d.n==="EXTRA"?d.n.charAt(0)+d.n.slice(1).toLowerCase():"Capítulo "+d.n}</span>
+     <span>${d.min} min</span>
+     <span class="pill">${d.pages}</span>`;
+  document.getElementById("heroPlay").onclick = ()=> openPlayer(d.id);
+  document.getElementById("heroInfo").onclick = ()=> openDetail(d.id);
+}
+
+/* ============================================================
+   FICHA
+   ============================================================ */
+function openDetail(id){
+  const d = byId[id];
+  const rel = DATA.filter(x=>x.id!==id && x.cats.some(c=>d.cats.includes(c))).slice(0,4);
+  const ov = document.getElementById("detail");
+  ov.innerHTML = `<div class="sheet">
+    <div class="banner">
+      ${artHTML(d,true)}
+      <button class="closer" data-close aria-label="Cerrar">✕</button>
+      <div class="bs"></div>
+      <div class="btop">
+        <h2>${d.title}</h2>
+        <div class="actions">
+          <button class="btn btn-pri" data-play="${d.id}">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M7 4.5v15l13-7.5z"></path></svg>
+            ${(S.progress[d.id]||0)>0?"Continuar":"Leer"}
+          </button>
+          <button class="btn btn-sec" data-list="${d.id}">${inList(d.id)?"✓ En mi lista":"+ Mi lista"}</button>
+          <button class="btn btn-sec" data-like="${d.id}">${S.liked[d.id]?"👍 Te gusta":"👍"}</button>
+        </div>
+      </div>
+    </div>
+    <div class="body">
+      <div class="two">
+        <div style="display:grid;gap:14px">
+          <div class="meta">
+            <span class="match">${match(d)}% para ti</span>
+            <span>${d.min} min</span>
+            <span class="pill">${d.pages}</span>
+            ${(S.progress[d.id]||0)>0?`<span class="pill">${Math.round((S.progress[d.id])*100)}% leído</span>`:""}
+          </div>
+          <p>${d.syn}</p>
+          <div class="keys">
+            <h3>Ideas clave</h3>
+            <ul>${d.keys.map(k=>`<li>${k}</li>`).join("")}</ul>
+          </div>
+        </div>
+        <div class="facts">
+          <div><b>Sección:</b> ${d.n==="INTRO"?"Introducción":d.n==="POSDATA"?"Posdata":d.n==="EXTRA"?"Capítulo adicional":"Capítulo "+d.n}</div>
+          <div><b>Temas:</b> ${d.tags.join(", ")}</div>
+          <div><b>Categorías:</b> ${d.cats.map(c=>CATLABEL[c]).join(", ")}</div>
+          <div><b>En el libro:</b> ${d.pages}</div>
+          <div><b>Autor:</b> Morgan Housel</div>
+        </div>
+      </div>
+      ${rel.length?`<div class="related"><h3>Capítulos relacionados</h3>
+        <div class="rel">${rel.map(x=>cardHTML(x)).join("")}</div></div>`:""}
+    </div>
+  </div>`;
+  ov.classList.add("on");
+  document.body.style.overflow = "hidden";
+}
+
+/* ============================================================
+   LECTOR
+   ============================================================ */
+let cur = null, playing = false, timer = null, speed = 1, countdown = null;
+const reader = document.getElementById("preader");
+
+function openPlayer(id){
+  cur = byId[id];
+  closeOverlays(true);
+  const d = cur;
+  document.getElementById("ptitle").textContent = d.title;
+  document.getElementById("pread").innerHTML =
+    `<div class="kicker">${d.n==="INTRO"?"Introducción":d.n==="POSDATA"?"Posdata":d.n==="EXTRA"?"Capítulo adicional":"Capítulo "+d.n} · ${d.pages}</div>
+     <h1>${d.title}</h1>
+     ${d.body.map(p=>`<p>${p}</p>`).join("")}
+     <p class="end">Resumen de elaboración propia para este proyecto. El texto original se encuentra en ${d.pages} de la edición de Booket / Planeta.</p>`;
+  document.getElementById("subsin").innerHTML =
+    `<b>Ideas clave</b>` + d.keys.map(k=>`<span>· ${k}</span>`).join("");
+  document.getElementById("player").classList.add("on");
+  document.body.style.overflow = "hidden";
+  updateListBtn();
+  const p = S.progress[d.id] || 0;
+  requestAnimationFrame(()=>{
+    const max = reader.scrollHeight - reader.clientHeight;
+    reader.scrollTop = (p>0 && p<.98) ? max*p : 0;
+    tick();
+  });
+  stop();
+  hideNext();
+}
+function closePlayer(){
+  stop(); hideNext();
+  document.getElementById("player").classList.remove("on");
+  document.getElementById("subs").classList.remove("on");
+  document.body.style.overflow = "";
+  cur = null;
+  renderRows(); renderCatalog(); renderHero();
+}
+function readProgress(){
+  const max = reader.scrollHeight - reader.clientHeight;
+  return max <= 0 ? 1 : Math.min(1, reader.scrollTop / max);
+}
+function tick(){
+  if(!cur) return;
+  const p = readProgress();
+  document.querySelector("#pbar i").style.width = (p*100)+"%";
+  document.querySelector("#pbar .dot").style.left = (p*100)+"%";
+  const left = Math.max(0, Math.round(cur.min*(1-p)));
+  document.getElementById("ptime").textContent = (cur.min-left)+" / "+cur.min+" min";
+  S.progress[cur.id] = p;
+  if(p > .985) showNext();
+}
+let saveT = null;
+reader.addEventListener("scroll", ()=>{
+  tick();
+  clearTimeout(saveT); saveT = setTimeout(save, 450);
+});
+function play(){
+  if(!cur) return;
+  playing = true;
+  document.getElementById("pplay").innerHTML =
+    '<svg viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M7 4h4v16H7zM13 4h4v16h-4z"></path></svg>';
+  clearInterval(timer);
+  timer = setInterval(()=>{
+    const max = reader.scrollHeight - reader.clientHeight;
+    if(reader.scrollTop >= max-1){ stop(); showNext(); return; }
+    reader.scrollTop += 1;
+  }, Math.max(8, 34/speed));
+}
+function stop(){
+  playing = false;
+  clearInterval(timer);
+  document.getElementById("pplay").innerHTML =
+    '<svg viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M7 4.5v15l13-7.5z"></path></svg>';
+}
+function toggle(){ playing ? stop() : play(); }
+function siblings(step){
+  const i = DATA.findIndex(d=>d.id===cur.id);
+  return DATA[i+step] || null;
+}
+function showNext(){
+  const nx = siblings(1);
+  const box = document.getElementById("pnext");
+  if(!nx || box.classList.contains("on")) return;
+  stop();
+  document.getElementById("nextTitle").textContent = nx.title;
+  box.classList.add("on");
+  let n = 8;
+  document.getElementById("nextCount").textContent = "("+n+")";
+  clearInterval(countdown);
+  countdown = setInterval(()=>{
+    n--;
+    document.getElementById("nextCount").textContent = "("+n+")";
+    if(n<=0){ clearInterval(countdown); openPlayer(nx.id); }
+  },1000);
+  document.getElementById("nextGo").onclick = ()=>{ clearInterval(countdown); openPlayer(nx.id); };
+}
+function hideNext(){
+  clearInterval(countdown);
+  document.getElementById("pnext").classList.remove("on");
+  document.getElementById("nextCount").textContent = "";
+}
+function updateListBtn(){
+  document.getElementById("plist").innerHTML = cur && inList(cur.id)
+    ? '<svg viewBox="0 0 24 24"><path d="M5 12l5 5L19 7"></path></svg>'
+    : '<svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"></path></svg>';
+}
+
+document.getElementById("pplay").onclick = toggle;
+document.getElementById("pback").onclick = closePlayer;
+document.getElementById("pprev").onclick = ()=>{ const s=siblings(-1); if(s) openPlayer(s.id); };
+document.getElementById("pnextbtn").onclick = ()=>{ const s=siblings(1); if(s) openPlayer(s.id); };
+document.getElementById("nextCancel").onclick = hideNext;
+document.getElementById("psubs").onclick = ()=> document.getElementById("subs").classList.toggle("on");
+document.getElementById("plist").onclick = ()=>{ if(cur){ toggleList(cur.id); updateListBtn(); } };
+document.getElementById("pspeed").onclick = (e)=>{
+  speed = speed===1 ? 1.5 : speed===1.5 ? 2 : 1;
+  e.currentTarget.querySelector("span").textContent = speed+"x";
+  if(playing) play();
+};
+document.getElementById("pbar").onclick = (e)=>{
+  const r = e.currentTarget.getBoundingClientRect();
+  const p = Math.min(1, Math.max(0, (e.clientX - r.left)/r.width));
+  reader.scrollTop = (reader.scrollHeight - reader.clientHeight) * p;
+  hideNext(); tick();
+};
+
+/* ============================================================
+   BUSCAR
+   ============================================================ */
+function renderSearch(q){
+  q = (q||"").trim().toLowerCase();
+  const box = document.getElementById("sres");
+  if(!q){
+    box.innerHTML = `<p class="empty">Escribe para buscar entre los 23 capítulos. Prueba con <b>ahorro</b>, <b>riesgo</b>, <b>tiempo</b> o <b>suerte</b>.</p>
+      <div class="grid">${DATA.slice(0,8).map(d=>cardHTML(d)).join("")}</div>`;
+    return;
+  }
+  const res = DATA.filter(d=>(d.title+" "+d.syn+" "+d.tags.join(" ")+" "+d.keys.join(" ")+" "+d.n).toLowerCase().includes(q));
+  box.innerHTML = res.length
+    ? `<div class="grid">${res.map(d=>cardHTML(d)).join("")}</div>`
+    : `<p class="empty">Sin resultados para «${q}».</p>`;
+}
+document.getElementById("btnSearch").onclick = ()=>{
+  document.getElementById("search").classList.add("on");
+  renderSearch("");
+  document.getElementById("sinput").focus();
+};
+document.getElementById("sclose").onclick = ()=> document.getElementById("search").classList.remove("on");
+document.getElementById("sinput").addEventListener("input", e=> renderSearch(e.target.value));
+
+/* ============================================================
+   NAVEGACIÓN / EVENTOS GLOBALES
+   ============================================================ */
+function closeOverlays(skipScroll){
+  document.querySelectorAll(".overlay").forEach(o=>o.classList.remove("on"));
+  document.getElementById("search").classList.remove("on");
+  if(!skipScroll) document.body.style.overflow = "";
+}
+document.addEventListener("click", e=>{
+  const open = e.target.closest("[data-open]");
+  if(open){ openDetail(open.dataset.open); return; }
+  const pl = e.target.closest("[data-play]");
+  if(pl){ openPlayer(pl.dataset.play); return; }
+  const li = e.target.closest("[data-list]");
+  if(li){ toggleList(li.dataset.list); openDetail(li.dataset.list); return; }
+  const lk = e.target.closest("[data-like]");
+  if(lk){ S.liked[lk.dataset.like] = !S.liked[lk.dataset.like]; save(); openDetail(lk.dataset.like); return; }
+  if(e.target.closest("[data-close]")){ closeOverlays(); return; }
+  const ov = e.target.closest(".overlay");
+  if(ov && e.target === ov){ closeOverlays(); }
+});
+document.querySelectorAll(".menu button").forEach(b=>{
+  b.onclick = ()=>{
+    document.querySelectorAll(".menu button").forEach(x=>x.classList.remove("on"));
+    b.classList.add("on");
+    const g = b.dataset.go;
+    if(g==="proj"){ document.getElementById("proj").classList.add("on"); document.body.style.overflow="hidden"; return; }
+    if(g==="top"){ window.scrollTo({top:0,behavior:"smooth"}); return; }
+    if(g==="catalog"){ document.getElementById("catalog").scrollIntoView({behavior:"smooth"}); return; }
+    if(g==="mylist"){
+      if(!S.list.length){ document.getElementById("catalog").scrollIntoView({behavior:"smooth"}); return; }
+      const rows = [...document.querySelectorAll(".row h2")];
+      const r = rows.find(h=>h.textContent.trim()==="Mi lista");
+      if(r) r.scrollIntoView({behavior:"smooth",block:"start"});
+    }
+  };
+});
+document.getElementById("navav").onclick = ()=>{
+  const g = document.getElementById("gate");
+  g.classList.remove("out");
+  g.style.display = "grid";
+  document.body.style.overflow = "hidden";
+  window.scrollTo(0,0);
+};
+window.addEventListener("scroll", ()=>{
+  document.getElementById("nav").classList.toggle("solid", window.scrollY > 24);
+});
+document.addEventListener("keydown", e=>{
+  if(e.key==="Escape"){
+    if(document.getElementById("player").classList.contains("on")) closePlayer();
+    else closeOverlays();
+  }
+  if(e.key==="/" && !/input|textarea/i.test(document.activeElement.tagName)){
+    e.preventDefault(); document.getElementById("btnSearch").click();
+  }
+  if(e.code==="Space" && document.getElementById("player").classList.contains("on")
+     && !/input|textarea/i.test(document.activeElement.tagName)){
+    e.preventDefault(); toggle();
+  }
+});
+
+/* ============================================================
+   ARRANQUE
+   ============================================================ */
+/* ============================================================
+   COLOR POR CATEGORÍA
+   ============================================================ */
+function applyTheme(){
+  const c = catOf(S.cat);
+  const r = document.documentElement.style;
+  r.setProperty("--accent", c.a);
+  r.setProperty("--accent-2", c.a2);
+  const [h,s] = c.hue;
+  r.setProperty("--bg",      S.cat==="todos" ? "#070908" : `hsl(${h} ${Math.round(s*.5)}% 4%)`);
+  r.setProperty("--bg-2",    `hsl(${h} ${Math.round(s*.4)}% 6.5%)`);
+  r.setProperty("--surface", `hsl(${h} ${Math.round(s*.3)}% 9%)`);
+  r.setProperty("--surface-2", `hsl(${h} ${Math.round(s*.3)}% 12%)`);
+  const tint = document.getElementById("tint");
+  tint.classList.toggle("on", S.cat !== "todos");
+  if(S.cat !== "todos"){
+    stopAmbient();
+    tint.classList.remove("amb");
+    paintTint(h, s);
+  }else{
+    startAmbient();
+  }
+}
+function paintTint(h, s){
+  document.getElementById("tint").style.background =
+    `radial-gradient(80% 50% at 50% 0%, hsl(${h} ${s}% 28% / .5) 0%, transparent 70%),
+     radial-gradient(70% 45% at 10% 100%, hsl(${(h+30)%360} ${s}% 22% / .35) 0%, transparent 70%)`;
+}
+
+/* Sin categoría elegida, el fondo respira: cambia de tono cada 5 segundos */
+let ambTimer = null, ambStep = 0;
+const QUIET = window.matchMedia("(prefers-reduced-motion: reduce)");
+function startAmbient(){
+  stopAmbient();
+  const tint = document.getElementById("tint");
+  tint.classList.add("amb");
+  const hues = CATS.slice(1).map(c=>c.hue);
+  const beat = ()=>{
+    const [h,s] = hues[ambStep % hues.length];
+    paintTint(h, s);
+    document.documentElement.style.setProperty("--bg", `hsl(${h} ${Math.round(s*.34)}% 4%)`);
+    ambStep++;
+  };
+  beat();
+  if(QUIET.matches) return;              // respeta el movimiento reducido
+  ambTimer = setInterval(beat, 5000);
+}
+function stopAmbient(){
+  if(ambTimer){ clearInterval(ambTimer); ambTimer = null; }
+  document.getElementById("tint").classList.remove("amb");
+}
+function setCat(id){
+  if(S.cat === id) return;
+  S.cat = id; save();
+  applyTheme();
+  renderChips();
+  const home = document.getElementById("home");
+  home.classList.remove("swap");
+  void home.offsetWidth;                 // reinicia la animación
+  renderHero(); renderRows(); renderCatalog();
+  home.classList.add("swap");
+}
+function renderChips(){
+  document.getElementById("chips").innerHTML = CATS.map(c=>
+    `<button class="chip${c.id===S.cat?" on":""}" data-cat="${c.id}">${c.chip}</button>`).join("");
+  document.querySelectorAll("#chips .chip").forEach(b=>{
+    b.onclick = ()=>{
+      setCat(b.dataset.cat);
+      window.scrollTo({top:0, behavior:"smooth"});
+    };
+  });
+}
+
+function startApp(){
+  const gate = document.getElementById("gate");
+  gate.classList.add("out");
+  setTimeout(()=>{ gate.style.display = "none"; gate.classList.remove("out"); }, 450);
+  document.getElementById("nav").hidden = false;
+  document.getElementById("home").hidden = false;
+  document.body.style.overflow = "";
+  applyTheme();
+  renderChips();
+  const p = prof();
+  const av = document.getElementById("navav");
+  av.style.background = p.color;
+  av.textContent = p.name.charAt(0);
+  document.getElementById("credit").textContent =
+    "Perfil activo: " + p.name + " · Interfaz y contenidos desarrollados para la exposición de la materia.";
+  renderHero(); renderRows(); renderCatalog();
+}
+function renderGate(){
+  document.getElementById("plist").innerHTML = PROFILES.map(p=>
+    `<button class="profile" data-p="${p.id}">
+      <span class="av" style="background:${p.color}">${p.name.charAt(0)}</span>
+      <span>${p.name}</span>
+    </button>`).join("");
+  document.querySelectorAll("#plist .profile").forEach(b=>{
+    b.onclick = ()=>{ S.profile = b.dataset.p; save(); startApp(); };
+  });
+}
+
+load();
+renderGate();
+document.body.style.overflow = "hidden";
+</script>
+
+</body></html>

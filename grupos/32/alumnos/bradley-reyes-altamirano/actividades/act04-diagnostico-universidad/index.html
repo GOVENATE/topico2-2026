@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Diagnóstico de la Universidad · Bradley Yeray Reyes Altamirano</title>
+<style>
+:root{--papel:#f7f2e8;--hoja:#fffdf8;--tinta:#2b2a26;--gris:#7a7468;--linea:#e4dccb;--verde:#2f6b4f;--verde2:#e3efe7;--terra:#c8553d;--terra2:#f8e3dc;--mostaza:#d9a521;--mostaza2:#fbf1d3;--azul:#3d6a9a;--azul2:#e2ebf5}
+*{box-sizing:border-box}
+body{margin:0;background:var(--papel);color:var(--tinta);font:16px/1.6 "Segoe UI",system-ui,-apple-system,Roboto,sans-serif;
+  background-image:linear-gradient(90deg,transparent 39px,#e9b8ad55 39px 41px,transparent 41px),repeating-linear-gradient(transparent 0 31px,#e7dfcf 31px 32px)}
+h1,h2,h3{font-family:Georgia,"Times New Roman",serif;line-height:1.2;margin:0}
+button,select{font:inherit;color:inherit}
+.top{max-width:1120px;margin:0 auto;padding:34px 24px 10px 60px;display:flex;justify-content:space-between;gap:20px;align-items:flex-end;flex-wrap:wrap}
+.top .k{font-size:.78rem;letter-spacing:.18em;color:var(--terra);font-weight:700}
+.top h1{font-size:clamp(2rem,4.5vw,3rem)}
+.top p{margin:.3em 0 0;color:var(--gris);max-width:58ch}
+.ficha{background:var(--hoja);border:1px solid var(--linea);border-left:6px solid var(--verde);padding:12px 16px;font-size:.9rem;min-width:260px}
+.ficha b{display:block;font-family:Georgia,serif;font-size:1.05rem}
+.ring{display:flex;align-items:center;gap:10px;margin-top:6px;color:var(--gris);font-size:.85rem}
+.ring svg{width:38px;height:38px}
+.tabs{max-width:1120px;margin:16px auto 0;padding:0 24px 0 60px;display:flex;gap:4px;flex-wrap:wrap}
+.tabs button{border:1px solid var(--linea);border-bottom:none;background:#efe7d6;padding:10px 16px;border-radius:10px 10px 0 0;font-weight:600;display:flex;gap:8px;align-items:center;cursor:pointer}
+.tabs button .st{width:20px;height:20px;border-radius:50%;border:2px solid var(--gris);display:grid;place-items:center;font-size:.7rem}
+.tabs button.ok .st{background:var(--verde);border-color:var(--verde);color:#fff}
+.tabs button.on{background:var(--hoja);position:relative;top:1px}
+.sheet{max-width:1120px;margin:0 auto 50px;padding:0 24px 0 60px}
+.page{display:none;background:var(--hoja);border:1px solid var(--linea);border-radius:0 12px 12px 12px;padding:30px 32px;box-shadow:0 10px 30px -18px #0004}
+.page.on{display:block;animation:up .35s ease}
+@keyframes up{from{opacity:0;transform:translateY(8px)}}
+.head{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;border-bottom:2px dashed var(--linea);padding-bottom:14px;margin-bottom:22px}
+.head h2{font-size:1.8rem}
+.head .autor{font-size:.88rem;color:var(--gris);font-style:italic;max-width:46ch}
+.split{display:grid;grid-template-columns:330px 1fr;gap:30px;align-items:start}
+.ask{background:var(--papel);border-radius:12px;padding:18px}
+.ask h3{font-size:1.05rem;margin-bottom:10px}
+.q{margin-bottom:18px}
+.q label{display:block;font-weight:600;font-size:.95rem;margin-bottom:8px}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chips button{border:1.5px solid var(--linea);background:var(--hoja);border-radius:999px;padding:6px 12px;font-size:.88rem;cursor:pointer;transition:.15s}
+.chips button:hover{border-color:var(--verde)}
+.chips button.on{background:var(--verde);border-color:var(--verde);color:#fff}
+.tip{font-size:.82rem;color:var(--gris);margin:0}
+.nav{display:flex;justify-content:space-between;margin-top:26px}
+.btn{border:0;background:var(--tinta);color:#fff;border-radius:8px;padding:10px 18px;font-weight:600;cursor:pointer}
+.btn.l{background:transparent;color:var(--tinta);border:1.5px solid var(--tinta)}
+.btn:disabled{opacity:.3;cursor:default}
+
+/* FODA cruz */
+.cross{position:relative;display:grid;grid-template-columns:1fr 1fr;gap:0;border:2px solid var(--tinta)}
+.cross>div{padding:16px 18px;min-height:150px}
+.cross .F{background:var(--verde2);border-right:2px solid var(--tinta);border-bottom:2px solid var(--tinta)}
+.cross .D{background:var(--mostaza2);border-bottom:2px solid var(--tinta)}
+.cross .O{background:var(--azul2);border-right:2px solid var(--tinta)}
+.cross .A{background:var(--terra2)}
+.cross h4{margin:0 0 6px;font-family:Georgia,serif;font-size:1.15rem;display:flex;justify-content:space-between}
+.cross h4 span{font-size:2rem;opacity:.25;line-height:1}
+.cross ul{margin:0;padding-left:18px}
+.cross li.mine{font-weight:800}
+.cross li.mine::marker{content:"➤ "}
+.axis{display:flex;justify-content:space-around;font-size:.75rem;letter-spacing:.14em;color:var(--gris);font-weight:700;margin:4px 0}
+.vaxis{position:absolute;left:-30px;top:0;bottom:0;display:flex;flex-direction:column;justify-content:space-around;writing-mode:vertical-rl;transform:rotate(180deg);font-size:.75rem;letter-spacing:.14em;color:var(--gris);font-weight:700}
+
+/* sombreros */
+.hats{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.hat{border:1px solid var(--linea);border-radius:12px;padding:14px;background:var(--hoja);position:relative}
+.hat svg{width:56px;height:38px;display:block}
+.hat b{font-family:Georgia,serif;font-size:1.05rem}
+.hat small{display:block;color:var(--gris);font-size:.78rem;text-transform:uppercase;letter-spacing:.06em}
+.hat p{margin:.4em 0 0;font-weight:600}
+.hat.mine{box-shadow:0 0 0 3px var(--verde)}
+.hat.mine::after{content:"tu respuesta";position:absolute;top:10px;right:10px;font-size:.68rem;background:var(--verde);color:#fff;border-radius:99px;padding:1px 8px}
+
+/* pareto */
+.chart svg{width:100%;height:auto;display:block;background:var(--hoja)}
+.chart text{font-family:"Segoe UI",sans-serif}
+.legend{display:flex;gap:16px;flex-wrap:wrap;font-size:.82rem;color:var(--gris);margin-top:8px}
+.legend i{display:inline-block;width:12px;height:12px;border-radius:2px;margin-right:5px;vertical-align:-1px}
+
+/* catwoe */
+.cw{display:grid;gap:0;border-left:4px solid var(--tinta)}
+.cw div{display:grid;grid-template-columns:70px 1fr;align-items:center;border-bottom:1px solid var(--linea);padding:10px 0}
+.cw .L{font-family:Georgia,serif;font-size:2.4rem;font-weight:700;text-align:center;color:var(--terra)}
+.cw small{color:var(--gris)}
+.cw p{margin:2px 0 0;font-weight:700}
+.cw div.mine{background:var(--verde2)}
+.cw div.mine .L{color:var(--verde)}
+
+/* informe */
+.report{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
+.rcard{border:1px solid var(--linea);border-radius:12px;padding:16px 18px}
+.rcard h3{font-size:1.1rem;margin-bottom:6px}
+.rcard dl{margin:0;display:grid;grid-template-columns:auto 1fr;gap:4px 12px;font-size:.92rem}
+.rcard dt{color:var(--gris)}.rcard dd{margin:0;font-weight:700}
+.concl{grid-column:1/-1;background:var(--verde);color:#fff;border-radius:12px;padding:18px 22px}
+.concl h3{color:#fff;margin-bottom:6px}
+.pend{color:var(--terra);font-weight:600}
+.sign{margin-top:22px;display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:12px}
+.sign .firma{border-top:1.5px solid var(--tinta);padding-top:4px;min-width:280px;text-align:center;font-size:.9rem}
+@media (max-width:860px){
+  body{background-image:repeating-linear-gradient(transparent 0 31px,#e7dfcf 31px 32px)}
+  .top,.tabs,.sheet{padding-left:16px;padding-right:16px}
+  .split,.report{grid-template-columns:1fr}
+  .hats{grid-template-columns:1fr 1fr}
+  .vaxis{display:none}
+  .page{padding:20px}
+}
+@media print{.tabs,.nav,.ask,.noprint{display:none!important}.page{display:block!important;border:0;box-shadow:none;page-break-after:always}body{background:#fff}}
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div>
+    <div class="k">CUADERNO DE ANÁLISIS · TÓPICO 2</div>
+    <h1>Diagnóstico de la Universidad</h1>
+    <p>Cinco herramientas de análisis aplicadas a un mismo caso: el empleo de los egresados. En cada pestaña eliges tus respuestas y el diagrama se actualiza al momento.</p>
+  </div>
+  <div class="ficha">
+    <small style="color:var(--gris)">Elaborado por</small>
+    <b>Bradley Yeray Reyes Altamirano</b>
+    Materia: Tópico 2
+    <div class="ring"><svg viewBox="0 0 36 36"><circle cx="18" cy="18" r="15" fill="none" stroke="#e4dccb" stroke-width="5"/><circle id="ringC" cx="18" cy="18" r="15" fill="none" stroke="#2f6b4f" stroke-width="5" stroke-dasharray="94.2" stroke-dashoffset="94.2" transform="rotate(-90 18 18)" style="transition:stroke-dashoffset .4s"/></svg><span id="ringT">0 de 10 decisiones</span></div>
+  </div>
+</header>
+
+<div class="tabs" id="tabs"></div>
+
+<main class="sheet">
+
+<!-- FODA -->
+<section class="page" data-tab="foda">
+  <div class="head"><h2>1 · Matriz FODA</h2><div class="autor">Herramienta popularizada por Albert Humphrey. Separa lo que depende de la universidad (interno) de lo que viene de afuera (externo).</div></div>
+  <div class="split">
+    <div class="ask"><h3>Tus decisiones</h3>
+      <div class="q" data-q="1"><label>¿Qué es lo más fuerte que tiene la universidad hoy?</label><div class="chips"></div></div>
+      <div class="q" data-q="2"><label>¿Qué riesgo externo preocupa más?</label><div class="chips"></div></div>
+      <p class="tip">Tu elección aparece marcada con ➤ en la matriz.</p>
+    </div>
+    <div>
+      <div class="axis"><span>POSITIVO</span><span>NEGATIVO</span></div>
+      <div class="cross" id="foda"></div>
+    </div>
+  </div>
+  <div class="nav"><span></span><button class="btn" data-next>Siguiente herramienta →</button></div>
+</section>
+
+<!-- SOMBREROS -->
+<section class="page" data-tab="sombreros">
+  <div class="head"><h2>2 · Seis sombreros para pensar</h2><div class="autor">Método de Edward de Bono: mirar el mismo problema desde seis enfoques distintos, uno a la vez.</div></div>
+  <div class="split">
+    <div class="ask"><h3>Tus decisiones</h3>
+      <div class="q" data-q="3"><label>Sombrero rojo · ¿Qué sientes ante la situación laboral de los egresados?</label><div class="chips"></div></div>
+      <div class="q" data-q="4"><label>Sombrero amarillo · ¿Qué ganaría la universidad si mejora?</label><div class="chips"></div></div>
+    </div>
+    <div class="hats" id="hats"></div>
+  </div>
+  <div class="nav"><button class="btn l" data-prev>← Anterior</button><button class="btn" data-next>Siguiente herramienta →</button></div>
+</section>
+
+<!-- PARETO -->
+<section class="page" data-tab="pareto">
+  <div class="head"><h2>3 · Diagrama de Pareto</h2><div class="autor">Basado en el principio de Vilfredo Pareto: pocas causas (cerca del 20%) generan la mayor parte de los efectos (cerca del 80%).</div></div>
+  <div class="split">
+    <div class="ask"><h3>Tus decisiones</h3>
+      <div class="q" data-q="7"><label>¿Qué problema se presenta con mayor frecuencia?</label><div class="chips"></div></div>
+      <div class="q" data-q="8"><label>¿Y cuál le sigue?</label><div class="chips"></div></div>
+      <p class="tip">Las barras que elijas se pintan de color. La línea muestra el porcentaje acumulado y la punteada marca el 80%.</p>
+    </div>
+    <div class="chart"><div id="pareto"></div>
+      <div class="legend"><span><i style="background:#c8553d"></i>Tus prioridades</span><span><i style="background:#cfc6b3"></i>Otros problemas</span><span><i style="background:#2f6b4f"></i>% acumulado</span></div>
+    </div>
+  </div>
+  <div class="nav"><button class="btn l" data-prev>← Anterior</button><button class="btn" data-next>Siguiente herramienta →</button></div>
+</section>
+
+<!-- ISHIKAWA -->
+<section class="page" data-tab="ishikawa">
+  <div class="head"><h2>4 · Diagrama de Ishikawa</h2><div class="autor">Propuesto por Kaoru Ishikawa: un "esqueleto de pescado" que ordena las posibles causas de un problema.</div></div>
+  <div class="split">
+    <div class="ask"><h3>Tus decisiones</h3>
+      <div class="q" data-q="9"><label>¿Qué provoca principalmente que los egresados no consigan empleo?</label><div class="chips"></div></div>
+      <div class="q" data-q="10"><label>¿En qué categoría colocarías esa causa?</label><div class="chips"></div></div>
+    </div>
+    <div class="chart"><div id="isk"></div><p class="tip" id="iskTxt" style="margin-top:8px"></p></div>
+  </div>
+  <div class="nav"><button class="btn l" data-prev>← Anterior</button><button class="btn" data-next>Siguiente herramienta →</button></div>
+</section>
+
+<!-- CATWOE -->
+<section class="page" data-tab="catwoe">
+  <div class="head"><h2>5 · Análisis CATWOE</h2><div class="autor">Parte de la metodología de sistemas suaves de Peter Checkland: describe un sistema a partir de seis elementos.</div></div>
+  <div class="split">
+    <div class="ask"><h3>Tus decisiones</h3>
+      <div class="q" data-q="5"><label>¿A quién sirve principalmente la universidad?</label><div class="chips"></div></div>
+      <div class="q" data-q="6"><label>¿Quién tiene la última palabra en las decisiones?</label><div class="chips"></div></div>
+    </div>
+    <div class="cw" id="cw"></div>
+  </div>
+  <div class="nav"><button class="btn l" data-prev>← Anterior</button><button class="btn" data-next>Ver informe final →</button></div>
+</section>
+
+<!-- INFORME -->
+<section class="page" data-tab="informe">
+  <div class="head"><h2>Informe del diagnóstico</h2><div class="autor">Resumen de las diez decisiones tomadas en las cinco herramientas.</div></div>
+  <div class="report" id="report"></div>
+  <div class="sign">
+    <div class="noprint" style="display:flex;gap:10px"><button class="btn l" id="reset">Borrar respuestas</button><button class="btn" onclick="print()">Imprimir / guardar PDF</button></div>
+    <div class="firma">Bradley Yeray Reyes Altamirano<br><small style="color:var(--gris)">Tópico 2</small></div>
+  </div>
+</section>
+</main>
+
+<script>
+/* ===== datos del caso ===== */
+const Q={
+ 1:['Identidad institucional','Innovación','Alumnos comprometidos','Alianzas'],
+ 2:['Disminución de contrataciones','Desempleo de egresados','Competencia de otras universidades','Recortes de presupuesto'],
+ 3:['Preocupación','Optimismo','Frustración','Indiferencia'],
+ 4:['Más empleo para egresados','Mejor reputación','Más becas','Más proyectos'],
+ 5:['Alumnos','Docentes','Sociedad','Empresas'],
+ 6:['Consejo','Rectoría','Gobierno','Patronato'],
+ 7:['Becas','Proyectos','Experiencia laboral','Infraestructura'],
+ 8:['Docentes','Alumnos','Actualización','Empleo'],
+ 9:['Falta de experiencia laboral','Poca actualización','Falta de proyectos reales','Infraestructura insuficiente'],
+ 10:['Métodos','Mano de obra','Materiales','Entorno']
+};
+const PARETO=[['Becas',12],['Proyectos',11],['Experiencia laboral',10],['Infraestructura',9],['Empleo',8],['Docentes',7],['Actualización',4],['Alumnos',1]];
+const TABS=[['foda','FODA',[1,2]],['sombreros','Sombreros',[3,4]],['pareto','Pareto',[7,8]],['ishikawa','Ishikawa',[9,10]],['catwoe','CATWOE',[5,6]],['informe','Informe',[]]];
+
+/* ===== estado ===== */
+const KEY='diag-uni-bradley';
+let R={};try{R=JSON.parse(localStorage.getItem(KEY))||{}}catch(e){R={}}
+const save=()=>{try{localStorage.setItem(KEY,JSON.stringify(R))}catch(e){}};
+const ans=n=>R[n]!=null?Q[n][R[n]]:null;
+
+/* ===== pestañas ===== */
+const tabs=document.getElementById('tabs');
+TABS.forEach(([id,name])=>{const b=document.createElement('button');b.dataset.t=id;b.innerHTML=`<span class="st">✓</span>${name}`;b.onclick=()=>open(id);tabs.appendChild(b);});
+let cur='foda';
+function open(id){cur=id;document.querySelectorAll('.page').forEach(p=>p.classList.toggle('on',p.dataset.tab===id));
+  [...tabs.children].forEach(b=>b.classList.toggle('on',b.dataset.t===id));if(id==='informe')report();scrollTo({top:0,behavior:'smooth'});}
+document.querySelectorAll('[data-next]').forEach(b=>b.onclick=()=>{const i=TABS.findIndex(t=>t[0]===cur);open(TABS[i+1][0]);});
+document.querySelectorAll('[data-prev]').forEach(b=>b.onclick=()=>{const i=TABS.findIndex(t=>t[0]===cur);open(TABS[i-1][0]);});
+
+/* ===== chips ===== */
+document.querySelectorAll('.q').forEach(q=>{const n=+q.dataset.q,box=q.querySelector('.chips');
+  Q[n].forEach((t,i)=>{const b=document.createElement('button');b.textContent=t;b.onclick=()=>{R[n]=R[n]===i?null:i;if(R[n]==null)delete R[n];save();refresh();};box.appendChild(b);});});
+
+function refresh(){
+  document.querySelectorAll('.q').forEach(q=>{const n=+q.dataset.q;[...q.querySelectorAll('button')].forEach((b,i)=>b.classList.toggle('on',R[n]===i));});
+  const done=Object.keys(R).length;
+  document.getElementById('ringT').textContent=`${done} de 10 decisiones`;
+  document.getElementById('ringC').style.strokeDashoffset=94.2*(1-done/10);
+  [...tabs.children].forEach(b=>{const t=TABS.find(x=>x[0]===b.dataset.t);b.classList.toggle('ok',t[2].length?t[2].every(n=>R[n]!=null):done===10);});
+  foda();hats();pareto();isk();cw();if(cur==='informe')report();
+}
+
+/* ===== FODA ===== */
+function foda(){
+  const f=ans(1),a=ans(2);
+  const box=(c,t,l,items,mine,note)=>`<div class="${c}"><h4>${t}<span>${l}</span></h4><small style="color:#7a7468;display:block;margin:-4px 0 6px">${note}</small><ul>${items.map(i=>`<li class="${i===mine?'mine':''}">${i}</li>`).join('')}</ul></div>`;
+  const F=[...new Set([f,'Identidad','Alumnos','Eventos'].filter(Boolean))];
+  const A=[...new Set([a,'Recortes'].filter(Boolean))];
+  document.getElementById('foda').innerHTML=
+    box('F','Fortalezas','F',F,f,'Interno · positivo')+box('D','Debilidades','D',['Dependencia de Internet','Autoaprendizaje'],null,'Interno · negativo')+
+    box('O','Oportunidades','O',['Convenios','Alianzas estratégicas'],null,'Externo · positivo')+box('A','Amenazas','A',A,a,'Externo · negativo');
+}
+
+/* ===== sombreros ===== */
+function hatSVG(c,stroke){return `<svg viewBox="0 0 56 38"><ellipse cx="28" cy="32" rx="26" ry="5" fill="${c}" stroke="${stroke}" stroke-width="1.5"/><path d="M14 32 L16 8 Q28 2 40 8 L42 32Z" fill="${c}" stroke="${stroke}" stroke-width="1.5"/><rect x="15" y="24" width="26" height="4" fill="${stroke}" opacity=".35"/></svg>`;}
+function hats(){
+  const r=ans(3),y=ans(4);
+  const H=[['Blanco','#ffffff','#999','Datos y hechos','Titulación: Lic. 2.5 · Mtría. 3.5 · Dr. 5',false],
+    ['Rojo','#d64545','#8a2020','Emociones',r||'Elige una opción',!!r],
+    ['Negro','#2b2a26','#000','Riesgos','Desempleo de egresados y falta de dinero',false],
+    ['Amarillo','#f2c230','#a17e10','Beneficios',y||'Elige una opción',!!y],
+    ['Verde','#3f9b62','#1f5c37','Creatividad','Nuevos convenios y proyectos con empresas',false],
+    ['Azul','#3d6a9a','#1f3f63','Control y cierre','Priorizar el empleo de egresados con acciones concretas',false]];
+  document.getElementById('hats').innerHTML=H.map(h=>`<div class="hat ${h[5]?'mine':''}">${hatSVG(h[1],h[2])}<b>Sombrero ${h[0]}</b><small>${h[3]}</small><p class="${/Elige/.test(h[4])?'pend':''}">${h[4]}</p></div>`).join('');
+}
+
+/* ===== Pareto (SVG con curva acumulada) ===== */
+function pareto(){
+  const sel=new Set([ans(7),ans(8)].filter(Boolean));
+  const W=640,H=320,L=44,Rr=44,T=20,B=70,cw=(W-L-Rr)/PARETO.length,max=12,total=PARETO.reduce((s,p)=>s+p[1],0);
+  let s=`<svg viewBox="0 0 ${W} ${H}">`;
+  for(let i=0;i<=4;i++){const y=T+(H-T-B)*i/4;s+=`<line x1="${L}" x2="${W-Rr}" y1="${y}" y2="${y}" stroke="#eee6d6"/><text x="${L-8}" y="${y+4}" font-size="11" text-anchor="end" fill="#7a7468">${Math.round(max*(1-i/4))}</text><text x="${W-Rr+8}" y="${y+4}" font-size="11" fill="#2f6b4f">${100-i*25}%</text>`;}
+  const y80=T+(H-T-B)*0.2;s+=`<line x1="${L}" x2="${W-Rr}" y1="${y80}" y2="${y80}" stroke="#2f6b4f" stroke-dasharray="5 5"/><text x="${L+4}" y="${y80-5}" font-size="11" fill="#2f6b4f">80%</text>`;
+  let acc=0,pts=[];
+  PARETO.forEach(([n,v],i)=>{acc+=v;const h=(H-T-B)*v/max,x=L+i*cw+cw*.15,y=H-B-h,on=sel.has(n);
+    s+=`<rect x="${x}" y="${y}" width="${cw*.7}" height="${h}" rx="3" fill="${on?'#c8553d':'#cfc6b3'}"/><text x="${x+cw*.35}" y="${y-5}" font-size="12" font-weight="700" text-anchor="middle" fill="#2b2a26">${v}</text>`;
+    const lbl=n.split(' ');s+=`<text x="${x+cw*.35}" y="${H-B+16}" font-size="10" text-anchor="middle" fill="${on?'#c8553d':'#2b2a26'}" font-weight="${on?700:400}">${lbl[0]}</text>`+(lbl[1]?`<text x="${x+cw*.35}" y="${H-B+30}" font-size="11" text-anchor="middle" fill="${on?'#c8553d':'#2b2a26'}">${lbl.slice(1).join(' ')}</text>`:'');
+    pts.push([x+cw*.35,T+(H-T-B)*(1-acc/total),Math.round(acc/total*100)]);});
+  s+=`<polyline points="${pts.map(p=>p[0]+','+p[1]).join(' ')}" fill="none" stroke="#2f6b4f" stroke-width="2.5"/>`;
+  pts.forEach(p=>s+=`<circle cx="${p[0]}" cy="${p[1]}" r="4" fill="#2f6b4f"/><text x="${p[0]}" y="${p[1]-8}" font-size="10" text-anchor="middle" fill="#2f6b4f">${p[2]}%</text>`);
+  document.getElementById('pareto').innerHTML=s+`<line x1="${L}" x2="${W-Rr}" y1="${H-B}" y2="${H-B}" stroke="#2b2a26"/></svg>`;
+}
+
+/* ===== Ishikawa ===== */
+function isk(){
+  const c=ans(9),cat=ans(10),low=(c||'').toLowerCase();
+  const BR=[['Experiencia laboral','experiencia',150,1],['Actualización','actualiz',300,1],['Proyectos','proyecto',450,1],['Infraestructura','infraestructura',150,0],['Docentes','docentes',300,0],['Alumnos','alumnos',450,0]];
+  let s=`<svg viewBox="0 0 680 330"><path d="M30 165 L540 165" stroke="#2b2a26" stroke-width="4"/>
+  <path d="M30 165 L5 140 M30 165 L5 190" stroke="#2b2a26" stroke-width="4" stroke-linecap="round"/>
+  <path d="M540 120 Q670 120 670 165 Q670 210 540 210 Q560 165 540 120Z" fill="#fbf1d3" stroke="#2b2a26" stroke-width="2.5"/>
+  <circle cx="652" cy="150" r="4" fill="#2b2a26"/>
+  <text x="598" y="162" font-size="13" font-weight="700" text-anchor="middle">Desempleo</text><text x="598" y="180" font-size="13" font-weight="700" text-anchor="middle">de egresados</text>`;
+  BR.forEach(([t,k,x,up])=>{const on=low.includes(k),y2=up?50:280;
+    s+=`<line x1="${x+60}" y1="165" x2="${x}" y2="${y2}" stroke="${on?'#c8553d':'#7a7468'}" stroke-width="${on?5:2.5}"/>`;
+    s+=`<rect x="${x-62}" y="${up?y2-30:y2+4}" width="124" height="26" rx="13" fill="${on?'#c8553d':'#fffdf8'}" stroke="${on?'#c8553d':'#7a7468'}"/><text x="${x}" y="${up?y2-12:y2+22}" font-size="12" text-anchor="middle" font-weight="${on?700:500}" fill="${on?'#fff':'#2b2a26'}">${t}</text>`;});
+  document.getElementById('isk').innerHTML=s+'</svg>';
+  document.getElementById('iskTxt').innerHTML=c?`Causa principal elegida: <b>${c}</b>${cat?` · Categoría: <b>${cat}</b>`:''}. La espina correspondiente se marca en rojo.`:'Elige una causa para resaltar su espina.';
+}
+
+/* ===== CATWOE ===== */
+function cw(){
+  const c=ans(5),o=ans(6);
+  const rows=[['C','Cliente','Quien recibe el beneficio',c||'Alumnos',!!c],['A','Actores','Quienes realizan la transformación','Docentes y administrativos',false],
+    ['T','Transformación','El cambio que se busca','Formar egresados listos para el empleo',false],['W','Cosmovisión','La idea que le da sentido','Educación de calidad con impacto social',false],
+    ['O','Dueños','Quienes pueden decidir o detenerlo',o||'Consejo',!!o],['E','Entorno','Lo que limita desde afuera','Presupuesto, mercado laboral y normatividad',false]];
+  document.getElementById('cw').innerHTML=rows.map(r=>`<div class="${r[4]?'mine':''}"><span class="L">${r[0]}</span><span><b>${r[1]}</b> <small>· ${r[2]}</small><p>${r[3]}</p></span></div>`).join('');
+}
+
+/* ===== informe ===== */
+function report(){
+  const v=n=>ans(n)?ans(n):'<span class="pend">pendiente</span>';
+  const card=(t,rows)=>`<div class="rcard"><h3>${t}</h3><dl>${rows.map(r=>`<dt>${r[0]}</dt><dd>${r[1]}</dd>`).join('')}</dl></div>`;
+  const done=Object.keys(R).length;
+  document.getElementById('report').innerHTML=
+    card('FODA',[['Fortaleza',v(1)],['Amenaza',v(2)]])+
+    card('Seis sombreros',[['Emoción (rojo)',v(3)],['Beneficio (amarillo)',v(4)]])+
+    card('Pareto',[['Problema n.º 1',v(7)],['Problema n.º 2',v(8)]])+
+    card('Ishikawa',[['Causa principal',v(9)],['Categoría',v(10)]])+
+    card('CATWOE',[['Cliente',v(5)],['Dueños',v(6)]])+
+    `<div class="rcard"><h3>Avance</h3><p style="margin:0">${done} de 10 decisiones tomadas.${done<10?' Completa las pestañas que no tienen ✓ para cerrar el diagnóstico.':' Diagnóstico completo.'}</p></div>`+
+    `<div class="concl"><h3>Conclusión</h3>${done===10?
+      `El análisis muestra que la universidad cuenta con <b>${ans(1).toLowerCase()}</b> como su mayor fortaleza, pero enfrenta la amenaza de <b>${ans(2).toLowerCase()}</b>. Los problemas más frecuentes son <b>${ans(7).toLowerCase()}</b> y <b>${ans(8).toLowerCase()}</b>, y la causa principal del desempleo de sus egresados es <b>${ans(9).toLowerCase()}</b>. Como el cliente principal son ${ans(5).toLowerCase()} y quien decide es ${ans(6).toLowerCase()}, la propuesta es que esa instancia priorice acciones concretas, como convenios y proyectos reales con empresas, para mejorar la empleabilidad.`
+      :'La conclusión se redactará automáticamente cuando completes las diez decisiones.'}</div>`;
+}
+document.getElementById('reset').onclick=()=>{if(confirm('¿Borrar todas las respuestas?')){R={};save();refresh();open('foda');}};
+
+refresh();open('foda');
+</script>
+</body>
+</html>

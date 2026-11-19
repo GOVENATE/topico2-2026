@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Capítulos 4, 5, 6, 9, 11 y 12 - Habilidades directivas</title>
+<style>
+:root{
+  --bg:#fdf4f6;--card:#ffffff;--soft:#f9ebef;--text:#3b1237;--muted:#7a4a6e;--line:#ecd3dc;
+  --r-bg:#fbdbe5;--r-mid:#d4537e;--r-text:#72243e;
+  --l-bg:#e6defa;--l-mid:#7f63d6;--l-text:#3c2a78;
+  --d-bg:#fde2d2;--d-mid:#d8693a;--d-text:#6b2a12;
+  --m-bg:#d6f0e4;--m-mid:#2f9a72;--m-text:#134a37;
+  --g-bg:#fbecb4;--g-mid:#b9850f;--g-text:#5a4310;
+  --s-bg:#d9ecfb;--s-mid:#2f7fc1;--s-text:#123f66;
+}
+@media (prefers-color-scheme:dark){
+  :root{--bg:#1f0b1e;--card:#2e1429;--soft:#271024;--text:#fdebf2;--muted:#d3b3c8;--line:#4a2742;
+  --r-bg:#72243e;--r-mid:#f4a6be;--r-text:#fde4ec;
+  --l-bg:#3c2a78;--l-mid:#bfaef2;--l-text:#ece6fd;
+  --d-bg:#6b2a12;--d-mid:#f5b08c;--d-text:#fdeadf;
+  --m-bg:#134a37;--m-mid:#7fd3b0;--m-text:#e2f7ee;
+  --g-bg:#5a4310;--g-mid:#f2cf6a;--g-text:#fdf3d6;
+  --s-bg:#123f66;--s-mid:#8cc4f0;--s-text:#e3f1fd}
+}
+*{box-sizing:border-box}
+body{margin:0;padding:24px 16px;background:var(--bg);color:var(--text);font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;line-height:1.6}
+h1{font-size:24px;font-weight:600;text-align:center;margin:0 0 4px}
+.sub{text-align:center;color:var(--muted);font-size:14px;margin:0 0 24px}
+.grid{max-width:1200px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:20px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:16px;
+  --cbg:var(--r-bg);--cmid:var(--r-mid);--ctext:var(--r-text)}
+.card.l{--cbg:var(--l-bg);--cmid:var(--l-mid);--ctext:var(--l-text)}
+.card.d{--cbg:var(--d-bg);--cmid:var(--d-mid);--ctext:var(--d-text)}
+.card.m{--cbg:var(--m-bg);--cmid:var(--m-mid);--ctext:var(--m-text)}
+.card.g{--cbg:var(--g-bg);--cmid:var(--g-mid);--ctext:var(--g-text)}
+.card.s{--cbg:var(--s-bg);--cmid:var(--s-mid);--ctext:var(--s-text)}
+.q{font-size:24px;font-weight:700;text-anchor:middle;fill:var(--ctext);font-family:system-ui,sans-serif}
+.head{border-radius:12px;padding:10px 14px;margin-bottom:8px;background:var(--cbg);color:var(--ctext)}
+.head small{display:block;font-size:12px}
+.head strong{font-size:18px;font-weight:600}
+svg.main{width:100%;height:auto;display:block}
+.pill{cursor:pointer;outline:none}
+.pill rect{fill:var(--card);stroke:var(--line);stroke-width:1}
+.pill text.lb{font-size:13px;font-family:system-ui,sans-serif;fill:var(--text)}
+.pill circle{fill:var(--cbg);stroke:none}
+.pill text.nm{font-size:12px;font-weight:600;font-family:system-ui,sans-serif;text-anchor:middle;fill:var(--ctext)}
+.pill:hover rect,.pill:focus rect{stroke:var(--muted)}
+.pill.on rect{fill:var(--cbg);stroke:var(--cmid);stroke-width:1.5}
+.conn{stroke:var(--line);stroke-width:1.5}
+.conn.on{stroke:var(--cmid);stroke-width:2.5}
+.back{fill:var(--soft)}
+.a{fill:var(--cbg);stroke:var(--cmid);stroke-width:2;stroke-linejoin:round}
+.b{fill:var(--cmid);stroke:none}
+.ln{fill:none;stroke:var(--cmid);stroke-width:3;stroke-linecap:round;stroke-linejoin:round}
+.det{display:flex;gap:12px;align-items:flex-start;border-radius:12px;padding:12px 14px;font-size:14px;min-height:110px;background:var(--soft);margin-top:8px}
+.det .ic{flex:none;width:56px;height:56px;border-radius:14px;background:var(--cbg);color:var(--cmid);display:flex;align-items:center;justify-content:center}
+.det .ic svg{width:40px;height:40px}
+.det .tx{min-width:0}
+.det b{display:block;font-weight:600;margin-bottom:2px;color:var(--ctext)}
+.hint{color:var(--muted)}
+</style>
+</head>
+<body>
+<h1>Habilidades directivas</h1>
+<p class="sub">Capítulos 4, 5, 6, 9, 11 y 12 · toca un punto para ver la información</p>
+<div class="grid">
+  <div class="card s" id="c4"></div>
+  <div class="card m" id="c5"></div>
+  <div class="card" id="c6"></div>
+  <div class="card l" id="c9"></div>
+  <div class="card g" id="c11"></div>
+  <div class="card d" id="c12"></div>
+</div>
+<script>
+var art={
+c4:'<path d="M140 76 h92 a12 12 0 0 1 12 12 v36 a12 12 0 0 1 -12 12 h-48 l-20 18 v-18 h-24 a12 12 0 0 1 -12 -12 v-36 a12 12 0 0 1 12 -12 z" class="a"/><circle cx="168" cy="106" r="6" class="b"/><circle cx="186" cy="106" r="6" class="b"/><circle cx="204" cy="106" r="6" class="b"/><path d="M196 140 h66 a12 12 0 0 1 12 12 v28 a12 12 0 0 1 -12 12 h-6 v16 l-18 -16 h-42 a12 12 0 0 1 -12 -12 v-28 a12 12 0 0 1 12 -12 z" class="b"/><path d="M206 160 h48 M206 174 h32" stroke="var(--card)" stroke-width="5" stroke-linecap="round"/>',
+c5:'<path d="M176 86 l-14 -14 M244 86 l14 -14" class="ln" style="stroke-width:6"/><circle cx="210" cy="137" r="56" class="a"/><path d="M210 89 v10 M210 175 v10 M162 137 h10 M248 137 h10" class="ln"/><path d="M210 137 V104 M210 137 L234 152" class="ln" style="stroke-width:6"/><circle cx="210" cy="137" r="7" class="b"/>',
+c6:'<path d="M210 64 v-12 M166 82 l-9 -9 M254 82 l9 -9 M154 120 h-13 M266 120 h13" class="ln"/><circle cx="210" cy="120" r="40" class="a"/><path d="M196 132 q14 -26 28 0" class="ln"/><path d="M194 158 h32 v16 h-32 z" class="b"/><path d="M200 182 h20" class="ln" style="stroke-width:5"/>',
+c9:'<path d="M148 204 V182 H188 V158 H228 V134 H268 V204 Z" class="a"/><path d="M252 134 V76" class="ln"/><path d="M252 76 L282 88 L252 100 Z" class="b"/><circle cx="168" cy="170" r="8" class="b"/><circle cx="208" cy="146" r="8" class="b"/><circle cx="240" cy="122" r="8" class="b"/>',
+c11:'<path d="M210 68 L223 94 H197 Z" class="b"/><path d="M197 94 H223 L236 120 H184 Z" class="a"/><path d="M184 120 H236 L249 146 H171 Z" class="b"/><path d="M171 146 H249 L262 172 H158 Z" class="a"/><path d="M158 172 H262 L275 198 H145 Z" class="b"/>',
+c12:'<circle cx="206" cy="139" r="52" class="a"/><circle cx="206" cy="139" r="34" fill="var(--card)" stroke="var(--cmid)" stroke-width="2"/><circle cx="206" cy="139" r="15" class="b"/><path d="M270 75 L212 133" class="ln" style="stroke-width:5"/><path d="M270 75 l-4 16 M270 75 l-16 4 M262 83 l-3 13 M262 83 l-13 3" class="ln" style="stroke-width:3"/>'
+};
+var ico={
+brujula:'<circle cx="24" cy="24" r="18" fill="none" stroke="currentColor" stroke-width="3"/><path d="M24 10 L29 24 L24 38 L19 24 Z" fill="currentColor"/>',
+pasos:'<path d="M6 40 H16 V30 H26 V20 H36 V10 H44" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linejoin="round" stroke-linecap="round"/>',
+estrella:'<path d="M24 5 L29 18 L43 18 L32 27 L36 41 L24 33 L12 41 L16 27 L5 18 L19 18 Z" fill="currentColor"/>',
+balanza:'<path d="M24 8 V40 M14 40 H34 M8 14 H40" stroke="currentColor" stroke-width="3" stroke-linecap="round"/><path d="M8 14 L3 26 H13 Z M40 14 L35 26 H45 Z" fill="currentColor"/>',
+diana:'<circle cx="24" cy="24" r="19" fill="none" stroke="currentColor" stroke-width="3"/><circle cx="24" cy="24" r="11" fill="none" stroke="currentColor" stroke-width="3"/><circle cx="24" cy="24" r="4" fill="currentColor"/>',
+pilares:'<path d="M6 10 L24 4 L42 10 Z" fill="currentColor"/><rect x="9" y="14" width="6" height="22" fill="currentColor"/><rect x="21" y="14" width="6" height="22" fill="currentColor"/><rect x="33" y="14" width="6" height="22" fill="currentColor"/><rect x="5" y="38" width="38" height="5" rx="2" fill="currentColor"/>',
+personas:'<circle cx="14" cy="16" r="6" fill="currentColor"/><circle cx="34" cy="16" r="6" fill="currentColor"/><circle cx="24" cy="22" r="7" fill="currentColor"/><path d="M4 38 Q14 24 22 32 M44 38 Q34 24 26 32 M12 44 Q24 28 36 44" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"/>',
+engranes:'<circle cx="24" cy="24" r="14" fill="none" stroke="currentColor" stroke-width="8" stroke-dasharray="5 4.5"/><circle cx="24" cy="24" r="5" fill="currentColor"/>',
+rayo:'<path d="M27 4 L10 27 H22 L18 44 L38 19 H26 Z" fill="currentColor"/>',
+lupa:'<circle cx="20" cy="20" r="13" fill="none" stroke="currentColor" stroke-width="3.5"/><path d="M30 30 L42 42" stroke="currentColor" stroke-width="5" stroke-linecap="round"/>',
+camino:'<path d="M8 42 C 6 28 30 32 26 20 S 36 8 42 6" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-dasharray="1 6"/><circle cx="8" cy="42" r="4" fill="currentColor"/><circle cx="42" cy="6" r="4" fill="currentColor"/>',
+foco:'<circle cx="24" cy="19" r="12" fill="currentColor"/><rect x="18" y="33" width="12" height="4" rx="2" fill="currentColor"/><rect x="20" y="39" width="8" height="4" rx="2" fill="currentColor"/>',
+libro:'<path d="M24 12 Q14 6 4 9 V38 Q14 35 24 41 Q34 35 44 38 V9 Q34 6 24 12 Z M24 12 V41" fill="none" stroke="currentColor" stroke-width="3" stroke-linejoin="round"/>',
+sombrero:'<rect x="14" y="8" width="20" height="24" rx="2" fill="currentColor"/><rect x="4" y="32" width="40" height="6" rx="3" fill="currentColor"/>',
+cerebro:'<path d="M23 8 Q12 6 10 15 Q4 18 6 26 Q4 34 12 37 Q16 43 23 40 Z M25 8 Q36 6 38 15 Q44 18 42 26 Q44 34 36 37 Q32 43 25 40 Z" fill="currentColor"/>',
+tijeras:'<circle cx="13" cy="35" r="7" fill="none" stroke="currentColor" stroke-width="3.5"/><circle cx="35" cy="35" r="7" fill="none" stroke="currentColor" stroke-width="3.5"/><path d="M18 30 L38 6 M30 30 L10 6" stroke="currentColor" stroke-width="3.5" stroke-linecap="round"/>',
+matraz:'<path d="M18 5 H30 M20 5 V18 L8 40 Q7 43 11 43 H37 Q41 43 40 40 L28 18 V5" fill="none" stroke="currentColor" stroke-width="3" stroke-linejoin="round"/><path d="M13 32 H35 L39 40 H9 Z" fill="currentColor"/>',
+calculadora:'<rect x="9" y="4" width="30" height="40" rx="5" fill="none" stroke="currentColor" stroke-width="3"/><rect x="14" y="9" width="20" height="8" rx="2" fill="currentColor"/><circle cx="17" cy="25" r="2.5" fill="currentColor"/><circle cx="24" cy="25" r="2.5" fill="currentColor"/><circle cx="31" cy="25" r="2.5" fill="currentColor"/><circle cx="17" cy="33" r="2.5" fill="currentColor"/><circle cx="24" cy="33" r="2.5" fill="currentColor"/><circle cx="31" cy="33" r="2.5" fill="currentColor"/>',
+muro:'<path d="M4 12 H44 V40 H4 Z M4 21 H44 M4 30 H44 M16 12 V21 M32 12 V21 M24 21 V30 M10 30 V40 M38 30 V40 M24 30 V40" fill="none" stroke="currentColor" stroke-width="3" stroke-linejoin="round"/>',
+etiqueta:'<path d="M6 6 H24 L42 24 L24 42 L6 24 Z" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linejoin="round"/><circle cx="15" cy="15" r="3.5" fill="currentColor"/>',
+chat:'<path d="M4 8 H30 V26 H14 L8 32 V26 H4 Z" fill="currentColor"/><path d="M34 16 H44 V36 H40 V42 L34 36 H20 V30" fill="none" stroke="currentColor" stroke-width="3" stroke-linejoin="round"/>',
+check:'<circle cx="24" cy="24" r="19" fill="currentColor"/><path d="M15 24 l6 7 l12 -14" fill="none" stroke="var(--cbg)" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round"/>',
+reloj:'<circle cx="24" cy="24" r="18" fill="none" stroke="currentColor" stroke-width="3.5"/><path d="M24 13 V24 L32 29" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round"/>',
+caras:'<circle cx="11" cy="24" r="8" fill="currentColor"/><circle cx="24" cy="18" r="8" fill="currentColor" opacity=".6"/><circle cx="37" cy="24" r="8" fill="currentColor"/><path d="M6 40 Q24 30 42 40" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"/>',
+ojo:'<path d="M3 24 Q24 6 45 24 Q24 42 3 24 Z" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linejoin="round"/><circle cx="24" cy="24" r="7" fill="currentColor"/>',
+oreja:'<path d="M14 18 Q14 6 26 6 Q38 6 38 18 Q38 26 30 30 Q26 33 26 38 Q26 44 19 44" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round"/><path d="M21 19 Q21 13 26 13 Q31 13 31 18 Q31 22 27 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"/>',
+cuadricula:'<rect x="5" y="5" width="17" height="17" rx="3" fill="currentColor"/><rect x="26" y="5" width="17" height="17" rx="3" fill="currentColor" opacity=".6"/><rect x="5" y="26" width="17" height="17" rx="3" fill="currentColor" opacity=".6"/><rect x="26" y="26" width="17" height="17" rx="3" fill="currentColor" opacity=".3"/>',
+flor:'<g fill="currentColor"><ellipse cx="24" cy="12" rx="6" ry="10"/><ellipse cx="24" cy="12" rx="6" ry="10" transform="rotate(72 24 24)"/><ellipse cx="24" cy="12" rx="6" ry="10" transform="rotate(144 24 24)"/><ellipse cx="24" cy="12" rx="6" ry="10" transform="rotate(216 24 24)"/><ellipse cx="24" cy="12" rx="6" ry="10" transform="rotate(288 24 24)"/></g><circle cx="24" cy="24" r="5" fill="var(--cbg)"/>',
+bandera:'<path d="M12 44 V5" stroke="currentColor" stroke-width="3.5" stroke-linecap="round"/><path d="M12 6 H40 L33 15 L40 24 H12 Z" fill="currentColor"/>',
+corona:'<path d="M5 38 L8 14 L18 24 L24 8 L30 24 L40 14 L43 38 Z" fill="currentColor"/>',
+corazon:'<path d="M24 42 L7 25 Q2 18 7 11 Q14 4 24 14 Q34 4 41 11 Q46 18 41 25 Z" fill="currentColor"/>',
+piramide:'<path d="M24 4 L30 14 H18 Z M17 17 H31 L36 26 H12 Z M11 29 H37 L43 40 H5 Z" fill="currentColor"/>',
+espiral:'<path d="M24 24 m0 -3 a3 3 0 1 1 -3 3 a6 6 0 1 1 6 6 a10 10 0 1 1 -10 -10 a15 15 0 1 1 15 15" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round"/>'
+};
+var data={
+c4:{cap:'Capítulo 4',tit:'Comunicación',pts:[
+['Qué es','chat','Es un proceso para intercambiar ideas, sentimientos y emociones, donde se comparten significados. Incluye contexto, participantes, mensaje, canales, barreras y realimentación.'],
+['7 pasos','pasos','Según Robbins, la comunicación tiene siete pasos: fuente, codificación, mensaje, canal, decodificación, receptor y realimentación.'],
+['Funciones','engranes','En un grupo u organización la comunicación sirve para cuatro cosas: expresión emocional, motivación, control e información.'],
+['Asertividad','check','Es decir lo que sientes, piensas y necesitas de forma directa y honesta, sin agredir ni pasar por encima de los derechos de los demás. Asertividad es igual a autoestima.'],
+['No verbal','ojo','Son los gestos, la postura, el tono de voz, la ropa y hasta el lugar. Puede repetir, contradecir, sustituir o complementar lo que decimos con palabras.'],
+['Escuchar','oreja','Para escuchar bien: haz contacto visual, pregunta, asiente, repite con tus palabras lo que te dijeron, no interrumpas, no hables mucho y toma notas si hace falta.']]},
+c5:{cap:'Capítulo 5',tit:'Administración del tiempo',pts:[
+['El tiempo','reloj','Tiene seis características: es igualitario, inelástico, indispensable, insustituible, inexorable e invaluable. El día tiene 24 horas para todos.'],
+['Administrarlo','brujula','Es hacer que el tiempo sirva para nuestro beneficio. Mauro Rodríguez dice que administrar el tiempo es administrar la vida, y malgastarlo es malgastar la vida.'],
+['Matriz','cuadricula','Covey divide las actividades en cuatro cuadrantes: urgente e importante, importante pero no urgente, urgente pero no importante, y ni urgente ni importante. Lo ideal es trabajar en el cuadrante II.'],
+['Roles','balanza','Cada rol que tenemos lleva cuatro necesidades: física, espiritual, social y mental. El directivo busca el equilibrio entre las cuatro y se pone metas semanales.'],
+['Ladrones','muro','Planear mal, no poner prioridades, no saber decir no, no delegar, dejar las cosas para después, las interrupciones y usar internet sin un fin.'],
+['Mitos','rayo','Mitos que roban tiempo: el activismo (el más ocupado es el más eficiente), el centralismo, esperar a tener todos los datos, la puerta siempre abierta y ver al tiempo como enemigo.']]},
+c6:{cap:'Capítulo 6',tit:'Creatividad',pts:[
+['Qué es','foco','Es descubrir o producir algo nuevo, valioso y útil a partir de lo que ya conocemos. No es solo de genios: todos la tenemos y se puede entrenar.'],
+['Divergente','espiral','El pensamiento convergente busca una sola respuesta correcta. El divergente saca muchas ideas de un punto y se mide por fluidez, flexibilidad y originalidad.'],
+['Fases','pasos','Orientación, preparación, incubación, iluminación, verificación y comunicación. Si la idea no funciona, se regresa a la incubación.'],
+['Persona','estrella','Una persona creativa es curiosa, está abierta a experiencias nuevas, se atreve a tomar riesgos, es persistente, tolera la ambigüedad y tiene autoestima alta.'],
+['Frenos','muro','En la persona: miedo a equivocarse, la rutina y los estereotipos. En la organización: vigilancia constante, exceso de control y falta de reconocimiento.'],
+['Despertarla','flor','Hazte preguntas, lee de otros temas, conócete, ríete más, conoce lugares y personas nuevas, y haz lluvia de ideas en equipo.']]},
+c9:{cap:'Capítulo 9',tit:'Liderazgo',pts:[
+['Qué es','bandera','Es influir en la gente para que trabaje con gusto por los objetivos del grupo. Líder viene de leader, que indica acción: es quien guía a su equipo hacia una meta común.'],
+['Mando','personas','Hay tres estilos de mando. Autocrático: ordena y espera obediencia. Democrático: delega y hace participar a todos. Laissez-faire: deja libertad total y casi no participa.'],
+['Funciones','engranes','El líder debe comunicar, organizar, integrar, dirigir, controlar y motivar. Todo líder es motivador: hace que los otros hagan.'],
+['Poder','corona','Puede ser de posición (viene de arriba) o personal (se lo reconoce la gente). Tipos: coerción, conexión, recompensa, legitimidad, información, negociación, experto y afecto.'],
+['Estilos','caras','Hay cinco estilos de liderazgo: estructurador, entrenador, alentador, delegador y carismático. Cada uno funciona mejor según cómo sea el equipo.'],
+['Actitudes','estrella','Kouzes y Posner proponen cinco actitudes: desafiar el proceso, inspirar una visión compartida, capacitar a otros, servir de modelo y brindar aliento.']]},
+c11:{cap:'Capítulo 11',tit:'Motivación',pts:[
+['Qué es','rayo','Viene del latín motus, “lo que mueve”. Es la fuerza que da energía, dirige y mantiene nuestro comportamiento.'],
+['Proceso','pasos','Una necesidad crea un deseo, el deseo crea una tensión, la tensión lleva a una acción y la acción busca la satisfacción.'],
+['Reconocer','corazon','El dinero motiva, pero por poco tiempo. En estudios en el occidente de México, lo que más motiva a los trabajadores es que reconozcan su trabajo y respeten su función.'],
+['Maslow','piramide','Pirámide de cinco necesidades: fisiológicas, seguridad, sociales, estima y autorrealización. Las de arriba aparecen cuando las de abajo ya están cubiertas.'],
+['Teorías','libro','McClelland: logro, poder y afiliación. Vroom (expectativas): me esfuerzo si creo que habrá recompensa. Adams (equidad): comparo lo que doy y recibo con lo de otros.'],
+['Interna/externa','balanza','La motivación intrínseca nace de uno mismo, por el gusto de hacer la tarea. La extrínseca viene de fuera: dinero, premios o castigos.']]},
+c12:{cap:'Capítulo 12',tit:'La habilidad estratégica',pts:[
+['Qué es','diana','La estrategia es el conjunto de procedimientos para llevar a cabo un plan o una tarea. Implica dirigirse y controlarse uno mismo según los objetivos.'],
+['El estratega','lupa','Va al fondo de las cosas, lee mucho, juega con las ideas, pregunta sin miedo, usa la intuición y la razón, y se rodea de gente con ideas diferentes.'],
+['Liderazgo','brujula','El liderazgo estratégico es la capacidad de anticipar, visualizar, ser flexible y dar autoridad a otros para hacer cambios cuando hace falta.'],
+['Mapa','camino','El mapa de estrategia empieza con un autodiagnóstico: ¿quién soy? y ¿a dónde voy? Después el directivo define la estrategia, determina la acción y alcanza la meta.'],
+['Variables','pilares','Una estrategia se revisa en cuatro variables: financiera, de clientes, de procesos internos y de crecimiento y aprendizaje.'],
+['Flexibilidad','espiral','Si la estrategia no da resultados hay que replantearla. El estratega siempre se pregunta: ¿qué hacemos?, ¿cómo lo hacemos?, ¿para qué? y ¿debemos cambiar?']]}};
+var cy=[40,135,230];
+Object.keys(data).forEach(function(k){
+  var d=data[k],el=document.getElementById(k),lines='',pills='';
+  d.pts.forEach(function(p,i){
+    var left=i<3,x=left?0:280,y=cy[i%3],ex=left?140:280;
+    lines+='<line class="conn" id="'+k+'l'+i+'" x1="'+ex+'" y1="'+y+'" x2="210" y2="135"/>';
+    pills+='<g class="pill" tabindex="0" role="button" data-i="'+i+'" aria-label="'+p[0]+'"><rect x="'+x+'" y="'+(y-20)+'" width="140" height="40" rx="12"/><circle cx="'+(x+20)+'" cy="'+y+'" r="11"/><text class="nm" x="'+(x+20)+'" y="'+(y+4)+'">'+(i+1)+'</text><text class="lb" x="'+(x+38)+'" y="'+(y+5)+'">'+p[0]+'</text></g>';
+  });
+  el.innerHTML='<div class="head"><small>'+d.cap+'</small><strong>'+d.tit+'</strong></div>'+
+    '<svg class="main" viewBox="0 0 420 270" role="group" aria-label="'+d.tit+'">'+lines+'<circle class="back" cx="210" cy="135" r="78"/>'+art[k]+pills+'</svg>'+
+    '<div class="det"><div class="tx"><span class="hint">Toca un punto para ver la información.</span></div></div>';
+  function pick(g){
+    var i=+g.getAttribute('data-i'),p=d.pts[i];
+    el.querySelectorAll('.pill').forEach(function(x){x.classList.remove('on')});
+    el.querySelectorAll('.conn').forEach(function(x){x.classList.remove('on')});
+    g.classList.add('on');
+    document.getElementById(k+'l'+i).classList.add('on');
+    el.querySelector('.det').innerHTML='<div class="ic"><svg viewBox="0 0 48 48" aria-hidden="true">'+ico[p[1]]+'</svg></div><div class="tx"><b>'+p[0]+'</b>'+p[2]+'</div>';
+  }
+  el.querySelectorAll('.pill').forEach(function(g){
+    g.addEventListener('click',function(){pick(g)});
+    g.addEventListener('keydown',function(e){if(e.key==='Enter'||e.key===' '){e.preventDefault();pick(g)}});
+  });
+});
+</script>
+</body>
+</html>

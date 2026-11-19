@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Diagnósticos disponibles</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <main class="result-page">
+    <section class="result-panel">
+      <h1 id="tituloResultado">Diagnóstico generado</h1>
+      <p class="result-summary" id="resumenResultado">Selecciona el tipo de análisis que deseas revisar.</p>
+
+      <div class="result-grid">
+        <a class="option-card" href="foda.html">Matriz FODA</a>
+        <a class="option-card" href="sombreros.html">6 Sombreros</a>
+        <a class="option-card" href="ishikawa.html">Ishikawa</a>
+        <a class="option-card" href="pareto.html">Pareto</a>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    const data = JSON.parse(localStorage.getItem('diagnosticoActual') || '{}');
+    const title = document.getElementById('tituloResultado');
+    const summary = document.getElementById('resumenResultado');
+
+    if (data && data.titulo) {
+      title.textContent = data.titulo;
+      summary.textContent = 'Tu diagnóstico quedó listo. Elige el análisis que deseas ver y descargar.';
+    }
+  </script>
+</body>
+</html>

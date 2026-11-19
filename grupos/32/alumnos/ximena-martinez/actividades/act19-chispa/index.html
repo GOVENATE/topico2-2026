@@ -1,0 +1,263 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Chispa</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400..700&family=Nunito:wght@400;600;700;800&display=swap">
+<style>
+/* Layout: muro de pines tipo Pinterest (columnas masonry), barra superior fija, detalle en ventana, tableros personales.
+   Paleta: ciruela, rosa, lila, durazno y menta suaves, igual que la presentación. */
+:root{
+  --bg:#FFF4F6; --surface:#FFFFFF; --fg:#3B1237; --muted:#7A4A6E; --line:#F0D3DD;
+  --accent:#B8265F; --on-accent:#FFFFFF; --chip:#FBE3EA; --shadow:0 6px 24px rgba(91,20,72,.12);
+  --display:'Fredoka','Trebuchet MS',Arial,sans-serif; --text:'Nunito',Arial,sans-serif;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#1F0B1E; --surface:#2E1429; --fg:#FDEBF2; --muted:#D3B3C8; --line:#4A2742;
+  --accent:#FF9EBF; --on-accent:#3A0F2E; --chip:#3B1B36; --shadow:0 6px 24px rgba(0,0,0,.4); color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#1F0B1E; --surface:#2E1429; --fg:#FDEBF2; --muted:#D3B3C8; --line:#4A2742;
+  --accent:#FF9EBF; --on-accent:#3A0F2E; --chip:#3B1B36; --shadow:0 6px 24px rgba(0,0,0,.4); color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--fg);font-family:var(--text);font-size:16px;line-height:1.5;
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:0 40px}
+button{font:inherit;color:inherit;cursor:pointer}
+:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--bg);display:flex;flex-wrap:wrap;align-items:center;gap:12px 16px;padding-block:14px 10px}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--bg)}
+.logo{display:flex;align-items:center;gap:8px;font-family:var(--display);font-weight:700;font-size:28px;color:var(--accent);text-decoration:none;border:0;background:none;padding:0}
+.nav{display:flex;gap:4px}
+.nav button{border:0;background:none;padding:8px 14px;border-radius:999px;font-weight:700}
+.nav button[aria-current="page"]{background:var(--fg);color:var(--bg)}
+.search{flex:1 1 260px;min-width:0;display:flex;align-items:center;gap:10px;background:var(--chip);border-radius:999px;padding:0 18px}
+.search input{flex:1;min-width:0;border:0;background:none;color:var(--fg);font:inherit;padding:12px 0;outline:none}
+.search:focus-within{box-shadow:0 0 0 3px var(--accent)}
+.search svg{flex:none;color:var(--muted)}
+.btn{border:0;border-radius:999px;background:var(--accent);color:var(--on-accent);font-weight:800;padding:10px 20px}
+.btn.alt{background:var(--chip);color:var(--fg)}
+.chips{display:flex;gap:8px;overflow-x:auto;padding-block:6px 14px;scrollbar-width:none}
+.chip{flex:none;border:0;background:var(--chip);border-radius:999px;padding:8px 18px;font-weight:700}
+.chip[aria-pressed="true"]{background:var(--fg);color:var(--bg)}
+.hello{font-family:var(--display);font-size:clamp(26px,4vw,40px);line-height:1.15;margin:8px 0 4px;text-wrap:balance;font-weight:600}
+.sub{color:var(--muted);margin:0 0 8px;max-width:60ch}
+.wall{column-width:236px;column-gap:16px;padding-top:8px}
+.pin{position:relative;break-inside:avoid;margin:0 0 16px;border-radius:24px;cursor:pointer;display:block}
+.pin .art{border-radius:24px;overflow:hidden;position:relative;transition:transform .2s}
+.pin:hover .art{transform:translateY(-2px)}
+.pin .art svg{display:block;width:100%;height:100%}
+.pin .q{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;padding:18px;text-align:center;font-family:var(--display);font-weight:600;font-size:20px;line-height:1.25;text-wrap:balance}
+.pin .meta{padding:8px 6px 0}
+.pin .tag{font-size:12px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--accent)}
+.pin h3{font-family:var(--display);font-weight:600;font-size:17px;line-height:1.25;margin:2px 0 0}
+.pin .save{position:absolute;top:12px;right:12px;opacity:0;transition:opacity .15s}
+.pin:hover .save,.pin:focus-within .save,.pin .save.on{opacity:1}
+@media (hover:none){.pin .save{opacity:1}}
+.empty{padding:48px 0;text-align:center;color:var(--muted)}
+.foot{margin-top:24px;color:var(--muted);font-size:14px;text-align:center}
+.boards{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:20px;padding-top:12px}
+.board{border:0;background:none;text-align:left;padding:0}
+.mosaic{display:grid;grid-template-columns:2fr 1fr;grid-template-rows:1fr 1fr;gap:3px;aspect-ratio:3/2;border-radius:22px;overflow:hidden;background:var(--chip)}
+.mosaic span:first-child{grid-row:span 2}
+.board b{display:block;font-family:var(--display);font-size:20px;font-weight:600;margin-top:8px}
+.board small{color:var(--muted)}
+.back{border:0;background:var(--chip);border-radius:999px;padding:8px 16px;font-weight:700;margin-top:10px}
+.scrim{position:fixed;inset:0;z-index:20;background:rgba(40,8,34,.55);display:flex;align-items:flex-start;justify-content:center;padding:max(16px,env(safe-area-inset-top,0px)) 16px 16px;overflow-y:auto}
+.scrim[hidden]{display:none!important}
+.sheet{background:var(--surface);border-radius:32px;box-shadow:var(--shadow);width:min(980px,100%);margin-block:auto;overflow:hidden}
+.detail{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr)}
+.detail .art{position:relative;min-height:340px}
+.detail .art svg{position:absolute;inset:0;width:100%;height:100%}
+.detail .body{padding:32px;display:flex;flex-direction:column;gap:12px;min-width:0}
+.detail h2{font-family:var(--display);font-weight:600;font-size:clamp(26px,3.4vw,36px);line-height:1.15;margin:0;text-wrap:balance}
+.detail p{margin:0;font-size:17px}
+.row{display:flex;flex-wrap:wrap;gap:10px;margin-top:auto;padding-top:12px}
+.x{position:absolute;top:12px;right:12px;z-index:2;border:0;background:var(--surface);color:var(--fg);width:40px;height:40px;border-radius:50%;font-size:20px;box-shadow:var(--shadow)}
+.small{width:min(440px,100%);padding:28px;position:relative}
+.small h2{font-family:var(--display);font-weight:600;font-size:26px;margin:0 0 12px}
+.list{display:flex;flex-direction:column;gap:8px}
+.list button{display:flex;justify-content:space-between;align-items:center;border:2px solid var(--line);background:none;border-radius:16px;padding:12px 16px;font-weight:700;text-align:left}
+.list button[aria-pressed="true"]{border-color:var(--accent);background:var(--chip)}
+.field{display:flex;flex-direction:column;gap:6px;margin-bottom:12px;font-weight:700;font-size:14px}
+.field input,.field textarea,.field select{font:inherit;font-weight:400;color:var(--fg);background:var(--bg);border:2px solid var(--line);border-radius:14px;padding:10px 14px;width:100%}
+.field textarea{min-height:96px;resize:vertical}
+.newb{display:flex;gap:8px;margin-top:12px}
+.newb input{flex:1;min-width:0;font:inherit;color:var(--fg);background:var(--bg);border:2px solid var(--line);border-radius:999px;padding:10px 16px}
+.toast{position:fixed;left:50%;bottom:max(24px,env(safe-area-inset-bottom,0px));transform:translateX(-50%);z-index:30;background:var(--fg);color:var(--bg);padding:12px 22px;border-radius:999px;font-weight:700;box-shadow:var(--shadow);max-width:calc(100% - 32px)}
+.toast[hidden]{display:none!important}
+@media (max-width:720px){.detail{grid-template-columns:1fr}.detail .art{min-height:260px}.detail .body{padding:24px}.wall{column-width:150px;column-gap:12px}.pin .q{font-size:16px;padding:12px}.logo{font-size:24px}}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+
+<header class="top">
+  <button class="logo" id="home" aria-label="Chispa, ir al inicio">
+    <svg width="30" height="30" viewBox="0 0 30 30" aria-hidden="true"><g fill="currentColor"><ellipse cx="15" cy="7" rx="4.5" ry="7"/><ellipse cx="15" cy="7" rx="4.5" ry="7" transform="rotate(72 15 15)"/><ellipse cx="15" cy="7" rx="4.5" ry="7" transform="rotate(144 15 15)"/><ellipse cx="15" cy="7" rx="4.5" ry="7" transform="rotate(216 15 15)"/><ellipse cx="15" cy="7" rx="4.5" ry="7" transform="rotate(288 15 15)"/></g><circle cx="15" cy="15" r="4" fill="var(--bg)"/></svg>
+    Chispa
+  </button>
+  <nav class="nav" aria-label="Secciones">
+    <button id="nav-inicio" aria-current="page">Inicio</button>
+    <button id="nav-tableros">Tableros</button>
+  </nav>
+  <label class="search">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg>
+    <input id="q" type="search" placeholder="Busca ideas, retos, técnicas…" autocomplete="off" aria-label="Buscar">
+  </label>
+  <button class="btn" id="create">+ Crear</button>
+</header>
+
+<main id="main"></main>
+<p class="foot">Chispa · Hecho por Ximena Martínez Gudiño · Basado en el capítulo 6, Creatividad, del libro Habilidades directivas</p>
+
+<div class="scrim" id="scrim" hidden></div>
+<div class="toast" id="toast" role="status" hidden></div>
+
+<script>
+(function(){
+var COLORS=[
+  {bg:'#F9C6D6',ink:'#5A1448'},{bg:'#D9CCF5',ink:'#35205F'},{bg:'#FFD9C2',ink:'#6B2A1A'},
+  {bg:'#CFEBDD',ink:'#14473A'},{bg:'#FBE9A8',ink:'#5A4310'},{bg:'#5A1E52',ink:'#FFE6EE'}
+];
+var KINDS={fase:'Fase',reto:'Reto',tecnica:'Técnica',frase:'Frase',freno:'Lo que frena',cerebro:'Cerebro'};
+var CHIPS=[['todo','Todo'],['fase','Fases'],['reto','Retos'],['tecnica','Técnicas'],['frase','Frases'],['freno','Lo que frena'],['cerebro','Cerebro']];
+// [id, tipo, título, resumen, detalle, motivo, color, alto]
+var BASE=[
+['f1','fase','1. Orientación','Define el problema.','Es el primer paso: saber qué quieres resolver. Casi siempre empieza cuando algo no te gusta como está y te imaginas que podría ser diferente. Anota cuál es el problema y qué partes importan más.','path',0,1.25],
+['f2','fase','2. Preparación','Junta toda la información.','Antes de inventar, investiga. Observa con calma, busca qué ya existe y qué lo causa. Mientras más sepas del tema, más ideas buenas se te van a ocurrir.','dots',1,1.0],
+['f3','fase','3. Incubación','Suelta el problema un rato.','Deja de pensar en el problema por un momento: sal a caminar, escucha música, duerme. Así la parte crítica de tu mente se relaja y el inconsciente trabaja sin presión.','waves',4,1.4],
+['f4','fase','4. Iluminación','Llega la idea.','Después de la incubación aparece el insight: de pronto ves la respuesta. Es como salir de un túnel a la luz. Anótala rápido antes de que se te olvide.','bulb',2,1.2],
+['f5','fase','5. Verificación','Prueba si funciona.','Hay que evaluar la solución con ojo crítico. Si no sirve, se regresa a la incubación. Es ir y venir entre las ideas y los hechos.','duo',3,1.0],
+['f6','fase','6. Comunicación','Da a conocer tu idea.','Una idea que nadie conoce no cambia nada. Al compartirla, la creación vive en la sociedad aunque ya no dependa de quien la creó.','spark',5,1.3],
+['r1','reto','10 usos para un clip','Pensar en usos que nadie piensa.','Toma un clip y escribe 10 usos distintos a sujetar hojas. Luego hazlo con un libro, una botella o un lápiz. Mide tu fluidez (cuántas ideas), tu flexibilidad (qué tan diferentes) y tu originalidad.','spark',4,1.15],
+['r2','reto','Anagramas','Reacomoda las letras.','Con las letras de “Creatividad” forma todas las palabras nuevas que puedas. Después prueba con Pimentón, Lotería, Motocicleta y Pájaro.','dots',0,0.9],
+['r3','reto','¿Qué pasaría si…?','Imagina 10 consecuencias.','Elige una situación y escribe 10 consecuencias a futuro. Por ejemplo: ¿qué pasaría en México si todos tuvieran mínimo preparatoria? ¿O si la jubilación fuera a los 80 años?','waves',1,1.35],
+['r4','reto','Cambia tu ruta','Camina o viaja por otro camino.','Para llegar a tu escuela, trabajo o casa, toma una ruta distinta. Observar cosas nuevas rompe la rutina y abre la mente.','path',3,1.1],
+['r5','reto','Una fruta con los 5 sentidos','Come lento y fíjate en todo.','Escoge una fruta y obsérvala: forma, textura, color, olor, sabor y hasta el sonido al morderla. Entrenar los sentidos ayuda a notar detalles que otros no ven.','flower',2,1.0],
+['r6','reto','15 minutos de risa','Comparte anécdotas con tu equipo.','Cada día dedica 15 minutos a contar cosas divertidas con tu equipo. El buen humor deja que las ideas fluyan sin miedo a que suenen locas.','flower',0,1.3],
+['r7','reto','Aprende de alguien que no te cae bien','Plática y pregunta qué te atrae.','Esta semana elige a una persona cuya forma de actuar no te agrade. Conversa con ella y pregúntate qué puedes aprender de esa persona.','duo',1,1.15],
+['r8','reto','Preséntate a alguien nuevo','De otra área o de otra carrera.','Cada semana conoce a una persona de un área diferente y haz una lista de 5 cosas que aprendiste de ella. Así amplías tus esquemas.','bulb',4,0.95],
+['t1','tecnica','Lluvia de ideas','Todas valen, no juzgues.','Junta a tu equipo y digan ideas sin criticar ninguna, aunque suenen descabelladas. Después se escogen las mejores. Entre varios salen más ideas.','spark',5,1.25],
+['t2','tecnica','Las 8 preguntas','Qué, por qué, para qué, cuándo, cuánto, cómo, dónde y quién.','Hazte estas preguntas sobre cualquier problema. Ayudan a ver el tema desde ángulos distintos y a encontrar lo que casi nadie cuestiona.','dots',2,1.0],
+['t3','tecnica','Mapa mental','Piensa con lógica y fantasía a la vez.','Según Buzan, se siguen ocho pasos: centrarse, iluminarse, liberarse, pensar rápido, romper fronteras, no juzgar, seguir en movimiento y permitir la organización.','path',1,1.4],
+['t4','tecnica','Analogías','Busca lo parecido en cosas distintas.','Compara dos situaciones que parecen no tener nada que ver y busca qué tienen en común. Es una forma de tener actitud asociativa.','duo',3,1.05],
+['t5','tecnica','Futurología','Imagina el futuro con libertad.','El futuro es el reino de lo posible. Usa analogías, simulaciones y juegos para imaginar cómo podrían ser las cosas dentro de unos años.','waves',0,1.2],
+['q1','frase','“Me lo contaron y lo olvidé, lo vi y lo entendí, lo hice y lo aprendí.”','Confucio','Esta frase abre el capítulo. La creatividad se aprende practicándola, no solo leyendo sobre ella.','flower',5,1.45],
+['q2','frase','“Una persona que nunca cometió un error, jamás probó nada nuevo.”','Albert Einstein','El libro la propone para un ensayo. Equivocarse es parte de probar cosas nuevas.','spark',1,1.4],
+['q3','frase','La creatividad no es algo que pasa una sola vez: es un estilo de vida.','Según Howard Gardner','Las personas creativas siempre se preguntan qué tiene sentido y qué no en su trabajo, y si no lo tiene, piensan cómo cambiarlo.','bulb',2,1.35],
+['q4','frase','Todos poseemos un potencial creativo fuerte.','Se debilita con los estereotipos','Pero se puede restablecer con ejercicios, con una actitud más abierta y usando bien nuestro cerebro.','flower',3,1.2],
+['n1','freno','Miedo a equivocarse','Frena a la persona.','Junto con el miedo a lo desconocido y a la frustración, hace que no te atrevas a probar ideas. Lo primero es reconocerlo para poder quitarlo.','waves',5,1.0],
+['n2','freno','La rutina','Hacer siempre lo mismo.','Junto con los estereotipos y la resignación pasiva, la rutina apaga la curiosidad. Un truco: cambia algo pequeño de tu día.','dots',4,1.15],
+['n3','freno','Exceso de control','Frena a la organización.','Si le dices a la gente exactamente cómo hacer todo, siente que cualquier idea original es un error y que explorar es perder el tiempo.','path',0,1.1],
+['n4','freno','Vigilancia constante','Estar siendo observado.','Cuando vigilan a las personas mientras trabajan, bajan las ganas de arriesgarse y de crear. También afectan la competencia excesiva y la falta de reconocimiento.','duo',2,1.25],
+['c1','cerebro','Una idea genera otra','Principio 1: sinergia.','El cerebro combina lo que ya sabe con ideas nuevas, así que uno más uno puede ser más que dos. Ojo con “basura entra, basura sale”: busca que entre cosas buenas.','spark',1,1.0],
+['c2','cerebro','Aprende imitando','Principio 3.','El cerebro puede copiar muy bien acciones. Fíjate en personas capaces y aprende de ellas.','duo',3,1.3],
+['c3','cerebro','Busca la verdad','Principio 6.','Para el cerebro la verdad es supervivencia. Por eso, hablar con la verdad a tu equipo mantiene su confianza.','bulb',4,1.1],
+['c4','cerebro','Es tenaz','Principio 7.','El cerebro sigue esforzándose por lograr el éxito sin importar las probabilidades. Pon la atención en la meta, no en los obstáculos.','flower',0,1.2],
+['c5','cerebro','Dos hemisferios, una idea','Izquierdo y derecho.','El izquierdo es lógico y convergente. El derecho es intuitivo y divergente. Están conectados por el cuerpo calloso y los dos hacen falta para que la creatividad salga.','duo',5,1.35]
+];
+var store={get:function(k,d){try{var v=localStorage.getItem(k);return v?JSON.parse(v):d}catch(e){return d}},set:function(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}};
+var mine=store.get('chispa_mine',[]);
+var boards=store.get('chispa_boards',{'Mis ideas':[],'Retos de la semana':[]});
+var likes=store.get('chispa_likes',[]);
+var view='inicio',filter='todo',query='',openBoard=null;
+function all(){return mine.concat(BASE.map(toObj))}
+function toObj(a){return {id:a[0],kind:a[1],title:a[2],short:a[3],long:a[4],motif:a[5],color:a[6],ratio:a[7]}}
+function esc(s){return String(s).replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]})}
+function $(s){return document.querySelector(s)}
+function art(p,full){
+  var c=COLORS[p.color%COLORS.length],ink=c.ink,m='';
+  if(p.motif==='flower'){for(var i=0;i<5;i++)m+='<ellipse cx="100" cy="52" rx="24" ry="44" fill="'+ink+'" fill-opacity=".22" transform="rotate('+(i*72)+' 100 100)"/>';m+='<circle cx="100" cy="100" r="16" fill="'+ink+'"/>'}
+  else if(p.motif==='bulb'){m='<circle cx="100" cy="86" r="46" fill="'+ink+'" fill-opacity=".2"/><circle cx="100" cy="86" r="28" fill="'+ink+'"/><rect x="82" y="138" width="36" height="8" rx="4" fill="'+ink+'"/><rect x="88" y="152" width="24" height="8" rx="4" fill="'+ink+'"/><path d="M100 20v-12M52 38l-8-8M148 38l8-8M30 86H16M184 86h-14" stroke="'+ink+'" stroke-width="5" stroke-linecap="round"/>'}
+  else if(p.motif==='spark'){m='<path d="M100 20 L112 88 L180 100 L112 112 L100 180 L88 112 L20 100 L88 88Z" fill="'+ink+'" fill-opacity=".85"/><circle cx="162" cy="42" r="9" fill="'+ink+'" fill-opacity=".35"/><circle cx="40" cy="160" r="12" fill="'+ink+'" fill-opacity=".35"/>'}
+  else if(p.motif==='waves'){for(var j=0;j<4;j++)m+='<path d="M-10 '+(50+j*30)+' Q 30 '+(20+j*30)+' 70 '+(50+j*30)+' T 150 '+(50+j*30)+' T 230 '+(50+j*30)+'" fill="none" stroke="'+ink+'" stroke-opacity="'+(.9-j*.18)+'" stroke-width="9" stroke-linecap="round"/>'}
+  else if(p.motif==='dots'){for(var y=0;y<5;y++)for(var x=0;x<5;x++)m+='<circle cx="'+(30+x*35)+'" cy="'+(30+y*35)+'" r="'+((x+y)%3===0?11:6)+'" fill="'+ink+'" fill-opacity="'+((x+y)%3===0?.9:.3)+'"/>'}
+  else if(p.motif==='path'){m='<path d="M26 170 C 20 90 120 130 100 70 S 160 40 176 30" fill="none" stroke="'+ink+'" stroke-width="7" stroke-linecap="round" stroke-dasharray="2 14"/><circle cx="26" cy="170" r="14" fill="'+ink+'"/><circle cx="176" cy="30" r="20" fill="'+ink+'" fill-opacity=".85"/>'}
+  else{m='<circle cx="78" cy="100" r="52" fill="'+ink+'" fill-opacity=".35"/><circle cx="124" cy="100" r="52" fill="'+ink+'" fill-opacity=".35"/><circle cx="101" cy="100" r="12" fill="'+ink+'"/>'}
+  var op=p.kind==='frase'&&!full?' opacity=".35"':'';
+  return '<svg viewBox="0 0 200 200" preserveAspectRatio="xMidYMid slice" aria-hidden="true"'+op+'>'+m+'</svg>';
+}
+function savedIn(id){var r=[];for(var b in boards)if(boards[b].indexOf(id)>-1)r.push(b);return r}
+function pinHTML(p){
+  var c=COLORS[p.color%COLORS.length],isq=p.kind==='frase';
+  var sv=savedIn(p.id).length>0;
+  return '<article class="pin" data-id="'+esc(p.id)+'" tabindex="0" role="button" aria-label="'+esc(p.title)+'">'+
+   '<div class="art" style="background:'+c.bg+';color:'+c.ink+';aspect-ratio:1/'+p.ratio+'">'+art(p)+(isq?'<div class="q">'+esc(p.title)+'</div>':'')+'</div>'+
+   '<button class="btn save'+(sv?' on':'')+'" data-save="'+esc(p.id)+'">'+(sv?'Guardado':'Guardar')+'</button>'+
+   '<div class="meta"><span class="tag">'+esc(KINDS[p.kind]||'Mi idea')+'</span>'+(isq?'<h3>'+esc(p.short)+'</h3>':'<h3>'+esc(p.title)+'</h3>')+'</div></article>';
+}
+function match(p){
+  if(filter!=='todo'&&p.kind!==filter)return false;
+  if(!query)return true;
+  var t=(p.title+' '+p.short+' '+p.long+' '+(KINDS[p.kind]||'')).toLowerCase();
+  return query.toLowerCase().split(/\s+/).every(function(w){return t.indexOf(w)>-1});
+}
+function render(){
+  var m=$('#main'),h='';
+  $('#nav-inicio').setAttribute('aria-current',view==='inicio'?'page':'false');
+  $('#nav-tableros').setAttribute('aria-current',view==='tableros'?'page':'false');
+  if(view==='inicio'){
+    var list=all().filter(match);
+    h+='<h1 class="hello">Prende tu chispa creativa</h1><p class="sub">Ideas, retos y técnicas del capítulo 6 para pensar distinto. Guarda lo que te guste en tus tableros.</p>';
+    h+='<div class="chips" role="group" aria-label="Filtrar por tipo">'+CHIPS.map(function(c){return '<button class="chip" data-f="'+c[0]+'" aria-pressed="'+(filter===c[0])+'">'+c[1]+'</button>'}).join('')+'</div>';
+    h+=list.length?'<div class="wall">'+list.map(pinHTML).join('')+'</div>':'<p class="empty">No encontré nada con “'+esc(query)+'”. Prueba con otra palabra o crea tu propia idea con el botón Crear.</p>';
+  }else if(openBoard===null){
+    h+='<h1 class="hello">Tus tableros</h1><p class="sub">Aquí quedan las ideas que guardas. Se guardan en este navegador.</p><div class="boards">';
+    Object.keys(boards).forEach(function(b){
+      var ps=boards[b].map(byId).filter(Boolean);
+      var cells=[0,1,2].map(function(i){var p=ps[i];return '<span style="background:'+(p?COLORS[p.color%COLORS.length].bg:'transparent')+';display:block;overflow:hidden;color:'+(p?COLORS[p.color%COLORS.length].ink:'inherit')+'">'+(p?art(p):'')+'</span>'}).join('');
+      h+='<button class="board" data-board="'+esc(b)+'"><div class="mosaic">'+cells+'</div><b>'+esc(b)+'</b><small>'+ps.length+(ps.length===1?' pin':' pines')+'</small></button>';
+    });
+    h+='</div>';
+  }else{
+    var ps2=(boards[openBoard]||[]).map(byId).filter(Boolean);
+    h+='<button class="back" id="backb">← Tableros</button><h1 class="hello">'+esc(openBoard)+'</h1>';
+    h+=ps2.length?'<div class="wall">'+ps2.map(pinHTML).join('')+'</div>':'<p class="empty">Este tablero está vacío. Ve al inicio y guarda alguna idea aquí.</p>';
+  }
+  m.innerHTML=h;
+}
+function byId(id){return all().filter(function(p){return p.id===id})[0]}
+function toast(t){var e=$('#toast');e.textContent=t;e.hidden=false;clearTimeout(toast.t);toast.t=setTimeout(function(){e.hidden=true},2200)}
+var lastFocus=null;
+function openSheet(html,cls){lastFocus=document.activeElement;var s=$('#scrim');s.innerHTML='<div class="sheet '+(cls||'')+'" role="dialog" aria-modal="true">'+html+'</div>';s.hidden=false;document.body.style.overflow='hidden';var f=s.querySelector('input,textarea,button.x,button');if(f)f.focus()}
+function closeSheet(){var s=$('#scrim');s.hidden=true;s.innerHTML='';document.body.style.overflow='';if(lastFocus&&lastFocus.focus)try{lastFocus.focus()}catch(e){}}
+function showPin(id){
+  var p=byId(id);if(!p)return;var c=COLORS[p.color%COLORS.length],liked=likes.indexOf(id)>-1,isq=p.kind==='frase';
+  openSheet('<button class="x" data-close aria-label="Cerrar">×</button><div class="detail"><div class="art" style="background:'+c.bg+';color:'+c.ink+'">'+art(p,true)+(isq?'<div class="q" style="font-size:26px;padding:32px">'+esc(p.title)+'</div>':'')+'</div><div class="body"><span class="tag" style="font-size:13px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--accent)">'+esc(KINDS[p.kind]||'Mi idea')+'</span><h2>'+esc(isq?p.short:p.title)+'</h2>'+(isq?'':'<p style="color:var(--muted);font-weight:700">'+esc(p.short)+'</p>')+'<p>'+esc(p.long)+'</p><div class="row"><button class="btn" data-save="'+esc(id)+'">Guardar</button><button class="btn alt" data-like="'+esc(id)+'" aria-pressed="'+liked+'">'+(liked?'♥ Me sirvió':'♡ Me sirvió')+'</button></div></div></div>');
+}
+function showSave(id){
+  var cur=savedIn(id);
+  var h='<button class="x" data-close aria-label="Cerrar">×</button><h2>Guardar en un tablero</h2><div class="list">'+Object.keys(boards).map(function(b){var on=cur.indexOf(b)>-1;return '<button data-toggle="'+esc(b)+'" data-id="'+esc(id)+'" aria-pressed="'+on+'"><span>'+esc(b)+'</span><span>'+(on?'✓ Guardado':'Guardar')+'</span></button>'}).join('')+'</div><form class="newb" id="newb" data-id="'+esc(id)+'"><input id="nb" placeholder="Nuevo tablero" aria-label="Nombre del nuevo tablero" maxlength="40"><button class="btn" type="submit">Crear</button></form>';
+  openSheet(h,'small');
+}
+function showCreate(){
+  openSheet('<button class="x" data-close aria-label="Cerrar">×</button><h2>Crea tu idea</h2><form id="cf"><div class="field"><label for="ct">Título</label><input id="ct" required maxlength="60" placeholder="Ej. Pintar con la mano que no uso"></div><div class="field"><label for="cd">Cuéntala</label><textarea id="cd" required maxlength="400" placeholder="¿En qué consiste y para qué sirve?"></textarea></div><div class="field"><label for="ck">Tipo</label><select id="ck"><option value="reto">Reto</option><option value="tecnica">Técnica</option><option value="frase">Frase</option></select></div><button class="btn" type="submit">Publicar</button></form>','small');
+}
+document.addEventListener('click',function(e){
+  var t=e.target;
+  var sv=t.closest('[data-save]');if(sv){e.stopPropagation();showSave(sv.getAttribute('data-save'));return}
+  var lk=t.closest('[data-like]');if(lk){var id=lk.getAttribute('data-like'),i=likes.indexOf(id);if(i>-1)likes.splice(i,1);else likes.push(id);store.set('chispa_likes',likes);var on=i<0;lk.setAttribute('aria-pressed',on);lk.textContent=on?'♥ Me sirvió':'♡ Me sirvió';return}
+  var tg=t.closest('[data-toggle]');if(tg){var b=tg.getAttribute('data-toggle'),pid=tg.getAttribute('data-id'),arr=boards[b],k=arr.indexOf(pid);if(k>-1){arr.splice(k,1);toast('Quitado de '+b)}else{arr.unshift(pid);toast('Guardado en '+b)}store.set('chispa_boards',boards);closeSheet();render();return}
+  if(t.closest('[data-close]')||t===$('#scrim')){closeSheet();return}
+  var pin=t.closest('.pin');if(pin){showPin(pin.getAttribute('data-id'));return}
+  var ch=t.closest('[data-f]');if(ch){filter=ch.getAttribute('data-f');render();return}
+  var bd=t.closest('[data-board]');if(bd){openBoard=bd.getAttribute('data-board');render();window.scrollTo(0,0);return}
+  if(t.closest('#backb')){openBoard=null;render();return}
+});
+document.addEventListener('keydown',function(e){
+  if(e.key==='Escape'&&!$('#scrim').hidden)closeSheet();
+  if((e.key==='Enter'||e.key===' ')&&e.target.classList&&e.target.classList.contains('pin')){e.preventDefault();showPin(e.target.getAttribute('data-id'))}
+});
+document.addEventListener('submit',function(e){
+  e.preventDefault();var f=e.target;
+  if(f.id==='newb'){var n=$('#nb').value.trim();if(!n)return;if(!boards[n])boards[n]=[];var id=f.getAttribute('data-id');if(boards[n].indexOf(id)<0)boards[n].unshift(id);store.set('chispa_boards',boards);closeSheet();render();toast('Guardado en '+n)}
+  if(f.id==='cf'){var t=$('#ct').value.trim(),d=$('#cd').value.trim(),k=$('#ck').value;if(!t||!d)return;var ms=['flower','bulb','spark','waves','dots','path','duo'];var n2=mine.length;mine.unshift({id:'u'+Date.now(),kind:k,title:t,short:d.length>60?d.slice(0,57)+'…':d,long:d,motif:ms[n2%ms.length],color:(n2+2)%5,ratio:[1,1.2,1.35,1.1][n2%4]});store.set('chispa_mine',mine);closeSheet();view='inicio';filter='todo';query='';$('#q').value='';render();toast('Tu idea ya está en el muro')}
+});
+$('#q').addEventListener('input',function(e){query=e.target.value.trim();if(view!=='inicio'){view='inicio';location.hash='inicio'}render()});
+$('#create').addEventListener('click',showCreate);
+function go(v){view=v;openBoard=null;if(location.hash!=='#'+v)location.hash=v;render();window.scrollTo(0,0)}
+$('#nav-inicio').addEventListener('click',function(){go('inicio')});
+$('#nav-tableros').addEventListener('click',function(){go('tableros')});
+$('#home').addEventListener('click',function(){filter='todo';query='';$('#q').value='';go('inicio')});
+window.addEventListener('hashchange',function(){var v=location.hash.replace('#','');if(v==='tableros'||v==='inicio'){view=v;openBoard=null;render()}});
+if(location.hash==='#tableros')view='tableros';
+render();
+})();
+</script>
+
+</body></html>

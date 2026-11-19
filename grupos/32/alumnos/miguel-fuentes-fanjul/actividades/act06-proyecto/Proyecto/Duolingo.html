@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Principios · Aprende con Ray Dalio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@600;800;900&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#ffffff;--tx:#3c3c3c;--mu:#6b6b6b;--ln:#e5e5e5;--ln2:#cfcfcf;--p:#c8454b;--pd:#9a3036;--gold:#ffc800;--goldd:#c99a00;--sel:#ddf4ff;--seld:#1c8fd1;--ok:#d7ffb8;--okt:#3d7d00;--bad:#ffdfe0;--badt:#c0292f;--card:#f7f7f7;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#131f24;--tx:#e8eef0;--mu:#9fb0b8;--ln:#37464f;--ln2:#2a373e;--sel:#12303f;--seld:#49c0f8;--ok:#1f3a12;--okt:#8fdc4a;--bad:#3b1a1d;--badt:#ff8a90;--card:#1b2b32}}
+:root[data-theme="dark"]{--bg:#131f24;--tx:#e8eef0;--mu:#9fb0b8;--ln:#37464f;--ln2:#2a373e;--sel:#12303f;--seld:#49c0f8;--ok:#1f3a12;--okt:#8fdc4a;--bad:#3b1a1d;--badt:#ff8a90;--card:#1b2b32}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--tx);font-family:Nunito,"Trebuchet MS",Arial,sans-serif;font-weight:600;font-size:18px;line-height:1.4}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);background:var(--bg);z-index:10}
+button{font:inherit;color:inherit;cursor:pointer}
+:focus-visible{outline:3px solid var(--seld);outline-offset:3px}
+header{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--bg);border-bottom:2px solid var(--ln)}
+.wrap{max-width:520px;margin:0 auto;padding:0 20px}
+header .wrap{display:flex;justify-content:space-between;align-items:center;height:64px}
+.logo{font-weight:900;font-size:26px;color:var(--p)}
+#stats{display:flex;gap:18px;font-weight:900}
+.hero{background:var(--p);color:#fff;border-radius:20px;padding:22px;margin:24px 0 8px;box-shadow:0 5px 0 var(--pd)}
+.hero h1{margin:0 0 6px;font-size:26px;line-height:1.15;font-weight:900}
+.hero p{margin:0 0 14px;font-size:17px}
+.meter{height:16px;background:rgba(0,0,0,.25);border-radius:8px;overflow:hidden}
+.meter i{display:block;height:100%;background:var(--gold);border-radius:8px;transition:width .4s}
+#path{display:flex;flex-direction:column;align-items:center;gap:22px;padding:30px 0 20px}
+.stop{display:flex;flex-direction:column;align-items:center;position:relative;text-align:center;max-width:220px}
+.stop p{margin:12px 0 0;font-weight:800;font-size:17px}
+.node{width:88px;height:88px;border-radius:50%;border:0;font-size:38px;background:var(--p);box-shadow:0 8px 0 var(--pd);transition:transform .1s,box-shadow .1s}
+.node:active:not(:disabled){transform:translateY(6px);box-shadow:0 2px 0 var(--pd)}
+.node.done{background:var(--gold);box-shadow:0 8px 0 var(--goldd)}
+.node.lock{background:var(--ln);box-shadow:0 8px 0 var(--ln2);filter:grayscale(1);opacity:.7;cursor:not-allowed}
+.tip{position:absolute;top:-38px;background:var(--bg);border:2px solid var(--ln);border-radius:12px;padding:3px 12px;font-weight:900;color:var(--p);animation:bob 1.2s ease-in-out infinite}
+.tip::after{content:"";position:absolute;left:50%;bottom:-8px;width:12px;height:12px;background:var(--bg);border:2px solid var(--ln);border-top:0;border-left:0;transform:translateX(-50%) rotate(45deg)}
+@keyframes bob{50%{transform:translateY(-6px)}}
+.foot{text-align:center;color:var(--mu);font-size:15px;padding:10px 0 40px}
+.link{background:none;border:0;text-decoration:underline;color:var(--mu);font-size:15px}
+#lesson{position:fixed;inset:0;z-index:20;background:var(--bg);display:flex;flex-direction:column;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+#lesson[hidden]{display:none}
+.top{display:flex;align-items:center;gap:14px;max-width:720px;width:100%;margin:0 auto;padding:18px 20px}
+.x{background:none;border:0;font-size:26px;color:var(--mu);padding:4px 8px}
+.bar{flex:1;height:16px;background:var(--ln);border-radius:8px;overflow:hidden}
+.bar i{display:block;height:100%;background:var(--p);border-radius:8px;transition:width .4s}
+.hearts{font-weight:900;color:var(--badt)}
+main{flex:1;overflow:auto;max-width:720px;width:100%;margin:0 auto;padding:10px 20px 30px}
+main h2{font-size:26px;line-height:1.25;font-weight:900;margin:10px 0 24px}
+.opts{display:grid;gap:12px}
+.opt{display:flex;align-items:center;gap:14px;text-align:left;background:var(--bg);border:2px solid var(--ln);box-shadow:0 4px 0 var(--ln);border-radius:16px;padding:14px 16px;font-weight:800}
+.opt b{width:30px;height:30px;flex:none;border:2px solid var(--ln);border-radius:8px;display:grid;place-items:center;font-size:15px;color:var(--mu)}
+.opt.sel{background:var(--sel);border-color:var(--seld);box-shadow:0 4px 0 var(--seld)}
+.opt.ok{background:var(--ok);border-color:var(--okt);box-shadow:0 4px 0 var(--okt);color:var(--okt)}
+.opt.bad{background:var(--bad);border-color:var(--badt);box-shadow:0 4px 0 var(--badt);color:var(--badt)}
+.slot{min-height:76px;border-top:2px solid var(--ln);border-bottom:2px solid var(--ln);display:flex;flex-wrap:wrap;gap:10px;padding:12px 0;margin-bottom:26px;align-content:flex-start}
+.bank{display:flex;flex-wrap:wrap;gap:10px;justify-content:center}
+.chip{background:var(--bg);border:2px solid var(--ln);box-shadow:0 4px 0 var(--ln);border-radius:14px;padding:10px 16px;font-weight:800}
+.fb{border-top:2px solid var(--ln);padding:18px 20px 22px}
+.fb>div{max-width:720px;margin:0 auto;display:flex;gap:16px;align-items:center;justify-content:space-between;flex-wrap:wrap}
+.fb.ok{background:var(--ok);border-color:transparent;color:var(--okt)}
+.fb.bad{background:var(--bad);border-color:transparent;color:var(--badt)}
+.msg{flex:1;min-width:200px}
+.msg b{display:block;font-size:21px;font-weight:900}
+.msg span{font-size:16px}
+.btn{background:var(--p);color:#fff;border:0;border-radius:16px;padding:14px 28px;font-weight:900;font-size:18px;box-shadow:0 4px 0 var(--pd);min-width:160px}
+.btn:active:not(:disabled){transform:translateY(4px);box-shadow:none}
+.btn:disabled{background:var(--ln);color:var(--mu);box-shadow:0 4px 0 var(--ln2);cursor:not-allowed}
+.fb.ok .btn{background:#58a700;box-shadow:0 4px 0 #3d7d00}
+.fb.bad .btn{background:#d33a40;box-shadow:0 4px 0 #9a1f25}
+.end{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:14px;padding:30px 20px}
+.end .big{font-size:84px}
+.end h2{font-size:30px;font-weight:900;margin:0}
+.end p{margin:0;color:var(--mu);max-width:360px}
+.sts{display:flex;gap:14px;margin:10px 0 20px}
+.sts div{border:2px solid var(--ln);border-radius:16px;padding:12px 22px;font-weight:800;display:flex;flex-direction:column;align-items:center}
+.sts b{font-size:26px;font-weight:900;color:var(--p)}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<header><div class="wrap"><span class="logo">💡 Principios</span><div id="stats" aria-label="Racha y puntos"></div></div></header>
+<div class="wrap">
+  <section class="hero"><h1>Aprende «Principios» de Ray Dalio</h1><p id="ptxt"></p><div class="meter"><i id="pbar" style="width:0%"></i></div></section>
+  <div id="path"></div>
+  <p class="foot">Completa las lecciones para ganar XP y mantener tu racha.<br><button class="link" id="reset">Reiniciar progreso</button></p>
+</div>
+<div id="lesson" hidden></div>
+<script>
+const $=s=>document.querySelector(s);
+const sh=a=>{a=a.slice();for(let i=a.length;i;){const j=Math.random()*i--|0;[a[i],a[j]]=[a[j],a[i]]}return a};
+const KEY='dalio-principios-v1';
+let S={d:{},xp:0,st:0,last:''};
+try{const r=localStorage.getItem(KEY);if(r)S=Object.assign(S,JSON.parse(r))}catch(e){}
+const save=()=>{try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){}};
+const day=o=>new Date(Date.now()-o*864e5).toISOString().slice(0,10);
+
+const L=[
+{id:'idea',t:'La idea central',i:'💡',q:[
+{k:'mc',q:'Según Dalio, las decisiones que tomamos a lo largo de la vida son básicamente…',o:['apuestas','castigos','casualidades','órdenes'],e:'Tomamos millones de decisiones, grandes y pequeñas, y todas son apuestas.'},
+{k:'mc',q:'¿Dónde se aprende a tomar buenas decisiones?',o:['En los encuentros con la realidad','Se nace sabiéndolo','Memorizando datos','Solo en la universidad'],e:'Nadie nace con aptitudes innatas para decidir: se aprenden.'},
+{k:'mc',q:'¿En qué se basan los principios de Dalio?',o:['En relaciones de causa y efecto','En la intuición','En la suerte','En la opinión de la mayoría'],e:'Busca patrones de causa y efecto en las decisiones y sus consecuencias.'},
+{k:'tf',q:'Dalio pide fijarse en las decisiones que tomó y en lo que aprendió, y no solo en su biografía.',a:true,e:'Quiere que veas más allá de su historia personal.'}]},
+{id:'vit',t:'Principios vitales',i:'🌱',q:[
+{k:'mc',q:'¿Cuál es la fórmula del progreso según Dalio?',o:['Dolor + reflexión = progreso','Éxito + suerte = riqueza','Error + olvido = calma','Trabajo + descanso = talento'],e:'Los errores duelen, pero reflexionar sobre ellos te hace mejorar.'},
+{k:'or',q:'Ordena el proceso de 5 pasos',s:['Metas','Problemas','Diagnóstico','Diseño','Ejecución'],e:'Metas, problemas, diagnóstico, diseño y ejecución.'},
+{k:'mc',q:'Ser radicalmente abierto de miras significa…',o:['Reconocer tus puntos ciegos y dejar que otros cuestionen tus ideas','Aceptar siempre lo que dice el jefe','Cambiar de opinión cada día','No discutir nunca'],e:'Se trata de buscar que personas inteligentes pongan a prueba tu razonamiento.'},
+{k:'mc',q:'Para decidir mejor conviene dar más peso a la opinión de quien tiene más…',o:['Credibilidad','Antigüedad','Volumen de voz','Cargo'],e:'Pondera cada opinión según la credibilidad de quien la da.'},
+{k:'tf',q:'Todas las personas funcionan de la misma manera.',a:false,e:'Cada persona tiene fortalezas y debilidades distintas.'}]},
+{id:'lab',t:'Principios laborales',i:'🏢',q:[
+{k:'mc',q:'¿Cómo ve Dalio una organización?',o:['Como una máquina que se diseña y se mejora','Como una familia','Como un ejército','Como un mercado libre'],e:'Detecta problemas, halla las causas raíz y diseña mejoras.'},
+{k:'mc',q:'«El ___ es más importante que el qué».',o:['Quién','Cuándo','Cuánto','Dónde'],e:'Contratar bien importa más que cualquier tarea concreta.'},
+{k:'mc',q:'En una cultura sana, equivocarse es…',o:['Aceptable, pero no aprender del error es inadmisible','Motivo de despido','Algo que se esconde','Irrelevante'],e:'El error es parte del aprendizaje; ignorarlo no.'},
+{k:'mc',q:'En una meritocracia de ideas, las decisiones se ponderan por…',o:['La credibilidad, no la jerarquía','El cargo','La edad','El voto de todos por igual'],e:'Gana la mejor idea, venga de quien venga.'},
+{k:'tf',q:'Según Dalio, hay que tolerar los problemas para no crear conflictos.',a:false,e:'Hay que detectarlos y no tolerarlos.'}]},
+{id:'mix',t:'Repaso final',i:'🏆',q:[]}
+];
+
+function home(){
+  const n=L.filter(l=>S.d[l.id]).length,c=L.findIndex(l=>!S.d[l.id]),cur=c<0?L.length:c;
+  $('#stats').innerHTML='<span>🔥 '+((S.last===day(0)||S.last===day(1))?S.st:0)+'</span><span>⭐ '+S.xp+'</span>';
+  $('#ptxt').textContent=n+' de '+L.length+' lecciones completadas';
+  $('#pbar').style.width=(n/L.length*100)+'%';
+  $('#path').innerHTML=L.map((l,i)=>{
+    const st=S.d[l.id]?'done':i<=cur?'open':'lock',x=[0,64,0,-64,0][i%5];
+    return '<div class="stop" style="transform:translateX('+x+'px)">'+(i===cur?'<div class="tip">¡Empieza!</div>':'')+
+    '<button class="node '+st+'" data-i="'+i+'" '+(st==='lock'?'disabled':'')+' aria-label="'+l.t+'">'+l.i+'</button><p>'+l.t+'</p></div>';
+  }).join('');
+}
+
+let R=null;
+function start(i){
+  const l=L[i];
+  const qs=l.id==='mix'?sh(L.slice(0,3).flatMap(x=>x.q).filter(q=>q.k!=='or')).slice(0,6):l.q;
+  R={l,i,qs,n:0,h:3,ok:0};
+  $('#lesson').hidden=false;document.body.style.overflow='hidden';nextQ();
+}
+function nextQ(){
+  const Q=R.qs[R.n];R.chk=false;R.sel=null;R.pick=[];
+  if(Q.k==='mc')R.opts=sh(Q.o.map((t,j)=>({t,c:!j})));
+  if(Q.k==='tf')R.opts=[{t:'Verdadero',c:Q.a},{t:'Falso',c:!Q.a}];
+  if(Q.k==='or')R.bank=sh(Q.s.map((t,j)=>({t,j})));
+  paint();
+}
+function paint(){
+  const Q=R.qs[R.n];let body;
+  if(Q.k==='or'){
+    body='<div class="slot">'+R.pick.map(j=>'<button class="chip" data-p="'+j+'"'+(R.chk?' disabled':'')+'>'+Q.s[j]+'</button>').join('')+'</div><div class="bank">'+
+    R.bank.filter(b=>!R.pick.includes(b.j)).map(b=>'<button class="chip" data-b="'+b.j+'">'+b.t+'</button>').join('')+'</div>';
+  }else{
+    body='<div class="opts">'+R.opts.map((o,j)=>{
+      const cl=R.chk?(o.c?' ok':R.sel===j?' bad':''):(R.sel===j?' sel':'');
+      return '<button class="opt'+cl+'" data-o="'+j+'"'+(R.chk?' disabled':'')+'><b>'+(j+1)+'</b>'+o.t+'</button>';
+    }).join('')+'</div>';
+  }
+  const ans=Q.k==='mc'?Q.o[0]:Q.k==='tf'?(Q.a?'Verdadero':'Falso'):Q.s.join(' → ');
+  const ready=Q.k==='or'?R.pick.length===Q.s.length:R.sel!==null;
+  $('#lesson').innerHTML=
+  '<div class="top"><button class="x" data-x aria-label="Salir de la lección">✕</button><div class="bar"><i style="width:'+(R.n/R.qs.length*100)+'%"></i></div><span class="hearts" aria-label="Vidas">❤️ '+R.h+'</span></div>'+
+  '<main><h2>'+Q.q+'</h2>'+body+'</main>'+
+  '<footer class="fb'+(R.chk?(R.res?' ok':' bad'):'')+'"><div><div class="msg" aria-live="polite">'+
+  (R.chk?'<b>'+(R.res?'¡Correcto!':'Respuesta correcta: '+ans)+'</b><span>'+(Q.e||'')+'</span>':'')+
+  '</div><button class="btn" id="go"'+(R.chk||ready?'':' disabled')+'>'+(R.chk?'Continuar':'Comprobar')+'</button></div></footer>';
+  if(R.chk)$('#go').focus();
+}
+function go(){
+  const Q=R.qs[R.n];
+  if(!R.chk){
+    R.res=Q.k==='or'?R.pick.every((j,k)=>j===k):R.opts[R.sel].c;
+    R.chk=true;R.res?R.ok++:R.h--;paint();return;
+  }
+  if(R.h<=0)return fin(false);
+  if(++R.n>=R.qs.length)return fin(true);
+  nextQ();
+}
+function fin(win){
+  let h;
+  if(win){
+    const g=R.ok*10+(R.h===3?5:0);
+    S.xp+=g;S.d[R.l.id]=1;
+    if(S.last!==day(0)){S.st=S.last===day(1)?S.st+1:1;S.last=day(0)}
+    save();
+    h='<div class="end"><div class="big">🏆</div><h2>¡Lección completada!</h2><p>'+R.l.t+'</p><div class="sts"><div><b>+'+g+'</b>XP</div><div><b>'+Math.round(R.ok/R.qs.length*100)+'%</b>Aciertos</div></div><button class="btn" data-x>Continuar</button></div>';
+  }else{
+    h='<div class="end"><div class="big">💔</div><h2>Te quedaste sin vidas</h2><p>Repasa la lección y vuelve a intentarlo. Equivocarse está bien; lo importante es aprender del error.</p><button class="btn" data-again>Intentar de nuevo</button><button class="link" data-x>Salir</button></div>';
+  }
+  $('#lesson').innerHTML=h;
+}
+function close(){$('#lesson').hidden=true;document.body.style.overflow='';R=null;home()}
+
+$('#path').addEventListener('click',e=>{const b=e.target.closest('.node');if(b&&!b.disabled)start(+b.dataset.i)});
+$('#lesson').addEventListener('click',e=>{
+  const t=e.target.closest('button');if(!t||!R)return;
+  if('x' in t.dataset)return close();
+  if('again' in t.dataset)return start(R.i);
+  if(t.id==='go')return go();
+  if(R.chk)return;
+  if(t.dataset.o!==undefined){R.sel=+t.dataset.o;paint()}
+  else if(t.dataset.b!==undefined){R.pick.push(+t.dataset.b);paint()}
+  else if(t.dataset.p!==undefined){R.pick=R.pick.filter(j=>j!==+t.dataset.p);paint()}
+});
+document.addEventListener('keydown',e=>{
+  if(!R||$('#lesson').hidden)return;
+  const Q=R.qs&&R.qs[R.n],g=$('#go');
+  if(e.key==='Enter'&&g&&!g.disabled&&document.activeElement!==g){e.preventDefault();go()}
+  else if(Q&&!R.chk&&Q.k!=='or'&&/^[1-4]$/.test(e.key)&&R.opts[e.key-1]){R.sel=e.key-1;paint()}
+  else if(e.key==='Escape')close();
+});
+let armed=false;
+$('#reset').addEventListener('click',e=>{
+  if(!armed){armed=true;e.target.textContent='¿Seguro? Pulsa de nuevo para borrar tu progreso';return}
+  S={d:{},xp:0,st:0,last:''};save();armed=false;e.target.textContent='Reiniciar progreso';home();
+});
+home();
+</script>
+</body>
+</html>

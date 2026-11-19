@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#f4f2ec">
+    <meta name="description" content="Explora diez arquetipos sistémicos con diagramas, ejemplos y principios de intervención.">
+    <title>Arquetipos sistémicos | Atlas de sistemas</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <script src="script.js" defer></script>
+</head>
+<body>
+    <header class="topbar">
+        <a class="wordmark" href="#inicio" aria-label="Atlas de sistemas, inicio">
+            <span class="wordmark-mark" aria-hidden="true">A</span>
+            <span>ATLAS <span class="wordmark-light">DE SISTEMAS</span></span>
+        </a>
+        <a class="topbar-link" href="#explorador">Explorar los 10 <span aria-hidden="true">↘</span></a>
+    </header>
+
+    <main id="inicio">
+        <section class="intro-band">
+            <div class="intro-copy">
+                <p class="eyebrow"><span class="eyebrow-line"></span> Pensamiento sistémico · Guía interactiva</p>
+                <h1>Lo que se repite<br>también se puede <em>leer.</em></h1>
+                <p class="intro-description">Los arquetipos sistémicos revelan estructuras que producen problemas recurrentes. Reconocer el patrón cambia la pregunta: de “¿qué pasó?” a “¿qué lo está sosteniendo?”.</p>
+                <a class="text-link" href="#explorador">Ir al atlas <span aria-hidden="true">↓</span></a>
+            </div>
+            <div class="intro-aside" aria-label="Diez patrones para interpretar sistemas">
+                <div class="orbit orbit-one"></div>
+                <div class="orbit orbit-two"></div>
+                <span class="orbit-dot dot-one"></span>
+                <span class="orbit-dot dot-two"></span>
+                <span class="orbit-dot dot-three"></span>
+                <div class="intro-count"><strong>10</strong><span>patrones<br>recurrentes</span></div>
+                <span class="orbit-caption caption-top">ESTRUCTURA</span>
+                <span class="orbit-caption caption-bottom">CONSECUENCIA</span>
+            </div>
+        </section>
+
+        <section class="featured-section" aria-labelledby="featured-title">
+            <div class="section-heading">
+                <div>
+                    <p class="eyebrow"><span class="section-index">01</span> Un ciclo, paso a paso</p>
+                    <h2 id="featured-title">Compensación entre proceso y demora</h2>
+                    <p class="section-lede">La acción correctiva sí modifica el sistema; el problema es que su efecto tarda en aparecer. Si actuamos antes de verlo, podemos pasarnos de largo.</p>
+                </div>
+                <span class="structure-label"><span class="status-dot"></span> Bucle compensador</span>
+            </div>
+
+            <div class="diagram-layout">
+                <div class="diagram-panel">
+                    <div class="diagram-topline">
+                        <span>MAPA DE REALIMENTACIÓN</span>
+                        <span class="diagram-legend"><i></i> efecto de la acción</span>
+                    </div>
+                    <div class="diagram-wrap">
+                        <svg class="causal-diagram" viewBox="0 0 760 430" role="img" aria-labelledby="diagram-title diagram-description">
+                            <title id="diagram-title">Ciclo de compensación entre proceso y demora</title>
+                            <desc id="diagram-description">Las condiciones reales se comparan con la meta y originan una acción correctiva. Esa acción tarda en modificar las condiciones reales; si no se considera la demora, se corrige en exceso.</desc>
+                            <defs>
+                                <marker id="arrow-blue" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M0 0L10 5L0 10Z" fill="#176b68"/></marker>
+                                <marker id="arrow-coral" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M0 0L10 5L0 10Z" fill="#c4543e"/></marker>
+                            </defs>
+                            <path class="causal-path path-observe" d="M 510 155 C 635 175 635 266 510 286" marker-end="url(#arrow-blue)"/>
+                            <path class="causal-path path-effect" d="M 250 286 C 125 266 125 175 250 155" marker-end="url(#arrow-coral)"/>
+                            <text class="path-label" x="620" y="218" text-anchor="middle">brecha observada</text>
+                            <text class="path-label" x="140" y="218" text-anchor="middle">respuesta del sistema</text>
+                            <g class="delay-marker">
+                                <rect x="46" y="198" width="132" height="42" rx="4"/>
+                                <text x="112" y="216" text-anchor="middle">DEMORA</text>
+                                <text class="delay-sub" x="112" y="231" text-anchor="middle">el efecto no es inmediato</text>
+                            </g>
+                            <g class="diagram-node node-conditions">
+                                <rect x="250" y="105" width="260" height="92" rx="5"/>
+                                <text class="node-kicker" x="380" y="136" text-anchor="middle">ESTADO DEL SISTEMA</text>
+                                <text class="node-label" x="380" y="166" text-anchor="middle">Condiciones reales</text>
+                            </g>
+                            <g class="diagram-node node-action">
+                                <rect x="250" y="244" width="260" height="92" rx="5"/>
+                                <text class="node-kicker" x="380" y="275" text-anchor="middle">RESPUESTA</text>
+                                <text class="node-label" x="380" y="305" text-anchor="middle">Acción correctiva</text>
+                            </g>
+                            <circle class="flow-particle particle-blue" r="5"><animateMotion dur="5s" repeatCount="indefinite" path="M 510 155 C 635 175 635 266 510 286"/></circle>
+                            <circle class="flow-particle particle-coral" r="5"><animateMotion dur="8s" repeatCount="indefinite" path="M 250 286 C 125 266 125 175 250 155"/></circle>
+                            <text class="loop-mark" x="380" y="390" text-anchor="middle">B · AJUSTAR PARA REDUCIR LA BRECHA</text>
+                        </svg>
+                    </div>
+                    <div class="diagram-controls">
+                        <div class="step-readout" aria-live="polite"><span id="step-number">01</span><p id="step-copy">Compara las condiciones actuales con lo que se desea alcanzar.</p></div>
+                        <div class="step-buttons">
+                            <button class="icon-button" id="previous-step" type="button" aria-label="Paso anterior" title="Paso anterior">←</button>
+                            <button class="icon-button" id="next-step" type="button" aria-label="Siguiente paso" title="Siguiente paso">→</button>
+                        </div>
+                    </div>
+                    <div class="step-progress" aria-hidden="true"><span class="step-progress-fill" id="step-progress-fill"></span></div>
+                </div>
+
+                <aside class="featured-notes">
+                    <div class="note-block note-warning">
+                        <span class="note-label"><span class="note-icon">!</span> Señal de alerta</span>
+                        <p>“Creíamos que estábamos en equilibrio, pero luego tomamos una medida excesiva”.</p>
+                    </div>
+                    <div class="note-block note-principle">
+                        <span class="note-label"><span class="note-icon">↗</span> Principio de intervención</span>
+                        <p>En un sistema lento, la agresividad produce inestabilidad. Sé paciente o mejora la capacidad de respuesta del sistema.</p>
+                    </div>
+                    <div class="scenario-box">
+                        <label for="scenario-select">VER EL PATRÓN EN UN EJEMPLO</label>
+                        <select id="scenario-select">
+                            <option value="housing">Construcción de viviendas</option>
+                            <option value="shower">Temperatura de la ducha</option>
+                            <option value="inventory">Producción e inventario</option>
+                        </select>
+                        <p id="scenario-copy">Mientras las nuevas viviendas están en obra, el mercado cambia. Cuando terminan, puede haber más oferta de la necesaria.</p>
+                    </div>
+                </aside>
+            </div>
+        </section>
+
+        <section class="explorer-section" id="explorador" aria-labelledby="explorer-title">
+            <div class="explorer-heading">
+                <div>
+                    <p class="eyebrow"><span class="section-index">02</span> El atlas</p>
+                    <h2 id="explorer-title">Encuentra el patrón.</h2>
+                    <p class="section-lede">Selecciona un arquetipo para estudiar su dinámica y sus posibles puntos de intervención.</p>
+                </div>
+                <div class="explorer-tools">
+                    <label class="search-field">
+                        <span aria-hidden="true">⌕</span>
+                        <input id="archetype-search" type="search" placeholder="Buscar por nombre o tema" aria-label="Buscar arquetipos">
+                    </label>
+                    <label class="filter-field">
+                        <span class="sr-only">Filtrar por dinámica</span>
+                        <select id="archetype-filter">
+                            <option value="all">Todas las dinámicas</option>
+                            <option value="balance">Equilibrio y demora</option>
+                            <option value="growth">Crecimiento y límites</option>
+                            <option value="dependency">Soluciones y dependencia</option>
+                            <option value="competition">Competencia y recursos</option>
+                        </select>
+                    </label>
+                </div>
+            </div>
+
+            <div class="explorer-layout">
+                <nav class="archetype-list" id="archetype-list" aria-label="Lista de arquetipos" aria-live="polite"></nav>
+                <article class="detail-panel" id="detail-panel" aria-live="polite" aria-atomic="true">
+                    <div class="detail-topline"><span id="detail-number">01 / 10</span><span class="detail-category" id="detail-category">Equilibrio y demora</span></div>
+                    <h3 id="detail-title">Compensación entre proceso y demora</h3>
+                    <p class="detail-description" id="detail-description"></p>
+                    <div class="detail-rule"></div>
+                    <div class="detail-content-grid">
+                        <section class="detail-item detail-warning"><h4>Señal de alerta</h4><p id="detail-warning"></p></section>
+                        <section class="detail-item detail-principle"><h4>Principio administrativo</h4><p id="detail-principle"></p></section>
+                        <section class="detail-item detail-example"><h4>Ejemplo</h4><p id="detail-example"></p></section>
+                        <section class="detail-item detail-more"><h4>Otros contextos</h4><p id="detail-more"></p></section>
+                    </div>
+                    <div class="detail-footer"><span id="detail-pattern"></span><div class="detail-navigation"><button id="detail-previous" type="button" aria-label="Arquetipo anterior" title="Anterior">←</button><button id="detail-next" type="button" aria-label="Siguiente arquetipo" title="Siguiente">→</button></div></div>
+                </article>
+            </div>
+            <p class="empty-state" id="empty-state" hidden>No hay arquetipos que coincidan. Prueba con otra búsqueda o dinámica.</p>
+        </section>
+    </main>
+
+    <footer class="site-footer">
+        <span class="footer-mark">A</span>
+        <p>Una guía para observar las estructuras detrás de los acontecimientos.</p>
+        <span class="footer-source">Contenido adaptado del documento <em>Arquetipos Sistémicos</em>.</span>
+    </footer>
+</body>
+</html>

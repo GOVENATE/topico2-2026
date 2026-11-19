@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Habilidades Directivas | Capítulos 1 y 2</title>
+<style>
+:root{--ink:#17233b;--muted:#61708a;--bg:#f3f6fb;--white:#fff;--a:#6558d3;--b:#0d9b91;--c:#ed9b37;--d:#df6380;--line:#e5eaf2}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:Inter,Segoe UI,Arial,sans-serif;line-height:1.55}
+header{padding:42px 20px 34px;background:linear-gradient(125deg,#242b55,#6558d3 60%,#149d97);color:white;text-align:center}
+header .tag{display:inline-block;padding:6px 13px;border:1px solid #ffffff66;border-radius:30px;font-size:12px;letter-spacing:1px;text-transform:uppercase}
+h1{font-size:clamp(28px,5vw,46px);line-height:1.1;margin:15px 0 10px}header p{max-width:720px;margin:auto;color:#eef0ff}
+.wrap{max-width:1120px;margin:auto;padding:24px 18px 60px}
+.nav{display:flex;gap:10px;flex-wrap:wrap;justify-content:center;margin:-1px auto 24px}
+.nav button,.action{border:0;border-radius:14px;padding:12px 17px;font-weight:700;cursor:pointer;background:white;color:var(--ink);box-shadow:0 4px 15px #1c2b4b12}
+.nav button.active{background:var(--ink);color:white}
+.panel{display:none}.panel.active{display:block;animation:fade .25s ease}@keyframes fade{from{opacity:.3;transform:translateY(5px)}to{opacity:1;transform:none}}
+.intro{background:white;border-radius:22px;padding:24px;margin-bottom:20px;box-shadow:0 8px 28px #25345a0b}
+.kicker{font-size:12px;font-weight:800;letter-spacing:1.4px;text-transform:uppercase;color:var(--a)}
+h2{font-size:27px;margin:5px 0 8px}h3{margin:0 0 8px;font-size:18px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(225px,1fr));gap:14px}
+.card{background:white;border:1px solid var(--line);border-radius:18px;padding:19px;box-shadow:0 5px 20px #25345a09}
+.card p{margin:6px 0;color:var(--muted);font-size:14px}
+.card .emoji{font-size:27px;margin-bottom:7px}
+.card button.more{margin-top:10px;border:0;background:#f0efff;color:#5145bd;padding:8px 12px;border-radius:10px;font-weight:700;cursor:pointer}
+.detail{display:none;margin-top:12px;padding:12px;border-radius:12px;background:#f5f7fc;font-size:14px;color:#35425b}
+.detail.show{display:block}
+.pill{display:inline-block;font-size:11px;font-weight:800;padding:5px 9px;border-radius:30px;background:#eeedff;color:#5549c4;margin-bottom:8px}
+.flow{display:flex;align-items:stretch;gap:10px;flex-wrap:wrap;margin:14px 0}
+.flow div{flex:1;min-width:140px;background:#f4f6fb;padding:15px;border-radius:14px;text-align:center;font-weight:700}
+.flow span{display:block;font-size:12px;color:var(--muted);font-weight:400;margin-top:5px}
+.callout{border-left:5px solid var(--b);background:#e9f8f6;padding:17px 19px;border-radius:0 14px 14px 0;margin:18px 0}
+.compare{width:100%;border-collapse:collapse;background:white;border-radius:16px;overflow:hidden}
+.compare th{background:#242b55;color:white;text-align:left;padding:13px}.compare td{padding:12px 13px;border-bottom:1px solid var(--line);font-size:14px}.compare tr:last-child td{border:0}
+.quizbox{background:white;border-radius:20px;padding:22px;box-shadow:0 8px 25px #25345a0b;margin-top:16px}
+.q{padding:15px 0;border-bottom:1px solid var(--line)}.q:last-child{border:0}
+.q label{display:block;margin:8px 0;font-size:14px;cursor:pointer;color:#3d4b65}.q input{margin-right:8px;accent-color:var(--a)}
+.action{background:var(--a);color:white;margin-top:15px}.result{font-weight:800;margin-top:12px}
+footer{text-align:center;color:var(--muted);font-size:12px;padding:20px}
+@media(max-width:600px){header{padding-top:30px}.intro{padding:19px}.compare{font-size:12px}.compare td,.compare th{padding:9px 7px}}
+</style>
+</head>
+<body>
+<header>
+ <span class="tag">Guía visual interactiva · capítulos 1 y 2</span>
+ <h1>HABILIDADES<br>DIRECTIVAS</h1>
+ <p>Conoce qué necesita una persona para dirigir, coordinar y motivar a un equipo. Explora los conceptos, revisa ejemplos y pon a prueba lo aprendido.</p>
+</header>
+<main class="wrap">
+ <nav class="nav">
+  <button class="active" onclick="showPanel('inicio',this)">✦ Vista general</button>
+  <button onclick="showPanel('cap1',this)">01 · Capítulo 1</button>
+  <button onclick="showPanel('cap2',this)">02 · Capítulo 2</button>
+  <button onclick="showPanel('repaso',this)">✓ Repaso interactivo</button>
+ </nav>
+
+ <section id="inicio" class="panel active">
+  <div class="intro">
+   <div class="kicker">La idea principal</div><h2>Dirigir también se aprende</h2>
+   <p>Las habilidades directivas son capacidades que se pueden aprender y desarrollar para alcanzar objetivos, trabajar con otras personas y obtener buenos resultados. No basta con tener conocimientos: también importa saber aplicarlos y comportarse de manera adecuada.</p>
+   <div class="flow">
+    <div>🧠 SABER<span>Conocimientos</span></div><div>🛠️ SABER HACER<span>Habilidades y capacidades</span></div><div>💜 SABER SER<span>Cualidades y valores</span></div>
+   </div>
+   <div class="callout"><b>Idea para recordar:</b> un buen directivo combina lo que sabe, lo que puede hacer y la manera en que se relaciona con los demás.</div>
+  </div>
+  <div class="grid">
+   <article class="card"><div class="emoji">🧩</div><h3>Capítulo 1</h3><p>Explica qué son las habilidades directivas, cómo se clasifican y por qué es importante desarrollarlas.</p><button class="more" onclick="showPanel('cap1',document.querySelectorAll('.nav button')[1])">Explorar capítulo →</button></article>
+   <article class="card"><div class="emoji">🏢</div><h3>Capítulo 2</h3><p>Explica la alta dirección, sus funciones, la diferencia entre administrar y liderar, y la misión y visión.</p><button class="more" onclick="showPanel('cap2',document.querySelectorAll('.nav button')[2])">Explorar capítulo →</button></article>
+   <article class="card"><div class="emoji">🎯</div><h3>¿Qué se busca?</h3><p>Que una persona pueda guiar a un equipo, coordinar esfuerzos y lograr metas de una organización.</p></article>
+  </div>
+ </section>
+
+ <section id="cap1" class="panel">
+  <div class="intro"><div class="kicker">Capítulo 01</div><h2>Habilidades directivas y su clasificación</h2><p><b>Objetivo:</b> conocer e identificar qué son las habilidades directivas, su clasificación y cómo desarrollarlas.</p><p>Una habilidad es la capacidad adquirida mediante el aprendizaje para realizar algo y conseguir resultados. Las habilidades se practican, se cultivan y se pueden mejorar.</p></div>
+  <h3>Clasificación de las habilidades</h3>
+  <p style="color:var(--muted);font-size:14px">Presiona cada tarjeta para ver una explicación y un ejemplo sencillo.</p>
+  <div class="grid">
+   <article class="card"><span class="pill">01 · Organización</span><div class="emoji">🧠</div><h3>Conceptuales</h3><p>Ver la organización como un todo y comprender cómo se relacionan sus partes.</p><button class="more" onclick="toggle(this)">Ver ejemplo</button><div class="detail">Ejemplo: analizar cómo un cambio en el área de ventas puede afectar al inventario y al presupuesto.</div></article>
+   <article class="card"><span class="pill">02 · Conocimiento</span><div class="emoji">🛠️</div><h3>Técnicas y profesionales</h3><p>Usar conocimientos y recursos para realizar tareas específicas.</p><button class="more" onclick="toggle(this)">Ver ejemplo</button><div class="detail">Ejemplo: una persona encargada de sistemas conoce cómo resolver un problema técnico de la empresa.</div></article>
+   <article class="card"><span class="pill">03 · Personas</span><div class="emoji">🤝</div><h3>Interpersonales</h3><p>Colaborar, comunicarse y cooperar con otras personas para alcanzar objetivos comunes.</p><button class="more" onclick="toggle(this)">Ver ejemplo</button><div class="detail">Ejemplo: escuchar al equipo, motivarlo y repartir actividades de acuerdo con sus capacidades.</div></article>
+   <article class="card"><span class="pill">04 · Convivencia</span><div class="emoji">💬</div><h3>Sociales</h3><p>Relacionarse con los demás mediante el intercambio y la convivencia humana.</p><button class="more" onclick="toggle(this)">Ver ejemplo</button><div class="detail">Ejemplo: iniciar una conversación, dar las gracias, pedir ayuda o resolver un desacuerdo sin pelear.</div></article>
+  </div>
+  <h3 style="margin-top:25px">Otras habilidades que aparecen en la clasificación</h3>
+  <div class="grid">
+   <article class="card"><h3>📚 Académicas</h3><p>Analizar, comparar, evaluar y emitir juicios.</p></article>
+   <article class="card"><h3>💡 De innovación</h3><p>Inventar, descubrir, formular hipótesis y crear ideas.</p></article>
+   <article class="card"><h3>⚙️ Prácticas</h3><p>Aplicar e implementar conocimientos.</p></article>
+   <article class="card"><h3>🏃 Físicas</h3><p>Autoeficiencia, flexibilidad y salud.</p></article>
+   <article class="card"><h3>💭 De pensamiento</h3><p>Aprender a pensar y generar conocimiento.</p></article>
+   <article class="card"><h3>🧭 Directivas</h3><p>Dirigir y coordinar equipos de trabajo.</p></article>
+   <article class="card"><h3>🌟 De liderazgo</h3><p>Guiar, impulsar y motivar al equipo hacia un bien común.</p></article>
+   <article class="card"><h3>🚀 Empresariales</h3><p>Emprender una idea, proyecto, empresa o negocio.</p></article>
+  </div>
+  <div class="callout"><b>Megahabilidades del liderazgo:</b> visión de futuro, dominio de los cambios, diseño de la organización, aprendizaje anticipado, iniciativa, dominio de la interdependencia y altos niveles de integridad.</div>
+  <h3>¿Por qué son importantes?</h3>
+  <div class="grid">
+   <article class="card"><h3>🎯 Lograr objetivos</h3><p>Ayudan a orientar los esfuerzos hacia resultados.</p></article>
+   <article class="card"><h3>👥 Mejorar relaciones</h3><p>Facilitan la comunicación, la motivación y el trabajo en equipo.</p></article>
+   <article class="card"><h3>🔄 Adaptarse</h3><p>Permiten responder a cambios y resolver problemas.</p></article>
+  </div>
+  <div class="callout"><b>También se aprende haciendo:</b> el capítulo retoma la idea de que practicar y aplicar lo aprendido ayuda a desarrollar las habilidades.</div>
+ </section>
+
+ <section id="cap2" class="panel">
+  <div class="intro"><div class="kicker">Capítulo 02</div><h2>La alta dirección y sus habilidades</h2><p><b>Objetivo:</b> identificar el alcance de la alta dirección, sus funciones, habilidades e impacto en la organización.</p><p>La dirección consiste en coordinar y guiar los esfuerzos de las personas para alcanzar las metas de una organización. Para lograrlo se necesita comunicación, supervisión, motivación y cooperación.</p></div>
+  <h3>¿Qué necesita la dirección?</h3>
+  <div class="grid">
+   <article class="card"><div class="emoji">🏢</div><h3>La organización</h3><p>Una empresa o institución con directivo, misión, visión, metas y un equipo de personas.</p></article>
+   <article class="card"><div class="emoji">🤝</div><h3>Habilidades interpersonales</h3><p>Liderazgo, saber guiar, motivar, influir y coordinar.</p></article>
+  </div>
+  <h3 style="margin-top:25px">El proceso administrativo</h3>
+  <div class="flow">
+   <div>PREVER<span>Anticipar lo que puede suceder</span></div><div>PLANEAR<span>Definir qué se hará</span></div><div>ORGANIZAR<span>Distribuir actividades y recursos</span></div>
+   <div>INTEGRAR<span>Reunir los recursos necesarios</span></div><div style="background:#e9f8f6">DIRIGIR<span>Guiar y coordinar al equipo</span></div><div>CONTROLAR<span>Revisar los resultados</span></div>
+  </div>
+  <div class="callout">La dirección es una función vital: hacer planes y organizar recursos no es suficiente si después no se guían las actividades para convertirlos en resultados.</div>
+  <h3>Administrador y líder: ¿son lo mismo?</h3>
+  <p style="font-size:14px;color:var(--muted)">Se complementan, pero tienen enfoques diferentes. Explora algunas diferencias que presenta el libro:</p>
+  <table class="compare">
+   <thead><tr><th>Administrador</th><th>Líder</th></tr></thead>
+   <tbody>
+    <tr><td>Administra</td><td>Innova</td></tr><tr><td>Copia</td><td>Crea</td></tr><tr><td>Mantiene</td><td>Desarrolla</td></tr><tr><td>Manda</td><td>Convence</td></tr><tr><td>Se enfoca en sistemas y estructura</td><td>Se enfoca en la gente</td></tr><tr><td>Control</td><td>Confianza</td></tr><tr><td>Se apega a procedimientos</td><td>Diseña procedimientos</td></tr><tr><td>Hace las cosas bien</td><td>Hace las cosas correctas</td></tr>
+   </tbody>
+  </table>
+  <h3 style="margin-top:25px">Características de un buen directivo</h3>
+  <div class="grid">
+   <article class="card"><h3>🗣️ Comunicación</h3><p>Expresa sus ideas y sabe escuchar.</p></article>
+   <article class="card"><h3>🧭 Flexibilidad</h3><p>Se adapta y analiza los hechos de forma objetiva.</p></article>
+   <article class="card"><h3>💪 Responsabilidad</h3><p>Asume decisiones, riesgos y consecuencias.</p></article>
+   <article class="card"><h3>💜 Empatía</h3><p>Comprende y respeta a sus colaboradores.</p></article>
+   <article class="card"><h3>🌱 Motivación</h3><p>Impulsa a las personas y confía en sus capacidades.</p></article>
+   <article class="card"><h3>💡 Creatividad</h3><p>Busca ideas y formas de mejorar.</p></article>
+  </div>
+  <h3 style="margin-top:25px">Misión, visión y valores</h3>
+  <div class="grid">
+   <article class="card"><div class="emoji">🧭</div><h3>Misión</h3><p>Es la razón de ser del negocio o empresa.</p><button class="more" onclick="toggle(this)">Ejemplo</button><div class="detail">Una empresa de tecnología puede tener como misión ofrecer soluciones digitales que faciliten el trabajo de sus clientes.</div></article>
+   <article class="card"><div class="emoji">🔭</div><h3>Visión</h3><p>Determina hacia dónde va la empresa; representa el futuro que desea alcanzar.</p><button class="more" onclick="toggle(this)">Ejemplo</button><div class="detail">Ser una empresa reconocida por crear soluciones útiles y confiables en los próximos años.</div></article>
+   <article class="card"><div class="emoji">💎</div><h3>Valores</h3><p>Convicciones éticas y morales que orientan la conducta del directivo.</p><button class="more" onclick="toggle(this)">Ejemplo</button><div class="detail">Responsabilidad, honestidad, respeto, compromiso y lealtad en el trato con el equipo.</div></article>
+  </div>
+  <h3 style="margin-top:25px">Pilares de la dirección y del liderazgo</h3>
+  <div class="grid">
+   <article class="card"><h3>🏛️ Dirección</h3><p>Comunicación · Delegación · Venta · Discurso · Participación · Compromiso.</p></article>
+   <article class="card"><h3>⭐ Liderazgo</h3><p>Poder · Política · Autoridad · Maquiavelismo · Inteligencia emocional.</p></article>
+  </div>
+ </section>
+
+ <section id="repaso" class="panel">
+  <div class="intro"><div class="kicker">Comprueba lo aprendido</div><h2>Mini cuestionario</h2><p>Selecciona una respuesta por pregunta y presiona “Revisar respuestas”. Puedes volver a los capítulos para repasar.</p></div>
+  <div class="quizbox">
+   <form id="quiz">
+    <div class="q"><b>1. ¿Qué son las habilidades directivas?</b>
+     <label><input type="radio" name="q1" value="a"> Capacidades que se pueden aprender y desarrollar para dirigir y lograr objetivos.</label>
+     <label><input type="radio" name="q1" value="b"> Reglas que solamente siguen los empleados.</label>
+     <label><input type="radio" name="q1" value="c"> Actividades que no necesitan práctica.</label></div>
+    <div class="q"><b>2. ¿Qué habilidad permite comprender la organización como un todo?</b>
+     <label><input type="radio" name="q2" value="a"> Física.</label><label><input type="radio" name="q2" value="b"> Conceptual.</label><label><input type="radio" name="q2" value="c"> Empresarial.</label></div>
+    <div class="q"><b>3. ¿Qué caracteriza a las habilidades interpersonales?</b>
+     <label><input type="radio" name="q3" value="a"> Trabajar en grupo, colaborar y cooperar.</label><label><input type="radio" name="q3" value="b"> Trabajar siempre de manera individual.</label><label><input type="radio" name="q3" value="c"> Evitar la comunicación.</label></div>
+    <div class="q"><b>4. ¿Cuál es el objetivo de la dirección?</b>
+     <label><input type="radio" name="q4" value="a"> Hacer todas las tareas sin ayuda.</label><label><input type="radio" name="q4" value="b"> Evitar que el equipo participe.</label><label><input type="radio" name="q4" value="c"> Coordinar y guiar actividades para alcanzar metas.</label></div>
+    <div class="q"><b>5. ¿Cuál es la diferencia principal entre misión y visión?</b>
+     <label><input type="radio" name="q5" value="a"> Son exactamente lo mismo.</label><label><input type="radio" name="q5" value="b"> La misión es la razón de ser y la visión indica hacia dónde se va.</label><label><input type="radio" name="q5" value="c"> La visión explica los valores personales.</label></div>
+    <div class="q"><b>6. ¿Cuál es un pilar de la dirección según el capítulo 2?</b>
+     <label><input type="radio" name="q6" value="a"> Comunicación.</label><label><input type="radio" name="q6" value="b"> Competencia.</label><label><input type="radio" name="q6" value="c"> Publicidad.</label></div>
+    <button class="action" type="button" onclick="grade()">Revisar respuestas</button>
+    <button class="action" type="reset" style="background:#e9edf5;color:#26344e;margin-left:7px">Volver a intentar</button>
+    <div id="result" class="result" aria-live="polite"></div>
+   </form>
+  </div>
+ </section>
+</main>
+<footer>Material de estudio elaborado a partir de los capítulos 1 y 2 de <i>Habilidades Directivas</i>, Berta Ermila Madrigal Torres, segunda edición.</footer>
+<script>
+function showPanel(id,btn){
+ document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));
+ document.getElementById(id).classList.add('active');
+ document.querySelectorAll('.nav button').forEach(b=>b.classList.remove('active'));
+ if(btn)btn.classList.add('active');
+ window.scrollTo({top:0,behavior:'smooth'});
+}
+function toggle(btn){const d=btn.nextElementSibling;d.classList.toggle('show');btn.textContent=d.classList.contains('show')?'Ocultar':'Ver ejemplo';}
+function grade(){
+ const key={q1:'a',q2:'b',q3:'a',q4:'c',q5:'b',q6:'a'};let score=0,answered=0;
+ Object.keys(key).forEach(k=>{const v=document.querySelector('input[name="'+k+'"]:checked');if(v){answered++;if(v.value===key[k])score++;}});
+ const out=document.getElementById('result');
+ if(answered<6){out.textContent='Te faltan '+(6-answered)+' pregunta(s) por responder.';out.style.color='#b66a12';return;}
+ out.textContent='Obtuviste '+score+' de 6 respuestas correctas. '+(score===6?'¡Excelente, dominaste los conceptos!':score>=4?'¡Muy bien! Repasa las preguntas que te faltaron.':'Sigue repasando los capítulos y vuelve a intentarlo.');
+ out.style.color=score>=4?'#13836f':'#b66a12';
+}
+</script>
+</body></html>

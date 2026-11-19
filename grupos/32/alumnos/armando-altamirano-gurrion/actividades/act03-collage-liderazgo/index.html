@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mapa visual del liderazgo</title>
+<style>
+:root{
+  --ink:#20233a;--paper:#fbf7ef;--purple:#7965b5;--pink:#ed8e9e;
+  --yellow:#f2c85b;--blue:#76b7c9;--green:#8dbb9a;--orange:#e9a16d;
+  --shadow:0 12px 30px rgba(38,35,61,.12)
+}
+*{box-sizing:border-box}
+body{margin:0;background-color:var(--paper);color:var(--ink);font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;overflow-x:hidden}
+header{padding:42px 6vw 28px;position:relative;overflow:hidden;background:linear-gradient(120deg,#f9e7df,#f7edc9 55%,#e2edf0)}
+header:after{content:"";position:absolute;width:260px;height:260px;border:2px dashed #7965b566;border-radius:50%;right:7%;top:-120px}
+.eyebrow{text-transform:uppercase;letter-spacing:.18em;font-size:.72rem;font-weight:800;color:#66558f}
+h1{font-size:clamp(2.5rem,6vw,5.5rem);line-height:.94;max-width:800px;margin:16px 0}
+header p{font-size:1.05rem;max-width:650px;line-height:1.6}
+.actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:22px}
+button,.pill{border:0;border-radius:999px;padding:11px 17px;font-weight:750;cursor:pointer;background:var(--ink);color:white}
+button.secondary{background:white;color:var(--ink);border:1px solid #ded8cd}
+button:hover{transform:translateY(-2px);box-shadow:0 5px 14px #20233a22}
+nav{position:sticky;top:0;z-index:10;background:#fbf7efed;backdrop-filter:blur(12px);border-bottom:1px solid #e9e2d7;padding:10px 5vw;display:flex;gap:8px;overflow-x:auto}
+nav a{white-space:nowrap;text-decoration:none;color:var(--ink);font-size:.85rem;font-weight:750;padding:9px 13px;border-radius:30px}
+nav a:hover{background:#eee8f7}
+main{max-width:1250px;margin:auto;padding:35px 5vw 80px}
+.section-head{display:flex;align-items:end;justify-content:space-between;gap:20px;margin:32px 0 18px}
+.section-head h2{font-size:clamp(1.8rem,4vw,3rem);margin:0;letter-spacing:-.04em}
+.section-head p{max-width:470px;color:#666779;line-height:1.5;margin:0}
+.map{position:relative;min-height:620px;border-radius:34px;padding:28px;background:#f0eaf6;overflow:hidden;box-shadow:var(--shadow)}
+.map:before,.map:after{content:"";position:absolute;border:2px dashed #8b79b866;border-radius:50%;pointer-events:none}
+.map:before{width:540px;height:540px;left:28%;top:30px}
+.map:after{width:300px;height:300px;left:38%;top:150px}
+.center{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);z-index:2;width:210px;height:210px;border-radius:50%;background:var(--ink);color:white;display:grid;place-content:center;text-align:center;padding:24px;box-shadow:0 0 0 12px #ffffff77}
+.center strong{font-size:1.65rem;line-height:1}
+.center span{font-size:.8rem;margin-top:9px;color:#e8dff8}
+.node{position:absolute;z-index:3;width:210px;min-height:145px;border-radius:23px;padding:18px;text-align:left;box-shadow:var(--shadow);border:2px solid #ffffffaa;cursor:pointer;color:var(--ink);transition:.2s}
+.node:hover,.node:focus{transform:translateY(-5px) rotate(-1deg);outline:3px solid #fff}
+.node b{display:block;font-size:1.05rem;margin:8px 0 5px}
+.node small{font-size:.82rem;line-height:1.35;display:block}
+.node .num{font-size:1.3rem}
+.n1{left:5%;top:8%;background:#f7d8d8;transform:rotate(-3deg)}
+.n2{right:5%;top:8%;background:#f6e3a8;transform:rotate(2deg)}
+.n3{left:4%;bottom:9%;background:#cfe6df;transform:rotate(2deg)}
+.n4{right:4%;bottom:9%;background:#d8d2ef;transform:rotate(-2deg)}
+.n5{left:39%;top:3%;background:#d5e8ee}
+.n6{left:39%;bottom:3%;background:#f3d5b6}
+.map-hint{position:absolute;bottom:14px;left:50%;transform:translateX(-50%);font-size:.75rem;color:#6e6680;z-index:4;white-space:nowrap}
+.detail{margin-top:18px;background:white;border-radius:22px;padding:22px 25px;box-shadow:var(--shadow);display:grid;grid-template-columns:1fr 2fr;gap:20px;align-items:start}
+.detail h3{font-size:1.5rem;margin:0 0 8px}
+.detail p{line-height:1.6;margin:0;color:#56596b}
+.detail .tag{display:inline-block;background:#eee8f7;color:#62518c;border-radius:20px;padding:6px 10px;font-size:.75rem;font-weight:800;margin-bottom:10px}
+.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:15px}
+.card{padding:22px;border-radius:22px;min-height:200px;box-shadow:var(--shadow);position:relative;overflow:hidden}
+.card h3{margin:10px 0 8px;font-size:1.25rem}
+.card p{line-height:1.55;color:#44485b;margin:0}
+.card .sticker{font-size:1.7rem}
+.pink{background:#f7dfe1}.yellow{background:#f7ebc6}.blue{background:#dcecf0}.green{background:#dcebe1}.lav{background:#e8e1f3}.peach{background:#f5e0cf}
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.panel{border-radius:26px;padding:25px;box-shadow:var(--shadow);background:white}
+.panel h3{font-size:1.35rem;margin:0 0 12px}
+.panel p,.panel li{line-height:1.6;color:#505366}
+.steps{counter-reset:step;list-style:none;padding:0;margin:0}
+.steps li{counter-increment:step;display:flex;gap:13px;margin:13px 0}
+.steps li:before{content:counter(step);flex:0 0 30px;height:30px;border-radius:50%;display:grid;place-items:center;background:#e9e1f4;font-weight:900;color:#65548e}
+.emotion-wheel{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:15px}
+.emotion{padding:15px 12px;border-radius:18px;text-align:center;font-weight:800;cursor:pointer;border:2px solid transparent}
+.emotion small{display:block;font-weight:500;margin-top:5px;line-height:1.35}
+.emotion[aria-pressed="true"]{border-color:var(--ink);box-shadow:0 0 0 3px white inset}
+.em1{background:#f7d8d8}.em2{background:#f5e6b8}.em3{background:#d7e9ef}.em4{background:#d9e9df}
+.emotion-info{margin-top:12px;background:#f5f1fa;border-radius:16px;padding:16px;min-height:78px;line-height:1.5}
+.activity{background:#24243a;color:white;border-radius:28px;padding:28px;display:grid;grid-template-columns:1.2fr 1fr;gap:22px}
+.activity p{color:#e0ddeb;line-height:1.6}
+.activity select{width:100%;padding:13px;border-radius:12px;border:0;font:inherit;margin:7px 0 14px}
+.activity button{background:#f2c85b;color:#25243a}
+.result{padding:16px;background:#ffffff17;border:1px solid #ffffff33;border-radius:15px;min-height:90px;line-height:1.5}
+footer{text-align:center;padding:28px;color:#777487;font-size:.85rem}
+@media(max-width:800px){
+ .map{min-height:0;display:grid;grid-template-columns:1fr 1fr;gap:12px;padding:15px}
+ .map:before,.map:after,.center,.map-hint{display:none}
+ .node{position:static;width:auto;min-height:160px;transform:none!important}
+ .n5,.n6{grid-column:span 2}
+ .detail,.two-col,.activity{grid-template-columns:1fr}
+ .cards{grid-template-columns:1fr 1fr}
+ .emotion-wheel{grid-template-columns:1fr 1fr}
+}
+@media(max-width:520px){.cards{grid-template-columns:1fr}.node{min-height:145px}.section-head{display:block}.section-head p{margin-top:8px}}
+@media print{
+ nav,.actions,.map-hint,button{display:none!important}
+ body{background:white}.map,.card,.panel,.detail{box-shadow:none;break-inside:avoid}
+ main{max-width:none;padding:10px}
+}
+</style>
+</head>
+<body>
+<header>
+  <div class="eyebrow">Cuaderno visual · habilidades humanas</div>
+  <h1>Liderar es<br><span style="color:#7965b5">conectar</span>, no mandar.</h1>
+  <p>Un mapa visual para explorar los estilos de liderazgo, desarrollar mejores hábitos y comprender cómo las emociones influyen en la manera de guiar a otras personas.</p>
+  <div class="actions">
+    <button onclick="document.querySelector('#mapa').scrollIntoView({behavior:'smooth'})">Explorar el mapa ↓</button>
+    <button class="secondary" onclick="window.print()">Imprimir / guardar PDF</button>
+  </div>
+</header>
+<nav>
+  <a href="#mapa">Mapa de estilos</a><a href="#mejorar">Ser mejor líder</a><a href="#emociones">Emociones</a><a href="#practica">Ponte en práctica</a>
+</nav>
+<main>
+  <section id="mapa">
+    <div class="section-head">
+      <h2>01. Mapa de estilos</h2>
+      <p>No existe un único estilo perfecto. El liderazgo efectivo adapta su enfoque a las personas, el objetivo y el contexto.</p>
+    </div>
+    <div class="map" aria-label="Mapa interactivo de seis estilos de liderazgo">
+      <div class="center"><strong>LIDERAZGO</strong><span>Influir · orientar · construir</span></div>
+      <button class="node n1" data-style="autocratico"><span class="num">⚡</span><b>Autocrático</b><small>Decide con rapidez y concentra la autoridad.</small></button>
+      <button class="node n2" data-style="democratico"><span class="num">🗣</span><b>Democrático</b><small>Escucha, consulta e integra perspectivas.</small></button>
+      <button class="node n3" data-style="transformacional"><span class="num">🚀</span><b>Transformacional</b><small>Inspira una visión y moviliza el cambio.</small></button>
+      <button class="node n4" data-style="transaccional"><span class="num">⚖</span><b>Transaccional</b><small>Define metas, responsabilidades y resultados.</small></button>
+      <button class="node n5" data-style="servicio"><span class="num">🤝</span><b>De servicio</b><small>Prioriza el crecimiento y las necesidades del equipo.</small></button>
+      <button class="node n6" data-style="situacional"><span class="num">🧭</span><b>Situacional</b><small>Ajusta la dirección según la tarea y la experiencia.</small></button>
+      <div class="map-hint">Selecciona una tarjeta para descubrir sus fortalezas y riesgos</div>
+    </div>
+    <div class="detail" aria-live="polite">
+      <div><span class="tag" id="style-tag">ESTILO DE LIDERAZGO</span><h3 id="style-title">Explora cada estilo</h3></div>
+      <p id="style-copy">Pulsa cualquiera de las tarjetas del mapa. Encontrarás cuándo puede ser útil cada enfoque, qué aporta y qué conviene vigilar.</p>
+    </div>
+  </section>
+
+  <section id="mejorar">
+    <div class="section-head"><h2>02. ¿Cómo ser mejor líder?</h2><p>El liderazgo se practica en decisiones pequeñas y consistentes, no solamente en los grandes discursos.</p></div>
+    <div class="cards">
+      <article class="card pink"><div class="sticker">👂</div><h3>Escucha de verdad</h3><p>Haz preguntas abiertas, evita interrumpir y confirma que entendiste antes de responder.</p></article>
+      <article class="card yellow"><div class="sticker">🎯</div><h3>Da dirección clara</h3><p>Explica el propósito, acuerda prioridades y define qué significa hacer bien el trabajo.</p></article>
+      <article class="card blue"><div class="sticker">🧩</div><h3>Delega con confianza</h3><p>Entrega autonomía, recursos y límites claros. Acompaña sin controlar cada movimiento.</p></article>
+      <article class="card green"><div class="sticker">🌱</div><h3>Desarrolla a otros</h3><p>Reconoce fortalezas, ofrece retroalimentación concreta y crea oportunidades para aprender.</p></article>
+      <article class="card lav"><div class="sticker">🪞</div><h3>Conócete</h3><p>Identifica tus sesgos, detonantes emocionales y áreas de mejora. Pide opiniones honestas.</p></article>
+      <article class="card peach"><div class="sticker">🧱</div><h3>Actúa con coherencia</h3><p>Cumple acuerdos, asume errores y trata a las personas con respeto incluso bajo presión.</p></article>
+    </div>
+    <div class="two-col" style="margin-top:18px">
+      <div class="panel">
+        <h3>Una ruta de mejora continua</h3>
+        <ol class="steps">
+          <li><span><b>Observa:</b> detecta qué necesita el equipo y qué está ocurriendo.</span></li>
+          <li><span><b>Pregunta:</b> escucha perspectivas antes de decidir.</span></li>
+          <li><span><b>Acuerda:</b> convierte las ideas en objetivos y compromisos claros.</span></li>
+          <li><span><b>Acompaña:</b> ofrece recursos, confianza y retroalimentación.</span></li>
+          <li><span><b>Reflexiona:</b> revisa resultados y aprende de lo que no funcionó.</span></li>
+        </ol>
+      </div>
+      <div class="panel" style="background:#f4eddf">
+        <h3>Una idea para recordar</h3>
+        <p style="font-size:1.25rem;font-weight:800;color:#65518c">“La autoridad puede conseguir obediencia; la confianza construye compromiso”.</p>
+        <p>Un buen líder no necesita tener todas las respuestas. Necesita crear las condiciones para que el equipo pueda encontrarlas y actuar.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="emociones">
+    <div class="section-head"><h2>03. Emociones + liderazgo</h2><p>Las emociones aportan información sobre lo que vivimos. La inteligencia emocional ayuda a reconocerlas y responder de manera consciente.</p></div>
+    <div class="panel">
+      <h3>El clima emocional también se lidera</h3>
+      <p>El estado emocional de quien lidera puede influir en el tono de una conversación, la confianza, la colaboración y la forma de resolver conflictos. No se trata de ocultar lo que sentimos, sino de comprenderlo y regular nuestra respuesta.</p>
+      <div class="emotion-wheel">
+        <button class="emotion em1" aria-pressed="true" data-emotion="enojo">🔥 Enojo<small>Puede señalar un límite vulnerado</small></button>
+        <button class="emotion em2" aria-pressed="false" data-emotion="miedo">🌧 Miedo<small>Puede alertar sobre incertidumbre</small></button>
+        <button class="emotion em3" aria-pressed="false" data-emotion="alegria">☀ Alegría<small>Puede impulsar conexión y energía</small></button>
+        <button class="emotion em4" aria-pressed="false" data-emotion="tristeza">🌿 Tristeza<small>Puede señalar una pérdida o necesidad</small></button>
+      </div>
+      <div class="emotion-info" id="emotion-info" aria-live="polite"><b>En vez de reaccionar:</b> haz una pausa, identifica qué límite o necesidad está detrás del enojo y expresa el problema sin atacar a la persona.</div>
+    </div>
+    <div class="cards" style="margin-top:16px">
+      <article class="card blue"><h3>Autoconciencia</h3><p>Reconocer qué siento, qué lo provoca y cómo puede afectar mis decisiones.</p></article>
+      <article class="card pink"><h3>Autorregulación</h3><p>Hacer una pausa y elegir una respuesta útil, en lugar de actuar por impulso.</p></article>
+      <article class="card green"><h3>Empatía</h3><p>Considerar la experiencia de otras personas sin asumir que sé exactamente cómo se sienten.</p></article>
+    </div>
+  </section>
+
+  <section id="practica">
+    <div class="section-head"><h2>04. Ponte en práctica</h2><p>Explora cómo cambia tu respuesta cuando cambia el contexto. No hay una sola solución válida para todos los escenarios.</p></div>
+    <div class="activity">
+      <div>
+        <div class="eyebrow" style="color:#f2c85b">Mini laboratorio de decisiones</div>
+        <h2 style="font-size:2rem;margin:10px 0">¿Qué harías como líder?</h2>
+        <p>Elige una situación y un enfoque. Lee la sugerencia y piensa qué ajustarías según las personas, el tiempo disponible y el objetivo.</p>
+        <label for="scenario">Situación</label>
+        <select id="scenario">
+          <option value="crisis">Hay una emergencia y se necesita actuar rápido.</option>
+          <option value="ideas">El equipo debe crear una solución nueva.</option>
+          <option value="novato">Una persona nueva necesita aprender una tarea.</option>
+          <option value="conflicto">Dos integrantes tienen un conflicto.</option>
+        </select>
+        <label for="approach">Enfoque que elegirías</label>
+        <select id="approach">
+          <option value="situacional">Situacional</option><option value="autocratico">Autocrático</option>
+          <option value="democratico">Democrático</option><option value="transformacional">Transformacional</option>
+          <option value="servicio">De servicio</option><option value="transaccional">Transaccional</option>
+        </select>
+        <button onclick="evaluate()">Ver reflexión</button>
+      </div>
+      <div>
+        <h3 style="margin-top:5px">Tu reflexión</h3>
+        <div class="result" id="result" aria-live="polite">Selecciona una situación y un enfoque. La herramienta te mostrará una reflexión para orientar tu decisión.</div>
+        <p style="font-size:.85rem;margin-top:14px">Consejo: un liderazgo flexible puede combinar estilos. Lo importante es explicar tus decisiones y revisar sus efectos.</p>
+      </div>
+    </div>
+  </section>
+</main>
+<footer>Mapa visual del liderazgo · Material educativo interactivo · Diseñado sin imágenes generadas</footer>
+<script>
+const styles={
+ autocratico:{title:"Liderazgo autocrático",tag:"DECISIÓN CENTRALIZADA",copy:"La persona líder toma las decisiones y da instrucciones concretas. Puede ser útil en emergencias, con poco tiempo o cuando se requiere un protocolo claro. Fortaleza: rapidez. Riesgo: reducir la participación y la iniciativa si se usa de manera constante."},
+ democratico:{title:"Liderazgo democrático",tag:"PARTICIPACIÓN",copy:"El equipo participa en el análisis y en las decisiones. Favorece compromiso, creatividad y sentido de pertenencia. Es útil cuando hay tiempo para deliberar y las perspectivas del equipo aportan valor. Riesgo: alargar decisiones urgentes si no hay límites claros."},
+ transformacional:{title:"Liderazgo transformacional",tag:"VISIÓN E INSPIRACIÓN",copy:"Comunica una visión compartida, impulsa el aprendizaje y anima a superar el estado actual. Es útil para procesos de cambio y proyectos que necesitan motivación. Riesgo: que la inspiración no se traduzca en planes, recursos y seguimiento."},
+ transaccional:{title:"Liderazgo transaccional",tag:"ACUERDOS Y RESULTADOS",copy:"Establece expectativas, responsabilidades, indicadores y consecuencias. Aporta orden en tareas repetibles y objetivos medibles. Riesgo: enfocarse demasiado en recompensas o cumplimiento y descuidar la innovación y las necesidades individuales."},
+ servicio:{title:"Liderazgo de servicio",tag:"PERSONAS PRIMERO",copy:"La persona líder facilita el trabajo, escucha y ayuda a que otras personas crezcan. Fortalece confianza, colaboración y desarrollo. Riesgo: confundir servir con evitar conversaciones difíciles o no establecer límites y prioridades."},
+ situacional:{title:"Liderazgo situacional",tag:"FLEXIBILIDAD",copy:"Adapta el nivel de dirección y apoyo a la experiencia, autonomía y necesidad de cada persona ante una tarea. Es útil en equipos diversos y cambiantes. Riesgo: cambiar de enfoque sin explicar por qué puede percibirse como inconsistencia."}
+};
+document.querySelectorAll(".node").forEach(btn=>btn.addEventListener("click",()=>{
+ const s=styles[btn.dataset.style];document.getElementById("style-title").textContent=s.title;
+ document.getElementById("style-tag").textContent=s.tag;document.getElementById("style-copy").textContent=s.copy;
+}));
+const emotionText={
+ enojo:"<b>En vez de reaccionar:</b> haz una pausa, identifica qué límite o necesidad está detrás del enojo y expresa el problema sin atacar a la persona.",
+ miedo:"<b>En vez de evitar:</b> distingue los riesgos reales de las suposiciones. Comparte lo que sabes, reconoce lo incierto y acuerda el siguiente paso.",
+ alegria:"<b>En vez de darlo por sentado:</b> reconoce los avances, comparte el entusiasmo y procura que la energía se convierta en colaboración y propósito.",
+ tristeza:"<b>En vez de apresurar soluciones:</b> escucha, reconoce la dificultad y pregunta qué apoyo sería útil. Respeta los tiempos de cada persona."
+};
+document.querySelectorAll(".emotion").forEach(btn=>btn.addEventListener("click",()=>{
+ document.querySelectorAll(".emotion").forEach(b=>b.setAttribute("aria-pressed","false"));
+ btn.setAttribute("aria-pressed","true");document.getElementById("emotion-info").innerHTML=emotionText[btn.dataset.emotion];
+}));
+function evaluate(){
+ const s=document.getElementById("scenario").value,a=document.getElementById("approach").value;
+ const advice={
+ crisis:{autocratico:"Puede ayudar a coordinar una respuesta inmediata. Asegura que las instrucciones sean claras y revisa la seguridad de las personas.",situacional:"Un enfoque directivo al inicio puede ser adecuado; después, cuando pase la urgencia, incorpora al equipo para evaluar y aprender.",democratico:"Escuchar perspectivas puede mejorar la respuesta si hay segundos para hacerlo. Define quién toma la decisión final y cuándo."},
+ ideas:{democratico:"Invita a proponer, combinar y evaluar ideas. Establece criterios para cerrar la conversación y pasar a experimentar.",transformacional:"Conecta la creatividad con una visión inspiradora y permite probar caminos nuevos con objetivos claros.",transaccional:"Los criterios y plazos ayudan a organizar el trabajo, pero deja espacio para explorar opciones inesperadas."},
+ novato:{situacional:"Combina instrucciones paso a paso con apoyo cercano. A medida que aumente la confianza, reduce gradualmente la dirección.",servicio:"Pregunta qué necesita aprender, facilita recursos y crea un entorno donde pedir ayuda no sea motivo de vergüenza.",autocratico:"Las instrucciones claras pueden servir al inicio, pero acompáñalas con explicación, práctica y espacio para dudas."},
+ conflicto:{democratico:"Escucha a ambas partes, aclara hechos y facilita acuerdos compartidos sin convertir la conversación en una competencia.",servicio:"Prioriza la escucha y la seguridad para hablar. Ayuda a las personas a identificar necesidades y responsabilidades.",situacional:"Evalúa la gravedad: quizá debas mediar directamente al principio y después facilitar que acuerden cómo colaborar."}
+ };
+ let msg=advice[s][a]||"Este enfoque puede aportar estructura, pero considera complementarlo con escucha, claridad y seguimiento. Adapta la decisión a las necesidades reales del equipo.";
+ document.getElementById("result").textContent=msg;
+}
+</script>
+</body>
+</html>
