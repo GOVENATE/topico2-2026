@@ -238,6 +238,18 @@
         "JavaScript"
       ],
       "ruta": "actividades/act22-habilidades-directivas/index.html"
+    },
+    {
+      "id": "act26-proyecto-kavak",
+      "titulo": "Proyecto final: el caso Kavak",
+      "descripcion": "Análisis del primer unicornio mexicano con FODA, Ishikawa interactivo, recomendaciones y mi opinión.",
+      "tipo": "web",
+      "tecnologias": [
+        "HTML",
+        "CSS",
+        "JavaScript"
+      ],
+      "ruta": "actividades/act26-proyecto-kavak/index.html"
     }
   ]
 }
