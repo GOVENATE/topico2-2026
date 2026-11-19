@@ -77,7 +77,7 @@ const avisos = [];
 
 function leerJson(archivo) {
   try {
-    return JSON.parse(fs.readFileSync(archivo, 'utf8'));
+    return JSON.parse(fs.readFileSync(archivo, 'utf8').replace(/^\uFEFF/, ''));
   } catch (e) {
     errores.push(`${rel(archivo)}: no es JSON valido (${e.message})`);
     return null;
