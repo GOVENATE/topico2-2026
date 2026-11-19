@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Asistente de Decisiones · Bradley Yeray Reyes Altamirano</title>
+<style>
+:root{--bg:#fff4e6;--ink:#1d2433;--soft:#6c7385;--line:#f0dcc4;--org:#ff7a2f;--org2:#ffe7d6;--tea:#139a8c;--tea2:#d6f3ef;--nav:#1d2433;--bub:#ffffff;--me:#139a8c}
+*{box-sizing:border-box}
+body{margin:0;min-height:100vh;background:var(--bg);color:var(--ink);font:16px/1.55 "Segoe UI",system-ui,-apple-system,Roboto,sans-serif;
+ background-image:radial-gradient(circle at 20px 20px,#ffd9b8 2px,transparent 2.5px);background-size:40px 40px;display:flex;justify-content:center;padding:28px 12px}
+button{font:inherit;color:inherit;cursor:pointer}
+.phone{width:100%;max-width:760px;background:#fffaf4;border:3px solid var(--nav);border-radius:30px;overflow:hidden;box-shadow:12px 12px 0 var(--nav);display:flex;flex-direction:column;min-height:86vh}
+.bar{background:var(--nav);color:#fff;display:flex;align-items:center;gap:14px;padding:14px 20px}
+.ava{width:46px;height:46px;border-radius:50%;background:var(--org);display:grid;place-items:center;font-size:1.4rem;flex:none;border:3px solid #fff}
+.bar b{display:block;font-size:1.05rem}
+.bar small{color:#c9cede}
+.bar .sp{margin-left:auto;display:flex;gap:8px}
+.chipbtn{background:#ffffff1a;border:1px solid #ffffff33;border-radius:999px;padding:6px 12px;font-size:.82rem;color:#fff}
+.chipbtn:hover{background:#ffffff33}
+.body{flex:1;padding:22px;overflow-y:auto}
+.msg{max-width:84%;background:var(--bub);border:2px solid var(--nav);border-radius:20px 20px 20px 4px;padding:14px 18px;margin:0 0 14px;box-shadow:4px 4px 0 var(--line);animation:pop .3s ease}
+.msg.me{margin-left:auto;background:var(--me);color:#fff;border-radius:20px 20px 4px 20px;border-color:var(--me)}
+@keyframes pop{from{opacity:0;transform:translateY(10px) scale(.98)}}
+.msg h2{margin:0 0 6px;font-size:1.35rem}
+.msg p{margin:.3em 0}
+.who{font-size:.75rem;font-weight:700;color:var(--org);text-transform:uppercase;letter-spacing:.08em;display:block;margin-bottom:4px}
+.tools{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:8px;margin-top:10px}
+.tools div{background:var(--org2);border-radius:12px;padding:10px 12px;font-size:.88rem}
+.tools b{display:block}
+.steps{display:flex;flex-direction:column;gap:6px;margin-top:8px}
+.steps span{display:flex;gap:10px;align-items:center;font-size:.92rem}
+.steps i{font-style:normal;width:26px;height:26px;border-radius:50%;background:var(--nav);color:#fff;display:grid;place-items:center;font-weight:800;font-size:.8rem;flex:none}
+.quick{display:flex;flex-wrap:wrap;gap:8px;justify-content:flex-end;margin:6px 0 16px}
+.qbtn{border:2px solid var(--nav);background:#fff;border-radius:999px;padding:10px 18px;font-weight:700;box-shadow:3px 3px 0 var(--nav);transition:.12s}
+.qbtn:hover{transform:translate(-1px,-1px);box-shadow:4px 4px 0 var(--nav)}
+.qbtn:active{transform:translate(2px,2px);box-shadow:1px 1px 0 var(--nav)}
+.qbtn.main{background:var(--org);color:#fff}
+.qbtn.alt{background:var(--tea2)}
+.qbtn:disabled{opacity:.35;cursor:default;transform:none;box-shadow:3px 3px 0 var(--nav)}
+.progress{display:flex;gap:4px;margin:4px 0 12px}
+.progress i{flex:1;height:7px;border-radius:9px;background:var(--line)}
+.progress i.d{background:var(--tea)}.progress i.c{background:var(--org)}
+.tag{display:inline-block;font-size:.78rem;font-weight:700;background:var(--org2);color:#b44a10;border-radius:999px;padding:2px 10px;margin-bottom:6px}
+.opts{display:grid;gap:8px;margin:10px 0 4px}
+.opt{display:flex;align-items:center;gap:12px;text-align:left;background:#fff;border:2px solid var(--line);border-radius:14px;padding:11px 14px;transition:.15s}
+.opt:hover{border-color:var(--org)}
+.opt .L{width:30px;height:30px;border-radius:8px;display:grid;place-items:center;font-weight:800;background:var(--bg);flex:none}
+.opt.on{border-color:var(--tea);background:var(--tea2)}
+.opt.on .L{background:var(--tea);color:#fff}
+.qnav{display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap;margin-top:6px}
+
+/* galería de resultados */
+.gal{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:12px;margin-top:10px}
+.gcard{text-align:left;background:#fff;border:2px solid var(--nav);border-radius:16px;padding:14px;box-shadow:4px 4px 0 var(--nav);transition:.12s;display:flex;flex-direction:column;gap:4px}
+.gcard:hover{transform:translate(-2px,-2px);box-shadow:6px 6px 0 var(--org)}
+.gcard .e{font-size:1.8rem}
+.gcard b{font-size:1.02rem}
+.gcard small{color:var(--soft);font-size:.82rem;line-height:1.35}
+
+/* vistas de herramientas */
+.view{background:#fff;border:2px solid var(--nav);border-radius:18px;padding:18px;margin:10px 0 0}
+.back{background:none;border:0;color:var(--tea);font-weight:700;padding:0 0 10px}
+.view h2{margin:0;font-size:1.4rem}
+.view .d{color:var(--soft);margin:2px 0 14px}
+/* FODA: bandas */
+.band{display:grid;grid-template-columns:60px 1fr;border-radius:14px;overflow:hidden;margin-bottom:8px;border:2px solid var(--nav)}
+.band .k{display:grid;place-items:center;font-size:1.8rem;font-weight:900;color:#fff}
+.band .c{padding:10px 14px;background:#fff}
+.band .c small{color:var(--soft);font-size:.75rem;text-transform:uppercase;letter-spacing:.08em}
+.band .c div{display:flex;flex-wrap:wrap;gap:6px;margin-top:6px}
+.band .c span{background:var(--bg);border-radius:8px;padding:3px 10px;font-size:.88rem}
+.band .c span.star{background:var(--org);color:#fff;font-weight:700}
+/* sombreros: rueda */
+.wheel{display:grid;grid-template-columns:260px 1fr;gap:16px;align-items:center}
+.wheel svg{width:100%}
+.wheel path{cursor:pointer;stroke:#1d2433;stroke-width:2;transition:transform .2s;transform-origin:130px 130px}
+.wheel path:hover,.wheel path.sel{transform:scale(1.05)}
+.hatinfo{background:var(--bg);border-radius:14px;padding:14px 16px;min-height:120px}
+.hatinfo b{font-size:1.1rem}
+.hatinfo .r{display:block;color:var(--soft);font-size:.8rem;text-transform:uppercase;letter-spacing:.06em}
+.hatinfo p{font-weight:700;margin:.4em 0 0}
+.hatinfo .mine{display:inline-block;background:var(--tea);color:#fff;border-radius:999px;font-size:.72rem;padding:1px 9px;margin-left:6px}
+/* pareto horizontal */
+.hbar{display:grid;grid-template-columns:130px 1fr 54px;align-items:center;gap:10px;margin:7px 0;font-size:.9rem}
+.hbar .t{height:24px;background:var(--bg);border-radius:6px;overflow:hidden;position:relative}
+.hbar .t i{display:block;height:100%;background:#d9cbb8;border-radius:6px;transition:width .6s}
+.hbar.hl .t i{background:var(--org)}
+.hbar.hl b{color:var(--org)}
+.hbar .t em{position:absolute;right:8px;top:2px;font-style:normal;font-size:.8rem;font-weight:700}
+.hbar .acc{font-size:.8rem;color:var(--tea);font-weight:700;text-align:right}
+.hbar.cut{border-bottom:2px dashed var(--tea);padding-bottom:7px}
+.note{font-size:.85rem;color:var(--soft);margin:0 0 10px}
+.note mark{background:var(--org);color:#fff;border-radius:6px;padding:0 6px}
+/* ishikawa vertical */
+.vfish{display:grid;grid-template-columns:1fr;justify-items:center}
+.vfish svg{width:100%;max-width:520px}
+/* catwoe: fichas */
+.tiles{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.tile{border:2px solid var(--nav);border-radius:14px;padding:12px;background:#fff;position:relative;min-height:130px}
+.tile .big{font-size:2.2rem;font-weight:900;line-height:1;color:var(--org)}
+.tile b{display:block;font-size:.95rem}
+.tile small{color:var(--soft);font-size:.78rem;display:block}
+.tile p{margin:.4em 0 0;font-weight:700;font-size:.9rem}
+.tile.mine{background:var(--tea2);border-color:var(--tea)}
+.tile.mine .big{color:var(--tea)}
+.myans{margin-top:16px;border-top:2px dashed var(--line);padding-top:12px}
+.myans h3{margin:0 0 8px;font-size:1rem}
+.row{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;background:var(--bg);border-radius:10px;padding:9px 12px;margin-bottom:6px;font-size:.9rem}
+.row b{color:var(--tea)}
+.foot{border-top:2px solid var(--line);padding:10px 20px;display:flex;justify-content:space-between;align-items:center;font-size:.8rem;color:var(--soft);background:#fff}
+.foot button{background:none;border:0;color:var(--soft);font-size:.8rem}
+.foot button:hover{color:#d23}
+@media (max-width:620px){.wheel{grid-template-columns:1fr}.tiles{grid-template-columns:1fr 1fr}.hbar{grid-template-columns:96px 1fr 44px}.msg{max-width:100%}}
+</style>
+</head>
+<body>
+<div class="phone">
+  <div class="bar">
+    <div class="ava">🤖</div>
+    <div><b>Asistente de Decisiones</b><small>Proyecto de Bradley Yeray Reyes Altamirano · Tópico 2</small></div>
+    <div class="sp" id="barBtns"></div>
+  </div>
+  <div class="body" id="body"></div>
+  <div class="foot"><span>Bradley Yeray Reyes Altamirano · Tópico 2</span><button id="resetAll">↺ Borrar todo y empezar otra vez</button></div>
+</div>
+
+<script>
+/* ===== contenido ===== */
+const TOOLS=[
+ {id:'foda',n:'FODA',d:'Fortalezas, Oportunidades, Debilidades y Amenazas',e:'🧭'},
+ {id:'sombreros',n:'6 Sombreros para Pensar',d:'La misma decisión vista desde seis enfoques',e:'🎩'},
+ {id:'pareto',n:'Diagrama de Pareto',d:'Pocos problemas que generan la mayor parte del impacto (80/20)',e:'📊'},
+ {id:'ishikawa',n:'Diagrama de Ishikawa',d:'Causa y efecto en forma de espina de pescado',e:'🐟'},
+ {id:'catwoe',n:'CATWOE',d:'Cliente, Actores, Transformación, Cosmovisión, Dueños y Entorno',e:'🧩'}
+];
+const QS=[
+ {id:1,t:'foda',q:'Para ti, ¿cuál es la FORTALEZA más grande de la universidad?',o:['Identidad institucional','Innovación','Alumnos comprometidos','Alianzas']},
+ {id:2,t:'foda',q:'¿Qué AMENAZA de afuera pesa más sobre la universidad?',o:['Disminución de contrataciones','Desempleo de egresados','Competencia de otras universidades','Recortes de presupuesto']},
+ {id:3,t:'sombreros',q:'Con el sombrero ROJO puesto (emociones): ¿qué te provoca la situación laboral de los egresados?',o:['Preocupación','Optimismo','Frustración','Indiferencia']},
+ {id:4,t:'sombreros',q:'Con el sombrero AMARILLO (lo positivo): ¿qué se ganaría al mejorar la universidad?',o:['Más empleo para egresados','Mejor reputación','Más becas','Más proyectos']},
+ {id:5,t:'catwoe',q:'¿Quién es el CLIENTE principal, es decir, a quién sirve el sistema?',o:['Alumnos','Docentes','Sociedad','Empresas']},
+ {id:6,t:'catwoe',q:'¿Quiénes son los DUEÑOS, o sea, quienes toman las decisiones?',o:['Consejo','Rectoría','Gobierno','Patronato']},
+ {id:7,t:'pareto',q:'¿Qué problema aparece con MÁS frecuencia en la universidad?',o:['Becas','Proyectos','Experiencia laboral','Infraestructura']},
+ {id:8,t:'pareto',q:'¿Y cuál sería el SEGUNDO problema más frecuente?',o:['Docentes','Alumnos','Actualización','Empleo']},
+ {id:9,t:'ishikawa',q:'¿Qué causa principalmente el DESEMPLEO de los egresados?',o:['Falta de experiencia laboral','Poca actualización','Falta de proyectos reales','Infraestructura insuficiente']},
+ {id:10,t:'ishikawa',q:'¿En qué categoría de las 4 M pondrías esa causa?',o:['Métodos','Mano de obra','Materiales','Entorno']}
+];
+const PAR=[['Becas',12],['Proyectos',11],['Experiencia laboral',10],['Infraestructura',9],['Empleo',8],['Docentes',7],['Actualización',4],['Alumnos',1]];
+
+/* ===== estado ===== */
+const KEY='asistente-decisiones-bradley';
+let R={};try{R=JSON.parse(localStorage.getItem(KEY))||{}}catch(e){}
+const save=()=>{try{localStorage.setItem(KEY,JSON.stringify(R))}catch(e){}};
+const A=id=>{const q=QS.find(x=>x.id===id);return R[id]!=null?q.o[R[id]]:null};
+const count=()=>QS.filter(q=>R[q.id]!=null).length;
+const body=document.getElementById('body');
+const html=(s)=>{body.innerHTML=s;body.scrollTop=0;};
+let qi=0,editing=false;
+
+/* ===== inicio ===== */
+function home(){
+  setBar([]);
+  const n=count();
+  html(`
+  <div class="msg"><span class="who">Asistente</span><h2>¡Hola! 👋 ¿Para qué sirvo?</h2>
+   <p>Soy una app para <b>practicar la toma de decisiones</b>. Te voy a hacer <b>10 preguntas de opción múltiple</b> sobre el caso de una universidad (alumnos, docentes, becas, empleo de egresados…). Con lo que contestes, armo por mi cuenta <b>5 herramientas de análisis</b> para que veas cómo se resuelve cada una.</p></div>
+  <div class="msg"><span class="who">Estas son las herramientas</span><div class="tools">${TOOLS.map(t=>`<div>${t.e} <b>${t.n}</b>${t.d}</div>`).join('')}</div></div>
+  <div class="msg"><span class="who">Así funciona</span><div class="steps">
+   <span><i>1</i>Contestas las 10 preguntas.</span>
+   <span><i>2</i>Revisas cada herramienta ya resuelta con tus respuestas.</span>
+   <span><i>3</i>Puedes cambiar tus respuestas cuando quieras y todo se actualiza.</span></div>
+   ${n?`<p style="margin-top:10px"><span class="tag">Llevas ${n} de 10 preguntas contestadas</span></p>`:''}</div>
+  <div class="quick">
+   ${n===10?'<button class="qbtn alt" id="toRes">📂 Ver mis resultados</button>':''}
+   <button class="qbtn main" id="start">${n?'Seguir con las preguntas →':'¡Empezar! →'}</button></div>`);
+  document.getElementById('start').onclick=()=>{editing=false;qi=n&&n<10?QS.findIndex(q=>R[q.id]==null):0;quiz();};
+  const tr=document.getElementById('toRes');if(tr)tr.onclick=results;
+}
+
+/* ===== cuestionario (estilo chat) ===== */
+function quiz(){
+  setBar([[editing?'✕ Cancelar':'✕ Salir',()=>editing?results():home()]]);
+  const q=QS[qi],tool=TOOLS.find(t=>t.id===q.t),last=qi===QS.length-1,sel=R[q.id];
+  const prev=QS.slice(Math.max(0,qi-2),qi).filter(x=>R[x.id]!=null);
+  html(`<div class="progress">${QS.map((x,i)=>`<i class="${i===qi?'c':R[x.id]!=null?'d':''}"></i>`).join('')}</div>
+  ${prev.map(x=>`<div class="msg" style="opacity:.55"><span class="who">Pregunta ${x.id}</span>${x.q}</div><div class="msg me" style="opacity:.7">${A(x.id)}</div>`).join('')}
+  <div class="msg"><span class="tag">${tool.e} ${tool.n}</span><span class="who">Pregunta ${qi+1} de ${QS.length}</span><b style="font-size:1.15rem">${q.q}</b>
+   <div class="opts">${q.o.map((o,i)=>`<button class="opt ${sel===i?'on':''}" data-i="${i}"><span class="L">${'ABCD'[i]}</span>${o}</button>`).join('')}</div></div>
+  ${sel!=null?`<div class="msg me">${q.o[sel]}</div>`:''}
+  <div class="qnav"><button class="qbtn" id="prev" ${qi===0?'disabled':''}>← Anterior</button>
+   <button class="qbtn main" id="next" ${sel==null?'disabled':''}>${last?(editing?'💾 Guardar cambios':'🎉 Ver resultados'):'Siguiente →'}</button></div>`);
+  body.querySelectorAll('.opt').forEach(b=>b.onclick=()=>{R[q.id]=+b.dataset.i;save();quiz();});
+  document.getElementById('prev').onclick=()=>{qi--;quiz();};
+  document.getElementById('next').onclick=()=>{if(last)results();else{qi++;quiz();}};
+  body.scrollTop=body.scrollHeight;
+}
+
+/* ===== resultados ===== */
+function results(){
+  setBar([['🏠 Inicio',home]]);
+  html(`<div class="msg"><span class="who">Asistente</span><h2>📂 Tus resultados</h2><p>Toca una herramienta para ver cómo quedó resuelta con lo que contestaste.</p>
+   <div class="gal">${TOOLS.map(t=>`<button class="gcard" data-t="${t.id}"><span class="e">${t.e}</span><b>${t.n}</b><small>${t.d}</small></button>`).join('')}</div></div>
+   <div class="quick"><button class="qbtn alt" id="edit">✏️ Cambiar mis respuestas</button></div>`);
+  body.querySelectorAll('.gcard').forEach(c=>c.onclick=()=>detail(c.dataset.t));
+  document.getElementById('edit').onclick=()=>{editing=true;qi=0;quiz();};
+}
+
+function detail(id){
+  setBar([['← Resultados',results]]);
+  const t=TOOLS.find(x=>x.id===id);
+  const viz={foda,sombreros,pareto,ishikawa,catwoe}[id]();
+  html(`<button class="back" id="bk">← Volver a resultados</button>
+   <div class="view"><h2>${t.e} ${t.n}</h2><p class="d">${t.d}</p>${viz}
+   <div class="myans"><h3>Lo que contestaste para esta herramienta</h3>${QS.filter(q=>q.t===id).map(q=>`<div class="row"><span>${q.q}</span><b>${A(q.id)||'Sin contestar'}</b></div>`).join('')}</div></div>`);
+  document.getElementById('bk').onclick=results;
+  if(id==='sombreros')hatsInit();
+}
+
+/* ---- FODA en bandas ---- */
+function foda(){
+  const f=A(1),a=A(2);
+  const band=(k,col,title,note,items,star)=>`<div class="band"><div class="k" style="background:${col}">${k}</div><div class="c"><b>${title}</b> <small>· ${note}</small><div>${items.map(i=>`<span class="${i===star?'star':''}">${i===star?'★ ':''}${i}</span>`).join('')}</div></div></div>`;
+  return band('F','#139a8c','Fortalezas','interno · positivo',[f,'Identidad','Alumnos','Eventos'].filter(Boolean),f)+
+    band('O','#3b7dd8','Oportunidades','externo · positivo',['Convenios','Alianzas estratégicas'])+
+    band('D','#e0a020','Debilidades','interno · negativo',['Dependencia de Internet','Autoaprendizaje'])+
+    band('A','#e04848','Amenazas','externo · negativo',[a,'Recortes'].filter(Boolean),a);
+}
+
+/* ---- sombreros en rueda ---- */
+let HATS=[];
+function sombreros(){
+  const r=A(3),y=A(4);
+  HATS=[['Blanco','#ffffff','Datos y hechos','Titulación: Lic. 2.5 · Mtría. 3.5 · Dr. 5',false],
+    ['Rojo','#e04848','Emociones',r||'Sin contestar',!!r],
+    ['Negro','#1d2433','Riesgos y precaución','Desempleo de egresados y falta de dinero',false],
+    ['Amarillo','#f5c518','Beneficios y optimismo',y||'Sin contestar',!!y],
+    ['Verde','#2fae5c','Creatividad e ideas','Nuevos convenios y proyectos con empresas',false],
+    ['Azul','#3b7dd8','Control y conclusión','Priorizar empleo de egresados con acciones concretas',false]];
+  let s='<div class="wheel"><svg viewBox="0 0 260 260">';
+  HATS.forEach((h,i)=>{const a0=(i*60-90)*Math.PI/180,a1=((i+1)*60-90)*Math.PI/180,R=118,cx=130,cy=130;
+    const x0=cx+R*Math.cos(a0),y0=cy+R*Math.sin(a0),x1=cx+R*Math.cos(a1),y1=cy+R*Math.sin(a1);
+    const am=(i*60-60)*Math.PI/180;
+    s+=`<path data-h="${i}" d="M${cx} ${cy} L${x0} ${y0} A${R} ${R} 0 0 1 ${x1} ${y1}Z" fill="${h[1]}"/>`;
+    s+=`<text x="${cx+78*Math.cos(am)}" y="${cy+78*Math.sin(am)+5}" text-anchor="middle" font-size="22" pointer-events="none">${h[4]?'⭐':'🎩'}</text>`;});
+  s+='<circle cx="130" cy="130" r="34" fill="#fffaf4" stroke="#1d2433" stroke-width="2"/><text x="130" y="135" text-anchor="middle" font-size="12" font-weight="700">toca uno</text></svg><div class="hatinfo" id="hatinfo"></div></div><p class="note">⭐ = sombreros que resolviste con tus respuestas.</p>';
+  return s;
+}
+function hatsInit(){const ps=body.querySelectorAll('.wheel path');const show=i=>{ps.forEach(p=>p.classList.toggle('sel',+p.dataset.h===i));const h=HATS[i];
+  document.getElementById('hatinfo').innerHTML=`<b>🎩 Sombrero ${h[0]}</b>${h[4]?'<span class="mine">tu respuesta</span>':''}<span class="r">${h[2]}</span><p>${h[3]}</p>`;};
+  ps.forEach(p=>p.onclick=()=>show(+p.dataset.h));show(HATS.findIndex(h=>h[4])>=0?HATS.findIndex(h=>h[4]):0);}
+
+/* ---- Pareto horizontal ---- */
+function pareto(){
+  const sel=new Set([A(7),A(8)].filter(Boolean)),tot=PAR.reduce((s,p)=>s+p[1],0),max=PAR[0][1];let acc=0,cutDone=false;
+  let s=`<p class="note">Regla 80/20: los problemas de arriba acumulan casi todo el impacto. Los que elegiste se ven <mark>en naranja</mark>. La línea punteada marca dónde se llega al 80%.</p>`;
+  PAR.forEach(([n,v])=>{acc+=v;const pc=Math.round(acc/tot*100);const cut=!cutDone&&pc>=80;if(cut)cutDone=true;
+    s+=`<div class="hbar ${sel.has(n)?'hl':''} ${cut?'cut':''}"><b>${n}</b><div class="t"><i style="width:${v/max*100}%"></i><em>${v}</em></div><span class="acc">${pc}%</span></div>`;});
+  return s+'<p class="note" style="margin-top:8px">La columna verde es el porcentaje acumulado.</p>';
+}
+
+/* ---- Ishikawa vertical ---- */
+function ishikawa(){
+  const c=A(9),cat=A(10),low=(c||'').toLowerCase();
+  const BR=[['Experiencia laboral','experiencia',90,1],['Actualización','actualiz',190,1],['Proyectos','proyecto',290,1],['Infraestructura','infraestructura',90,0],['Docentes','docentes',190,0],['Alumnos','alumnos',290,0]];
+  let s=`<p class="note">Efecto analizado: <b>Desempleo de egresados</b>${c?` · Causa principal: <b>${c}</b>${cat?` (categoría: ${cat})`:''}`:''}</p><div class="vfish"><svg viewBox="0 0 400 470">
+   <line x1="200" y1="20" x2="200" y2="380" stroke="#1d2433" stroke-width="5"/>
+   <path d="M200 20 L180 0 M200 20 L220 0" stroke="#1d2433" stroke-width="5" stroke-linecap="round"/>
+   <path d="M150 380 L250 380 L230 450 Q200 470 170 450Z" fill="#ff7a2f" stroke="#1d2433" stroke-width="3"/>
+   <text x="200" y="408" text-anchor="middle" font-size="13" font-weight="800" fill="#fff">Desempleo</text><text x="200" y="426" text-anchor="middle" font-size="13" font-weight="800" fill="#fff">de egresados</text>`;
+  BR.forEach(([t,k,y,left])=>{const on=low.includes(k),x2=left?40:360;
+    s+=`<line x1="200" y1="${y+60}" x2="${x2+(left?40:-40)}" y2="${y}" stroke="${on?'#ff7a2f':'#9aa0ae'}" stroke-width="${on?5:2.5}"/>
+    <rect x="${left?2:238}" y="${y-30}" width="160" height="26" rx="13" fill="${on?'#ff7a2f':'#fff'}" stroke="${on?'#ff7a2f':'#9aa0ae'}" stroke-width="2"/>
+    <text x="${left?82:318}" y="${y-12}" text-anchor="middle" font-size="12.5" font-weight="${on?800:500}" fill="${on?'#fff':'#1d2433'}">${t}</text>`;});
+  return s+'</svg></div>';
+}
+
+/* ---- CATWOE fichas ---- */
+function catwoe(){
+  const c=A(5),o=A(6);
+  const T=[['C','Cliente','¿Quién recibe el beneficio?',c||'Alumnos',!!c],['A','Actores','Quienes llevan a cabo el cambio','Docentes y administrativos',false],
+   ['T','Transformación','El cambio que ocurre','Formar egresados listos para el empleo',false],['W','Cosmovisión','La visión que le da sentido','Educación de calidad con impacto social',false],
+   ['O','Dueños','Quienes pueden decidir o detenerlo',o||'Consejo',!!o],['E','Entorno','Lo que limita desde afuera','Presupuesto, mercado laboral, normatividad',false]];
+  return `<div class="tiles">${T.map(x=>`<div class="tile ${x[4]?'mine':''}"><div class="big">${x[0]}</div><b>${x[1]}</b><small>${x[2]}</small><p>${x[3]}</p></div>`).join('')}</div><p class="note" style="margin-top:8px">Las fichas en verde son las que salen de tus respuestas.</p>`;
+}
+
+/* ===== barra superior ===== */
+function setBar(btns){const bb=document.getElementById('barBtns');bb.innerHTML='';btns.forEach(([t,f])=>{const b=document.createElement('button');b.className='chipbtn';b.textContent=t;b.onclick=f;bb.appendChild(b);});}
+document.getElementById('resetAll').onclick=()=>{if(confirm('¿Borrar todas tus respuestas y empezar de nuevo?')){R={};save();home();}};
+
+home();
+</script>
+</body>
+</html>
