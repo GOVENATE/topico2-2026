@@ -1,4 +1,4 @@
-﻿{
+{
   "nombre": "Armando Altamirano Gurrion",
   "github": "Armand9o",
   "sobreMi": "Estudiante de 9no semestre.",
@@ -16,7 +16,7 @@
     { "id": "act11-tabla-empresarios", "titulo": "Tabla Empresarios Mex", "tipo": "pdf", "ruta": "actividades/act11-tabla-empresarios/documento.pdf" },
     { "id": "act12-empresarios-mex", "titulo": "Empresarios Mexicanos", "tipo": "web", "ruta": "actividades/act12-empresarios-mex/index.html" },
     { "id": "act13-mente-critica", "titulo": "Mente Crítica", "tipo": "web", "ruta": "actividades/act13-mente-critica/index.html" },
-       { "id": "act14-7habitos", "titulo": "7 Hábitos", "tipo": "pdf", "ruta": "actividades/act14-7habitos/documento.pdf" },
+    { "id": "act14-7habitos", "titulo": "7 Hábitos", "tipo": "pdf", "ruta": "actividades/act14-7habitos/documento.pdf" },
     { "id": "act15-creatividad", "titulo": "Creatividad", "tipo": "pdf", "ruta": "actividades/act15-creatividad/documento.pdf" },
     { "id": "act16-quintadisciplina", "titulo": "Quinta Disciplina", "tipo": "pdf", "ruta": "actividades/act16-quintadisciplina/documento.pdf" },
     { "id": "act17-interactivaquinta", "titulo": "Interactiva Quinta", "tipo": "web", "ruta": "actividades/act17-interactivaquinta/index.html" }
