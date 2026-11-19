@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>La ruleta directiva · Caps. 4, 5, 6, 9, 11 y 12 · Bradley Yeray Reyes Altamirano</title>
+<style>
+:root{--bg:#0f1f1a;--felt:#14532d;--gold:#f5c542;--cream:#fdf6e3;--ink:#1b1b1b;--red:#c0392b}
+*{box-sizing:border-box}
+body{margin:0;min-height:100vh;background:radial-gradient(ellipse at top,#1f6f45,var(--bg) 70%);color:var(--cream);font:16px/1.55 Georgia,"Times New Roman",serif}
+.wrap{max-width:1050px;margin:0 auto;padding:26px 16px 50px}
+header{text-align:center}
+header .mk{font:700 .78rem/1 "Courier New",monospace;letter-spacing:.3em;color:var(--gold)}
+header h1{font-size:clamp(2.2rem,6vw,3.8rem);margin:.15em 0;font-style:italic;color:var(--gold);text-shadow:0 3px 0 #0006}
+header p{margin:0;opacity:.85}
+.ticket{display:inline-block;margin-top:14px;background:var(--cream);color:var(--ink);padding:8px 22px;font:700 .9rem "Courier New",monospace;
+ -webkit-mask:radial-gradient(circle 8px at 0 50%,#0000 98%,#000) left/51% 100% no-repeat,radial-gradient(circle 8px at 100% 50%,#0000 98%,#000) right/51% 100% no-repeat;
+ mask:radial-gradient(circle 8px at 0 50%,#0000 98%,#000) left/51% 100% no-repeat,radial-gradient(circle 8px at 100% 50%,#0000 98%,#000) right/51% 100% no-repeat}
+.ticket span{color:var(--red)}
+.stage{display:grid;grid-template-columns:380px 1fr;gap:28px;align-items:start;margin-top:26px}
+.wheelbox{position:relative;width:360px;height:360px;margin:0 auto}
+.pointer{position:absolute;top:-10px;left:50%;transform:translateX(-50%);width:0;height:0;border:16px solid transparent;border-top:30px solid var(--gold);z-index:3;filter:drop-shadow(0 3px 2px #0008)}
+#wheel{width:360px;height:360px;border-radius:50%;border:10px solid var(--gold);box-shadow:0 0 0 4px #0004,0 14px 30px #0009;transition:transform 4s cubic-bezier(.17,.67,.2,1)}
+.hub{position:absolute;inset:0;margin:auto;width:70px;height:70px;border-radius:50%;background:var(--gold);color:var(--ink);display:grid;place-items:center;font:700 .8rem "Courier New",monospace;z-index:2;border:4px solid #fff3}
+.spin{display:block;margin:18px auto 0;background:var(--red);color:#fff;border:0;border-radius:999px;padding:12px 34px;font:700 1.1rem Georgia,serif;cursor:pointer;box-shadow:0 5px 0 #7d241b}
+.spin:active{transform:translateY(3px);box-shadow:0 2px 0 #7d241b}
+.spin:disabled{opacity:.5;cursor:default}
+.score{text-align:center;margin-top:12px;font-family:"Courier New",monospace}
+.chips{display:flex;justify-content:center;gap:6px;margin-top:6px}
+.chip{width:30px;height:30px;border-radius:50%;border:3px dashed #fff8;display:grid;place-items:center;font:700 .7rem "Courier New",monospace;opacity:.35}
+.chip.got{opacity:1;border-style:solid}
+.card{background:var(--cream);color:var(--ink);border-radius:16px;padding:22px 24px;box-shadow:0 14px 30px #0008;min-height:360px;position:relative}
+.card .tag{position:absolute;top:-12px;left:20px;color:#fff;font:700 .75rem "Courier New",monospace;letter-spacing:.12em;padding:4px 10px;border-radius:4px}
+.card h2{margin:.2em 0 .1em;font-size:1.8rem}
+.card .lead{font-style:italic;color:#555;margin:0 0 12px}
+.keys{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:0 0 16px;padding:0;list-style:none}
+.keys li{background:#0000000a;border-left:4px solid var(--c);padding:7px 10px;border-radius:6px;font-size:.92rem}
+.keys b{display:block;font-family:"Courier New",monospace;font-size:.78rem;letter-spacing:.05em;color:var(--c)}
+.q{border-top:2px dashed #0003;padding-top:12px}
+.q p{margin:0 0 8px;font-weight:700}
+.vf{display:flex;gap:10px}
+.vf button{flex:1;border:2px solid var(--ink);background:#fff;border-radius:10px;padding:9px;font:700 1rem Georgia,serif;cursor:pointer}
+.vf button.ok{background:#bfe8c9}.vf button.no{background:#f3c1bb}
+.fb{margin-top:8px;min-height:1.4em;font-size:.95rem}
+.empty{display:grid;place-items:center;text-align:center;min-height:310px;color:#666}
+.empty .big{font-size:3.5rem}
+.note{margin-top:28px;background:#0006;border:1px solid #f5c54255;border-radius:16px;padding:18px 22px}
+.note h3{margin:0 0 6px;color:var(--gold);font-style:italic}
+footer{text-align:center;font-size:.85rem;opacity:.75;margin-top:20px}
+@media(max-width:820px){.stage{grid-template-columns:1fr}.keys{grid-template-columns:1fr}}
+@media(max-width:400px){.wheelbox,#wheel{width:300px;height:300px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+  <div class="mk">HABILIDADES DIRECTIVAS · CAPÍTULOS 4 · 5 · 6 · 9 · 11 · 12</div>
+  <h1>La ruleta directiva</h1>
+  <p>Gira la ruleta, lee la tarjeta del capítulo donde caiga y contesta verdadero o falso. Junta las 6 fichas.</p>
+  <div class="ticket">BOLETO DE <span>BRADLEY YERAY REYES ALTAMIRANO</span> · MESA TÓPICO 2</div>
+</header>
+
+<div class="stage">
+  <div>
+    <div class="wheelbox"><div class="pointer"></div><canvas id="wheel" width="720" height="720"></canvas><div class="hub">B·Y·R</div></div>
+    <button class="spin" id="spin">🎲 Girar</button>
+    <div class="score" id="score">Fichas: 0 / 6</div>
+    <div class="chips" id="chips"></div>
+  </div>
+  <div class="card" id="card"><div class="empty"><div><div class="big">🎰</div><p>Todavía no giras. Presiona <b>Girar</b> para empezar.</p></div></div></div>
+</div>
+
+<section class="note">
+  <h3>Lo que me llevo de la mesa</h3>
+  <p style="margin:0">Estos seis capítulos me hicieron ver que dirigir empieza por uno mismo: si no sé comunicarme, no administro mi tiempo y no me motivo, difícilmente voy a poder liderar a otros. Lo que más me identificó fue la matriz del tiempo, porque yo suelo vivir en lo urgente (entregas de última hora), y la idea de que la creatividad se entrena, como en el gym. Mi meta es pasar más tiempo en lo importante y menos apagando fuegos, y usar la asertividad para decir "no" cuando haga falta.</p>
+</section>
+<footer>Hecho por Bradley Yeray Reyes Altamirano · Tópico 2 · Fuente: <i>Habilidades Directivas</i>, Berta Ermila Madrigal Torres (McGraw-Hill).</footer>
+</div>
+
+<script>
+const C=[
+{n:4,t:'Comunicación',c:'#2f7fc1',e:'💬',lead:'Compartir significados, no solo palabras.',
+ k:[['Definición','Proceso de intercambiar ideas, sentimientos y emociones entre personas.'],['Los 7 pasos (Robbins)','Fuente, codificación, mensaje, canal, decodificación, receptor y realimentación.'],['Funciones','Expresar emociones, motivar, controlar e informar.'],['Asertividad','Decir lo que pienso y necesito de forma directa, sin agredir a nadie.'],['No verbal','Gestos, postura y tono pueden reforzar o contradecir lo que digo.'],['Escucha activa','Contacto visual, no interrumpir, preguntar y repetir con mis palabras.']],
+ q:['La realimentación es el último paso del proceso de comunicación.',true,'Sí: con la realimentación el emisor sabe si su mensaje se entendió.']},
+{n:5,t:'Administración del tiempo',c:'#d8693a',e:'⏰',lead:'Administrar el tiempo es administrar la vida.',
+ k:[['Características','Es igual para todos, no se estira, no se recupera y no se puede sustituir.'],['Matriz de Covey','Cuatro cuadrantes según lo urgente y lo importante.'],['Cuadrante ideal','El II: importante pero no urgente (planear, prevenir, prepararse).'],['Roles','Equilibrar necesidades físicas, mentales, sociales y espirituales.'],['Ladrones','No planear, no delegar, no decir no, posponer, interrupciones.'],['Mitos','"El más ocupado es el más eficiente" y la puerta siempre abierta.']],
+ q:['Lo ideal, según Covey, es pasar la mayor parte del tiempo en lo urgente e importante.',false,'Falso: lo ideal es el cuadrante II, lo importante que todavía no es urgente.']},
+{n:6,t:'Creatividad',c:'#d4537e',e:'💡',lead:'Crear algo nuevo y útil con lo que ya sabes.',
+ k:[['Definición','Producir algo nuevo y valioso a partir de lo que ya conocemos.'],['Divergente vs convergente','Muchas ideas desde un punto contra una sola respuesta correcta.'],['Se mide por','Fluidez, flexibilidad y originalidad.'],['Fases','Orientación, preparación, incubación, iluminación, verificación y comunicación.'],['Bloqueos','Miedo a equivocarse, rutina, estereotipos y exceso de control.'],['Cómo estimularla','Preguntar, leer de otros temas, reír y hacer lluvia de ideas.']],
+ q:['La creatividad es un don con el que solo nacen algunas personas.',false,'Falso: todos la tenemos y se puede entrenar.']},
+{n:9,t:'Liderazgo',c:'#7f63d6',e:'🚩',lead:'Influir para que la gente trabaje con gusto por la meta.',
+ k:[['Definición','Capacidad de influir en otros para alcanzar objetivos comunes.'],['Estilos de mando','Autocrático, democrático y laissez-faire.'],['Tipos de poder','De posición (lo da el puesto) o personal (lo da la gente).'],['Funciones','Comunicar, organizar, integrar, dirigir, controlar y motivar.'],['5 estilos','Estructurador, entrenador, alentador, delegador y carismático.'],['Kouzes y Posner','Desafiar el proceso, inspirar una visión, capacitar, ser modelo y alentar.']],
+ q:['En el estilo laissez-faire el líder da libertad total y casi no interviene.',true,'Correcto: "dejar hacer"; funciona solo con equipos muy maduros.']},
+{n:11,t:'Motivación',c:'#b9850f',e:'⚡',lead:'Lo que nos mueve a actuar.',
+ k:[['Origen','Del latín motus: "lo que mueve".'],['Ciclo','Necesidad → deseo → tensión → acción → satisfacción.'],['Maslow','Fisiológicas, seguridad, sociales, estima y autorrealización.'],['McClelland','Necesidad de logro, de poder y de afiliación.'],['Vroom y Adams','Expectativa de recompensa y comparación justa con los demás.'],['Intrínseca / extrínseca','Por gusto propio o por premios y castigos externos.']],
+ q:['Según estudios en México, lo que más motiva a los trabajadores es el dinero.',false,'Falso: el dinero motiva poco tiempo; lo que más pesa es que reconozcan su trabajo.']},
+{n:12,t:'Habilidad estratégica',c:'#2f9a72',e:'🎯',lead:'Saber a dónde vas y cómo llegar.',
+ k:[['Estrategia','Conjunto de pasos para llevar a cabo un plan hacia un objetivo.'],['El estratega','Lee, pregunta sin miedo, usa intuición y razón, escucha ideas distintas.'],['Liderazgo estratégico','Anticipar, visualizar, ser flexible y dar autoridad para el cambio.'],['Mapa','Autodiagnóstico (¿quién soy?, ¿a dónde voy?) → estrategia → acción → meta.'],['4 variables','Financiera, clientes, procesos internos y aprendizaje.'],['Flexibilidad','Si no da resultados, se replantea: ¿qué, cómo, para qué, cambiamos?']],
+ q:['El mapa de estrategia empieza con un autodiagnóstico.',true,'Así es: primero saber quién soy y a dónde quiero ir.']}];
+const got=new Set();let rot=0,busy=false;
+const cv=document.getElementById('wheel'),x=cv.getContext('2d'),N=C.length,A=2*Math.PI/N;
+function draw(){x.clearRect(0,0,720,720);C.forEach((s,i)=>{const a0=-Math.PI/2+i*A-A/2;x.beginPath();x.moveTo(360,360);x.arc(360,360,350,a0,a0+A);x.closePath();
+ x.fillStyle=got.has(i)?'#2b2b2b':s.c;x.fill();x.strokeStyle='#f5c542';x.lineWidth=6;x.stroke();
+ x.save();x.translate(360,360);x.rotate(a0+A/2);x.textAlign='right';x.fillStyle='#fff';x.font='bold 36px Georgia';x.fillText('Cap. '+s.n,320,-6);x.font='52px serif';x.fillText(got.has(i)?'✔':s.e,180,18);x.restore();});}
+function chips(){document.getElementById('chips').innerHTML=C.map((s,i)=>`<div class="chip ${got.has(i)?'got':''}" style="background:${got.has(i)?s.c:'transparent'}">${s.n}</div>`).join('');
+ document.getElementById('score').textContent=`Fichas: ${got.size} / 6`;}
+function card(i){const s=C[i],el=document.getElementById('card');
+ el.innerHTML=`<span class="tag" style="background:${s.c}">CAPÍTULO ${s.n}</span><h2>${s.e} ${s.t}</h2><p class="lead">${s.lead}</p>
+ <ul class="keys" style="--c:${s.c}">${s.k.map(k=>`<li><b>${k[0].toUpperCase()}</b>${k[1]}</li>`).join('')}</ul>
+ <div class="q"><p>¿Verdadero o falso? “${s.q[0]}”</p><div class="vf"><button data-v="1">Verdadero</button><button data-v="0">Falso</button></div><div class="fb" id="fb"></div></div>`;
+ el.querySelectorAll('.vf button').forEach(b=>b.onclick=()=>{const ok=(b.dataset.v==='1')===s.q[1];
+  el.querySelectorAll('.vf button').forEach(z=>z.disabled=true);b.classList.add(ok?'ok':'no');
+  document.getElementById('fb').innerHTML=(ok?'✔ <b>¡Ganaste la ficha!</b> ':'✘ <b>Casi.</b> Ficha ganada por intentarlo, pero recuérdalo: ')+s.q[2];
+  got.add(i);draw();chips();if(got.size===N)setTimeout(fin,1200);});}
+function fin(){document.getElementById('card').innerHTML=`<div class="empty"><div><div class="big">🏆</div><h2>¡Mesa completa!</h2><p>Juntaste las 6 fichas: comunicación, tiempo, creatividad, liderazgo, motivación y estrategia.<br><b>Bradley Yeray Reyes Altamirano</b> se lleva el premio del Tópico 2.</p></div></div>`;document.getElementById('spin').disabled=true;}
+document.getElementById('spin').onclick=()=>{if(busy)return;const left=[...Array(N).keys()].filter(i=>!got.has(i));if(!left.length)return;
+ busy=true;const i=left[Math.floor(Math.random()*left.length)];
+ const target=-(i*360/N);rot=rot-((rot%360)+360)%360+360*5+((target%360)+360)%360;
+ cv.style.transform=`rotate(${rot}deg)`;setTimeout(()=>{busy=false;card(i);},4100);};
+draw();chips();
+</script>
+</body>
+</html>

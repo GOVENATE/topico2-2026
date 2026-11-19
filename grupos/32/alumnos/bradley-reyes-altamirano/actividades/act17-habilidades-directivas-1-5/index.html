@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Mi semana bajo control · Habilidades Directivas 1 y 5 · Bradley Yeray Reyes Altamirano</title>
+<style>
+:root{--bg:#121826;--card:#1b2333;--card2:#232d40;--ink:#eef2f8;--soft:#9aa6bc;--line:#2f3a50;--y:#ffd166;--o:#ff8c42;--g:#3ddc97;--b:#5aa9ff;--r:#ff5d73}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.6 "Segoe UI",system-ui,-apple-system,sans-serif}
+h1,h2,h3{margin:0;line-height:1.2}
+button{font:inherit;color:inherit;cursor:pointer}
+.wrap{max-width:1000px;margin:0 auto;padding:30px 18px 50px}
+header{display:grid;grid-template-columns:1fr auto;gap:20px;align-items:center;margin-bottom:26px}
+header small{color:var(--y);letter-spacing:.2em;font-weight:700}
+header h1{font-size:clamp(2rem,5vw,3.1rem);margin:.15em 0}
+header p{margin:0;color:var(--soft);max-width:55ch}
+.clock{width:150px;height:150px;border-radius:50%;border:8px solid var(--y);position:relative;display:grid;place-items:center;text-align:center;font-size:.8rem;color:var(--soft)}
+.clock b{display:block;font-size:1.7rem;color:var(--ink)}
+.box{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:22px;margin-bottom:20px}
+.k{color:var(--y);font-weight:800;letter-spacing:.14em;font-size:.75rem;text-transform:uppercase}
+.box h2{font-size:1.5rem;margin:.2em 0 .5em}
+.soft{color:var(--soft)}
+/* cap 1 resumen */
+.trio{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:10px}
+.trio div{background:var(--card2);border-radius:12px;padding:14px;border-top:4px solid var(--b)}
+.trio b{display:block}
+/* 168 horas */
+.hrs{display:grid;grid-template-columns:1fr 1fr;gap:24px;align-items:center}
+.sl{margin:10px 0}
+.sl label{display:flex;justify-content:space-between;font-size:.92rem}
+.sl input{width:100%;accent-color:var(--y)}
+.week{display:flex;height:42px;border-radius:10px;overflow:hidden;background:var(--card2)}
+.week i{display:block;height:100%;transition:width .4s}
+.free{font-size:1.1rem;margin-top:12px}
+.free b{color:var(--g);font-size:1.6rem}
+/* matriz */
+.tasks{display:flex;flex-wrap:wrap;gap:8px;margin:12px 0;min-height:44px}
+.task{background:var(--card2);border:1px solid var(--line);border-radius:999px;padding:7px 14px;font-size:.9rem;cursor:grab;user-select:none}
+.task.sel{border-color:var(--y);box-shadow:0 0 0 3px #ffd16640}
+.task.ok{border-color:var(--g)}
+.task.bad{border-color:var(--r);animation:sh .4s}
+@keyframes sh{25%{transform:translateX(-5px)}75%{transform:translateX(5px)}}
+.matrix{display:grid;grid-template-columns:auto 1fr 1fr;grid-template-rows:auto 1fr 1fr;gap:8px}
+.ax{font-size:.75rem;font-weight:800;letter-spacing:.12em;color:var(--soft);display:grid;place-items:center;text-align:center}
+.ax.v{writing-mode:vertical-rl;transform:rotate(180deg)}
+.q{border:2px dashed var(--line);border-radius:14px;padding:12px;min-height:150px;transition:.2s}
+.q:hover{border-color:var(--y)}
+.q h3{font-size:1rem}
+.q small{color:var(--soft);display:block;margin-bottom:8px}
+.q1{background:#ff5d7312}.q2{background:#3ddc9714}.q3{background:#ff8c4212}.q4{background:#9aa6bc10}
+.q .task{display:inline-block;margin:3px}
+.msg{min-height:1.6em;margin-top:10px;font-weight:600}
+/* ladrones */
+.thieves{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:10px}
+.th{background:var(--card2);border-radius:12px;padding:12px 14px;display:flex;gap:10px;align-items:flex-start;cursor:pointer;border:2px solid transparent}
+.th.on{border-color:var(--r)}
+.th span{font-size:1.5rem}
+.th small{display:block;color:var(--soft)}
+.tip{margin-top:12px;background:#ffd16614;border-left:5px solid var(--y);border-radius:0 12px 12px 0;padding:12px 16px}
+/* reglas */
+.rules{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.rules div{background:var(--card2);border-radius:12px;padding:14px}
+.rules b{color:var(--y)}
+.mine{border-left:6px solid var(--y)}
+footer{text-align:center;color:var(--soft);font-size:.85rem;margin-top:10px}
+@media(max-width:760px){header,.hrs,.trio,.rules{grid-template-columns:1fr}.clock{display:none}.matrix{grid-template-columns:1fr}.ax{display:none}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+  <div>
+    <small>HABILIDADES DIRECTIVAS · CAPÍTULOS 1 Y 5</small>
+    <h1>Mi semana bajo control</h1>
+    <p>De qué sirve tener habilidades directivas si no sabes administrar tu tiempo. Aquí repaso el capítulo 1 y pongo a prueba el capítulo 5 con mi propia semana.</p>
+    <p style="margin-top:10px">Por <b>Bradley Yeray Reyes Altamirano</b> · Tópico 2</p>
+  </div>
+  <div class="clock"><div><b id="clk">168</b>horas libres<br>de 168</div></div>
+</header>
+
+<section class="box">
+  <div class="k">Capítulo 1 en 30 segundos</div>
+  <h2>Dirigir se aprende</h2>
+  <p>Una habilidad es una capacidad que se gana con aprendizaje y práctica. Las habilidades directivas permiten lograr resultados a través de otras personas, y se combinan en tres dimensiones:</p>
+  <div class="trio">
+    <div><b>📘 Saber</b><span class="soft">Los conocimientos de tu área.</span></div>
+    <div style="border-color:var(--y)"><b>🛠️ Saber hacer</b><span class="soft">Las habilidades técnicas, humanas y conceptuales para aplicarlos.</span></div>
+    <div style="border-color:var(--g)"><b>🤝 Saber ser</b><span class="soft">La actitud y los valores con los que tratas a los demás.</span></div>
+  </div>
+  <p class="soft" style="margin:12px 0 0">Una de esas habilidades, y de las que más se notan en un directivo, es la que trata el capítulo 5: administrar el tiempo.</p>
+</section>
+
+<section class="box">
+  <div class="k">Capítulo 5 · Ejercicio 1</div>
+  <h2>¿A dónde se van mis 168 horas?</h2>
+  <p class="soft">El tiempo es el único recurso que todos tenemos en la misma cantidad, que no se guarda y que no se recupera. Mueve las barras con tu semana real:</p>
+  <div class="hrs">
+    <div id="sliders"></div>
+    <div>
+      <div class="week" id="week"></div>
+      <p class="free" id="free"></p>
+      <p class="soft" id="freeTxt" style="font-size:.92rem"></p>
+    </div>
+  </div>
+</section>
+
+<section class="box">
+  <div class="k">Capítulo 5 · Ejercicio 2</div>
+  <h2>Acomoda mis pendientes en la matriz del tiempo</h2>
+  <p class="soft">Toca un pendiente y luego el cuadrante donde crees que va. La matriz clasifica todo por <b>importancia</b> y <b>urgencia</b>.</p>
+  <div class="tasks" id="pool"></div>
+  <div class="matrix">
+    <div></div><div class="ax">URGENTE</div><div class="ax">NO URGENTE</div>
+    <div class="ax v">IMPORTANTE</div>
+    <div class="q q1" data-q="1"><h3>🔥 I · Apagar fuegos</h3><small>Crisis y fechas límite. Hay que hacerlo ya.</small></div>
+    <div class="q q2" data-q="2"><h3>🌱 II · Donde crece el líder</h3><small>Planear, prevenir y mejorar. Aquí deberías pasar más tiempo.</small></div>
+    <div class="ax v">NO IMPORTANTE</div>
+    <div class="q q3" data-q="3"><h3>📢 III · Distracciones</h3><small>Parecen urgentes, pero no te acercan a tus metas. Delega.</small></div>
+    <div class="q q4" data-q="4"><h3>🕳️ IV · Tiempo perdido</h3><small>Ni urgente ni importante. Elimínalo.</small></div>
+  </div>
+  <div class="msg" id="msg"></div>
+</section>
+
+<section class="box">
+  <div class="k">Capítulo 5 · Ejercicio 3</div>
+  <h2>Mis ladrones de tiempo</h2>
+  <p class="soft">Hay enemigos que vienen de afuera y otros que vienen de uno mismo. Marca los que te pasan a ti:</p>
+  <div class="thieves" id="thieves"></div>
+  <div class="tip" id="tip">Marca al menos uno para ver un consejo.</div>
+</section>
+
+<section class="box">
+  <div class="k">Capítulo 5 · Ideas clave</div>
+  <h2>Tres reglas que me quedo</h2>
+  <div class="rules">
+    <div><b>Primero lo importante</b><br>Si no planeo lo importante, lo urgente se come mi día.</div>
+    <div><b>Aprender a decir no</b><br>Cada "sí" a algo que no importa es un "no" a algo que sí.</div>
+    <div><b>Delegar</b><br>Un directivo no hace todo; reparte tareas según las capacidades de su equipo.</div>
+  </div>
+</section>
+
+<section class="box mine">
+  <div class="k">Mi reflexión</div>
+  <h2>Lo que descubrí de mí</h2>
+  <p>Al hacer las cuentas de mi semana me di cuenta de que muchas de mis horas "libres" se van en el celular y en pendientes que dejo para después, y que casi no dedico tiempo al cuadrante II: planear y adelantarme. Por eso termino apagando fuegos, como hoy con las entregas. Relacionándolo con el capítulo 1, administrar el tiempo es una habilidad como cualquier otra: no se trae de nacimiento, se practica. Mi meta es reservar un rato cada domingo para planear la semana.</p>
+</section>
+<footer>Bradley Yeray Reyes Altamirano · Tópico 2 · Basado en <i>Habilidades Directivas</i> de Berta Ermila Madrigal Torres (McGraw-Hill), capítulos 1 y 5.</footer>
+</div>
+
+<script>
+const $=id=>document.getElementById(id);
+/* 168 horas */
+const H=[['😴 Dormir',56,'#5aa9ff',0,84],['🎓 Escuela y tareas',40,'#ffd166',0,80],['🍽️ Comer y arreglarme',14,'#3ddc97',0,40],['🚌 Traslados',7,'#ff8c42',0,30],['🏋️ Gym',5,'#c792ea',0,25],['📱 Celular y redes',21,'#ff5d73',0,60]];
+$('sliders').innerHTML=H.map((h,i)=>`<div class="sl"><label><span>${h[0]}</span><b id="h${i}">${h[1]} h</b></label><input type="range" min="${h[3]}" max="${h[4]}" value="${h[1]}" data-i="${i}"></div>`).join('');
+function week(){
+  const used=H.reduce((s,h)=>s+h[1],0),free=168-used;
+  $('week').innerHTML=H.map(h=>`<i style="width:${h[1]/168*100}%;background:${h[2]}" title="${h[0]}"></i>`).join('')+(free>0?`<i style="width:${free/168*100}%;background:#ffffff22"></i>`:'');
+  $('free').innerHTML=free>=0?`Te quedan <b>${free} h</b> libres a la semana`:`<b style="color:var(--r)">${free} h</b> · ¡te pasaste de las 168 horas!`;
+  const cel=H[5][1];
+  $('freeTxt').textContent=free<0?'Ninguna semana tiene más de 168 horas: el tiempo es inelástico.':cel>free?`Pasas más tiempo en el celular (${cel} h) que el que te queda libre. Ahí hay horas para recuperar.`:'Buen balance. La pregunta es: ¿en qué cuadrante de la matriz usas esas horas libres?';
+  $('clk').textContent=Math.max(free,0);
+}
+$('sliders').querySelectorAll('input').forEach(r=>r.oninput=()=>{H[+r.dataset.i][1]=+r.value;$('h'+r.dataset.i).textContent=r.value+' h';week();});
+week();
+
+/* matriz */
+const T=[['Examen de mañana',1],['Entregar actividades hoy',1],['Planear mi semana',2],['Estudiar inglés',2],['Ir al gym',2],['Mensajes del grupo de memes',3],['Junta sin agenda',3],['Llamada que no esperaba',3],['Ver videos al azar 2 horas',4],['Revisar redes otra vez',4]];
+let sel=null,placed=0;
+function pool(){$('pool').innerHTML='';T.forEach((t,i)=>{if(t.done)return;const b=document.createElement('span');b.className='task';b.textContent=t[0];b.onclick=()=>{sel=i;$('pool').querySelectorAll('.task').forEach(x=>x.classList.toggle('sel',x===b));};$('pool').appendChild(b);});
+  if(placed===T.length)$('pool').innerHTML='<span class="soft">✅ ¡Acomodaste todo! Fíjate cuánto cabía en el cuadrante II.</span>';}
+document.querySelectorAll('.q').forEach(q=>q.onclick=()=>{
+  if(sel==null){$('msg').textContent='Primero elige un pendiente de arriba.';return;}
+  const t=T[sel],want=+q.dataset.q;
+  if(t[1]===want){t.done=true;placed++;const s=document.createElement('span');s.className='task ok';s.textContent=t[0];q.appendChild(s);$('msg').innerHTML=`<span style="color:var(--g)">✔ Correcto.</span> ${['','Es importante y no puede esperar.','Importa mucho, pero nadie te presiona: por eso se descuida.','Te reclama atención, pero no te acerca a tus metas.','No suma nada; es tiempo perdido.'][want]}`;sel=null;pool();}
+  else{$('msg').innerHTML='<span style="color:var(--r)">✘ Ahí no.</span> Pregúntate: ¿me acerca a mis metas? ¿tiene fecha límite inmediata?';const el=[...$('pool').children].find(x=>x.textContent===t[0]);if(el){el.classList.add('bad');setTimeout(()=>el.classList.remove('bad'),400);}}
+});
+pool();
+
+/* ladrones */
+const L=[['📱','Notificaciones','externo','Silencia el celular en bloques de estudio de 45 minutos.'],['🚪','Visitas o llamadas inesperadas','externo','Pon horarios para atender y avisa cuándo estás ocupado.'],['🗓️','Reuniones sin objetivo','externo','Pide la agenda antes y pon hora de inicio y de fin.'],['⏳','Dejar todo para después','interno','Divide la tarea en pasos pequeños y empieza por el más fácil.'],['🙅','No saber decir "no"','interno','Antes de aceptar algo, pregúntate si te acerca a tus metas.'],['🧺','Desorden','interno','Ten una lista de pendientes y un lugar para cada cosa.'],['🧍','No delegar','interno','Confía en tu equipo: reparte tareas según lo que sabe hacer cada quien.'],['🌐','Internet sin rumbo','externo','Antes de abrir el navegador, decide qué vas a buscar.']];
+$('thieves').innerHTML=L.map((l,i)=>`<div class="th" data-i="${i}"><span>${l[0]}</span><div><b>${l[1]}</b><small>Enemigo ${l[2]}</small></div></div>`).join('');
+$('thieves').querySelectorAll('.th').forEach(t=>t.onclick=()=>{t.classList.toggle('on');const on=[...$('thieves').querySelectorAll('.th.on')].map(x=>L[+x.dataset.i]);
+  $('tip').innerHTML=on.length?`<b>Tienes ${on.length} ladrón(es) de tiempo.</b><br>`+on.map(l=>`${l[0]} ${l[3]}`).join('<br>'):'Marca al menos uno para ver un consejo.';});
+</script>
+</body>
+</html>

@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tablero del directivo · Habilidades Directivas 2, 7, 8, 10 y 13 · Bradley Yeray Reyes Altamirano</title>
+<style>
+:root{--bg:#f3ead8;--ink:#1d1b2f;--soft:#6c6676;--card:#fffaf0;--line:#1d1b2f;--c2:#3a6ea5;--c7:#e07a24;--c8:#2e9a6b;--c10:#c43e5c;--c13:#7a4bc2}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.55 "Trebuchet MS","Segoe UI",sans-serif;
+ background-image:radial-gradient(#d8ccb2 1.2px,transparent 1.2px);background-size:22px 22px}
+h1,h2,h3{margin:0;line-height:1.15}
+button{font:inherit;color:inherit;cursor:pointer}
+.wrap{max-width:1000px;margin:0 auto;padding:28px 16px 50px}
+header{text-align:center;margin-bottom:22px}
+header .k{display:inline-block;background:var(--ink);color:#fff;padding:4px 12px;border-radius:6px;font-weight:700;letter-spacing:.12em;font-size:.8rem}
+header h1{font-size:clamp(2.2rem,6vw,3.6rem);margin:.2em 0 .1em;font-weight:900}
+header p{color:var(--soft);margin:0}
+.player{display:inline-flex;gap:10px;align-items:center;background:var(--card);border:3px solid var(--line);border-radius:999px;padding:6px 16px 6px 6px;margin-top:12px;box-shadow:4px 4px 0 var(--line);font-weight:700}
+.player i{font-style:normal;width:34px;height:34px;border-radius:50%;background:var(--c10);color:#fff;display:grid;place-items:center}
+/* tablero */
+.board{display:grid;grid-template-columns:repeat(6,1fr);gap:10px;margin:24px 0}
+.sq{background:var(--card);border:3px solid var(--line);border-radius:14px;padding:12px 8px;text-align:center;box-shadow:4px 4px 0 var(--line);transition:.15s;position:relative}
+.sq:hover{transform:translate(-2px,-2px);box-shadow:6px 6px 0 var(--line)}
+.sq small{display:block;font-weight:700;font-size:.72rem;letter-spacing:.06em}
+.sq b{display:block;font-size:.95rem}
+.sq .e{font-size:1.8rem}
+.sq.on{color:#fff}
+.sq.done::after{content:"★";position:absolute;top:-10px;right:-8px;background:#ffcc33;border:2px solid var(--line);border-radius:50%;width:28px;height:28px;display:grid;place-items:center;font-size:.9rem;color:var(--ink)}
+.sq.goal{background:#ffcc33}
+.panel{background:var(--card);border:3px solid var(--line);border-radius:20px;padding:22px;box-shadow:6px 6px 0 var(--line)}
+.panel .cap{display:inline-block;color:#fff;font-weight:800;border-radius:8px;padding:3px 10px;font-size:.8rem;letter-spacing:.08em}
+.panel h2{font-size:1.6rem;margin:.3em 0 .4em}
+.learn{background:#00000008;border-radius:12px;padding:12px 14px;margin-bottom:14px}
+.learn ul{margin:.3em 0 0;padding-left:20px}
+.ch{font-weight:800;margin:6px 0 8px}
+.opts{display:grid;gap:8px}
+.btn{border:3px solid var(--line);background:#fff;border-radius:12px;padding:9px 14px;font-weight:700;text-align:left;box-shadow:3px 3px 0 var(--line)}
+.btn:active{transform:translate(2px,2px);box-shadow:1px 1px 0 var(--line)}
+.btn.ok{background:#c9f1d9}.btn.no{background:#f9cfd6}
+.btn:disabled{cursor:default}
+.fb{min-height:1.5em;margin-top:10px;font-weight:700}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.order{display:flex;flex-wrap:wrap;gap:8px;margin:8px 0}
+.slots{display:grid;gap:6px;counter-reset:n;margin-top:8px}
+.slots div{border:2px dashed var(--line);border-radius:10px;padding:7px 10px;min-height:38px;background:#fff}
+.slots div::before{counter-increment:n;content:counter(n) ". ";font-weight:800}
+.meter{display:grid;grid-template-columns:110px 1fr 46px;gap:8px;align-items:center;margin:6px 0;font-weight:700;font-size:.9rem}
+.meter .t{height:16px;border:2px solid var(--line);border-radius:9px;background:#fff;overflow:hidden}
+.meter .t i{display:block;height:100%;transition:width .5s}
+.hats{display:grid;grid-template-columns:repeat(6,1fr);gap:6px;margin-top:8px}
+.hat{border:3px solid var(--line);border-radius:10px;padding:8px 4px;text-align:center;font-weight:800;font-size:.8rem;box-shadow:2px 2px 0 var(--line)}
+.final{text-align:center}
+.final .big{font-size:4rem}
+.mine{margin-top:22px}
+footer{text-align:center;color:var(--soft);font-size:.85rem;margin-top:20px}
+@media(max-width:760px){.board{grid-template-columns:repeat(3,1fr)}.two{grid-template-columns:1fr}.hats{grid-template-columns:repeat(3,1fr)}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+  <span class="k">HABILIDADES DIRECTIVAS · CAPÍTULOS 2, 7, 8, 10 Y 13</span>
+  <h1>El tablero del directivo</h1>
+  <p>Avanza casilla por casilla: cada una es un capítulo con un reto. Gana las 5 estrellas para llegar a la meta.</p>
+  <div class="player"><i>B</i>Jugador: Bradley Yeray Reyes Altamirano · Tópico 2</div>
+</header>
+
+<div class="board" id="board"></div>
+<div class="panel" id="panel"></div>
+
+<section class="panel mine">
+  <h2>🧭 Mi reflexión</h2>
+  <p style="margin:.3em 0 0">Al juntar estos cinco capítulos me di cuenta de que todos hablan de lo mismo desde distintos ángulos: <b>trabajar con personas</b>. Dirigir no es mandar, sino coordinar a un equipo; para eso hay que decidir con método, manejar los conflictos sin pelear, negociar para que todos ganen y pensar de forma crítica y creativa. Lo que más me sirve es la negociación ganar-ganar y los seis sombreros: los puedo usar desde ya en los trabajos en equipo de la escuela, donde siempre hay alguien que no está de acuerdo.</p>
+</section>
+<footer>Bradley Yeray Reyes Altamirano · Tópico 2 · Basado en <i>Habilidades Directivas</i> de Berta Ermila Madrigal Torres (McGraw-Hill), capítulos 2, 7, 8, 10 y 13.</footer>
+</div>
+
+<script>
+const $=id=>document.getElementById(id);
+const SQ=[
+ {id:2,e:'🏛️',t:'Alta dirección',c:'var(--c2)'},
+ {id:7,e:'🔀',t:'Decisiones',c:'var(--c7)'},
+ {id:8,e:'🤝',t:'Equipos y conflictos',c:'var(--c8)'},
+ {id:10,e:'⚖️',t:'Negociación',c:'var(--c10)'},
+ {id:13,e:'🧠',t:'Pensamiento',c:'var(--c13)'},
+ {id:0,e:'🏁',t:'Meta',c:'#ffcc33'}];
+const done=new Set();let cur=0;
+function board(){$('board').innerHTML=SQ.map((s,i)=>`<button class="sq ${s.id===0?'goal':''} ${i===cur?'on':''} ${done.has(s.id)?'done':''}" data-i="${i}" style="${i===cur&&s.id?`background:${s.c}`:''}"><span class="e">${s.e}</span><small>${s.id?'CAP. '+s.id:'FINAL'}</small><b>${s.t}</b></button>`).join('');
+  $('board').querySelectorAll('.sq').forEach(b=>b.onclick=()=>{cur=+b.dataset.i;board();show();});}
+const win=id=>{done.add(id);board();};
+const next=()=>`<button class="btn" style="margin-top:12px" onclick="cur=Math.min(cur+1,5);board();show()">Siguiente casilla →</button>`;
+
+/* ---- retos ---- */
+const R={
+2:()=>{
+ const S=[['Se enfoca en sistemas y procedimientos','a'],['Inspira y convence a la gente','l'],['Mantiene lo que ya funciona','a'],['Propone cambios y nuevas metas','l'],['Controla que se cumplan las reglas','a'],['Genera confianza en su equipo','l']];let i=0,ok=0;
+ return {learn:`<b>Dirigir</b> es coordinar y guiar el esfuerzo de otras personas hacia las metas de la organización. Es una etapa del proceso administrativo (prever, planear, organizar, integrar, <b>dirigir</b>, controlar). La alta dirección necesita definir <b>misión</b> (razón de ser) y <b>visión</b> (a dónde va), y combinar dos papeles: el de <b>administrador</b> y el de <b>líder</b>.`,
+  ch:'Reto: ¿esto lo hace más un administrador o un líder?',
+  run(el){const draw=()=>{if(i>=S.length){el.innerHTML=`<p class="fb">✔ ${ok}/${S.length} correctas. Una empresa necesita los dos papeles: orden y rumbo.</p>`+next();win(2);return;}
+   el.innerHTML=`<p class="ch">“${S[i][0]}”</p><div class="two"><button class="btn" data-v="a">📋 Administrador</button><button class="btn" data-v="l">🌟 Líder</button></div><p class="fb" id="f"></p>`;
+   el.querySelectorAll('.btn').forEach(b=>b.onclick=()=>{const g=b.dataset.v===S[i][1];if(g)ok++;b.classList.add(g?'ok':'no');$('f').textContent=g?'✔ Correcto':'✘ Es del otro papel';setTimeout(()=>{i++;draw();},700);});};draw();}};
+},
+7:()=>{
+ const S=[['Reponer el papel de la impresora cuando se acaba','p'],['Decidir si la empresa entra a vender en otro país','n'],['Calcular la nómina de cada quincena','p'],['Qué hacer ante una pandemia que cierra la tienda','n'],['Aprobar las vacaciones según el reglamento','p']];let i=0,ok=0;
+ return {learn:`Decidir es <b>elegir entre varias opciones y dejar las demás</b>. Un proceso ordenado: definir el problema, fijar criterios, buscar alternativas, compararlas, elegir, planear e implementar. Las decisiones pueden ser <b>programadas</b> (de rutina) o <b>no programadas</b> (situaciones nuevas), y tomarse con certidumbre o con incertidumbre. Las barreras más comunes son los prejuicios, la prisa y no conocer el tema.`,
+  ch:'Reto: ¿decisión programada o no programada?',
+  run(el){const draw=()=>{if(i>=S.length){el.innerHTML=`<p class="fb">✔ ${ok}/${S.length}. Las programadas se pueden delegar; las no programadas son las que de verdad necesitan al directivo.</p>`+next();win(7);return;}
+   el.innerHTML=`<p class="ch">“${S[i][0]}”</p><div class="two"><button class="btn" data-v="p">🔁 Programada</button><button class="btn" data-v="n">🆕 No programada</button></div><p class="fb" id="f"></p>`;
+   el.querySelectorAll('.btn').forEach(b=>b.onclick=()=>{const g=b.dataset.v===S[i][1];if(g)ok++;b.classList.add(g?'ok':'no');$('f').textContent=g?'✔ Correcto':'✘ Piénsalo: ¿es de rutina o es algo nuevo?';setTimeout(()=>{i++;draw();},700);});};draw();}};
+},
+8:()=>{
+ const STEPS=['Aceptar que hay un conflicto','Encontrar cuál es el problema real','Escuchar a todas las partes','Buscar soluciones juntos','Llegar a un acuerdo','Dar seguimiento'];
+ let mix=STEPS.map((s,i)=>i).sort(()=>Math.random()-.5),got=[];
+ return {learn:`Un <b>grupo</b> son personas que trabajan juntas pero cada quien por su lado; un <b>equipo</b> comparte la meta, el compromiso y los resultados. Los equipos pequeños suelen funcionar mejor. Los <b>conflictos</b> pueden ser con uno mismo, entre personas o con el puesto, y nacen de diferencias de valores, de forma de trabajar o de conocimientos. No son malos si se manejan bien.`,
+  ch:'Reto: ordena los pasos para resolver un conflicto en tu equipo de la escuela.',
+  run(el){const draw=()=>{
+   el.innerHTML=`<p class="ch">Toca los pasos en el orden correcto:</p><div class="order">${mix.filter(i=>!got.includes(i)).map(i=>`<button class="btn" data-i="${i}">${STEPS[i]}</button>`).join('')}</div><div class="slots">${STEPS.map((_,k)=>`<div>${got[k]!=null?STEPS[got[k]]:''}</div>`).join('')}</div><p class="fb" id="f"></p>`;
+   if(got.length===STEPS.length){$('f').textContent='✔ ¡Perfecto! Primero se acepta y se escucha; la solución viene después.';el.insertAdjacentHTML('beforeend',next());win(8);return;}
+   el.querySelectorAll('.order .btn').forEach(b=>b.onclick=()=>{const k=+b.dataset.i;if(k===got.length){got.push(k);draw();}else{b.classList.add('no');$('f').textContent='✘ Ese no va todavía. ¿Qué tendría que pasar antes?';setTimeout(()=>b.classList.remove('no'),500);}});};draw();}};
+},
+10:()=>{
+ const O=[['Le pido todo el proyecto a mi compañero y yo solo expongo',[95,15]],['Dividimos por partes iguales sin preguntar qué sabe hacer cada quien',[55,50]],['Yo hago el código y él la presentación, que es lo que mejor le sale; revisamos juntos',[85,85]],['Le dejo todo a él para no discutir',[10,90]]];
+ return {learn:`Negociar es la forma más racional de resolver diferencias buscando una solución que les sirva a las dos partes. Tiene fases (preparar, discutir, proponer, intercambiar y cerrar). El paradigma actual es <b>ganar-ganar</b>: si uno gana y el otro pierde, la relación se rompe y a la larga los dos pierden. La habilidad clave es la <b>comunicación</b>: escuchar y leer las señales del otro.`,
+  ch:'Reto: tú y un compañero deben repartir un proyecto. ¿Qué propones?',
+  run(el){el.innerHTML=`<div class="opts">${O.map((o,i)=>`<button class="btn" data-i="${i}">${o[0]}</button>`).join('')}</div><div id="m" style="margin-top:12px"></div><p class="fb" id="f"></p>`;
+   el.querySelectorAll('.btn').forEach(b=>b.onclick=()=>{const o=O[+b.dataset.i];
+    $('m').innerHTML=`<div class="meter"><span>😀 Yo</span><div class="t"><i style="width:${o[1][0]}%;background:var(--c2)"></i></div><span>${o[1][0]}%</span></div><div class="meter"><span>🙂 Compañero</span><div class="t"><i style="width:${o[1][1]}%;background:var(--c10)"></i></div><span>${o[1][1]}%</span></div>`;
+    const ww=o[1][0]>=80&&o[1][1]>=80;$('f').textContent=ww?'✔ ¡Ganar-ganar! Los dos quedan satisfechos y el trabajo sale mejor.':'✘ Alguien sale perdiendo. Busca la opción donde los dos ganen.';
+    if(ww&&!el.querySelector('.nx')){el.insertAdjacentHTML('beforeend',next().replace('class="btn"','class="btn nx"'));win(10);}});}};
+},
+13:()=>{
+ const H=[['⚪','Blanco','#fff','Datos'],['🔴','Rojo','#f29aa8','Emociones'],['⚫','Negro','#8d8a99','Riesgos'],['🟡','Amarillo','#ffe27a','Beneficios'],['🟢','Verde','#9fe3bf','Ideas nuevas'],['🔵','Azul','#a9c8f0','Control']];
+ const S=[['"El 40% del grupo reprobó el primer parcial."',0],['"Me da mucha ansiedad este proyecto."',1],['"Si lo hacemos así, podemos no terminar a tiempo."',2],['"Si sale bien, nos sirve para el portafolio."',3],['"¿Y si lo hacemos como videojuego?"',4],['"Ok, resumamos y repartamos tareas."',5]];let i=0,ok=0;
+ return {learn:`Las habilidades del pensamiento son la capacidad de <b>usar lo que sabemos de forma crítica y creativa</b>, y se entrenan hasta volverse hábito. Incluyen el <b>pensamiento crítico</b> (analizar y evaluar la información), el <b>pensamiento lateral</b> (buscar soluciones fuera de lo obvio), las <b>inteligencias múltiples</b> de Gardner y la técnica de los <b>seis sombreros</b> de Edward de Bono, que separa los modos de pensar para no mezclarlos.`,
+  ch:'Reto: ¿con qué sombrero está pensando quien dice esto?',
+  run(el){const draw=()=>{if(i>=S.length){el.innerHTML=`<p class="fb">✔ ${ok}/${S.length}. Usar un sombrero a la vez evita que una junta se vuelva puro debate.</p>`+next();win(13);return;}
+   el.innerHTML=`<p class="ch">${S[i][0]}</p><div class="hats">${H.map((h,k)=>`<button class="hat" data-k="${k}" style="background:${h[2]}">${h[0]}<br>${h[1]}<br><small style="font-weight:600">${h[3]}</small></button>`).join('')}</div><p class="fb" id="f"></p>`;
+   el.querySelectorAll('.hat').forEach(b=>b.onclick=()=>{const g=+b.dataset.k===S[i][1];if(g)ok++;$('f').textContent=g?'✔ Correcto':`✘ Era el sombrero ${H[S[i][1]][1].toLowerCase()}`;setTimeout(()=>{i++;draw();},800);});};draw();}};
+}};
+
+function show(){const s=SQ[cur];
+  if(!s.id){const n=done.size;$('panel').innerHTML=`<div class="final"><div class="big">${n===5?'🏆':'🚧'}</div><h2>${n===5?'¡Llegaste a la meta!':'Todavía no llegas'}</h2><p>${n===5?'Ganaste las 5 estrellas. Ya conoces las habilidades que más usa un directivo en su día a día.':`Llevas ${n} de 5 estrellas. Regresa a las casillas que no tienen ★.`}</p></div>`;return;}
+  const r=R[s.id]();
+  $('panel').innerHTML=`<span class="cap" style="background:${s.c}">CAPÍTULO ${s.id}</span><h2>${s.e} ${s.t}</h2><div class="learn">${r.learn}</div><div id="game"><p class="ch">${r.ch}</p><div id="gx"></div></div>`;
+  r.run($('gx'));
+}
+board();show();
+</script>
+</body>
+</html>

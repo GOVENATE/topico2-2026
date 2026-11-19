@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Gym creativo · Habilidades Directivas cap. 6 · Bradley Yeray Reyes Altamirano</title>
+<style>
+:root{--bg:#0f0f10;--panel:#19191c;--panel2:#222226;--ink:#f5f5f0;--soft:#a3a3a8;--line:#2f2f35;--lime:#b6f23a;--org:#ff6a2b;--cyan:#2bd9ff;--pink:#ff3d8b}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.6 "Segoe UI",system-ui,-apple-system,sans-serif}
+h1,h2,h3{margin:0;line-height:1.1;text-transform:uppercase;letter-spacing:.01em}
+button{font:inherit;color:inherit;cursor:pointer}
+.wrap{max-width:1040px;margin:0 auto;padding:30px 18px 50px}
+.hero{display:grid;grid-template-columns:1.3fr 1fr;gap:24px;align-items:end;border-bottom:4px solid var(--lime);padding-bottom:22px;margin-bottom:24px}
+.hero small{color:var(--lime);font-weight:800;letter-spacing:.2em}
+.hero h1{font-size:clamp(2.6rem,7vw,4.6rem);font-weight:900;font-style:italic}
+.hero h1 span{color:var(--lime)}
+.hero p{color:var(--soft);margin:.4em 0 0}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:16px 18px}
+.card b{color:var(--lime)}
+.plan{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:24px}
+.plan a{display:block;text-decoration:none;color:var(--ink);background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:12px;transition:.2s}
+.plan a:hover{border-color:var(--lime);transform:translateY(-3px)}
+.plan small{color:var(--soft);display:block;font-size:.78rem}
+.plan b{font-size:1rem}
+.sec{background:var(--panel);border:1px solid var(--line);border-radius:20px;padding:24px;margin-bottom:22px}
+.sec .k{display:inline-block;background:var(--lime);color:#111;font-weight:900;font-size:.75rem;padding:3px 10px;border-radius:6px;letter-spacing:.1em}
+.sec h2{font-size:1.7rem;margin:.4em 0 .4em;font-weight:900}
+.soft{color:var(--soft)}
+/* calentamiento: definición */
+.three{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:12px}
+.three div{background:var(--panel2);border-radius:14px;padding:14px;border-left:4px solid var(--cyan)}
+.three b{display:block;text-transform:uppercase;font-size:.9rem;color:var(--cyan)}
+/* serie 1: usos alternos */
+.timer{display:flex;align-items:center;gap:16px;flex-wrap:wrap;margin:12px 0}
+.big{font-size:3rem;font-weight:900;font-variant-numeric:tabular-nums;color:var(--lime);min-width:110px}
+.go{background:var(--lime);color:#111;border:0;border-radius:10px;padding:10px 18px;font-weight:900;text-transform:uppercase}
+.go.alt{background:var(--panel2);color:var(--ink);border:1px solid var(--line)}
+.obj{font-size:1.2rem}
+.obj b{color:var(--org)}
+.inrow{display:flex;gap:8px;margin-top:8px}
+.inrow input{flex:1;background:var(--panel2);border:1px solid var(--line);border-radius:10px;padding:10px 12px;color:var(--ink);font:inherit}
+.ideas{display:flex;flex-wrap:wrap;gap:6px;margin-top:12px;min-height:30px}
+.ideas span{background:var(--panel2);border:1px solid var(--line);border-radius:999px;padding:4px 12px;font-size:.9rem}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:14px}
+.stats div{background:var(--panel2);border-radius:12px;padding:10px;text-align:center}
+.stats b{display:block;font-size:1.6rem;color:var(--lime)}
+.stats small{color:var(--soft)}
+/* serie 2: combinador */
+.combo{display:grid;grid-template-columns:1fr auto 1fr;gap:12px;align-items:center;margin:14px 0}
+.word{background:var(--panel2);border:2px solid var(--org);border-radius:16px;padding:18px;text-align:center;font-size:1.5rem;font-weight:900;text-transform:uppercase}
+.word.b{border-color:var(--pink)}
+.plus{font-size:2rem;font-weight:900;color:var(--soft)}
+.hintbox{background:#ff6a2b14;border-left:4px solid var(--org);border-radius:0 12px 12px 0;padding:10px 14px;font-size:.95rem}
+/* proceso: barra de progreso tipo rutina */
+.phases{display:grid;grid-template-columns:repeat(4,1fr);gap:0;margin-top:12px;border-radius:14px;overflow:hidden}
+.ph{background:var(--panel2);padding:14px;cursor:pointer;border-right:1px solid var(--line);transition:.2s}
+.ph:last-child{border-right:0}
+.ph.on{background:var(--lime);color:#111}
+.ph small{display:block;font-weight:800;opacity:.7}
+.phd{margin-top:12px;background:var(--panel2);border-radius:12px;padding:14px;min-height:70px}
+/* lesiones = bloqueos */
+.inj{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:10px;margin-top:12px}
+.inj div{background:var(--panel2);border-radius:12px;padding:12px 14px;border-top:3px solid var(--pink)}
+.inj b{display:block}
+.inj small{color:var(--soft)}
+.inj em{font-style:normal;color:var(--lime);font-size:.9rem;display:block;margin-top:4px}
+.mine{border-color:var(--lime)}
+footer{text-align:center;color:var(--soft);font-size:.85rem}
+@media(max-width:760px){.hero,.three,.phases,.stats{grid-template-columns:1fr}.plan{grid-template-columns:1fr 1fr}.combo{grid-template-columns:1fr}.plus{text-align:center}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header class="hero">
+  <div>
+    <small>HABILIDADES DIRECTIVAS · CAPÍTULO 6</small>
+    <h1>Gym <span>creativo</span></h1>
+    <p>La creatividad es como un músculo: si no se entrena, se debilita. Esta es mi rutina para ponerla en forma.</p>
+  </div>
+  <div class="card">🏋️ <b>Entrenador:</b> Bradley Yeray Reyes Altamirano<br>📚 <b>Materia:</b> Tópico 2<br>⏱️ <b>Duración:</b> unos 10 minutos</div>
+</header>
+
+<nav class="plan">
+  <a href="#cal"><small>01 · Calentamiento</small><b>¿Qué es crear?</b></a>
+  <a href="#s1"><small>02 · Serie 1</small><b>Usos alternos</b></a>
+  <a href="#s2"><small>03 · Serie 2</small><b>Choque de palabras</b></a>
+  <a href="#rut"><small>04 · Técnica</small><b>El proceso creativo</b></a>
+</nav>
+
+<section class="sec" id="cal">
+  <span class="k">CALENTAMIENTO</span>
+  <h2>¿Qué es la creatividad?</h2>
+  <p>Es la capacidad de <b>generar ideas nuevas y útiles</b>, o de combinar lo que ya existe de una forma diferente. El capítulo deja claro que todos tenemos potencial creativo; lo que pasa es que la rutina, los estereotipos y el miedo lo van apagando, y con práctica se puede recuperar. Para un directivo es clave, porque las empresas que no innovan se quedan atrás. Se mide con tres "repeticiones":</p>
+  <div class="three">
+    <div><b>Fluidez</b>Cuántas ideas logras sacar.</div>
+    <div><b>Flexibilidad</b>Qué tan distintas son entre sí.</div>
+    <div><b>Originalidad</b>Qué tan poco comunes son.</div>
+  </div>
+</section>
+
+<section class="sec" id="s1">
+  <span class="k">SERIE 1</span>
+  <h2>Usos alternos · 60 segundos</h2>
+  <p class="soft">Un ejercicio clásico de pensamiento divergente: escribe todos los usos que se te ocurran para un objeto, menos el normal. Presiona Enter después de cada idea.</p>
+  <div class="timer">
+    <div class="big" id="clock">60</div>
+    <div class="obj">Objeto: <b id="obj">una mancuerna</b></div>
+    <button class="go" id="start">▶ Empezar</button>
+    <button class="go alt" id="other">🔄 Otro objeto</button>
+  </div>
+  <div class="inrow"><input id="idea" placeholder="Escribe un uso y presiona Enter…" disabled></div>
+  <div class="ideas" id="ideas"></div>
+  <div class="stats"><div><b id="flu">0</b><small>Fluidez (ideas)</small></div><div><b id="flex">0</b><small>Flexibilidad (palabras distintas al inicio)</small></div><div><b id="lvl">—</b><small>Nivel</small></div></div>
+</section>
+
+<section class="sec" id="s2">
+  <span class="k">SERIE 2</span>
+  <h2>Choque de palabras</h2>
+  <p class="soft">Las ideas nuevas casi siempre salen de unir cosas que no tenían nada que ver. Junta las dos palabras e inventa un producto, una app o un negocio.</p>
+  <div class="combo"><div class="word" id="w1">Aguacate</div><div class="plus">+</div><div class="word b" id="w2">App</div></div>
+  <button class="go" id="mix">🎲 Revolver</button>
+  <div class="hintbox" id="hint" style="margin-top:12px">Ejemplo: <b>Aguacate + App</b> = una app que te dice cuándo está listo tu aguacate tomándole una foto.</div>
+</section>
+
+<section class="sec" id="rut">
+  <span class="k">TÉCNICA</span>
+  <h2>Las etapas del proceso creativo</h2>
+  <p class="soft">Una buena idea casi nunca sale de golpe. El capítulo describe un proceso; aquí lo resumo en cuatro fases. Toca cada una:</p>
+  <div class="phases" id="phases"></div>
+  <div class="phd" id="phd"></div>
+</section>
+
+<section class="sec">
+  <span class="k">LESIONES</span>
+  <h2>Lo que bloquea la creatividad</h2>
+  <p class="soft">Igual que en el gym, hay "lesiones" que te sacan del entrenamiento. Unas son tuyas y otras vienen de la organización:</p>
+  <div class="inj">
+    <div><b>😨 Miedo al error</b><small>Personal</small><em>Tratamiento: ver los errores como parte de probar algo nuevo.</em></div>
+    <div><b>🔁 Rutina</b><small>Personal</small><em>Tratamiento: cambia algo pequeño de tu día.</em></div>
+    <div><b>🏷️ Estereotipos</b><small>Personal</small><em>Tratamiento: pregúntate "¿y si fuera al revés?".</em></div>
+    <div><b>👀 Exceso de control</b><small>De la organización</small><em>Tratamiento: dar libertad para proponer y equivocarse.</em></div>
+    <div><b>🏆 Competencia excesiva</b><small>De la organización</small><em>Tratamiento: premiar las ideas del equipo, no solo al ganador.</em></div>
+    <div><b>🙈 Falta de reconocimiento</b><small>De la organización</small><em>Tratamiento: reconocer públicamente las buenas propuestas.</em></div>
+  </div>
+</section>
+
+<section class="sec mine">
+  <span class="k">ENFRIAMIENTO</span>
+  <h2>Mi reflexión</h2>
+  <p>Siempre pensé que la creatividad era para artistas, pero este capítulo me hizo verla como algo que se entrena, igual que en el gym: no ves resultados el primer día, pero con constancia el músculo crece. Al hacer el ejercicio de usos alternos me di cuenta de que las primeras ideas son las obvias y las buenas salen después, cuando ya "calentaste". Como estudiante de tecnología creo que me sirve mucho: programar también es crear, y combinar ideas de distintos lados es justo lo que hacen las mejores apps.</p>
+</section>
+<footer>Bradley Yeray Reyes Altamirano · Tópico 2 · Basado en <i>Habilidades Directivas</i> de Berta Ermila Madrigal Torres (McGraw-Hill), capítulo 6: Creatividad.</footer>
+</div>
+
+<script>
+const $=id=>document.getElementById(id);
+/* serie 1 */
+const OBJ=['una mancuerna','un ladrillo','una botella vacía','un control de videojuego','una llanta vieja','un ganchito de ropa'];
+let oi=0,t=60,timer=null,ideas=[];
+function reset(){clearInterval(timer);timer=null;t=60;ideas=[];$('clock').textContent=60;$('ideas').innerHTML='';$('idea').value='';$('idea').disabled=true;$('start').textContent='▶ Empezar';stats();}
+function stats(){$('flu').textContent=ideas.length;$('flex').textContent=new Set(ideas.map(i=>i.split(' ')[0].toLowerCase())).size;
+  $('lvl').textContent=!ideas.length?'—':ideas.length>=10?'🔥 Bestia':ideas.length>=6?'💪 Fuerte':ideas.length>=3?'🙂 En forma':'🐣 Principiante';}
+$('start').onclick=()=>{if(timer){reset();return;}$('idea').disabled=false;$('idea').focus();$('start').textContent='■ Reiniciar';
+  timer=setInterval(()=>{t--;$('clock').textContent=t;if(t<=0){clearInterval(timer);timer=null;$('idea').disabled=true;$('start').textContent='▶ Otra vez';}},1000);};
+$('other').onclick=()=>{oi=(oi+1)%OBJ.length;$('obj').textContent=OBJ[oi];reset();};
+$('idea').addEventListener('keydown',e=>{if(e.key!=='Enter')return;const v=e.target.value.trim();if(!v)return;ideas.push(v);const s=document.createElement('span');s.textContent=v;$('ideas').appendChild(s);e.target.value='';stats();});
+/* serie 2 */
+const A=['Aguacate','Mariposa','Coche','Gym','Videojuego','Mercado','Taco','Bicicleta','Lluvia','Música'];
+const B=['App','Suscripción','Robot','Mapa','Ropa','Escuela','Reloj','Juego de mesa','Tienda','Sensor'];
+const EX={'Aguacate+App':'una app que te dice cuándo está listo tu aguacate tomándole una foto.','Gym+Videojuego':'un juego donde tu personaje sube de nivel según tus entrenamientos reales.'};
+$('mix').onclick=()=>{const a=A[Math.random()*A.length|0],b=B[Math.random()*B.length|0];$('w1').textContent=a;$('w2').textContent=b;
+  $('hint').innerHTML=EX[a+'+'+b]?`Ejemplo: <b>${a} + ${b}</b> = ${EX[a+'+'+b]}`:`¿Qué inventarías con <b>${a} + ${b}</b>? Piensa en 3 ideas antes de revolver otra vez. No juzgues ninguna todavía.`;};
+/* proceso */
+const P=[['1','Preparación','Defines el problema y juntas información. Mientras más sepas del tema, más material tiene tu cerebro para combinar.'],
+ ['2','Incubación','Sueltas el problema un rato: caminas, entrenas, duermes. Tu mente sigue trabajando sin que lo notes.'],
+ ['3','Iluminación','Aparece la idea de golpe, el famoso "¡ya sé!". Anótala en cuanto llegue.'],
+ ['4','Verificación','Pruebas si la idea funciona en la realidad. Si no, regresas a una fase anterior. Después toca comunicarla para que sirva de algo.']];
+$('phases').innerHTML=P.map((p,i)=>`<div class="ph" data-i="${i}"><small>FASE ${p[0]}</small><b>${p[1]}</b></div>`).join('');
+const pick=i=>{$('phases').querySelectorAll('.ph').forEach((x,j)=>x.classList.toggle('on',j===i));$('phd').innerHTML=`<b>${P[i][1]}:</b> ${P[i][2]}`;};
+$('phases').querySelectorAll('.ph').forEach(x=>x.onclick=()=>pick(+x.dataset.i));pick(0);
+</script>
+</body>
+</html>

@@ -132,6 +132,85 @@
       "descripcion": "Resumen y opinión sobre la influencia de los millonarios en las ciudades.",
       "tipo": "pdf",
       "ruta": "actividades/act15-documental-ricos/resumen.pdf"
+    },
+    {
+      "id": "act16-habilidades-directivas-1-2",
+      "titulo": "Un día como director",
+      "descripcion": "Simulación interactiva de los capítulos 1 y 2 de Habilidades Directivas (Madrigal Torres): tipos de habilidades, niveles directivos, alta dirección y autoevaluación.",
+      "tipo": "web",
+      "tecnologias": [
+        "HTML",
+        "CSS",
+        "JavaScript"
+      ],
+      "ruta": "actividades/act16-habilidades-directivas-1-2/index.html"
+    },
+    {
+      "id": "act17-habilidades-directivas-1-5",
+      "titulo": "Mi semana bajo control",
+      "descripcion": "Capítulos 1 y 5 de Habilidades Directivas: repaso de habilidades y ejercicios interactivos de administración del tiempo (168 horas, matriz del tiempo y ladrones de tiempo).",
+      "tipo": "web",
+      "tecnologias": [
+        "HTML",
+        "CSS",
+        "JavaScript"
+      ],
+      "ruta": "actividades/act17-habilidades-directivas-1-5/index.html"
+    },
+    {
+      "id": "act18-habilidades-directivas-3-7",
+      "titulo": "Sentir y decidir",
+      "descripcion": "Capítulos 3 y 7 de Habilidades Directivas: inteligencia emocional con situaciones reales y toma de decisiones con una matriz de decisión ponderada.",
+      "tipo": "web",
+      "tecnologias": [
+        "HTML",
+        "CSS",
+        "JavaScript"
+      ],
+      "ruta": "actividades/act18-habilidades-directivas-3-7/index.html"
+    },
+    {
+      "id": "act19-creatividad-gym-creativo",
+      "titulo": "Gym creativo",
+      "descripcion": "Capítulo 6 de Habilidades Directivas (Creatividad) como rutina de entrenamiento: usos alternos con cronómetro, choque de palabras, fases del proceso creativo y bloqueos.",
+      "tipo": "web",
+      "tecnologias": [
+        "HTML",
+        "CSS",
+        "JavaScript"
+      ],
+      "ruta": "actividades/act19-creatividad-gym-creativo/index.html"
+    },
+    {
+      "id": "act20-administracion-del-tiempo",
+      "titulo": "Administración del tiempo: una habilidad directiva",
+      "descripcion": "Presentación del capítulo 5 de Habilidades Directivas: rasgos del tiempo, matriz de cuadrantes, enemigos, mitos y hábitos para administrarlo.",
+      "tipo": "pdf",
+      "ruta": "actividades/act20-administracion-del-tiempo/presentacion.pdf"
+    },
+    {
+      "id": "act21-habilidades-directivas-2-7-8-10-13",
+      "titulo": "El tablero del directivo",
+      "descripcion": "Juego de tablero con un reto por capítulo (2, 7, 8, 10 y 13 de Habilidades Directivas): alta dirección, decisiones, equipos y conflictos, negociación ganar-ganar y seis sombreros.",
+      "tipo": "web",
+      "tecnologias": [
+        "HTML",
+        "CSS",
+        "JavaScript"
+      ],
+      "ruta": "actividades/act21-habilidades-directivas-2-7-8-10-13/index.html"
+    },
+    {
+      "id": "act22-habilidades-directivas-4-5-6-9-11-12",
+      "titulo": "La ruleta directiva",
+      "descripcion": "Ruleta interactiva con los capítulos 4, 5, 6, 9, 11 y 12 de Habilidades Directivas: comunicación, tiempo, creatividad, liderazgo, motivación y estrategia, con una pregunta de verdadero o falso por capítulo.",
+      "tipo": "web",
+      "tecnologias": [
+        "HTML",
+        "CSS",
+        "JavaScript"
+      ],
+      "ruta": "actividades/act22-habilidades-directivas-4-5-6-9-11-12/index.html"
     }
   ]
 }

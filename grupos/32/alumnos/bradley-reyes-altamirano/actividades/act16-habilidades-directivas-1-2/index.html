@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Un día como director · Habilidades Directivas 1 y 2 · Bradley Yeray Reyes Altamirano</title>
+<style>
+:root{--bg:#f4efe6;--card:#fffdf9;--ink:#1f2a24;--soft:#66706a;--line:#e3dccd;--green:#1f5e4a;--green2:#dcebe4;--gold:#c99a2e;--gold2:#f6ead0;--red:#b5483a;--blue:#2f5d8a;--blue2:#e0e9f3}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.6 "Segoe UI",system-ui,-apple-system,sans-serif}
+h1,h2,h3{font-family:Georgia,"Times New Roman",serif;line-height:1.2;margin:0}
+button{font:inherit;color:inherit;cursor:pointer}
+.wrap{max-width:1000px;margin:0 auto;padding:0 20px}
+/* encabezado tipo credencial */
+.top{background:var(--green);color:#fff;padding:34px 0 70px}
+.top .wrap{display:flex;justify-content:space-between;gap:24px;align-items:flex-end;flex-wrap:wrap}
+.top small{letter-spacing:.2em;color:var(--gold);font-weight:700}
+.top h1{font-size:clamp(2rem,5vw,3.2rem);margin:.15em 0}
+.top p{margin:0;color:#d6e6de;max-width:52ch}
+.badge{background:#fff;color:var(--ink);border-radius:14px;padding:14px 18px;min-width:250px;box-shadow:0 10px 24px -10px #0006;border-top:6px solid var(--gold)}
+.badge b{display:block;font-family:Georgia,serif;font-size:1.05rem}
+.badge span{font-size:.85rem;color:var(--soft)}
+main.wrap{margin-top:-40px}
+.box{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:24px;margin-bottom:22px;box-shadow:0 8px 24px -18px #0004}
+.label{font-size:.75rem;font-weight:800;letter-spacing:.16em;color:var(--gold);text-transform:uppercase}
+.box h2{font-size:1.6rem;margin:.2em 0 .5em}
+.lead{color:#3c4740}
+/* fórmula */
+.formula{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-top:12px;font-weight:700}
+.formula span{background:var(--green2);border-radius:10px;padding:8px 14px}
+.formula i{font-style:normal;color:var(--soft)}
+/* agenda del día */
+.agenda{display:grid;grid-template-columns:200px 1fr;gap:20px}
+.hours{display:flex;flex-direction:column;gap:6px}
+.hours button{text-align:left;border:1px solid var(--line);background:#fff;border-radius:10px;padding:10px 12px;font-size:.92rem;display:flex;justify-content:space-between;align-items:center}
+.hours button.on{background:var(--green);color:#fff;border-color:var(--green)}
+.hours button .st{font-size:.8rem}
+.scene{border:2px dashed var(--line);border-radius:14px;padding:18px;min-height:280px}
+.scene .time{font-family:Georgia,serif;color:var(--gold);font-size:1.1rem;font-weight:700}
+.scene h3{font-size:1.25rem;margin:.2em 0 .5em}
+.opts{display:grid;gap:8px;margin:12px 0}
+.opts button{text-align:left;border:1.5px solid var(--line);background:#fff;border-radius:10px;padding:10px 14px}
+.opts button:hover:not(:disabled){border-color:var(--green)}
+.opts button.ok{background:var(--green2);border-color:var(--green)}
+.opts button.no{background:#f7e2de;border-color:var(--red)}
+.explain{background:var(--gold2);border-radius:10px;padding:12px 14px;font-size:.94rem;display:none}
+.explain.on{display:block}
+.score{display:flex;gap:14px;flex-wrap:wrap;margin-top:12px;font-size:.9rem;color:var(--soft)}
+.score b{color:var(--green)}
+/* niveles */
+.levels{display:grid;grid-template-columns:1fr 1fr;gap:24px;align-items:center}
+.lvbtns{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px}
+.lvbtns button{border:1.5px solid var(--green);background:#fff;border-radius:999px;padding:6px 14px;font-weight:600}
+.lvbtns button.on{background:var(--green);color:#fff}
+.bar{margin:10px 0}
+.bar div{display:flex;justify-content:space-between;font-size:.9rem;font-weight:600}
+.bar .t{height:16px;background:#eee6d6;border-radius:8px;overflow:hidden}
+.bar .t i{display:block;height:100%;border-radius:8px;transition:width .6s cubic-bezier(.3,1.3,.5,1)}
+.pyr svg{width:100%;max-width:360px;display:block;margin:auto}
+.pyr polygon{cursor:pointer;transition:opacity .3s}
+/* tipos de habilidad */
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{border:1.5px solid var(--line);background:#fff;border-radius:999px;padding:7px 14px;font-size:.92rem}
+.chip.on{background:var(--blue);color:#fff;border-color:var(--blue)}
+.def{margin-top:12px;background:var(--blue2);border-radius:12px;padding:12px 16px;min-height:58px}
+/* alta dirección */
+.three{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.three div{border-radius:14px;padding:16px;border:1px solid var(--line);background:#fff}
+.three b{display:block;font-family:Georgia,serif;font-size:1.1rem;margin-bottom:4px}
+.steps{display:flex;gap:0;margin:16px 0;flex-wrap:wrap}
+.steps span{flex:1;min-width:110px;text-align:center;padding:10px 6px;background:#efe8da;font-weight:700;font-size:.85rem;clip-path:polygon(0 0,90% 0,100% 50%,90% 100%,0 100%,10% 50%)}
+.steps span.hl{background:var(--gold);color:#fff}
+.vs{display:grid;grid-template-columns:1fr auto 1fr;gap:8px;align-items:center;margin-top:10px}
+.vs .l{text-align:right;background:#eef0ec;border-radius:10px;padding:8px 12px}
+.vs .r{background:var(--gold2);border-radius:10px;padding:8px 12px}
+.vs em{font-style:normal;color:var(--soft);font-weight:700}
+.mvv{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:12px}
+.mvv div{border-left:5px solid var(--green);background:#fff;border-radius:0 12px 12px 0;padding:12px 14px}
+/* autoevaluación */
+.self .row{display:grid;grid-template-columns:1fr 220px 40px;gap:12px;align-items:center;padding:8px 0;border-bottom:1px solid var(--line)}
+.self input{width:100%;accent-color:var(--green)}
+.profile{margin-top:16px;background:var(--green);color:#fff;border-radius:14px;padding:16px 18px}
+.profile b{color:var(--gold)}
+.mine{border-left:6px solid var(--gold)}
+footer{text-align:center;color:var(--soft);font-size:.85rem;padding:20px 0 40px}
+@media(max-width:760px){.agenda,.levels,.three,.mvv{grid-template-columns:1fr}.hours{flex-direction:row;flex-wrap:wrap}.self .row{grid-template-columns:1fr}.vs{grid-template-columns:1fr}.vs .l{text-align:left}}
+</style>
+</head>
+<body>
+<header class="top">
+  <div class="wrap">
+    <div>
+      <small>HABILIDADES DIRECTIVAS · CAPÍTULOS 1 Y 2</small>
+      <h1>Un día como director</h1>
+      <p>Aprendo los dos primeros capítulos viviendo una jornada en una empresa ficticia: cada situación pide una habilidad distinta.</p>
+    </div>
+    <div class="badge"><span>Gafete de visitante</span><b>Bradley Yeray Reyes Altamirano</b><span>Tópico 2 · Director por un día de "Café Monarca S.A."</span></div>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <section class="box">
+    <div class="label">Punto de partida</div>
+    <h2>¿Qué es una habilidad directiva?</h2>
+    <p class="lead">Según el libro de Berta Ermila Madrigal Torres, una habilidad es algo que se <b>adquiere y se mejora con aprendizaje y práctica</b>; nadie nace sabiendo dirigir. Las habilidades directivas son las que permiten a una persona orientar el trabajo de otros, aprovechar el talento y los recursos de una organización y llegar a sus metas. Por eso se pueden cultivar en cursos, talleres, posgrados y, sobre todo, en el día a día.</p>
+    <div class="formula"><span>Conocimiento</span><i>+</i><span>Práctica</span><i>+</i><span>Actitud</span><i>=</i><span style="background:var(--gold2)">Directivo capaz</span></div>
+  </section>
+
+  <section class="box">
+    <div class="label">Simulación · Capítulo 1</div>
+    <h2>Tu agenda de hoy en Café Monarca</h2>
+    <p class="lead">Eres el nuevo director de una pequeña cadena de cafeterías michoacanas. Elige cada hora del día y decide qué tipo de habilidad necesitas para resolver la situación.</p>
+    <div class="agenda">
+      <div class="hours" id="hours"></div>
+      <div class="scene" id="scene"></div>
+    </div>
+    <div class="score"><span>Situaciones resueltas: <b id="done">0</b>/6</span><span>Aciertos: <b id="hits">0</b></span></div>
+  </section>
+
+  <section class="box">
+    <div class="label">Capítulo 1 · Clasificación</div>
+    <h2>Más tipos de habilidades</h2>
+    <p class="lead">Además de las tres básicas (técnicas, humanas y conceptuales), el capítulo menciona una clasificación más amplia. Toca cada una:</p>
+    <div class="chips" id="chips"></div>
+    <div class="def" id="def">Elige una habilidad para ver de qué trata.</div>
+    <h3 style="margin-top:20px;font-size:1.15rem">Las "megahabilidades" del liderazgo</h3>
+    <p class="lead" style="margin:.3em 0 0">El libro también retoma siete capacidades que distinguen a los grandes líderes: <b>visión de futuro, dominio del cambio, diseño de la organización, aprendizaje anticipado, iniciativa, dominio de la interdependencia y altos niveles de integridad</b>.</p>
+  </section>
+
+  <section class="box">
+    <div class="label">Capítulo 1 · Niveles</div>
+    <h2>No todos los puestos usan las mismas habilidades</h2>
+    <div class="levels">
+      <div>
+        <div class="lvbtns" id="lvbtns"></div>
+        <div id="bars"></div>
+        <p id="lvtxt" style="font-size:.94rem;color:#3c4740"></p>
+      </div>
+      <div class="pyr"><svg viewBox="0 0 300 250" id="pyr"></svg></div>
+    </div>
+  </section>
+
+  <section class="box">
+    <div class="label">Capítulo 2</div>
+    <h2>La alta dirección y sus habilidades</h2>
+    <p class="lead">Dirigir es <b>guiar y coordinar el esfuerzo de las personas</b> para que la organización alcance sus metas. La alta dirección es el nivel que toma las decisiones más importantes, y su trabajo se reparte en tres grandes áreas:</p>
+    <div class="three">
+      <div><b>👥 Relaciones interpersonales</b>Representa a la empresa, motiva a su gente y mantiene contactos con clientes, proveedores y otras organizaciones.</div>
+      <div><b>📡 Información</b>Recibe datos de dentro y fuera, los analiza y los comparte con quien los necesita.</div>
+      <div><b>⚖️ Decisiones</b>Emprende proyectos, resuelve problemas, reparte recursos y negocia.</div>
+    </div>
+    <h3 style="margin-top:20px;font-size:1.15rem">¿Dónde está la dirección dentro del proceso administrativo?</h3>
+    <div class="steps"><span>Prever</span><span>Planear</span><span>Organizar</span><span>Integrar</span><span class="hl">Dirigir</span><span>Controlar</span></div>
+    <p style="font-size:.94rem;margin:0">Los planes y la organización no sirven de nada si nadie pone a las personas en movimiento: ese es el papel de la dirección.</p>
+
+    <h3 style="margin-top:22px;font-size:1.15rem">Administrar no es lo mismo que liderar</h3>
+    <div id="vs"></div>
+
+    <h3 style="margin-top:22px;font-size:1.15rem">Misión, visión y valores de Café Monarca</h3>
+    <div class="mvv">
+      <div><b>Misión</b> · razón de ser<br><span style="font-size:.92rem">Servir café de Michoacán de buena calidad en un lugar donde la gente se sienta en casa.</span></div>
+      <div><b>Visión</b> · a dónde vamos<br><span style="font-size:.92rem">Ser en cinco años la cafetería regional más recomendada del Bajío.</span></div>
+      <div><b>Valores</b> · cómo actuamos<br><span style="font-size:.92rem">Honestidad, respeto al equipo, compromiso con el productor local.</span></div>
+    </div>
+  </section>
+
+  <section class="box self">
+    <div class="label">Cierre</div>
+    <h2>Mi autoevaluación como directivo</h2>
+    <p class="lead">Mueve cada barra según qué tan desarrollada sientes cada habilidad (1 = poco, 5 = mucho).</p>
+    <div id="self"></div>
+    <div class="profile" id="profile"></div>
+  </section>
+
+  <section class="box mine">
+    <div class="label">Mi reflexión</div>
+    <h2>Lo que me llevo</h2>
+    <p>Antes pensaba que dirigir era solo dar órdenes, pero estos capítulos me hicieron ver que un buen directivo combina conocimiento técnico, trato con las personas y una visión del conjunto, y que todas esas habilidades se aprenden. Como futuro ingeniero, me identifico con las habilidades técnicas, pero entiendo que si quiero llegar a un puesto alto tendré que trabajar más mis habilidades humanas y conceptuales: saber escuchar, motivar a un equipo y entender cómo una decisión afecta a toda la empresa.</p>
+  </section>
+</main>
+<footer>Bradley Yeray Reyes Altamirano · Tópico 2 · Basado en <i>Habilidades Directivas</i> de Berta Ermila Madrigal Torres (McGraw-Hill), capítulos 1 y 2. "Café Monarca" es una empresa inventada para el ejercicio.</footer>
+
+<script>
+const $=id=>document.getElementById(id);
+/* ===== agenda ===== */
+const S=[
+ {h:'8:00',t:'La cafetera industrial no enciende',d:'Llegas temprano y la máquina principal marca error. El encargado de turno no sabe qué hacer.',o:['Técnica','Humana','Conceptual'],a:0,x:'Se necesita una habilidad técnica: conocer cómo funcionan las herramientas y procesos del trabajo. En niveles operativos es la más usada.'},
+ {h:'10:00',t:'Dos baristas discuten frente a clientes',d:'Hay tensión entre dos empleados por los horarios y ya se nota en el servicio.',o:['Conceptual','Humana','Técnica'],a:1,x:'Es una habilidad humana (interpersonal): comunicarse, escuchar y lograr que las personas cooperen. Se usa en todos los niveles.'},
+ {h:'12:00',t:'Sube el precio del café de grano',d:'El proveedor avisa que el café subirá 20%. Debes pensar cómo afecta a precios, ventas y empleados.',o:['Técnica','Conceptual','Humana'],a:1,x:'Habilidad conceptual: ver la empresa como un todo y entender cómo un cambio en una parte afecta a las demás. Es clave en la alta dirección.'},
+ {h:'14:00',t:'Tienes que hablar ante inversionistas',d:'Un grupo quiere invertir para abrir otra sucursal y te pide presentar el proyecto.',o:['Social','Técnica','Física'],a:0,x:'Aquí entra una habilidad social y de comunicación: relacionarte, convencer y representar a la organización.'},
+ {h:'16:00',t:'Se te ocurre vender café en lata',d:'Notas que los clientes se llevan café para el camino. Podrías crear un producto nuevo.',o:['De innovación','Física','Técnica'],a:0,x:'Habilidad de innovación: inventar, descubrir y proponer ideas nuevas para la organización.'},
+ {h:'18:00',t:'Ya no puedes con el cansancio',d:'Llevas semanas trabajando doce horas y empiezas a enfermarte.',o:['Conceptual','Física','De innovación'],a:1,x:'También existen habilidades físicas: cuidar la salud, la energía y la resistencia. Un directivo agotado decide peor.'}
+];
+let cur=0;const res={};
+function hours(){$('hours').innerHTML=S.map((s,i)=>`<button class="${i===cur?'on':''}" data-i="${i}"><span>${s.h} · ${s.t.split(' ').slice(0,2).join(' ')}…</span><span class="st">${res[i]==null?'':res[i]?'✅':'❌'}</span></button>`).join('');
+  $('hours').querySelectorAll('button').forEach(b=>b.onclick=()=>{cur=+b.dataset.i;hours();scene();});}
+function scene(){const s=S[cur];
+  $('scene').innerHTML=`<div class="time">🕗 ${s.h}</div><h3>${s.t}</h3><p style="margin:0">${s.d}</p><p style="margin:.6em 0 0;font-weight:700">¿Qué habilidad necesitas?</p>
+  <div class="opts">${s.o.map((o,i)=>`<button data-i="${i}">${o}</button>`).join('')}</div><div class="explain" id="ex">${s.x}</div>`;
+  const bs=$('scene').querySelectorAll('.opts button');
+  if(res[cur]!=null){bs.forEach((b,i)=>{b.disabled=true;if(i===s.a)b.classList.add('ok');});$('ex').classList.add('on');}
+  bs.forEach(b=>b.onclick=()=>{const i=+b.dataset.i;res[cur]=i===s.a;bs.forEach((x,j)=>{x.disabled=true;if(j===s.a)x.classList.add('ok');});if(i!==s.a)b.classList.add('no');$('ex').classList.add('on');
+    $('done').textContent=Object.keys(res).length;$('hits').textContent=Object.values(res).filter(Boolean).length;hours();});}
+hours();scene();
+
+/* ===== clasificación ===== */
+const C=[['Técnicas','Usar conocimientos, métodos y herramientas propias de un trabajo o profesión.'],['Humanas o interpersonales','Trabajar con otras personas: comunicarse, cooperar y motivar.'],['Conceptuales','Entender la organización completa y cómo se conectan sus partes.'],['Sociales','Relacionarse y convivir con los demás.'],['Académicas','Analizar, comparar, evaluar y emitir juicios.'],['De innovación','Crear, descubrir y proponer ideas nuevas.'],['Prácticas','Aplicar lo que se sabe en situaciones reales.'],['Físicas','Mantener salud, energía y resistencia.'],['De pensamiento','Aprender a pensar y generar conocimiento.'],['Directivas','Dirigir y coordinar equipos de trabajo.'],['De liderazgo','Guiar e inspirar a otros hacia un objetivo común.'],['Empresariales','Emprender proyectos, negocios o empresas.']];
+$('chips').innerHTML=C.map((c,i)=>`<button class="chip" data-i="${i}">${c[0]}</button>`).join('');
+$('chips').querySelectorAll('.chip').forEach(b=>b.onclick=()=>{$('chips').querySelectorAll('.chip').forEach(x=>x.classList.toggle('on',x===b));const c=C[+b.dataset.i];$('def').innerHTML=`<b>${c[0]}:</b> ${c[1]}`;});
+
+/* ===== niveles ===== */
+const L={alta:{n:'Alta dirección',v:[20,35,45],t:'Directores generales: necesitan sobre todo visión del conjunto (conceptual) para decidir el rumbo.'},media:{n:'Mandos medios',v:[33,40,27],t:'Gerentes y jefes de área: equilibran las tres, pero las relaciones humanas pesan mucho porque conectan a la dirección con los equipos.'},oper:{n:'Nivel operativo',v:[50,38,12],t:'Supervisores y coordinadores de primera línea: lo técnico es lo más importante porque están cerca del trabajo diario.'}};
+const col=['#2f5d8a','#c99a2e','#1f5e4a'],nm=['Técnicas','Humanas','Conceptuales'];
+let lv='alta';
+function levels(){
+  $('lvbtns').innerHTML=Object.entries(L).map(([k,v])=>`<button data-k="${k}" class="${k===lv?'on':''}">${v.n}</button>`).join('');
+  $('lvbtns').querySelectorAll('button').forEach(b=>b.onclick=()=>{lv=b.dataset.k;levels();});
+  $('bars').innerHTML=L[lv].v.map((v,i)=>`<div class="bar"><div><span>${nm[i]}</span><span>${v}%</span></div><div class="t"><i style="width:${v*1.8}%;background:${col[i]}"></i></div></div>`).join('');
+  $('lvtxt').textContent=L[lv].t+' (Los porcentajes son ilustrativos.)';
+  const op=k=>k===lv?1:.3;
+  $('pyr').innerHTML=`<polygon data-k="alta" points="150,10 200,85 100,85" fill="#1f5e4a" opacity="${op('alta')}"/><text x="150" y="70" text-anchor="middle" fill="#fff" font-size="12" font-weight="700" pointer-events="none">Alta</text>
+  <polygon data-k="media" points="100,90 200,90 250,165 50,165" fill="#c99a2e" opacity="${op('media')}"/><text x="150" y="135" text-anchor="middle" fill="#fff" font-size="13" font-weight="700" pointer-events="none">Media</text>
+  <polygon data-k="oper" points="50,170 250,170 295,245 5,245" fill="#2f5d8a" opacity="${op('oper')}"/><text x="150" y="215" text-anchor="middle" fill="#fff" font-size="13" font-weight="700" pointer-events="none">Operativa</text>`;
+  $('pyr').querySelectorAll('polygon').forEach(p=>p.onclick=()=>{lv=p.dataset.k;levels();});
+}
+levels();
+
+/* ===== administrador vs líder ===== */
+const V=[['Mantiene lo que existe','Desarrolla algo nuevo'],['Pide obediencia','Convence'],['Cuida sistemas y estructura','Cuida a las personas'],['Se basa en el control','Se basa en la confianza'],['Sigue procedimientos','Los diseña'],['Hace bien las cosas','Hace las cosas correctas']];
+$('vs').innerHTML=V.map(v=>`<div class="vs"><div class="l">📋 ${v[0]}</div><em>vs</em><div class="r">🌟 ${v[1]}</div></div>`).join('')+'<p style="font-size:.9rem;color:var(--soft);margin:.6em 0 0">No son enemigos: una empresa necesita orden (administración) y también rumbo e inspiración (liderazgo).</p>';
+
+/* ===== autoevaluación ===== */
+const Q=['Técnicas (sé usar herramientas y métodos)','Humanas (escucho y trabajo bien en equipo)','Conceptuales (veo el panorama completo)','Comunicación (me expreso con claridad)','Innovación (propongo ideas nuevas)'];
+const val=Q.map(()=>3);
+$('self').innerHTML=Q.map((q,i)=>`<div class="row"><span>${q}</span><input type="range" min="1" max="5" value="3" data-i="${i}"><b id="v${i}">3</b></div>`).join('');
+function prof(){const avg=val.reduce((a,b)=>a+b,0)/val.length,max=val.indexOf(Math.max(...val)),min=val.indexOf(Math.min(...val));
+  const nivel=avg>=4?'listo para un puesto de alta dirección':avg>=3?'con buena base para mandos medios':'en etapa de formación, como todos al empezar';
+  $('profile').innerHTML=`Promedio: <b>${avg.toFixed(1)}</b> / 5 · Perfil ${nivel}.<br>Tu fortaleza: <b>${Q[max].split(' (')[0]}</b>. Para crecer, trabaja tus habilidades <b>${Q[min].split(' (')[0].toLowerCase()}</b>.`;}
+$('self').querySelectorAll('input').forEach(r=>r.oninput=()=>{val[+r.dataset.i]=+r.value;$('v'+r.dataset.i).textContent=r.value;prof();});
+prof();
+</script>
+</body>
+</html>

@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sentir y decidir · Habilidades Directivas 3 y 7 · Bradley Yeray Reyes Altamirano</title>
+<style>
+:root{--bg:#fff8f1;--ink:#2d1f33;--soft:#7a6b80;--line:#efdccb;--card:#ffffff;--rosa:#e0457b;--rosa2:#fde3ec;--mor:#6b3fa0;--mor2:#ece3f8;--nar:#f28c28;--nar2:#fdebd6;--ver:#2a9d6f;--ver2:#dcf3e8}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.6 "Segoe UI",system-ui,-apple-system,sans-serif}
+h1,h2,h3{margin:0;line-height:1.2}
+button{font:inherit;color:inherit;cursor:pointer}
+.hero{background:linear-gradient(120deg,var(--mor),var(--rosa) 55%,var(--nar));color:#fff;padding:40px 20px 80px;text-align:center}
+.hero small{letter-spacing:.2em;font-weight:700;opacity:.9}
+.hero h1{font-size:clamp(2.2rem,6vw,3.6rem);margin:.15em 0}
+.hero p{max-width:620px;margin:0 auto;opacity:.95}
+.hero .by{display:inline-block;margin-top:14px;background:#ffffff26;border:1px solid #ffffff55;border-radius:999px;padding:6px 16px;font-weight:600}
+.split{display:grid;grid-template-columns:1fr 1fr;gap:20px;max-width:1080px;margin:-50px auto 0;padding:0 18px}
+.col{display:flex;flex-direction:column;gap:20px}
+.box{background:var(--card);border:1px solid var(--line);border-radius:22px;padding:22px;box-shadow:0 10px 30px -22px #0005}
+.tag{display:inline-block;border-radius:999px;padding:3px 12px;font-size:.75rem;font-weight:800;letter-spacing:.1em}
+.t3{background:var(--rosa2);color:var(--rosa)}.t7{background:var(--nar2);color:#b45f10}
+.box h2{font-size:1.45rem;margin:.4em 0 .4em}
+.soft{color:var(--soft)}
+/* EI: componentes */
+.ring{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0}
+.ring button{border:2px solid var(--rosa2);background:#fff;border-radius:14px;padding:8px 12px;font-weight:600;font-size:.9rem}
+.ring button.on{background:var(--rosa);border-color:var(--rosa);color:#fff}
+.card{background:var(--rosa2);border-radius:14px;padding:12px 14px;min-height:80px;font-size:.95rem}
+/* EI: termómetro situaciones */
+.sit{background:var(--mor2);border-radius:16px;padding:14px;margin-top:6px}
+.sit p{margin:0 0 8px;font-weight:600}
+.sit .ops{display:grid;gap:6px}
+.sit .ops button{text-align:left;background:#fff;border:2px solid transparent;border-radius:10px;padding:8px 12px;font-size:.92rem}
+.sit .ops button:hover:not(:disabled){border-color:var(--mor)}
+.sit .ops button.good{border-color:var(--ver);background:var(--ver2)}
+.sit .ops button.meh{border-color:var(--nar);background:var(--nar2)}
+.sit .fb{font-size:.9rem;margin-top:8px;min-height:1.4em}
+.therm{display:flex;align-items:center;gap:10px;margin-top:12px}
+.therm .t{flex:1;height:14px;border-radius:9px;background:#eee;overflow:hidden}
+.therm .t i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--nar),var(--ver));transition:width .5s}
+.nav{display:flex;justify-content:space-between;margin-top:10px}
+.nb{background:var(--mor);color:#fff;border:0;border-radius:10px;padding:7px 14px;font-weight:600}
+.nb:disabled{opacity:.35}
+/* decisiones */
+.road{display:grid;gap:6px;counter-reset:s;margin-top:6px}
+.road div{display:flex;gap:10px;align-items:flex-start;font-size:.94rem}
+.road div::before{counter-increment:s;content:counter(s);flex:0 0 28px;height:28px;border-radius:50%;background:var(--nar);color:#fff;font-weight:800;display:grid;place-items:center}
+.types{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:10px}
+.types div{background:var(--nar2);border-radius:12px;padding:10px 12px;font-size:.92rem}
+.types b{display:block}
+table{width:100%;border-collapse:collapse;font-size:.9rem;margin-top:10px}
+th,td{padding:7px 6px;border-bottom:1px solid var(--line);text-align:center}
+th:first-child,td:first-child{text-align:left}
+td input{width:52px;padding:4px;border:1px solid var(--line);border-radius:6px;text-align:center;font:inherit}
+.win{margin-top:12px;background:var(--ver2);border-left:5px solid var(--ver);border-radius:0 12px 12px 0;padding:12px 14px}
+.barriers{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+.barriers span{background:#fff;border:1.5px dashed #b45f10;border-radius:10px;padding:5px 10px;font-size:.88rem}
+.bridge{max-width:1080px;margin:20px auto;padding:0 18px}
+.bridge .box{background:linear-gradient(120deg,var(--mor2),var(--nar2));border:0}
+footer{text-align:center;color:var(--soft);font-size:.85rem;padding:10px 18px 40px}
+@media(max-width:860px){.split{grid-template-columns:1fr}.types{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<header class="hero">
+  <small>HABILIDADES DIRECTIVAS · CAPÍTULOS 3 Y 7</small>
+  <h1>Sentir y decidir</h1>
+  <p>Dos capítulos que se necesitan: no se puede decidir bien si no sabes manejar lo que sientes, ni dirigir a otros si no entiendes lo que ellos sienten.</p>
+  <span class="by">Bradley Yeray Reyes Altamirano · Tópico 2</span>
+</header>
+
+<div class="split">
+  <!-- CAPÍTULO 3 -->
+  <div class="col">
+    <section class="box">
+      <span class="tag t3">CAPÍTULO 3</span>
+      <h2>Inteligencia emocional: la habilidad que no sale en el título</h2>
+      <p>Es la capacidad de <b>reconocer y manejar nuestras emociones y entender las de los demás</b>. Daniel Goleman la hizo famosa y el libro la llama una habilidad imprescindible para dirigir, porque un jefe puede saber mucho y aun así fracasar si no sabe controlarse ni tratar a su equipo. Toca cada componente:</p>
+      <div class="ring" id="ring"></div>
+      <div class="card" id="comp">Elige un componente.</div>
+    </section>
+
+    <section class="box">
+      <span class="tag t3">PONLA A PRUEBA</span>
+      <h2>¿Qué tan inteligente emocionalmente eres?</h2>
+      <p class="soft">Cuatro situaciones reales de estudiante y de trabajo. Elige lo que harías de verdad.</p>
+      <div class="sit" id="sit"></div>
+      <div class="therm"><span>🌡️</span><div class="t"><i id="temp"></i></div><b id="tempN">0/4</b></div>
+    </section>
+  </div>
+
+  <!-- CAPÍTULO 7 -->
+  <div class="col">
+    <section class="box">
+      <span class="tag t7">CAPÍTULO 7</span>
+      <h2>Toma de decisiones: la esencia de dirigir</h2>
+      <p>Decidir es <b>elegir una opción entre varias</b> y, con eso, renunciar a las demás. El libro la llama la esencia de la dirección, porque todo lo que hace un directivo termina en una decisión. Un proceso ordenado ayuda a no decidir "al ahí se va":</p>
+      <div class="road">
+        <div>Definir bien el problema.</div>
+        <div>Fijar qué resultado quiero y con qué criterios voy a evaluar.</div>
+        <div>Buscar varias alternativas.</div>
+        <div>Comparar pros y contras y elegir la mejor.</div>
+        <div>Hacer un plan de acción.</div>
+        <div>Ponerlo en práctica y revisar si funcionó.</div>
+      </div>
+      <div class="types">
+        <div><b>🔁 Programadas</b>Problemas de rutina con una respuesta ya establecida.</div>
+        <div><b>🆕 No programadas</b>Situaciones nuevas que piden análisis y creatividad.</div>
+        <div><b>🎯 Certidumbre</b>Conoces los resultados de cada opción.</div>
+        <div><b>🌫️ Incertidumbre / riesgo</b>No sabes con seguridad qué pasará.</div>
+      </div>
+    </section>
+
+    <section class="box">
+      <span class="tag t7">HERRAMIENTA</span>
+      <h2>Mi decisión real: ¿dónde hago mis prácticas?</h2>
+      <p class="soft">Una matriz de decisión ponderada: das un peso a cada criterio (1 a 5) y calificas cada opción (1 a 10). Cambia los números y mira cómo cambia el resultado.</p>
+      <table id="mx"></table>
+      <div class="win" id="win"></div>
+      <h3 style="margin-top:16px;font-size:1.05rem">Barreras que me pueden hacer decidir mal</h3>
+      <div class="barriers"><span>No conocer bien el tema</span><span>Saltarme pasos</span><span>Decidir con puro enojo o miedo</span><span>Prejuicios</span><span>Creer que todo está bajo mi control</span><span>Prisa</span></div>
+    </section>
+  </div>
+</div>
+
+<div class="bridge">
+  <section class="box">
+    <h2 style="font-size:1.35rem">🔗 Lo que une a los dos capítulos (mi reflexión)</h2>
+    <p style="margin:.4em 0 0">Al hacer la matriz me di cuenta de que mi primera opción era la que "se sentía" mejor, pero al poner pesos y números la respuesta cambió. Eso conecta los dos capítulos: las emociones no son malas, pero si no las reconozco pueden decidir por mí. La inteligencia emocional me ayuda a calmarme y escuchar a los demás antes de decidir, y el proceso de toma de decisiones me obliga a pensar con orden. Un buen directivo necesita las dos cosas: cabeza fría y trato humano.</p>
+  </section>
+</div>
+<footer>Bradley Yeray Reyes Altamirano · Tópico 2 · Basado en <i>Habilidades Directivas</i> de Berta Ermila Madrigal Torres (McGraw-Hill), capítulos 3 y 7.</footer>
+
+<script>
+const $=id=>document.getElementById(id);
+/* componentes de la IE */
+const C=[['🪞 Autoconciencia','Saber qué siento y por qué, y conocer mis fortalezas y debilidades.','Notar que estoy de malas antes de contestarle feo a alguien.'],
+ ['🧘 Autocontrol','Manejar mis impulsos y pensar antes de reaccionar.','Contar hasta diez cuando un compañero no entregó su parte.'],
+ ['🔥 Automotivación','Impulsarme hacia mis metas aunque no haya premio inmediato.','Seguir yendo al gym aunque todavía no vea resultados.'],
+ ['🤝 Empatía','Ponerme en el lugar del otro y entender lo que siente.','Darme cuenta de que un compañero está callado porque tiene un problema en casa.'],
+ ['🗣️ Habilidades sociales','Comunicarme, persuadir, negociar y trabajar en equipo.','Lograr que el equipo se ponga de acuerdo sin pelear.']];
+$('ring').innerHTML=C.map((c,i)=>`<button data-i="${i}">${c[0]}</button>`).join('');
+$('ring').querySelectorAll('button').forEach(b=>b.onclick=()=>{$('ring').querySelectorAll('button').forEach(x=>x.classList.toggle('on',x===b));const c=C[+b.dataset.i];$('comp').innerHTML=`<b>${c[0]}</b><br>${c[1]}<br><span class="soft">Ejemplo: ${c[2]}</span>`;});
+
+/* situaciones */
+const S=[
+ {p:'Tu equipo entregó tarde por culpa de un compañero y el profe les bajó puntos a todos.',o:[['Le reclamo en el chat del grupo para que todos vean',0,'Exhibirlo genera conflicto y no resuelve nada.'],['Hablo con él en privado para entender qué pasó y acordar cómo evitarlo',1,'Autocontrol y empatía: separas el enojo del problema.'],['No digo nada y hago su parte la próxima vez',0,'Evitar el conflicto también es no manejarlo: el problema se repite.']]},
+ {p:'Te dicen frente a todos que tu presentación estuvo confusa.',o:[['Me defiendo y digo que fue culpa del proyector',0,'Reacción defensiva: falta autoconciencia.'],['Pregunto qué parte no se entendió para mejorarla',1,'Autoconciencia: tomas la crítica como información.'],['Me quedo callado y molesto todo el día',0,'La emoción te controla a ti y no al revés.']]},
+ {p:'Llevas semanas entrenando y no ves cambios. Hoy no tienes ganas de ir.',o:[['Me salto la semana entera',0,'Sin automotivación, las metas largas se abandonan.'],['Voy aunque sea una rutina corta y reviso mi plan',1,'Automotivación: mantienes el hábito aunque no haya premio inmediato.'],['Me comparo con otros y me desanimo más',0,'Compararte no ayuda a manejar la emoción.']]},
+ {p:'Eres coordinador y alguien del equipo empieza a fallar en todo.',o:[['Lo regaño frente al grupo para que aprenda',0,'Humillar baja la motivación de todo el equipo.'],['Le pregunto en privado cómo está y si necesita apoyo',1,'Empatía y habilidad social: buscas la causa antes de juzgar.'],['Le quito sus tareas sin decirle nada',0,'Decidir sin comunicar rompe la confianza.']]}
+];
+let si=0;const ans={};
+function sit(){const s=S[si];
+  $('sit').innerHTML=`<p>${si+1}. ${s.p}</p><div class="ops">${s.o.map((o,i)=>`<button data-i="${i}">${o[0]}</button>`).join('')}</div><div class="fb" id="fb"></div><div class="nav"><button class="nb" id="pv" ${si?'':'disabled'}>←</button><button class="nb" id="nx" ${si<S.length-1?'':'disabled'}>Siguiente →</button></div>`;
+  const bs=$('sit').querySelectorAll('.ops button');
+  const mark=i=>{bs.forEach((b,j)=>{b.disabled=true;if(s.o[j][1])b.classList.add('good');else if(j===i)b.classList.add('meh');});$('fb').textContent=s.o[i][2];};
+  if(ans[si]!=null)mark(ans[si]);
+  bs.forEach(b=>b.onclick=()=>{ans[si]=+b.dataset.i;mark(ans[si]);temp();});
+  $('pv').onclick=()=>{si--;sit();};$('nx').onclick=()=>{si++;sit();};}
+function temp(){const n=Object.keys(ans).filter(k=>S[k].o[ans[k]][1]).length;$('temp').style.width=n/4*100+'%';$('tempN').textContent=n+'/4';}
+sit();
+
+/* matriz de decisión */
+const crit=[['Lo que aprendo',5],['Cercanía a casa',3],['Pago o apoyo',4],['Me sirve para mi carrera',5]];
+const opts=['Empresa de software','Taller de mi tío','Oficina de gobierno'];
+const sc=[[9,4,8],[4,9,6],[7,5,6],[9,3,6]];
+function mx(){
+  let h='<tr><th>Criterio</th><th>Peso</th>'+opts.map(o=>`<th>${o}</th>`).join('')+'</tr>';
+  crit.forEach((c,i)=>{h+=`<tr><td>${c[0]}</td><td><input type="number" min="1" max="5" value="${c[1]}" data-w="${i}"></td>`+opts.map((_,j)=>`<td><input type="number" min="1" max="10" value="${sc[i][j]}" data-r="${i}" data-c="${j}"></td>`).join('')+'</tr>';});
+  const tot=opts.map((_,j)=>crit.reduce((s,c,i)=>s+c[1]*sc[i][j],0));
+  h+='<tr><th>Total</th><th></th>'+tot.map(t=>`<th>${t}</th>`).join('')+'</tr>';
+  $('mx').innerHTML=h;
+  const best=tot.indexOf(Math.max(...tot));
+  $('win').innerHTML=`🏆 Con estos pesos, la mejor opción es <b>${opts[best]}</b> (${tot[best]} puntos). Si cambias la importancia de un criterio, la decisión puede cambiar: por eso conviene definir los criterios <i>antes</i> de elegir.`;
+  $('mx').querySelectorAll('input').forEach(inp=>inp.onchange=()=>{const v=Math.max(+inp.min,Math.min(+inp.max,+inp.value||1));if(inp.dataset.w!=null)crit[+inp.dataset.w][1]=v;else sc[+inp.dataset.r][+inp.dataset.c]=v;mx();});
+}
+mx();
+</script>
+</body>
+</html>
