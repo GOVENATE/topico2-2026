@@ -1,0 +1,1148 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>El Empresario Mexicano Ideal</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: #f5f3ee;
+            color: #17212b;
+        }
+
+        /* =========================
+           BARRA DE NAVEGACIÓN
+        ========================= */
+
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            height: 70px;
+            background: #101c27;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 7%;
+            z-index: 1000;
+            box-shadow: 0 3px 15px rgba(0,0,0,0.25);
+        }
+
+        .logo {
+            color: #d4af55;
+            font-size: 21px;
+            font-weight: bold;
+            letter-spacing: 1px;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 30px;
+        }
+
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-size: 15px;
+            transition: 0.3s;
+        }
+
+        nav ul li a:hover {
+            color: #d4af55;
+        }
+
+        /* =========================
+           PORTADA
+        ========================= */
+
+        .hero {
+            min-height: 100vh;
+            background:
+                linear-gradient(
+                    90deg,
+                    rgba(10, 22, 32, 0.95),
+                    rgba(10, 22, 32, 0.60),
+                    rgba(10, 22, 32, 0.30)
+                ),
+                linear-gradient(#30485a, #c99f62);
+
+            display: flex;
+            align-items: center;
+            padding: 100px 8% 50px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Montañas decorativas */
+
+        .montana {
+            position: absolute;
+            bottom: 0;
+            width: 0;
+            height: 0;
+            border-left: 250px solid transparent;
+            border-right: 250px solid transparent;
+            border-bottom: 330px solid rgba(20, 30, 38, 0.65);
+        }
+
+        .montana.uno {
+            left: -100px;
+        }
+
+        .montana.dos {
+            left: 250px;
+            border-bottom-color: rgba(30, 40, 48, 0.75);
+            transform: scale(1.2);
+        }
+
+        .montana.tres {
+            right: -100px;
+            border-bottom-color: rgba(15, 25, 32, 0.75);
+            transform: scale(1.4);
+        }
+
+        .hero-content {
+            width: 52%;
+            position: relative;
+            z-index: 3;
+        }
+
+        .hero-content .linea {
+            width: 70px;
+            height: 4px;
+            background: #d4af55;
+            margin-bottom: 25px;
+        }
+
+        .hero h1 {
+            color: white;
+            font-size: clamp(45px, 6vw, 78px);
+            line-height: 1.05;
+            font-family: Georgia, serif;
+            margin-bottom: 25px;
+        }
+
+        .hero h1 span {
+            color: #d4af55;
+        }
+
+        .hero p {
+            color: #f1f1f1;
+            font-size: 20px;
+            line-height: 1.7;
+            max-width: 650px;
+        }
+
+        .boton {
+            display: inline-block;
+            margin-top: 35px;
+            padding: 15px 30px;
+            border: 1px solid #d4af55;
+            color: white;
+            text-decoration: none;
+            transition: 0.3s;
+        }
+
+        .boton:hover {
+            background: #d4af55;
+            color: #101c27;
+        }
+
+        /* =========================
+           SILUETA DEL EMPRESARIO
+        ========================= */
+
+        .empresario {
+            position: absolute;
+            right: 8%;
+            bottom: 0;
+            width: 390px;
+            height: 600px;
+            z-index: 4;
+        }
+
+        .cabeza {
+            position: absolute;
+            width: 130px;
+            height: 160px;
+            background: #080b0d;
+            border-radius: 50% 50% 45% 45%;
+            top: 45px;
+            left: 130px;
+        }
+
+        .cabello {
+            position: absolute;
+            width: 130px;
+            height: 60px;
+            background: #050607;
+            border-radius: 70% 70% 20% 20%;
+            top: 35px;
+            left: 130px;
+        }
+
+        .cuello {
+            position: absolute;
+            width: 55px;
+            height: 75px;
+            background: #080b0d;
+            top: 175px;
+            left: 168px;
+        }
+
+        .cuerpo {
+            position: absolute;
+            width: 300px;
+            height: 380px;
+            background: #070a0c;
+            left: 55px;
+            top: 210px;
+            border-radius: 35px 35px 0 0;
+        }
+
+        .hombro {
+            position: absolute;
+            width: 390px;
+            height: 190px;
+            background: #070a0c;
+            left: 0;
+            top: 260px;
+            border-radius: 50% 50% 0 0;
+        }
+
+        .saco {
+            position: absolute;
+            width: 270px;
+            height: 330px;
+            background: #101418;
+            left: 60px;
+            top: 250px;
+            clip-path: polygon(
+                30% 0,
+                70% 0,
+                100% 100%,
+                0 100%
+            );
+        }
+
+        .camisa {
+            position: absolute;
+            width: 95px;
+            height: 140px;
+            background: #e7e7e7;
+            left: 147px;
+            top: 245px;
+            clip-path: polygon(
+                20% 0,
+                80% 0,
+                100% 100%,
+                0 100%
+            );
+        }
+
+        .corbata {
+            position: absolute;
+            width: 32px;
+            height: 180px;
+            background: #263b4d;
+            left: 178px;
+            top: 250px;
+            clip-path: polygon(
+                25% 0,
+                75% 0,
+                100% 85%,
+                50% 100%,
+                0 85%
+            );
+        }
+
+        /* Bandera */
+
+        .bandera {
+            position: absolute;
+            right: 25px;
+            top: 100px;
+            z-index: 2;
+            opacity: 0.8;
+        }
+
+        .palo {
+            width: 5px;
+            height: 480px;
+            background: #c8a64b;
+            position: absolute;
+            right: 0;
+        }
+
+        .bandera-mexico {
+            width: 180px;
+            height: 115px;
+            position: absolute;
+            right: 5px;
+            top: 20px;
+            display: flex;
+        }
+
+        .verde {
+            width: 33.33%;
+            background: #006847;
+        }
+
+        .blanco {
+            width: 33.33%;
+            background: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 30px;
+        }
+
+        .rojo {
+            width: 33.33%;
+            background: #ce1126;
+        }
+
+        /* =========================
+           SECCIONES
+        ========================= */
+
+        section {
+            padding: 90px 8%;
+        }
+
+        .titulo {
+            text-align: center;
+            margin-bottom: 55px;
+        }
+
+        .titulo .linea {
+            width: 60px;
+            height: 4px;
+            background: #d4af55;
+            margin: 0 auto 18px;
+        }
+
+        .titulo h2 {
+            font-family: Georgia, serif;
+            font-size: 45px;
+            color: #172b3a;
+            margin-bottom: 10px;
+        }
+
+        .titulo p {
+            color: #65717a;
+            font-size: 18px;
+        }
+
+        /* =========================
+           VALORES
+        ========================= */
+
+        #valores {
+            background: #f8f6f1;
+        }
+
+        .valores-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 25px;
+        }
+
+        .valor {
+            background: white;
+            padding: 35px 20px;
+            text-align: center;
+            border-top: 3px solid #d4af55;
+            transition: 0.3s;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.06);
+        }
+
+        .valor:hover {
+            transform: translateY(-10px);
+        }
+
+        .icono {
+            width: 70px;
+            height: 70px;
+            border: 2px solid #d4af55;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            font-size: 30px;
+        }
+
+        .valor h3 {
+            font-family: Georgia, serif;
+            font-size: 22px;
+            margin-bottom: 12px;
+        }
+
+        .valor p {
+            color: #65717a;
+            line-height: 1.6;
+        }
+
+        /* =========================
+           VISIÓN
+        ========================= */
+
+        .vision {
+            background: #111e29;
+            color: white;
+        }
+
+        .vision .titulo h2,
+        .vision .titulo p {
+            color: white;
+        }
+
+        .vision-contenido {
+            max-width: 900px;
+            margin: auto;
+            text-align: center;
+        }
+
+        .vision-contenido .numero {
+            color: #d4af55;
+            font-size: 70px;
+            font-family: Georgia, serif;
+        }
+
+        .vision-contenido h3 {
+            font-family: Georgia, serif;
+            font-size: 32px;
+            margin: 15px 0;
+        }
+
+        .vision-contenido p {
+            font-size: 20px;
+            line-height: 1.8;
+            color: #d8dce0;
+        }
+
+        /* =========================
+           LIDERAZGO / ÉTICA
+        ========================= */
+
+        .dos-columnas {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+        }
+
+        .tarjeta {
+            background: white;
+            padding: 40px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.07);
+            border-left: 5px solid #d4af55;
+        }
+
+        .tarjeta h3 {
+            font-family: Georgia, serif;
+            font-size: 32px;
+            color: #172b3a;
+            margin-bottom: 15px;
+        }
+
+        .tarjeta p {
+            color: #65717a;
+            line-height: 1.7;
+            margin-bottom: 20px;
+        }
+
+        .tarjeta ul {
+            padding-left: 20px;
+        }
+
+        .tarjeta li {
+            margin: 12px 0;
+            color: #34424d;
+        }
+
+        /* =========================
+           COMPROMISO CON MÉXICO
+        ========================= */
+
+        .mexico {
+            background: #eae7df;
+        }
+
+        .mexico-contenido {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+            align-items: center;
+        }
+
+        .mapa {
+            font-size: 190px;
+            text-align: center;
+        }
+
+        .mexico-texto h2 {
+            font-family: Georgia, serif;
+            font-size: 43px;
+            color: #172b3a;
+            margin-bottom: 20px;
+        }
+
+        .mexico-texto p {
+            font-size: 18px;
+            line-height: 1.8;
+            color: #4f5c65;
+        }
+
+        .mexico-lista {
+            margin-top: 25px;
+        }
+
+        .mexico-lista div {
+            padding: 12px 0;
+            border-bottom: 1px solid #c9c5bb;
+        }
+
+        .mexico-lista strong {
+            color: #172b3a;
+        }
+
+        /* =========================
+           RESPONSABILIDAD SOCIAL
+        ========================= */
+
+        .responsabilidad {
+            background: #f8f6f1;
+        }
+
+        .impactos {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 25px;
+        }
+
+        .impacto {
+            padding: 35px;
+            background: #111e29;
+            color: white;
+            text-align: center;
+            transition: 0.3s;
+        }
+
+        .impacto:hover {
+            transform: translateY(-8px);
+        }
+
+        .impacto .emoji {
+            font-size: 45px;
+            margin-bottom: 20px;
+        }
+
+        .impacto h3 {
+            color: #d4af55;
+            font-family: Georgia, serif;
+            font-size: 24px;
+            margin-bottom: 15px;
+        }
+
+        .impacto p {
+            line-height: 1.6;
+            color: #d8dce0;
+        }
+
+        /* =========================
+           FRASE FINAL
+        ========================= */
+
+        .frase {
+            padding: 100px 10%;
+            background:
+                linear-gradient(
+                    rgba(10,20,28,0.85),
+                    rgba(10,20,28,0.85)
+                ),
+                linear-gradient(120deg, #6c4d2c, #172b3a);
+            text-align: center;
+            color: white;
+        }
+
+        .frase h2 {
+            font-family: Georgia, serif;
+            font-size: 38px;
+            font-style: italic;
+            max-width: 900px;
+            margin: auto;
+            line-height: 1.5;
+        }
+
+        .frase span {
+            display: block;
+            width: 70px;
+            height: 4px;
+            background: #d4af55;
+            margin: 30px auto;
+        }
+
+        /* =========================
+           FOOTER
+        ========================= */
+
+        footer {
+            background: #0c151d;
+            color: #aeb7bd;
+            text-align: center;
+            padding: 25px;
+            font-size: 14px;
+        }
+
+        footer strong {
+            color: #d4af55;
+        }
+
+        /* =========================
+           RESPONSIVE
+        ========================= */
+
+        @media (max-width: 1000px) {
+
+            nav {
+                padding: 0 4%;
+            }
+
+            nav ul {
+                gap: 12px;
+            }
+
+            .hero-content {
+                width: 100%;
+            }
+
+            .empresario {
+                opacity: 0.35;
+                right: -80px;
+            }
+
+            .valores-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .dos-columnas,
+            .mexico-contenido {
+                grid-template-columns: 1fr;
+            }
+
+            .impactos {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 650px) {
+
+            nav {
+                height: auto;
+                padding: 15px;
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            nav ul {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            .hero {
+                padding-top: 150px;
+            }
+
+            .hero h1 {
+                font-size: 45px;
+            }
+
+            .hero p {
+                font-size: 17px;
+            }
+
+            .valores-grid {
+                grid-template-columns: 1fr;
+            }
+
+            section {
+                padding: 65px 6%;
+            }
+
+            .titulo h2 {
+                font-size: 35px;
+            }
+
+            .empresario {
+                transform: scale(0.7);
+                transform-origin: bottom right;
+                right: -130px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- =========================
+         NAVEGACIÓN
+    ========================== -->
+
+    <nav>
+
+        <div class="logo">
+            🇲🇽 EL EMPRESARIO MEXICANO
+        </div>
+
+        <ul>
+            <li><a href="#inicio">Inicio</a></li>
+            <li><a href="#valores">Valores</a></li>
+            <li><a href="#vision">Visión</a></li>
+            <li><a href="#liderazgo">Liderazgo</a></li>
+            <li><a href="#mexico">México</a></li>
+            <li><a href="#responsabilidad">Impacto</a></li>
+        </ul>
+
+    </nav>
+
+
+    <!-- =========================
+         PORTADA
+    ========================== -->
+
+    <section class="hero" id="inicio">
+
+        <div class="montana uno"></div>
+        <div class="montana dos"></div>
+        <div class="montana tres"></div>
+
+        <!-- Bandera -->
+
+        <div class="bandera">
+
+            <div class="palo"></div>
+
+            <div class="bandera-mexico">
+                <div class="verde"></div>
+                <div class="blanco">🦅</div>
+                <div class="rojo"></div>
+            </div>
+
+        </div>
+
+
+        <div class="hero-content">
+
+            <div class="linea"></div>
+
+            <h1>
+                El empresario
+                <span>mexicano ideal</span>
+            </h1>
+
+            <p>
+                Un líder que transforma ideas en oportunidades,
+                impulsa el desarrollo de México y construye un
+                futuro más justo, próspero y sostenible.
+            </p>
+
+            <a href="#valores" class="boton">
+                CONOCER SUS PRINCIPIOS
+            </a>
+
+        </div>
+
+
+        <!-- SILUETA DEL EMPRESARIO -->
+
+        <div class="empresario">
+
+            <div class="cabello"></div>
+
+            <div class="cabeza"></div>
+
+            <div class="cuello"></div>
+
+            <div class="hombro"></div>
+
+            <div class="cuerpo"></div>
+
+            <div class="saco"></div>
+
+            <div class="camisa"></div>
+
+            <div class="corbata"></div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =========================
+         VALORES
+    ========================== -->
+
+    <section id="valores">
+
+        <div class="titulo">
+
+            <div class="linea"></div>
+
+            <h2>Sus Valores</h2>
+
+            <p>
+                La base de sus decisiones y acciones.
+            </p>
+
+        </div>
+
+
+        <div class="valores-grid">
+
+            <div class="valor">
+
+                <div class="icono">🤝</div>
+
+                <h3>Honestidad</h3>
+
+                <p>
+                    Actúa con integridad en todo momento,
+                    generando confianza y credibilidad.
+                </p>
+
+            </div>
+
+
+            <div class="valor">
+
+                <div class="icono">❤️</div>
+
+                <h3>Respeto</h3>
+
+                <p>
+                    Valora a las personas, sus ideas,
+                    su diversidad y el entorno.
+                </p>
+
+            </div>
+
+
+            <div class="valor">
+
+                <div class="icono">⚖️</div>
+
+                <h3>Responsabilidad</h3>
+
+                <p>
+                    Cumple sus compromisos y asume las
+                    consecuencias de sus decisiones.
+                </p>
+
+            </div>
+
+
+            <div class="valor">
+
+                <div class="icono">🎯</div>
+
+                <h3>Disciplina</h3>
+
+                <p>
+                    Trabaja con constancia y mantiene
+                    el enfoque en sus objetivos.
+                </p>
+
+            </div>
+
+
+            <div class="valor">
+
+                <div class="icono">🌎</div>
+
+                <h3>Solidaridad</h3>
+
+                <p>
+                    Comparte su éxito y contribuye
+                    al bienestar de su comunidad.
+                </p>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =========================
+         VISIÓN
+    ========================== -->
+
+    <section class="vision" id="vision">
+
+        <div class="titulo">
+
+            <div class="linea"></div>
+
+            <h2>Su Visión</h2>
+
+            <p>
+                No solo piensa en el presente, sino también en el legado.
+            </p>
+
+        </div>
+
+
+        <div class="vision-contenido">
+
+            <div class="numero">01</div>
+
+            <h3>
+                Construir un México más competitivo
+            </h3>
+
+            <p>
+                Busca crear empresas innovadoras que impulsen
+                el crecimiento económico de México, generen
+                empleos, desarrollen talento nacional y
+                creen oportunidades para las nuevas generaciones.
+            </p>
+
+        </div>
+
+    </section>
+
+
+    <!-- =========================
+         LIDERAZGO Y ÉTICA
+    ========================== -->
+
+    <section id="liderazgo">
+
+        <div class="dos-columnas">
+
+            <div class="tarjeta">
+
+                <h3>👑 Liderazgo</h3>
+
+                <p>
+                    Un empresario ideal no solamente dirige:
+                    inspira, escucha y ayuda a su equipo a crecer.
+                </p>
+
+                <ul>
+
+                    <li>Toma decisiones con visión y valentía.</li>
+
+                    <li>Motiva mediante el ejemplo.</li>
+
+                    <li>Fomenta la colaboración.</li>
+
+                    <li>Desarrolla el talento de su equipo.</li>
+
+                    <li>Construye una cultura de confianza.</li>
+
+                </ul>
+
+            </div>
+
+
+            <div class="tarjeta">
+
+                <h3>⚖️ Ética</h3>
+
+                <p>
+                    El éxito verdadero se construye sobre
+                    principios y no únicamente sobre ganancias.
+                </p>
+
+                <ul>
+
+                    <li>Actúa con justicia y transparencia.</li>
+
+                    <li>Evita la corrupción.</li>
+
+                    <li>Respeta las leyes y normas.</li>
+
+                    <li>Rechaza el abuso de poder.</li>
+
+                    <li>Mantiene una conducta responsable.</li>
+
+                </ul>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =========================
+         COMPROMISO CON MÉXICO
+    ========================== -->
+
+    <section class="mexico" id="mexico">
+
+        <div class="mexico-contenido">
+
+            <div class="mapa">
+                🇲🇽
+            </div>
+
+
+            <div class="mexico-texto">
+
+                <h2>
+                    Compromiso con México
+                </h2>
+
+                <p>
+                    El empresario mexicano ideal entiende que
+                    el crecimiento de su empresa también puede
+                    contribuir al desarrollo del país.
+                </p>
+
+
+                <div class="mexico-lista">
+
+                    <div>
+                        🇲🇽 <strong>Impulsa</strong> el talento mexicano.
+                    </div>
+
+                    <div>
+                        💼 <strong>Genera</strong> empleos dignos.
+                    </div>
+
+                    <div>
+                        🏭 <strong>Apoya</strong> la industria nacional.
+                    </div>
+
+                    <div>
+                        🎓 <strong>Invierte</strong> en educación y capacitación.
+                    </div>
+
+                    <div>
+                        📈 <strong>Contribuye</strong> al crecimiento económico.
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =========================
+         RESPONSABILIDAD SOCIAL
+    ========================== -->
+
+    <section class="responsabilidad" id="responsabilidad">
+
+        <div class="titulo">
+
+            <div class="linea"></div>
+
+            <h2>Responsabilidad Social</h2>
+
+            <p>
+                El progreso debe generar beneficios para todos.
+            </p>
+
+        </div>
+
+
+        <div class="impactos">
+
+            <div class="impacto">
+
+                <div class="emoji">🌱</div>
+
+                <h3>Medio Ambiente</h3>
+
+                <p>
+                    Reduce el impacto ambiental de sus actividades,
+                    utiliza los recursos de manera responsable y
+                    promueve prácticas sostenibles.
+                </p>
+
+            </div>
+
+
+            <div class="impacto">
+
+                <div class="emoji">🎓</div>
+
+                <h3>Educación</h3>
+
+                <p>
+                    Apoya la educación y la capacitación para
+                    crear mejores oportunidades para las
+                    nuevas generaciones.
+                </p>
+
+            </div>
+
+
+            <div class="impacto">
+
+                <div class="emoji">🤲</div>
+
+                <h3>Comunidad</h3>
+
+                <p>
+                    Participa en proyectos que mejoran la calidad
+                    de vida y generan un impacto positivo
+                    en las comunidades.
+                </p>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =========================
+         FRASE FINAL
+    ========================== -->
+
+    <section class="frase">
+
+        <h2>
+            “Un verdadero empresario no solo hace crecer
+            su negocio, también construye un mejor México.”
+        </h2>
+
+        <span></span>
+
+    </section>
+
+
+    <!-- =========================
+         FOOTER
+    ========================== -->
+
+    <footer>
+
+        <p>
+            <strong>El Empresario Mexicano Ideal</strong>
+            — Liderazgo, ética, innovación y compromiso con México.
+        </p>
+
+    </footer>
+
+
+</body>
+</html>
