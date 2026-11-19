@@ -1,0 +1,289 @@
+{
+  "nombre": "Erick Arriola Aguillón",
+  "github": "ErickHub192",
+  "sobreMi": "Estudiante de Ingeniería de Software en la UAQ. Me gusta crear software, la inteligencia artificial y tocar guitarra y piano.",
+  "actividades": [
+    {
+      "id": "act01-7-habitos",
+      "titulo": "Los 7 hábitos de los adolescentes altamente efectivos",
+      "descripcion": "Introducción, sopa de letras, autor (Sean Covey) y collage.",
+      "fecha": "2026-08-11",
+      "tipo": "web",
+      "tecnologias": [
+        "HTML",
+        "CSS",
+        "JavaScript"
+      ],
+      "ruta": "actividades/act01-7-habitos/index.html"
+    },
+    {
+      "id": "act01-infografia-7-habitos",
+      "titulo": "Infografía: los 7 hábitos",
+      "descripcion": "Infografía de los 7 hábitos.",
+      "fecha": "2026-08-06",
+      "tipo": "imagen",
+      "tecnologias": [
+        "Diseño"
+      ],
+      "ruta": "actividades/act01-7-habitos/infografia_7_habitos.jpg"
+    },
+    {
+      "id": "act01-persuade-voz",
+      "titulo": "Persuade con tu voz",
+      "descripcion": "Resumen de la charla de Emma Rodero: intensidad, tono, timbre y duración.",
+      "fecha": "2026-08-11",
+      "tipo": "web",
+      "tecnologias": [
+        "HTML",
+        "CSS",
+        "JavaScript"
+      ],
+      "ruta": "actividades/act01-7-habitos/index.html#voz"
+    },
+    {
+      "id": "act07-habilidades-directivas",
+      "titulo": "Resúmenes de habilidades directivas",
+      "descripcion": "Capítulos 1, 2, 3, 5, 7, 8, 10 y 13, con matriz de urgente contra importante y repaso.",
+      "tipo": "web",
+      "tecnologias": [
+        "HTML",
+        "CSS",
+        "JavaScript"
+      ],
+      "ruta": "actividades/act07-habilidades-directivas/index.html"
+    },
+    {
+      "id": "act08-pensamiento-critico",
+      "titulo": "Sin pensamiento crítico no eres nadie",
+      "descripcion": "Lo que entendí de la charla TEDx de Pablo Pérez-Paetow, mi opinión y un ejercicio de hechos contra opiniones.",
+      "tipo": "web",
+      "tecnologias": [
+        "HTML",
+        "CSS",
+        "JavaScript"
+      ],
+      "ruta": "actividades/act08-pensamiento-critico/index.html"
+    },
+    {
+      "id": "act09-superricos",
+      "titulo": "¿Cuánta influencia tienen los superricos?",
+      "descripcion": "Análisis del documental de DW y simulación de un alcalde ante un donante.",
+      "tipo": "web",
+      "tecnologias": [
+        "HTML",
+        "CSS",
+        "JavaScript"
+      ],
+      "ruta": "actividades/act09-superricos/index.html"
+    },
+    {
+      "id": "act10-fracasan-paises",
+      "titulo": "Infografía: ¿por qué fracasan los países?",
+      "descripcion": "Instituciones inclusivas y extractivas según Acemoglu y Robinson.",
+      "tipo": "web",
+      "tecnologias": [
+        "HTML",
+        "CSS",
+        "JavaScript"
+      ],
+      "ruta": "actividades/act10-fracasan-paises/index.html"
+    },
+    {
+      "id": "act11-movimientos-sociales",
+      "titulo": "Movimientos sociales (Mentes en acción)",
+      "descripcion": "Cómo nacen los movimientos sociales y qué logran.",
+      "tipo": "web",
+      "tecnologias": [
+        "HTML",
+        "CSS",
+        "JavaScript"
+      ],
+      "ruta": "actividades/act11-movimientos-sociales/index.html"
+    },
+    {
+      "id": "act02-poder-empresas",
+      "titulo": "El poder de las empresas",
+      "descripcion": "Infografía sobre multinacionales, regulación y recursos públicos.",
+      "fecha": "2026-10-13",
+      "tipo": "web",
+      "tecnologias": [
+        "HTML",
+        "CSS",
+        "JavaScript"
+      ],
+      "ruta": "actividades/act02-poder-empresas/index.html"
+    },
+    {
+      "id": "act12-gigantes-mexico",
+      "titulo": "Gigantes de México: Slim y Zambrano",
+      "descripcion": "Trayectorias de Carlos Slim y Lorenzo Zambrano con línea de tiempo y repaso.",
+      "tipo": "web",
+      "tecnologias": [
+        "HTML",
+        "CSS",
+        "JavaScript"
+      ],
+      "ruta": "actividades/act12-gigantes-mexico/index.html"
+    },
+    {
+      "id": "act13-comparativo-empresarios",
+      "titulo": "Cuadro comparativo de empresarios mexicanos",
+      "descripcion": "Slim, Zambrano y Servitje en diez categorías.",
+      "tipo": "web",
+      "tecnologias": [
+        "HTML",
+        "CSS",
+        "JavaScript"
+      ],
+      "ruta": "actividades/act13-comparativo-empresarios/index.html"
+    },
+    {
+      "id": "act14-empresario-ideal",
+      "titulo": "Empresario mexicano ideal",
+      "descripcion": "Mi perfil del empresario ideal en diez rasgos.",
+      "tipo": "web",
+      "tecnologias": [
+        "HTML",
+        "CSS",
+        "JavaScript"
+      ],
+      "ruta": "actividades/act14-empresario-ideal/index.html"
+    },
+    {
+      "id": "act03-codigo-limpio",
+      "titulo": "Código limpio: lavandería de código",
+      "descripcion": "Juego interactivo sobre Clean Code de Robert C. Martin.",
+      "fecha": "2026-10-13",
+      "tipo": "web",
+      "tecnologias": [
+        "HTML",
+        "CSS",
+        "JavaScript"
+      ],
+      "ruta": "actividades/act03-codigo-limpio/index.html"
+    },
+    {
+      "id": "act04-elias-ayub",
+      "titulo": "Siete lecciones de negocios de Arturo Elías Ayub",
+      "descripcion": "Lecciones de negocios y dinero del episodio de Dimes y Billetes.",
+      "fecha": "2026-10-13",
+      "tipo": "web",
+      "tecnologias": [
+        "HTML",
+        "CSS",
+        "JavaScript"
+      ],
+      "ruta": "actividades/act04-elias-ayub/index.html"
+    },
+    {
+      "id": "act15-caracteristicas-desarrollo",
+      "titulo": "11 características para el desarrollo",
+      "descripcion": "Rueda de competencias: ocho vistas en clase y tres propuestas.",
+      "tipo": "web",
+      "tecnologias": [
+        "HTML",
+        "CSS",
+        "JavaScript"
+      ],
+      "ruta": "actividades/act15-caracteristicas-desarrollo/index.html"
+    },
+    {
+      "id": "act16-quinta-disciplina",
+      "titulo": "La quinta disciplina · Parte I",
+      "descripcion": "Peter Senge: cinco disciplinas, siete barreras y el juego de la cerveza.",
+      "tipo": "web",
+      "tecnologias": [
+        "HTML",
+        "CSS",
+        "JavaScript"
+      ],
+      "ruta": "actividades/act16-quinta-disciplina/index.html"
+    },
+    {
+      "id": "act17-arquetipos",
+      "titulo": "Arquetipos sistémicos",
+      "descripcion": "Diez patrones sistémicos con ejemplos y un ejercicio para identificarlos.",
+      "tipo": "web",
+      "tecnologias": [
+        "HTML",
+        "CSS",
+        "JavaScript"
+      ],
+      "ruta": "actividades/act17-arquetipos/index.html"
+    },
+    {
+      "id": "act18-creatividad",
+      "titulo": "Creatividad · Elkhonon Goldberg",
+      "descripcion": "Las tres redes del cerebro y un taller para combinar ideas.",
+      "tipo": "web",
+      "tecnologias": [
+        "HTML",
+        "CSS",
+        "JavaScript"
+      ],
+      "ruta": "actividades/act18-creatividad/index.html"
+    },
+    {
+      "id": "act19-habilidad-estrategica",
+      "titulo": "La habilidad estratégica · capítulo 12",
+      "descripcion": "Mapa estratégico, ciclo de dirección y un caso para decidir.",
+      "tipo": "web",
+      "tecnologias": [
+        "HTML",
+        "CSS",
+        "JavaScript"
+      ],
+      "ruta": "actividades/act19-habilidad-estrategica/index.html"
+    },
+    {
+      "id": "act05-psicologia-dinero",
+      "titulo": "La psicología del dinero: lotería del dinero",
+      "descripcion": "Ideas de Morgan Housel en forma de cartas de lotería.",
+      "fecha": "2026-11-12",
+      "tipo": "web",
+      "tecnologias": [
+        "HTML",
+        "CSS",
+        "JavaScript"
+      ],
+      "ruta": "actividades/act05-psicologia-dinero/index.html"
+    },
+    {
+      "id": "act06-psicologia-dinero-historia",
+      "titulo": "Diez años, cinco decisiones",
+      "descripcion": "La psicología del dinero en forma de historia interactiva.",
+      "fecha": "2026-11-12",
+      "tipo": "web",
+      "tecnologias": [
+        "HTML",
+        "CSS",
+        "JavaScript"
+      ],
+      "ruta": "actividades/act06-psicologia-dinero-historia/index.html"
+    },
+    {
+      "id": "act20-proyecto1-decisiones",
+      "titulo": "Proyecto 1: herramientas para la toma de decisiones",
+      "descripcion": "FODA, 6 sombreros, CATWDA, Ishikawa y Pareto aplicados a una decisión propia.",
+      "tipo": "web",
+      "tecnologias": [
+        "HTML",
+        "CSS",
+        "JavaScript"
+      ],
+      "ruta": "actividades/act20-proyecto1-decisiones/index.html"
+    },
+    {
+      "id": "act21-proyecto-mexico",
+      "titulo": "Proyecto: México en su mejor versión",
+      "descripcion": "Yokoi Kenji, Carlos Kasuga y el decálogo del desarrollo con un juego de decisiones.",
+      "tipo": "web",
+      "tecnologias": [
+        "HTML",
+        "CSS",
+        "JavaScript"
+      ],
+      "ruta": "actividades/act21-proyecto-mexico/index.html"
+    }
+  ]
+}

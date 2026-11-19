@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>México en su mejor versión</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;700;800&family=Instrument+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600&display=swap">
+<link rel="stylesheet" href="../comun/base.css">
+<style>
+  .escalera{display:flex;flex-direction:column-reverse;gap:6px}
+  .peldano{display:grid;grid-template-columns:110px 1fr;gap:12px;align-items:center;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:12px 14px}
+  .peldano b{font:800 1rem/1.1 var(--display);color:var(--acc)}
+  .peldano:nth-child(1){margin-right:30%} .peldano:nth-child(2){margin-right:20%} .peldano:nth-child(3){margin-right:10%}
+  @media (max-width:560px){.peldano{grid-template-columns:1fr;margin-right:0!important}}
+  .dia{display:flex;flex-direction:column;gap:12px}
+  .dia .opciones{display:grid;gap:8px}
+  .hora{font:600 .8rem/1 var(--mono);color:var(--acc)}
+  .valores{display:flex;flex-wrap:wrap;gap:6px}
+  .valores .chip.on{background:var(--ok);border-color:var(--ok);color:#fff}
+  .valores .chip.off{text-decoration:line-through;opacity:.7}
+</style>
+</head>
+<body style="--acc:#0a6b3d;--acc-dark:#6fdea5">
+<script src="../comun/base.js"></script>
+<main class="wrap">
+  <header class="hero">
+    <p class="eyebrow">Tópico 2 · Proyecto final</p>
+    <h1>México en su mejor versión</h1>
+    <p class="lede">Junté dos filosofías que vimos en clase: la de Yokoi Kenji, sobre disciplina y propósito, y la de Carlos Kasuga, sobre calidad humana. Las dos dicen que el país cambia cuando cambia cada persona, con hábitos de todos los días.</p>
+    <div class="meta"><span class="chip acc">Yokoi Kenji</span><span class="chip acc">Carlos Kasuga</span><span class="chip">Erick Arriola Aguillón</span></div>
+  </header>
+
+  <section>
+    <span class="num">01 · DOS FILOSOFÍAS</span>
+    <div class="grid dos">
+      <div class="card acc"><h3>Yokoi Kenji</h3><p>Colombiano-japonés que compara las dos culturas. Propone dejar las excusas y convertir los valores en acciones: disciplina, honestidad, respeto y responsabilidad. La disciplina no es castigo, es lo que te lleva a tu propósito.</p></div>
+      <div class="card acc"><h3>Carlos Kasuga</h3><p>Empresario mexicano de origen japonés, fundador de Yakult en México. Dice que la calidad empieza en la persona y la ordena en cuatro pasos: primero <em>ser</em> bien, luego <em>hacer</em> bien, después <em>estar</em> bien y al final <em>tener</em> bien.</p></div>
+    </div>
+  </section>
+
+  <section>
+    <span class="num">02 · LA ESCALERA DE KASUGA</span>
+    <div class="escalera">
+      <div class="peldano"><b>Bien ser</b><span>Ser buena persona: honesto, respetuoso, responsable.</span></div>
+      <div class="peldano"><b>Bien hacer</b><span>Hacer el trabajo con calidad, aunque sea pequeño.</span></div>
+      <div class="peldano"><b>Bien estar</b><span>La tranquilidad que llega cuando haces las cosas bien.</span></div>
+      <div class="peldano"><b>Bien tener</b><span>Los resultados y el dinero llegan al final, no al principio.</span></div>
+    </div>
+    <p class="small muted">En México muchas veces queremos empezar por el “bien tener”. Kasuga dice que así no funciona.</p>
+  </section>
+
+  <section>
+    <span class="num">03 · DECÁLOGO DEL DESARROLLO APLICADO A MÉXICO</span>
+    <div class="grid" id="decalogo"></div>
+  </section>
+
+  <section>
+    <span class="num">04 · JUEGO: UN DÍA CON EL DECÁLOGO</span>
+    <h2>¿Qué haces tú?</h2>
+    <p class="muted">Seis situaciones de un día normal de estudiante en Querétaro. Cada decisión suma o resta a tu “México”.</p>
+    <div class="card dia" id="dia"></div>
+  </section>
+
+  <section>
+    <span class="num">05 · MI CONCLUSIÓN</span>
+    <div class="callout"><p>México tiene recursos, gente talentosa y cultura. Lo que nos frena muchas veces son hábitos: llegar tarde, “ahorita lo hago”, la mordida, tirar basura porque “nadie ve”. Después de este proyecto creo que la mejor versión de México no depende de un presidente o de una gran empresa, sino de que cada quien haga bien lo que le toca. En mi caso, como futuro ingeniero de software: cumplir a tiempo, no copiar código sin entenderlo y hacer sistemas que de verdad ayuden a la gente.</p></div>
+  </section>
+
+  <footer class="pie-pag"><span>Fuentes: conferencias de Yokoi Kenji y Carlos Kasuga vistas en clase.</span><span>Erick Arriola Aguillón</span></footer>
+</main>
+<script>
+const DEC = [
+  ['Orden','En el tiempo, los espacios, los trámites y hasta en el código.'],
+  ['Limpieza','Cuidar calles, salones y el trabajo que entrego.'],
+  ['Puntualidad','Respetar el tiempo de los demás.'],
+  ['Responsabilidad','Hacerme cargo de mis tareas y errores.'],
+  ['Deseo de superación','Aprender idiomas, tecnología y oficios.'],
+  ['Honradez','Sin trampa, sin copiar y sin mordidas.'],
+  ['Respeto','A las personas, las leyes y las diferencias.'],
+  ['Respeto a la ley','Cumplir las reglas aunque nadie esté viendo.'],
+  ['Amor al trabajo','Hacer bien hasta lo más pequeño.'],
+  ['Ahorro e inversión','Pensar en el futuro, no solo en hoy.']
+];
+document.getElementById('decalogo').innerHTML = DEC.map((d,i)=>`<button class="flip" type="button"><span class="num">${String(i+1).padStart(2,'0')}</span><h3>${d[0]}</h3><span class="back">${d[1]}</span><span class="hint">Toca para ver</span></button>`).join('');
+
+const DIA = [
+  {h:'7:00', t:'Vas tarde a tu clase de las 7. ¿Qué haces?', o:[['Salgo antes y llego a tiempo','Puntualidad',2],['Llego 20 minutos tarde, “todos lo hacen”','Puntualidad',-2]]},
+  {h:'9:30', t:'Un compañero te ofrece pasarte el código de la práctica.', o:[['Lo hago yo, aunque me tarde más','Honradez',2],['Lo copio y le cambio los nombres','Honradez',-2],['Le pido que me explique cómo lo resolvió','Deseo de superación',1]]},
+  {h:'13:00', t:'Terminas de comer en la explanada y no hay bote cerca.', o:[['Guardo la basura hasta encontrar uno','Limpieza',2],['La dejo en la banca','Limpieza',-2]]},
+  {h:'16:00', t:'Te pagan en tu trabajo de medio tiempo.', o:[['Aparto una parte para ahorrar','Ahorro e inversión',2],['Me lo gasto todo el fin','Ahorro e inversión',-1]]},
+  {h:'18:30', t:'Un policía te detiene por una vuelta prohibida y te insinúa “arreglarse”.', o:[['Pido la infracción y la pago','Respeto a la ley',2],['Le doy 200 pesos y me voy','Respeto a la ley',-3]]},
+  {h:'21:00', t:'Tienes que entregar un proyecto en equipo mañana.', o:[['Hago mi parte bien y reviso la de todos','Responsabilidad',2],['Hago lo mínimo para que pase','Amor al trabajo',-1]]}
+];
+let k = 0, puntos = 0, marcas = [];
+const dia = document.getElementById('dia');
+const pintar = msg => {
+  const valores = `<div class="valores">${marcas.map(m=>`<span class="chip ${m[1]>0?'on':'off'}">${m[0]}</span>`).join('')}</div>`;
+  const nivel = Math.max(0, Math.min(100, 50 + puntos*5));
+  const barra = `<div class="barra"><i style="width:${nivel}%"></i></div><span class="small muted">Tu México: ${nivel}%</span>`;
+  if (k >= DIA.length) {
+    dia.innerHTML = `${barra}${valores}<h3>${nivel >= 80 ? 'Así se construye la mejor versión de México.' : nivel >= 50 ? 'Vas bien, pero hay hábitos que todavía frenan.' : 'Los pequeños “no pasa nada” suman mucho.'}</h3><p class="small muted">Como dicen Kasuga y Yokoi Kenji, el cambio empieza en lo pequeño y en lo diario.</p><div class="acciones"><button class="btn" id="re">Vivir el día otra vez</button></div>`;
+    document.getElementById('re').onclick = () => { k = 0; puntos = 0; marcas = []; pintar(); }; return;
+  }
+  const e = DIA[k];
+  dia.innerHTML = `${barra}${valores}${msg?`<p class="small">${esc(msg)}</p>`:''}<span class="hora">${e.h}</span><h3>${e.t}</h3><div class="opciones">${e.o.map((o,j)=>`<button class="opt" data-j="${j}">${o[0]}</button>`).join('')}</div>`;
+  dia.querySelectorAll('[data-j]').forEach(b => b.onclick = () => { const o = e.o[+b.dataset.j]; puntos += o[2]; marcas.push([o[1], o[2]]); k++; pintar(o[2] > 0 ? `+ ${o[1]}` : `− ${o[1]}`); });
+};
+pintar();
+</script>
+</body>
+</html>

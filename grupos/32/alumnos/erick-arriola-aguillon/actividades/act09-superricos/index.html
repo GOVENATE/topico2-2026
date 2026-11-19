@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Influencia de los superricos</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;700;800&family=Instrument+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600&display=swap">
+<link rel="stylesheet" href="../comun/base.css">
+<style>
+  .balanza{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+  @media (max-width:560px){.balanza{grid-template-columns:1fr}}
+  .lado h3{display:flex;align-items:center;gap:8px}
+  .lado.a h3::before{content:"＋";color:var(--ok)}
+  .lado.b h3::before{content:"－";color:var(--bad)}
+  .ciudad{display:flex;flex-direction:column;gap:12px}
+  .presupuesto{display:flex;justify-content:space-between;font:600 .9rem/1 var(--mono)}
+</style>
+</head>
+<body style="--acc:#a07a00;--acc-dark:#ffd24d">
+<script src="../comun/base.js"></script>
+<main class="wrap">
+  <header class="hero">
+    <p class="eyebrow">Tópico 2 · Documental DW</p>
+    <h1>¿Cuánta influencia tienen los superricos?</h1>
+    <p class="lede">El documental de DW muestra cómo grandes fortunas en Alemania deciden qué se construye en ciudades como Hamburgo, Kiel o Heilbronn. Abre la pregunta de si eso es generosidad o un poder que nadie eligió.</p>
+    <div class="meta"><span class="chip acc">Documental</span><span class="chip">Erick Arriola Aguillón</span></div>
+  </header>
+
+  <section>
+    <span class="num">01 · TRES IDEAS DEL VIDEO</span>
+    <div class="grid">
+      <button class="flip" type="button"><span class="num">1</span><h3>Deciden la ciudad</h3><span class="back">Estadios, campus, museos y proyectos urbanos se hacen donde y como quiere el donante, no siempre donde la ciudad más lo necesita.</span><span class="hint">Toca para ver</span></button>
+      <button class="flip" type="button"><span class="num">2</span><h3>Pagan pocos impuestos</h3><span class="back">Con exenciones o residencias en paraísos fiscales pagan tasas bajas, y luego financian por su cuenta lo que el Estado ya no puede pagar.</span><span class="hint">Toca para ver</span></button>
+      <button class="flip" type="button"><span class="num">3</span><h3>Riesgo para la democracia</h3><span class="back">Iniciativas como Taxmenow advierten que depender de donaciones privadas pone las decisiones públicas en manos del mecenas, no de los votantes.</span><span class="hint">Toca para ver</span></button>
+    </div>
+  </section>
+
+  <section>
+    <span class="num">02 · LAS DOS CARAS</span>
+    <div class="balanza">
+      <div class="card lado a"><h3>Lo que se gana</h3><ul class="lista"><li>Obras que se terminan rápido y con buen presupuesto.</li><li>Empleo y vida cultural para la ciudad.</li><li>Proyectos que el gobierno no podría pagar solo.</li></ul></div>
+      <div class="card lado b"><h3>Lo que se pierde</h3><ul class="lista"><li>Las prioridades las pone una persona, no la comunidad.</li><li>Menos dinero público por la baja tributación.</li><li>Los políticos locales dependen de quedar bien con el donante.</li></ul></div>
+    </div>
+  </section>
+
+  <section>
+    <span class="num">03 · SIMULACIÓN</span>
+    <h2>Tú eres el alcalde</h2>
+    <p class="muted">Un multimillonario ofrece pagar una obra, pero él elige cuál. ¿Aceptas o la paga la ciudad con impuestos?</p>
+    <div class="card ciudad" id="sim"></div>
+  </section>
+
+  <section>
+    <span class="num">04 · MI OPINIÓN</span>
+    <div class="callout"><p>No creo que donar sea malo, pero sí me preocupa que una ciudad termine dependiendo de lo que una sola persona quiera financiar. Me parece más justo que esas fortunas paguen sus impuestos completos y que la gente, a través de sus representantes, decida en qué se usan. Lo veo también en México: cuando una empresa enorme “regala” algo, casi siempre gana influencia a cambio.</p></div>
+  </section>
+
+  <footer class="pie-pag"><span>Fuente: documental de DW sobre los superricos y su influencia en las ciudades.</span><span>Erick Arriola Aguillón</span></footer>
+</main>
+<script>
+const CASOS = [
+  {t:'Ofrece un estadio nuevo para el equipo que él patrocina.', acepta:[+0,-2,'La ciudad tiene estadio, pero la clínica que urgía sigue esperando.'], rechaza:[-3,+1,'Se usa el presupuesto en la clínica. Hay menos dinero, pero la prioridad la decidió la ciudad.']},
+  {t:'Propone un campus universitario con su apellido.', acepta:[+0,+1,'Llegan estudiantes y empleos. Aun así, el plan de estudios lo influye su fundación.'], rechaza:[-4,+1,'La ciudad no alcanza a pagar un campus completo y el proyecto se retrasa años.']},
+  {t:'Pide a cambio una reducción de impuestos para su empresa.', acepta:[-3,-3,'Se pierde más en impuestos de lo que vale la obra. Mal trato.'], rechaza:[0,+2,'Se mantienen los ingresos públicos y la ciudad conserva su autonomía.']}
+];
+let p = 10, a = 5, i = 0;
+const sim = document.getElementById('sim');
+const pintar = (msg) => {
+  const fin = i >= CASOS.length;
+  sim.innerHTML = `
+    <div class="presupuesto"><span>Presupuesto: ${p}</span><span>Autonomía: ${a}/10</span></div>
+    <div class="barra"><i style="width:${Math.max(0,Math.min(10,a))*10}%"></i></div>
+    ${msg ? `<p class="small muted">${esc(msg)}</p>` : ''}
+    ${fin ? `<h3>Resultado</h3><p>${a >= 6 ? 'Mantuviste a la ciudad decidiendo por sí misma.' : 'La ciudad quedó muy dependiente del donante.'}</p><div class="acciones"><button class="btn" id="re">Otra vez</button></div>`
+          : `<h3>${esc(CASOS[i].t)}</h3><div class="acciones"><button class="btn" id="si">Aceptar</button><button class="btn ghost" id="no">Rechazar</button></div>`}`;
+  if (fin) { document.getElementById('re').onclick = () => { p = 10; a = 5; i = 0; pintar(); }; return; }
+  const elegir = op => { const r = CASOS[i][op]; p += r[0]; a += r[1]; i++; pintar(r[2]); };
+  document.getElementById('si').onclick = () => elegir('acepta');
+  document.getElementById('no').onclick = () => elegir('rechaza');
+};
+pintar();
+</script>
+</body>
+</html>

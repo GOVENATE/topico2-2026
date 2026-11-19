@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>La habilidad estratégica</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;700;800&family=Instrument+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600&display=swap">
+<link rel="stylesheet" href="../comun/base.css">
+<style>
+  .mapa{display:flex;flex-direction:column;gap:8px}
+  .capa{display:grid;grid-template-columns:170px 1fr;gap:12px;align-items:center;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:12px 14px}
+  .capa b{font:700 .95rem/1.2 var(--display);color:var(--acc)}
+  .capa input{width:100%}
+  .flecha{text-align:center;color:var(--acc);font-weight:800;line-height:1}
+  @media (max-width:560px){.capa{grid-template-columns:1fr}}
+  .etapas{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+  @media (max-width:600px){.etapas{grid-template-columns:1fr}}
+  .esc{display:flex;flex-direction:column;gap:12px}
+  .esc .opciones{display:grid;gap:8px}
+</style>
+</head>
+<body style="--acc:#245a7a;--acc-dark:#8cc9ee">
+<script src="../comun/base.js"></script>
+<main class="wrap">
+  <header class="hero">
+    <p class="eyebrow">Tópico 2 · Habilidades directivas · Capítulo 12</p>
+    <h1>La habilidad estratégica</h1>
+    <p class="lede">Una habilidad es saber hacer algo; una estrategia es decidir cuándo, cómo y para qué hacerlo. El capítulo explica qué hace un líder estratega y cómo se arma, se aplica y se revisa una estrategia.</p>
+    <div class="meta"><span class="chip acc">Capítulo 12</span><span class="chip">Erick Arriola Aguillón</span></div>
+  </header>
+
+  <section>
+    <span class="num">01 · IDEAS DEL CAPÍTULO</span>
+    <div class="picker" id="picker"></div>
+    <div class="detalle" id="detalle"></div>
+  </section>
+
+  <section>
+    <span class="num">02 · EL MAPA ESTRATÉGICO</span>
+    <h2>Lo que se ve depende de lo que no se ve</h2>
+    <p class="muted">El mapa tiene cuatro perspectivas que se apoyan de abajo hacia arriba. Mueve cuánto inviertes en cada una y observa cómo afecta a las de arriba.</p>
+    <div class="mapa" id="mapa"></div>
+    <p class="small" id="mapa-lectura" aria-live="polite"></p>
+  </section>
+
+  <section>
+    <span class="num">03 · EL CICLO DE LA DIRECCIÓN ESTRATÉGICA</span>
+    <div class="etapas">
+      <div class="card"><span class="num">1</span><h3>Formular</h3><p>Misión, visión, análisis del entorno y elegir cómo competir: costos, diferenciación o un nicho.</p></div>
+      <div class="card"><span class="num">2</span><h3>Implantar</h3><p>Llevar el plan a la acción: recursos, equipos, tiempos y responsables.</p></div>
+      <div class="card"><span class="num">3</span><h3>Evaluar</h3><p>Comparar lo planeado con lo real y corregir. La estrategia es un ciclo, no una promesa fija.</p></div>
+    </div>
+  </section>
+
+  <section>
+    <span class="num">04 · CASO: LANZAR UNA APP ESCOLAR</span>
+    <div class="card esc" id="caso"></div>
+  </section>
+
+  <section>
+    <span class="num">05 · LO QUE APRENDÍ</span>
+    <div class="callout"><p>Me quedó claro que saber programar no me hace estratega. La estrategia está en elegir qué construir primero, qué dejar fuera y cómo saber si va funcionando. También me gustó la idea de que el talento y el conocimiento del equipo son activos: invertir en que la gente aprenda es parte de la estrategia, no un gasto.</p></div>
+  </section>
+
+  <footer class="pie-pag"><span>Fuente: libro de Habilidades directivas, capítulo 12.</span><span>Erick Arriola Aguillón</span></footer>
+</main>
+<script>
+const TEMAS = [
+  {titulo:'Habilidad vs. estrategia', d:'La habilidad es una capacidad desarrollada. La estrategia organiza acciones elegidas a propósito para llegar a una meta y requiere autocontrol.', e:'Programar en Python es una habilidad; decidir la arquitectura y qué probar primero es estrategia.'},
+  {titulo:'El líder estratega', d:'Ve el conjunto y los detalles, pregunta, combina intuición con razón, escucha y logra que el equipo se comprometa. Se anticipa y se adapta.', e:'Un líder técnico que escucha a QA y a diseño antes de fijar el plan.'},
+  {titulo:'Ventaja competitiva', d:'Se puede competir por costos bajos, por ser diferente o por especializarse en un nicho.', e:'Una app que gana por ser la más rápida y accesible, no por tener más botones.'},
+  {titulo:'Pensamiento, actitud e intención', d:'Pensamiento estratégico (analizar y crear), actitud estratégica (adaptarse al entorno) e intención estratégica (dirigir a todos hacia la meta).', e:'Leer las métricas, cambiar prioridades y que todo el equipo sepa por qué.'},
+  {titulo:'Entorno y flexibilidad', d:'Leyes, mercado, cultura y tecnología cambian. Una estrategia que funciona en un lugar puede fallar en otro.', e:'Una nueva ley de datos personales obliga a rediseñar el registro de usuarios.'}
+];
+selector(document.getElementById('picker'), document.getElementById('detalle'), TEMAS, t => `<h3>${t.titulo}</h3><p>${t.d}</p><p class="k">Ejemplo</p><p>${t.e}</p>`);
+
+const CAPAS = ['Finanzas y recursos','Usuarios','Procesos internos','Aprendizaje y crecimiento'];
+const inv = [50,50,50,50];
+const calc = () => {
+  // cada capa depende de la inversión propia y del resultado de la capa de abajo
+  const r = [0,0,0,0];
+  r[3] = inv[3];
+  r[2] = Math.round(inv[2]*0.5 + r[3]*0.5);
+  r[1] = Math.round(inv[1]*0.4 + r[2]*0.6);
+  r[0] = Math.round(inv[0]*0.3 + r[1]*0.7);
+  return r;
+};
+const mapa = document.getElementById('mapa');
+const pintarMapa = () => {
+  const r = calc();
+  mapa.innerHTML = CAPAS.map((c,i)=>`${i?'<div class="flecha" aria-hidden="true">↑</div>':''}<div class="capa"><b>${c}</b><div><input type="range" min="0" max="100" value="${inv[i]}" data-i="${i}" aria-label="Inversión en ${c}"><div class="barra" style="margin-top:6px"><i style="width:${r[i]}%"></i></div><span class="small muted">Resultado: ${r[i]}</span></div></div>`).join('');
+  document.getElementById('mapa-lectura').textContent = inv[3] < 30 ? 'Si no inviertes en aprendizaje, todo lo de arriba se debilita aunque le metas dinero.' : r[0] >= 70 ? 'Las capas se apoyan: el buen resultado financiero viene de abajo.' : 'Prueba subir aprendizaje y procesos para ver el efecto hacia arriba.';
+};
+mapa.addEventListener('change', e => { if (e.target.dataset.i) { inv[+e.target.dataset.i] = +e.target.value; pintarMapa(); } });
+pintarMapa();
+
+const ESC = [
+  {t:'Faltan cuatro semanas para lanzar la app de la universidad. Hay errores de accesibilidad y la página carga lento. La dirección quiere lanzar ya.', o:[['Lanzar tal cual y arreglar después',-1,'Se cumple la fecha, pero los usuarios se llevan una mala impresión.'],['Lanzar solo las funciones que ya están bien y dejar lo demás para la versión 2',2,'Es estratégico: se cumple el plazo sin sacrificar la calidad de lo esencial.'],['Retrasar todo tres meses',0,'Se gana calidad, pero se pierde el momento y la confianza de la dirección.']]},
+  {t:'Ya lanzada, los alumnos dicen que en celular es confusa. La satisfacción baja.', o:[['Hacer pruebas rápidas con alumnos y priorizar lo que más se repite',2,'Evaluar y corregir con datos: es la etapa de evaluación.'],['Agregar más funciones para que se vea más completa',-1,'Más funciones no resuelven la confusión.'],['Culpar a los usuarios por no leer el manual',-2,'Es la barrera del enemigo externo.']]},
+  {t:'Sale una nueva norma de protección de datos que afecta al registro.', o:[['Ignorarla hasta que alguien se queje',-2,'Riesgo legal y de reputación.'],['Ajustar el plan y rediseñar el registro antes de la siguiente versión',2,'Flexibilidad ante el entorno.'],['Quitar el registro por completo',0,'Resuelve la norma pero rompe la función principal.']]}
+];
+let k = 0, pts = 0;
+const caso = document.getElementById('caso');
+const pintarCaso = msg => {
+  if (k >= ESC.length) { caso.innerHTML = `<h3>Puntaje estratégico: ${pts} de ${ESC.length*2}</h3><p>${msg||''}</p><p class="small muted">${pts >= 5 ? 'Equilibraste tiempos, calidad y entorno.' : 'Revisa qué opciones atendían el problema de fondo.'}</p><div class="acciones"><button class="btn" id="re">Otra vez</button></div>`; document.getElementById('re').onclick = () => { k = 0; pts = 0; pintarCaso(); }; return; }
+  const e = ESC[k];
+  caso.innerHTML = `<span class="small muted">Decisión ${k+1} de ${ESC.length}</span>${msg?`<p class="small">${esc(msg)}</p>`:''}<h3>${e.t}</h3><div class="opciones">${e.o.map((o,j)=>`<button class="opt" data-j="${j}">${o[0]}</button>`).join('')}</div>`;
+  caso.querySelectorAll('[data-j]').forEach(b => b.onclick = () => { const o = e.o[+b.dataset.j]; pts += o[1]; k++; pintarCaso(o[2]); });
+};
+pintarCaso();
+</script>
+</body>
+</html>

@@ -1,0 +1,227 @@
+<!doctype html>
+<html lang="es">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>El poder de las empresas</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@700;900&family=DM+Mono:wght@400;500&family=Schibsted+Grotesk:wght@400;500;700&display=swap">
+<style>
+/* Layout: cartel impreso a dos tintas. Bandas apiladas: tesis, tres casos (plataforma, recurso, infraestructura), poder político y la cuenta final. */
+:root{
+  --paper:#eceaf4; --ink:#201d5c; --on-ink:#eceaf4; --red:#e23d28; --on-red:#fff8f5;
+  --tint:#d8d4ec; --muted:#55528a;
+  --display:"Big Shoulders Display","Arial Narrow",Impact,sans-serif;
+  --body:"Schibsted Grotesk","Segoe UI",system-ui,sans-serif;
+  --mono:"DM Mono",ui-monospace,Menlo,Consolas,monospace;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --paper:#12112b; --ink:#e4e1f7; --on-ink:#12112b; --red:#ff6a52; --on-red:#12112b;
+    --tint:#25234f; --muted:#aaa7d8;
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --paper:#12112b; --ink:#e4e1f7; --on-ink:#12112b; --red:#ff6a52; --on-red:#12112b;
+  --tint:#25234f; --muted:#aaa7d8;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--paper);color:var(--ink);font:400 17px/1.5 var(--body)}
+p{margin:0}
+.poster{max-width:1000px;margin-inline:auto;padding-inline:16px;padding-block:32px 48px;display:flex;flex-direction:column;gap:44px}
+.kicker{font:500 .78rem/1.3 var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+h1,h2,h3{margin:0;font-family:var(--display);text-transform:uppercase;text-wrap:balance}
+
+/* Tesis */
+.hero{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,1fr);gap:32px;align-items:center}
+@media (max-width:760px){.hero{grid-template-columns:minmax(0,1fr)}}
+.hero-text{display:flex;flex-direction:column;gap:16px;min-width:0}
+h1{font-weight:900;font-size:clamp(3.4rem,13vw,7.2rem);line-height:.86;letter-spacing:-.01em}
+h1 span{display:block;color:var(--red)}
+.lede{font-size:1.15rem;max-width:42ch}
+.size{display:flex;align-items:center;gap:18px;flex-wrap:wrap}
+.big{flex:none;width:clamp(150px,42vw,250px);aspect-ratio:1;border-radius:50%;background:var(--red);color:var(--on-red);display:grid;place-content:center;font:900 clamp(1.6rem,6vw,2.6rem)/1 var(--display);text-transform:uppercase}
+.small{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:14px}
+.small li{display:flex;align-items:center;gap:10px;font-weight:700}
+.small li::before{content:"";flex:none;width:26px;aspect-ratio:1;border-radius:50%;background:var(--ink)}
+.size-note{flex-basis:100%;font:400 .8rem var(--mono);color:var(--muted)}
+
+/* Idea general */
+.thesis{background:var(--ink);color:var(--on-ink);padding:clamp(20px,5vw,40px);display:flex;flex-direction:column;gap:14px}
+.thesis .kicker{color:var(--on-ink)}
+.thesis h2{font-weight:900;font-size:clamp(1.9rem,6vw,3.4rem);line-height:.98}
+.thesis mark{background:var(--red);color:var(--on-red);padding:0 .15em}
+.thesis p:last-child{max-width:60ch}
+
+/* Casos */
+.case{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.15fr);gap:28px 40px;align-items:center;border-top:6px solid var(--ink);padding-top:22px}
+@media (max-width:760px){.case{grid-template-columns:minmax(0,1fr)}}
+.case-text{display:flex;flex-direction:column;gap:12px;min-width:0}
+.tag{align-self:flex-start;background:var(--ink);color:var(--on-ink);font:500 .78rem/1 var(--mono);letter-spacing:.14em;text-transform:uppercase;padding:6px 10px}
+.case h2{font-weight:900;font-size:clamp(2rem,6vw,3.2rem);line-height:.95}
+.case-text p{max-width:48ch}
+.case-text strong{color:var(--red)}
+.viz{display:flex;flex-direction:column;gap:12px;min-width:0}
+.viz small{font:400 .82rem/1.35 var(--mono);color:var(--muted)}
+
+.pct{font:900 clamp(5.5rem,22vw,10rem)/.8 var(--display);color:var(--red)}
+.pct sup{font-size:.28em;vertical-align:top;color:var(--ink);margin-right:.2em;letter-spacing:.04em}
+.split{display:flex;height:46px;font:500 .8rem/1 var(--mono);text-transform:uppercase;letter-spacing:.06em}
+.split div{display:flex;align-items:center;padding-inline:10px;min-width:0;overflow:hidden;white-space:nowrap}
+.split .dev{width:70%;background:var(--tint);color:var(--ink)}
+.split .cut{width:30%;background:var(--red);color:var(--on-red)}
+
+.drops{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;text-align:center}
+.drops svg{width:min(120px,70%);height:auto;display:block;margin-inline:auto}
+.drops b{display:block;font:900 1.3rem/1 var(--display);text-transform:uppercase;margin-top:8px}
+.drops span{font-size:.92rem}
+
+.rack{display:flex;flex-direction:column;gap:8px;max-width:300px}
+.rack i{display:block;height:34px;border:4px solid var(--ink);background:
+  radial-gradient(circle at 18px 50%,var(--red) 0 5px,transparent 6px),
+  radial-gradient(circle at 38px 50%,var(--ink) 0 5px,transparent 6px),
+  linear-gradient(90deg,transparent 60%,var(--tint) 60%)}
+.needs{display:flex;gap:10px;flex-wrap:wrap}
+.needs span{border:3px solid var(--red);color:var(--red);font:900 1.15rem/1 var(--display);text-transform:uppercase;padding:6px 10px}
+
+.traits{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px}
+@media (max-width:760px){.traits{grid-template-columns:minmax(0,1fr)}}
+.traits div{border-top:6px solid var(--red);padding-top:10px;display:flex;flex-direction:column;gap:6px;min-width:0}
+.traits h3{font-weight:900;font-size:1.6rem;line-height:1}
+.traits p{font-size:.98rem}
+
+/* Poder político */
+.shift{background:var(--red);color:var(--on-red);padding:clamp(20px,5vw,40px);display:flex;flex-direction:column;gap:18px}
+.shift .kicker{color:var(--on-red)}
+.shift h2{font-weight:900;font-size:clamp(1.9rem,6vw,3.2rem);line-height:.98}
+.flow{display:flex;flex-wrap:wrap;align-items:center;gap:10px 14px;font:900 clamp(1.2rem,3.6vw,1.7rem)/1 var(--display);text-transform:uppercase}
+.flow span{border:3px solid var(--on-red);padding:8px 12px}
+.flow s{text-decoration-thickness:3px}
+.flow em{font-style:normal;font-size:1.3em}
+.shift p:last-child{max-width:62ch;font-weight:500}
+
+/* La cuenta */
+.close{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:28px 40px;align-items:start}
+@media (max-width:760px){.close{grid-template-columns:minmax(0,1fr)}}
+.close h2{font-weight:900;font-size:clamp(2.2rem,7vw,3.8rem);line-height:.92}
+.close h2 span{color:var(--red)}
+.close-text{display:flex;flex-direction:column;gap:14px;min-width:0}
+.close-text p{max-width:44ch;font-size:1.1rem}
+.bill{background:var(--tint);padding:22px 20px;font:400 .95rem/1.4 var(--mono);display:flex;flex-direction:column;gap:10px;min-width:0;border-top:4px dashed var(--ink);border-bottom:4px dashed var(--ink)}
+.bill h3{font:500 .85rem var(--mono);letter-spacing:.14em;text-align:center}
+.bill ul{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:8px}
+.bill li{display:flex;align-items:baseline;gap:8px}
+.bill li::after{content:"";order:1;flex:1;border-bottom:2px dotted var(--ink);min-width:16px}
+.bill li b{order:2;font-weight:500;color:var(--red)}
+.bill .sum{border-top:3px solid var(--ink);padding-top:10px;font:900 1.5rem/1.05 var(--display);text-transform:uppercase}
+footer{font:400 .8rem var(--mono);color:var(--muted);border-top:2px solid var(--tint);padding-top:14px}
+</style>
+
+<main class="poster">
+  <section class="hero">
+    <div class="hero-text">
+      <p class="kicker">Infografía · Economía y poder</p>
+      <h1>El poder de las <span>empresas</span></h1>
+      <p class="lede">Hay multinacionales con tanto dinero y presencia que influyen en gobiernos, regulaciones y decisiones que terminan afectando a la población.</p>
+    </div>
+    <div class="size" role="img" aria-label="Una empresa grande frente a gobiernos, desarrolladores y comunidades más pequeños">
+      <div class="big">Empresa</div>
+      <ul class="small">
+        <li>Gobiernos</li>
+        <li>Desarrolladores</li>
+        <li>Comunidades</li>
+      </ul>
+      <p class="size-note">Tamaños ilustrativos: quién se adapta a las reglas de quién.</p>
+    </div>
+  </section>
+
+  <section class="thesis">
+    <p class="kicker">Idea general</p>
+    <h2>Quien controla <mark>plataformas</mark>, <mark>recursos</mark> o <mark>infraestructura</mark> pone las condiciones.</h2>
+    <p>Algunas corporaciones alcanzan una capacidad de presión comparable con la de las instituciones públicas. Gobiernos, desarrolladores y comunidades terminan adaptándose a sus reglas.</p>
+  </section>
+
+  <section class="case">
+    <div class="viz">
+      <div class="pct"><sup>hasta</sup>30%</div>
+      <div class="split" role="img" aria-label="De cada venta, hasta 30 por ciento es comisión de Apple y el resto es del desarrollador">
+        <div class="dev">Desarrollador</div><div class="cut">Apple</div>
+      </div>
+      <small>Reparto de cada venta en la App Store con la comisión máxima.</small>
+    </div>
+    <div class="case-text">
+      <span class="tag">Plataforma</span>
+      <h2>Apple y el «impuesto» digital</h2>
+      <p>Controla qué entra y qué sale de sus dispositivos. Su comisión a los desarrolladores funciona como <strong>un impuesto privado</strong>.</p>
+      <p>Gobiernos y reguladores han intentado limitarla o sancionarla, pero la empresa tiene recursos para sostener litigios durante años.</p>
+    </div>
+  </section>
+
+  <section class="case">
+    <div class="viz">
+      <div class="drops">
+        <div>
+          <svg viewBox="0 0 100 110" aria-hidden="true"><path d="M50 6 C50 6 16 52 16 72 a34 34 0 0 0 68 0 C84 52 50 6 50 6Z" fill="var(--ink)" stroke="var(--ink)" stroke-width="5"/></svg>
+          <b>Embotelladoras</b><span>Suministro asegurado</span>
+        </div>
+        <div>
+          <svg viewBox="0 0 100 110" aria-hidden="true"><path d="M50 6 C50 6 16 52 16 72 a34 34 0 0 0 68 0 C84 52 50 6 50 6Z" fill="none" stroke="var(--red)" stroke-width="5" stroke-dasharray="9 7"/></svg>
+          <b>Comunidades</b><span>Desabasto</span>
+        </div>
+      </div>
+      <small>Ilustración del contraste, no una medición.</small>
+    </div>
+    <div class="case-text">
+      <span class="tag">Recurso</span>
+      <h2>Coca-Cola y el acaparamiento de agua</h2>
+      <p>En México, las refresqueras tienen concesiones para extraer grandes cantidades de <strong>agua subterránea</strong>.</p>
+      <p>Las comunidades cercanas sufren desabasto mientras las embotelladoras siguen produciendo. A eso se suma el efecto del consumo masivo de refresco en la salud pública.</p>
+    </div>
+  </section>
+
+  <section class="case">
+    <div class="viz">
+      <div class="rack" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
+      <div class="needs"><span>Agua</span><span>Energía</span><span>Sin pausa</span></div>
+      <small>Servidores encendidos y refrigerados de forma continua.</small>
+    </div>
+    <div class="case-text">
+      <span class="tag">Infraestructura</span>
+      <h2>Los centros de datos de Colón</h2>
+      <p>En clase se comentó el crecimiento de centros de datos en la zona de Colón, que abre una pregunta: <strong>¿a quién se le da prioridad</strong> en el uso de los recursos locales?</p>
+    </div>
+  </section>
+
+  <section class="traits" aria-label="Tres características notorias en Colón">
+    <div><h3>Consumo masivo</h3><p>Millones de litros de agua y grandes cantidades de electricidad para enfriar los servidores.</p></div>
+    <div><h3>Impacto local</h3><p>Las empresas aseguran sus recursos; las comunidades cercanas y el campus de la UAQ enfrentan racionamientos de agua y apagones.</p></div>
+    <div><h3>Privilegios</h3><p>Las autoridades locales dan facilidades normativas y dejan en segundo plano las necesidades básicas y el impacto ambiental.</p></div>
+  </section>
+
+  <section class="shift">
+    <p class="kicker">Poder económico frente a poder político</p>
+    <h2>El dinero puede desplazar o condicionar a la política</h2>
+    <div class="flow"><span>Gobierno</span><em>→</em><span><s>Bien común</s></span><em>→</em><span>Intereses privados</span></div>
+    <p>A veces los propios políticos lo facilitan. Cuando un gobierno da prioridad a las grandes inversiones sobre el consumo de la población y las escuelas, deja de velar por el bien común y se vuelve facilitador de intereses privados.</p>
+  </section>
+
+  <section class="close">
+    <div class="close-text">
+      <p class="kicker">Qué deja este tema</p>
+      <h2>No es cuánto ganan. Es <span>quién paga.</span></h2>
+      <p>El problema no se limita a las ganancias de una empresa. También importa quién absorbe los costos.</p>
+    </div>
+    <div class="bill">
+      <h3>LA CUENTA</h3>
+      <ul>
+        <li>Uso intensivo de recursos<b>trasladado</b></li>
+        <li>Infraestructura<b>trasladado</b></li>
+        <li>Efectos ambientales<b>trasladado</b></li>
+        <li>Presión sobre servicios públicos<b>trasladado</b></li>
+      </ul>
+      <p class="sum">Pagan: comunidades e instituciones</p>
+    </div>
+  </section>
+
+  <footer>Elaborada con apuntes de clase.</footer>
+</main>

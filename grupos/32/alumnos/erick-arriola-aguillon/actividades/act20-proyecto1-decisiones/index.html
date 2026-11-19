@@ -1,0 +1,158 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Herramientas para decidir</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;700;800&family=Instrument+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600&display=swap">
+<link rel="stylesheet" href="../comun/base.css">
+<style>
+  .foda{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+  @media (max-width:560px){.foda{grid-template-columns:1fr}}
+  .foda .card h3{display:flex;justify-content:space-between}
+  .sombreros{display:grid;gap:8px}
+  .sombrero{display:grid;grid-template-columns:28px 1fr;gap:10px;align-items:start;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:12px}
+  .sombrero i{width:28px;height:28px;border-radius:50%;border:2px solid var(--ink);background:var(--c)}
+  .ishi{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+  @media (max-width:700px){.ishi{grid-template-columns:repeat(2,minmax(0,1fr))}}
+  @media (max-width:440px){.ishi{grid-template-columns:1fr}}
+  .espina{border-top:3px solid var(--acc)}
+  .efecto{background:var(--acc);color:var(--on-acc);border-radius:12px;padding:14px;font:700 1rem/1.3 var(--display)}
+  .pareto-fila{display:grid;grid-template-columns:minmax(0,1fr) 70px 52px;gap:8px;align-items:center}
+  .pareto-fila input[type=text]{padding:8px 10px}
+  .pareto-fila input[type=number]{font:inherit;color:var(--ink);background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:8px;width:100%}
+  svg.par{width:100%;height:auto;display:block}
+  svg.par .b{fill:var(--acc)} svg.par .b.vital{fill:var(--bad)}
+  svg.par .l{fill:none;stroke:var(--ink);stroke-width:2}
+  svg.par text{fill:var(--muted);font:600 10px var(--mono)}
+  svg.par .ej{stroke:var(--line)}
+  [contenteditable]{outline:none;border-radius:8px;padding:2px 4px;margin:-2px -4px}
+  [contenteditable]:focus{background:var(--surface-2)}
+</style>
+</head>
+<body style="--acc:#5b3fa8;--acc-dark:#b9a4ff">
+<script src="../comun/base.js"></script>
+<main class="wrap">
+  <header class="hero">
+    <p class="eyebrow">Tópico 2 · Proyecto 1</p>
+    <h1>Herramientas para la toma de decisiones</h1>
+    <p class="lede">Apliqué cinco herramientas a una decisión real mía: <strong id="decision">elegir el tema de mi proyecto final de la carrera</strong>. Todo el texto se puede editar dando clic para probar las herramientas con otra decisión.</p>
+    <div class="meta"><span class="chip acc">FODA</span><span class="chip acc">6 sombreros</span><span class="chip acc">CATWDA</span><span class="chip acc">Ishikawa</span><span class="chip acc">Pareto</span></div>
+  </header>
+
+  <div class="tabs" data-tabs="h">
+    <button class="tab" data-tab="foda">FODA</button>
+    <button class="tab" data-tab="somb">6 sombreros</button>
+    <button class="tab" data-tab="cat">CATWDA</button>
+    <button class="tab" data-tab="ishi">Ishikawa</button>
+    <button class="tab" data-tab="par">Pareto</button>
+  </div>
+
+  <div class="panel" data-panel="foda" data-grupo="h">
+    <section>
+      <p class="muted">Albert Humphrey. Separa lo interno (fortalezas y debilidades) de lo externo (oportunidades y amenazas).</p>
+      <div class="foda">
+        <div class="card acc"><h3>Fortalezas <span class="num">INTERNO</span></h3><ul class="lista" contenteditable="true"><li>Ya domino JavaScript y bases de datos.</li><li>Me gusta la inteligencia artificial.</li><li>Tengo proyectos previos en mi portafolio.</li></ul></div>
+        <div class="card"><h3>Debilidades <span class="num">INTERNO</span></h3><ul class="lista" contenteditable="true"><li>Poco tiempo por trabajo y materias.</li><li>Me cuesta documentar.</li><li>Inglés técnico a medias.</li></ul></div>
+        <div class="card"><h3>Oportunidades <span class="num">EXTERNO</span></h3><ul class="lista" contenteditable="true"><li>Mucha demanda de proyectos con IA.</li><li>Profesores que asesoran en el tema.</li><li>Herramientas gratuitas para estudiantes.</li></ul></div>
+        <div class="card"><h3>Amenazas <span class="num">EXTERNO</span></h3><ul class="lista" contenteditable="true"><li>La tecnología cambia muy rápido.</li><li>Otros equipos con el mismo tema.</li><li>Depender de servicios de pago.</li></ul></div>
+      </div>
+    </section>
+  </div>
+
+  <div class="panel" data-panel="somb" data-grupo="h">
+    <section>
+      <p class="muted">Edward de Bono. Pensar la misma decisión desde seis puntos de vista, uno a la vez.</p>
+      <div class="sombreros">
+        <div class="sombrero" style="--c:#ffffff"><i></i><div><h3>Blanco · datos</h3><p contenteditable="true">Tengo un semestre; el proyecto debe tener entrega funcional y documento.</p></div></div>
+        <div class="sombrero" style="--c:#d93a3a"><i></i><div><h3>Rojo · emociones</h3><p contenteditable="true">Me emociona la IA, pero me da miedo no terminar a tiempo.</p></div></div>
+        <div class="sombrero" style="--c:#1d1b16"><i></i><div><h3>Negro · riesgos</h3><p contenteditable="true">Si escojo algo muy grande, puedo quedarme a medias.</p></div></div>
+        <div class="sombrero" style="--c:#f2c230"><i></i><div><h3>Amarillo · beneficios</h3><p contenteditable="true">Un buen proyecto me sirve para conseguir trabajo.</p></div></div>
+        <div class="sombrero" style="--c:#2f9e5a"><i></i><div><h3>Verde · creatividad</h3><p contenteditable="true">Hacer un asistente que ayude a alumnos de primer semestre con trámites.</p></div></div>
+        <div class="sombrero" style="--c:#2f5bd3"><i></i><div><h3>Azul · control</h3><p contenteditable="true">Decidir esta semana, definir un alcance mínimo y revisar avances cada 15 días.</p></div></div>
+      </div>
+    </section>
+  </div>
+
+  <div class="panel" data-panel="cat" data-grupo="h">
+    <section>
+      <p class="muted">Peter Checkland. Ayuda a ver quién está involucrado en un sistema y qué se transforma.</p>
+      <div class="tabla-wrap"><table>
+        <tbody>
+          <tr><th>C · Clientes</th><td contenteditable="true">Alumnos de primer semestre de la facultad.</td></tr>
+          <tr><th>A · Actores</th><td contenteditable="true">Yo como desarrollador, mi asesor y alumnos que prueban.</td></tr>
+          <tr><th>T · Transformación</th><td contenteditable="true">De alumnos perdidos con los trámites a alumnos que resuelven sus dudas en minutos.</td></tr>
+          <tr><th>W · Visión</th><td contenteditable="true">La información de la universidad debería ser fácil de encontrar.</td></tr>
+          <tr><th>D · Dueños</th><td contenteditable="true">La coordinación de la carrera, que puede aprobar o detener el proyecto.</td></tr>
+          <tr><th>A · Ambiente</th><td contenteditable="true">Tiempo limitado, reglas de datos personales y servidores escolares.</td></tr>
+        </tbody>
+      </table></div>
+    </section>
+  </div>
+
+  <div class="panel" data-panel="ishi" data-grupo="h">
+    <section>
+      <p class="muted">Kaoru Ishikawa. El diagrama de espina de pescado busca las causas de un problema antes de decidir.</p>
+      <div class="efecto" contenteditable="true">Problema: me atraso en todos mis proyectos de la carrera</div>
+      <div class="ishi">
+        <div class="card espina"><h3>Método</h3><p contenteditable="true">Empiezo a programar sin planear.</p></div>
+        <div class="card espina"><h3>Mano de obra</h3><p contenteditable="true">Trabajo solo y no pido ayuda.</p></div>
+        <div class="card espina"><h3>Máquina</h3><p contenteditable="true">Mi laptop es lenta para compilar.</p></div>
+        <div class="card espina"><h3>Material</h3><p contenteditable="true">Documentación en inglés que me cuesta leer.</p></div>
+        <div class="card espina"><h3>Medición</h3><p contenteditable="true">No mido cuánto tardo en cada tarea.</p></div>
+        <div class="card espina"><h3>Medio ambiente</h3><p contenteditable="true">Me distraigo con el celular.</p></div>
+      </div>
+    </section>
+  </div>
+
+  <div class="panel" data-panel="par" data-grupo="h">
+    <section>
+      <p class="muted">Vilfredo Pareto. Pocas causas (cerca del 20%) suelen provocar la mayoría del problema (cerca del 80%). Escribe cuántas veces pasó cada causa.</p>
+      <div class="grid dos">
+        <div class="card" id="par-datos" style="gap:8px"></div>
+        <div class="card"><svg class="par" id="par-svg" viewBox="0 0 360 240" role="img" aria-label="Diagrama de Pareto"></svg><p class="small" id="par-txt"></p></div>
+      </div>
+    </section>
+  </div>
+
+  <section>
+    <span class="num">MI DECISIÓN</span>
+    <div class="callout"><p>Con las cinco herramientas decidí hacer el asistente para alumnos de primer semestre, pero con un alcance pequeño. El Pareto me mostró que mis atrasos vienen sobre todo de no planear y de distraerme, así que lo primero es fijar tareas cortas con fechas.</p></div>
+  </section>
+
+  <footer class="pie-pag"><span>Proyecto del primer parcial de Tópico 2.</span><span>Erick Arriola Aguillón</span></footer>
+</main>
+<script>
+const CAUSAS = [['No planear antes de programar',9],['Distracciones con el celular',7],['No pedir ayuda',3],['Laptop lenta',2],['Documentación en inglés',2],['No medir tiempos',1]];
+const datos = document.getElementById('par-datos');
+const pintarDatos = () => {
+  datos.innerHTML = `<div class="pareto-fila small muted"><span>Causa</span><span>Veces</span><span></span></div>` +
+    CAUSAS.map((c,i)=>`<div class="pareto-fila"><input type="text" value="${esc(c[0])}" data-i="${i}" data-k="0" aria-label="Causa ${i+1}"><input type="number" min="0" value="${c[1]}" data-i="${i}" data-k="1" aria-label="Veces"><button class="btn ghost" data-del="${i}" aria-label="Quitar">✕</button></div>`).join('') +
+    `<div class="acciones"><button class="btn ghost" id="add">+ Agregar causa</button></div>`;
+  document.getElementById('add').onclick = () => { CAUSAS.push(['Nueva causa',1]); pintarDatos(); pareto(); };
+};
+datos.addEventListener('input', e => { const t = e.target; if (t.dataset.i === undefined) return; CAUSAS[+t.dataset.i][+t.dataset.k] = t.dataset.k === '1' ? Math.max(0, +t.value || 0) : t.value; pareto(); });
+datos.addEventListener('click', e => { const d = e.target.closest('[data-del]'); if (d) { CAUSAS.splice(+d.dataset.del,1); pintarDatos(); pareto(); } });
+const pareto = () => {
+  const svg = document.getElementById('par-svg');
+  const orden = CAUSAS.map(c=>[c[0],c[1]]).sort((a,b)=>b[1]-a[1]);
+  const total = orden.reduce((s,c)=>s+c[1],0) || 1;
+  const x0 = 30, y0 = 200, w = 300, h = 180, bw = w / Math.max(1, orden.length);
+  const max = Math.max(1, ...orden.map(c=>c[1]));
+  let acum = 0, pts = [], vitales = [], s = `<line class="ej" x1="${x0}" y1="${y0}" x2="${x0+w}" y2="${y0}"/><line class="ej" x1="${x0}" y1="${y0-h*0.8}" x2="${x0+w}" y2="${y0-h*0.8}" stroke-dasharray="4 4"/><text x="${x0+w}" y="${y0-h*0.8-4}" text-anchor="end">80%</text>`;
+  orden.forEach((c,i) => {
+    const antes = acum / total; acum += c[1];
+    const vital = antes < 0.8;
+    if (vital) vitales.push(c[0]);
+    const bh = c[1] / max * h * 0.9, x = x0 + i*bw + 4;
+    s += `<rect class="b ${vital?'vital':''}" x="${x}" y="${y0-bh}" width="${bw-8}" height="${bh}" rx="3"/><text x="${x+(bw-8)/2}" y="${y0+14}" text-anchor="middle">${i+1}</text>`;
+    pts.push(`${x+(bw-8)/2},${y0 - acum/total*h}`);
+  });
+  s += `<polyline class="l" points="${pts.join(' ')}"/>`;
+  svg.innerHTML = s;
+  document.getElementById('par-txt').innerHTML = `<strong>Causas vitales (en rojo):</strong> ${vitales.map(esc).join(', ') || '—'}. Las barras están ordenadas de mayor a menor y la línea muestra el porcentaje acumulado.`;
+};
+pintarDatos(); pareto();
+</script>
+</body>
+</html>

@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>La quinta disciplina</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;700;800&family=Instrument+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600&display=swap">
+<link rel="stylesheet" href="../comun/base.css">
+<style>
+  .tablero{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px}
+  @media (max-width:560px){.tablero{grid-template-columns:repeat(2,minmax(0,1fr))}}
+  .dato{background:var(--surface-2);border-radius:12px;padding:10px 12px}
+  .dato small{display:block;color:var(--muted);font:600 .7rem/1.2 var(--mono);text-transform:uppercase}
+  .dato b{font:800 1.5rem/1.1 var(--display)}
+  .grafica{display:flex;align-items:flex-end;gap:4px;height:120px;padding:8px;background:var(--surface-2);border-radius:12px}
+  .grafica div{flex:1;display:flex;flex-direction:column;justify-content:flex-end;gap:2px;height:100%}
+  .grafica i{display:block;border-radius:3px 3px 0 0}
+  .grafica .inv{background:var(--acc)} .grafica .ped{background:var(--bad);opacity:.75}
+  .ley{display:flex;gap:14px;font-size:.8rem;color:var(--muted)}
+  .ley span::before{content:"";display:inline-block;width:10px;height:10px;border-radius:2px;margin-right:6px;vertical-align:-1px;background:var(--c)}
+</style>
+</head>
+<body style="--acc:#3949ab;--acc-dark:#a4b0ff">
+<script src="../comun/base.js"></script>
+<main class="wrap">
+  <header class="hero">
+    <p class="eyebrow">Tópico 2 · Peter Senge · Capítulos 1 a 3</p>
+    <h1>La quinta disciplina</h1>
+    <p class="lede">Senge habla de las organizaciones inteligentes: las que aprenden de verdad y no solo reaccionan. Para lograrlo propone cinco disciplinas, y la quinta, el pensamiento sistémico, es la que une a las demás.</p>
+    <div class="meta"><span class="chip acc">Parte I</span><span class="chip">Erick Arriola Aguillón</span></div>
+  </header>
+
+  <section>
+    <span class="num">01 · LAS CINCO DISCIPLINAS</span>
+    <div class="picker" id="picker"></div>
+    <div class="detalle" id="detalle"></div>
+  </section>
+
+  <section>
+    <span class="num">02 · LAS SIETE BARRERAS DEL APRENDIZAJE</span>
+    <p class="muted">Son costumbres que no dejan aprender a una organización. Toca cada una para ver cómo se ve en un equipo de software.</p>
+    <div class="grid" id="barreras"></div>
+  </section>
+
+  <section>
+    <span class="num">03 · EL JUEGO DE LA CERVEZA (VERSIÓN SIMPLE)</span>
+    <h2>Eres la tienda</h2>
+    <p class="muted">Cada semana se venden cajas y lo que pides llega <strong>dos semanas después</strong>. En la semana 3 la demanda sube de 4 a 8. Si te faltan cajas, se acumulan pedidos pendientes. Intenta no quedarte sin producto ni llenarte de inventario.</p>
+    <div class="card" style="gap:12px">
+      <div class="tablero" id="tablero"></div>
+      <div class="grafica" id="graf" aria-hidden="true"></div>
+      <div class="ley"><span style="--c:var(--acc)">Inventario</span><span style="--c:var(--bad)">Pendientes</span></div>
+      <div class="acciones" id="acc"></div>
+      <p class="small" id="msg" aria-live="polite"></p>
+    </div>
+  </section>
+
+  <section>
+    <span class="num">04 · LO QUE ME LLEVO</span>
+    <div class="callout"><p>Lo que más me sorprendió del juego de la cerveza es que nadie hace algo malo a propósito, y aun así el sistema completo falla por los retrasos y por ver solo su parte. Senge le llama <em>metanoia</em> a cambiar la forma de mirar. En programación me pasa igual: si arreglo solo el error que veo en pantalla sin entender de dónde viene, el parche termina causando otro problema.</p></div>
+  </section>
+
+  <footer class="pie-pag"><span>Fuente: Peter Senge, <em>La quinta disciplina</em>, capítulos 1 a 3.</span><span>Erick Arriola Aguillón</span></footer>
+</main>
+<script>
+const DISC = [
+  {titulo:'Pensamiento sistémico', d:'Ver el todo y las relaciones entre las partes, no solo eventos aislados. Es la quinta disciplina porque integra a las otras cuatro.', a:'Antes de cambiar un módulo, ver qué otros dependen de él.'},
+  {titulo:'Dominio personal', d:'Aclarar lo que de verdad quiero y ver con honestidad dónde estoy. La distancia entre ambos genera energía para crecer.', a:'Ponerme metas de aprendizaje concretas para cada semestre.'},
+  {titulo:'Modelos mentales', d:'Las suposiciones que tenemos sobre cómo funciona el mundo. Hay que sacarlas a la luz y cuestionarlas.', a:'Preguntar “¿por qué creo que esta es la mejor solución?” antes de defenderla.'},
+  {titulo:'Visión compartida', d:'Una imagen del futuro que el grupo construye y siente propia, no una orden que viene de arriba.', a:'Definir con el equipo qué queremos lograr con el proyecto antes de repartir tareas.'},
+  {titulo:'Aprendizaje en equipo', d:'El diálogo para pensar juntos. Un equipo puede ser más inteligente que cada uno por separado.', a:'Hacer revisiones de código donde se discuten ideas, no se culpa a nadie.'}
+];
+selector(document.getElementById('picker'), document.getElementById('detalle'), DISC, x =>
+  `<h3>${x.titulo}</h3><p class="k">Qué es</p><p>${x.d}</p><p class="k">Cómo lo aplico</p><p>${x.a}</p>`);
+
+const BARR = [
+  ['Yo soy mi puesto','Cada quien solo ve su tarea y no se siente responsable del resultado completo.','“Yo hice el frontend; si el sistema no sirve, es culpa del backend.”'],
+  ['El enemigo externo','Cuando algo falla, la culpa siempre es de alguien de afuera.','“El cliente no sabe lo que quiere.”'],
+  ['La ilusión de hacerse cargo','Creer que ser proactivo es atacar al “enemigo”, cuando en realidad seguimos reaccionando.','Reescribir todo con prisa en vez de analizar qué falló.'],
+  ['La fijación en los hechos','Fijarse solo en eventos puntuales y no en los patrones que se repiten.','Arreglar cada caída del servidor sin preguntarse por qué cae cada lunes.'],
+  ['La rana hervida','No notar cambios lentos y graduales hasta que es tarde.','La deuda técnica crece poco a poco hasta que nadie se atreve a tocar el código.'],
+  ['Aprender de la experiencia','Las consecuencias de nuestras decisiones llegan tan tarde o tan lejos que no las vemos.','Una mala decisión de arquitectura duele meses después, cuando ya nadie la relaciona.'],
+  ['El mito del equipo directivo','Equipos que aparentan estar de acuerdo para no confrontarse y así no aprenden.','En la junta todos dicen “sí”, pero nadie cree en el plan.']
+];
+document.getElementById('barreras').innerHTML = BARR.map((b,i)=>`<button class="flip" type="button"><span class="num">${i+1}</span><h3>${b[0]}</h3><span class="back">${b[1]}<br><br><em>${b[2]}</em></span><span class="hint">Toca para ver</span></button>`).join('');
+
+// Juego de la cerveza simplificado
+let sem, inv, pend, camino, hist, costo;
+const SEMANAS = 12;
+const demanda = s => s < 3 ? 4 : 8;
+const reiniciar = () => { sem = 1; inv = 12; pend = 0; camino = [4,4]; hist = []; costo = 0; pintar(''); };
+const pintar = msg => {
+  const fin = sem > SEMANAS;
+  document.getElementById('tablero').innerHTML = [['Semana', fin ? SEMANAS : sem],['Demanda', fin ? '—' : demanda(sem)],['Inventario',inv],['Pendientes',pend]].map(([a,b])=>`<div class="dato"><small>${a}</small><b>${b}</b></div>`).join('');
+  const max = Math.max(20, ...hist.map(h => Math.max(h.inv, h.pend)));
+  document.getElementById('graf').innerHTML = Array.from({length:SEMANAS},(_,k)=>{ const h = hist[k]; return `<div>${h?`<i class="inv" style="height:${h.inv/max*100}%"></i><i class="ped" style="height:${h.pend/max*100}%"></i>`:''}</div>`; }).join('');
+  document.getElementById('msg').textContent = msg;
+  const acc = document.getElementById('acc');
+  if (fin) {
+    acc.innerHTML = `<button class="btn" id="re">Jugar otra vez</button>`;
+    document.getElementById('msg').textContent = `Costo total: ${costo} (1 por caja guardada, 2 por caja pendiente). ` + (costo < 60 ? 'Muy bien: reaccionaste con calma al cambio.' : 'Probablemente reaccionaste de más o tarde; eso es justo lo que muestra Senge.');
+    document.getElementById('re').onclick = reiniciar; return;
+  }
+  acc.innerHTML = [0,4,8,12,16].map(n=>`<button class="btn ${n===8?'':'ghost'}" data-p="${n}">Pedir ${n}</button>`).join('');
+  acc.querySelectorAll('[data-p]').forEach(b => b.onclick = () => turno(+b.dataset.p));
+};
+const turno = pedido => {
+  const llega = camino.shift(); camino.push(pedido);
+  inv += llega;
+  const necesita = demanda(sem) + pend;
+  const vende = Math.min(inv, necesita);
+  inv -= vende; pend = necesita - vende;
+  costo += inv + pend * 2;
+  hist.push({inv, pend});
+  const msg = `Llegaron ${llega}, vendiste ${vende}.` + (pend ? ` Te quedaron ${pend} cajas sin surtir.` : '');
+  sem++; pintar(msg);
+};
+reiniciar();
+</script>
+</body>
+</html>

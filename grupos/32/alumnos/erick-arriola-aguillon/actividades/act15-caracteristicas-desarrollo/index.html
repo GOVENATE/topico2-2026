@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Características para el desarrollo</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;700;800&family=Instrument+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600&display=swap">
+<link rel="stylesheet" href="../comun/base.css">
+<style>
+  .rueda{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:18px;align-items:center}
+  @media (max-width:760px){.rueda{grid-template-columns:1fr}}
+  svg{width:100%;max-width:420px;height:auto;margin-inline:auto;display:block}
+  .eje{stroke:var(--line)} .anillo{fill:none;stroke:var(--line)}
+  .area{fill:color-mix(in srgb,var(--acc) 30%,transparent);stroke:var(--acc);stroke-width:2}
+  .etq{fill:var(--muted);font:600 10px var(--mono)}
+  .sliders{display:grid;gap:8px}
+  .sl{display:grid;grid-template-columns:minmax(0,1fr) 120px 22px;gap:10px;align-items:center;font-size:.88rem}
+  .sl.nueva span:first-child::after{content:" · propuesta";color:var(--acc);font:600 .72rem var(--mono)}
+</style>
+</head>
+<body style="--acc:#0d7a8a;--acc-dark:#69dcec">
+<script src="../comun/base.js"></script>
+<main class="wrap">
+  <header class="hero">
+    <p class="eyebrow">Tópico 2 · Desarrollo personal</p>
+    <h1>11 características para el desarrollo</h1>
+    <p class="lede">En clase vimos ocho capacidades que necesitamos para desarrollarnos como personas y profesionistas. Agregué tres más que me parecen necesarias y me autoevalué en las once.</p>
+    <div class="meta"><span class="chip acc">8 vistas + 3 propuestas</span><span class="chip">Erick Arriola Aguillón</span></div>
+  </header>
+
+  <section>
+    <span class="num">01 · MI RUEDA DE COMPETENCIAS</span>
+    <p class="muted">Mueve cada barra del 1 al 5 según cómo te ves hoy. La figura muestra dónde estás fuerte y dónde hay que trabajar.</p>
+    <div class="rueda">
+      <svg id="radar" viewBox="0 0 400 400" role="img" aria-label="Rueda de competencias"></svg>
+      <div class="sliders" id="sliders"></div>
+    </div>
+    <p class="small" id="lectura" aria-live="polite"></p>
+  </section>
+
+  <section>
+    <span class="num">02 · QUÉ SIGNIFICA CADA UNA</span>
+    <div class="picker" id="picker"></div>
+    <div class="detalle" id="detalle"></div>
+  </section>
+
+  <section>
+    <span class="num">03 · POR QUÉ PROPUSE ESTAS TRES</span>
+    <div class="grid">
+      <div class="card acc"><h3>Innovación y adaptabilidad</h3><p>La tecnología cambia cada año. Sin adaptarse, el emprendimiento y el liderazgo se quedan viejos.</p></div>
+      <div class="card acc"><h3>Pensamiento crítico</h3><p>Une la responsabilidad con las finanzas y el liderazgo: decidir con evidencia y no por impulso.</p></div>
+      <div class="card acc"><h3>Ética e integridad</h3><p>Es lo que hace que todas las demás se usen para bien y no para aprovecharse de otros.</p></div>
+    </div>
+  </section>
+
+  <footer class="pie-pag"><span>Basado en las características para el desarrollo vistas en clase.</span><span>Erick Arriola Aguillón</span></footer>
+</main>
+<script>
+const C = [
+  ['Interdependencia','Entender que nadie logra nada solo: dependo de otros y otros de mí.','Trabajar en equipo en proyectos de la carrera.','Pedir ayuda y ofrecerla; cumplir mi parte a tiempo.',3,false],
+  ['Emprendimiento','Ver oportunidades y animarse a crear algo propio.','Proponer un proyecto o una app que resuelva un problema real.','Empezar con proyectos pequeños y aprender de los errores.',3,false],
+  ['Liderazgo','Guiar a un grupo hacia una meta con el ejemplo.','Coordinar un equipo de desarrollo sin imponer.','Tomar la iniciativa en trabajos de clase y escuchar al equipo.',3,false],
+  ['Responsabilidad','Hacerme cargo de mis tareas, errores y consecuencias.','Entregar a tiempo y reconocer cuando algo salió mal.','Usar una agenda y no poner excusas.',4,false],
+  ['Comunicación efectiva','Decir las cosas claras y escuchar de verdad.','Explicar un problema técnico a alguien que no programa.','Practicar exposiciones y pedir retroalimentación.',3,false],
+  ['Los otros','Tomar en cuenta a los demás: respeto y empatía.','Pensar en el usuario cuando diseño un sistema.','Ponerme en el lugar del otro antes de juzgar.',4,false],
+  ['Lenguaje','Dominar mi idioma y otros, sobre todo inglés.','Leer documentación técnica y escribir bien un reporte.','Leer más y practicar inglés todos los días.',3,false],
+  ['Finanzas','Saber manejar el dinero: ahorrar, invertir y no endeudarse.','Hacer un presupuesto personal o de un proyecto.','Registrar gastos y apartar un porcentaje para ahorro.',2,false],
+  ['Innovación y adaptabilidad','Responder a los cambios y aprender herramientas nuevas.','Aprender un framework nuevo cuando el proyecto lo pide.','Probar una tecnología nueva cada mes.',4,true],
+  ['Pensamiento crítico','Comparar información, ver riesgos y decidir con evidencia.','Revisar si una fuente es confiable antes de usarla.','Preguntar siempre “¿cómo sé que esto es cierto?”.',3,true],
+  ['Ética e integridad','Actuar con honestidad aunque nadie esté viendo.','No copiar código sin entenderlo ni dar crédito.','Ser coherente entre lo que digo y lo que hago.',4,true]
+];
+const vals = C.map(c => c[4]);
+const svg = document.getElementById('radar'), N = C.length, cx = 200, cy = 200, R = 140;
+const pt = (i, r) => { const a = -Math.PI/2 + i*2*Math.PI/N; return [cx + r*Math.cos(a), cy + r*Math.sin(a)]; };
+const dibujar = () => {
+  let s = '';
+  for (let k = 1; k <= 5; k++) s += `<polygon class="anillo" points="${C.map((_,i)=>pt(i,R*k/5).join(',')).join(' ')}"/>`;
+  C.forEach((c,i) => { const [x,y] = pt(i,R), [lx,ly] = pt(i,R+28); s += `<line class="eje" x1="${cx}" y1="${cy}" x2="${x}" y2="${y}"/><text class="etq" x="${lx}" y="${ly}" text-anchor="middle" dominant-baseline="middle">${i+1}</text>`; });
+  s += `<polygon class="area" points="${vals.map((v,i)=>pt(i,R*v/5).join(',')).join(' ')}"/>`;
+  svg.innerHTML = s;
+  const min = Math.min(...vals), max = Math.max(...vals);
+  const bajas = C.filter((_,i)=>vals[i]===min).map(c=>c[0]), altas = C.filter((_,i)=>vals[i]===max).map(c=>c[0]);
+  document.getElementById('lectura').textContent = `Más fuerte en: ${altas.join(', ')}. Por trabajar: ${bajas.join(', ')}.`;
+};
+document.getElementById('sliders').innerHTML = C.map((c,i)=>`<label class="sl ${c[5]?'nueva':''}"><span>${i+1}. ${c[0]}</span><input type="range" min="1" max="5" value="${c[4]}" data-i="${i}" aria-label="${c[0]}"><b id="v${i}">${c[4]}</b></label>`).join('');
+document.getElementById('sliders').addEventListener('input', e => { const i = +e.target.dataset.i; vals[i] = +e.target.value; document.getElementById('v'+i).textContent = vals[i]; dibujar(); });
+dibujar();
+selector(document.getElementById('picker'), document.getElementById('detalle'), C.map(c=>({titulo:c[0], c})), ({c}) =>
+  `<h3>${c[0]}${c[5]?' <span class="chip acc">propuesta</span>':''}</h3><p class="k">Qué es</p><p>${c[1]}</p><p class="k">Cómo se aplica</p><p>${c[2]}</p><p class="k">Cómo la desarrollo</p><p>${c[3]}</p>`);
+</script>
+</body>
+</html>

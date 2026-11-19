@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Gigantes de México</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;700;800&family=Instrument+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600&display=swap">
+<link rel="stylesheet" href="../comun/base.css">
+<style>
+  .linea{position:relative;display:flex;flex-direction:column;gap:12px;padding-left:26px}
+  .linea::before{content:"";position:absolute;left:8px;top:6px;bottom:6px;width:2px;background:var(--line)}
+  .hito{position:relative;background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:14px 16px}
+  .hito::before{content:"";position:absolute;left:-24px;top:18px;width:14px;height:14px;border-radius:50%;background:var(--acc);border:3px solid var(--bg)}
+  .hito .anio{font:600 .8rem/1 var(--mono);color:var(--acc)}
+  .hito p{margin:6px 0 0}
+</style>
+</head>
+<body style="--acc:#0f5fa6;--acc-dark:#7cc0ff">
+<script src="../comun/base.js"></script>
+<main class="wrap">
+  <header class="hero">
+    <p class="eyebrow">Tópico 2 · Empresarios mexicanos</p>
+    <h1>Gigantes de México</h1>
+    <p class="lede">Dos formas muy distintas de construir empresas que compiten en el mundo: Carlos Slim con inversión y diversificación, y Lorenzo Zambrano con tecnología y expansión de CEMEX.</p>
+    <div class="meta"><span class="chip acc">Slim · Zambrano</span><span class="chip">Erick Arriola Aguillón</span></div>
+  </header>
+
+  <div class="tabs" data-tabs="emp">
+    <button class="tab" data-tab="slim">Carlos Slim Helú</button>
+    <button class="tab" data-tab="zam">Lorenzo Zambrano</button>
+  </div>
+
+  <div class="panel" data-panel="slim" data-grupo="emp">
+    <section>
+      <div class="linea">
+        <div class="hito"><span class="anio">INFANCIA</span><h3>Aprender a invertir</h3><p>Su padre, Julián Slim, le enseñó a llevar libretas de cuentas, ahorrar e invertir en bienes raíces. De ahí viene su austeridad.</p></div>
+        <div class="hito"><span class="anio">1982</span><h3>Comprar en plena crisis</h3><p>Con la devaluación, el capital extranjero salía del país. Slim compró empresas industriales, comerciales y aseguradoras muy baratas: la base de Grupo Carso.</p></div>
+        <div class="hito"><span class="anio">1990</span><h3>TELMEX</h3><p>Compró la telefónica del Estado, modernizó una red vieja y de ahí nacieron Telcel y América Móvil.</p></div>
+        <div class="hito"><span class="anio">2010–2013</span><h3>El más rico del mundo</h3><p>Diversificó en construcción, infraestructura, banca (Inbursa) y comercio hasta encabezar las listas mundiales.</p></div>
+        <div class="hito"><span class="anio">MODELO</span><h3>Simple y austero</h3><p>Pocos niveles de jerarquía, gastos controlados y reinversión constante. La Fundación Carlos Slim canaliza parte de las ganancias.</p></div>
+      </div>
+      <div class="grid dos">
+        <div class="card acc"><h3>Lo que admiro</h3><p>Leer los ciclos económicos: comprar cuando todos venden exige disciplina y confianza en México.</p></div>
+        <div class="card"><h3>Lo que cuestiono</h3><p>Gran parte de su crecimiento vino de un monopolio que era público. Tanta concentración le da una influencia enorme sobre el país.</p></div>
+      </div>
+    </section>
+  </div>
+
+  <div class="panel" data-panel="zam" data-grupo="emp">
+    <section>
+      <div class="linea">
+        <div class="hito"><span class="anio">1968 · 1985</span><h3>De ingeniero a director</h3><p>Entra a CEMEX en 1968 y toma la dirección en 1985. Mete sistemas de información y comunicación satelital para manejar rutas y entregas en tiempo real.</p></div>
+        <div class="hito"><span class="anio">AÑOS 90</span><h3>Salir al mundo</h3><p>Compra cementeras en España, Sudamérica, Filipinas, Estados Unidos y Europa. Su fórmula: adquirir empresas ineficientes y aplicarles el modelo CEMEX.</p></div>
+        <div class="hito"><span class="anio">2007</span><h3>La compra de Rinker</h3><p>Más de 14 mil millones de dólares por la australiana Rinker: la mayor compra internacional de una empresa mexicana hasta entonces.</p></div>
+        <div class="hito"><span class="anio">2008</span><h3>Crisis y deuda</h3><p>La crisis global convirtió esa deuda en un riesgo enorme. Zambrano renegoció con los acreedores sin perder el control de la empresa.</p></div>
+        <div class="hito"><span class="anio">2014</span><h3>Legado</h3><p>Muere siendo presidente del consejo del Tec de Monterrey, con un fuerte compromiso con la educación y las artes de su ciudad.</p></div>
+      </div>
+      <div class="grid dos">
+        <div class="card acc"><h3>Lo que admiro</h3><p>Demostró que una industria tradicional como el cemento puede ser de clase mundial gracias a la tecnología y los procesos.</p></div>
+        <div class="card"><h3>Lo que cuestiono</h3><p>Crecer con tanta deuda casi hunde a la empresa. La ambición también necesita freno.</p></div>
+      </div>
+    </section>
+  </div>
+
+  <section>
+    <span class="num">REPASO</span>
+    <div id="quiz"></div>
+  </section>
+
+  <section>
+    <span class="num">MI CONCLUSIÓN</span>
+    <div class="callout"><p>Los dos empezaron con ventajas, pero supieron multiplicarlas de formas distintas. A mí, como estudiante de software, me identifica más Zambrano: usó la tecnología como ventaja competitiva en una industria donde nadie lo esperaba. De Slim me quedo con la disciplina financiera, aunque no con la concentración de poder.</p></div>
+  </section>
+
+  <footer class="pie-pag"><span>Fuente: documentales vistos en clase sobre Carlos Slim y Lorenzo Zambrano.</span><span>Erick Arriola Aguillón</span></footer>
+</main>
+<script>
+quiz(document.getElementById('quiz'), [
+  {q:'¿Qué hizo Slim durante la crisis de 1982?', ops:['Sacó su dinero del país','Compró empresas a precios bajos','Vendió TELMEX'], ok:1, por:'Fue una apuesta anticíclica que formó Grupo Carso.'},
+  {q:'¿Cuál fue la gran ventaja de Zambrano en CEMEX?', ops:['Precios más bajos que nadie','Sistemas de información y logística en tiempo real','Tener el monopolio del cemento en Europa'], ok:1, por:'Convirtió una industria tradicional en un referente de eficiencia.'},
+  {q:'¿Qué compra puso en riesgo a CEMEX en 2008?', ops:['Rinker','TELMEX','Bimbo'], ok:0, por:'La deuda por Rinker se volvió un problema con la crisis.'},
+  {q:'¿De qué empresa estatal nacieron Telcel y América Móvil?', ops:['PEMEX','CFE','TELMEX'], ok:2, por:'Slim la adquirió en 1990.'}
+]);
+</script>
+</body>
+</html>

@@ -1,0 +1,467 @@
+<!doctype html>
+<html lang="es">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lotería del Dinero</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Alfa+Slab+One&family=Rubik:wght@400;500;600;700;800&display=swap">
+<style>
+/* Layout: cada capítulo es una carta de lotería. Inicio = la tabla con las cartas; cada sección = carta + idea a la izquierda, laboratorio interactivo a la derecha. */
+:root{
+  --bg:#fbf2f6; --card:#ffffff; --ink:#1d1330; --muted:#5e4f73; --line:#e6d3df;
+  --rosa:#d4006e; --on-rosa:#ffffff; --turq:#00857f; --sol:#f2a900; --soft:#f6e2ec;
+  --art-ink:#1d1330; --art-rosa:#ff4fa3; --art-turq:#2ec4bd; --art-sol:#ffc533; --art-lila:#b9a0ff; --art-verde:#7fd36b;
+  --display:"Alfa Slab One",Rockwell,"Courier New",serif;
+  --body:"Rubik","Segoe UI",system-ui,sans-serif;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#160e22; --card:#231835; --ink:#f7eef9; --muted:#bba9cc; --line:#3a2b52;
+    --rosa:#ff5aa8; --on-rosa:#160e22; --turq:#3fd6cf; --sol:#ffc533; --soft:#2d1f44;
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#160e22; --card:#231835; --ink:#f7eef9; --muted:#bba9cc; --line:#3a2b52;
+  --rosa:#ff5aa8; --on-rosa:#160e22; --turq:#3fd6cf; --sol:#ffc533; --soft:#2d1f44;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 16px/1.55 var(--body)}
+button,input{font:inherit;color:inherit}
+button{cursor:pointer}
+p{margin:0}
+:focus-visible{outline:3px solid var(--rosa);outline-offset:2px}
+h1,h2,h3{margin:0;font-family:var(--display);font-weight:400;text-wrap:balance}
+
+/* Navegación */
+.nav{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--bg);border-bottom:2px solid var(--line)}
+.nav-in{max-width:1100px;margin-inline:auto;padding:10px 16px;display:flex;gap:6px;overflow-x:auto;scrollbar-width:none}
+.nav-in::-webkit-scrollbar{display:none}
+.tab{flex:none;border:2px solid transparent;background:none;border-radius:999px;padding:7px 15px;font-weight:600;color:var(--muted);white-space:nowrap}
+.tab:hover{color:var(--ink)}
+.tab b{font-variant-numeric:tabular-nums;color:var(--rosa);font-weight:700}
+.tab[aria-current="page"]{border-color:var(--ink);background:var(--card);color:var(--ink)}
+
+.wrap{max-width:1100px;margin-inline:auto;padding-inline:16px;padding-block:28px 48px}
+.page{display:flex;flex-direction:column;gap:28px}
+.eyebrow{font-weight:700;font-size:.78rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+
+/* Carta de lotería */
+.carta{width:100%;max-width:230px;background:var(--card);border:3px solid var(--ink);border-radius:10px;padding:10px;display:flex;flex-direction:column;gap:8px;box-shadow:6px 6px 0 var(--ink)}
+.carta-art{position:relative;aspect-ratio:4/5;border:3px solid var(--art-ink);border-radius:4px;display:grid;place-items:center;overflow:hidden}
+.carta-art svg{width:78%;height:auto}
+.carta-num{position:absolute;top:6px;left:8px;font:400 1.5rem/1 var(--display);color:var(--art-ink)}
+.carta-name{text-align:center;font:400 1.25rem/1.1 var(--display);text-transform:uppercase;letter-spacing:.02em}
+
+/* Inicio */
+.hero{display:flex;flex-direction:column;gap:14px;max-width:760px}
+.hero h1{font-size:clamp(2.4rem,8vw,4.6rem);line-height:.95}
+.hero h1 span{color:var(--rosa)}
+.lede{font-size:1.15rem;color:var(--muted);max-width:56ch}
+.tabla{display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:22px;padding:22px;border:3px solid var(--ink);border-radius:14px;background:var(--soft)}
+.tabla button{background:none;border:0;padding:0;text-align:left;display:flex;flex-direction:column;gap:10px;min-width:0}
+.tabla .carta{max-width:none;transition:translate .15s,box-shadow .15s}
+.tabla button:hover .carta{translate:-3px -3px;box-shadow:9px 9px 0 var(--rosa)}
+.tabla small{font-size:.92rem;color:var(--muted);padding-inline:4px}
+.idea-libro{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px}
+@media (max-width:760px){.idea-libro{grid-template-columns:minmax(0,1fr)}}
+.idea-libro div{border-top:5px solid var(--rosa);padding-top:10px;display:flex;flex-direction:column;gap:4px}
+.idea-libro b{font:400 1.15rem/1.2 var(--display)}
+
+/* Sección de capítulo */
+.chapter{display:grid;grid-template-columns:minmax(0,.95fr) minmax(0,1.15fr);gap:36px;align-items:start}
+@media (max-width:860px){.chapter{grid-template-columns:minmax(0,1fr)}}
+.side{display:flex;flex-direction:column;gap:18px;min-width:0}
+.side-top{display:flex;gap:20px;align-items:flex-start;flex-wrap:wrap}
+.side-top .carta{max-width:170px;flex:none}
+.side-top .carta-name{font-size:1rem}
+.side-title{display:flex;flex-direction:column;gap:8px;flex:1 1 200px;min-width:0}
+.side-title h2{font-size:clamp(1.8rem,4.6vw,2.6rem);line-height:1}
+.big-idea{font-size:1.25rem;font-weight:600;line-height:1.4;max-width:34ch}
+.keys{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;border-top:2px solid var(--ink)}
+.keys li{padding:10px 0;border-bottom:1px solid var(--line);display:flex;gap:12px}
+.keys li::before{content:"";flex:none;width:10px;height:10px;margin-top:.5em;border-radius:50%;background:var(--rosa)}
+.story{background:var(--soft);border-radius:10px;padding:16px 18px;font-size:.98rem}
+.story b{display:block;margin-bottom:4px}
+
+.lab{background:var(--card);border:3px solid var(--ink);border-radius:14px;padding:clamp(16px,3.5vw,26px);display:flex;flex-direction:column;gap:16px;min-width:0}
+.lab h3{font-size:1.45rem;line-height:1.15}
+.lab-tag{align-self:flex-start;background:var(--ink);color:var(--bg);font-weight:700;font-size:.74rem;letter-spacing:.12em;text-transform:uppercase;padding:4px 10px;border-radius:999px}
+.btn{border:2px solid var(--ink);background:var(--rosa);color:var(--on-rosa);border-radius:999px;padding:9px 20px;font-weight:700}
+.btn:hover{filter:brightness(1.08)}
+.btn.ghost{background:transparent;color:var(--ink)}
+.row{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+.opts{display:flex;flex-direction:column;gap:8px}
+.opt{border:2px solid var(--line);background:var(--bg);border-radius:10px;padding:11px 14px;text-align:left;line-height:1.35;font-weight:500}
+.opt:hover:not(:disabled){border-color:var(--ink)}
+.opt:disabled{cursor:default}
+.opt.ok{border-color:var(--turq);box-shadow:inset 6px 0 0 var(--turq)}
+.opt.no{border-color:var(--rosa);box-shadow:inset 6px 0 0 var(--rosa)}
+.opt.on{border-color:var(--ink);background:var(--soft)}
+.fb{padding:12px 14px;border-radius:10px;background:var(--soft);font-weight:500}
+.fb b{color:var(--rosa)}
+.chips{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+@media (max-width:480px){.chips{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.chips .opt{text-align:center;font-weight:600}
+.note{font-size:.85rem;color:var(--muted)}
+.car{background:var(--art-sol);border:3px solid var(--art-ink);border-radius:10px;display:grid;place-items:center;padding:10px;overflow:hidden}
+.car svg{width:min(320px,90%);height:auto}
+.car.anim svg{animation:drive 1.2s cubic-bezier(.2,.8,.3,1)}
+@keyframes drive{from{translate:-120% 0}}
+
+/* Suerte */
+.dots{display:grid;grid-template-columns:repeat(10,minmax(0,1fr));gap:5px;max-width:360px}
+.dots i{aspect-ratio:1;border-radius:50%;background:var(--line);transition:background .4s}
+.dots i.win{background:var(--rosa)}
+.dots i.ok{background:var(--turq)}
+.dots i.meh{background:var(--sol)}
+.dots i.lose{background:var(--ink)}
+.legend{display:flex;flex-wrap:wrap;gap:6px 16px;font-size:.88rem}
+.legend span{display:flex;align-items:center;gap:6px}
+.legend span::before{content:"";width:12px;height:12px;border-radius:50%;background:var(--c)}
+.stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+.stat{border:2px solid var(--line);border-radius:10px;padding:10px 12px;display:flex;flex-direction:column;gap:2px;min-width:0}
+.stat small{font-size:.76rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.stat b{font:400 1.35rem/1.1 var(--display);font-variant-numeric:tabular-nums;overflow-wrap:anywhere}
+
+/* Formularios */
+.fields{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+@media (max-width:480px){.fields{grid-template-columns:minmax(0,1fr)}}
+.field{display:flex;flex-direction:column;gap:4px;min-width:0}
+.field label{display:flex;justify-content:space-between;gap:8px;font-weight:600;font-size:.92rem}
+.field output{font-variant-numeric:tabular-nums;color:var(--rosa);font-weight:700}
+.field input[type=number]{width:100%;background:var(--bg);border:2px solid var(--line);border-radius:8px;padding:8px 10px;font-weight:600;font-variant-numeric:tabular-nums}
+.field input[type=range]{width:100%;accent-color:var(--rosa)}
+.headline{font:400 clamp(2.2rem,7vw,3.2rem)/1 var(--display);color:var(--rosa);font-variant-numeric:tabular-nums}
+.months{display:flex;flex-wrap:wrap;gap:3px}
+.months i{width:14px;height:18px;border-radius:2px;background:var(--turq)}
+.months i.part{background:color-mix(in oklab,var(--turq) 40%,transparent)}
+.compare{border-left:5px solid var(--sol);padding:4px 0 4px 12px;font-weight:500}
+
+/* Margen */
+.chart{display:grid;grid-template-columns:auto minmax(0,1fr);gap:8px}
+.yaxis{display:flex;flex-direction:column;justify-content:space-between;font-size:.75rem;color:var(--muted);text-align:right;height:160px;font-variant-numeric:tabular-nums}
+.bars{position:relative;height:160px;display:flex;align-items:flex-end;gap:4px;border-bottom:2px solid var(--ink);
+  background:linear-gradient(var(--line) 1px,transparent 1px) 0 0/100% 50%}
+.bars button{flex:1;min-width:0;border:0;padding:0;background:color-mix(in oklab,var(--turq) 45%,var(--card));border-radius:3px 3px 0 0}
+.bars button[aria-pressed="true"]{background:var(--rosa)}
+.xaxis{grid-column:2;display:flex;gap:4px;font-size:.72rem;color:var(--muted);font-variant-numeric:tabular-nums}
+.xaxis span{flex:1;text-align:center;min-width:0}
+
+/* Decidir */
+.questions{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+@media (max-width:640px){.questions{grid-template-columns:minmax(0,1fr)}}
+.questions li{background:var(--card);border:2px solid var(--ink);border-radius:12px;padding:14px 16px;display:flex;flex-direction:column;gap:4px}
+.questions small{font-weight:700;color:var(--rosa);font-size:.78rem;letter-spacing:.08em;text-transform:uppercase}
+.questions b{font:400 1.12rem/1.25 var(--display)}
+.score{font-weight:700;color:var(--muted);font-variant-numeric:tabular-nums}
+footer{max-width:1100px;margin-inline:auto;padding-inline:16px;padding-block:0 32px;color:var(--muted);font-size:.85rem}
+footer p{border-top:2px solid var(--line);padding-top:14px;max-width:80ch}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+
+<nav class="nav" aria-label="Secciones"><div class="nav-in" id="tabs"></div></nav>
+<main class="wrap" id="main"></main>
+<footer><p>Basado en «La psicología del dinero» (2020) de Morgan Housel. Las ideas están parafraseadas, no citadas. Las simulaciones están simplificadas con fines didácticos y no son asesoría financiera.</p></footer>
+
+<script>
+(() => {
+const $ = (s, r = document) => r.querySelector(s);
+const esc = s => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+const peso = n => new Intl.NumberFormat('es-MX', { style: 'currency', currency: 'MXN', maximumFractionDigits: 0 }).format(n);
+
+/* Dibujos de las cartas */
+const ART = {
+  coche: `<svg viewBox="0 0 100 70" aria-hidden="true"><path d="M8 46 L18 30 Q22 24 30 24 L62 24 Q70 24 76 30 L88 40 Q95 42 95 48 L95 54 L5 54 L5 50 Q5 46 8 46Z" fill="var(--art-ink)"/><path d="M26 30 L32 28 L46 28 L46 40 L20 40Z M50 28 L62 28 Q66 28 70 32 L76 40 L50 40Z" fill="var(--art-sol)"/><circle cx="26" cy="56" r="9" fill="var(--art-ink)"/><circle cx="74" cy="56" r="9" fill="var(--art-ink)"/><circle cx="26" cy="56" r="3.5" fill="var(--art-sol)"/><circle cx="74" cy="56" r="3.5" fill="var(--art-sol)"/></svg>`,
+  suerte: `<svg viewBox="0 0 100 100" aria-hidden="true"><g transform="rotate(-14 34 48)"><rect x="12" y="26" width="44" height="44" rx="8" fill="var(--art-ink)"/><circle cx="24" cy="38" r="4.5" fill="#fff"/><circle cx="34" cy="48" r="4.5" fill="#fff"/><circle cx="44" cy="58" r="4.5" fill="#fff"/></g><g transform="rotate(12 68 58)"><rect x="48" y="38" width="40" height="40" rx="8" fill="#fff" stroke="var(--art-ink)" stroke-width="4"/><circle cx="59" cy="49" r="4" fill="var(--art-ink)"/><circle cx="77" cy="49" r="4" fill="var(--art-ink)"/><circle cx="59" cy="67" r="4" fill="var(--art-ink)"/><circle cx="77" cy="67" r="4" fill="var(--art-ink)"/></g></svg>`,
+  alcancia: `<svg viewBox="0 0 100 100" aria-hidden="true"><circle cx="54" cy="16" r="10" fill="var(--art-sol)" stroke="var(--art-ink)" stroke-width="4"/><ellipse cx="50" cy="58" rx="36" ry="26" fill="var(--art-ink)"/><path d="M30 38 L26 24 L40 34Z" fill="var(--art-ink)"/><rect x="82" y="50" width="10" height="14" rx="4" fill="var(--art-ink)"/><rect x="28" y="78" width="9" height="12" rx="2" fill="var(--art-ink)"/><rect x="60" y="78" width="9" height="12" rx="2" fill="var(--art-ink)"/><rect x="44" y="34" width="20" height="4" rx="2" fill="var(--art-rosa)"/><circle cx="70" cy="52" r="3.5" fill="#fff"/></svg>`,
+  paracaidas: `<svg viewBox="0 0 100 100" aria-hidden="true"><path d="M8 42 Q50 -14 92 42 Q81 34 71 42 Q60 34 50 42 Q40 34 29 42 Q19 34 8 42Z" fill="var(--art-ink)"/><path d="M8 42 L46 74 M29 42 L47 74 M50 42 L50 74 M71 42 L53 74 M92 42 L54 74" stroke="var(--art-ink)" stroke-width="2.5"/><circle cx="50" cy="78" r="6" fill="var(--art-ink)"/><rect x="45" y="84" width="10" height="12" rx="3" fill="var(--art-ink)"/></svg>`,
+  brujula: `<svg viewBox="0 0 100 100" aria-hidden="true"><circle cx="50" cy="50" r="40" fill="#fff" stroke="var(--art-ink)" stroke-width="6"/><path d="M50 16 L60 50 L50 50Z" fill="var(--art-rosa)"/><path d="M50 16 L40 50 L50 50Z" fill="#c4005f"/><path d="M50 84 L40 50 L50 50Z" fill="var(--art-ink)"/><path d="M50 84 L60 50 L50 50Z" fill="#4a3d63"/><circle cx="50" cy="50" r="5" fill="var(--art-ink)"/></svg>`
+};
+const carta = (num, art, bg, name) => `<div class="carta"><div class="carta-art" style="background:var(${bg})"><span class="carta-num">${num}</span>${ART[art]}</div><div class="carta-name">${esc(name)}</div></div>`;
+
+const SECS = [
+  { id: 'inicio', tab: 'Inicio' },
+  { id: 'estatus', num: '08', tab: 'Estatus', art: 'coche', bg: '--art-sol', carta: 'El coche', cap: 'La paradoja del hombre en el coche' },
+  { id: 'suerte', num: '02', tab: 'Suerte y riesgo', art: 'suerte', bg: '--art-turq', carta: 'Los dados', cap: 'Suerte y riesgo' },
+  { id: 'ahorrar', num: '10', tab: 'Ahorrar', art: 'alcancia', bg: '--art-rosa', carta: 'La alcancía', cap: 'Ahorra' },
+  { id: 'margen', num: '13', tab: 'Margen', art: 'paracaidas', bg: '--art-lila', carta: 'El paracaídas', cap: 'Margen de error' },
+  { id: 'decidir', num: '★', tab: 'Tomar decisiones', art: 'brujula', bg: '--art-verde', carta: 'La brújula', cap: 'Tomar decisiones' }
+];
+
+$('#tabs').innerHTML = SECS.map(s =>
+  `<button class="tab" data-go="${s.id}">${s.num && s.num !== '★' ? `<b>${s.num}</b> · ` : ''}${esc(s.tab)}</button>`).join('');
+
+const side = (s, idea, keys, story) => `<div class="side">
+  <div class="side-top">${carta(s.num, s.art, s.bg, s.carta)}
+    <div class="side-title"><p class="eyebrow">${s.num === '★' ? 'Para cerrar' : 'Capítulo ' + Number(s.num)}</p><h2>${esc(s.cap)}</h2></div></div>
+  <p class="big-idea">${esc(idea)}</p>
+  <ul class="keys">${keys.map(k => `<li>${esc(k)}</li>`).join('')}</ul>
+  ${story ? `<div class="story"><b>${esc(story[0])}</b>${esc(story[1])}</div>` : ''}
+</div>`;
+
+const VIEWS = {
+  inicio() {
+    return `<div class="page">
+      <div class="hero">
+        <p class="eyebrow">La psicología del dinero · Morgan Housel</p>
+        <h1>Al dinero le gana <span>el comportamiento</span></h1>
+        <p class="lede">Manejar bien el dinero tiene poco que ver con qué tan listo eres y mucho con cómo te comportas. Cinco cartas, cinco ideas, y en cada una un ejercicio para probarla.</p>
+      </div>
+      <div class="tabla">${SECS.slice(1).map(s => `<button data-go="${s.id}">${carta(s.num, s.art, s.bg, s.carta)}<small>${esc(s.cap)}</small></button>`).join('')}</div>
+      <div class="idea-libro">
+        <div><b>Nadie está loco</b><p>Cada quien decide con lo que vivió. Lo que a ti te parece absurdo, para otro tiene sentido.</p></div>
+        <div><b>Saber no basta</b><p>Las emociones, el ego y el miedo pesan más que las fórmulas.</p></div>
+        <div><b>Razonable antes que perfecto</b><p>Un plan que puedes sostener años vale más que uno óptimo que abandonas.</p></div>
+      </div>
+    </div>`;
+  },
+  estatus(s) {
+    return `<div class="chapter">${side(s,
+      'Cuando ves a alguien en un coche caro, no piensas en esa persona: te imaginas a ti mismo manejándolo.',
+      ['Nadie está tan impresionado con tus cosas como tú.', 'Lo que buscamos con el lujo es respeto y admiración.', 'Eso se gana más con humildad, amabilidad y empatía que con caballos de fuerza.'],
+      ['La historia', 'Housel trabajó como valet en un hotel de lujo. Al ver llegar los deportivos nunca pensaba en los dueños; pensaba en cómo lo verían a él si tuviera ese coche.'])}
+      <div class="lab" id="lab"></div></div>`;
+  },
+  suerte(s) {
+    return `<div class="chapter">${side(s,
+      'La suerte y el riesgo son la misma fuerza vista desde lados opuestos: cualquier resultado depende de cosas que no controlas.',
+      ['Ningún resultado es tan bueno ni tan malo como parece.', 'Aprende de los patrones generales, no de los casos extremos.', 'Cuidado a quién admiras y a quién desprecias: la suerte cuenta en ambos lados.'],
+      ['Bill Gates y Kent Evans', 'Gates estudió en una de las pocas escuelas del mundo con computadora en 1968. Su mejor amigo, Kent Evans, igual de talentoso, murió en un accidente de montaña antes de terminar la preparatoria. Misma escuela, mismo talento, destinos opuestos.'])}
+      <div class="lab" id="lab"></div></div>`;
+  },
+  ahorrar(s) {
+    return `<div class="chapter">${side(s,
+      'Tu riqueza depende más de cuánto ahorras que de cuánto ganas o de qué tan bien inviertes.',
+      ['Ahorrar es la brecha entre tu ego y tu ingreso.', 'No necesitas un motivo para ahorrar: lo inesperado es motivo suficiente.', 'El ahorro compra control sobre tu tiempo.'],
+      null)}
+      <div class="lab" id="lab"></div></div>`;
+  },
+  margen(s) {
+    return `<div class="chapter">${side(s,
+      'La parte más importante de cualquier plan es prepararte para que no salga como lo planeaste.',
+      ['Sé optimista con el futuro y paranoico con lo que te puede impedir llegar.', 'Evita la ruina: lo que no tiene regreso.', 'Un colchón te deja aguantar lo malo sin abandonar el plan.'],
+      ['Lo que hace un buen jugador', 'Hasta quien cuenta cartas en el blackjack apuesta sabiendo que puede perder la mano. Por eso nunca pone todo en una sola jugada.'])}
+      <div class="lab" id="lab"></div></div>`;
+  },
+  decidir(s) {
+    return `<div class="page"><div class="chapter">${side(s,
+      'Las cuatro cartas se juntan en una sola pregunta: ¿esta decisión la puedo sostener aunque las cosas salgan mal?',
+      ['Separa la suerte de la decisión.', 'Pregúntate si lo quieres o si quieres que te vean con eso.', 'Protege tu ahorro y tu margen antes de buscar más ganancia.'], null)}
+      <div class="lab" id="lab"></div></div>
+      <ul class="questions">
+        <li><small>02 · Suerte y riesgo</small><b>¿Esto salió bien por la decisión o por suerte?</b></li>
+        <li><small>08 · Estatus</small><b>¿Lo quiero, o quiero que me vean con eso?</b></li>
+        <li><small>10 · Ahorrar</small><b>¿Me deja más ahorro o menos?</b></li>
+        <li><small>13 · Margen</small><b>Si sale mal, ¿puedo seguir en el juego?</b></li>
+      </ul></div>`;
+  }
+};
+
+/* Laboratorios */
+let w = {};
+const LABS = {
+  estatus() {
+    const P1 = [['¡Qué coche tan chido!', 0], ['Esa persona ha de ser admirable.', 1], ['Si yo lo manejara, me verían diferente.', 0]];
+    const P2 = [['Coche de lujo', 0], ['Humildad', 1], ['Ropa de marca', 0], ['Amabilidad', 1], ['Reloj caro', 0], ['Empatía', 1]];
+    w.sel ??= [];
+    let h = `<span class="lab-tag">Ejercicio</span>
+      <div class="car${w.p1 === undefined ? ' anim' : ''}">${ART.coche}</div>
+      <h3>Pasa un deportivo frente a ti. ¿Qué es lo primero que piensas?</h3>
+      <div class="opts">${P1.map((o, k) => `<button class="opt${w.p1 === undefined ? '' : w.p1 === k ? ' on' : ''}" data-p1="${k}" ${w.p1 !== undefined ? 'disabled' : ''}>${esc(o[0])}</button>`).join('')}</div>`;
+    if (w.p1 !== undefined) {
+      h += `<p class="fb">${w.p1 === 1 ? 'Eres de los pocos.' : 'Como casi todos.'} <b>Muy poca gente piensa en el conductor.</b> El coche no hace que admiren a su dueño; hace que los demás se imaginen a sí mismos en él.</p>
+        <h3>¿Qué le gana más respeto a una persona? Elige tres.</h3>
+        <div class="chips">${P2.map((o, k) => {
+          let cls = w.sel.includes(k) ? ' on' : '';
+          if (w.p2) cls = o[1] ? ' ok' : w.sel.includes(k) ? ' no' : '';
+          return `<button class="opt${cls}" data-p2="${k}" ${w.p2 ? 'disabled' : ''}>${esc(o[0])}</button>`;
+        }).join('')}</div>`;
+      if (!w.p2) h += `<div class="row"><button class="btn" data-check ${w.sel.length !== 3 ? 'disabled' : ''}>Ver qué dice el libro</button><span class="note">${w.sel.length} de 3</span></div>`;
+      else {
+        const hits = w.sel.filter(k => P2[k][1]).length;
+        h += `<p class="fb"><b>${hits} de 3.</b> Según Housel, la humildad, la amabilidad y la empatía dan más respeto que cualquier cosa que puedas comprar.</p>
+          <div class="row"><button class="btn ghost" data-reset>Otra vez</button></div>`;
+      }
+    }
+    return h;
+  },
+  suerte() {
+    if (!w.res) runSuerte();
+    const r = w.res, cls = v => v >= 200 ? 'win' : v >= 100 ? 'ok' : v >= 50 ? 'meh' : 'lose';
+    const cnt = c => r.filter(v => cls(v) === c).length;
+    const med = (r[49] + r[50]) / 2;
+    return `<span class="lab-tag">Simulación</span>
+      <h3>100 personas toman exactamente la misma decisión</h3>
+      <p>Cada una invierte $100 durante 10 años. Cada año, una moneda decide: sube 30% o baja 20%. Nadie es más listo que otro.</p>
+      <div class="dots" role="img" aria-label="Resultado de 100 personas">${r.map(v => `<i class="${cls(v)}" title="${peso(v)}"></i>`).join('')}</div>
+      <div class="legend">
+        <span style="--c:var(--rosa)">Duplicó o más: ${cnt('win')}</span>
+        <span style="--c:var(--turq)">Ganó: ${cnt('ok')}</span>
+        <span style="--c:var(--sol)">Perdió algo: ${cnt('meh')}</span>
+        <span style="--c:var(--ink)">Perdió más de la mitad: ${cnt('lose')}</span>
+      </div>
+      <div class="stats">
+        <div class="stat"><small>Mejor</small><b>${peso(r[0])}</b></div>
+        <div class="stat"><small>A la mitad</small><b>${peso(med)}</b></div>
+        <div class="stat"><small>Peor</small><b>${peso(r[99])}</b></div>
+      </div>
+      <p class="fb">Si solo entrevistas a quien quedó arriba, vas a creer que su método es genial. <b>Fue la misma decisión que tomó quien quedó abajo.</b></p>
+      <div class="row"><button class="btn" data-rerun>Tirar otra vez</button></div>`;
+  },
+  ahorrar() {
+    return `<span class="lab-tag">Calculadora</span>
+      <h3>¿Cuántos meses de libertad compra tu ahorro?</h3>
+      <div class="fields">
+        <div class="field"><label for="ingreso">Ingreso al mes</label><input type="number" id="ingreso" min="0" step="500" value="15000" inputmode="numeric"></div>
+        <div class="field"><label for="gasto">Gasto al mes</label><input type="number" id="gasto" min="1" step="500" value="13000" inputmode="numeric"></div>
+      </div>
+      <div class="field"><label for="anios">Años ahorrando <output id="aniosOut"></output></label><input type="range" id="anios" min="1" max="10" value="3"></div>
+      <div><div class="headline" id="meses"></div><p id="mesesTxt"></p></div>
+      <div class="months" id="monthsBar" aria-hidden="true"></div>
+      <p class="compare" id="compare"></p>
+      <p class="note">Meses de libertad: cuánto tiempo podrías vivir sin ingreso con lo ahorrado. Sin rendimientos ni inflación.</p>`;
+  },
+  margen() {
+    w.b ??= 3;
+    return `<span class="lab-tag">Simulación</span>
+      <h3>¿Cuánto colchón necesitas para no quebrar?</h3>
+      <div class="field"><label for="colchon">Fondo de emergencia inicial <output id="colOut"></output></label><input type="range" id="colchon" min="0" max="12" value="${w.b}"></div>
+      <div><div class="headline" id="headM"></div><p id="headTxt"></p></div>
+      <div class="chart">
+        <div class="yaxis"><span>100%</span><span>50%</span><span>0%</span></div>
+        <div class="bars">${SURV.map((v, k) => `<button style="height:${v}%" data-b="${k}" aria-pressed="${k === w.b}" aria-label="${k} meses: ${v} de 100"></button>`).join('')}</div>
+        <div class="xaxis">${SURV.map((_, k) => `<span>${k % 3 === 0 ? k : ''}</span>`).join('')}</div>
+      </div>
+      <p class="note">Meses de colchón al empezar. Supuestos: cada año ahorras un mes de gastos; cada año hay 30% de probabilidad de una emergencia que cuesta de 1 a 6 meses de gastos. Se simularon 1,000 personas.</p>
+      <p class="fb">El colchón no te hace ganar más. <b>Te deja seguir en el juego</b> cuando llega lo que nadie planeó.</p>`;
+  },
+  decidir() {
+    const Q = [
+      { s: 'Te suben el sueldo 30%.', o: [['Cambio de coche para que se note.', 0], ['Subo un poco mi nivel de vida y ahorro el resto.', 1], ['Lo gasto todo, me lo gané.', 0]],
+        por: 'Cap. 10 y 8: ahorrar es la brecha entre tu ego y tu ingreso, y nadie se fija en tu coche tanto como tú.' },
+      { s: 'Un amigo se hizo rico con una criptomoneda y te dice que metas todo.', o: [['Meto todo; a él le funcionó.', 0], ['Si entro, solo con una parte que pueda perder.', 1], ['Le pido prestado para meter más.', 0]],
+        por: 'Cap. 2 y 13: su resultado pudo ser suerte, y nunca arriesgues lo que no puedes darte el lujo de perder.' },
+      { s: 'Te ofrecen un trabajo con 15% menos sueldo pero más tiempo libre.', o: [['Ni lo pienso: el sueldo es lo primero.', 0], ['Lo evalúo; mi ahorro me da margen para elegir.', 1], ['Lo tomo y luego veo cómo pago mis cuentas.', 0]],
+        por: 'Cap. 10: el ahorro te da flexibilidad para elegir lo que te importa, no solo lo que paga más.' },
+      { s: 'Tu plan para terminar la carrera depende de que nada falle.', o: [['Así está bien, seguro sale.', 0], ['Le agrego un colchón y un plan B.', 1], ['Mejor ni hago plan.', 0]],
+        por: 'Cap. 13: planea que tu plan no salga según el plan.' }
+    ];
+    w.i ??= 0; w.score ??= 0;
+    if (w.i >= Q.length) {
+      return `<span class="lab-tag">Resultado</span><h3>${w.score} de ${Q.length} decisiones con margen</h3>
+        <p>${w.score === Q.length ? 'Decides como alguien que quiere seguir en el juego por mucho tiempo.' : 'Revisa las cuatro preguntas de abajo antes de tu próxima decisión grande.'}</p>
+        <div class="row"><button class="btn" data-reset>Jugar otra vez</button></div>`;
+    }
+    const q = Q[w.i];
+    let h = `<span class="lab-tag">Situación ${w.i + 1} de ${Q.length}</span><h3>${esc(q.s)}</h3>
+      <div class="opts">${q.o.map((o, k) => {
+        const cls = w.pick === undefined ? '' : o[1] ? ' ok' : k === w.pick ? ' no' : '';
+        return `<button class="opt${cls}" data-pick="${k}" ${w.pick !== undefined ? 'disabled' : ''}>${esc(o[0])}</button>`;
+      }).join('')}</div>`;
+    if (w.pick !== undefined) {
+      h += `<p class="fb"><b>${q.o[w.pick][1] ? 'Buena carta.' : 'Esa sale cara.'}</b> ${esc(q.por)}</p>
+        <div class="row"><button class="btn" data-next>${w.i === Q.length - 1 ? 'Ver resultado' : 'Siguiente'}</button><span class="score">${w.score} ${w.score === 1 ? 'acierto' : 'aciertos'}</span></div>`;
+    }
+    w.Q = Q;
+    return h;
+  }
+};
+
+function runSuerte() {
+  const r = [];
+  for (let p = 0; p < 100; p++) {
+    let v = 100;
+    for (let y = 0; y < 10; y++) v *= Math.random() < .5 ? 1.3 : .8;
+    r.push(v);
+  }
+  w.res = r.sort((a, b) => b - a);
+}
+
+/* Supervivencia con colchón: misma suerte para cada persona en todos los escenarios */
+const rng = a => () => { a |= 0; a = a + 0x6D2B79F5 | 0; let t = Math.imul(a ^ a >>> 15, 1 | a); t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t; return ((t ^ t >>> 14) >>> 0) / 4294967296; };
+const SURV = Array.from({ length: 13 }, (_, B) => {
+  let ok = 0;
+  for (let p = 0; p < 1000; p++) {
+    const r = rng(p + 1); let f = B, alive = true;
+    for (let y = 0; y < 10; y++) {
+      f += 1;
+      const hit = r() < .3, cost = 1 + Math.floor(r() * 6);
+      if (hit && alive) { if (cost > f) alive = false; else f -= cost; }
+    }
+    if (alive) ok++;
+  }
+  return Math.round(ok / 10);
+});
+
+function updateMargen() {
+  if (!$('#colchon')) return;
+  const b = w.b, m = b === 1 ? 'mes' : 'meses';
+  $('#colchon').value = b;
+  $('#colOut').textContent = `${b} ${m} de gastos`;
+  $('#headM').textContent = `${SURV[b]} de 100`;
+  $('#headTxt').textContent = `personas con ${b} ${m} de colchón pasan 10 años sin endeudarse por una emergencia.`;
+  document.querySelectorAll('.bars button').forEach(x => x.setAttribute('aria-pressed', String(+x.dataset.b === b)));
+}
+
+function updateAhorro() {
+  if (!$('#ingreso')) return;
+  const ing = Math.max(0, +$('#ingreso').value || 0), gas = Math.max(1, +$('#gasto').value || 1), an = +$('#anios').value;
+  $('#aniosOut').textContent = an;
+  const libertad = g => Math.max(0, ing - g) * 12 * an / g;
+  const m = libertad(gas), m2 = libertad(gas * .9);
+  const fmt1 = n => n.toLocaleString('es-MX', { maximumFractionDigits: 1 });
+  $('#meses').textContent = `${fmt1(m)} ${m === 1 ? 'mes' : 'meses'}`;
+  const ah = Math.max(0, ing - gas);
+  $('#mesesTxt').textContent = ah > 0
+    ? `Ahorras ${peso(ah)} al mes (${Math.round(ah / Math.max(ing, 1) * 100)}% de tu ingreso). En ${an} ${an === 1 ? 'año' : 'años'} juntas ${peso(ah * 12 * an)}.`
+    : 'Gastas todo lo que ganas: no queda nada para ahorrar.';
+  const full = Math.min(Math.floor(m), 120);
+  $('#monthsBar').innerHTML = '<i></i>'.repeat(full) + (m % 1 > 0.05 && full < 120 ? '<i class="part"></i>' : '');
+  $('#compare').textContent = `Si gastas 10% menos (${peso(gas * .9)} al mes): ${fmt1(m2)} meses. Gastar menos sube tu ahorro y además baja lo que necesitas para vivir.`;
+}
+
+let current = 'inicio';
+function renderLab() {
+  const lab = $('#lab');
+  if (lab && LABS[current]) { lab.innerHTML = LABS[current](); updateAhorro(); updateMargen(); }
+}
+function show(id, push = true) {
+  const s = SECS.find(x => x.id === id) || SECS[0];
+  current = s.id; w = {};
+  $('#main').innerHTML = VIEWS[s.id](s);
+  renderLab();
+  document.querySelectorAll('.tab').forEach(t => {
+    if (t.dataset.go === s.id) t.setAttribute('aria-current', 'page'); else t.removeAttribute('aria-current');
+  });
+  const active = $(`.tab[data-go="${s.id}"]`); if (active) active.scrollIntoView({ block: 'nearest', inline: 'nearest' });
+  if (push) { try { history.replaceState(null, '', '#' + s.id); } catch (e) {} window.scrollTo(0, 0); }
+}
+
+document.addEventListener('click', e => {
+  const g = e.target.closest('[data-go]');
+  if (g) return show(g.dataset.go);
+  const b = e.target.closest('#lab button');
+  if (!b) return;
+  const d = b.dataset;
+  if ('reset' in d) w = {};
+  else if (d.p1) w.p1 = +d.p1;
+  else if (d.p2) { const k = +d.p2; w.sel = w.sel.includes(k) ? w.sel.filter(x => x !== k) : w.sel.length < 3 ? [...w.sel, k] : w.sel; }
+  else if ('check' in d) w.p2 = true;
+  else if ('rerun' in d) runSuerte();
+  else if (d.b) { w.b = +d.b; return updateMargen(); }
+  else if (d.pick) { w.pick = +d.pick; if (w.Q[w.i].o[w.pick][1]) w.score++; }
+  else if ('next' in d) { w.i++; delete w.pick; }
+  else return;
+  renderLab();
+});
+document.addEventListener('input', e => {
+  if (e.target.id === 'colchon') { w.b = +e.target.value; updateMargen(); }
+  else updateAhorro();
+});
+window.addEventListener('hashchange', () => show(location.hash.slice(1), false));
+
+show(location.hash.slice(1), false);
+})();
+</script>
