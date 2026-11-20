@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Menú Principal - Archivos</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      background: #0b101b;
+      color: #e6edf7;
+      min-height: 100vh;
+    }
+    .app { display: flex; min-height: 100vh; }
+
+    .sidebar {
+      width: 270px;
+      background: #111827;
+      border-right: 1px solid #222e44;
+      padding: 16px 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      flex-shrink: 0;
+    }
+    .sidebar.collapsed { display: none; }
+    .brand small {
+      display: block;
+      font-size: 11px;
+      letter-spacing: 1.5px;
+      color: #38bdf8;
+      font-weight: 700;
+    }
+    .brand h2 { font-size: 17px; color: #f8fafc; margin-top: 2px; }
+    .search-box input {
+      width: 100%;
+      padding: 9px 11px;
+      border-radius: 8px;
+      border: 1px solid #2a3954;
+      background: #0b101b;
+      color: #f8fafc;
+      font-size: 13px;
+      outline: none;
+    }
+    .search-box input:focus { border-color: #38bdf8; }
+    .nav-list {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+      overflow-y: auto;
+      flex: 1;
+    }
+    .nav-item {
+      width: 100%;
+      text-align: left;
+      background: transparent;
+      border: 1px solid transparent;
+      color: #cbd5e1;
+      padding: 8px 10px;
+      border-radius: 8px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      font-size: 13px;
+    }
+    .nav-item:hover { background: #192336; color: #fff; }
+    .nav-item.active {
+      background: rgba(56, 189, 248, 0.14);
+      border-color: rgba(56, 189, 248, 0.45);
+      color: #7dd3fc;
+      font-weight: 600;
+    }
+    .nav-num {
+      width: 22px;
+      height: 22px;
+      border-radius: 6px;
+      background: #1e293b;
+      color: #94a3b8;
+      display: grid;
+      place-items: center;
+      font-size: 11px;
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+    .nav-text { overflow: hidden; }
+    .nav-title { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .nav-file { font-size: 11px; color: #64748b; }
+    .home-btn {
+      width: 100%;
+      padding: 10px 12px;
+      border-radius: 8px;
+      border: 1px solid #2a3954;
+      background: #162032;
+      color: #e2e8f0;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+    .home-btn:hover { border-color: #38bdf8; color: #7dd3fc; }
+
+    .main {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      min-width: 0;
+    }
+    .topbar {
+      height: 54px;
+      background: #111827;
+      border-bottom: 1px solid #222e44;
+      padding: 0 16px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .toggle-btn {
+      padding: 6px 10px;
+      border-radius: 8px;
+      border: 1px solid #2a3954;
+      background: #172236;
+      color: #f8fafc;
+      cursor: pointer;
+      font-size: 13px;
+    }
+    .topbar-title {
+      font-size: 14px;
+      font-weight: 600;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .menu-view {
+      padding: 24px;
+      max-width: 1240px;
+      width: 100%;
+      margin: 0 auto;
+    }
+    .menu-header { margin-bottom: 20px; }
+    .menu-header h1 { font-size: 23px; margin-bottom: 5px; }
+    .menu-header p { color: #94a3b8; font-size: 14px; }
+    .cards-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      gap: 15px;
+    }
+    .card {
+      background: #111827;
+      border: 1px solid #222e44;
+      border-radius: 12px;
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 14px;
+    }
+    .card:hover { border-color: #38bdf8; }
+    .card-top { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+    .badge {
+      font-size: 11px;
+      font-weight: 700;
+      color: #38bdf8;
+      background: rgba(56, 189, 248, 0.12);
+      padding: 4px 8px;
+      border-radius: 6px;
+    }
+    .file-label { font-size: 12px; color: #64748b; font-family: monospace; }
+    .card h3 { font-size: 15px; line-height: 1.35; color: #f8fafc; margin-top: 10px; }
+    .card-actions { display: flex; gap: 8px; flex-wrap: wrap; }
+    .btn-primary, .btn-secondary {
+      text-decoration: none;
+      font-size: 12px;
+      font-weight: 600;
+      padding: 8px 12px;
+      border-radius: 8px;
+      cursor: pointer;
+      border: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .btn-primary { background: #0284c7; color: #fff; }
+    .btn-primary:hover { background: #0369a1; }
+    .btn-secondary {
+      background: #192336;
+      color: #cbd5e1;
+      border: 1px solid #2a3954;
+    }
+    .btn-secondary:hover { color: #fff; border-color: #475569; }
+
+    .viewer-view {
+      display: none;
+      flex: 1;
+      flex-direction: column;
+      height: calc(100vh - 54px);
+    }
+    .viewer-view.active { display: flex; }
+    .viewer-bar {
+      background: #131c2e;
+      border-bottom: 1px solid #222e44;
+      padding: 9px 16px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+    .viewer-info span { font-size: 11px; color: #38bdf8; font-weight: 700; display: block; }
+    .viewer-info strong { font-size: 14px; }
+    .viewer-controls { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+    .viewer-controls select {
+      padding: 7px 10px;
+      border-radius: 8px;
+      border: 1px solid #2a3954;
+      background: #0b101b;
+      color: #f8fafc;
+      font-size: 13px;
+    }
+    iframe {
+      flex: 1;
+      width: 100%;
+      height: 100%;
+      border: none;
+      background: #ffffff;
+    }
+  </style>
+</head>
+<body>
+  <div class="app">
+    <aside class="sidebar" id="sidebar">
+      <div class="brand">
+        <small>ÍNDICE DE ARCHIVOS</small>
+        <h2>Menú Principal</h2>
+      </div>
+
+      <div class="search-box">
+        <input type="text" id="searchInput" placeholder="Buscar capítulo o archivo..." />
+      </div>
+
+      <div class="nav-list" id="navList"></div>
+
+      <button class="home-btn" id="sidebarHomeBtn">Volver al inicio del menú</button>
+    </aside>
+
+    <div class="main">
+      <header class="topbar">
+        <button class="toggle-btn" id="toggleSidebarBtn">☰ Menú</button>
+        <div class="topbar-title" id="topbarTitle">Menú Principal de Archivos</div>
+      </header>
+
+      <section class="menu-view" id="menuView">
+        <div class="menu-header">
+          <h1>Archivos disponibles</h1>
+          <p>Capítulos 1 al 13 en orden y demás archivos al final.</p>
+        </div>
+        <div class="cards-grid" id="cardsGrid"></div>
+      </section>
+
+      <section class="viewer-view" id="viewerView">
+        <div class="viewer-bar">
+          <div class="viewer-info">
+            <span id="viewerBadge">ELEMENTO 1 · CAP1.HTML</span>
+            <strong id="viewerTitle">Capítulo 1: Habilidades Directivas y su Clasificación</strong>
+          </div>
+          <div class="viewer-controls">
+            <button class="btn-secondary" id="backToMenuBtn">← Volver al menú principal</button>
+            <select id="chapterSelect"></select>
+            <a class="btn-primary" id="openNewTabBtn" target="_blank" rel="noopener noreferrer">Abrir en pestaña nueva ↗</a>
+          </div>
+        </div>
+        <iframe id="docFrame" title="Visor de archivo"></iframe>
+      </section>
+    </div>
+  </div>
+
+  <script>
+    const chaptersOrdered = [
+      { id: 1, tag: 'CAPÍTULO 1', title: 'Capítulo 1: Habilidades Directivas y su Clasificación', file: 'CAP1.html' },
+      { id: 2, tag: 'CAPÍTULO 2', title: 'Capítulo 2 - La Alta Dirección', file: 'CAP2.html' },
+      { id: 3, tag: 'CAPÍTULO 3', title: 'Capítulo 3 - Inteligencia emocional, habilidad imprescindible para dirigir', file: 'CAP3.html' },
+      { id: 4, tag: 'CAPÍTULO 4', title: 'Capítulo 4 - Comunicación', file: 'CAP4.html' },
+      { id: 5, tag: 'CAPÍTULO 5', title: 'Capítulo 5: Administración del tiempo', file: 'CAP5.html' },
+      { id: 6, tag: 'CAPÍTULO 6', title: 'Capítulo 6 - Creatividad', file: 'CAP6.html' },
+      { id: 7, tag: 'CAPÍTULO 7', title: 'Capítulo 7- Toma de decisiones, esencia de la dirección', file: 'CAP7.html' },
+      { id: 8, tag: 'CAPÍTULO 8', title: 'Capítulo 8 - Trabajo en equipo y manejo de conflictos', file: 'CAP8.html' },
+      { id: 9, tag: 'CAPÍTULO 9', title: 'Capítulo 9 - Liderazgo', file: 'CAP9.html' },
+      { id: 10, tag: 'CAPÍTULO 10', title: 'Capítulo 10 - Negociación como habilidad', file: 'CAP10.html' },
+      { id: 11, tag: 'CAPÍTULO 11', title: 'Capítulo 11 | Motivación', file: 'CAP11.html' },
+      { id: 12, tag: 'CAPÍTULO 12', title: 'Capítulo 12 - Mapa estratégico', file: 'CAP12.html' },
+      { id: 13, tag: 'CAPÍTULO 13', title: 'Capítulo 13- Habilidades del pensamiento', file: 'CAP13.html' }
+    ];
+
+    const otherFilesUnordered = [
+      { id: 14, tag: 'OTRO ARCHIVO', title: 'La Creatividad y el Cerebro', file: 'comentario.html' },
+      { id: 15, tag: 'OTRO ARCHIVO', title: 'La Quinta Disciplina - Resumen Ejecutivo', file: 'la_quinta_disciplina.html' },
+      { id: 16, tag: 'OTRO ARCHIVO', title: 'Movimientos sociales', file: 'Movimientos sociales.pdf' },
+      { id: 17, tag: 'OTRO ARCHIVO', title: 'GIGANTES DE MÉXICO: CARLOS SLIM', file: 'GIGANTES DE MEXICO.png' },
+      { id: 18, tag: 'OTRO ARCHIVO', title: 'LOS 7 HÁBITOS DE LA GENTE ALTAMENTE EFECTIVA', file: '7 HABITOS DE LA GENTE ALTAMENTE EFECTIVA.png' },
+      { id: 19, tag: 'OTRO ARCHIVO', title: 'Arquetipos Sistémicos en Ingeniería de Software', file: 'arquetipos_sist_micos_en_ingenier_a_de_software (1).html' }
+    ];
+
+    const htmlItems = [...chaptersOrdered, ...otherFilesUnordered];
+
+    const sidebar = document.getElementById('sidebar');
+    const toggleSidebarBtn = document.getElementById('toggleSidebarBtn');
+    const searchInput = document.getElementById('searchInput');
+    const navList = document.getElementById('navList');
+    const cardsGrid = document.getElementById('cardsGrid');
+    const menuView = document.getElementById('menuView');
+    const viewerView = document.getElementById('viewerView');
+    const topbarTitle = document.getElementById('topbarTitle');
+    const viewerBadge = document.getElementById('viewerBadge');
+    const viewerTitle = document.getElementById('viewerTitle');
+    const chapterSelect = document.getElementById('chapterSelect');
+    const openNewTabBtn = document.getElementById('openNewTabBtn');
+    const docFrame = document.getElementById('docFrame');
+
+    let currentItem = null;
+
+    function renderNavigation(filterText = '') {
+      const q = filterText.trim().toLowerCase();
+      const filtered = htmlItems.filter(item =>
+        item.title.toLowerCase().includes(q) ||
+        item.file.toLowerCase().includes(q) ||
+        item.tag.toLowerCase().includes(q)
+      );
+
+      navList.innerHTML = filtered.map(item => `
+        <button class="nav-item ${currentItem && currentItem.id === item.id ? 'active' : ''}" data-id="${item.id}">
+          <span class="nav-num">${item.id}</span>
+          <span class="nav-text">
+            <div class="nav-title">${item.title}</div>
+            <div class="nav-file">${item.file}</div>
+          </span>
+        </button>
+      `).join('');
+
+      navList.querySelectorAll('.nav-item').forEach(btn => {
+        btn.addEventListener('click', () => openInViewer(Number(btn.dataset.id)));
+      });
+    }
+
+    function renderCards() {
+      cardsGrid.innerHTML = htmlItems.map(item => `
+        <article class="card">
+          <div>
+            <div class="card-top">
+              <span class="badge">${item.tag}</span>
+              <span class="file-label">${item.file}</span>
+            </div>
+            <h3>${item.title}</h3>
+          </div>
+          <div class="card-actions">
+            <button class="btn-primary" data-open-id="${item.id}">Abrir en visor →</button>
+            <a class="btn-secondary" href="${encodeURI(item.file)}" target="_blank" rel="noopener noreferrer">Pestaña nueva ↗</a>
+          </div>
+        </article>
+      `).join('');
+
+      cardsGrid.querySelectorAll('[data-open-id]').forEach(btn => {
+        btn.addEventListener('click', () => openInViewer(Number(btn.dataset.openId)));
+      });
+    }
+
+    function renderSelect() {
+      chapterSelect.innerHTML = htmlItems.map(item => `
+        <option value="${item.id}">${item.id}. ${item.title}</option>
+      `).join('');
+    }
+
+    function showMenu() {
+      currentItem = null;
+      menuView.style.display = 'block';
+      viewerView.classList.remove('active');
+      topbarTitle.textContent = 'Menú Principal de Archivos';
+      renderNavigation(searchInput.value);
+    }
+
+    function openInViewer(id) {
+      const item = htmlItems.find(x => x.id === id);
+      if (!item) return;
+      currentItem = item;
+
+      menuView.style.display = 'none';
+      viewerView.classList.add('active');
+
+      const encodedFile = encodeURI(item.file);
+      topbarTitle.textContent = `${item.title} (${item.file})`;
+      viewerBadge.textContent = `ELEMENTO ${item.id} · ${item.file.toUpperCase()}`;
+      viewerTitle.textContent = item.title;
+      chapterSelect.value = String(item.id);
+      openNewTabBtn.href = encodedFile;
+      docFrame.src = encodedFile;
+
+      renderNavigation(searchInput.value);
+    }
+
+    toggleSidebarBtn.addEventListener('click', () => {
+      sidebar.classList.toggle('collapsed');
+    });
+
+    searchInput.addEventListener('input', (e) => {
+      renderNavigation(e.target.value);
+    });
+
+    document.getElementById('backToMenuBtn').addEventListener('click', showMenu);
+    document.getElementById('sidebarHomeBtn').addEventListener('click', showMenu);
+
+    chapterSelect.addEventListener('change', (e) => {
+      openInViewer(Number(e.target.value));
+    });
+
+    renderNavigation();
+    renderCards();
+    renderSelect();
+    showMenu();
+  </script>
+</body>
+</html>

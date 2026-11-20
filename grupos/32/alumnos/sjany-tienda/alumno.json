@@ -1,0 +1,18 @@
+{
+  "nombre": "Sjany Tienda",
+  "github": "Sjany1",
+  "sobreMi": "",
+  "actividades": [
+    {
+      "id": "act01-menu-capitulos",
+      "titulo": "Menú principal de capítulos",
+      "descripcion": "Actividad web en HTML.",
+      "fecha": "2026-11-19",
+      "tipo": "web",
+      "tecnologias": [
+        "HTML"
+      ],
+      "ruta": "actividades/act01-menu-capitulos/men_principal_de_cap_tulos_html.html"
+    }
+  ]
+}
