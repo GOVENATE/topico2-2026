@@ -9,7 +9,11 @@
       "descripcion": "Página interactiva sobre el efecto compuesto y cómo los pequeños hábitos se acumulan con el tiempo.",
       "fecha": "2026-11-18",
       "tipo": "web",
-      "tecnologias": ["HTML", "CSS", "JavaScript"],
+      "tecnologias": [
+        "HTML",
+        "CSS",
+        "JavaScript"
+      ],
       "ruta": "actividades/act01-efecto-compuesto/index.html"
     },
     {
@@ -18,7 +22,11 @@
       "descripcion": "Portafolio web donde reúno mi información y los proyectos en los que he trabajado.",
       "fecha": "2026-11-18",
       "tipo": "web",
-      "tecnologias": ["HTML", "CSS", "JavaScript"],
+      "tecnologias": [
+        "HTML",
+        "CSS",
+        "JavaScript"
+      ],
       "ruta": "actividades/act02-portafolio/index.html"
     },
     {
@@ -27,7 +35,9 @@
       "descripcion": "Collage del capítulo 1, sobre los tipos de habilidades directivas y cómo se clasifican.",
       "fecha": "2026-11-18",
       "tipo": "imagen",
-      "tecnologias": ["Collage"],
+      "tecnologias": [
+        "Collage"
+      ],
       "ruta": "actividades/act03-habilidades-directivas/collage.png"
     },
     {
@@ -36,7 +46,9 @@
       "descripcion": "Mapa mental del capítulo 3, sobre los componentes de la inteligencia emocional.",
       "fecha": "2026-11-18",
       "tipo": "imagen",
-      "tecnologias": ["Mapa mental"],
+      "tecnologias": [
+        "Mapa mental"
+      ],
       "ruta": "actividades/act04-inteligencia-emocional/mapa-mental.png"
     },
     {
@@ -45,7 +57,9 @@
       "descripcion": "Collage del capítulo 5, sobre cómo organizar y priorizar el tiempo.",
       "fecha": "2026-11-18",
       "tipo": "imagen",
-      "tecnologias": ["Collage"],
+      "tecnologias": [
+        "Collage"
+      ],
       "ruta": "actividades/act05-administracion-tiempo/collage.png"
     },
     {
@@ -54,7 +68,9 @@
       "descripcion": "Mapa mental del capítulo 7, sobre el proceso de toma de decisiones.",
       "fecha": "2026-11-18",
       "tipo": "imagen",
-      "tecnologias": ["Mapa mental"],
+      "tecnologias": [
+        "Mapa mental"
+      ],
       "ruta": "actividades/act06-toma-de-decisiones/mapa-mental.png"
     },
     {
@@ -63,7 +79,9 @@
       "descripcion": "Reporte de lectura sobre los siete hábitos y su aplicación en el trabajo en equipo.",
       "fecha": "2026-11-18",
       "tipo": "pdf",
-      "tecnologias": ["Reporte de lectura"],
+      "tecnologias": [
+        "Reporte de lectura"
+      ],
       "ruta": "actividades/act07-siete-habitos/reporte.pdf"
     },
     {
@@ -72,7 +90,9 @@
       "descripcion": "Resumen del trabajo de Emma Rodero sobre el uso de la voz como herramienta de persuasión.",
       "fecha": "2026-11-18",
       "tipo": "pdf",
-      "tecnologias": ["Resumen"],
+      "tecnologias": [
+        "Resumen"
+      ],
       "ruta": "actividades/act08-persuade-con-tu-voz/resumen.pdf"
     },
     {
@@ -81,8 +101,23 @@
       "descripcion": "Resumen de investigación sobre los movimientos sociales y su impacto.",
       "fecha": "2026-11-18",
       "tipo": "pdf",
-      "tecnologias": ["Investigación"],
+      "tecnologias": [
+        "Investigación"
+      ],
       "ruta": "actividades/act09-movimientos-sociales/resumen.pdf"
+    },
+    {
+      "id": "act10-biblioteca-de-siete",
+      "titulo": "Biblioteca de siete",
+      "descripcion": "Página interactiva que recorre siete documentos muy distintos entre sí, con fichas, un sendero que los conecta y una trivia al final.",
+      "fecha": "2026-11-24",
+      "tipo": "web",
+      "tecnologias": [
+        "HTML",
+        "CSS",
+        "JavaScript"
+      ],
+      "ruta": "actividades/act10-biblioteca-de-siete/index.html"
     }
   ]
 }

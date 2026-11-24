@@ -1,0 +1,1386 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Biblioteca de siete</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&family=Bricolage+Grotesque:opsz,wght@12..96,500..800&family=Cinzel:wght@600&family=EB+Garamond:wght@400;600&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;700&family=Libre+Baskerville:wght@400;700&family=Oswald:wght@500;700&family=Quicksand:wght@300;500&display=swap">
+
+<style>
+/* Layout: fichero de catálogo. Barra fija, rejilla de siete fichas, cada libro a pantalla completa con pestañas y su propia identidad, más una galería y un mapa de temas. */
+:root{
+  --bg:#ECEEF2; --surface:#FAFBFD; --surface-2:#E2E6EE; --raised:#FFFFFF;
+  --ink:#141820; --ink-2:#38404E; --muted:#5A6373; --line:#D0D7E2; --line-2:#BFC8D6;
+  --accent:#27456E; --accent-ink:#FAFBFD; --accent-soft:#DCE5F3;
+  --ok:#1B6B44; --bad:#93271D;
+  --display:'Bricolage Grotesque','Trebuchet MS',sans-serif;
+  --body:'Inter',Arial,sans-serif;
+  --mono:'JetBrains Mono','Courier New',monospace;
+  --r:12px; --shadow:0 1px 2px rgba(16,24,40,.05),0 10px 28px rgba(16,24,40,.07);
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --bg:#0F1217; --surface:#161A21; --surface-2:#1E232C; --raised:#1B2028;
+    --ink:#E8EBF1; --ink-2:#C2C9D5; --muted:#949EAF; --line:#29303A; --line-2:#394252;
+    --accent:#8FB4E8; --accent-ink:#0F1217; --accent-soft:#1C2531;
+    --ok:#5BC48D; --bad:#EA7A6E;
+    --shadow:0 1px 2px rgba(0,0,0,.45),0 12px 32px rgba(0,0,0,.4);
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#0F1217; --surface:#161A21; --surface-2:#1E232C; --raised:#1B2028;
+  --ink:#E8EBF1; --ink-2:#C2C9D5; --muted:#949EAF; --line:#29303A; --line-2:#394252;
+  --accent:#8FB4E8; --accent-ink:#0F1217; --accent-soft:#1C2531;
+  --ok:#5BC48D; --bad:#EA7A6E;
+  --shadow:0 1px 2px rgba(0,0,0,.45),0 12px 32px rgba(0,0,0,.4);
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:16px;line-height:1.58;-webkit-font-smoothing:antialiased}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);background:var(--surface);z-index:40}
+h1,h2,h3,h4{margin:0;text-wrap:balance;font-family:var(--display);font-weight:700;line-height:1.1}
+p{margin:0}
+img{display:block}
+button{font:inherit;color:inherit;cursor:pointer;border:0;background:none}
+:focus-visible{outline:3px solid var(--accent);outline-offset:3px;border-radius:4px}
+.mono{font-family:var(--mono);font-variant-numeric:tabular-nums}
+.wrap{width:100%;max-width:1200px;margin:0 auto;padding-left:max(18px,env(safe-area-inset-left,0px));padding-right:max(18px,env(safe-area-inset-right,0px))}
+.eyebrow{font-family:var(--mono);font-size:11.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted)}
+
+/* ---------- barra fija ---------- */
+.nav{position:sticky;top:env(safe-area-inset-top,0px);z-index:30;background:var(--surface);border-bottom:1px solid var(--line)}
+.nav .wrap{padding-block:11px;display:flex;align-items:center;gap:18px;flex-wrap:wrap}
+.nav .mark{display:flex;align-items:center;gap:10px;font-family:var(--display);font-weight:700;font-size:16px;letter-spacing:-.01em;white-space:nowrap}
+.nav .mark i{width:9px;height:22px;background:var(--accent);border-radius:2px;display:block}
+.nav ul{display:flex;gap:4px;list-style:none;padding:0;margin:0;flex:1;min-width:0;flex-wrap:wrap}
+.nav a{display:block;padding:7px 12px;border-radius:99px;font-size:14px;color:var(--muted);text-decoration:none;white-space:nowrap}
+.nav a:hover{background:var(--surface-2);color:var(--ink)}
+.navmeter{display:flex;align-items:center;gap:10px;white-space:nowrap}
+.navmeter .bar{width:84px;height:7px;border-radius:99px;background:var(--surface-2);overflow:hidden;display:block}
+.navmeter .bar i{display:block;height:100%;width:0;background:var(--accent);transition:width .5s cubic-bezier(.4,0,.2,1)}
+.navmeter span{font-family:var(--mono);font-size:12.5px;color:var(--muted)}
+
+/* ---------- masthead ---------- */
+.mast{background:var(--surface);border-bottom:1px solid var(--line)}
+.mast .wrap{padding-block:46px 40px;display:flex;flex-direction:column;gap:22px}
+.mast h1{font-size:clamp(38px,7vw,70px);letter-spacing:-.025em;max-width:16ch}
+.mast .lede{font-size:clamp(16.5px,2vw,19px);color:var(--ink-2);max-width:68ch;line-height:1.6}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:1px;background:var(--line);border:1px solid var(--line);border-radius:var(--r);overflow:hidden}
+.stats div{background:var(--surface);padding:16px 18px;display:flex;flex-direction:column;gap:2px;min-width:0}
+.stats b{font-family:var(--mono);font-size:26px;line-height:1.2;color:var(--accent);font-weight:400}
+.stats span{font-size:13px;color:var(--muted)}
+
+/* ---------- secciones ---------- */
+section.band{border-bottom:1px solid var(--line);scroll-margin-top:calc(env(safe-area-inset-top,0px) + 62px)}
+section.band .wrap{padding-block:46px 56px;display:flex;flex-direction:column;gap:24px}
+.sec-head{display:flex;flex-direction:column;gap:7px;max-width:72ch}
+.sec-head h2{font-size:clamp(24px,3.4vw,33px);letter-spacing:-.015em}
+.sec-head p{font-size:15.5px;color:var(--muted)}
+
+/* ---------- fichas ---------- */
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(305px,1fr));gap:16px}
+.card{position:relative;display:flex;text-align:left;background:var(--raised);border:1px solid var(--line);border-radius:var(--r);overflow:hidden;box-shadow:var(--shadow);transition:transform .18s ease,border-color .18s ease;min-width:0}
+.card:hover{transform:translateY(-3px);border-color:var(--line-2)}
+.card .spine{width:9px;flex:none}
+.card .body{padding:19px 20px 17px;display:flex;flex-direction:column;gap:10px;flex:1;min-width:0}
+.card .num{font-family:var(--mono);font-size:11px;letter-spacing:.18em;color:var(--muted);display:flex;justify-content:space-between;gap:10px}
+.card h3{font-size:20.5px;letter-spacing:-.01em;line-height:1.15}
+.card .by{font-size:13px;color:var(--muted)}
+.card .hook{font-size:14.5px;color:var(--ink-2);flex:1}
+.card .foot{display:flex;align-items:center;justify-content:space-between;gap:10px;padding-top:11px;border-top:1px solid var(--line)}
+.chip{font-family:var(--mono);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;padding:5px 10px;border-radius:99px;border:1px solid var(--line-2);color:var(--muted);white-space:nowrap}
+.chip.done{background:var(--ok);border-color:var(--ok);color:#fff}
+.go{font-size:13.5px;font-weight:600;color:var(--accent);white-space:nowrap}
+
+/* ---------- sendero ---------- */
+.gal{display:grid;grid-template-columns:repeat(6,1fr);gap:12px}
+.shot{position:relative;display:block;padding:0;border:1px solid var(--line);border-radius:var(--r);overflow:hidden;background:var(--surface-2);min-width:0;text-align:left}
+.shot img{width:100%;height:100%;object-fit:cover;transition:transform .5s cubic-bezier(.3,0,.2,1)}
+.shot:hover img{transform:scale(1.04)}
+.shot .cap{position:absolute;inset:auto 0 0 0;padding:34px 15px 13px;background:linear-gradient(to top,rgba(10,13,18,.88),rgba(10,13,18,0));color:#F4F6FA;display:flex;flex-direction:column;gap:2px}
+.shot .cap b{font-family:var(--display);font-size:16.5px;font-weight:700}
+.shot .cap span{font-family:var(--mono);font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;opacity:.82}
+.g-a{grid-column:span 2;aspect-ratio:3/4}
+.g-b{grid-column:span 4;aspect-ratio:4/3}
+.g-wide{grid-column:span 6;aspect-ratio:2576/953}
+.g-c{grid-column:span 3;aspect-ratio:3/4}
+@media (max-width:860px){.gal{grid-template-columns:repeat(2,1fr)}.g-a,.g-b,.g-c{grid-column:span 1;aspect-ratio:3/4}.g-wide{grid-column:span 2}}
+@media (max-width:520px){.gal{grid-template-columns:1fr}.g-a,.g-b,.g-c,.g-wide{grid-column:span 1}.g-wide{aspect-ratio:16/9}}
+
+.lbox{position:fixed;inset:0;z-index:60;background:rgba(8,10,14,.96);display:flex;flex-direction:column;gap:12px;padding-top:max(14px,env(safe-area-inset-top,0px));padding-bottom:max(14px,env(safe-area-inset-bottom,0px));padding-left:max(14px,env(safe-area-inset-left,0px));padding-right:max(14px,env(safe-area-inset-right,0px))}
+.lbox .lrow{display:flex;align-items:center;justify-content:space-between;gap:12px;color:#E7EBF2}
+.lbox .lrow .mono{font-size:12.5px;opacity:.75}
+.lbox .lx{padding:8px 14px;border:1px solid rgba(231,235,242,.3);border-radius:99px;color:#E7EBF2;font-size:13.5px}
+.lbox .stage{flex:1;min-height:0;display:flex;align-items:center;justify-content:center;gap:10px}
+.lbox .stage img{max-width:100%;max-height:100%;object-fit:contain;border-radius:8px}
+.lbox .arrow{flex:none;width:46px;height:46px;border-radius:50%;border:1px solid rgba(231,235,242,.3);color:#E7EBF2;font-size:22px;display:flex;align-items:center;justify-content:center}
+.lbox .lcap{color:#D3D9E4;display:flex;flex-direction:column;gap:4px;max-width:78ch}
+.lbox .lcap b{font-family:var(--display);font-size:19px;color:#F4F6FA}
+.lbox .lcap p{font-size:14.5px;line-height:1.5}
+
+/* ---------- conexiones ---------- */
+.themes{display:flex;flex-wrap:wrap;gap:9px}
+.th{padding:9px 15px;border-radius:99px;border:1.5px solid var(--line-2);font-size:14.5px;color:var(--ink-2);background:var(--raised);line-height:1.25;text-align:left}
+.th[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:var(--accent-ink);font-weight:600}
+.weave{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px}
+.node{padding:14px 15px;border-radius:10px;border:1px solid var(--line);background:var(--raised);display:flex;flex-direction:column;gap:5px;min-width:0;opacity:.34;transition:opacity .25s ease,border-color .25s ease,transform .25s ease}
+.node.on{opacity:1;border-color:var(--sp);transform:translateY(-2px)}
+.node i{display:block;width:26px;height:4px;border-radius:2px;background:var(--sp)}
+.node b{font-size:14.5px;font-family:var(--display);line-height:1.2}
+.node span{font-size:12.5px;color:var(--muted);line-height:1.4}
+.weave-note{padding:16px 18px;border-radius:10px;background:var(--accent-soft);border-left:4px solid var(--accent);font-size:15.5px;line-height:1.55;color:var(--ink-2)}
+.weave-note b{color:var(--ink)}
+
+/* ---------- vista de libro ---------- */
+.book{display:flex;flex-direction:column}
+.book .hero{background:var(--b-bg);color:var(--b-ink);border-bottom:1px solid var(--b-line)}
+.book .hero .wrap{padding-block:22px 28px;display:flex;flex-direction:column;gap:15px}
+.back{align-self:flex-start;display:inline-flex;align-items:center;gap:8px;font-family:var(--mono);font-size:11.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--b-acc);padding:8px 15px;border:1px solid var(--b-line);border-radius:99px}
+.book h2{font-family:var(--b-font);font-size:clamp(31px,6vw,60px);color:var(--b-ink);letter-spacing:var(--b-ls,-.01em);line-height:1.04}
+.book .meta{font-size:14.5px;color:var(--b-muted);display:flex;flex-wrap:wrap;gap:4px 16px}
+.book .lede{font-size:clamp(16.5px,2.1vw,20px);line-height:1.56;color:var(--b-muted);max-width:66ch}
+.tabs{position:sticky;top:calc(env(safe-area-inset-top,0px) + 50px);z-index:20;background:var(--b-bg);border-bottom:2px solid var(--b-acc)}
+.tabs .wrap{display:flex;gap:2px;overflow-x:auto}
+.tab{padding:13px 16px;font-size:14.5px;font-weight:600;color:var(--b-muted);white-space:nowrap;border-bottom:3px solid transparent;margin-bottom:-2px}
+.tab[aria-selected="true"]{color:var(--b-acc);border-bottom-color:var(--b-acc)}
+.book .panel{background:var(--b-bg);color:var(--b-ink);min-height:62vh}
+.book .panel .wrap{padding-block:30px 66px;display:flex;flex-direction:column;gap:26px}
+.ph{font-family:var(--b-font);font-size:clamp(21px,3.2vw,28px);color:var(--b-ink)}
+.ideas{display:grid;grid-template-columns:repeat(auto-fit,minmax(228px,1fr));gap:13px}
+.idea{background:var(--b-surf);border-radius:10px;padding:18px;display:flex;flex-direction:column;gap:7px;min-width:0}
+.idea .n{font-family:var(--b-font);font-size:27px;color:var(--b-acc);line-height:1}
+.idea h4{font-family:var(--b-font);font-size:18.5px;color:var(--b-ink)}
+.idea p{font-size:14.5px;color:var(--b-muted);line-height:1.5}
+.toc{display:flex;flex-direction:column;border:1px solid var(--b-line);border-radius:10px;overflow:hidden}
+.toc .it{display:flex;gap:16px;padding:13px 17px;border-bottom:1px solid var(--b-line);background:var(--b-surf);min-width:0}
+.toc .it:last-child{border-bottom:0}
+.toc .it .k{font-family:var(--mono);font-size:12.5px;color:var(--b-acc);flex:none;width:48px;padding-top:2px}
+.toc .it div{display:flex;flex-direction:column;gap:3px;min-width:0}
+.toc .it b{font-size:15.5px;font-family:var(--b-font);color:var(--b-ink);font-weight:600}
+.toc .it span{font-size:14px;color:var(--b-muted);line-height:1.45}
+.quote{display:flex;flex-direction:column;gap:9px;padding:22px 24px;border-radius:10px;background:var(--b-surf);border-left:5px solid var(--b-acc)}
+.quote p{font-family:var(--b-font);font-size:clamp(18px,2.6vw,23px);line-height:1.45;color:var(--b-ink)}
+.quote cite{font-style:normal;font-family:var(--mono);font-size:11.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--b-acc)}
+.facts{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px}
+.fact{padding:15px 17px;border-radius:10px;background:var(--b-surf);display:flex;flex-direction:column;gap:3px;min-width:0}
+.fact .l{font-family:var(--mono);font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--b-acc)}
+.fact .v{font-size:15.5px;color:var(--b-ink);line-height:1.45}
+.prose{font-size:16px;line-height:1.65;color:var(--b-muted);max-width:72ch;display:flex;flex-direction:column;gap:14px}
+.prose b{color:var(--b-ink)}
+.warnbox{padding:18px 20px;border-radius:10px;border:1px dashed var(--b-acc);background:var(--b-surf);display:flex;flex-direction:column;gap:7px}
+.warnbox b{font-family:var(--b-font);font-size:17px;color:var(--b-acc)}
+.warnbox p{font-size:15px;line-height:1.55;color:var(--b-muted)}
+.lab{background:var(--b-surf);border-radius:12px;padding:clamp(18px,3vw,30px);display:flex;flex-direction:column;gap:17px;border:1px solid var(--b-line);min-width:0}
+.lab-head{display:flex;flex-wrap:wrap;gap:8px 18px;align-items:baseline;justify-content:space-between}
+.lab-head h3{font-family:var(--b-font);font-size:clamp(21px,3.3vw,29px);color:var(--b-ink)}
+.lab-head .tag{font-family:var(--mono);font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--b-acc)}
+.lab p.sub{font-size:15px;color:var(--b-muted);max-width:70ch}
+.apa{font-size:13.5px;color:var(--b-muted);line-height:1.5;border-top:1px solid var(--b-line);padding-top:16px}
+.apa b{font-family:var(--mono);font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;display:block;margin-bottom:6px;color:var(--b-acc);font-weight:400}
+
+/* ---------- controles ---------- */
+.opts{display:flex;flex-direction:column;gap:10px}
+.opt{display:flex;gap:12px;align-items:flex-start;text-align:left;width:100%;padding:14px 16px;border-radius:10px;border:1.5px solid var(--b-line);background:var(--b-bg);color:var(--b-ink);font-size:15.5px;line-height:1.45;transition:border-color .15s,background .15s}
+.opt:hover:not(:disabled){border-color:var(--b-acc)}
+.opt:disabled{cursor:default;opacity:.62}
+.opt.pick{border-color:var(--b-acc);background:var(--b-surf);opacity:1}
+.opt.good{border-color:var(--ok);background:var(--b-surf);opacity:1}
+.opt.bad{border-color:var(--bad);opacity:1}
+.opt .k{font-family:var(--mono);font-size:12px;color:var(--b-acc);padding-top:3px;flex:none}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:12px 22px;border-radius:99px;background:var(--b-acc);color:var(--b-accink);font-weight:600;font-size:15px}
+.btn.ghost{background:transparent;color:var(--b-ink);border:1.5px solid var(--b-line)}
+.btn:disabled{opacity:.45;cursor:default}
+.btns{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+.status{font-family:var(--mono);font-size:12.5px;color:var(--b-muted);letter-spacing:.04em}
+.feedback{font-size:15px;line-height:1.5;padding:14px 16px;border-radius:10px;background:var(--b-bg);border-left:4px solid var(--b-acc);color:var(--b-muted)}
+.feedback b{color:var(--b-ink)}
+.result{display:flex;flex-direction:column;gap:11px;padding:20px;border-radius:12px;background:var(--b-acc);color:var(--b-accink)}
+.result h4{font-family:var(--b-font);font-size:clamp(23px,3.8vw,34px);color:var(--b-accink)}
+.result p{font-size:15.5px;line-height:1.5;opacity:.93}
+.scorebar{height:10px;border-radius:99px;background:var(--b-bg);overflow:hidden;border:1px solid var(--b-line)}
+.scorebar i{display:block;height:100%;width:0;background:var(--b-acc);transition:width .4s ease}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.ch{font-size:14px;padding:8px 13px;border-radius:99px;border:1.5px solid var(--b-line);background:var(--b-bg);color:var(--b-ink);line-height:1.3;text-align:left}
+.ch[aria-pressed="true"]{background:var(--b-acc);color:var(--b-accink);border-color:var(--b-acc)}
+.ch.mark{border-style:dashed;border-color:var(--b-acc)}
+pre.code{margin:0;font-family:var(--mono);font-size:14px;line-height:1.65;background:var(--b-bg);border:1px solid var(--b-line);border-radius:8px;padding:16px;overflow-x:auto;color:var(--b-ink);white-space:pre}
+.two{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px}
+.stat{display:flex;flex-direction:column;gap:3px;padding:14px 16px;border-radius:10px;background:var(--b-bg);border:1px solid var(--b-line);min-width:0}
+.stat .v{font-family:var(--mono);font-size:27px;line-height:1.1;color:var(--b-acc)}
+.stat .l{font-size:12.5px;color:var(--b-muted)}
+.log{display:flex;flex-direction:column;gap:9px;max-height:250px;overflow-y:auto;padding-right:4px}
+.line{font-size:15px;line-height:1.45;padding:10px 13px;border-radius:9px;background:var(--b-bg);border:1px solid var(--b-line);color:var(--b-muted)}
+.line.me{border-left:4px solid var(--b-acc);color:var(--b-ink)}
+.check{display:flex;align-items:flex-start;gap:11px;padding:12px 14px;border-radius:9px;border:1.5px solid var(--b-line);background:var(--b-bg);width:100%;text-align:left;font-size:15px;line-height:1.45;color:var(--b-ink)}
+.check .box{width:20px;height:20px;border-radius:5px;border:2px solid var(--b-acc);flex:none;margin-top:2px}
+.check[aria-pressed="true"] .box{background:var(--b-acc)}
+.check[aria-pressed="true"]{color:var(--b-muted)}
+.breath{display:flex;flex-direction:column;align-items:center;gap:19px;padding:10px 0}
+.orb{width:min(220px,56vw);aspect-ratio:1;max-width:100%;border-radius:50%;border:2px solid var(--b-acc);display:flex;align-items:center;justify-content:center;transform:scale(.55);transition:transform 4s cubic-bezier(.4,0,.4,1);background:var(--b-surf)}
+.orb span{font-family:var(--b-font);font-size:21px;color:var(--b-acc);font-weight:500}
+@media (prefers-reduced-motion:reduce){.orb,.card,.shot img,.node,.scorebar i,.navmeter .bar i{transition:none}}
+
+/* ---------- trivia + pie ---------- */
+.neutral{--b-surf:var(--raised);--b-bg:var(--surface-2);--b-line:var(--line);--b-ink:var(--ink);--b-muted:var(--muted);--b-acc:var(--accent);--b-accink:var(--accent-ink);--b-font:var(--display)}
+footer{color:var(--muted);font-size:13.5px;background:var(--surface)}
+footer .wrap{padding-block:30px 46px;display:flex;flex-wrap:wrap;gap:12px 28px;justify-content:space-between}
+@media (max-width:600px){
+  .mast .wrap{padding-block:32px 28px}
+  section.band .wrap{padding-block:34px 42px}
+  .nav ul{order:3;flex-basis:100%}
+  .tabs{top:calc(env(safe-area-inset-top,0px) + 92px)}
+}
+</style>
+
+<div id="app">
+
+  <nav class="nav">
+    <div class="wrap">
+      <span class="mark"><i></i>Biblioteca de siete</span>
+      <ul>
+        <li><a href="#biblioteca">Fichas</a></li>
+        <li><a href="#sendero">Sendero</a></li>
+        <li><a href="#conexiones">Conexiones</a></li>
+        <li><a href="#trivia">Trivia</a></li>
+      </ul>
+      <span class="navmeter"><span class="bar"><i id="pBar"></i></span><span id="pTxt">0/7</span></span>
+    </div>
+  </nav>
+
+  <header class="mast">
+    <div class="wrap">
+      <p class="eyebrow">Fichero de lectura · Noviembre 2026</p>
+      <h1>Siete documentos que no se parecen en nada</h1>
+      <p class="lede">De la maestría de Robert Greene al informe final del proyecto Tuning sobre educación superior en América Latina. Cada ficha trae la síntesis en cinco ideas, la estructura real del documento, las citas que lo sostienen, el contexto en que se escribió y un laboratorio interactivo distinto. Al final, un sendero de fotografías y un mapa de los temas que los siete comparten sin haberlo acordado.</p>
+      <div class="stats">
+        <div><b>7</b><span>documentos</span></div>
+        <div><b>35</b><span>ideas sintetizadas</span></div>
+        <div><b>8</b><span>laboratorios interactivos</span></div>
+        <div><b>5</b><span>fotografías en el sendero</span></div>
+        <div><b>7</b><span>temas que se cruzan</span></div>
+      </div>
+    </div>
+  </header>
+
+  <section class="band" id="biblioteca">
+    <div class="wrap">
+      <div class="sec-head">
+        <h2>Las siete fichas</h2>
+        <p>Cada una abre con la identidad visual del documento y cinco pestañas: síntesis, estructura, citas, contexto y su laboratorio.</p>
+      </div>
+      <div class="grid" id="grid"></div>
+    </div>
+  </section>
+
+  <section class="band" id="sendero">
+    <div class="wrap">
+      <div class="sec-head">
+        <h2>Sendero</h2>
+        <p>Cinco fotografías propias puestas en orden de recorrido, del patio al bosque. Toca cualquiera para verla completa; se mueve con las flechas del teclado.</p>
+      </div>
+      <div class="gal" id="gal"></div>
+      <p class="eyebrow">Títulos descriptivos y notas de lectura propias: los lugares reales se pueden anotar después.</p>
+    </div>
+  </section>
+
+  <section class="band" id="conexiones">
+    <div class="wrap">
+      <div class="sec-head">
+        <h2>Conexiones</h2>
+        <p>Siete temas que aparecen en más de un documento. Toca uno y se encienden los que lo tratan.</p>
+      </div>
+      <div class="themes" id="themes"></div>
+      <div class="weave" id="weave"></div>
+      <div class="weave-note" id="wnote"></div>
+    </div>
+  </section>
+
+  <section class="band" id="trivia">
+    <div class="wrap">
+      <div class="sec-head">
+        <h2>Trivia de la biblioteca</h2>
+        <p>Diez preguntas que cruzan los siete documentos. Se puede repetir las veces que quieras.</p>
+      </div>
+      <div class="lab neutral" id="triviaLab"></div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="wrap">
+      <span>Resúmenes, citas y ejercicios elaborados a partir de los documentos originales. Referencias en APA 7 dentro de cada ficha.</span>
+      <span class="mono">7 fichas · 8 laboratorios · 5 fotografías</span>
+    </div>
+  </footer>
+</div>
+
+<div id="bookview" hidden></div>
+<div id="light" hidden></div>
+
+<script>
+(function(){
+"use strict";
+
+/* ====================== paletas por documento ====================== */
+var T = {
+  maestria:{bg:'#F3EDE1',surf:'#EAE0CD',ink:'#241C14',muted:'#5C4E3C',acc:'#8E5222',accink:'#F3EDE1',line:'#D4C3A4',font:"'EB Garamond',Georgia,serif",ls:'-.005em'},
+  astucia:{bg:'#16161A',surf:'#0E0E10',ink:'#F2EDE4',muted:'#BDB5A5',acc:'#C9A227',accink:'#16161A',line:'#3A362F',font:"'Cinzel','Times New Roman',serif",ls:'.03em'},
+  codigo:{bg:'#15171C',surf:'#1D2027',ink:'#DCE0E8',muted:'#A7B0C0',acc:'#7CD6A0',accink:'#15171C',line:'#2F3542',font:"'JetBrains Mono','Courier New',monospace",ls:'-.02em'},
+  negociador:{bg:'#0D2018',surf:'#143326',ink:'#F3F5F0',muted:'#B6C6B6',acc:'#F4772E',accink:'#201005',line:'#2C5A42',font:"'Oswald',Arial,sans-serif",ls:'.01em'},
+  tuning:{bg:'#F7F6F2',surf:'#E9E7DF',ink:'#14213D',muted:'#4A5572',acc:'#8A5A14',accink:'#F7F6F2',line:'#CFCABB',font:"'Libre Baskerville',Georgia,serif",ls:'-.01em'},
+  mindfulness:{bg:'#FAF7F0',surf:'#F0ECE1',ink:'#24241F',muted:'#5C5C52',acc:'#A5362F',accink:'#FAF7F0',line:'#D9D3C4',font:"'Quicksand',Verdana,sans-serif",ls:'-.01em'},
+  vendes:{bg:'#141211',surf:'#201C1A',ink:'#F4F0E6',muted:'#B5AEA2',acc:'#E03A16',accink:'#F4F0E6',line:'#3A332E',font:"'Anton',Arial,sans-serif",ls:'.005em'}
+};
+
+/* ====================== los siete documentos ====================== */
+var BOOKS = [
+ {id:'maestria',n:'01',title:'Maestría',short:'Maestría',author:'Robert Greene',year:'2013',pub:'Océano',
+  hook:'La maestría no es un don: es un proceso de tres fases que cualquiera puede recorrer.',
+  lede:'Greene desmonta la idea del genio innato. Lo que separa al aprendiz del maestro, sostiene, son años de observación, práctica y experimentación en un orden que no se puede saltar.',
+  ideas:[['El poder supremo','La maestría es una inteligencia intuitiva que se cultiva, no un talento con el que se nace.'],
+         ['Las tres fases','Aprendizaje del oficio, fase creativa-activa y maestría. Cada una otorga un poder distinto.'],
+         ['Tu tarea en la vida','Recuperar la inclinación primaria y ocupar el nicho donde casi nadie está.'],
+         ['Diez mil horas','Observación profunda, adquisición de habilidades y experimentación: siete a diez años.'],
+         ['La mente dimensional','Capacidad negativa, casualidad y cambio de perspectiva hasta fundir intuición y razón.']],
+  toc:[['Intro','El poder supremo','Definición de maestría, las tres fases, la inteligencia intuitiva y el poder latente en todos nosotros.'],
+       ['I','Descubre tu llamado: tu tarea en la vida','La fuerza oculta, con Leonardo da Vinci. Cinco estrategias y un reverso con Temple Grandin.'],
+       ['II','Ríndete a la realidad: el aprendizaje ideal','La primera transformación, con Charles Darwin. Observación profunda, habilidades y experimentación.'],
+       ['III','Asimila el poder del maestro: la dinámica del mentor','La alquimia del conocimiento, con Michael Faraday. Elegir mentor y saber cuándo dejarlo.'],
+       ['IV','Ve a la gente como es: inteligencia social','Pensar dentro, con Benjamin Franklin. Las siete verdades capitales: envidia, conformismo, rigidez y demás.'],
+       ['V','Descubre la mente dimensional: la fase creativa-activa','La segunda transformación, con Mozart. Tarea creativa, estrategias y el salto creativo.'],
+       ['VI','Funde lo intuitivo con lo racional: maestría','La tercera transformación, con Marcel Proust. La intuición de alto nivel y las veinte mil horas.']],
+  quotes:[['La maestría no depende del genio o talento.','Capítulo VI'],
+          ['El tiempo que lleva a la maestría depende de la intensidad de nuestra concentración.','Capítulo VI'],
+          ['La práctica concentrada en el tiempo no puede menos que producir resultados.','Capítulo II']],
+  facts:[['Título original','Mastery (2012)'],['Traducción','Enrique Mercado'],['Editorial','Editorial Océano de México'],
+         ['Primera edición digital','Diciembre de 2013'],['Método','Biografías largas más estrategias'],['Figuras centrales','Da Vinci, Darwin, Faraday, Franklin, Mozart, Proust']],
+  ctx:['Greene ya había escrito <b>Las 48 leyes del poder</b> cuando publicó este libro, y la diferencia de tono se nota: aquí no hay estratagemas de corte, hay un argumento sobre el tiempo y la atención.',
+       'La estructura se repite capítulo a capítulo: una biografía extensa, una sección de <b>claves para la maestría</b>, un repertorio de estrategias con casos y un <b>reverso</b> que muestra qué pasa cuando el principio se invierte.',
+       'Junto a los nombres clásicos aparecen contemporáneos poco obvios: Temple Grandin, el entrenador de box Freddie Roach, la ingeniera Yoky Matsuoka, el arquitecto Santiago Calatrava, el programador Paul Graham y el lingüista Daniel Everett.'],
+  warn:['Qué conviene discutir','La regla de las diez mil horas viene de la investigación de Ericsson y se popularizó con Gladwell; desde entonces ha sido matizada bastante. Además, el libro construye su argumento con biografías elegidas después de conocer el resultado, que es justo el sesgo que un lector de ingeniería debe tener a la vista.'],
+  apa:'Greene, R. (2013). <i>Maestría</i> (E. Mercado, Trad.). Océano. (Obra original publicada en 2012)',
+  lab:'fase', labTag:'Diagnóstico', labTitle:'¿En qué fase estás?',
+  labSub:'Seis situaciones. Elige la que más se parezca a cómo trabajas hoy y el ejercicio te ubica en una de las tres fases que describe Greene.'},
+
+ {id:'astucia',n:'02',title:'El pequeño libro de la astucia',short:'Astucia',author:'Lucas Bracco',year:'2022',pub:'Prometeo Libros',
+  hook:'Ulises no era el mejor guerrero. Era el que siempre encontraba una treta.',
+  lede:'Bracco separa astucia de manipulación: el astuto se contiene, observa y piensa una estrategia; el manipulador necesita controlar. Las dos ganan, pero solo una conserva aliados.',
+  ideas:[['Astutos como serpientes','La astucia es prudencia y sagacidad, no malicia. Quien vence con ruindad cosecha antipatía.'],
+         ['Razón contra emoción','La impulsividad es el enemigo interno. El astuto va dos pasos adelante porque lo pensó antes.'],
+         ['Todo está en la actitud','Postura tranquila, porte decidido y visibilidad. La inquietud no es signo de dominación.'],
+         ['Entrar en acción','Esperar la ocasión, retirarse a tiempo y empezar lo fácil como si fuera difícil.'],
+         ['Influencia y persuasión','El primer principio cabe en una palabra: dar. La reciprocidad hace el resto.']],
+  toc:[['—','Introducción','Mateo 10:16 y Ulises: el triunfo del ingenio sobre la fuerza, y la línea que separa astucia de manipulación.'],
+       ['1','La astucia vital: razón vs emoción','Ganar para nosotros el gobierno de las emociones en lugar de reaccionar con vehemencia.'],
+       ['2','Todo está en la actitud','Lucha por la dominación social, postura, altura y visibilidad dentro del grupo.'],
+       ['3','Entrar en acción','Esperar la ocasión, retirarse a tiempo, invertir la dificultad percibida.'],
+       ['4','Nuestro trato con la gente','Cómo moverse entre personas sin gastar crédito social.'],
+       ['5','Haz nacer en los demás el aprecio hacia ti','El capital que se construye antes de necesitarlo.'],
+       ['6','Comunicación astuta','Qué decir, cuánto y cuándo callar.'],
+       ['7','Lenguaje no verbal','El arte de la observación y el subtexto que el cuerpo del otro no puede ocultar.'],
+       ['8','Influencia y persuasión','La norma de la reciprocidad, con Cialdini y el caso del soldado alemán de Eibl-Eibesfeldt.'],
+       ['9','Cultiva tu sentido del humor','El humor como habilidad social y señal de inteligencia.']],
+  quotes:[['Quien observa atentamente las situaciones, manda sobre ellas. Quien está distraído es gobernado por lo que ni siquiera ha visto.','Capítulo 7'],
+          ['Para que la vida nos dé lo que queremos, primero tenemos que dar.','Capítulo 8'],
+          ['La fortuna se cansa de llevar a uno a cuestas durante mucho tiempo.','Gracián, citado en el capítulo 3']],
+  facts:[['Autor','Lucas Bracco'],['Editorial','Prometeo Libros'],['Año','2022'],
+         ['Apoyos teóricos','Gracián, Schopenhauer, Cialdini'],['Epígrafe','Mateo 10:16'],['Extensión','Nueve capítulos y conclusión']],
+  ctx:['El libro se mueve entre la filosofía práctica de Baltasar Gracián y la psicología social contemporánea. Bracco cita un estudio publicado en <b>Nature Communications</b> que vincula el comportamiento generoso con un aumento en la felicidad, y se apoya en Robert Cialdini para la norma de reciprocidad.',
+       'La definición de la RAE que él mismo cita, «hábil para engañar o evitar el engaño», es la que el libro trabaja todo el tiempo para corregir: propone leer astucia como <b>prudencia, inteligencia, sagacidad y discreción</b>.',
+       'El contraste entre astuto y manipulador atraviesa el texto: el manipulador, dice, suele ser alguien que se aprecia poco a sí mismo y necesita sentir control; el astuto solo usa sus argucias cuando la ocasión lo amerita.'],
+  warn:['Qué conviene discutir','El capítulo de la actitud describe la jerarquía social en términos evolutivos y puede leerse como un manual de dominación. Conviene tomarlo como descripción y no como receta: reconocer las señales sirve sobre todo para no quedar a merced de quien sí las usa.'],
+  apa:'Bracco, L. (2022). <i>El pequeño libro de la astucia: Estrategias, técnicas y rasgos de carácter para el cultivo de una personalidad astuta</i>. Prometeo Libros.',
+  lab:'dilemas', labTag:'Dilemas', labTitle:'Seis situaciones incómodas',
+  labSub:'En cada una hay una reacción impulsiva, una prudente y una astuta. No siempre son las que parecen.'},
+
+ {id:'codigo',n:'03',title:'Código limpio',short:'Código limpio',author:'Robert C. Martin',year:'2012',pub:'Anaya Multimedia',
+  hook:'Si un nombre necesita comentario, es que no revela su cometido.',
+  lede:'Martin convierte la limpieza del código en una disciplina con reglas verificables. El libro va de principios a casos de estudio y termina en un catálogo de olores de código.',
+  ideas:[['La regla del Boy Scout','Dejar el código más limpio de lo que se encontró. No hace falta que la limpieza sea masiva.'],
+         ['Nombres con sentido','int d frente a elapsedTimeInDays. El nombre dice por qué existe, qué hace y cómo se usa.'],
+         ['Funciones','Pequeñas, de un solo nivel de abstracción y que hagan una sola cosa.'],
+         ['Comentarios','Un comentario es un fracaso al expresarnos con código, y envejece mal porque nadie lo actualiza.'],
+         ['F.I.R.S.T.','Pruebas rápidas, independientes, repetibles, autovalidadas y oportunas.']],
+  toc:[['P. 1','Principios, patrones y prácticas','Código limpio, nombres con sentido, funciones, comentarios, formato, objetos y estructuras de datos, procesar errores, límites, pruebas de unidad, clases, sistemas, emergencia y concurrencia.'],
+       ['P. 2','Casos de estudio','Refinamiento sucesivo, las entrañas de JUnit y la refactorización de SerialDate: ejercicios completos de limpieza, de complejidad creciente.'],
+       ['P. 3','Síntomas y heurística','El catálogo de olores de código confeccionado al resolver los casos prácticos. Es la parte que más se consulta después de leer el libro.'],
+       ['Ap.','Concurrencia II','Apéndice técnico sobre los problemas de ejecución concurrente que el capítulo de concurrencia solo enuncia.']],
+  quotes:[['La proporción entre tiempo dedicado a leer frente a tiempo dedicado a escribir es de más de 10:1.','Capítulo 1'],
+          ['El código limpio es simple y directo.','Capítulo 1'],
+          ['Dejar el campamento más limpio de lo que se ha encontrado.','Capítulo 1, la regla del Boy Scout']],
+  facts:[['Título original','Clean Code: A Handbook of Agile Software Craftsmanship (2009)'],['Traducción','José Luis Gómez Celador'],
+         ['Autor','Robert C. Martin, con colegas de Object Mentor'],['Lenguaje de los ejemplos','Java'],
+         ['Estructura','Tres partes y un apéndice'],['Capítulo más citado','Nombres con sentido']],
+  ctx:['El libro no lo firma Martin solo: varios capítulos los escribieron colegas suyos de <b>Object Mentor</b>. El de nombres, por ejemplo, es de Tim Ottinger, y eso explica el cambio de voz entre secciones.',
+       'La tesis económica aparece en el primer capítulo y sostiene todo lo demás: si leemos código diez veces más de lo que lo escribimos, conviene <b>optimizar para la lectura aunque escribir cueste más</b>.',
+       'La tercera parte es distinta de las otras dos. No enseña reglas: documenta los síntomas que los propios autores encontraron mientras limpiaban los casos de estudio, y por eso funciona como lista de verificación en revisiones de código.'],
+  warn:['Qué conviene discutir','Casi todos los ejemplos son Java de mediados de los 2000 y algunas reglas se han vuelto polémicas, en particular la de funciones de muy pocas líneas, que puede fragmentar el código hasta volverlo difícil de seguir. Lo que no se discute es el principio de fondo: el código se escribe para leerse.'],
+  apa:'Martin, R. C. (2012). <i>Código limpio: Manual de estilo para el desarrollo ágil de software</i> (J. L. Gómez Celador, Trad.). Anaya Multimedia. (Obra original publicada en 2009)',
+  lab:'refactor', labTag:'Minijuego', labTitle:'Refactoriza contra el reloj',
+  labSub:'Seis fragmentos con un problema cada uno. Elige la versión limpia antes de que se acabe el tiempo.'},
+
+ {id:'negociador',n:'04',title:'El negociador',short:'El negociador',author:'Arturo Elías Ayub',year:'2020',pub:'Grijalbo',
+  hook:'Negociar y decidir son las dos cosas de las que nadie se salva.',
+  lede:'Prologado por Carlos Slim, el libro mezcla anécdotas de más de setenta adquisiciones con un método de cinco fases y una sola filosofía: si ambas partes no ganan, no fue buena negociación.',
+  ideas:[['La shisha de El Cairo','De 120 a 20 dólares con espejeo, anclaje y paciencia. El vendedor vendió el precio, no el valor.'],
+         ['Siempre estás negociando','Desde los dulces de la infancia hasta el sueldo. Nadie te paga comisión, pero lo haces a diario.'],
+         ['Las cinco fases','Preparación, exploración, propuesta, intercambio y cierre.'],
+         ['Ganar-ganar','Sacar ventaja de forma dolosa cierra la puerta a los negocios futuros.'],
+         ['Tus valores','Rechazó invertir en Snapchat. Su conclusión: la información baja el costo de equivocarse.']],
+  toc:[['—','Prólogo del Ing. Carlos Slim','Fechado el 12 de octubre de 2020. Sostiene que el emprendedor nace y se hace, y que emprendedores somos todos.'],
+       ['—','Introducción: esto no es un juego, pero me encanta jugarlo','La negociación de la shisha en el mercado de Jan el-Jalili, en El Cairo, durante su luna de miel.'],
+       ['1','Un emprendedor, ¿nace o se hace?','La tienda de telas del padre, las gomas vendidas en la escuela y la pregunta que le hacen siempre.'],
+       ['2','¡Goooya! La pumanía','Segunda parte del libro. Los Pumas como escuela de equipo, identidad y gestión.'],
+       ['3','Siempre estás negociando','Los mandamientos del buen negociador y las cinco fases del proceso. La entrada a Telmex en 1996.'],
+       ['4','Tus valores, los estándares de tu vida','Lenguaje no verbal en la mesa, honradez y el cierre sobre crisis, vacunas y felicidad personal.']],
+  quotes:[['Si ambas partes no resultan ganadoras, entonces no fue una buena negociación.','Capítulo 3'],
+          ['La información es la clave; entre más información tengas, negociarás mejor y tomarás mejores decisiones.','Introducción'],
+          ['Hay que dejarles un país mejor a nuestros hijos, pero también mejores hijos a nuestro país.','Carlos Slim, en el prólogo']],
+  facts:[['Autor','Arturo Elías Ayub'],['Editorial','Grijalbo'],['Año','2020'],
+         ['Prólogo','Ing. Carlos Slim'],['Experiencia que cita','Más de 70 adquisiciones y ventas de empresas'],['Fuentes que menciona','Chris Voss, Stephen Covey, Malcolm Gladwell']],
+  ctx:['Elías Ayub entró a Telmex en 1996 por invitación directa de Carlos Slim, tras dudar entre seguir siendo su propio jefe o sumarse al grupo. Esa decisión, dice, fue la mejor de su carrera.',
+       'La técnica del <b>espejeo</b> que usa en el bazar la atribuye a Chris Voss, exnegociador de rehenes del FBI y autor de <i>Nunca dividas la diferencia</i>. El marco de ganar-ganar lo toma de Stephen Covey.',
+       'El cierre del libro está escrito en plena pandemia y narra la negociación para adelantar un año la disponibilidad de millones de vacunas para América Latina, junto con el consejo de Slim de cuidar los costos en épocas de vacas gordas.'],
+  warn:['Qué conviene discutir','El libro habla desde una posición de poder poco común: muchas tácticas funcionan distinto cuando no tienes un grupo empresarial detrás. También conviene notar que el PDF con el que se preparó esta ficha es una versión parcial, de modo que la estructura de arriba cubre lo verificable y no necesariamente la edición completa.'],
+  apa:'Elías Ayub, A. (2020). <i>El negociador: Consejos para triunfar en la vida y en los negocios</i>. Grijalbo.',
+  lab:'bazar', labTag:'Simulador', labTitle:'El bazar de Jan el-Jalili',
+  labSub:'Pide 120 dólares por la shisha. Arturo la cerró en 20. Tienes ocho movimientos para acercarte.'},
+
+ {id:'tuning',n:'05',title:'Proyecto Tuning América Latina',short:'Tuning',author:'Beneitone, González, Wagenaar y otros (Eds.)',year:'2007',pub:'Universidad de Deusto',
+  hook:'182 universidades, 19 países y 27 competencias genéricas consensuadas.',
+  lede:'El informe final del proyecto Tuning no impone un currículo: propone puntos de referencia comunes para que los títulos de la región se entiendan entre sí sin perder autonomía.',
+  ideas:[['El proyecto','182 universidades, 19 países y más de 200 académicos bajo el programa ALFA de la Comisión Europea.'],
+         ['Cuatro líneas','Competencias, enfoques de enseñanza y evaluación, créditos académicos y calidad.'],
+         ['27 competencias genéricas','De un listado inicial de 85. Tres son aporte propio de América Latina.'],
+         ['Doce áreas temáticas','De Administración a Química, validadas con más de 42 000 respuestas de cuatro grupos.'],
+         ['Conclusiones','Exploratorio, propositivo y no vinculante. El desafío pendiente es implementarlo.']],
+  toc:[['1','Introducción','La metodología Tuning y sus cuatro líneas de trabajo. El uso de puntos de referencia que respetan diversidad y autonomía.'],
+       ['2','Contextualización','La educación superior latinoamericana: expansión de matrícula, plantel docente, períodos académicos y escalas de calificación.'],
+       ['3','Competencias genéricas','De 85 propuestas a 27 consensuadas. Comparación con el listado europeo y las tres competencias nuevas.'],
+       ['4','Competencias específicas','Las doce áreas, de Administración de Empresas a Química, cada una con su propio informe de grupo.'],
+       ['5','Unidades de medida del trabajo del estudiante','La línea del crédito académico, la más sensible de las cuatro y la última en incorporarse.'],
+       ['6','Conclusiones y propuestas de futuro','Dieciséis conclusiones, entre ellas el carácter exploratorio y no vinculante del proyecto.'],
+       ['7-9','Participantes, glosario y bibliografía','Estructura de la organización, Centros Nacionales Tuning y terminología común.']],
+  quotes:[['Las competencias representan una combinación dinámica de conocimiento, comprensión, capacidades y habilidades.','Definición de Tuning Europa, capítulo 1'],
+          ['El uso de puntos de referencia respeta la diversidad, la libertad y la autonomía.','Capítulo 1'],
+          ['El proyecto Tuning América Latina tiene un carácter exploratorio, propositivo y no vinculante.','Conclusión 13']],
+  facts:[['Período','2004-2007'],['Financiamiento','Comisión Europea, programa ALFA'],
+         ['Coordinación','Universidad de Deusto y Universidad de Groningen'],['Arranque','4 áreas y 62 universidades'],
+         ['Cierre','12 áreas y 182 universidades'],['Consulta','Más de 42 000 respuestas']],
+  ctx:['El proyecto empezó a finales de 2004 con cuatro grupos de trabajo: Administración de Empresas, Educación, Historia y Matemáticas. La demanda de los propios países llevó a incorporar ocho áreas más y 120 universidades nuevas.',
+       'La línea del <b>crédito académico</b> no estaba en la propuesta original: se consideró un tema demasiado sensible para la región. Fueron las máximas autoridades de educación superior, durante las visitas preparatorias, quienes pidieron incorporarla.',
+       'Las reuniones generales se realizaron en la Universidad Nacional de La Plata, la Universidad Federal de Minas Gerais, la Universidad de Costa Rica y la Universidad Autónoma Metropolitana.'],
+  warn:['Qué conviene discutir','Es un documento de 2007 y hubo fases posteriores del proyecto en América Latina, de modo que no describe el estado actual. Además, su carácter no vinculante significa que lo que aquí se acuerda solo existe en un plan de estudios si alguna institución decidió adoptarlo.'],
+  apa:'Beneitone, P., Esquetini, C., González, J., Marty Maletá, M., Siufi, G., y Wagenaar, R. (Eds.). (2007). <i>Reflexiones y perspectivas de la educación superior en América Latina: Informe final – Proyecto Tuning – América Latina 2004-2007</i>. Universidad de Deusto.',
+  lab:'perfil', labTag:'Ejercicio', labTitle:'Arma tu perfil de competencias',
+  labSub:'Elige las diez competencias genéricas que mejor describen lo que te está formando tu carrera. Al final verás cómo quedó repartido tu perfil.'},
+
+ {id:'mindfulness',n:'06',title:'El milagro de mindfulness',short:'Mindfulness',author:'Thich Nhat Hanh',year:'2007',pub:'Oniro',
+  hook:'Lava los platos simplemente por lavarlos.',
+  lede:'Era una carta al hermano Quang en 1974, en plena guerra de Vietnam. De ahí salió un manual que no pide retirarse del mundo, sino estar entero en lo que ya se está haciendo.',
+  ideas:[['La disciplina esencial','Lavar los platos para tener platos limpios, o lavarlos para lavarlos. En el primero no estamos vivos.'],
+         ['El tiempo indiviso','Alien dejó de partir el día en pedazos y descubrió que tenía tiempo ilimitado.'],
+         ['El milagro es caminar','No caminar sobre el agua: caminar sobre la Tierra dándose cuenta de que se camina.'],
+         ['El guijarro','Postura estable, seguir la respiración y una media sonrisa que suelta el rostro.'],
+         ['Los cinco agregados','En el almendro del jardín están la lluvia, el sol y la tierra. Nada existe por separado.']],
+  toc:[['—','Prefacio de la traductora','Explica el origen: una larga carta en vietnamita al hermano Quang, en 1974.'],
+       ['1','La disciplina esencial','Lavar los platos, la conversación con Alien y la definición de atención plena.'],
+       ['2','El milagro es caminar por la Tierra','Caminar como práctica, no como traslado.'],
+       ['3','Un día dedicado a ser consciente','Cómo organizar una jornada entera de práctica.'],
+       ['4','El guijarro','Postura, respiración, la media sonrisa y por qué meditar sentado.'],
+       ['5','La unidad es multiplicidad: los cinco agregados','Forma, sensación, percepción, formaciones mentales y conciencia.'],
+       ['6','El almendro del jardín','La interdependencia vista en un árbol.'],
+       ['7','Tres respuestas maravillosas','El mejor momento, la persona más importante y lo más importante que hacer.'],
+       ['Ej.','Ejercicios para vivir siendo consciente','Treinta y dos prácticas cotidianas, de lavar la ropa al baño a cámara lenta.'],
+       ['Ap.','Selección de sutras budistas','Satipatthana, Anapanasati, Siksasamuccaya, Vimalakirti y el corazón de los Prajñaparamita.']],
+  quotes:[['Mientras lavas los platos debes lavarlos simplemente, lo cual significa que mientras lo haces eres totalmente consciente de ello.','Capítulo 1'],
+          ['Lo más increíble es que ahora tengo un tiempo ilimitado para mí.','Alien, capítulo 1'],
+          ['Si quieres relajar los músculos del rostro tensos por las preocupaciones, esboza una ligera sonrisa.','Capítulo 4']],
+  facts:[['Título original','The Miracle of Mindfulness (1975)'],['Traducción','Nuria Martí'],
+         ['Editorial','Oniro, sello de Espasa Libros'],['Ilustraciones','Vo-Dinh Mai'],
+         ['Prefacio','Mobi Ho'],['Epílogo','James Forest']],
+  ctx:['El destinatario original fue el hermano Quang, uno de los miembros principales de la <b>Escuela de la Juventud para el Servicio Social</b>, fundada por Thich Nhat Hanh en los años sesenta como resultado del budismo comprometido.',
+       'Los estudiantes de esa escuela no se retiraban a meditar: al graduarse reconstruían pueblos bombardeados, enseñaban a los niños, abrían centros de atención médica y organizaban cooperativas agrícolas.',
+       'Eso explica el tono del libro. No hay teoría: hay instrucciones para seguir trabajando sin perderse, escritas para gente que trabajaba bajo bombardeo.'],
+  warn:['Qué conviene discutir','El mindfulness que circula hoy en aplicaciones y programas corporativos viene de una versión clínica y descontextualizada de estas prácticas. Este libro es anterior a esa traducción y conserva el marco ético del que salió, que es justo lo que suele perderse.'],
+  apa:'Thich Nhat Hanh. (2007). <i>El milagro de mindfulness</i> (N. Martí, Trad.). Oniro. (Obra original publicada en 1975)',
+  lab:'respira', labTag:'Práctica', labTitle:'Campana de atención',
+  labSub:'Tres respiraciones guiadas y el reto del guijarro. El laboratorio se marca como hecho cuando completas los dos.'},
+
+ {id:'vendes',n:'07',title:'Vendes o vendes',short:'Vendes o vendes',author:'Grant Cardone',year:'2013',pub:'Aguilar',
+  hook:'O vendes algo, o alguien te vende a ti. Nadie está a salvo.',
+  lede:'Cardone trata la venta como habilidad de supervivencia, no como oficio. El tono es de arenga y conviene filtrarlo, pero el punto de partida es difícil de refutar.',
+  ideas:[['Vender es sobrevivir','Ningún negocio quiebra por falta de liquidez: quiebra porque no vendió lo bastante rápido.'],
+         ['Convéncete primero','Si no te lo vendes a ti, no se lo vendes a nadie. Escribe las razones para comprarte.'],
+         ['La magia de los acuerdos','Maneja la objeción con acuerdos, nunca con desacuerdos.'],
+         ['Acción masiva','El fenómeno de los noventa días, las bases de poder y el seguimiento.'],
+         ['Los diez mandamientos','Del orgullo y la visualización al valor de la oferta y el compromiso.']],
+  toc:[['—','Prefacio','Explica que el libro es una reescritura ampliada de Sell to Survive, su primer título autopublicado.'],
+       ['1','Ventas, un modo de vida','Vender como prerrequisito para la vida. La definición de venta como persuadir o influir.'],
+       ['2','Predicción','Conocimiento significa predicción; predicción significa confianza.'],
+       ['3','El fenómeno de los noventa días','La creencia de que ninguna buena racha dura más de un trimestre, y cómo se cumple sola.'],
+       ['4','Hacia arriba, nunca hacia abajo','Mostrar primero lo mejor. La gente compra por razones que exceden el beneficio práctico.'],
+       ['5','La magia de los acuerdos','Siempre ponerse de acuerdo con el cliente, incluso al rechazar una objeción.'],
+       ['6','Establecer verdades','No digas, muestra. Asumir que el cliente no cree nada hasta que lo ve.'],
+       ['7','Dar y dar y dar','Vender es el acto de dar, no de recibir. El servicio por encima de la venta.'],
+       ['8','Acción masiva','El volumen como variable principal, y los problemas nuevos que trae.'],
+       ['9','Las bases de poder','Trabajar primero la red que ya te conoce, no a los desconocidos.'],
+       ['10','El proceso perfecto y los diez mandamientos','El cierre del libro: proceso de venta ideal y el decálogo del vendedor.']],
+  quotes:[['Sólo existen dos posibilidades: vendes algo o alguien te vende a ti.','Capítulo 1'],
+          ['Vender es más que un simple trabajo, ¡es un estilo de vida!','Capítulo 1'],
+          ['Conocimiento significa predicción. Predicción significa confianza. Confianza significa MÁS VENTAS.','Citado en los comentarios de apertura']],
+  facts:[['Título original','Sell or Be Sold (Greenleaf Book Group Press, Austin)'],['Traducción','Carlos Tejada'],
+         ['Editorial','Aguilar, sello de Santillana'],['Primera edición','Junio de 2013'],
+         ['Libro anterior','Sell to Survive, autopublicado'],['Otro título del autor','The 10X Rule']],
+  ctx:['Cardone explica en el prefacio que <b>Sell to Survive</b> nunca se vendió en librerías y aun así llegó al uno por ciento de los libros autopublicados más vendidos, solo por recomendación de boca en boca. Este libro es esa obra reescrita y ampliada.',
+       'La estructura alterna técnica con autobiografía: la venta de una casa, un viaje a Detroit para probar una teoría, y un capítulo entero dedicado a cómo convenció a quien hoy es su esposa, usado como caso de manejo de objeciones.',
+       'El decálogo del cierre es la parte más reutilizable del libro, y el único lugar donde Cardone condensa en forma de lista lo que el resto desarrolla a lo largo de capítulos.'],
+  warn:['Qué conviene discutir','El tono de arenga y las cifras de éxito personal no están verificadas, y el libro vende también la marca del autor. Lo aprovechable son las técnicas concretas de manejo de objeciones y la insistencia en el seguimiento; lo demás conviene leerlo con distancia.'],
+  apa:'Cardone, G. (2013). <i>Vendes o vendes</i> (C. Tejada, Trad.). Aguilar. (Obra original publicada en 2012)',
+  lab:'objecion', labTag:'Contrarreloj', labTitle:'Maneja la objeción',
+  labSub:'Seis objeciones reales. Quince segundos cada una. La respuesta correcta casi siempre empieza por estar de acuerdo.'}
+];
+
+/* ====================== sendero ====================== */
+var SHOTS=[
+ {f:'s1',cls:'g-a',t:'Patio de cantera',k:'Terrazas y teja',
+  d:'Teja de barro, muros de cantera y una jacaranda en flor detrás de la barda. Al fondo, la cúpula de una parroquia asoma entre los cipreses. La fotografía está tomada desde arriba, que es lo que permite leer el patio como un plano y no como un pasillo.'},
+ {f:'s2',cls:'g-b',t:'Islotes al mediodía',k:'Bahía desde el balcón',
+  d:'Contraluz duro sobre el agua, palmeras alineadas y tres islotes recortados en el horizonte. El barandal en primer plano no estorba: da la escala y recuerda desde dónde se está mirando.'},
+ {f:'s3',cls:'g-c',t:'A ras de tierra',k:'La cámara en el suelo',
+  d:'La cámara puesta literalmente sobre la tierra, con las hojas entrando por los bordes del cuadro. Es la fotografía que mejor acompaña a El milagro de mindfulness: el almendro del jardín visto desde donde nadie se agacha a mirar.'},
+ {f:'s5',cls:'g-c',t:'Pinos sobre el llano',k:'Cobertizo de tablones',
+  d:'Pinos altos, llano abierto y un cobertizo de tablones viejos anclando la esquina izquierda. La diagonal del sendero conduce al fondo sin que nadie la haya puesto ahí: es el camino el que compone la fotografía.'},
+ {f:'s4',cls:'g-wide',t:'Barcas en la laguna',k:'Panorámica a contraluz',
+  d:'El mismo lugar al amanecer, desde la orilla. Cuatro barcas varadas, verde, blanca y dos rojas, y el agua quieta devolviendo el reflejo del bosque con el sol saliendo detrás del cerro. El formato alargado hace el trabajo: separa la orilla del cielo y cierra el recorrido.'}
+];
+
+/* ====================== conexiones ====================== */
+var THEMES=[
+ {t:'Las diez mil horas',b:['maestria','negociador'],
+  n:'<b>Greene</b> convierte la cifra en el eje de su fase de aprendizaje: entre siete y diez años de práctica sostenida, el periodo del aprendizaje tradicional. <b>Elías Ayub</b> la cita vía Malcolm Gladwell y la usa para justificar por qué se considera buen negociador: empezó de niño en la tienda de telas de su papá y la rebasó con creces.'},
+ {t:'Dar antes de pedir',b:['astucia','vendes','negociador'],
+  n:'<b>Bracco</b> lo funda en la norma de reciprocidad de Cialdini: el acto de dar crea en el otro la obligación social de devolver. <b>Cardone</b> lo dice sin teoría: vender es el acto de dar, no de recibir. <b>Elías Ayub</b> llega al mismo lugar desde el ganar-ganar: si el otro no gana, no habrá siguiente negociación.'},
+ {t:'Observar antes de actuar',b:['maestria','astucia','mindfulness','negociador'],
+  n:'Cuatro documentos y la misma instrucción. <b>Greene</b> la llama observación profunda y pide atenuar los colores propios. <b>Bracco</b> dice que quien observa manda sobre la situación. <b>Thich Nhat Hanh</b> la vuelve práctica cotidiana. <b>Elías Ayub</b> la nombra exploración y la pone como segunda fase del proceso.'},
+ {t:'La disciplina de lo pequeño',b:['codigo','mindfulness','maestria'],
+  n:'<b>Martin</b> pide cambiar un nombre de variable o dividir una función: la limpieza no tiene que ser masiva. <b>Thich Nhat Hanh</b> pide lavar un plato con atención. <b>Greene</b> pide aceptar el tedio como parte del método. Los tres sostienen que la calidad se decide en actos diminutos y repetidos, no en esfuerzos heroicos.'},
+ {t:'Nombrar bien las cosas',b:['codigo','tuning','astucia'],
+  n:'<b>Código limpio</b> construye un capítulo entero sobre ello: si el nombre necesita comentario, no sirve. <b>Tuning</b> hace lo mismo a escala continental, definiendo perfiles profesionales en términos de competencias para que los títulos se entiendan entre países. <b>Bracco</b> lo trabaja desde la comunicación astuta: decir lo justo, con la palabra exacta.'},
+ {t:'El cuerpo en la mesa',b:['astucia','mindfulness','negociador'],
+  n:'<b>Bracco</b> dedica un capítulo al lenguaje no verbal y recuerda que cerca del 65% de lo que comunicamos no son palabras. <b>Elías Ayub</b> lo baja a cinco reglas para la mesa de negociación, citando a Mehrabian. <b>Thich Nhat Hanh</b> va al otro extremo: la postura y la media sonrisa no sirven para leer al otro, sino para habitarse uno mismo.'},
+ {t:'El oficio como formación',b:['maestria','codigo','tuning'],
+  n:'<b>Greene</b> recupera el modelo del aprendiz medieval, que pasaba años con los materiales antes de firmar algo propio. <b>Martin</b> subtitula su libro manual de artesanía de software. <b>Tuning</b> lo institucionaliza: define qué debe saber hacer quien egresa, no qué temas debe haber cursado.'}
+];
+
+/* ====================== progreso ====================== */
+var KEY='biblioteca7.v2';
+var done={};
+try{ var raw=localStorage.getItem(KEY); if(raw) done=JSON.parse(raw)||{}; }catch(e){ done={}; }
+function save(){ try{ localStorage.setItem(KEY,JSON.stringify(done)); }catch(e){} }
+function mark(id){ if(!done[id]){ done[id]=true; save(); } paint(); }
+function paint(){
+  var n=0,i; for(i=0;i<BOOKS.length;i++){ if(done[BOOKS[i].id]) n++; }
+  document.getElementById('pBar').style.width=(n/7*100)+'%';
+  document.getElementById('pTxt').textContent=n+'/7';
+  var cards=document.querySelectorAll('.card');
+  for(i=0;i<cards.length;i++){
+    var id=cards[i].getAttribute('data-id'), c=cards[i].querySelector('.chip');
+    if(done[id]){ c.className='chip done'; c.textContent='Hecho'; }
+    else { c.className='chip'; c.textContent=BOOKS[i].labTag; }
+  }
+}
+
+/* ====================== utilidades ====================== */
+function el(tag,cls,txt){ var e=document.createElement(tag); if(cls) e.className=cls; if(txt!=null) e.textContent=txt; return e; }
+function html(tag,cls,markup){ var e=document.createElement(tag); if(cls) e.className=cls; e.innerHTML=markup; return e; }
+function themeVars(t){
+  return '--b-bg:'+t.bg+';--b-surf:'+t.surf+';--b-ink:'+t.ink+';--b-muted:'+t.muted+
+         ';--b-acc:'+t.acc+';--b-accink:'+t.accink+';--b-line:'+t.line+';--b-font:'+t.font+';--b-ls:'+t.ls+';';
+}
+function byId(id){ var i; for(i=0;i<BOOKS.length;i++){ if(BOOKS[i].id===id) return BOOKS[i]; } return null; }
+
+/* ====================== rejilla de fichas ====================== */
+var grid=document.getElementById('grid');
+BOOKS.forEach(function(b){
+  var t=T[b.id];
+  var card=el('button','card'); card.setAttribute('data-id',b.id); card.type='button';
+  card.setAttribute('aria-label','Abrir ficha de '+b.title);
+  var sp=el('div','spine'); sp.style.background=t.acc; card.appendChild(sp);
+  var body=el('div','body');
+  var num=el('div','num');
+  num.appendChild(el('span',null,'FICHA '+b.n));
+  num.appendChild(el('span',null,b.year));
+  body.appendChild(num);
+  var h=el('h3',null,b.title); h.style.fontFamily=t.font; h.style.letterSpacing=t.ls; body.appendChild(h);
+  body.appendChild(el('p','by',b.author+' · '+b.pub));
+  body.appendChild(el('p','hook',b.hook));
+  var foot=el('div','foot');
+  foot.appendChild(el('span','chip',b.labTag));
+  foot.appendChild(el('span','go','Abrir ficha →'));
+  body.appendChild(foot); card.appendChild(body); grid.appendChild(card);
+  card.addEventListener('click',function(){ location.hash='#'+b.id; });
+});
+
+/* ====================== vista de libro con pestañas ====================== */
+var view=document.getElementById('bookview'), app=document.getElementById('app');
+
+function openBook(b){
+  var t=T[b.id];
+  view.innerHTML='';
+  var root=el('div','book'); root.setAttribute('style',themeVars(t));
+
+  var hero=el('div','hero'), hw=el('div','wrap');
+  var back=el('button','back'); back.type='button'; back.textContent='← Volver al fichero';
+  back.addEventListener('click',function(){ location.hash='#biblioteca'; });
+  hw.appendChild(back);
+  hw.appendChild(el('h2',null,b.title));
+  var meta=el('div','meta');
+  meta.appendChild(el('span',null,b.author));
+  meta.appendChild(el('span',null,b.pub+' · '+b.year));
+  meta.appendChild(el('span',null,'Ficha '+b.n+' de 07'));
+  hw.appendChild(meta);
+  hw.appendChild(el('p','lede',b.lede));
+  hero.appendChild(hw); root.appendChild(hero);
+
+  var tabsBar=el('div','tabs'), tw=el('div','wrap');
+  var NAMES=['Síntesis','Estructura','Citas','Contexto','Laboratorio'];
+  var btns=[];
+  NAMES.forEach(function(nm,k){
+    var tb=el('button','tab',nm); tb.type='button';
+    tb.setAttribute('aria-selected', k===0?'true':'false');
+    tb.addEventListener('click',function(){ show(k); });
+    btns.push(tb); tw.appendChild(tb);
+  });
+  tabsBar.appendChild(tw); root.appendChild(tabsBar);
+
+  var panel=el('div','panel'), pw=el('div','wrap');
+  panel.appendChild(pw); root.appendChild(panel);
+  view.appendChild(root);
+
+  var labBuilt=false;
+
+  function apaBlock(){
+    var apa=el('div','apa'); var ab=el('b'); ab.textContent='Referencia APA 7'; apa.appendChild(ab);
+    var ap=el('p'); ap.innerHTML=b.apa; apa.appendChild(ap); return apa;
+  }
+  function tabSintesis(){
+    pw.appendChild(el('h3','ph','Las cinco ideas'));
+    var ideas=el('div','ideas');
+    b.ideas.forEach(function(p,i){
+      var d=el('div','idea');
+      d.appendChild(el('p','n',String(i+1)));
+      d.appendChild(el('h4',null,p[0]));
+      d.appendChild(el('p',null,p[1]));
+      ideas.appendChild(d);
+    });
+    pw.appendChild(ideas);
+    pw.appendChild(el('h3','ph','Ficha técnica'));
+    var fs=el('div','facts');
+    b.facts.forEach(function(f){
+      var d=el('div','fact');
+      d.appendChild(el('div','l',f[0]));
+      d.appendChild(el('div','v',f[1]));
+      fs.appendChild(d);
+    });
+    pw.appendChild(fs);
+    pw.appendChild(apaBlock());
+  }
+  function tabEstructura(){
+    pw.appendChild(el('h3','ph','Cómo está organizado el documento'));
+    var toc=el('div','toc');
+    b.toc.forEach(function(r){
+      var it=el('div','it');
+      it.appendChild(el('span','k',r[0]));
+      var d=el('div');
+      d.appendChild(el('b',null,r[1]));
+      d.appendChild(el('span',null,r[2]));
+      it.appendChild(d); toc.appendChild(it);
+    });
+    pw.appendChild(toc);
+    pw.appendChild(apaBlock());
+  }
+  function tabCitas(){
+    pw.appendChild(el('h3','ph','Lo que dice textualmente'));
+    b.quotes.forEach(function(q){
+      var d=el('div','quote');
+      d.appendChild(el('p',null,'«'+q[0]+'»'));
+      d.appendChild(el('cite',null,q[1]));
+      pw.appendChild(d);
+    });
+    pw.appendChild(apaBlock());
+  }
+  function tabContexto(){
+    pw.appendChild(el('h3','ph','De dónde viene este documento'));
+    var pr=el('div','prose');
+    b.ctx.forEach(function(p){ pr.appendChild(html('p',null,p)); });
+    pw.appendChild(pr);
+    var w=el('div','warnbox');
+    w.appendChild(el('b',null,b.warn[0]));
+    w.appendChild(el('p',null,b.warn[1]));
+    pw.appendChild(w);
+    pw.appendChild(apaBlock());
+  }
+  function tabLab(){
+    var lab=el('div','lab');
+    var lh=el('div','lab-head');
+    lh.appendChild(el('h3',null,b.labTitle));
+    lh.appendChild(el('span','tag',b.labTag));
+    lab.appendChild(lh);
+    lab.appendChild(el('p','sub',b.labSub));
+    var labHost=el('div');
+    labHost.style.display='flex'; labHost.style.flexDirection='column'; labHost.style.gap='15px';
+    lab.appendChild(labHost);
+    pw.appendChild(lab);
+    pw.appendChild(apaBlock());
+    LABS[b.lab](labHost,b);
+    labBuilt=true;
+  }
+  function show(k){
+    btns.forEach(function(x,j){ x.setAttribute('aria-selected', j===k?'true':'false'); });
+    pw.innerHTML='';
+    if(k===0) tabSintesis();
+    else if(k===1) tabEstructura();
+    else if(k===2) tabCitas();
+    else if(k===3) tabContexto();
+    else tabLab();
+    if(k!==4) labBuilt=false;
+  }
+
+  show(0);
+  view.hidden=false; app.hidden=true; window.scrollTo(0,0);
+  back.focus();
+}
+function closeBook(){ if(view.hidden) return; view.hidden=true; view.innerHTML=''; app.hidden=false; paint(); }
+
+/* ====================== rutas ====================== */
+var SECTIONS={biblioteca:1,sendero:1,conexiones:1,trivia:1};
+function route(){
+  var h=(location.hash||'').replace('#','');
+  var b=byId(h);
+  if(b){ openBook(b); return; }
+  closeBook();
+  if(SECTIONS[h]){
+    var node=document.getElementById(h);
+    if(node) node.scrollIntoView({behavior:'smooth',block:'start'});
+  }
+}
+window.addEventListener('hashchange',route);
+
+/* ====================== galería sendero ====================== */
+var gal=document.getElementById('gal'), lightbox=document.getElementById('light'), lightIdx=0;
+SHOTS.forEach(function(s,i){
+  var fig=el('button','shot '+s.cls); fig.type='button';
+  fig.setAttribute('aria-label','Ver '+s.t+' en grande');
+  var im=document.createElement('img');
+  im.src='img/'+s.f+'-t.jpg'; im.alt=s.t+'. '+s.k+'.'; im.loading='lazy';
+  fig.appendChild(im);
+  var cap=el('span','cap');
+  cap.appendChild(el('b',null,s.t));
+  cap.appendChild(el('span',null,s.k));
+  fig.appendChild(cap);
+  fig.addEventListener('click',function(){ openLight(i); });
+  gal.appendChild(fig);
+});
+function openLight(i){
+  lightIdx=i; var s=SHOTS[i];
+  lightbox.innerHTML='';
+  var box=el('div','lbox');
+  var row=el('div','lrow');
+  row.appendChild(el('span','mono',(i+1)+' / '+SHOTS.length+' · Sendero'));
+  var x=el('button','lx','Cerrar ✕'); x.type='button'; x.addEventListener('click',closeLight);
+  row.appendChild(x); box.appendChild(row);
+  var stage=el('div','stage');
+  var pv=el('button','arrow','‹'); pv.type='button'; pv.setAttribute('aria-label','Anterior');
+  pv.addEventListener('click',function(){ openLight((lightIdx-1+SHOTS.length)%SHOTS.length); });
+  var im=document.createElement('img'); im.src='img/'+s.f+'.jpg'; im.alt=s.t+'. '+s.d;
+  var nx=el('button','arrow','›'); nx.type='button'; nx.setAttribute('aria-label','Siguiente');
+  nx.addEventListener('click',function(){ openLight((lightIdx+1)%SHOTS.length); });
+  stage.appendChild(pv); stage.appendChild(im); stage.appendChild(nx); box.appendChild(stage);
+  var cap=el('div','lcap');
+  cap.appendChild(el('b',null,s.t));
+  cap.appendChild(el('p',null,s.d));
+  box.appendChild(cap);
+  lightbox.appendChild(box); lightbox.hidden=false; x.focus();
+}
+function closeLight(){ lightbox.hidden=true; lightbox.innerHTML=''; }
+document.addEventListener('keydown',function(e){
+  if(lightbox.hidden) return;
+  if(e.key==='Escape') closeLight();
+  else if(e.key==='ArrowLeft') openLight((lightIdx-1+SHOTS.length)%SHOTS.length);
+  else if(e.key==='ArrowRight') openLight((lightIdx+1)%SHOTS.length);
+});
+
+/* ====================== mapa de conexiones ====================== */
+(function(){
+  var th=document.getElementById('themes'), wv=document.getElementById('weave'), wn=document.getElementById('wnote');
+  var nodes={};
+  BOOKS.forEach(function(b){
+    var n=el('div','node'); n.style.setProperty('--sp',T[b.id].acc);
+    n.appendChild(el('i'));
+    n.appendChild(el('b',null,b.short));
+    n.appendChild(el('span',null,b.author.split(',')[0]));
+    wv.appendChild(n); nodes[b.id]=n;
+  });
+  var btns=[];
+  THEMES.forEach(function(t,k){
+    var b=el('button','th',t.t); b.type='button'; b.setAttribute('aria-pressed','false');
+    b.addEventListener('click',function(){ pick(k); });
+    btns.push(b); th.appendChild(b);
+  });
+  function pick(k){
+    btns.forEach(function(x,j){ x.setAttribute('aria-pressed', j===k?'true':'false'); });
+    var t=THEMES[k];
+    BOOKS.forEach(function(b){ nodes[b.id].className = t.b.indexOf(b.id)>=0 ? 'node on' : 'node'; });
+    wn.innerHTML=t.n;
+  }
+  pick(2);
+})();
+
+/* ====================== laboratorios ====================== */
+var LABS={};
+
+LABS.fase=function(host,b){
+  var Q=[
+   ['Cuando entras a un equipo o proyecto nuevo, lo primero que haces es',
+    [['Preguntar qué reglas hay y observar quién decide qué.',1],
+     ['Probar una forma distinta de hacer algo que ya dominas.',2],
+     ['Ver el conjunto completo y detectar dónde está el cuello de botella.',3]]],
+   ['Tu relación con las tareas repetitivas y aburridas es',
+    [['Las evito en cuanto puedo; no siento que me enseñen nada.',1],
+     ['Las acepto porque sé que ahí se fija el conocimiento tácito.',2],
+     ['Ya casi no las hago conscientemente: salen solas y puedo pensar en otra cosa.',3]]],
+   ['Cuando alguien critica tu trabajo',
+    [['Me cuesta separarlo de mí y tardo en volver a intentar.',1],
+     ['La uso como dato y corrijo, aunque me incomode.',2],
+     ['Suelo haber visto el problema antes de que me lo digan.',3]]],
+   ['Sobre tu campo de estudio o trabajo, dirías que',
+    [['Todavía estoy aprendiendo los elementos y las reglas básicas.',1],
+     ['Entiendo cómo se relacionan las partes y empiezo a experimentar.',2],
+     ['Puedo anticipar cómo va a comportarse algo antes de medirlo.',3]]],
+   ['Si te pidieran explicar lo que haces a alguien de fuera',
+    [['Repetiría más o menos como me lo explicaron a mí.',1],
+     ['Lo explicaría con ejemplos propios y comparaciones de otros campos.',2],
+     ['Podría explicarlo de varias formas según quién pregunte.',3]]],
+   ['Tu forma de buscar ideas nuevas es',
+    [['Pedir referencias y seguir lo que ya funciona.',1],
+     ['Mezclar cosas de campos vecinos a ver qué sale.',2],
+     ['Dejar el problema madurar sin forzar la respuesta, hasta que aparece.',3]]]
+  ];
+  var i=0,score=[0,0,0,0];
+  var qh=el('h4'); qh.style.fontFamily=T[b.id].font; qh.style.fontSize='21px'; qh.style.color=T[b.id].ink;
+  var st=el('p','status'); var opts=el('div','opts'); var out=el('div');
+  host.appendChild(st); host.appendChild(qh); host.appendChild(opts); host.appendChild(out);
+  function render(){
+    if(i>=Q.length) return finish();
+    st.textContent='Pregunta '+(i+1)+' de '+Q.length;
+    qh.textContent=Q[i][0]; opts.innerHTML='';
+    Q[i][1].forEach(function(o,k){
+      var btn=el('button','opt'); btn.type='button';
+      btn.appendChild(el('span','k',String.fromCharCode(65+k)));
+      btn.appendChild(el('span',null,o[0]));
+      btn.addEventListener('click',function(){ score[o[1]]++; i++; render(); });
+      opts.appendChild(btn);
+    });
+  }
+  function finish(){
+    st.textContent='Resultado'; qh.textContent=''; opts.innerHTML='';
+    var best=1; if(score[2]>score[best]) best=2; if(score[3]>score[best]) best=3;
+    var R={1:['Fase I · Aprendizaje del oficio','Estás fuera del campo todavía, aprendiendo los elementos y las reglas. Greene insiste en que esta fase se gana con observación profunda: atenúa tus colores, mira las relaciones de poder y acepta el tedio. No es un diagnóstico malo, es el punto donde empezaron Darwin y Faraday.'],
+            2:['Fase II · Creativa-activa','Ya ves el interior de la maquinaria y puedes jugar con los elementos. Aquí sirven la capacidad negativa, dar cabida a la casualidad y alterar la perspectiva: mirar el qué antes que el cómo y perseguir la anomalía en vez de ignorarla.'],
+            3:['Fase III · Hacia la maestría','Respondes antes de poder explicar por qué, que es justo lo que Greene llama intuición de alto nivel. El riesgo de esta fase son los escollos emocionales que él enumera: complacencia, conservadurismo e inflexibilidad.']};
+    var r=el('div','result');
+    r.appendChild(el('h4',null,R[best][0]));
+    r.appendChild(el('p',null,R[best][1]));
+    out.innerHTML=''; out.appendChild(r);
+    var again=el('button','btn ghost','Responder otra vez'); again.type='button';
+    again.addEventListener('click',function(){ i=0; score=[0,0,0,0]; out.innerHTML=''; render(); });
+    var bts=el('div','btns'); bts.appendChild(again); out.appendChild(bts);
+    mark(b.id);
+  }
+  render();
+};
+
+LABS.dilemas=function(host,b){
+  var Q=[
+   ['En una junta, alguien se atribuye una idea que fue tuya y nadie lo nota.',
+    [['Lo corriges ahí mismo, delante de todos.',0,'Bracco diría que ganaste el punto y perdiste la sala. La indignación es tentadora y casi siempre contraproducente.'],
+     ['Lo dejas pasar y no vuelves a compartir ideas con esa persona.',1,'Prudente, pero te cuesta algo: renunciaste a colaborar. La astucia no es solo defenderse.'],
+     ['Retomas la idea en voz alta añadiéndole algo tuyo que solo tú podías aportar.',2,'Ahí está la maña sobre la fuerza: sin confrontar, dejas claro de dónde venía sin que nadie pierda la cara.']]],
+   ['Una oportunidad muy buena aparece, pero llegó demasiado fácil.',
+    [['La tomas de inmediato antes de que se vaya.',1,'Puede salir bien, pero Bracco advierte: lo demasiado fácil invita a confiarse.'],
+     ['Comienzas lo fácil como si fuera difícil: la preparas igual que una complicada.',2,'Exactamente su regla. La vista de lo fácil nos hace no hacerlo; la de lo difícil nos paraliza.'],
+     ['La descartas porque sospechas trampa.',0,'La desconfianza automática es otra forma de impulsividad.']]],
+   ['Llevas una racha ganando en algo y te ofrecen seguir apostando.',
+    [['Sigues: la suerte está de tu lado.',0,'«La fortuna se cansa de llevar a uno a cuestas durante mucho tiempo», cita a Gracián.'],
+     ['Te retiras y pones a salvo lo ganado.',2,'Saber retirarse a tiempo, tanto en lo bueno como en lo malo, es regla básica de la sagacidad.'],
+     ['Sigues pero apostando menos.',1,'Razonable, aunque todavía dejas la decisión en manos del azar.']]],
+   ['Necesitas un favor importante de alguien con quien casi no has tratado.',
+    [['Se lo pides directamente, explicando bien por qué lo necesitas.',1,'Honesto, pero estás pidiendo sin haber dado nunca.'],
+     ['Le haces antes un favor pequeño y genuino, y pides después.',2,'La norma de la reciprocidad: el acto de dar crea en el otro la obligación social de devolver.'],
+     ['Buscas a quién conoces en común para presionar un poco.',0,'Eso es maniobra de manipulador, no de astuto. Sale caro cuando se nota.']]],
+   ['Alguien te está contando algo y sientes que no dice todo.',
+    [['Preguntas directamente qué te está ocultando.',0,'Cerraste la puerta. La astucia observa antes de interrogar.'],
+     ['Observas el tono, las manos y los silencios mientras lo dejas seguir.',2,'Cerca del 65% de lo que comunicamos es no verbal, recuerda Bracco. Quien observa manda sobre la situación.'],
+     ['Lo tomas por bueno y sigues adelante.',1,'Cómodo, pero te quedas con la mitad de la información.']]],
+   ['Te toca entrar a un lugar donde no conoces a nadie y necesitas que te tomen en serio.',
+    [['Entras rápido y hablas mucho para hacerte notar.',0,'La inquietud y la ansiedad no son signos de dominación, aunque hagan ruido.'],
+     ['Te mantienes relajado, con porte decidido y asegurando tu visibilidad.',2,'Es literalmente la regla del capítulo: aplomo, presencia y nada de pierna inquieta.'],
+     ['Te quedas aparte hasta que alguien se acerque.',1,'Prudente, pero la invisibilidad tampoco juega a tu favor.']]]
+  ];
+  var i=0,score=0;
+  var st=el('p','status'); var qh=el('h4'); qh.style.fontFamily=T[b.id].font; qh.style.fontSize='21px'; qh.style.color=T[b.id].ink;
+  var opts=el('div','opts'); var fb=el('div'); var out=el('div');
+  host.appendChild(st); host.appendChild(qh); host.appendChild(opts); host.appendChild(fb); host.appendChild(out);
+  function render(){
+    if(i>=Q.length) return finish();
+    st.textContent='Situación '+(i+1)+' de '+Q.length+' · puntos: '+score+'/'+(Q.length*2);
+    qh.textContent=Q[i][0]; opts.innerHTML=''; fb.innerHTML='';
+    Q[i][1].forEach(function(o,k){
+      var btn=el('button','opt'); btn.type='button';
+      btn.appendChild(el('span','k',String.fromCharCode(65+k)));
+      btn.appendChild(el('span',null,o[0]));
+      btn.addEventListener('click',function(){
+        score+=o[1];
+        var all=opts.querySelectorAll('.opt'),j;
+        for(j=0;j<all.length;j++){ all[j].disabled=true; }
+        btn.className='opt '+(o[1]===2?'good':o[1]===1?'pick':'bad');
+        fb.appendChild(html('div','feedback','<b>'+(o[1]===2?'Astuto.':o[1]===1?'Prudente.':'Impulsivo.')+'</b> '+o[2]));
+        var nx=el('button','btn',i===Q.length-1?'Ver resultado':'Siguiente'); nx.type='button';
+        nx.addEventListener('click',function(){ i++; render(); });
+        var bts=el('div','btns'); bts.appendChild(nx); fb.appendChild(bts); nx.focus();
+      });
+      opts.appendChild(btn);
+    });
+  }
+  function finish(){
+    st.textContent='Resultado'; qh.textContent=''; opts.innerHTML=''; fb.innerHTML='';
+    var max=Q.length*2, pct=Math.round(score/max*100);
+    var txt = pct>=83?['Serpiente','Vas dos pasos adelante: observas antes de hablar, das antes de pedir y sabes retirarte. Bracco diría que ya juegas limpio y ganas.']
+            : pct>=58?['Entre Ulises y Aquiles','Tienes el instinto, pero todavía se te escapan reacciones de fuerza donde convendría maña. Revisa las que fallaste: casi siempre es cuestión de contenerse un momento más.']
+            : ['Más fuerza que maña','La impulsividad y la irreflexión son los enemigos internos de la astucia. La buena noticia es que son los más fáciles de corregir: basta esperar antes de responder.'];
+    var r=el('div','result');
+    r.appendChild(el('h4',null,txt[0]+' · '+score+'/'+max));
+    r.appendChild(el('p',null,txt[1]));
+    out.innerHTML=''; out.appendChild(r);
+    var again=el('button','btn ghost','Intentar de nuevo'); again.type='button';
+    again.addEventListener('click',function(){ i=0;score=0;out.innerHTML=''; render(); });
+    var bts=el('div','btns'); bts.appendChild(again); out.appendChild(bts);
+    mark(b.id);
+  }
+  render();
+};
+
+LABS.refactor=function(host,b){
+  var Q=[
+   {bad:'int d; // tiempo transcurrido en días',
+    opts:['int elapsedTimeInDays;','int dias; // días','int d2; // tiempo en días'],
+    ok:0, why:'El nombre debe decir qué se mide y en qué unidad. Si necesita comentario, no revela su cometido.'},
+   {bad:'if (emp.flags &amp; HOURLY_FLAG &amp;&amp;\n    emp.age &gt; 65) { ... }',
+    opts:['if (emp.flags == 1 &amp;&amp; emp.age &gt; 65) { ... }','if (emp.isEligibleForFullBenefits()) { ... }','if (emp.check()) { ... }'],
+    ok:1, why:'Encapsular la condición en una función con nombre explica la intención. check() no dice nada.'},
+   {bad:'public void pay() {\n  calcularImpuestos();\n  guardarEnBD();\n  enviarCorreo();\n  actualizarUI();\n}',
+    opts:['Dejarla así y documentar cada línea con un comentario.','Renombrarla a payAndNotifyAndSave().','Separarla: cada responsabilidad en su propia función y un solo nivel de abstracción.'],
+    ok:2, why:'Una función hace una sola cosa. Mezclar cálculo, persistencia, correo e interfaz son cuatro niveles de abstracción distintos.'},
+   {bad:'// Devuelve la lista de usuarios\npublic List&lt;User&gt; getList() { ... }',
+    opts:['public List&lt;User&gt; getActiveUsers() { ... }','// Devuelve la lista de usuarios activos\npublic List&lt;User&gt; getList() { ... }','public List&lt;User&gt; getListOfUsers() { ... }'],
+    ok:0, why:'El comentario es un fracaso al expresarnos con código. Un buen nombre lo vuelve innecesario, y además no envejece mal.'},
+   {bad:'public void render(Page p, boolean isSuite,\n  boolean isTest, boolean fast) { ... }',
+    opts:['Añadir un quinto parámetro para cubrir el caso que falta.','Agrupar las banderas en un objeto de configuración o separar en funciones distintas.','Reordenar los parámetros para que se lean mejor.'],
+    ok:1, why:'Cuantos menos argumentos, mejor. Las banderas booleanas delatan que la función hace más de una cosa.'},
+   {bad:'@Test public void test() {\n  loadConfig();         // depende de test anterior\n  System.out.println(resultado);\n}',
+    opts:['Imprimir también el estado inicial para poder comparar a mano.','Ejecutarla siempre al final de la suite.','Hacerla independiente y con aserción booleana: acierta o falla.'],
+    ok:2, why:'F.I.R.S.T.: independiente y autovalidada. Si hay que leer la salida para saber si pasó, la prueba no sirve.'}
+  ];
+  var i=0,score=0,left=90,timer=null;
+  var st=el('p','status'); var code=el('pre','code'); var opts=el('div','opts'); var fb=el('div'); var out=el('div');
+  var start=el('div','btns'); var go=el('button','btn','Empezar los 90 segundos'); go.type='button'; start.appendChild(go);
+  host.appendChild(start); host.appendChild(st); host.appendChild(code); host.appendChild(opts); host.appendChild(fb); host.appendChild(out);
+  st.hidden=true; code.hidden=true;
+  go.addEventListener('click',function(){
+    start.hidden=true; st.hidden=false; code.hidden=false;
+    timer=setInterval(function(){ left--; tick(); if(left<=0) finish(true); },1000);
+    render();
+  });
+  function tick(){ st.textContent='Fragmento '+Math.min(i+1,Q.length)+' de '+Q.length+' · aciertos '+score+' · '+Math.max(0,left)+'s'; }
+  function render(){
+    if(i>=Q.length) return finish(false);
+    tick(); code.innerHTML=Q[i].bad; opts.innerHTML=''; fb.innerHTML='';
+    [0,1,2].forEach(function(k){
+      var btn=el('button','opt'); btn.type='button';
+      btn.appendChild(el('span','k',String.fromCharCode(65+k)));
+      var sp=el('span'); sp.innerHTML=Q[i].opts[k];
+      sp.style.whiteSpace='pre-wrap'; sp.style.fontFamily="'JetBrains Mono','Courier New',monospace"; sp.style.fontSize='14px';
+      btn.appendChild(sp);
+      btn.addEventListener('click',function(){
+        var good=(k===Q[i].ok); if(good) score++;
+        var all=opts.querySelectorAll('.opt'),j;
+        for(j=0;j<all.length;j++){ all[j].disabled=true; if(j===Q[i].ok) all[j].classList.add('good'); }
+        if(!good) btn.classList.add('bad');
+        fb.appendChild(html('div','feedback','<b>'+(good?'Correcto.':'La limpia era la '+String.fromCharCode(65+Q[i].ok)+'.')+'</b> '+Q[i].why));
+        var nx=el('button','btn',i===Q.length-1?'Terminar':'Siguiente'); nx.type='button';
+        nx.addEventListener('click',function(){ i++; render(); });
+        var bts=el('div','btns'); bts.appendChild(nx); fb.appendChild(bts); nx.focus();
+      });
+      opts.appendChild(btn);
+    });
+  }
+  function finish(timeout){
+    if(timer){ clearInterval(timer); timer=null; }
+    st.textContent='Resultado'; code.hidden=true; opts.innerHTML=''; fb.innerHTML='';
+    var r=el('div','result');
+    r.appendChild(el('h4',null,score+' de '+Q.length+(timeout?' · se acabó el tiempo':'')));
+    r.appendChild(el('p',null, score>=5?'Nivel Boy Scout: dejas el campamento más limpio de lo que lo encontraste.'
+      : score>=3?'Vas bien. Los que fallaste suelen ser los de funciones y argumentos, que es donde Martin pone más énfasis.'
+      : 'Vale la pena releer los capítulos de nombres y funciones. Casi todas las reglas se reducen a que el código diga su intención sin ayuda.'));
+    out.innerHTML=''; out.appendChild(r);
+    var again=el('button','btn ghost','Otra ronda'); again.type='button';
+    again.addEventListener('click',function(){ i=0;score=0;left=90;out.innerHTML='';fb.innerHTML='';start.hidden=false;st.hidden=true;code.hidden=true; });
+    var bts=el('div','btns'); bts.appendChild(again); out.appendChild(bts);
+    mark(b.id);
+  }
+};
+
+LABS.bazar=function(host,b){
+  var S;
+  var stats=el('div','two'); var log=el('div','log'); var acts=el('div','opts'); var out=el('div');
+  host.appendChild(stats); host.appendChild(log); host.appendChild(acts); host.appendChild(out);
+  function reset(){
+    S={ask:120,mine:10,rap:0,turn:0,walk:false,over:false};
+    log.innerHTML=''; out.innerHTML='';
+    say('v','El vendedor baja sus lentes y te mira por encima de ellos. «Ciento veinte dólares.»');
+    draw();
+  }
+  function say(who,txt){ var l=el('div','line'+(who==='m'?' me':'')); l.textContent=txt; log.appendChild(l); log.scrollTop=log.scrollHeight; }
+  function draw(){
+    stats.innerHTML='';
+    [[S.ask+' USD','Su precio actual'],[S.mine+' USD','Tu oferta'],[(8-S.turn)+'','Movimientos restantes'],[['frío','tibio','cordial','en confianza'][Math.min(3,Math.floor(S.rap/2))],'Clima de la mesa']]
+      .forEach(function(p){ var d=el('div','stat'); d.appendChild(el('div','v',p[0])); d.appendChild(el('div','l',p[1])); stats.appendChild(d); });
+    acts.innerHTML='';
+    if(S.over) return;
+    [['Espejear sus últimas palabras','mirror'],['Preguntar por la historia de la pieza','value'],
+     ['Mantener tu oferta en '+S.mine,'hold'],['Hacer como que te vas','walk'],
+     ['Proponer partir la diferencia','split'],['Aceptar su precio','take']
+    ].forEach(function(a,k){
+      var btn=el('button','opt'); btn.type='button';
+      btn.appendChild(el('span','k',String.fromCharCode(65+k)));
+      btn.appendChild(el('span',null,a[0]));
+      btn.addEventListener('click',function(){ act(a[1]); });
+      acts.appendChild(btn);
+    });
+  }
+  function act(a){
+    S.turn++;
+    if(a==='mirror'){
+      S.rap+=2; S.ask=Math.max(18,S.ask-(8+S.rap*2));
+      say('m','«¿Le estás ganando muy poco?»');
+      say('v','«Bueno, no tan poquito… pero tampoco tanto.» Baja a '+S.ask+'.');
+    } else if(a==='value'){
+      S.rap+=3; S.ask=Math.max(18,S.ask-6);
+      say('m','«¿De dónde viene esta pieza? ¿Quién la hizo?»');
+      say('v','Se anima y te cuenta del taller de su tío. El trato se vuelve más humano. Queda en '+S.ask+'.');
+    } else if(a==='hold'){
+      S.ask=Math.max(18,S.ask-(S.rap>=4?16:S.rap>=2?11:6));
+      say('m','«Creo que '+S.mine+' es lo más justo. Las he visto a este precio en otros lados.»');
+      say('v','Se queda pensativo, mano en la barbilla. «'+S.ask+'.»');
+    } else if(a==='walk'){
+      if(S.walk){ say('m','Intentas irte otra vez.'); say('v','Esta vez no te llama. El truco solo funciona una.'); }
+      else if(S.turn>=3 && S.rap>=3){
+        S.walk=true; S.ask=Math.max(20,Math.round(S.ask*0.45));
+        say('m','Dejas la shisha en su lugar, agradeces y caminas hacia la salida.');
+        say('v','«¡Espera! No quiero que te vayas sin esta belleza.» Ahora pide '+S.ask+'.');
+      } else {
+        S.over=true; say('m','Te das la vuelta demasiado pronto.');
+        say('v','El vendedor se encoge de hombros y vuelve a su calculadora. No te llama.');
+        return end(null,'Te fuiste sin la pipa. Arturo se va caminando solo cuando ya construyó algo con el otro: sin clima, el farol no tiene nada que sostener.');
+      }
+    } else if(a==='split'){
+      var p=Math.round((S.ask+S.mine)/2); S.over=true;
+      say('m','«¡Ni tú ni yo! Partamos la diferencia a la mitad.»');
+      say('v','«¡Cerrado en '+p+'!» Se dan un fuerte estrechón de manos.');
+      return end(p,null);
+    } else if(a==='take'){
+      S.over=true; say('m','«Va, me la llevo.»'); say('v','Sonríe mucho más de lo que esperabas.');
+      return end(S.ask,null);
+    }
+    if(S.turn>=8 && !S.over){
+      S.over=true; say('v','El vendedor mira el reloj: hay más turistas en la puerta.');
+      return end(null,'Se acabaron los movimientos. En el libro, la negociación entera dura unos minutos: alargarla sin avanzar también es perder.');
+    }
+    draw();
+  }
+  function end(price,msg){
+    draw();
+    var r=el('div','result');
+    if(price==null){ r.appendChild(el('h4',null,'Sin trato')); r.appendChild(el('p',null,msg)); }
+    else{
+      var v = price<=20?['Cerraste en '+price+' USD','Igualaste a Arturo. Espejeo, valor y paciencia: exactamente el orden del libro.']
+            : price<=32?['Cerraste en '+price+' USD','Muy buen trato. El vendedor sigue ganando, que es justo el punto del ganar-ganar.']
+            : price<=60?['Cerraste en '+price+' USD','Aceptable, pero te movieron del ancla. Mantener la postura cuesta más de lo que parece.']
+            : ['Cerraste en '+price+' USD','Te vendieron el precio, no el valor. Es el error que Arturo señala en el vendedor egipcio, aquí del otro lado de la mesa.'];
+      r.appendChild(el('h4',null,v[0])); r.appendChild(el('p',null,v[1]));
+    }
+    out.innerHTML=''; out.appendChild(r);
+    var again=el('button','btn ghost','Negociar otra vez'); again.type='button';
+    again.addEventListener('click',reset);
+    var bts=el('div','btns'); bts.appendChild(again); out.appendChild(bts);
+    mark(b.id);
+  }
+  reset();
+};
+
+LABS.perfil=function(host,b){
+  var C=[
+   ['Capacidad de abstracción, análisis y síntesis','i'],['Aplicar los conocimientos en la práctica','i'],
+   ['Organizar y planificar el tiempo','i'],['Conocimientos del área de estudio y la profesión','i'],
+   ['Responsabilidad social y compromiso ciudadano','s',1],['Comunicación oral y escrita','n'],
+   ['Comunicación en un segundo idioma','n'],['Uso de las tecnologías de la información','i'],
+   ['Capacidad de investigación','s'],['Aprender y actualizarse permanentemente','s'],
+   ['Buscar, procesar y analizar información','i'],['Capacidad crítica y autocrítica','i'],
+   ['Actuar en nuevas situaciones','s'],['Capacidad creativa','s'],
+   ['Identificar, plantear y resolver problemas','s'],['Capacidad para tomar decisiones','i'],
+   ['Trabajo en equipo','n'],['Habilidades interpersonales','n'],
+   ['Motivar y conducir hacia metas comunes','n'],['Preservación del medio ambiente','s',1],
+   ['Compromiso con su medio socio-cultural','s',1],['Respeto por la diversidad y multiculturalidad','n'],
+   ['Trabajar en contextos internacionales','n'],['Trabajar en forma autónoma','s'],
+   ['Formular y gestionar proyectos','s'],['Compromiso ético','n'],['Compromiso con la calidad','s']
+  ];
+  var sel={};
+  var st=el('p','status'); var chips=el('div','chips'); var bts=el('div','btns'); var out=el('div');
+  var go=el('button','btn','Ver mi perfil'); go.type='button'; go.disabled=true;
+  var clr=el('button','btn ghost','Limpiar'); clr.type='button';
+  bts.appendChild(go); bts.appendChild(clr);
+  host.appendChild(st); host.appendChild(chips); host.appendChild(bts); host.appendChild(out);
+  C.forEach(function(c,k){
+    var ch=el('button','ch'+(c[2]?' mark':'')); ch.type='button'; ch.setAttribute('aria-pressed','false');
+    ch.textContent=(k+1)+'. '+c[0];
+    ch.addEventListener('click',function(){
+      var on=ch.getAttribute('aria-pressed')==='true';
+      if(!on && Object.keys(sel).length>=10) return;
+      if(on){ delete sel[k]; ch.setAttribute('aria-pressed','false'); }
+      else { sel[k]=true; ch.setAttribute('aria-pressed','true'); }
+      count();
+    });
+    chips.appendChild(ch);
+  });
+  function count(){
+    var n=Object.keys(sel).length;
+    st.textContent='Elegidas '+n+' de 10 · las de borde punteado son las tres que aportó América Latina';
+    go.disabled=(n!==10);
+  }
+  clr.addEventListener('click',function(){
+    sel={}; var all=chips.querySelectorAll('.ch'),j; for(j=0;j<all.length;j++) all[j].setAttribute('aria-pressed','false');
+    out.innerHTML=''; count();
+  });
+  go.addEventListener('click',function(){
+    var g={i:0,n:0,s:0}, lat=0;
+    Object.keys(sel).forEach(function(k){ var c=C[k]; g[c[1]]++; if(c[2]) lat++; });
+    var r=el('div','result');
+    r.appendChild(el('h4',null,'Tu perfil en diez competencias'));
+    r.appendChild(el('p',null,'Instrumentales '+g.i+' · interpersonales '+g.n+' · sistémicas '+g.s+'. Esta agrupación en tres familias es una ayuda de lectura para el ejercicio, no una clasificación del informe: Tuning presenta las 27 en una sola lista.'));
+    r.appendChild(el('p',null, lat===3?'Elegiste las tres competencias que América Latina añadió al listado europeo: responsabilidad social, medio ambiente y compromiso con el medio socio-cultural.'
+      : lat>0?'Incluiste '+lat+' de las tres que América Latina aportó. Las otras dicen bastante del contexto de la región.'
+      : 'No elegiste ninguna de las tres que América Latina aportó. Vale mirarlas: son las que distinguen el listado latinoamericano del europeo.'));
+    r.appendChild(el('p',null,(g.i>=6||g.n>=6||g.s>=6)?'Tu perfil quedó muy cargado hacia un lado. El informe insiste en que los perfiles profesionales combinen competencias de distinto tipo.':'Tu perfil quedó razonablemente repartido entre las tres familias.'));
+    out.innerHTML=''; out.appendChild(r);
+    mark(b.id);
+  });
+  count();
+};
+
+LABS.respira=function(host,b){
+  var cycles=0, running=false, phase=0, tmr=null, breathDone=false, stoneDone=false, reduce=false;
+  try{ reduce=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches; }catch(e){}
+  var wrap=el('div','breath');
+  var orb=el('div','orb'); var lab=el('span'); lab.textContent='Listo'; orb.appendChild(lab);
+  var st=el('p','status'); st.textContent='Tres ciclos completos: inhala 4, sostén 2, exhala 6.';
+  var bts=el('div','btns'); var go=el('button','btn','Empezar'); go.type='button'; bts.appendChild(go);
+  wrap.appendChild(orb); wrap.appendChild(st); wrap.appendChild(bts); host.appendChild(wrap);
+  var P=[['Inhala',4000,1],['Sostén',2000,1],['Exhala',6000,.55]];
+  function step(){
+    if(!running) return;
+    var p=P[phase]; lab.textContent=p[0];
+    if(!reduce){ orb.style.transitionDuration=(p[1]/1000)+'s'; orb.style.transform='scale('+p[2]+')'; }
+    tmr=setTimeout(function(){
+      phase++;
+      if(phase>=P.length){ phase=0; cycles++; st.textContent='Ciclos completos: '+cycles+' de 3.';
+        if(cycles>=3){ stop(true); return; } }
+      step();
+    },p[1]);
+  }
+  function stop(finished){
+    running=false; if(tmr){ clearTimeout(tmr); tmr=null; }
+    if(!reduce){ orb.style.transitionDuration='1s'; orb.style.transform='scale(.55)'; }
+    go.textContent='Empezar';
+    if(finished){
+      breathDone=true; lab.textContent='Gracias';
+      st.textContent='Tres ciclos hechos. Thich Nhat Hanh añadiría la media sonrisa: los músculos de la cara se sueltan solos.';
+      check();
+    } else { lab.textContent='Listo'; }
+  }
+  go.addEventListener('click',function(){
+    if(running){ stop(false); return; }
+    running=true; cycles=0; phase=0; go.textContent='Detener'; st.textContent='Ciclos completos: 0 de 3.'; step();
+  });
+  var h=el('h4'); h.style.fontFamily=T[b.id].font; h.style.fontSize='21px'; h.style.color=T[b.id].ink; h.textContent='El reto del guijarro';
+  var sub=el('p','sub'); sub.textContent='Cinco actos cotidianos del libro. Marca los que te comprometes a hacer hoy sin hacer nada más al mismo tiempo.';
+  host.appendChild(h); host.appendChild(sub);
+  var list=el('div','opts');
+  ['Lavar los platos simplemente por lavarlos, sin correr hacia el té.',
+   'Caminar de un salón a otro dándote cuenta de que caminas.',
+   'Tomar un vaso de agua sin teléfono en la otra mano.',
+   'Esbozar una ligera sonrisa al despertar, antes de levantarte.',
+   'Seguir tres respiraciones completas mientras escuchas a alguien.'].forEach(function(t){
+    var c=el('button','check'); c.type='button'; c.setAttribute('aria-pressed','false');
+    c.appendChild(el('span','box')); c.appendChild(el('span',null,t));
+    c.addEventListener('click',function(){
+      c.setAttribute('aria-pressed', c.getAttribute('aria-pressed')==='true'?'false':'true');
+      var n=0,all=list.querySelectorAll('.check'),j;
+      for(j=0;j<all.length;j++){ if(all[j].getAttribute('aria-pressed')==='true') n++; }
+      stoneDone=(n>=3); check();
+    });
+    list.appendChild(c);
+  });
+  host.appendChild(list);
+  var out=el('div'); host.appendChild(out);
+  function check(){
+    if(breathDone && stoneDone && !out.firstChild){
+      var r=el('div','result');
+      r.appendChild(el('h4',null,'Laboratorio completo'));
+      r.appendChild(el('p',null,'Respiraste y elegiste al menos tres actos. Es exactamente lo que el libro pide: no meditar más, sino hacer de otra manera lo que ya haces.'));
+      out.appendChild(r); mark(b.id);
+    }
+  }
+};
+
+LABS.objecion=function(host,b){
+  var Q=[
+   ['«Está muy caro.»',
+    ['«No, en realidad es lo que vale.»','«Entiendo, es una inversión importante. Dígame qué esperaría recibir para que el precio dejara de ser el tema.»','«Le puedo hacer un descuento ahora mismo.»'],
+    1,'Primero de acuerdo, después pregunta. Bajar el precio de inmediato confirma que el precio era el problema, y casi nunca lo es.'],
+   ['«Lo tengo que pensar.»',
+    ['«Claro, tómese su tiempo.»','«¿Qué le hace dudar exactamente?»','«Por supuesto, y para que lo piense con todo: ¿qué información le falta para decidir hoy?»'],
+    2,'Aceptas y a la vez avanzas. Cardone insiste en que la mayoría de los vendedores se rinde justo aquí, en la primera señal de duda.'],
+   ['«Déjeme consultarlo con mi socio.»',
+    ['«Me parece bien, llamémoslo ahora y se lo explico a los dos.»','«¿Y si él dice que no?»','«Está bien, yo le marco la semana que entra.»'],
+    0,'Acuerdas y resuelves en el momento. Dejarlo para después es regalar la decisión a alguien que no escuchó tu propuesta.'],
+   ['«Ya trabajo con otro proveedor.»',
+    ['«Pero nosotros somos mejores.»','«Qué bueno, eso dice que el tema le importa. ¿Qué tendría que pasar para que valiera la pena comparar?»','«¿Y está contento con ellos?»'],
+    1,'Jamás arranques desacordando. El elogio sincero más una pregunta abre la puerta; «somos mejores» la cierra.'],
+   ['«No es buen momento.»',
+    ['«Entiendo. ¿Qué tendría que cambiar para que lo fuera?»','«Nunca es buen momento.»','«Le marco en seis meses.»'],
+    0,'De acuerdo y después concreta. La respuesta B es desacuerdo puro y la C es abandonar la venta con buenos modales.'],
+   ['«Mándeme la información por correo.»',
+    ['«Va, se la mando hoy mismo.»','«Se la mando ahora y la vemos juntos cinco minutos, para que no se quede con dudas.»','«Mejor le explico aquí, el correo no sirve.»'],
+    1,'Aceptas lo que pide y además das seguimiento. El seguimiento, dice Cardone, es lo que separa al profesional del aficionado.']
+  ];
+  var i=0,score=0,left=15,tmr=null;
+  var st=el('p','status'); var qh=el('h4'); qh.style.fontFamily=T[b.id].font; qh.style.fontSize='clamp(21px,3.2vw,29px)'; qh.style.color=T[b.id].ink;
+  var meter=el('div','scorebar'); var mi=el('i'); meter.appendChild(mi);
+  var opts=el('div','opts'); var fb=el('div'); var out=el('div');
+  var start=el('div','btns'); var go=el('button','btn','Entrar al ring'); go.type='button'; start.appendChild(go);
+  host.appendChild(start); host.appendChild(st); host.appendChild(qh); host.appendChild(meter); host.appendChild(opts); host.appendChild(fb); host.appendChild(out);
+  st.hidden=true; meter.hidden=true;
+  go.addEventListener('click',function(){ start.hidden=true; st.hidden=false; meter.hidden=false; render(); });
+  function render(){
+    if(i>=Q.length) return finish();
+    left=15; tick();
+    if(tmr) clearInterval(tmr);
+    tmr=setInterval(function(){ left--; tick(); if(left<=0){ clearInterval(tmr); tmr=null; reveal(-1); } },1000);
+    qh.textContent=Q[i][0]; opts.innerHTML=''; fb.innerHTML='';
+    Q[i][1].forEach(function(o,k){
+      var btn=el('button','opt'); btn.type='button';
+      btn.appendChild(el('span','k',String.fromCharCode(65+k)));
+      btn.appendChild(el('span',null,o));
+      btn.addEventListener('click',function(){ if(tmr){clearInterval(tmr);tmr=null;} reveal(k); });
+      opts.appendChild(btn);
+    });
+  }
+  function tick(){ st.textContent='Objeción '+(i+1)+' de '+Q.length+' · '+Math.max(0,left)+'s · medidor 10X '+score+'/'+Q.length; mi.style.width=(score/Q.length*100)+'%'; }
+  function reveal(k){
+    var ok=Q[i][2], good=(k===ok);
+    if(good) score++;
+    var all=opts.querySelectorAll('.opt'),j;
+    for(j=0;j<all.length;j++){ all[j].disabled=true; if(j===ok) all[j].classList.add('good'); }
+    if(k>=0 && !good) all[k].classList.add('bad');
+    fb.appendChild(html('div','feedback','<b>'+(good?'Así se maneja.':k<0?'Se acabó el tiempo.':'La buena era la '+String.fromCharCode(65+ok)+'.')+'</b> '+Q[i][3]));
+    tick();
+    var nx=el('button','btn',i===Q.length-1?'Ver medidor final':'Siguiente objeción'); nx.type='button';
+    nx.addEventListener('click',function(){ i++; render(); });
+    var bts=el('div','btns'); bts.appendChild(nx); fb.appendChild(bts); nx.focus();
+  }
+  function finish(){
+    if(tmr){ clearInterval(tmr); tmr=null; }
+    st.textContent='Medidor final'; qh.textContent=''; opts.innerHTML=''; fb.innerHTML=''; tick();
+    var r=el('div','result');
+    r.appendChild(el('h4',null,score+' de '+Q.length));
+    r.appendChild(el('p',null, score>=5?'Siempre de acuerdo y siempre avanzando. Es la regla que Cardone repite en mayúsculas: nunca manejes una objeción con un desacuerdo.'
+      : score>=3?'Vas bien, pero en un par te ganó el impulso de rebatir. Revisa esas: la respuesta correcta casi siempre empieza aceptando lo que el otro dijo.'
+      : 'El patrón a corregir es el mismo en casi todas: contestar discutiendo. Acuerda primero, pregunta después y cierra con seguimiento.'));
+    out.innerHTML=''; out.appendChild(r);
+    var again=el('button','btn ghost','Otra ronda'); again.type='button';
+    again.addEventListener('click',function(){ i=0;score=0;out.innerHTML='';fb.innerHTML='';start.hidden=false;st.hidden=true;meter.hidden=true;qh.textContent=''; });
+    var bts=el('div','btns'); bts.appendChild(again); out.appendChild(bts);
+    mark(b.id);
+  }
+};
+
+/* ====================== trivia ====================== */
+(function(){
+  var host=document.getElementById('triviaLab');
+  var Q=[
+   ['¿Cuántas fases de la maestría describe Robert Greene?',['Dos','Tres','Cinco'],1,'Aprendizaje del oficio, fase creativa-activa y maestría.'],
+   ['En El pequeño libro de la astucia, ¿cuál es el primer principio para obtener de los demás lo que queremos?',['Insistir','Dar','Callar'],1,'Bracco lo resume en una palabra y lo apoya en la norma de la reciprocidad.'],
+   ['¿Qué dice la regla del Boy Scout aplicada al código?',['Documentar todo antes de entregar','Dejar el campamento más limpio de lo que se encontró','No tocar el código de otros'],1,'Robert C. Martin la toma de los Boy Scouts norteamericanos.'],
+   ['Según Código limpio, ¿cuál es la proporción entre leer y escribir código?',['Más de 10 a 1','Alrededor de 2 a 1','Más o menos igual'],0,'De ahí sale el argumento: conviene optimizar para la lectura aunque escribir cueste más.'],
+   ['¿En cuánto cerró Arturo Elías Ayub la shisha del mercado de El Cairo?',['20 dólares','45 dólares','65 dólares'],0,'Partieron la diferencia después de que él hiciera como que se iba.'],
+   ['¿Cuántas competencias genéricas consensuó el proyecto Tuning América Latina?',['18','27','85'],1,'De un listado inicial de 85 propuestas por los 18 países.'],
+   ['¿Cuántas de esas competencias fueron aporte propio de América Latina?',['Tres','Siete','Doce'],0,'Responsabilidad social, medio ambiente y compromiso con el medio socio-cultural.'],
+   ['¿A quién estaba dirigida originalmente la carta que dio origen a El milagro de mindfulness?',['Al hermano Quang','A Mobi Ho','A James Forest'],0,'Era una larga carta en vietnamita escrita en 1974.'],
+   ['¿Qué significan las siglas F.I.R.S.T. en pruebas de unidad?',['Rápidas, independientes, repetibles, autovalidadas y oportunas','Formales, íntegras, rastreables, simples y testeables','Fiables, inmediatas, revisadas, seguras y trazables'],0,'Fast, Independent, Repeatable, Self-validating, Timely.'],
+   ['En Vendes o vendes, ¿cómo se maneja una objeción?',['Con desacuerdos firmes','Con acuerdos','Bajando el precio'],1,'SIEMPRE ponte de acuerdo con tu cliente, en mayúsculas en el original.']
+  ];
+  var i=0,score=0;
+  var st=el('p','status'); var qh=el('h4'); qh.style.fontFamily='var(--display)'; qh.style.fontSize='clamp(19px,2.8vw,25px)';
+  var opts=el('div','opts'); var fb=el('div'); var out=el('div');
+  var start=el('div','btns'); var go=el('button','btn','Empezar la trivia'); go.type='button'; start.appendChild(go);
+  host.appendChild(start); host.appendChild(st); host.appendChild(qh); host.appendChild(opts); host.appendChild(fb); host.appendChild(out);
+  st.hidden=true;
+  go.addEventListener('click',function(){ start.hidden=true; st.hidden=false; render(); });
+  function render(){
+    if(i>=Q.length) return finish();
+    st.textContent='Pregunta '+(i+1)+' de '+Q.length+' · aciertos '+score;
+    qh.textContent=Q[i][0]; opts.innerHTML=''; fb.innerHTML='';
+    Q[i][1].forEach(function(o,k){
+      var btn=el('button','opt'); btn.type='button';
+      btn.appendChild(el('span','k',String.fromCharCode(65+k)));
+      btn.appendChild(el('span',null,o));
+      btn.addEventListener('click',function(){
+        var ok=Q[i][2], good=(k===ok); if(good) score++;
+        var all=opts.querySelectorAll('.opt'),j;
+        for(j=0;j<all.length;j++){ all[j].disabled=true; if(j===ok) all[j].classList.add('good'); }
+        if(!good) btn.classList.add('bad');
+        fb.appendChild(html('div','feedback','<b>'+(good?'Correcto.':'Era la '+String.fromCharCode(65+ok)+'.')+'</b> '+Q[i][3]));
+        var nx=el('button','btn',i===Q.length-1?'Ver puntaje':'Siguiente'); nx.type='button';
+        nx.addEventListener('click',function(){ i++; render(); });
+        var bts=el('div','btns'); bts.appendChild(nx); fb.appendChild(bts); nx.focus();
+      });
+      opts.appendChild(btn);
+    });
+  }
+  function finish(){
+    st.textContent='Puntaje final'; qh.textContent=''; opts.innerHTML=''; fb.innerHTML='';
+    var r=el('div','result');
+    r.appendChild(el('h4',null,score+' de '+Q.length));
+    r.appendChild(el('p',null, score>=9?'Los siete documentos leídos y retenidos.':score>=6?'Buen promedio. Las que fallaste están en las fichas de arriba.':'Vale la pena dar otra vuelta por las fichas antes de repetir.'));
+    out.innerHTML=''; out.appendChild(r);
+    var again=el('button','btn ghost','Repetir'); again.type='button';
+    again.addEventListener('click',function(){ i=0;score=0;out.innerHTML='';fb.innerHTML='';start.hidden=false;st.hidden=true; });
+    var bts=el('div','btns'); bts.appendChild(again); out.appendChild(bts);
+  }
+})();
+
+/* ====================== arranque ====================== */
+paint();
+route();
+})();
+</script>
+
+</body></html>
